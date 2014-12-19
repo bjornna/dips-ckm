@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>4ab9eddd-578b-460c-959d-799cc10bdb9f</id>
+  <name>Opplysning til operasjon</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose>Gi nødvendig informasjon for planlegging av en operasjon</purpose>
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Encounter">
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.surgery_preparation.v1" concept_name="Surgical position and access" max="1" path="/content" name="Surgery details">
+      <Rule path="/data[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="Dips" terminologyLang="en-GB" queryName="USD-LEIE" />
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1" concept_name="Anatomisk område" path="/data[at0001]/items[at0009]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.time_of_my_knife.v1" concept_name="Knivtid" path="/data[at0001]/items[at0012]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA klassifikasjon helsetilstand" path="/data[at0001]/items[at0012]">
+        <Rule path="/items[at0001]" min="1" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.anesthesia_type.v1" concept_name="Anesthesia type" max="1" path="/data[at0001]/items[at0012]" name="Ønsket anestesi" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.informert_samtykke.v1" concept_name="Informert samtykke" max="1" path="/data[at0001]/items[at0012]" name="Samtykke kirurgi" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.spesialutstyr.v1" concept_name="Spesialutstyr" path="/data[at0001]/items[at0012]">
+        <Rule path="/items[at0007]" name="Annet spesialutstyr" />
+      </Items>
+    </Content>
+    <Context />
+  </definition>
+</template>

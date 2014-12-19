@@ -1,0 +1,259 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>ab57f06f-57a5-4916-a690-77eee714a8fc</id>
+  <name>Kliniske opplysninger</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose>Å gi kliniske opplysninger om pasient i forkant av en operasjon</purpose>
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Encounter">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.height.v1" concept_name="Høyde/Lengde" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_weight.v1" concept_name="Kroppsvekt" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_mass_index.v1" concept_name="Kroppsmasseindeks" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.risikovurdering_av_organ.v1" concept_name="Risikovurdering organfunksjon" max="1" path="/content" name="Hjertefunksjon">
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Normal</includedValues>
+          <includedValues>Avvik</includedValues>
+          <includedValues>Ikke undersøkt</includedValues>
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.issue.v1" concept_name="Issue presented by a person" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]" name="Anamnese">
+        <Rule path="/items[at0001]" name="Tilstand">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Hjertesvikt (NYHA)</includedValues>
+            <includedValues>Korornarsykdom</includedValues>
+            <includedValues>Angina (CCS)</includedValues>
+            <includedValues>Arytmi</includedValues>
+            <includedValues>Hypertensjon</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0002]" name="Beskrivelse" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.exam_generic.v1" concept_name="Examination Findings - Generic" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]" name="Undersøkelsesfunn">
+        <Rule path="/items[at0004]" name="Undersøkt system eller struktur" />
+        <Rule path="/items[at0001]" name="Klinisk beskrivelse" />
+        <Rule path="/items[at0003]" max="1" name="Klinisk vurdering">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Normal</includedValues>
+            <includedValues>Avvikende</includedValues>
+            <includedValues>Ikke undersøkt</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0005]" name="Bilde" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1" concept_name="Anatomisk område" path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Cor</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.risikovurdering_av_organ.v1" concept_name="Risikovurdering organfunksjon" max="1" path="/content" name="Lungefunskjon">
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Normal</includedValues>
+          <includedValues>Avvikende</includedValues>
+          <includedValues>Ikke undersøkt</includedValues>
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.issue.v1" concept_name="Issue presented by a person" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]" name="Anamnese">
+        <Rule path="/items[at0001]" name="Tilstand" />
+        <Rule path="/items[at0002]" name="Beskrivelse" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.exam_generic.v1" concept_name="Examination Findings - Generic" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]" name="Undersøkelsesfunn">
+        <Rule path="/items[at0004]" name="Undersøkt system eller struktur" />
+        <Rule path="/items[at0001]" name="Klinisk beskrivelse" />
+        <Rule path="/items[at0003]" max="1" name="Klinisk vurdering">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Normal</includedValues>
+            <includedValues>Avvikende</includedValues>
+            <includedValues>Ikke undersøkt</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0005]" name="Bilde" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1" concept_name="Anatomisk område" path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Pulm</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.risikovurdering_av_organ.v1" concept_name="Risikovurdering organfunksjon" max="1" path="/content" name="Nyrefunksjon">
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Normal</includedValues>
+          <includedValues>Avvikende</includedValues>
+          <includedValues>Ikke undersøkt</includedValues>
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.issue.v1" concept_name="Issue presented by a person" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]" name="Anamnese">
+        <Rule path="/items[at0001]" name="Tilstand" />
+        <Rule path="/items[at0002]" name="Beskrivelse" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.exam_generic.v1" concept_name="Examination Findings - Generic" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]" name="Undersøkelsesfunn">
+        <Rule path="/items[at0004]" name="Undersøkt sytem eller struktur" />
+        <Rule path="/items[at0001]" name="Klinisk beskrivelse" />
+        <Rule path="/items[at0003]" max="1" name="Klinisk vurdering">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Normal</includedValues>
+            <includedValues>Avvikende</includedValues>
+            <includedValues>Ikke undersøkt</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0005]" name="Bilde" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1" concept_name="Anatomisk område" path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Nyre</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.risikovurdering_av_organ.v1" concept_name="Risikovurdering organfunksjon" max="1" path="/content" name="Mentalfunksjon">
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Normal</includedValues>
+          <includedValues>Avvikende</includedValues>
+          <includedValues>Ikke undersøkt</includedValues>
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.issue.v1" concept_name="Issue presented by a person" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]" name="Anamnese">
+        <Rule path="/items[at0001]" name="Tilstand" />
+        <Rule path="/items[at0002]" name="Beskrivelse" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.exam_generic.v1" concept_name="Examination Findings - Generic" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]" name="Undersøkelsesfunn">
+        <Rule path="/items[at0004]" name="Undersøkt system eller struktur">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Mental funksjon</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0001]" name="Klinisk beskrivelse" />
+        <Rule path="/items[at0003]" max="1" name="Klinisk vurdering">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Normal</includedValues>
+            <includedValues>Avvikende</includedValues>
+            <includedValues>Ikke undersøkt</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0005]" name="Bilde" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1" concept_name="Anatomisk område" path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]" />
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.risikovurdering_av_organ.v1" concept_name="Risikovurdering organfunksjon" max="1" path="/content" name="Endokrin/metabolisme">
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Normal</includedValues>
+          <includedValues>Avvikende</includedValues>
+          <includedValues>Ikke undersøkt</includedValues>
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.issue.v1" concept_name="Issue presented by a person" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]" name="Anamnese">
+        <Rule path="/items[at0001]" name="Tilstand" />
+        <Rule path="/items[at0002]" name="Beskrivelse" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.exam_generic.v1" concept_name="Examination Findings - Generic" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]" name="Undersøkelsesfunn">
+        <Rule path="/items[at0004]" name="Undersøkt sytem eller struktur">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Endokrin/Metabolisme</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0001]" name="Klinisk beskrivelse" />
+        <Rule path="/items[at0003]" max="1" name="Klinisk vurdering">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Normal</includedValues>
+            <includedValues>Avvikende</includedValues>
+            <includedValues>Ikke undersøkt</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0005]" name="Bilde" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1" concept_name="Anatomisk område" path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.annen_risikofaktor_til_kirurgi.v1" concept_name="Annen risikofaktor til kirurgi" max="1" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.risikovurdering_medikamentbruk.v1" concept_name="Risikovurdering medikamentbruk" max="1" path="/content" name="Medikamentbruk med betydning for inngrep og narkose">
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Ingen</includedValues>
+          <includedValues>Fast</includedValues>
+          <includedValues>Ved behov</includedValues>
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.medikamentbruk_operasjon_og_anestesi.v1" concept_name="Medikamentbruk operasjon og anestesi" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0021]" name="Antibiotikaprofylakse" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.medikamentbruk_operasjon_og_anestesi.v1" concept_name="Medikamentbruk operasjon og anestesi" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0021]" name="Tromboseprofylakse">
+        <Rule path="/items[at0008]" name="Tromboseprofylakse" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.medikamentbruk_operasjon_og_anestesi.v1" concept_name="Medikamentbruk operasjon og anestesi" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0021]" name="Annen medisin under/før operasjon">
+        <Rule path="/items[at0008]" name="Annen medisin under/før operasjon" />
+      </Items>
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.risikovurdering_livsstilfaktor.v1" concept_name="Risikovurdering livsstilfaktor" max="1" path="/content" name="Livsstilsfaktor med betydning for inngrep og narkose" />
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.substance_use_summary-tobacco.v1" concept_name="*Tobacco Use Summary" max="1" path="/content" name="Røyking">
+      <Rule path="/data[at0001]/items[at0002]" name="Status" />
+      <Rule path="/data[at0001]/items[at0007]/items[at0008]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0007]/items[at0015]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0007]/items[at0009]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0007]/items[at0010]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0007]/items[at0012]" hide_on_form="true" />
+    </Content>
+    <Context />
+  </definition>
+</template>
