@@ -1,2 +1,0 @@
-# dips-ckm
-DIPS-CKM
