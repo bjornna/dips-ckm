@@ -60,21 +60,41 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Encounter">
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.surgery_preparation.v1" concept_name="Surgical position and access" max="1" path="/content" name="Surgery details">
-      <Rule path="/data[at0001]/items[at0002]">
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Encounter" name="Opplysning til operasjon">
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.surgery_preparation.v1" concept_name="Surgical position and access" max="1" path="/content" name="Operasjonsdetaljer">
+      <Rule path="/data[at0001]/items[at0002]" name="Operasjonsleie">
         <constraint xsi:type="textConstraint">
-          <termQueryId terminologyID="Dips" terminologyLang="en-GB" queryName="USD-LEIE" />
+          <termQueryId terminologyID="Dips" terminologyLang="en-GB" queryName="UDS-LEIE" />
         </constraint>
       </Rule>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.anatomical_location.v1" concept_name="Anatomisk område" path="/data[at0001]/items[at0009]" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.time_of_my_knife.v1" concept_name="Knivtid" path="/data[at0001]/items[at0012]" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA klassifikasjon helsetilstand" path="/data[at0001]/items[at0012]">
-        <Rule path="/items[at0001]" min="1" />
+      <Rule path="/data[at0001]/items[at0014]">
+        <constraint xsi:type="textConstraint" limitToList="false">
+          <includedValues>Høyre</includedValues>
+          <includedValues>Venstre</includedValues>
+          <includedValues>Bilateralt</includedValues>
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.time_of_my_knife.v1" concept_name="Knivtid" max="1" path="/data[at0001]/items[at0012]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA klassifikasjon helsetilstand" max="1" path="/data[at0001]/items[at0012]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <excludedValues>local::at0008</excludedValues>
+            <excludedValues>local::at0009</excludedValues>
+            <excludedValues>local::at0010</excludedValues>
+            <excludedValues>local::at0011</excludedValues>
+            <excludedValues>local::at0012</excludedValues>
+            <excludedValues>local::at0013</excludedValues>
+          </constraint>
+        </Rule>
       </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.anesthesia_type.v1" concept_name="Anesthesia type" max="1" path="/data[at0001]/items[at0012]" name="Ønsket anestesi" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.informert_samtykke.v1" concept_name="Informert samtykke" max="1" path="/data[at0001]/items[at0012]" name="Samtykke kirurgi" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.spesialutstyr.v1" concept_name="Spesialutstyr" path="/data[at0001]/items[at0012]">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.anesthesia_type.v1" concept_name="Anesthesia type" max="1" path="/data[at0001]/items[at0012]" name="Ønsket anestesi">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="UDS- OENSKET ANESTESI OPR" />
+          </constraint>
+        </Rule>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.spesialutstyr.v1" concept_name="Spesialutstyr" max="1" path="/data[at0001]/items[at0012]">
         <Rule path="/items[at0007]" name="Annet spesialutstyr" />
       </Items>
     </Content>
