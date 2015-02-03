@@ -2,7 +2,7 @@ archetype (adl_version=1.4)
 	openEHR-EHR-CLUSTER.additional_procedure_code.v1
 
 concept
-	[at0000]	-- Tilleggsprosedyrer
+	[at0000]	-- Tilleggsprosedyre
 language
 	original_language = <[ISO_639-1::nb]>
 	translations = <
@@ -15,7 +15,10 @@ language
 	>
 description
 	original_author = <
-		["name"] = <"">
+		["name"] = <"Anca Heyd">
+		["organisation"] = <"DIPS ASA">
+		["email"] = <"ahe@dips.no">
+		["date"] = <"2015-02-02">
 	>
 	details = <
 		["no"] = <
@@ -24,22 +27,39 @@ description
 		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"Tilleggsprosedyrer som skal legges til prosedyrekode">
-			use = <"">
-			misuse = <"">
+			purpose = <"Å registrere tillegsprosedyrer som bestilles sammen med en hovedprosedyre.">
+			use = <"Brukes i forbindelse med bestilling av en prosedyre som ansees som hovedprosedyre. ">
+			keywords = <"bestilling", "henvisning", "foresprøsel", "helsetjeneste">
+			misuse = <"Skal ikke brukes for å å registrere informasjon om en bestilt hovedprosedyre.">
 			copyright = <"">
 		>
 	>
-	lifecycle_state = <"0">
+	lifecycle_state = <"Initial">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"820D73A77682268CDACB63027A97A024">
+		["current_contact"] = <"ahe@dips.no">
+		["MD5-CAM-1.0.1"] = <"5CBF2C1F9B53AC7045F6C6892147E531">
 	>
 
 definition
-	CLUSTER[at0000] matches {	-- Tilleggsprosedyrer
+	CLUSTER[at0000] matches {	-- Tilleggsprosedyre
 		items cardinality matches {1..*; unordered} matches {
-			ELEMENT[at0001] occurrences matches {0..*} matches {	-- Operasjonstype
+			ELEMENT[at0001] occurrences matches {0..*} matches {	-- Planlagt prosedyre
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Prosedyretype
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Indikasjon
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0004] occurrences matches {0..1} matches {	-- Besrivelse prosedyre
 				value matches {
 					DV_TEXT matches {*}
 				}
@@ -59,17 +79,41 @@ ontology
 					text = <"Operasjonstype">
 					description = <"*">
 				>
+				["at0002"] = <
+					text = <"*New element(nb)">
+					description = <"**(nb)">
+				>
+				["at0003"] = <
+					text = <"*New element(nb)">
+					description = <"**(nb)">
+				>
+				["at0004"] = <
+					text = <"*New element(nb)">
+					description = <"**(nb)">
+				>
 			>
 		>
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"Tilleggsprosedyrer">
-					description = <"Flere prosedyrekoder">
+					text = <"Tilleggsprosedyre">
+					description = <"Tillegsprosedyrer som bestilles.">
 				>
 				["at0001"] = <
-					text = <"Operasjonstype">
-					description = <"*">
+					text = <"Planlagt prosedyre">
+					description = <"Identifisering av bestilt prosedyre. Kodes ofte med en ekstern terminologi.">
+				>
+				["at0002"] = <
+					text = <"Prosedyretype">
+					description = <"Detaljer vedrørende prosedyretype som er bestilt f.eks. kirurgisk, radiologisk etc.">
+				>
+				["at0003"] = <
+					text = <"Indikasjon">
+					description = <"En kort beskrivelse av indikasjon eller grunn for bestillingen. Dette blir ofte kodet med en ekstern terminologi.">
+				>
+				["at0004"] = <
+					text = <"Besrivelse prosedyre">
+					description = <"En detaljert narrativ beskrivelse av bestilt prosedyre.">
 				>
 			>
 		>
