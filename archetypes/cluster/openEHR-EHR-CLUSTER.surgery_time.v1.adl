@@ -1,5 +1,5 @@
 archetype (adl_version=1.4)
-	openEHR-EHR-CLUSTER.time_of_my_knife.v1
+	openEHR-EHR-CLUSTER.surgery_time.v1
 
 concept
 	[at0000]	-- Knivtid
@@ -21,10 +21,7 @@ language
 	>
 description
 	original_author = <
-		["name"] = <"Anca Heyd">
-		["organisation"] = <"DIPS ASA">
-		["email"] = <"ahe@dips.no">
-		["date"] = <"2015-02-02">
+		["name"] = <"">
 	>
 	details = <
 		["no"] = <
@@ -36,10 +33,9 @@ description
 		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"Å angi et estimat av tiden som kirurgen bruker i forbindelse med et kirurgisk inngrep.">
-			use = <"Brukes i forbindelse med bestilling av et kirurgisk inngrep.">
-			keywords = <"kirurgi", "kirurg", "tid">
-			misuse = <"Brukes ikke for å angi estimert tidsbruk for hele seansen i forbindelse med et kirurgisk inngrep. ">
+			purpose = <"Knivtid ">
+			use = <"">
+			misuse = <"">
 			copyright = <"">
 		>
 		["en"] = <
@@ -50,21 +46,25 @@ description
 			copyright = <"*(nb)">
 		>
 	>
-	lifecycle_state = <"Initial">
+	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["current_contact"] = <"ahe@dips.no">
-		["MD5-CAM-1.0.1"] = <"C2D1FB40786E62559421A1DBD6C1363D">
+		["MD5-CAM-1.0.1"] = <"1CC4179910BF4143B1311ACD35D59C63">
 	>
 
 definition
 	CLUSTER[at0000] matches {	-- Knivtid
-		items cardinality matches {1; unordered} matches {
+		items cardinality matches {1..*; unordered} matches {
 			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Estimert knivtid
 				value matches {
 					DV_DURATION matches {
 						value matches {PTHM}
 					}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Knivtid justering
+				value matches {
+					DV_TEXT matches {*}
 				}
 			}
 		}
@@ -79,8 +79,12 @@ ontology
 					description = <"Knvitid">
 				>
 				["at0001"] = <
-					text = <"*Estimert knivtid(nb)">
-					description = <"*Estimert tid som kirurgen bruker i forbindelse med en kirurgisk prosedyre. (nb)">
+					text = <"Estimert knivtid">
+					description = <"*">
+				>
+				["at0002"] = <
+					text = <"*Knivtid justering(nb)">
+					description = <"**(nb)">
 				>
 			>
 		>
@@ -92,7 +96,11 @@ ontology
 				>
 				["at0001"] = <
 					text = <"Estimert knivtid">
-					description = <"Estimert tid som kirurgen bruker i forbindelse med en kirurgisk prosedyre. ">
+					description = <"Modellerer knivtid ">
+				>
+				["at0002"] = <
+					text = <"Knivtid justering">
+					description = <"*">
 				>
 			>
 		>
@@ -103,8 +111,12 @@ ontology
 					description = <"*Knvitid(nb)">
 				>
 				["at0001"] = <
-					text = <"*Estimert knivtid(nb)">
-					description = <"*Estimert tid som kirurgen bruker i forbindelse med en kirurgisk prosedyre. (nb)">
+					text = <"Estimert knivtid">
+					description = <"*Modellerer knivtid (nb)">
+				>
+				["at0002"] = <
+					text = <"*Knivtid justering(nb)">
+					description = <"**(nb)">
 				>
 			>
 		>
