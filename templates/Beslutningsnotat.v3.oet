@@ -61,7 +61,7 @@
     </other_details>
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Encounter" name="Beslutning om operasjon">
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Diagnose" max="1" path="/content">
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/diagnose" max="1" path="/content">
       <Rule path="/data[at0001]" hide_on_form="true" />
       <Rule path="/data[at0001]/items[at0002]">
         <constraint xsi:type="textConstraint">
@@ -69,118 +69,25 @@
         </constraint>
       </Rule>
       <Rule path="/data[at0001]/items[at0009]" max="0" />
-      <Rule path="/data[at0001]/items[at0005]" max="0" />
-      <Rule path="/data[at0001]/items[at0003]" max="0" />
-      <Rule path="/data[at0001]/items[at0004]" max="0" />
-      <Rule path="/data[at0001]/items[at0012]" max="0" />
       <Rule path="/data[at0001]/items[at0018]" max="0" />
-      <Rule path="/data[at0001]/items[at0027]" max="0" />
       <Rule path="/data[at0001]/items[at0030]" max="0" />
       <Rule path="/data[at0001]/items[at0031]" max="0" />
-      <Rule path="/protocol[at0032]/items[at0035]" max="0" />
     </Content>
     <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.request-procedure.v1" concept_name="Bestilt prosedyre" path="/content">
-      <Rule path="/activities[at0001]/description[at0009]/items[at0121.1]">
-        <constraint xsi:type="textConstraint">
-          <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="VI-OPERASJONSTYPER" />
-        </constraint>
-      </Rule>
-      <Rule path="/activities[at0001]/description[at0009]/items[at0.146]" max="0" />
-      <Rule path="/activities[at0001]/description[at0009]/items[at0135.1]" name="Tilleggsinformasjon til prosedyren" />
-      <Rule path="/activities[at0001]/description[at0009]/items[at0062.1]" min="1" />
-      <Rule path="/activities[at0001]/description[at0009]/items[at0064]" max="0" />
-      <Rule path="/activities[at0001]/description[at0009]/items[at0.145]" max="0" />
-      <Rule path="/activities[at0001]/description[at0009]/items[at0065]" max="0" />
-      <Rule path="/activities[at0001]/description[at0009]/items[at0068]" max="0" />
-      <Rule path="/activities[at0001]/description[at0009]/items[at0.149]">
-        <constraint xsi:type="durationConstraint">
-          <pattern>PW</pattern>
-          <includesMaximum>false</includesMaximum>
-          <includesMinimum>false</includesMinimum>
-        </constraint>
-      </Rule>
-      <Rule path="/activities[at0001]/description[at0009]/items[at0076]" max="0" />
-      <Rule path="/activities[at0001]/description[at0009]/items[at0078]" max="0" />
-      <Rule path="/protocol[at0008]/items[at0010]" max="0" />
-      <Rule path="/protocol[at0008]/items[at0011]" max="0" />
-      <Rule path="/protocol[at0008]/items[at0127]" max="0" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.additional_procedure_code.v1" concept_name="Tilleggsprosedyrer" path="/activities[at0001 and name/value='Bestilling']/description[at0009]/items[at0132]">
+      <Rule path="/activities[at0001]" max="1" name="Bestillingen" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.additional_procedure_code.v1" concept_name="Tilleggsprosedyre" path="/activities[at0001 and name/value='Bestillingen']/description[at0009]/items[at0132]">
         <Rule path="/items[at0001]" max="1" name="Tilleggsprosedyre">
           <constraint xsi:type="textConstraint">
             <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="VI-OPERASJONSTYPER" />
           </constraint>
         </Rule>
       </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.time_of_my_knife.v1" concept_name="Knivtid" max="1" path="/activities[at0001 and name/value='Bestilling']/description[at0009]/items[at0132]">
-        <Rule path="/items[at0001]" max="0" />
-        <Rule path="/items[at0002]" min="1" default="+/- 0 min">
-          <constraint xsi:type="textConstraint">
-            <includedValues>-60 min</includedValues>
-            <includedValues>-45 min</includedValues>
-            <includedValues>-30 min</includedValues>
-            <includedValues>-15 min</includedValues>
-            <includedValues>+/- 0 min</includedValues>
-            <includedValues>+15 min</includedValues>
-            <includedValues>+30 min</includedValues>
-            <includedValues>+45 min</includedValues>
-            <includedValues>+60 min</includedValues>
-            <includedValues>+120 min</includedValues>
-            <includedValues>+180 min</includedValues>
-            <includedValues>+240 min</includedValues>
-          </constraint>
-        </Rule>
-      </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.level_of_care.v1" concept_name="Omsorgsnivå " max="1" path="/activities[at0001 and name/value='Bestilling']/description[at0009]/items[at0132]">
-        <Rule path="/items[at0001]">
-          <constraint xsi:type="textConstraint">
-            <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="VI-NPROMSNIVAA" />
-          </constraint>
-        </Rule>
-      </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA klassifikasjon helsetilstand" max="1" path="/activities[at0001 and name/value='Bestilling']/description[at0009]/items[at0132]">
-        <Rule path="/items[at0001]">
-          <constraint xsi:type="textConstraint">
-            <excludedValues>local::at0008</excludedValues>
-            <excludedValues>local::at0009</excludedValues>
-            <excludedValues>local::at0010</excludedValues>
-            <excludedValues>local::at0011</excludedValues>
-            <excludedValues>local::at0012</excludedValues>
-            <excludedValues>local::at0013</excludedValues>
-          </constraint>
-        </Rule>
-        <Rule path="/items[at0014]" max="0" />
-      </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.anesthesia_type.v1" concept_name="Anesthesia type" max="1" path="/activities[at0001 and name/value='Bestilling']/description[at0009]/items[at0132]" name="Ønsket anestesi">
-        <Rule path="/items[at0001]">
-          <constraint xsi:type="textConstraint">
-            <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="UDS- OENSKET ANESTESI OPR" />
-          </constraint>
-        </Rule>
-        <Rule path="/items[at0002]" max="0" />
-      </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.onsket_helsepersonell.v1" concept_name="Ønsket helsepersonell" path="/activities[at0001 and name/value='Bestilling']/description[at0009]/items[at0132]">
-        <Rule path="/items[at0001]">
-          <constraint xsi:type="textConstraint">
-            <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="HEALTHCAREPARTY" />
-          </constraint>
-        </Rule>
-      </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.tilleggsinformasjon_kirurgi.v1" concept_name="Tilleggsinformasjon kirurgi" max="1" path="/activities[at0001 and name/value='Bestilling']/description[at0009]/items[at0132]">
-        <Rule path="/items[at0010]">
-          <constraint xsi:type="textConstraint">
-            <includedValues>Ja</includedValues>
-            <includedValues>Nei</includedValues>
-          </constraint>
-        </Rule>
-      </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.tilleggsinformasjon_pasient.v1" concept_name="Tilleggsinformasjon pasient" path="/activities[at0001 and name/value='Bestilling']/description[at0009]/items[at0116]">
-        <Rule path="/items[at0013]">
-          <constraint xsi:type="textConstraint">
-            <includedValues>Ja</includedValues>
-            <includedValues>Nei</includedValues>
-          </constraint>
-        </Rule>
-      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.surgery_time.v1" concept_name="Knivtid" max="1" path="/activities[at0001 and name/value='Bestillingen']/description[at0009]/items[at0132]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.level_of_care.v1" concept_name="Omsorgsnivå " path="/activities[at0001 and name/value='Bestillingen']/description[at0009]/items[at0132]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.onsket_helsepersonell.v1" concept_name="Ønsket helsepersonell" path="/activities[at0001 and name/value='Bestillingen']/description[at0009]/items[at0132]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA klassifikasjon helsetilstand" path="/activities[at0001 and name/value='Bestillingen']/description[at0009]/items[at0132]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.tilleggsinformasjon_kirurgi.v1" concept_name="Tilleggsinformasjon kirurgi" path="/activities[at0001 and name/value='Bestillingen']/description[at0009]/items[at0132]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.tilleggsinformasjon_pasient.v1" concept_name="Tilleggsinformasjon pasient" path="/activities[at0001 and name/value='Bestillingen']/description[at0009]/items[at0116]" />
     </Content>
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" path="/content">
       <Rule path="/description[at0001]/items[at0014]" max="0" />
