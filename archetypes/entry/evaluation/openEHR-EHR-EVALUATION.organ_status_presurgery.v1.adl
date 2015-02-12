@@ -21,7 +21,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"E1B502D1971FEE7A298062B48DF4BE2F">
+		["MD5-CAM-1.0.1"] = <"DF9AEA4F04C7ADB4D0DC32FF332F417E">
 	>
 
 definition
@@ -29,35 +29,39 @@ definition
 		data matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Hjertefunksjon
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Lungefunksjon
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Nyrefunksjon
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Mentalfunksjon
-						name matches {
-							DV_CODED_TEXT matches {
-								defining_code matches {
-									[local::
-									at0006, 	-- 1 Normal, ingen klaffesykdom, ingen ischemisk hjertesykdom og EF > 50%
-									at0008, 	-- 2 Lett redusert,  asymptomatisk klaffesykdom og/eller ischemisk hjertesykdom NYHA 1 og/eller EF 40-50%
-									at0009, 	-- 3 Moderat redusert, symptomatisk klaffesykdom i aktivitet og/eller ischemisk hjertesykdom NYHA 2-3 og/eller EF 30-40%
-									at0010]	-- 4 Alvorlig redusert, symptomatisk klaffesykdom i hvile, ischemisk hjertesykdom NYHA 4 og/eller EF < 30%
+					CLUSTER[at0020] occurrences matches {0..1} matches {	-- Hjertefunksjon
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0011] occurrences matches {0..1} matches {	-- Hjertefunksjon
+								value matches {
+									1|[local::at0012], 	-- Normal
+									2|[local::at0013], 	-- Lett redusert
+									3|[local::at0014], 	-- Moderat redusert
+									4|[local::at0015]  	-- Alvorlig redusert
+								}
+							}
+							ELEMENT[at0019] occurrences matches {0..1} matches {	-- Beskrivelse
+								value matches {
+									DV_TEXT matches {*}
 								}
 							}
 						}
+					}
+					ELEMENT[at0016] occurrences matches {0..1} matches {	-- Lungefunksjon
 						value matches {
-							DV_TEXT matches {*}
+							C_DV_ORDINAL <
+							>
+						}
+					}
+					ELEMENT[at0017] occurrences matches {0..1} matches {	-- Nyrefunskjon
+						value matches {
+							C_DV_ORDINAL <
+							>
+						}
+					}
+					ELEMENT[at0018] occurrences matches {0..1} matches {	-- Mental funksjon
+						value matches {
+							C_DV_ORDINAL <
+							>
 						}
 					}
 				}
@@ -77,36 +81,44 @@ ontology
 					text = <"Tree">
 					description = <"@ internal @">
 				>
-				["at0002"] = <
+				["at0011"] = <
 					text = <"Hjertefunksjon">
 					description = <"*">
 				>
-				["at0003"] = <
+				["at0012"] = <
+					text = <"Normal">
+					description = <"Ingen klaffesykdom, ingen iscemisk hjertesykdom og EF>50%">
+				>
+				["at0013"] = <
+					text = <"Lett redusert">
+					description = <"Asymptomatisk klaffesykdom og/eller ischemisk hjertesykdom NYHA 1 og/eller EF 40-50%">
+				>
+				["at0014"] = <
+					text = <"Moderat redusert">
+					description = <"Symptomatisk klaffesykdom i aktivitet og/eller ischemisk hjertesykdom NYHA 2-3 og/eller EF 30-40%">
+				>
+				["at0015"] = <
+					text = <"Alvorlig redusert">
+					description = <"symptomatisk klaffesykdom i hvile, Ischemisk hjertesykdom NYHA 4 og/eller EF < 30%">
+				>
+				["at0016"] = <
 					text = <"Lungefunksjon">
 					description = <"*">
 				>
-				["at0004"] = <
-					text = <"Nyrefunksjon">
+				["at0017"] = <
+					text = <"Nyrefunskjon">
 					description = <"*">
 				>
-				["at0005"] = <
-					text = <"Mentalfunksjon">
+				["at0018"] = <
+					text = <"Mental funksjon">
 					description = <"*">
 				>
-				["at0006"] = <
-					text = <"1 Normal, ingen klaffesykdom, ingen ischemisk hjertesykdom og EF > 50%">
+				["at0019"] = <
+					text = <"Beskrivelse">
 					description = <"*">
 				>
-				["at0008"] = <
-					text = <"2 Lett redusert,  asymptomatisk klaffesykdom og/eller ischemisk hjertesykdom NYHA 1 og/eller EF 40-50%">
-					description = <"*">
-				>
-				["at0009"] = <
-					text = <"3 Moderat redusert, symptomatisk klaffesykdom i aktivitet og/eller ischemisk hjertesykdom NYHA 2-3 og/eller EF 30-40%">
-					description = <"*">
-				>
-				["at0010"] = <
-					text = <"4 Alvorlig redusert, symptomatisk klaffesykdom i hvile, ischemisk hjertesykdom NYHA 4 og/eller EF < 30%">
+				["at0020"] = <
+					text = <"Hjertefunksjon">
 					description = <"*">
 				>
 			>
