@@ -1,0 +1,509 @@
+archetype (adl_version=1.4)
+    openEHR-EHR-EVALUATION.problem_diagnosis.v1
+
+concept
+    [at0000]
+
+language
+    original_language = <[ISO_639-1::en]>
+    translations = <
+        ["no"] = <
+            language = <[ISO_639-1::no]>
+            author = <
+                ["name"] = <"?">
+            >
+        >
+    >
+
+description
+    original_author = <
+        ["email"] = <"sam.heard@oceaninformatics.com">
+        ["organisation"] = <"Ocean Informatics">
+        ["name"] = <"Sam Heard">
+        ["date"] = <"23/04/2006">
+    >
+    lifecycle_state = <"AuthorDraft">
+    details = <
+        ["en"] = <
+            language = <[ISO_639-1::en]>
+            purpose = <"To record details about a problem or diagnosis by a clinician.">
+            keywords = <"issue","condition","problem","concern","diagnosis","criteria","illness","disease","disorder">
+            copyright = <"© Nasjonal IKT HF">
+            use = <"Use to record detailed information about problems or diagnoses recognised by a clinician. There are many uses including: recording a Diagnosis during an Encounter; populating a Problem List or a Summary Statement, such as a Discharge Summary.
+
+Use to record all problems or diagnoses, including those with context-specific qualifiers such as past/present, primary/secondary, active/inactive etc. These qualifiers can be archetyped separately and included in the ‘Status’ slot, because their use varies in different settings.">
+            misuse = <"Not to be used to record 'Differential Diagnoses' - use the EVALUATION.differential diagnosis archetype.
+
+Not to be used to record 'Reason for Encounter' - use the EVALUATION.reason_for_encounter archetype.
+
+Not to be used to record 'Presenting Complaint' - which is information captured early in the encounter, usually prior to full assessment and will be represented using a separate EVALUATION archetype.
+
+Not to be used to record procedures - use the ACTION.Procedure_undertaken archetype.
+
+Not to be used to record symptoms or signs - these should be recorded as part of a patient story or history.  A problem such as 'Chest pain' may masquerade as a symptom, however in this context we are recording it as a problem the person has.">
+        >
+        ["no"] = <
+            language = <[ISO_639-1::no]>
+            purpose = <"To record details about a problem or diagnosis by a clinician.">
+            keywords = <"issue","condition","problem","concern","diagnosis","criteria","illness","disease","disorder">
+            copyright = <"© Nasjonal IKT HF">
+            use = <"Use to record detailed information about problems or diagnoses recognised by a clinician. There are many uses including: recording a Diagnosis during an Encounter; populating a Problem List or a Summary Statement, such as a Discharge Summary.
+
+Use to record all problems or diagnoses, including those with context-specific qualifiers such as past/present, primary/secondary, active/inactive etc. These qualifiers can be archetyped separately and included in the ‘Status’ slot, because their use varies in different settings.">
+            misuse = <"Not to be used to record 'Differential Diagnoses' - use the EVALUATION.differential diagnosis archetype.
+
+Not to be used to record 'Reason for Encounter' - use the EVALUATION.reason_for_encounter archetype.
+
+Not to be used to record 'Presenting Complaint' - which is information captured early in the encounter, usually prior to full assessment and will be represented using a separate EVALUATION archetype.
+
+Not to be used to record procedures - use the ACTION.Procedure_undertaken archetype.
+
+Not to be used to record symptoms or signs - these should be recorded as part of a patient story or history.  A problem such as 'Chest pain' may masquerade as a symptom, however in this context we are recording it as a problem the person has.">
+        >
+    >
+
+definition
+    EVALUATION[at0000] matches {
+        data matches {
+            ITEM_TREE[at0001] matches {
+                items cardinality matches {1..*; ordered} matches {
+                    ELEMENT[at0002] matches {
+                        value matches {
+                            DV_TEXT matches {*}
+                        }
+                    }
+                    ELEMENT[at0009] occurrences matches {0..1} matches {
+                        value matches {
+                            DV_TEXT matches {*}
+                        }
+                    }
+                    ELEMENT[at0082] occurrences matches {0..1} matches {
+                        value matches {
+                            DV_TEXT matches {*}
+                        }
+                    }
+                    ELEMENT[at0010] occurrences matches {0..1} matches {
+                        value matches {
+                            DV_DATE_TIME matches {*}
+                        }
+                    }
+                    ELEMENT[at0037] occurrences matches {0..1} matches {
+                        value matches {
+                            DV_DURATION matches {*}
+                        }
+                    }
+                    allow_archetype CLUSTER[at0044] occurrences matches {0..*} matches {
+                        include
+                            archetype_id/value matches {/openEHR-EHR-CLUSTER\.anatomical_location(-[a-zA-Z0-9_]+)*\.v1/}
+                    }
+                    CLUSTER[at0018] occurrences matches {0..1} matches {
+                        items cardinality matches {1..*; ordered} matches {
+                            ELEMENT[at0025] occurrences matches {0..1} matches {
+                                value matches {
+                                    DV_COUNT matches {
+                                        magnitude matches {|>=1|}
+                                    }
+                                }
+                            }
+                            ELEMENT[at0019] occurrences matches {0..1} matches {
+                                value matches {
+                                    C_DV_QUANTITY <
+                                        property = <[openehr::382]>
+                                        list = <
+                                            ["1"] = <
+                                                units = <"/min">
+                                            >
+                                            ["2"] = <
+                                                units = <"/h">
+                                            >
+                                            ["3"] = <
+                                                units = <"/d">
+                                            >
+                                            ["4"] = <
+                                                units = <"/wk">
+                                            >
+                                            ["5"] = <
+                                                units = <"/mo">
+                                            >
+                                            ["6"] = <
+                                                units = <"/yr">
+                                            >
+                                        >
+                                    >
+                                }
+                            }
+                            ELEMENT[at0020] occurrences matches {0..1} matches {
+                                value matches {
+                                    DV_DATE matches {*}
+                                }
+                            }
+                            ELEMENT[at0072] occurrences matches {0..1} matches {
+                                value matches {
+                                    DV_TEXT matches {*}
+                                }
+                            }
+                            ELEMENT[at0073] occurrences matches {0..*} matches {
+                                value matches {
+                                    DV_URI matches {*}
+                                }
+                            }
+                        }
+                    }
+                    CLUSTER[at0026] occurrences matches {0..*} matches {
+                        items cardinality matches {1..*; unordered} matches {
+                            ELEMENT[at0028] matches {
+                                value matches {
+                                    DV_TEXT matches {*}
+                                }
+                            }
+                            ELEMENT[at0056] occurrences matches {0..1} matches {
+                                value matches {
+                                    DV_CODED_TEXT matches {
+                                        defining_code matches {
+                                            [local::
+                                            at0080,
+                                            at0081]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    ELEMENT[at0030] occurrences matches {0..1} matches {
+                        value matches {
+                            DV_DATE matches {*}
+                        }
+                    }
+                    ELEMENT[at0031] occurrences matches {0..1} matches {
+                        value matches {
+                            DV_DURATION matches {*}
+                        }
+                    }
+                    allow_archetype CLUSTER[at0054] occurrences matches {0..*} matches {
+                        include
+                            archetype_id/value matches {/.*/}
+                    }
+                    allow_archetype CLUSTER[at0055] occurrences matches {0..*} matches {
+                        include
+                            archetype_id/value matches {/.*/}
+                    }
+                    ELEMENT[at0069] occurrences matches {0..1} matches {
+                        value matches {
+                            DV_TEXT matches {*}
+                        }
+                    }
+                }
+            }
+        }
+        protocol matches {
+            ITEM_TREE[at0074] matches {
+                items cardinality matches {0..*; unordered} matches {
+                    ELEMENT[at0075] occurrences matches {0..1} matches {
+                        value matches {
+                            DV_URI matches {*}
+                        }
+                    }
+                    allow_archetype CLUSTER[at0076] occurrences matches {0..*} matches {
+                        include
+                            archetype_id/value matches {/.*/}
+                    }
+                }
+            }
+        }
+    }
+
+ontology
+    term_definitions = <
+        ["no"] = <
+            items = <
+                ["at0000"] = <
+                    text = <"Problem/Diagnosis">
+                    description = <"Any health care condition which may impact on the physical, mental and/or social well-being of an individual, that may require diagnostic, therapeutic or educational action, and which has been determined by a clinician. A diagnosis is based on scientific evaluation of physical signs, symptoms, history, laboratory tests results, and procedures.">
+
+                >
+                ["at0001"] = <
+                    text = <"structure">
+                    description = <"@ internal @">
+
+                >
+                ["at0002"] = <
+                    text = <"Problem/Diagnosis">
+                    description = <"Identification of the problem or diagnosis. Coding of the problem or diagnosis with a terminology is preferred, where possible.">
+
+                >
+                ["at0009"] = <
+                    text = <"Clinical description">
+                    description = <"Narrative description or comments about clinical aspects of the problem/diagnosis.">
+
+                >
+                ["at0010"] = <
+                    text = <"Date of onset">
+                    description = <"Estimated or actual date the problem/diagnosis began, in the opinion of the clinician.">
+
+                >
+                ["at0018"] = <
+                    text = <"Occurrence summary">
+                    description = <"Summary information about occurrences or exacerbations. 
+Note: Detailed information about each occurrence or exacerbation is likely to be held in other parts of the health record.">
+
+                >
+                ["at0019"] = <
+                    text = <"Frequency">
+                    description = <"The frequency or estimated frequency of occurrences or exacerbations of the problem/diagnosis.">
+
+                >
+                ["at0020"] = <
+                    text = <"Latest occurrence">
+                    description = <"The date of the last occurrence or exacerbation of the problem/diagnosis.">
+
+                >
+                ["at0025"] = <
+                    text = <"Number">
+                    description = <"Cumulative number of occurrences or exacerbations of the problem/diagnosis.">
+
+                >
+                ["at0026"] = <
+                    text = <"Related items">
+                    description = <"Further problems, diagnoses, procedures or events that are related in some way to this problem/diagnosis.">
+
+                >
+                ["at0028"] = <
+                    text = <"Related item">
+                    description = <"Identification of a related problem, diagnosis, procedure, or event as text, coded text or link within the health record. Note: It is desirable that this field should be coded using terminology, wherever possible.">
+
+                >
+                ["at0030"] = <
+                    text = <"Date of resolution/remission">
+                    description = <"The date or estimated date that the problem/diagnosis resolved or went into remission.">
+
+                >
+                ["at0031"] = <
+                    text = <"Age at resolution/remission">
+                    description = <"The age of the person at the time of resolution or remission of the problem/diagnosis. 
+Note: May be important in situations where approximations of age based on calculations are not accurate enough, eg in infants under one year.">
+
+                >
+                ["at0037"] = <
+                    text = <"Age at onset">
+                    description = <"The estimated or actual age of the individual when the clinician assesses that the problem/diagnosis began. 
+Note: May be important in situations where approximations of age based on calculations are not accurate enough, eg in infants under one year.">
+
+                >
+                ["at0044"] = <
+                    text = <"Anatomical location">
+                    description = <"Slot to contain detailed and structured anatomical location details.">
+
+                >
+                ["at0054"] = <
+                    text = <"Diagnostic criteria">
+                    description = <"The criteria on which the problem/diagnosis is based.">
+
+                >
+                ["at0055"] = <
+                    text = <"Clinical stage/grade">
+                    description = <"Clinical stage or grade of a problem/diagnosis.   
+Note: May include formal severity assessments.">
+
+                >
+                ["at0056"] = <
+                    text = <"Relationship type">
+                    description = <"The type of relationship that this problem/diagnosis has to the related item.">
+
+                >
+                ["at0069"] = <
+                    text = <"Comment">
+                    description = <"Additional narrative about the problem or diagnosis not captured in other fields.">
+
+                >
+                ["at0072"] = <
+                    text = <"Description">
+                    description = <"A narrative description, including outcomes and other key details, about occurrences or exacerbations of the problem/diagnosis.">
+
+                >
+                ["at0073"] = <
+                    text = <"Link to occurrence details">
+                    description = <"Link to further information about past occurrences or exacerbations of the problem/diagnosis that exist elsewhere in the health record.">
+
+                >
+                ["at0074"] = <
+                    text = <"Tree">
+                    description = <"@ internal @">
+
+                >
+                ["at0075"] = <
+                    text = <"Link to supporting clinical evidence">
+                    description = <"Links to other relevant information, including pathology reports.">
+
+                >
+                ["at0076"] = <
+                    text = <"Status">
+                    description = <"Descriptor for context- or use-case specific label or workflow-related aspect of the diagnostic process which may not be safe to exchange between systems or use in a shared environment. Examples include: active/inactive; primary/secondary; preliminary/provisional/working/final.">
+
+                >
+                ["at0080"] = <
+                    text = <"Caused by">
+                    description = <"This concept identifies the direct cause or causative agent of a Problem/Diagnosis.  The concept includes the idea of ‘complications’, ‘causative agent’ and ‘due to’.  Note: Where no causality or sequence of events is known, this relationship type should be left blank.">
+
+                >
+                ["at0081"] = <
+                    text = <"Following">
+                    description = <"This value identifies the sequence of events between the related items, but does not assert causality.  This can be used for sequelae or late effects.  Note: Where no causality or sequence of events is known, this relationship type should be left blank.">
+
+                >
+                ["at0082"] = <
+                    text = <"Severity">
+                    description = <"A subjective assessment of the severity of the Problem/Diagnosis as evaluated by the clinician. Coding of the severity with a terminology is preferred, where possible.">
+
+                >
+            >
+        >
+        ["en"] = <
+            items = <
+                ["at0000"] = <
+                    text = <"Problem/Diagnosis">
+                    description = <"Any health care condition which may impact on the physical, mental and/or social well-being of an individual, that may require diagnostic, therapeutic or educational action, and which has been determined by a clinician. A diagnosis is based on scientific evaluation of physical signs, symptoms, history, laboratory tests results, and procedures.">
+
+                >
+                ["at0001"] = <
+                    text = <"structure">
+                    description = <"@ internal @">
+
+                >
+                ["at0002"] = <
+                    text = <"Problem/Diagnosis">
+                    description = <"Identification of the problem or diagnosis. Coding of the problem or diagnosis with a terminology is preferred, where possible.">
+
+                >
+                ["at0009"] = <
+                    text = <"Clinical description">
+                    description = <"Narrative description or comments about clinical aspects of the problem/diagnosis.">
+
+                >
+                ["at0010"] = <
+                    text = <"Date of onset">
+                    description = <"Estimated or actual date the problem/diagnosis began, in the opinion of the clinician.">
+
+                >
+                ["at0018"] = <
+                    text = <"Occurrence summary">
+                    description = <"Summary information about occurrences or exacerbations. 
+Note: Detailed information about each occurrence or exacerbation is likely to be held in other parts of the health record.">
+
+                >
+                ["at0019"] = <
+                    text = <"Frequency">
+                    description = <"The frequency or estimated frequency of occurrences or exacerbations of the problem/diagnosis.">
+
+                >
+                ["at0020"] = <
+                    text = <"Latest occurrence">
+                    description = <"The date of the last occurrence or exacerbation of the problem/diagnosis.">
+
+                >
+                ["at0025"] = <
+                    text = <"Number">
+                    description = <"Cumulative number of occurrences or exacerbations of the problem/diagnosis.">
+
+                >
+                ["at0026"] = <
+                    text = <"Related items">
+                    description = <"Further problems, diagnoses, procedures or events that are related in some way to this problem/diagnosis.">
+
+                >
+                ["at0028"] = <
+                    text = <"Related item">
+                    description = <"Identification of a related problem, diagnosis, procedure, or event as text, coded text or link within the health record. Note: It is desirable that this field should be coded using terminology, wherever possible.">
+
+                >
+                ["at0030"] = <
+                    text = <"Date of resolution/remission">
+                    description = <"The date or estimated date that the problem/diagnosis resolved or went into remission.">
+
+                >
+                ["at0031"] = <
+                    text = <"Age at resolution/remission">
+                    description = <"The age of the person at the time of resolution or remission of the problem/diagnosis. 
+Note: May be important in situations where approximations of age based on calculations are not accurate enough, eg in infants under one year.">
+
+                >
+                ["at0037"] = <
+                    text = <"Age at onset">
+                    description = <"The estimated or actual age of the individual when the clinician assesses that the problem/diagnosis began. 
+Note: May be important in situations where approximations of age based on calculations are not accurate enough, eg in infants under one year.">
+
+                >
+                ["at0044"] = <
+                    text = <"Anatomical location">
+                    description = <"Slot to contain detailed and structured anatomical location details.">
+
+                >
+                ["at0054"] = <
+                    text = <"Diagnostic criteria">
+                    description = <"The criteria on which the problem/diagnosis is based.">
+
+                >
+                ["at0055"] = <
+                    text = <"Clinical stage/grade">
+                    description = <"Clinical stage or grade of a problem/diagnosis.   
+Note: May include formal severity assessments.">
+
+                >
+                ["at0056"] = <
+                    text = <"Relationship type">
+                    description = <"The type of relationship that this problem/diagnosis has to the related item.">
+
+                >
+                ["at0069"] = <
+                    text = <"Comment">
+                    description = <"Additional narrative about the problem or diagnosis not captured in other fields.">
+
+                >
+                ["at0072"] = <
+                    text = <"Description">
+                    description = <"A narrative description, including outcomes and other key details, about occurrences or exacerbations of the problem/diagnosis.">
+
+                >
+                ["at0073"] = <
+                    text = <"Link to occurrence details">
+                    description = <"Link to further information about past occurrences or exacerbations of the problem/diagnosis that exist elsewhere in the health record.">
+
+                >
+                ["at0074"] = <
+                    text = <"Tree">
+                    description = <"@ internal @">
+
+                >
+                ["at0075"] = <
+                    text = <"Link to supporting clinical evidence">
+                    description = <"Links to other relevant information, including pathology reports.">
+
+                >
+                ["at0076"] = <
+                    text = <"Status">
+                    description = <"Descriptor for context- or use-case specific label or workflow-related aspect of the diagnostic process which may not be safe to exchange between systems or use in a shared environment. Examples include: active/inactive; primary/secondary; preliminary/provisional/working/final.">
+
+                >
+                ["at0080"] = <
+                    text = <"Caused by">
+                    description = <"This concept identifies the direct cause or causative agent of a Problem/Diagnosis.  The concept includes the idea of ‘complications’, ‘causative agent’ and ‘due to’.  Note: Where no causality or sequence of events is known, this relationship type should be left blank.">
+
+                >
+                ["at0081"] = <
+                    text = <"Following">
+                    description = <"This value identifies the sequence of events between the related items, but does not assert causality.  This can be used for sequelae or late effects.  Note: Where no causality or sequence of events is known, this relationship type should be left blank.">
+
+                >
+                ["at0082"] = <
+                    text = <"Severity">
+                    description = <"A subjective assessment of the severity of the Problem/Diagnosis as evaluated by the clinician. Coding of the severity with a terminology is preferred, where possible.">
+
+                >
+            >
+        >
+    >
+    constraint_definitions = <
+    >
+    term_binding = <
+    >
+    constraint_binding = <
+    >

@@ -1,0 +1,774 @@
+archetype (adl_version=1.4)
+    openEHR-EHR-OBSERVATION.nutritional_risk_screening.v1
+
+concept
+    [at0000]
+
+language
+    original_language = <[ISO_639-1::nb]>
+    translations = <
+        ["no"] = <
+            language = <[ISO_639-1::no]>
+            author = <
+                ["name"] = <"?">
+            >
+        >
+        ["en-gb"] = <
+            language = <[ISO_639-1::en-gb]>
+            author = <
+                ["name"] = <"?">
+            >
+        >
+    >
+
+description
+    original_author = <
+        ["email"] = <"micaela.thierley@helse-bergen.no">
+        ["organisation"] = <"Helse Bergen">
+        ["name"] = <"Micaela Thierley">
+        ["date"] = <"2014-07-11">
+    >
+    lifecycle_state = <"Initial">
+    details = <
+        ["en-gb"] = <
+            language = <[ISO_639-1::en-gb]>
+            purpose = <"Tool for screening of patiens nutritional status.">
+            copyright = <"© Nasjonal IKT HF">
+            use = <"To be used in adults 
+The first 4 questions are prescreening, if any of theses questions is answered YES
+Calculate the total score:
+  1. Find score (0–3) for Impaired nutritional status (only one: choose the variable with highest score) and Severity of disease (≈stress metabolism, i.e. increase in nutritional requirements).
+  2. Add the two scores (→ total score)
+  3. If age ≥70 years: add 1 to the total score to correct for frailty of elderly
+  4. If age-corrected total ≥3: start nutritional support">
+            misuse = <"Not to be used in children">
+        >
+        ["nb"] = <
+            language = <[ISO_639-1::nb]>
+            purpose = <"Verktøy for screening av ernæringsstatus. Det finnes flere modeller for NRS. I dette tilfellet benyttes versjon anbefalt av European Society for Clinical Nutrition and Metabolism. 
+Versjonen anbefalt av det norske Helsedirektoratet inneholder andre grenseverdier for tidsintervaller i scoringen.">
+            keywords = <"ernæring","NRS","NRS2002">
+            copyright = <"© Nasjonal IKT HF">
+            use = <"Brukes for voksne personer.
+De første 4 spørsmålene er forhåndsscreening.
+Dersom svaret er JA på noen av disse spørsmålene, gjennomføres hovedscreeningen.
+Dersom svaret er NEI på alle svarene, gjennomføres innledende screening ukentlig. 
+Dersom pasienten skal gjennomgå planlagt større kirurgi, skal en forebyggende ernæringsplan vurderes 
+for å unngå assosiert ernæringsrisiko.">
+            misuse = <"Brukes ikke til barn.">
+        >
+        ["no"] = <
+            language = <[ISO_639-1::no]>
+            purpose = <"Verktøy for screening av ernæringsstatus. Det finnes flere modeller for NRS. I dette tilfellet benyttes versjon anbefalt av European Society for Clinical Nutrition and Metabolism. 
+Versjonen anbefalt av det norske Helsedirektoratet inneholder andre grenseverdier for tidsintervaller i scoringen.">
+            keywords = <"ernæring","NRS","NRS2002">
+            copyright = <"© Nasjonal IKT HF">
+            use = <"Brukes for voksne personer.
+De første 4 spørsmålene er forhåndsscreening.
+Dersom svaret er JA på noen av disse spørsmålene, gjennomføres hovedscreeningen.
+Dersom svaret er NEI på alle svarene, gjennomføres innledende screening ukentlig. 
+Dersom pasienten skal gjennomgå planlagt større kirurgi, skal en forebyggende ernæringsplan vurderes 
+for å unngå assosiert ernæringsrisiko.">
+            misuse = <"Brukes ikke til barn.">
+        >
+    >
+
+definition
+    OBSERVATION[at0000] matches {
+        data matches {
+            HISTORY[at0001] matches {
+                events cardinality matches {1..*; unordered} matches {
+                    POINT_EVENT[at0002] occurrences matches {0..*} matches {
+                        data matches {
+                            ITEM_TREE[at0003] matches {
+                                items cardinality matches {0..*; unordered} matches {
+                                    ELEMENT[at0045] occurrences matches {0..1} matches {
+                                        value matches {
+                                            DV_CODED_TEXT matches {
+                                                defining_code matches {
+                                                    [local::
+                                                    at0046,
+                                                    at0047,
+                                                    at0048]
+                                                }
+                                            }
+                                        }
+                                    }
+                                    ELEMENT[at0004] occurrences matches {0..1} matches {
+                                        value matches {
+                                            DV_CODED_TEXT matches {
+                                                defining_code matches {
+                                                    [local::
+                                                    at0034,
+                                                    at0035,
+                                                    at0033]
+                                                }
+                                            }
+                                        }
+                                    }
+                                    ELEMENT[at0005] occurrences matches {0..1} matches {
+                                        value matches {
+                                            DV_CODED_TEXT matches {
+                                                defining_code matches {
+                                                    [local::
+                                                    at0036,
+                                                    at0037,
+                                                    at0038]
+                                                }
+                                            }
+                                        }
+                                    }
+                                    ELEMENT[at0006] occurrences matches {0..1} matches {
+                                        value matches {
+                                            DV_CODED_TEXT matches {
+                                                defining_code matches {
+                                                    [local::
+                                                    at0039,
+                                                    at0040,
+                                                    at0041]
+                                                }
+                                            }
+                                        }
+                                    }
+                                    ELEMENT[at0007] occurrences matches {0..1} matches {
+                                        value matches {
+                                            DV_CODED_TEXT matches {
+                                                defining_code matches {
+                                                    [local::
+                                                    at0042,
+                                                    at0043,
+                                                    at0044]
+                                                }
+                                            }
+                                        }
+                                    }
+                                    ELEMENT[at0016] occurrences matches {0..1} matches {
+                                        value matches {
+                                            0|[local::at0018],
+                                            1|[local::at0019],
+                                            2|[local::at0020],
+                                            3|[local::at0021]
+                                        }
+                                    }
+                                    ELEMENT[at0017] occurrences matches {0..1} matches {
+                                        value matches {
+                                            0|[local::at0022],
+                                            1|[local::at0023],
+                                            2|[local::at0024],
+                                            3|[local::at0025]
+                                        }
+                                    }
+                                    ELEMENT[at0027] occurrences matches {0..1} matches {
+                                        value matches {
+                                            0|[local::at0028],
+                                            1|[local::at0029]
+                                        }
+                                    }
+                                    ELEMENT[at0030] occurrences matches {0..7} matches {
+                                        value matches {
+                                            DV_COUNT matches {*}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+ontology
+    term_definitions = <
+        ["no"] = <
+            items = <
+                ["at0000"] = <
+                    text = <"Nutritional Risk Screening">
+                    description = <"Verktøyet Nutritional Risk Screening (NRS) 2002 for screening etter feilernæring.">
+
+                >
+                ["at0001"] = <
+                    text = <"Event Series">
+                    description = <"@ internal @">
+
+                >
+                ["at0002"] = <
+                    text = <"Uspesifisert hendelse">
+                    description = <"Standard, uspesifisert tidspunkt eller tidsintervall som kan defineres mer eksplisitt i en template eller i en applikasjon.">
+
+                >
+                ["at0003"] = <
+                    text = <"Tree">
+                    description = <"@ internal @(nb).">
+
+                >
+                ["at0004"] = <
+                    text = <"Er BMI < 20,5?">
+                    description = <"Er pasientens BMI under 20,5?">
+
+                >
+                ["at0005"] = <
+                    text = <"Har pasienten tapt vekt de siste tre månedene?">
+                    description = <"Vekttap de siste ukene?">
+
+                >
+                ["at0006"] = <
+                    text = <"Har pasienten hatt redusert næringsinntak den siste uken?">
+                    description = <"Redusert ernæringsinntak siste uken?">
+
+                >
+                ["at0007"] = <
+                    text = <"Er pasienten alvorlig/kritisk syk?">
+                    description = <"Alvorlig sykdom? (Eksempel intensivopphold).">
+
+                >
+                ["at0016"] = <
+                    text = <"Ernæringstilstand">
+                    description = <"Kartlegging av ernæringstilstand.">
+
+                >
+                ["at0017"] = <
+                    text = <"Sykdommens alvorlighetsgrad">
+                    description = <"Kartlegging av syklighetsgrad.">
+
+                >
+                ["at0018"] = <
+                    text = <"Score 0 - Normal ernæringsstatus">
+                    description = <"Normal">
+
+                >
+                ["at0019"] = <
+                    text = <"Score 1 - Vekttap > 5 % siste 3 mnd. eller matinntak < 50 – 75 % av behov siste uke.">
+                    description = <"Mild">
+
+                >
+                ["at0020"] = <
+                    text = <"Score 2 - Vekttap > 5 % siste 2 mnd. eller BMI 18.5 – 20.5 og redusert allmenntilstand eller matinntak 25–50 % av behov sist uke.">
+                    description = <"Moderat">
+
+                >
+                ["at0021"] = <
+                    text = <"Score 3 - Vekttap > 5 % siste mnd. eller BMI < 18.5 og redusert allmenntilstand eller matinntak 0–25 % av behov siste uke.">
+                    description = <"Alvorlig">
+
+                >
+                ["at0022"] = <
+                    text = <"Score 0 - Normal ernæringsbehov">
+                    description = <"Normal">
+
+                >
+                ["at0023"] = <
+                    text = <"Score 1 - En pasient med kronisk sykdom eller en pasient som har 
+gjennomgått et mindre kirurgisk inngrep.">
+                    description = <"Mild">
+
+                >
+                ["at0024"] = <
+                    text = <"Score 2 - En pasient med tydelig redusert allmenntilstand pga sin sykdom.">
+                    description = <"Moderat">
+
+                >
+                ["at0025"] = <
+                    text = <"Score 3 - En pasient som er alvorlig syk.">
+                    description = <"Alvorlig">
+
+                >
+                ["at0027"] = <
+                    text = <"Er pasienten 70 år eller eldre?">
+                    description = <"Er pasienten 70 år eller eldre?">
+
+                >
+                ["at0028"] = <
+                    text = <"Score 0 - Nei">
+                    description = <"Pasienten er yngre enn 70 år.">
+
+                >
+                ["at0029"] = <
+                    text = <"Score 1 - Ja">
+                    description = <"Pasienten er 70 år eller eldre.">
+
+                >
+                ["at0030"] = <
+                    text = <"Total aldersjustert score">
+                    description = <"Summen av score fra ernæringstilstand, sykdommens alvorlighetsgrad og aldersjustering.">
+
+                >
+                ["at0033"] = <
+                    text = <"Vet ikke">
+                    description = <"*">
+
+                >
+                ["at0034"] = <
+                    text = <"Ja">
+                    description = <"Pasienten har BMI lavere enn 20,5">
+
+                >
+                ["at0035"] = <
+                    text = <"Nei">
+                    description = <"*">
+
+                >
+                ["at0036"] = <
+                    text = <"Ja">
+                    description = <"*">
+
+                >
+                ["at0037"] = <
+                    text = <"Nei">
+                    description = <"*">
+
+                >
+                ["at0038"] = <
+                    text = <"Vet ikke">
+                    description = <"*">
+
+                >
+                ["at0039"] = <
+                    text = <"Ja">
+                    description = <"*">
+
+                >
+                ["at0040"] = <
+                    text = <"Nei">
+                    description = <"*">
+
+                >
+                ["at0041"] = <
+                    text = <"Vet ikke">
+                    description = <"*">
+
+                >
+                ["at0042"] = <
+                    text = <"Ja">
+                    description = <"*">
+
+                >
+                ["at0043"] = <
+                    text = <"Nei">
+                    description = <"*">
+
+                >
+                ["at0044"] = <
+                    text = <"Vet ikke">
+                    description = <"*">
+
+                >
+                ["at0045"] = <
+                    text = <"Tidspunkt for screening">
+                    description = <"*">
+
+                >
+                ["at0046"] = <
+                    text = <"Ved innkomst">
+                    description = <"*">
+
+                >
+                ["at0047"] = <
+                    text = <"Under opphold">
+                    description = <"*">
+
+                >
+                ["at0048"] = <
+                    text = <"Poliklinisk time">
+                    description = <"*">
+
+                >
+            >
+        >
+        ["nb"] = <
+            items = <
+                ["at0000"] = <
+                    text = <"Nutritional Risk Screening">
+                    description = <"Verktøyet Nutritional Risk Screening (NRS) 2002 for screening etter feilernæring.">
+
+                >
+                ["at0001"] = <
+                    text = <"Event Series">
+                    description = <"@ internal @">
+
+                >
+                ["at0002"] = <
+                    text = <"Uspesifisert hendelse">
+                    description = <"Standard, uspesifisert tidspunkt eller tidsintervall som kan defineres mer eksplisitt i en template eller i en applikasjon.">
+
+                >
+                ["at0003"] = <
+                    text = <"Tree">
+                    description = <"@ internal @(nb).">
+
+                >
+                ["at0004"] = <
+                    text = <"Er BMI < 20,5?">
+                    description = <"Er pasientens BMI under 20,5?">
+
+                >
+                ["at0005"] = <
+                    text = <"Har pasienten tapt vekt de siste tre månedene?">
+                    description = <"Vekttap de siste ukene?">
+
+                >
+                ["at0006"] = <
+                    text = <"Har pasienten hatt redusert næringsinntak den siste uken?">
+                    description = <"Redusert ernæringsinntak siste uken?">
+
+                >
+                ["at0007"] = <
+                    text = <"Er pasienten alvorlig/kritisk syk?">
+                    description = <"Alvorlig sykdom? (Eksempel intensivopphold).">
+
+                >
+                ["at0016"] = <
+                    text = <"Ernæringstilstand">
+                    description = <"Kartlegging av ernæringstilstand.">
+
+                >
+                ["at0017"] = <
+                    text = <"Sykdommens alvorlighetsgrad">
+                    description = <"Kartlegging av syklighetsgrad.">
+
+                >
+                ["at0018"] = <
+                    text = <"Score 0 - Normal ernæringsstatus">
+                    description = <"Normal">
+
+                >
+                ["at0019"] = <
+                    text = <"Score 1 - Vekttap > 5 % siste 3 mnd. eller matinntak < 50 – 75 % av behov siste uke.">
+                    description = <"Mild">
+
+                >
+                ["at0020"] = <
+                    text = <"Score 2 - Vekttap > 5 % siste 2 mnd. eller BMI 18.5 – 20.5 og redusert allmenntilstand eller matinntak 25–50 % av behov sist uke.">
+                    description = <"Moderat">
+
+                >
+                ["at0021"] = <
+                    text = <"Score 3 - Vekttap > 5 % siste mnd. eller BMI < 18.5 og redusert allmenntilstand eller matinntak 0–25 % av behov siste uke.">
+                    description = <"Alvorlig">
+
+                >
+                ["at0022"] = <
+                    text = <"Score 0 - Normal ernæringsbehov">
+                    description = <"Normal">
+
+                >
+                ["at0023"] = <
+                    text = <"Score 1 - En pasient med kronisk sykdom eller en pasient som har 
+gjennomgått et mindre kirurgisk inngrep.">
+                    description = <"Mild">
+
+                >
+                ["at0024"] = <
+                    text = <"Score 2 - En pasient med tydelig redusert allmenntilstand pga sin sykdom.">
+                    description = <"Moderat">
+
+                >
+                ["at0025"] = <
+                    text = <"Score 3 - En pasient som er alvorlig syk.">
+                    description = <"Alvorlig">
+
+                >
+                ["at0027"] = <
+                    text = <"Er pasienten 70 år eller eldre?">
+                    description = <"Er pasienten 70 år eller eldre?">
+
+                >
+                ["at0028"] = <
+                    text = <"Score 0 - Nei">
+                    description = <"Pasienten er yngre enn 70 år.">
+
+                >
+                ["at0029"] = <
+                    text = <"Score 1 - Ja">
+                    description = <"Pasienten er 70 år eller eldre.">
+
+                >
+                ["at0030"] = <
+                    text = <"Total aldersjustert score">
+                    description = <"Summen av score fra ernæringstilstand, sykdommens alvorlighetsgrad og aldersjustering.">
+
+                >
+                ["at0033"] = <
+                    text = <"Vet ikke">
+                    description = <"*">
+
+                >
+                ["at0034"] = <
+                    text = <"Ja">
+                    description = <"Pasienten har BMI lavere enn 20,5">
+
+                >
+                ["at0035"] = <
+                    text = <"Nei">
+                    description = <"*">
+
+                >
+                ["at0036"] = <
+                    text = <"Ja">
+                    description = <"*">
+
+                >
+                ["at0037"] = <
+                    text = <"Nei">
+                    description = <"*">
+
+                >
+                ["at0038"] = <
+                    text = <"Vet ikke">
+                    description = <"*">
+
+                >
+                ["at0039"] = <
+                    text = <"Ja">
+                    description = <"*">
+
+                >
+                ["at0040"] = <
+                    text = <"Nei">
+                    description = <"*">
+
+                >
+                ["at0041"] = <
+                    text = <"Vet ikke">
+                    description = <"*">
+
+                >
+                ["at0042"] = <
+                    text = <"Ja">
+                    description = <"*">
+
+                >
+                ["at0043"] = <
+                    text = <"Nei">
+                    description = <"*">
+
+                >
+                ["at0044"] = <
+                    text = <"Vet ikke">
+                    description = <"*">
+
+                >
+                ["at0045"] = <
+                    text = <"Tidspunkt for screening">
+                    description = <"*">
+
+                >
+                ["at0046"] = <
+                    text = <"Ved innkomst">
+                    description = <"*">
+
+                >
+                ["at0047"] = <
+                    text = <"Under opphold">
+                    description = <"*">
+
+                >
+                ["at0048"] = <
+                    text = <"Poliklinisk time">
+                    description = <"*">
+
+                >
+            >
+        >
+        ["en-gb"] = <
+            items = <
+                ["at0000"] = <
+                    text = <"*Nutritional risk screening(nb)">
+                    description = <"*Screening for malnutrition using the tool NRS 2002.(nb)">
+
+                >
+                ["at0001"] = <
+                    text = <"Event Series">
+                    description = <"@ internal @">
+
+                >
+                ["at0002"] = <
+                    text = <"*Any event(nb)">
+                    description = <"*(nb)">
+
+                >
+                ["at0003"] = <
+                    text = <"*Tree(nb)">
+                    description = <"*@ internal @(nb).(nb)">
+
+                >
+                ["at0004"] = <
+                    text = <"*Er BMI < 20,5?(nb)">
+                    description = <"*Er pasientens BMI under 20,5?(nb)">
+
+                >
+                ["at0005"] = <
+                    text = <"*Har pasienten tapt vekt de siste tre månedene?(nb)">
+                    description = <"*Vekttap de siste ukene?(nb)">
+
+                >
+                ["at0006"] = <
+                    text = <"*Har pasienten hatt redusert næringsinntak den siste uken?(nb)">
+                    description = <"*Redusert ernæringsinntak siste uken?(nb)">
+
+                >
+                ["at0007"] = <
+                    text = <"*Er pasienten alvorlig/kritisk syk?(nb)">
+                    description = <"*Alvorlig sykdom? (Eksempel intensivopphold).(nb)">
+
+                >
+                ["at0016"] = <
+                    text = <"*Ernæringstilstand(nb)">
+                    description = <"*Kartlegging av ernæringstilstand.(nb)">
+
+                >
+                ["at0017"] = <
+                    text = <"Severity of disease.">
+                    description = <"*">
+
+                >
+                ["at0018"] = <
+                    text = <"*Score 0 - Normal ernæringsstatus(nb)">
+                    description = <"*Normal(nb)">
+
+                >
+                ["at0019"] = <
+                    text = <"*Score 1 - Vekttap > 5 % siste 3 mnd. eller matinntak < 50 – 75 % av behov siste uke.(nb)">
+                    description = <"*Mild(nb)">
+
+                >
+                ["at0020"] = <
+                    text = <"*Score 2 - Vekttap > 5 % siste 2 mnd. eller BMI 18.5 – 20.5 og redusert allmenntilstand eller matinntak 25–50 % av behov sist uke.(nb)">
+                    description = <"*Moderat(nb)">
+
+                >
+                ["at0021"] = <
+                    text = <"*Score 3 - Vekttap > 5 % siste mnd. eller BMI < 18.5 og redusert allmenntilstand eller matinntak 0–25 % av behov siste uke.(nb)">
+                    description = <"*Alvorlig(nb)">
+
+                >
+                ["at0022"] = <
+                    text = <"*Score 0 - Normal ernæringsbehov(nb)">
+                    description = <"*Normal(nb)">
+
+                >
+                ["at0023"] = <
+                    text = <"*Score 1 - En pasient med kronisk sykdom eller en pasient som har 
+gjennomgått et mindre kirurgisk inngrep.(nb)">
+                    description = <"*Mild(nb)">
+
+                >
+                ["at0024"] = <
+                    text = <"*Score 2 - En pasient med tydelig redusert allmenntilstand pga sin sykdom.(nb)">
+                    description = <"*Moderat(nb)">
+
+                >
+                ["at0025"] = <
+                    text = <"*Score 3 - En pasient som er alvorlig syk.(nb)">
+                    description = <"*Alvorlig(nb)">
+
+                >
+                ["at0027"] = <
+                    text = <"*Er pasienten 70 år eller eldre?(nb)">
+                    description = <"*Er pasienten 70 år eller eldre?(nb)">
+
+                >
+                ["at0028"] = <
+                    text = <"*Score 0 - Nei(nb)">
+                    description = <"*Pasienten er yngre enn 70 år.(nb)">
+
+                >
+                ["at0029"] = <
+                    text = <"*Score 1 - Ja(nb)">
+                    description = <"*Pasienten er 70 år eller eldre.(nb)">
+
+                >
+                ["at0030"] = <
+                    text = <"*Total aldersjustert score(nb)">
+                    description = <"*Summen av score fra ernæringstilstand, sykdommens alvorlighetsgrad og aldersjustering.(nb)">
+
+                >
+                ["at0033"] = <
+                    text = <"*Vet ikke(nb)">
+                    description = <"**(nb)">
+
+                >
+                ["at0034"] = <
+                    text = <"*Ja(nb)">
+                    description = <"*Pasienten har BMI lavere enn 20,5(nb)">
+
+                >
+                ["at0035"] = <
+                    text = <"*Nei(nb)">
+                    description = <"**(nb)">
+
+                >
+                ["at0036"] = <
+                    text = <"*Ja(nb)">
+                    description = <"**(nb)">
+
+                >
+                ["at0037"] = <
+                    text = <"*Nei(nb)">
+                    description = <"**(nb)">
+
+                >
+                ["at0038"] = <
+                    text = <"*Vet ikke(nb)">
+                    description = <"**(nb)">
+
+                >
+                ["at0039"] = <
+                    text = <"*Ja(nb)">
+                    description = <"**(nb)">
+
+                >
+                ["at0040"] = <
+                    text = <"*Nei(nb)">
+                    description = <"**(nb)">
+
+                >
+                ["at0041"] = <
+                    text = <"*Vet ikke(nb)">
+                    description = <"**(nb)">
+
+                >
+                ["at0042"] = <
+                    text = <"*Ja(nb)">
+                    description = <"**(nb)">
+
+                >
+                ["at0043"] = <
+                    text = <"*Nei(nb)">
+                    description = <"**(nb)">
+
+                >
+                ["at0044"] = <
+                    text = <"*Vet ikke(nb)">
+                    description = <"**(nb)">
+
+                >
+                ["at0045"] = <
+                    text = <"*Tidspunkt for screening(nb)">
+                    description = <"**(nb)">
+
+                >
+                ["at0046"] = <
+                    text = <"*Ved innkomst(nb)">
+                    description = <"**(nb)">
+
+                >
+                ["at0047"] = <
+                    text = <"*Under opphold(nb)">
+                    description = <"**(nb)">
+
+                >
+                ["at0048"] = <
+                    text = <"*Poliklinisk time(nb)">
+                    description = <"**(nb)">
+
+                >
+            >
+        >
+    >
+    constraint_definitions = <
+    >
+    term_binding = <
+    >
+    constraint_binding = <
+    >
