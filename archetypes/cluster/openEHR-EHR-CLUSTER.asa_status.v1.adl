@@ -1,22 +1,18 @@
-archetype (adl_version=1.4)
+﻿archetype (adl_version=1.4)
 	openEHR-EHR-CLUSTER.asa_status.v1
 
 concept
-	[at0000]	-- ASA klassifikasjon helsetilstand
+	[at0000]	-- ASA Physical Status Classification
 language
 	original_language = <[ISO_639-1::en]>
 	translations = <
-		["no"] = <
-			language = <[ISO_639-1::no]>
-			author = <
-				["name"] = <"?">
-			>
-		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
 			author = <
-				["name"] = <"?">
+				["name"] = <"Lars Bitsch-Larsen">
+				["organisation"] = <"Haukeland University Hospital Bergen , Norway">
 			>
+			accreditation = <"MD DEAA MBA spec in anesthesia and intensive care, spec in tropical med.">
 		>
 	>
 description
@@ -27,16 +23,6 @@ description
 		["date"] = <"2010-06-25">
 	>
 	details = <
-		["no"] = <
-			language = <[ISO_639-1::no]>
-			purpose = <"Å beskrive graden av sykdom eller helstiltstand i forkant av valg av narkose i forbindlese med gjennomføring av et kirurgi.">
-			use = <"Brukes for dokumentasjon, som kommunikasjon mellom kolleger og for å skape et enhetlig system for statistisk analyse.
-
-Denne archetypen er utviklet for å bli brukt i forbindelse med en rekke ENTRY archetyper, for eksempel en vurdering av en preoperativ anestesi vurdering eller en undersøkelse i forbindelse med vurdering av en infeksjonsbehandling. ">
-			keywords = <"ASA", "properativ", "kirurgi">
-			misuse = <"Skal ikke brukes som et mål for preoperativ risiko.">
-			copyright = <"*© openEHR Foundation(en)">
-		>
 		["en"] = <
 			language = <[ISO_639-1::en]>
 			purpose = <"To record the degree of 'sickness' or 'physical state' prior to selecting the anaesthetic or prior to performing surgery.">
@@ -45,49 +31,52 @@ Denne archetypen er utviklet for å bli brukt i forbindelse med en rekke ENTRY a
 This archetype has been designed to be used within a variety of ENTRY archetypes - for example an EVALUATION for a pre-operative anaesthetic assessment or an infection control investigation.">
 			keywords = <"ASA", "pre-operative", "surgery">
 			misuse = <"Not intended for use as a measure to predict operative risk.">
-			copyright = <"© openEHR Foundation">
+			copyright = <"© Nasjonal IKT HF">
 		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"Å beskrive graden av sykdom eller helstiltstand i forkant av valg av narkose i forbindlese med gjennomføring av et kirurgi.">
-			use = <"Brukes for dokumentasjon, som kommunikasjon mellom kolleger og for å skape et enhetlig system for statistisk analyse.
+			purpose = <"For registrering av \"graden\" av sykelighet eller fysiske status før anestesi eller operasjon.">
+			use = <"Brukes for journalføring, for kommunikasjon mellom kolleger og for å skape en enhetlig system for statistisk analyse.
 
-Denne archetypen er utviklet for å bli brukt i forbindelse med en rekke ENTRY archetyper, for eksempel en vurdering av en preoperativ anestesi vurdering eller en undersøkelse i forbindelse med vurdering av en infeksjonsbehandling. ">
-			keywords = <"ASA", "properativ", "kirurgi">
-			misuse = <"Skal ikke brukes som et mål for preoperativ risiko.">
-			copyright = <"*© openEHR Foundation(en)">
+Denne arketype er blitt designet for å brukes innen forskjellige ENTRY-arketyper f.eks. EVALUATION for pre-operative vurdering eller infeksjons kontroll undersøking.">
+			keywords = <"ASA", "pre-operativ", "kirurgi">
+			misuse = <"Brukes ikke for som mål for å forutsi operativ risiko.">
+			copyright = <"© Nasjonal IKT HF">
 		>
 	>
 	lifecycle_state = <"AuthorDraft">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"D4C28572F4598E8E2B23A2D1608DC34B">
+		["current_contact"] = <"Heather Leslie, Ocean Informatics, heather.leslie@oceaninformatics.com">
+		["references"] = <"American Society for Anesthesiologists: http://www.asahq.org/clinical/physicalstatus.htm
+Cleveland Clinic (provided examples of each state): http://my.clevelandclinic.org/services/Anesthesia/hic_ASA_Physical_Classification_System.aspx">
+		["MD5-CAM-1.0.1"] = <"15EC4E876583B22FD8101B4A7888C258">
 	>
 
 definition
-	CLUSTER[at0000] matches {	-- ASA klassifikasjon helsetilstand
+	CLUSTER[at0000] matches {	-- ASA Physical Status Classification
 		items cardinality matches {1..*; unordered} matches {
-			ELEMENT[at0001] matches {	-- ASA helsetilstand
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- ASA patient status
 				value matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0003, 	-- 1 - Normal,  frisk pasient
-							at0004, 	-- 2 - Moderat organisk lidelse
-							at0005, 	-- 3 - Alvorlig organisk sykdom eller forstyrrelse
-							at0006, 	-- 4 - Livstruende organisk sykdom
-							at0007, 	-- 5 - Moribund pasient
-							at0008, 	-- 6 - Donorpasient 
-							at0009, 	-- 1E - Normal,  frisk pasient nødsituasjon
-							at0010, 	-- 2E - Moderat organisk lidelse nødsituasjon
-							at0011, 	-- 3E - Alvorlig organisk sykdom nødsituasjon
-							at0012, 	-- 4E - Livstruende organisk sykdom nødsituasjon
-							at0013]	-- 5E - Moribund pasient nødsituasjon
+							at0003, 	-- 1 - A normal healthy patient
+							at0004, 	-- 2 - A patient with mild systemic disease
+							at0005, 	-- 3 - A patient with severe systemic disease
+							at0006, 	-- 4 - A patient with severe systemic disease that is a constant threat to life
+							at0007, 	-- 5 - A moribund patient who is not expected to survive without the operation
+							at0008, 	-- 6 - A declared brain-dead patient whose organs are being removed for donor purposes
+							at0009, 	-- 1E - A normal healthy patient (Emergency)
+							at0010, 	-- 2E - A patient with mild systemic disease (Emergency)
+							at0011, 	-- 3E - A patient with severe systemic disease (Emergency)
+							at0012, 	-- 4E - A patient with severe systemic disease that is a constant threat to life (Emergency)
+							at0013]	-- 5E - A moribund patient who is not expected to survive without the operation (Emergency)
 						}
 					}
 				}
 			}
-			ELEMENT[at0014] occurrences matches {0..1} matches {	-- Kommentar
+			ELEMENT[at0014] occurrences matches {0..1} matches {	-- Comment
 				value matches {
 					DV_TEXT matches {*}
 				}
@@ -95,154 +84,13 @@ definition
 		}
 	}
 
+
 ontology
 	term_definitions = <
-		["no"] = <
-			items = <
-				["at0000"] = <
-					text = <"ASA klassifikasjon helsetilstand">
-					description = <"Kalssifikasjonssystem brukt av American Society of Anesthesiologists for å vurdere preoperativ helsetilstand.">
-				>
-				["at0001"] = <
-					text = <"ASA helsetilstand">
-					description = <"Estimert preoperativ helsetilstand av en pasient">
-				>
-				["at0003"] = <
-					text = <"1 - Normal,  frisk pasient">
-					description = <"Ingen organisk, fysiologisk, biokjemisk eller psykiatrisk forstyrrelse. Den aktuelle lidelsen er lokalisert og gir ikke generelle systemforstyrrelser. Mindre enn 5 sigaretters røyking per dag. Alder under 80 år.
-Ingen organisk, fysiologisk, biokjemisk eller psykiatrisk forstyrrelse. Den aktuelle lidelsen er lokalisert og gir ikke generelle systemforstyrrelser. Mindre enn 5 sigaretters røyking per dag. Alder under 80 år.
-Ingen organisk, fysiologisk, biokjemisk eller psykiatrisk forstyrrelse. Den aktuelle lidelsen er lokalisert og gir ikke generelle systemforstyrrelser. Mindre enn 5 sigaretters røyking per dag. Alder under 80 år.
-Ingen organisk, fysiologisk, biokjemisk eller psykiatrisk forstyrrelse. Den aktuelle lidelsen er lokalisert og gir ikke generelle systemforstyrrelser. Mindre enn 5 sigaretters røyking per dag. Alder under 80 år.
-Ingen organisk, fysiologisk, biokjemisk eller psykiatrisk forstyrrelse. Den aktuelle lidelsen er lokalisert og gir ikke generelle systemforstyrrelser. Mindre enn 5 sigaretters røyking per dag. Alder under 80 år.
-Ingen organisk, fysiologisk , biokemisk eller psykiatrisk forstyrrelse. Den aktuelle liedelsen er lokalisert og gir ikke generelle system forstyrrelser. Mindre enn 5 siagerteeter røyking per dag. Alder under 80 år.">
-				>
-				["at0004"] = <
-					text = <"2 - Moderat organisk lidelse">
-					description = <"Moderat organisk lidelse eller forstyrrelse som ikke forårsaker funksjonelle begrensninger, men som kan medføre spesielle forholdsregler eller anestesitekniske tiltak. Lidelsen(e) kan enten være forårsaket av den aktuelle sykdommen pasienten skal opereres for, eller av en annen patologisk prosess. Alder over 80 år og nyfødte under 3 måneder. Mer enn 5 sigaretters røyking per dag.
-">
-				>
-				["at0005"] = <
-					text = <"3 - Alvorlig organisk sykdom eller forstyrrelse">
-					description = <"Alvorlig organisk sykdom eller forstyrrelse som gir definerte funksjonelle begrensninger.
-">
-				>
-				["at0006"] = <
-					text = <"4 - Livstruende organisk sykdom">
-					description = <"Livstruende organisk sykdom som ikke trenger
-være relatert til den aktuelle kirurgiske lidelsen
-eller som ikke alltid bedres ved inngrepet..">
-				>
-				["at0007"] = <
-					text = <"5 - Moribund pasient">
-					description = <"Moribund pasient som ikke forventes å overleve 24 timer, med eller uten kirurgi.
-">
-				>
-				["at0008"] = <
-					text = <"6 - Donorpasient ">
-					description = <"Hjernedød pasient som preserveres for
-organdonasjon.">
-				>
-				["at0009"] = <
-					text = <"1E - Normal,  frisk pasient nødsituasjon">
-					description = <"ASA status 1, i en nødsituasjon">
-				>
-				["at0010"] = <
-					text = <"2E - Moderat organisk lidelse nødsituasjon">
-					description = <"ASA status 2, i en nødsituasjon">
-				>
-				["at0011"] = <
-					text = <"3E - Alvorlig organisk sykdom nødsituasjon">
-					description = <"ASA status 3, i en nødsituasjon">
-				>
-				["at0012"] = <
-					text = <"4E - Livstruende organisk sykdom nødsituasjon">
-					description = <"ASA status 4, i en nødsituasjon">
-				>
-				["at0013"] = <
-					text = <"5E - Moribund pasient nødsituasjon">
-					description = <"ASA status 5, i en nødsituasjon">
-				>
-				["at0014"] = <
-					text = <"Kommentar">
-					description = <"Beskrivende kommentar vedrørende vurdering av pasientens ASA tilstand">
-				>
-			>
-		>
-		["nb"] = <
-			items = <
-				["at0000"] = <
-					text = <"ASA klassifikasjon helsetilstand">
-					description = <"Kalssifikasjonssystem brukt av American Society of Anesthesiologists for å vurdere preoperativ helsetilstand.">
-				>
-				["at0001"] = <
-					text = <"ASA helsetilstand">
-					description = <"Estimert preoperativ helsetilstand av en pasient">
-				>
-				["at0003"] = <
-					text = <"1 - Normal,  frisk pasient">
-					description = <"Ingen organisk, fysiologisk, biokjemisk eller psykiatrisk forstyrrelse. Den aktuelle lidelsen er lokalisert og gir ikke generelle systemforstyrrelser. Mindre enn 5 sigaretters røyking per dag. Alder under 80 år.
-Ingen organisk, fysiologisk, biokjemisk eller psykiatrisk forstyrrelse. Den aktuelle lidelsen er lokalisert og gir ikke generelle systemforstyrrelser. Mindre enn 5 sigaretters røyking per dag. Alder under 80 år.
-Ingen organisk, fysiologisk, biokjemisk eller psykiatrisk forstyrrelse. Den aktuelle lidelsen er lokalisert og gir ikke generelle systemforstyrrelser. Mindre enn 5 sigaretters røyking per dag. Alder under 80 år.
-Ingen organisk, fysiologisk, biokjemisk eller psykiatrisk forstyrrelse. Den aktuelle lidelsen er lokalisert og gir ikke generelle systemforstyrrelser. Mindre enn 5 sigaretters røyking per dag. Alder under 80 år.
-Ingen organisk, fysiologisk, biokjemisk eller psykiatrisk forstyrrelse. Den aktuelle lidelsen er lokalisert og gir ikke generelle systemforstyrrelser. Mindre enn 5 sigaretters røyking per dag. Alder under 80 år.
-Ingen organisk, fysiologisk , biokemisk eller psykiatrisk forstyrrelse. Den aktuelle liedelsen er lokalisert og gir ikke generelle system forstyrrelser. Mindre enn 5 siagerteeter røyking per dag. Alder under 80 år.">
-				>
-				["at0004"] = <
-					text = <"2 - Moderat organisk lidelse">
-					description = <"Moderat organisk lidelse eller forstyrrelse som ikke forårsaker funksjonelle begrensninger, men som kan medføre spesielle forholdsregler eller anestesitekniske tiltak. Lidelsen(e) kan enten være forårsaket av den aktuelle sykdommen pasienten skal opereres for, eller av en annen patologisk prosess. Alder over 80 år og nyfødte under 3 måneder. Mer enn 5 sigaretters røyking per dag.
-">
-				>
-				["at0005"] = <
-					text = <"3 - Alvorlig organisk sykdom eller forstyrrelse">
-					description = <"Alvorlig organisk sykdom eller forstyrrelse som gir definerte funksjonelle begrensninger.
-">
-				>
-				["at0006"] = <
-					text = <"4 - Livstruende organisk sykdom">
-					description = <"Livstruende organisk sykdom som ikke trenger
-være relatert til den aktuelle kirurgiske lidelsen
-eller som ikke alltid bedres ved inngrepet..">
-				>
-				["at0007"] = <
-					text = <"5 - Moribund pasient">
-					description = <"Moribund pasient som ikke forventes å overleve 24 timer, med eller uten kirurgi.
-">
-				>
-				["at0008"] = <
-					text = <"6 - Donorpasient ">
-					description = <"Hjernedød pasient som preserveres for
-organdonasjon.">
-				>
-				["at0009"] = <
-					text = <"1E - Normal,  frisk pasient nødsituasjon">
-					description = <"ASA status 1, i en nødsituasjon">
-				>
-				["at0010"] = <
-					text = <"2E - Moderat organisk lidelse nødsituasjon">
-					description = <"ASA status 2, i en nødsituasjon">
-				>
-				["at0011"] = <
-					text = <"3E - Alvorlig organisk sykdom nødsituasjon">
-					description = <"ASA status 3, i en nødsituasjon">
-				>
-				["at0012"] = <
-					text = <"4E - Livstruende organisk sykdom nødsituasjon">
-					description = <"ASA status 4, i en nødsituasjon">
-				>
-				["at0013"] = <
-					text = <"5E - Moribund pasient nødsituasjon">
-					description = <"ASA status 5, i en nødsituasjon">
-				>
-				["at0014"] = <
-					text = <"Kommentar">
-					description = <"Beskrivende kommentar vedrørende vurdering av pasientens ASA tilstand">
-				>
-			>
-		>
 		["en"] = <
 			items = <
 				["at0000"] = <
-					text = <"ASA Physical Status Classification(en)">
+					text = <"ASA Physical Status Classification">
 					description = <"Classification system adopted by the American Society of Anesthesiologists for assessing preoperative physical status.">
 				>
 				["at0001"] = <
@@ -296,6 +144,66 @@ organdonasjon.">
 				["at0014"] = <
 					text = <"Comment">
 					description = <"Narrative comment about the ASA patient status assessment.">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"ASA fysisk status klassifikasjon">
+					description = <"Klassifikasjons system anvendt av American Society of Anesthesiologists for bedømning av den per-operative fysiske status.">
+				>
+				["at0001"] = <
+					text = <"ASA pasient status">
+					description = <"Vurdert per-operativ status til en pasient.">
+				>
+				["at0003"] = <
+					text = <"1 Normal frisk pasient.">
+					description = <"1- Ingen organ, fysiologisk eller psykiatriske avvik; ekskludere de meget unge og de meget gamle; friske med god fysisk toleranse.">
+				>
+				["at0004"] = <
+					text = <"2 - En pasient med mild systemisk sykdom">
+					description = <"Ingen funksjonelle begrensninger; har en vel regulert sykdom i et organsystem; kontrollert hypertensjon eller diabetes ( diæt eller tabektt behandlet) uten systemiske effekter, sigarettrøyking uten kronisk obstruktiv lungesykdom (KOLS); lett adipositas, graviditet. En stabil fysiologisk tilstand.">
+				>
+				["at0005"] = <
+					text = <"3- En pasient med alvorlig systemisk sykdom">
+					description = <"Noen funksjonell begrensning; har en kontrollert sykdom av mer enn ett organsystem system eller en større system; ingen umiddelbar fare for død; kontrollert hjertesvikt (CHF), stabil angina, gamle hjerteinfarkt, dårlig kontrollert hypertensjon, betydelig overvektig, kronisk nyresvikt; bronkospastisk sykdom med intermitterende symptomer. (til tider ustabil)">
+				>
+				["at0006"] = <
+					text = <"4- En pasient med alvorlig systemisk sykdom der er i konstant livsfare.">
+					description = <"Har minst en alvorlig sykdom som er dårlig kontrollert eller ved sluttstadiet; mulig risiko for død; ustabil angina, symptomatisk KOLS, symptomatisk CHF, hepatorenal svikt.">
+				>
+				["at0007"] = <
+					text = <"5- En moribund pasient som ikke forventes å overleve uten operasjon.">
+					description = <"Forventes ikke å overleve > 24 timer uten operasjon; Livstruende; multiorgan svikt, spesis syndrom ustabil hemodynasmik, hypotermi, dårlig regulert koagulopati .">
+				>
+				["at0008"] = <
+					text = <"6 - Erklært hjernedød, venter som organdonor på transplantasjon formål.">
+					description = <"6 - Erklært hjernedød, venter som organdonor på transplantasjon formål.">
+				>
+				["at0009"] = <
+					text = <"1E Normal frisk pasient. (Akutt=">
+					description = <"ASA status 1 i en akutt situasjon.">
+				>
+				["at0010"] = <
+					text = <"2E - En pasient med mild systemisk sykdom (Akutt)">
+					description = <"ASA status 2 i en akutt situasjon.">
+				>
+				["at0011"] = <
+					text = <"3E- En pasient med alvorlig systemisk sykdom. (Akutt)">
+					description = <"ASA status 3 i en akutt situasjon.">
+				>
+				["at0012"] = <
+					text = <"4E- En pasient med alvorlig systemisk sykdom der er i konstant livsfare.">
+					description = <"ASA status 4 i en akutt situasjon">
+				>
+				["at0013"] = <
+					text = <"5E - En moribund pasient som ikke forventes å overleve operasjonen (Akutt).">
+					description = <"ASA status 5 i en akutt situasjon">
+				>
+				["at0014"] = <
+					text = <"Kommentar">
+					description = <"Narrative kommentar om ASA pasient status vurderingen.">
 				>
 			>
 		>
