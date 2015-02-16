@@ -1,5 +1,5 @@
 archetype (adl_version=1.4)
-	openEHR-EHR-CLUSTER.hastegrad.v1
+	openEHR-EHR-CLUSTER.priority_level.v1
 
 concept
 	[at0000]	-- Hastegrad
@@ -21,7 +21,10 @@ language
 	>
 description
 	original_author = <
-		["name"] = <"">
+		["name"] = <"Anca Heyd">
+		["organisation"] = <"DIPS ASA">
+		["email"] = <"ahe@dips.no">
+		["date"] = <"2015-02-16">
 	>
 	details = <
 		["no"] = <
@@ -31,6 +34,14 @@ description
 			misuse = <"">
 			copyright = <"">
 		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Angir hastegrad i forbindese med en planlagt helsetjeneste.">
+			use = <"Brukes i forbindelse med bestilling/planlegging av en helsetjeneste for å angi hastegraden for når en ønsker tjenesten utført. ">
+			keywords = <"hastegrad", "elektiv", "øhj", "akutt", "prosedyre", "helsetjeneste">
+			misuse = <"Brukes ikke for å registrere hastegraden for en gjennomført helsetjeneste.">
+			copyright = <"">
+		>
 		["en"] = <
 			language = <[ISO_639-1::en]>
 			purpose = <"*(nb)">
@@ -38,23 +49,17 @@ description
 			misuse = <"*(nb)">
 			copyright = <"*(nb)">
 		>
-		["nb"] = <
-			language = <[ISO_639-1::nb]>
-			purpose = <"Beskrivelse av hastegrad i forbindelse med en helsetjeneste.">
-			use = <"">
-			misuse = <"">
-			copyright = <"">
-		>
 	>
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"3F44AF5EADD6A1D504B6EBADB87F2CD3">
+		["current_contact"] = <"Anca Heyd, DIPS ASA, ahe@dips.no">
+		["MD5-CAM-1.0.1"] = <"6DDB47B9EC3CD05293495EC89A9A99AC">
 	>
 
 definition
 	CLUSTER[at0000] matches {	-- Hastegrad
-		items cardinality matches {2; unordered} matches {
+		items cardinality matches {3; unordered} matches {
 			ELEMENT[at0001] matches {	-- Hastegrad
 				value matches {
 					DV_CODED_TEXT matches {
@@ -67,21 +72,16 @@ definition
 					}
 				}
 			}
-			ELEMENT[at0007] occurrences matches {0..1} matches {	-- Tidsramme innen
+			ELEMENT[at0007] matches {	-- Tidsramme øhj
 				value matches {
 					DV_DURATION matches {
-						value matches {PDTH}
+						value matches {PDTHM}
 					}
 				}
 			}
 			ELEMENT[at0002] matches {	-- Beregnet tidsfrist
 				value matches {
 					DV_DATE_TIME matches {*}
-				}
-			}
-			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Beskrivelse
-				value matches {
-					DV_TEXT matches {*}
 				}
 			}
 		}
@@ -103,10 +103,6 @@ ontology
 					text = <"Beregnet tidsfrist">
 					description = <"**(nb)">
 				>
-				["at0003"] = <
-					text = <"Beskrivelse">
-					description = <"*">
-				>
 				["at0004"] = <
 					text = <"Nød">
 					description = <"*">
@@ -129,35 +125,31 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Hastegrad">
-					description = <"Beskrivelse av hastegrad i forbindelse med en helsetjeneste.">
+					description = <"Beskrivelse av hastegrad i forbindelse med en planlagt helsetjeneste.">
 				>
 				["at0001"] = <
 					text = <"Hastegrad">
-					description = <"*">
+					description = <"Hastegraden av den tiltenkte helsetjenesten.">
 				>
 				["at0002"] = <
 					text = <"Beregnet tidsfrist">
-					description = <"*">
-				>
-				["at0003"] = <
-					text = <"Beskrivelse">
-					description = <"*">
+					description = <"Tidsfristen for når helsetjenesten senest skal være utført beregnet på bakgrunn av angitt tidsramme.">
 				>
 				["at0004"] = <
 					text = <"Nød">
-					description = <"*">
+					description = <"Tjensten skal utføres umiddelbart.">
 				>
 				["at0005"] = <
 					text = <"Haste">
-					description = <"*">
+					description = <"Tjenesten skal utføres akutt, men ikke  umiddelbart innenfor en gitt tidsramme. ">
 				>
 				["at0006"] = <
 					text = <"Elektiv">
-					description = <"*">
+					description = <"Tjenesten kan utføres som vanlig rutine. Haster ikke.">
 				>
 				["at0007"] = <
-					text = <"Tidsramme innen">
-					description = <"*">
+					text = <"Tidsramme øhj">
+					description = <"Beskrivelse av tidsramme som en hastetjeneste må gjennomføres innenfor.">
 				>
 			>
 		>
@@ -173,10 +165,6 @@ ontology
 				>
 				["at0002"] = <
 					text = <"*Beregnet tidsfrist(nb)">
-					description = <"**(nb)">
-				>
-				["at0003"] = <
-					text = <"*Beskrivelse(nb)">
 					description = <"**(nb)">
 				>
 				["at0004"] = <
