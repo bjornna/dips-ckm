@@ -7,13 +7,17 @@ language
 	original_language = <[ISO_639-1::nb]>
 description
 	original_author = <
-		["name"] = <"">
+		["name"] = <"Anca Heyd">
+		["organisation"] = <"DIPS ASA">
+		["email"] = <"ahe@dips.no">
+		["date"] = <"2015-02-16">
 	>
 	details = <
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"Operatørens detaljerte planlegging  av inngrepet ">
-			use = <"">
+			purpose = <"Å gi en detaljert beskrivelse av forhold på operasjonsstuen under en planlagt kirugisk prosedyre.">
+			use = <"Brukes i forbindelse med bestilling av en kirurgisk prosedyre for å gi detaljert informasjon om forholdt rundt inngrepet som er nødvendige for forberedelsen på operasjonsstuen.">
+			keywords = <"operasjon", "forberedelse", "renhetsgrad", "operasjonsleie">
 			misuse = <"">
 			copyright = <"">
 		>
@@ -21,29 +25,31 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"CDD85132C1E617BDAB2BF36086B61FD8">
+		["current_contact"] = <"Anca Heyd, DIPS ASA, ahe@dips.no">
+		["MD5-CAM-1.0.1"] = <"C65805050FE0469BAC0DCDEB09716340">
 	>
 
 definition
 	EVALUATION[at0000] matches {	-- Surgery details
 		data matches {
 			ITEM_TREE[at0001] matches {	-- Tree
-				items cardinality matches {2..*; unordered} matches {
-					ELEMENT[at0002] occurrences matches {1..*} matches {	-- Operasjonsleie
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Renhetsgrad
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Avdekning
+					ELEMENT[at0014] occurrences matches {0..1} matches {	-- Operasjonsleie
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					allow_archetype CLUSTER[at0009] occurrences matches {0..*} matches {	-- Lokalisasjon
-						include
-							archetype_id/value matches {/openEHR-EHR-CLUSTER\.anatomical_location(-[a-zA-Z0-9_]+)*\.v1/}
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Avdekning/incisjon
+						value matches {
+							DV_TEXT matches {*}
+						}
 					}
-					ELEMENT[at0005] occurrences matches {1..*} matches {	-- Incisjon
+					ELEMENT[at0015] occurrences matches {0..1} matches {	-- Side
 						value matches {
 							DV_TEXT matches {*}
 						}
@@ -53,23 +59,9 @@ definition
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0011] occurrences matches {0..1} matches {	-- Urent inngrep
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True, False}
-							}
-						}
-					}
 					allow_archetype CLUSTER[at0012] occurrences matches {0..*} matches {	-- Other details
 						include
 							archetype_id/value matches {/.*/}
-					}
-					ELEMENT[at0013] occurrences matches {0..*} matches {	-- Bilde
-						value matches {
-							DV_MULTIMEDIA matches {
-								media_type matches {[openEHR::]}
-							}
-						}
 					}
 				}
 			}
@@ -92,10 +84,6 @@ ontology
 					text = <"*Operasjonsleie(nb)">
 					description = <"**(nb)">
 				>
-				["at0004"] = <
-					text = <"*Avdekning(nb)">
-					description = <"**(nb)">
-				>
 				["at0005"] = <
 					text = <"*Incisjon(nb)">
 					description = <"**(nb)">
@@ -104,21 +92,53 @@ ontology
 					text = <"*Annen informasjon(nb)">
 					description = <"** f.eks. trombosestrømpe etc.(nb)">
 				>
-				["at0009"] = <
-					text = <"*Lokalisasjon(nb)">
-					description = <"**(nb)">
-				>
-				["at0011"] = <
-					text = <"*Urent inngrep(nb)">
-					description = <"**(nb)">
-				>
 				["at0012"] = <
 					text = <"*Other details(nb)">
 					description = <"**(nb)">
 				>
-				["at0013"] = <
-					text = <"*Bilde(nb)">
+				["at0014"] = <
+					text = <"*New element(nb)">
 					description = <"**(nb)">
+				>
+				["at0015"] = <
+					text = <"*New element(nb)">
+					description = <"**(nb)">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Surgery details">
+					description = <"Operatørens detaljerte planlegging av inngrepet">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Renhetsgrad">
+					description = <"Renhetsgrad under et kirurgisk inngrep f.eks. rene sår, rene kontaminerte sår, kontaminerte sår, urene og infiserte sår.">
+				>
+				["at0005"] = <
+					text = <"Avdekning/incisjon">
+					description = <"Avdekning og incisjon for et krirugisk inngrep.">
+				>
+				["at0006"] = <
+					text = <"Annen informasjon">
+					description = <"Annen informasjon som er vesetlig for forberedelse av pasienten på operasjnsstuen f.eks. trombosestrømpe etc.">
+				>
+				["at0012"] = <
+					text = <"Other details">
+					description = <"Mulighet til å legge til anne detaljert informasjon om forhold ved inngrepet som er viktig for forberedelse av pasient.">
+				>
+				["at0014"] = <
+					text = <"Operasjonsleie">
+					description = <"Leiring av pasienten under operasjon f.eks. rygg, mage, sideleie etc.">
+				>
+				["at0015"] = <
+					text = <"Side">
+					description = <"Side som skal avdekkes under en operasjon hvor operasjonen skal foretas.">
 				>
 			>
 		>
@@ -136,10 +156,6 @@ ontology
 					text = <"*Operasjonsleie(nb)">
 					description = <"**(nb)">
 				>
-				["at0004"] = <
-					text = <"*Avdekning(nb)">
-					description = <"**(nb)">
-				>
 				["at0005"] = <
 					text = <"*Incisjon(nb)">
 					description = <"**(nb)">
@@ -148,65 +164,17 @@ ontology
 					text = <"*Annen informasjon(nb)">
 					description = <"** f.eks. trombosestrømpe etc.(nb)">
 				>
-				["at0009"] = <
-					text = <"*Lokalisasjon(nb)">
-					description = <"**(nb)">
-				>
-				["at0011"] = <
-					text = <"*Urent inngrep(nb)">
-					description = <"**(nb)">
-				>
 				["at0012"] = <
 					text = <"*Other details(nb)">
 					description = <"**(nb)">
 				>
-				["at0013"] = <
-					text = <"*Bilde(nb)">
+				["at0014"] = <
+					text = <"*New element(nb)">
 					description = <"**(nb)">
 				>
-			>
-		>
-		["nb"] = <
-			items = <
-				["at0000"] = <
-					text = <"Surgery details">
-					description = <"Å beskrive forberedelse til en planlagt operasjon">
-				>
-				["at0001"] = <
-					text = <"Tree">
-					description = <"@ internal @">
-				>
-				["at0002"] = <
-					text = <"Operasjonsleie">
-					description = <"*">
-				>
-				["at0004"] = <
-					text = <"Avdekning">
-					description = <"*">
-				>
-				["at0005"] = <
-					text = <"Incisjon">
-					description = <"*">
-				>
-				["at0006"] = <
-					text = <"Annen informasjon">
-					description = <"* f.eks. trombosestrømpe etc.">
-				>
-				["at0009"] = <
-					text = <"Lokalisasjon">
-					description = <"*">
-				>
-				["at0011"] = <
-					text = <"Urent inngrep">
-					description = <"*">
-				>
-				["at0012"] = <
-					text = <"Other details">
-					description = <"*">
-				>
-				["at0013"] = <
-					text = <"Bilde">
-					description = <"*">
+				["at0015"] = <
+					text = <"*New element(nb)">
+					description = <"**(nb)">
 				>
 			>
 		>
