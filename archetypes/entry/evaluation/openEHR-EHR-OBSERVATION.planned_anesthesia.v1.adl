@@ -1,0 +1,108 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.planned_anesthesia.v1
+
+concept
+	[at0000]	-- Planned anesthesia
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["organisation"] = <"DIPS ASA">
+		["email"] = <"ahe@dips.no">
+		["date"] = <"2015-02-16">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Å beskrive planlagt anestesi i forkant av en planalgt prosedyre som krever anestesi.">
+			use = <"Brukes i forbindelse i planleggingsprosessen av en anestesien for å beskrive detaljer rundt anestesien som planlegges gitt.">
+			keywords = <"anesthesi", "operasjon", "kirurgi", "overvåking">
+			misuse = <"Brukes ikke for å registrere detaljer rundt anestesi som er gitt.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <"Anca Heyd, DIPS ASA, ahe@dips.no">
+		["MD5-CAM-1.0.1"] = <"08CDF8CCE44BF7ED7A84610330BDB323">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Planned anesthesia
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0004] matches {	-- Planlagt anestesi
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Planlagt luftvei
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {	-- Planlagt ekstra overvårking
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Postoperativ overvåking
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Planned anesthesia">
+					description = <"Beskriver planlagt anestesi i forbindelse med en planlagt prosedyre.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Planlagt anestesi">
+					description = <"Anestesitype som planlegges gitt. Dette kan være en eller en kombinasjon av flere f.eks. generelle anestesi og epiduralbedøvelse.">
+				>
+				["at0005"] = <
+					text = <"Planlagt luftvei">
+					description = <"Luftveistilgang som planlegges i forbindelse med anestesi.">
+				>
+				["at0006"] = <
+					text = <"Planlagt ekstra overvårking">
+					description = <"Planlagt ekstra overvåking  i forbindelse med anestesi.">
+				>
+				["at0007"] = <
+					text = <"Postoperativ overvåking">
+					description = <"Planlagt nivå for postoperativ overvåking etter anestesi eller en prosedyre som krever anestesi.">
+				>
+			>
+		>
+	>
