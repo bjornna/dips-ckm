@@ -1,8 +1,8 @@
 archetype (adl_version=1.4)
-	openEHR-EHR-OBSERVATION.risikovurdering_medikamentbruk.v1
+	openEHR-EHR-OBSERVATION.risk_factor_medicine_surgery.v1
 
 concept
-	[at0000]	-- Risikovurdering medikamentbruk
+	[at0000]	-- Risikofaktor medisiner kirurgi
 language
 	original_language = <[ISO_639-1::nb]>
 	translations = <
@@ -15,7 +15,10 @@ language
 	>
 description
 	original_author = <
-		["name"] = <"">
+		["name"] = <"Anca Heyd">
+		["organisation"] = <"DIPS ASA">
+		["email"] = <"ahe@dips.no">
+		["date"] = <"2015-02-17">
 	>
 	details = <
 		["no"] = <
@@ -27,20 +30,23 @@ description
 		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"Rsikovurdering av medikamentbruk i forbindelse med en planlagt prosedyre">
-			use = <"">
-			misuse = <"">
+			purpose = <"Å gi en beskrivelse av medisiner som brukes og som kan være risikofaktorer  for en planlagt anestesi eller kirurgisk prosedyre.
+">
+			use = <"Brukes i forbindelse med planlegging av en kirurgisk prosedyre for å vurdere medisinbruk hos en pasient som kan være en rsikofaktor til den planlagte prosedyren eller anestesien. ">
+			keywords = <"medisin", "kirurgi", "anestesi", "risiko">
+			misuse = <"Brukes ikke som en fullstendig og oppdatert oversikt over pasientens medisinbruk. ">
 			copyright = <"">
 		>
 	>
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"0E793474B1CD34268658F25C07E4A762">
+		["current_contact"] = <"Anca Heyd, DIPS ASA, ahe@dips.no">
+		["MD5-CAM-1.0.1"] = <"DBC951B8B1AD3B24962E7080EDDBDAF0">
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- Risikovurdering medikamentbruk
+	OBSERVATION[at0000] matches {	-- Risikofaktor medisiner kirurgi
 		data matches {
 			HISTORY[at0001] matches {	-- Event Series
 				events cardinality matches {1..*; unordered} matches {
@@ -48,40 +54,22 @@ definition
 						data matches {
 							ITEM_TREE[at0003] matches {	-- Tree
 								items cardinality matches {0..*; unordered} matches {
-									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Aktuell medikamentbruk
+									ELEMENT[at0022] occurrences matches {0..1} matches {	-- Ingen medisiner
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..*} matches {	-- Medisin
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0005] occurrences matches {0..*} matches {	-- Medikamentnavn
+									ELEMENT[at0008] occurrences matches {0..*} matches {	-- Kommentar
 										value matches {
 											DV_TEXT matches {*}
 										}
-									}
-									ELEMENT[at0006] occurrences matches {0..*} matches {	-- Substansgruppe
-										value matches {
-											DV_TEXT matches {*}
-										}
-									}
-									ELEMENT[at0007] occurrences matches {0..*} matches {	-- Dosering
-										value matches {
-											C_DV_QUANTITY <
-											>
-										}
-									}
-									ELEMENT[at0008] occurrences matches {0..*} matches {	-- Beskrivelse dosering
-										value matches {
-											DV_TEXT matches {*}
-										}
-									}
-									ELEMENT[at0010] occurrences matches {0..*} matches {	-- Konsekvens for planlegging av prosedyre
-										value matches {
-											DV_TEXT matches {*}
-										}
-									}
-									allow_archetype CLUSTER[at0021] occurrences matches {0..*} matches {	-- Medisiner under/før prosedyre
-										include
-											archetype_id/value matches {/.*/}
 									}
 								}
 							}
@@ -112,41 +100,25 @@ ontology
 					text = <"Tree">
 					description = <"@ internal @">
 				>
-				["at0004"] = <
-					text = <"Aktuell medikamentbruk">
-					description = <"*">
-				>
-				["at0005"] = <
-					text = <"Medikamentnavn">
-					description = <"*">
-				>
 				["at0006"] = <
 					text = <"Substansgruppe">
-					description = <"*">
-				>
-				["at0007"] = <
-					text = <"Dosering">
 					description = <"*">
 				>
 				["at0008"] = <
 					text = <"Beskrivelse dosering">
 					description = <"*">
 				>
-				["at0010"] = <
-					text = <"Konsekvens for planlegging av prosedyre">
+				["at0022"] = <
+					text = <"*New element(nb)">
 					description = <"**(nb)">
-				>
-				["at0021"] = <
-					text = <"Medisiner under/før prosedyre">
-					description = <"*">
 				>
 			>
 		>
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"Risikovurdering medikamentbruk">
-					description = <"Rsikovurdering av medikamentbruk i forbindelse med en planlagt prosedyre">
+					text = <"Risikofaktor medisiner kirurgi">
+					description = <"Beskriver bruk av medisiner som medfører risiko for anestesi eller operasjon">
 				>
 				["at0001"] = <
 					text = <"Event Series">
@@ -160,33 +132,17 @@ ontology
 					text = <"Tree">
 					description = <"@ internal @">
 				>
-				["at0004"] = <
-					text = <"Aktuell medikamentbruk">
-					description = <"*">
-				>
-				["at0005"] = <
-					text = <"Medikamentnavn">
-					description = <"*">
-				>
 				["at0006"] = <
-					text = <"Substansgruppe">
-					description = <"*">
-				>
-				["at0007"] = <
-					text = <"Dosering">
-					description = <"*">
+					text = <"Medisin">
+					description = <"Medisiner som brukes og som har betydning for inngrep eller narkose">
 				>
 				["at0008"] = <
-					text = <"Beskrivelse dosering">
-					description = <"*">
+					text = <"Kommentar">
+					description = <"Kommentar til medisinen som  brukes.">
 				>
-				["at0010"] = <
-					text = <"Konsekvens for planlegging av prosedyre">
-					description = <"*">
-				>
-				["at0021"] = <
-					text = <"Medisiner under/før prosedyre">
-					description = <"*">
+				["at0022"] = <
+					text = <"Ingen medisiner">
+					description = <"Sann indikerer at pasienten ikke tar medisiner.">
 				>
 			>
 		>
@@ -208,32 +164,16 @@ ontology
 					text = <"*Tree(nb)">
 					description = <"*@ internal @(nb)">
 				>
-				["at0004"] = <
-					text = <"*Aktuell medikamentbruk(nb)">
-					description = <"**(nb)">
-				>
-				["at0005"] = <
-					text = <"*Medikamentnavn(nb)">
-					description = <"**(nb)">
-				>
 				["at0006"] = <
 					text = <"*Substansgruppe(nb)">
-					description = <"**(nb)">
-				>
-				["at0007"] = <
-					text = <"*Dosering(nb)">
 					description = <"**(nb)">
 				>
 				["at0008"] = <
 					text = <"*Beskrivelse dosering(nb)">
 					description = <"**(nb)">
 				>
-				["at0010"] = <
-					text = <"*Konsekvens for planlegging av prosedyre(nb)">
-					description = <"**(nb)">
-				>
-				["at0021"] = <
-					text = <"*Medisiner under/før prosedyre(nb)">
+				["at0022"] = <
+					text = <"*New element(nb)">
 					description = <"**(nb)">
 				>
 			>
