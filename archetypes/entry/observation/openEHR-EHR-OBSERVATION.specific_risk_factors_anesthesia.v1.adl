@@ -1,0 +1,90 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.specific_risk_factors_anesthesia.v1
+
+concept
+	[at0000]	-- Spesifikke risikofaktorer anestesi
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["organisation"] = <"DIPS ASA">
+		["email"] = <"ahe@dips.no">
+		["date"] = <"2015-02-17">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Å gi en beskrivelse av spesifikke risikofaktorer som har betydning for en planlagt anestesi.">
+			use = <"Brukes i forbindelse med planlegging av en prosedyre som trenger anestesi eller i forkant av en anestesi for å vurdere spesifikke risikofaktorer til anestesi.">
+			keywords = <"risikofaktor", "anestesi">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <"Anca Heyd, DIPS ASA, ahe@dips.no">
+		["MD5-CAM-1.0.1"] = <"024800A8404BE04432ECF64FE2CB7025">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Spesifikke risikofaktorer anestesi
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Risikofaktor
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {	-- Detaljer
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Spesifikke risikofaktorer anestesi">
+					description = <"Beskriver spesifikke risikofaktorer til anestesi.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0005"] = <
+					text = <"Risikofaktor">
+					description = <"Spesifikk risikofaktor til anestesi.">
+				>
+				["at0006"] = <
+					text = <"Detaljer">
+					description = <"En narrativ detaljert beskrivelse av risikofaktoren og dens vurdering.">
+				>
+			>
+		>
+	>
