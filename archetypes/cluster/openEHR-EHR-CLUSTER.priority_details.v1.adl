@@ -1,205 +1,159 @@
 archetype (adl_version=1.4)
-	openEHR-EHR-CLUSTER.priority_details.v1
+    openEHR-EHR-CLUSTER.priority_details.v1
 
 concept
-	[at0000]	-- Hastegrad detaljer
+    [at0000]
+
 language
-	original_language = <[ISO_639-1::nb]>
-	translations = <
-		["no"] = <
-			language = <[ISO_639-1::no]>
-			author = <
-				["name"] = <"?">
-			>
-		>
-		["en"] = <
-			language = <[ISO_639-1::en]>
-			author = <
-				["name"] = <"?">
-			>
-		>
-	>
+    original_language = <[ISO_639-1::nb]>
+    translations = <
+        ["no"] = <
+            language = <[ISO_639-1::no]>
+            author = <
+                ["name"] = <"?">
+            >
+        >
+        ["en"] = <
+            language = <[ISO_639-1::en]>
+            author = <
+                ["name"] = <"?">
+            >
+        >
+    >
+
 description
-	original_author = <
-		["name"] = <"Anca Heyd">
-		["organisation"] = <"DIPS ASA">
-		["email"] = <"ahe@dips.no">
-		["date"] = <"2015-02-16">
-	>
-	details = <
-		["no"] = <
-			language = <[ISO_639-1::no]>
-			purpose = <"Beskrivelse av hastegrad i forbindelse med en helsetjeneste.">
-			use = <"">
-			misuse = <"">
-			copyright = <"">
-		>
-		["nb"] = <
-			language = <[ISO_639-1::nb]>
-			purpose = <"Angir detaljer rundt hastegrad i forbindese med en planlagt prosedyre.">
-			use = <"Brukes i forbindelse med bestilling/planlegging av en prosedyre for å angi detaljer rundt hastegraden for gjennomføring. ">
-			keywords = <"hastegrad", "elektiv", "øhj", "akutt", "prosedyre">
-			misuse = <"">
-			copyright = <"">
-		>
-		["en"] = <
-			language = <[ISO_639-1::en]>
-			purpose = <"*(nb)">
-			use = <"*(nb)">
-			misuse = <"*(nb)">
-			copyright = <"*(nb)">
-		>
-	>
-	lifecycle_state = <"0">
-	other_contributors = <>
-	other_details = <
-		["current_contact"] = <"Anca Heyd, DIPS ASA, ahe@dips.no">
-		["MD5-CAM-1.0.1"] = <"6C9F09C37B4E69136A19CCFB3596D897">
-	>
+    original_author = <
+        ["email"] = <"ahe@dips.no">
+        ["organisation"] = <"DIPS ASA">
+        ["name"] = <"Anca Heyd">
+        ["date"] = <"2015-02-16">
+    >
+    lifecycle_state = <"0">
+    details = <
+        ["nb"] = <
+            language = <[ISO_639-1::nb]>
+            purpose = <"Angir detaljer rundt hastegrad i forbindese med en planlagt prosedyre.">
+            keywords = <"hastegrad","elektiv","øhj","akutt","prosedyre">
+            use = <"Brukes i forbindelse med bestilling/planlegging av en prosedyre for å angi detaljer rundt hastegraden for gjennomføring. ">
+        >
+        ["en"] = <
+            language = <[ISO_639-1::en]>
+            purpose = <"*(nb)">
+            copyright = <"*(nb)">
+            use = <"*(nb)">
+            misuse = <"*(nb)">
+        >
+        ["no"] = <
+            language = <[ISO_639-1::no]>
+            purpose = <"Angir detaljer rundt hastegrad i forbindese med en planlagt prosedyre.">
+            keywords = <"hastegrad","elektiv","øhj","akutt","prosedyre">
+            use = <"Brukes i forbindelse med bestilling/planlegging av en prosedyre for å angi detaljer rundt hastegraden for gjennomføring. ">
+        >
+    >
 
 definition
-	CLUSTER[at0000] matches {	-- Hastegrad detaljer
-		items cardinality matches {4; unordered} matches {
-			ELEMENT[at0001] matches {	-- Hastegrad
-				value matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {
-							[local::
-							at0004, 	-- Nød
-							at0005, 	-- Haste
-							at0006]	-- Elektiv
-						}
-					}
-				}
-			}
-			ELEMENT[at0007] matches {	-- Tidsramme øhj
-				value matches {
-					DV_DURATION matches {
-						value matches {PDTHM}
-					}
-				}
-			}
-			ELEMENT[at0002] matches {	-- Beregnet tidsfrist
-				value matches {
-					DV_DATE_TIME matches {*}
-				}
-			}
-			ELEMENT[at0008] matches {	--  Skal prosedyren gjennomføres i dag?
-				value matches {
-					DV_TEXT matches {*}
-				}
-			}
-		}
-	}
+    CLUSTER[at0000] matches {
+        items cardinality matches {3..3; unordered} matches {
+            ELEMENT[at0007] matches {
+                value matches {
+                    DV_DURATION matches {
+                        value matches {PDTHM}
+                    }
+                }
+            }
+            ELEMENT[at0002] matches {
+                value matches {
+                    DV_DATE_TIME matches {*}
+                }
+            }
+            ELEMENT[at0008] matches {
+                value matches {
+                    DV_BOOLEAN matches {
+                        value matches {true, false}
+                    }
+                }
+            }
+        }
+    }
 
 ontology
-	term_definitions = <
-		["no"] = <
-			items = <
-				["at0000"] = <
-					text = <"Hastegrad">
-					description = <"Beskrivelse av hastegrad i forbindelse med en helsetjeneste.">
-				>
-				["at0001"] = <
-					text = <"Hastegrad">
-					description = <"*">
-				>
-				["at0002"] = <
-					text = <"Beregnet tidsfrist">
-					description = <"**(nb)">
-				>
-				["at0004"] = <
-					text = <"Nød">
-					description = <"*">
-				>
-				["at0005"] = <
-					text = <"Haste">
-					description = <"*">
-				>
-				["at0006"] = <
-					text = <"Elektiv">
-					description = <"*">
-				>
-				["at0007"] = <
-					text = <"Tidsramme innen">
-					description = <"**(nb)">
-				>
-				["at0008"] = <
-					text = <"*New element(nb)">
-					description = <"**(nb)">
-				>
-			>
-		>
-		["nb"] = <
-			items = <
-				["at0000"] = <
-					text = <"Hastegrad detaljer">
-					description = <"Beskrivelse av detaljer vedrørende hastegrad i forbindelse med en planlagt prosedyre.">
-				>
-				["at0001"] = <
-					text = <"Hastegrad">
-					description = <"Hastegraden av den tiltenkte helsetjenesten.">
-				>
-				["at0002"] = <
-					text = <"Beregnet tidsfrist">
-					description = <"Tidsfristen for når helsetjenesten senest skal være utført beregnet på bakgrunn av angitt tidsramme.">
-				>
-				["at0004"] = <
-					text = <"Nød">
-					description = <"Tjensten skal utføres umiddelbart.">
-				>
-				["at0005"] = <
-					text = <"Haste">
-					description = <"Tjenesten skal utføres akutt, men ikke  umiddelbart innenfor en gitt tidsramme. ">
-				>
-				["at0006"] = <
-					text = <"Elektiv">
-					description = <"Tjenesten kan utføres som vanlig rutine. Haster ikke.">
-				>
-				["at0007"] = <
-					text = <"Tidsramme øhj">
-					description = <"Beskrivelse av tidsramme som en hastetjeneste må gjennomføres innenfor.">
-				>
-				["at0008"] = <
-					text = <" Skal prosedyren gjennomføres i dag?">
-					description = <"Ja indikerer at prosedyren må gjennomføres samme dag som bestillingen sendes, nei indikerer at prosedyren kan gjennomføres på et tidligere tidspunkt.">
-				>
-			>
-		>
-		["en"] = <
-			items = <
-				["at0000"] = <
-					text = <"*Hastegrad(nb)">
-					description = <"*Beskrivelse av hastegrad i forbindelse med en helsetjeneste.(nb)">
-				>
-				["at0001"] = <
-					text = <"Urgency">
-					description = <"**(nb)">
-				>
-				["at0002"] = <
-					text = <"*Beregnet tidsfrist(nb)">
-					description = <"**(nb)">
-				>
-				["at0004"] = <
-					text = <"Emergency">
-					description = <"*">
-				>
-				["at0005"] = <
-					text = <"Urgent">
-					description = <"*">
-				>
-				["at0006"] = <
-					text = <"Routine">
-					description = <"*">
-				>
-				["at0007"] = <
-					text = <"*Tidsramme innen(nb)">
-					description = <"**(nb)">
-				>
-				["at0008"] = <
-					text = <"*New element(nb)">
-					description = <"**(nb)">
-				>
-			>
-		>
-	>
+    term_definitions = <
+        ["no"] = <
+            items = <
+                ["at0000"] = <
+                    text = <"Hastegrad detaljer">
+                    description = <"Beskrivelse av detaljer vedrørende hastegrad i forbindelse med en planlagt prosedyre.">
+
+                >
+                ["at0002"] = <
+                    text = <"Beregnet tidsfrist øhj">
+                    description = <"Tidsfristen for når helsetjenesten senest skal være utført beregnet på bakgrunn av angitt tidsramme.">
+
+                >
+                ["at0007"] = <
+                    text = <"Tidsramme øhj">
+                    description = <"Beskrivelse av tidsramme som en hastetjeneste må gjennomføres innenfor.">
+
+                >
+                ["at0008"] = <
+                    text = <" Skal prosedyren gjennomføres i dag?">
+                    description = <"Ja indikerer at prosedyren må gjennomføres samme dag som bestillingen sendes, nei indikerer at prosedyren kan gjennomføres på et tidligere tidspunkt.">
+
+                >
+            >
+        >
+        ["nb"] = <
+            items = <
+                ["at0000"] = <
+                    text = <"Hastegrad detaljer">
+                    description = <"Beskrivelse av detaljer vedrørende hastegrad i forbindelse med en planlagt prosedyre.">
+
+                >
+                ["at0002"] = <
+                    text = <"Beregnet tidsfrist øhj">
+                    description = <"Tidsfristen for når helsetjenesten senest skal være utført beregnet på bakgrunn av angitt tidsramme.">
+
+                >
+                ["at0007"] = <
+                    text = <"Tidsramme øhj">
+                    description = <"Beskrivelse av tidsramme som en hastetjeneste må gjennomføres innenfor.">
+
+                >
+                ["at0008"] = <
+                    text = <" Skal prosedyren gjennomføres i dag?">
+                    description = <"Ja indikerer at prosedyren må gjennomføres samme dag som bestillingen sendes, nei indikerer at prosedyren kan gjennomføres på et tidligere tidspunkt.">
+
+                >
+            >
+        >
+        ["en"] = <
+            items = <
+                ["at0000"] = <
+                    text = <"*Hastegrad(nb)">
+                    description = <"*Beskrivelse av hastegrad i forbindelse med en helsetjeneste.(nb)">
+
+                >
+                ["at0002"] = <
+                    text = <"*Beregnet tidsfrist(nb)">
+                    description = <"**(nb)">
+
+                >
+                ["at0007"] = <
+                    text = <"*Tidsramme innen(nb)">
+                    description = <"**(nb)">
+
+                >
+                ["at0008"] = <
+                    text = <"*New element(nb)">
+                    description = <"**(nb)">
+
+                >
+            >
+        >
+    >
+    constraint_definitions = <
+    >
+    term_binding = <
+    >
+    constraint_binding = <
+    >

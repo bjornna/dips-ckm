@@ -2,15 +2,15 @@
 	openEHR-EHR-CLUSTER.asa_status.v1
 
 concept
-	[at0000]	-- ASA Physical Status Classification
+	[at0000]	-- ASA fysisk status klassifikasjon
 language
 	original_language = <[ISO_639-1::en]>
 	translations = <
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
 			author = <
-				["name"] = <"Lars Bitsch-Larsen">
 				["organisation"] = <"Haukeland University Hospital Bergen , Norway">
+				["name"] = <"Lars Bitsch-Larsen">
 			>
 			accreditation = <"MD DEAA MBA spec in anesthesia and intensive care, spec in tropical med.">
 		>
@@ -47,36 +47,36 @@ Denne arketype er blitt designet for å brukes innen forskjellige ENTRY-arketype
 	lifecycle_state = <"AuthorDraft">
 	other_contributors = <>
 	other_details = <
-		["current_contact"] = <"Heather Leslie, Ocean Informatics, heather.leslie@oceaninformatics.com">
 		["references"] = <"American Society for Anesthesiologists: http://www.asahq.org/clinical/physicalstatus.htm
 Cleveland Clinic (provided examples of each state): http://my.clevelandclinic.org/services/Anesthesia/hic_ASA_Physical_Classification_System.aspx">
-		["MD5-CAM-1.0.1"] = <"15EC4E876583B22FD8101B4A7888C258">
+		["current_contact"] = <"Heather Leslie, Ocean Informatics, heather.leslie@oceaninformatics.com">
+		["MD5-CAM-1.0.1"] = <"3085DBF9B192095302FE28C219457EBC">
 	>
 
 definition
-	CLUSTER[at0000] matches {	-- ASA Physical Status Classification
+	CLUSTER[at0000] matches {	-- ASA fysisk status klassifikasjon
 		items cardinality matches {1..*; unordered} matches {
-			ELEMENT[at0001] occurrences matches {0..1} matches {	-- ASA patient status
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- ASA pasient status
 				value matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0003, 	-- 1 - A normal healthy patient
-							at0004, 	-- 2 - A patient with mild systemic disease
-							at0005, 	-- 3 - A patient with severe systemic disease
-							at0006, 	-- 4 - A patient with severe systemic disease that is a constant threat to life
-							at0007, 	-- 5 - A moribund patient who is not expected to survive without the operation
-							at0008, 	-- 6 - A declared brain-dead patient whose organs are being removed for donor purposes
-							at0009, 	-- 1E - A normal healthy patient (Emergency)
-							at0010, 	-- 2E - A patient with mild systemic disease (Emergency)
-							at0011, 	-- 3E - A patient with severe systemic disease (Emergency)
-							at0012, 	-- 4E - A patient with severe systemic disease that is a constant threat to life (Emergency)
-							at0013]	-- 5E - A moribund patient who is not expected to survive without the operation (Emergency)
+							at0003, 	-- 1 Normal frisk pasient.
+							at0004, 	-- 2 - En pasient med mild systemisk sykdom
+							at0005, 	-- 3- En pasient med alvorlig systemisk sykdom
+							at0006, 	-- 4- En pasient med alvorlig systemisk sykdom der er i konstant livsfare.
+							at0007, 	-- 5- En moribund pasient som ikke forventes å overleve uten operasjon.
+							at0008, 	-- 6 - Erklært hjernedød, venter som organdonor på transplantasjon formål.
+							at0009, 	-- 1E Normal frisk pasient. (Akutt=
+							at0010, 	-- 2E - En pasient med mild systemisk sykdom (Akutt)
+							at0011, 	-- 3E- En pasient med alvorlig systemisk sykdom. (Akutt)
+							at0012, 	-- 4E- En pasient med alvorlig systemisk sykdom der er i konstant livsfare.
+							at0013]	-- 5E - En moribund pasient som ikke forventes å overleve operasjonen (Akutt).
 						}
 					}
 				}
 			}
-			ELEMENT[at0014] occurrences matches {0..1} matches {	-- Comment
+			ELEMENT[at0014] occurrences matches {0..1} matches {	-- Kommentar
 				value matches {
 					DV_TEXT matches {*}
 				}
@@ -84,9 +84,68 @@ definition
 		}
 	}
 
-
 ontology
 	term_definitions = <
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"ASA fysisk status klassifikasjon">
+					description = <"Klassifikasjons system anvendt av American Society of Anesthesiologists for bedømning av den per-operative fysiske status.">
+				>
+				["at0001"] = <
+					text = <"ASA pasient status">
+					description = <"Vurdert per-operativ status til en pasient.">
+				>
+				["at0003"] = <
+					text = <"1 Normal frisk pasient.">
+					description = <"1- Ingen organ, fysiologisk eller psykiatriske avvik; ekskludere de meget unge og de meget gamle; friske med god fysisk toleranse.">
+				>
+				["at0004"] = <
+					text = <"2 - En pasient med mild systemisk sykdom">
+					description = <"Ingen funksjonelle begrensninger; har en vel regulert sykdom i et organsystem; kontrollert hypertensjon eller diabetes ( diæt eller tabektt behandlet) uten systemiske effekter, sigarettrøyking uten kronisk obstruktiv lungesykdom (KOLS); lett adipositas, graviditet. En stabil fysiologisk tilstand.">
+				>
+				["at0005"] = <
+					text = <"3- En pasient med alvorlig systemisk sykdom">
+					description = <"Noen funksjonell begrensning; har en kontrollert sykdom av mer enn ett organsystem system eller en større system; ingen umiddelbar fare for død; kontrollert hjertesvikt (CHF), stabil angina, gamle hjerteinfarkt, dårlig kontrollert hypertensjon, betydelig overvektig, kronisk nyresvikt; bronkospastisk sykdom med intermitterende symptomer. (til tider ustabil)">
+				>
+				["at0006"] = <
+					text = <"4- En pasient med alvorlig systemisk sykdom der er i konstant livsfare.">
+					description = <"Har minst en alvorlig sykdom som er dårlig kontrollert eller ved sluttstadiet; mulig risiko for død; ustabil angina, symptomatisk KOLS, symptomatisk CHF, hepatorenal svikt.">
+				>
+				["at0007"] = <
+					text = <"5- En moribund pasient som ikke forventes å overleve uten operasjon.">
+					description = <"Forventes ikke å overleve > 24 timer uten operasjon; Livstruende; multiorgan svikt, spesis syndrom ustabil hemodynasmik, hypotermi, dårlig regulert koagulopati .">
+				>
+				["at0008"] = <
+					text = <"6 - Erklært hjernedød, venter som organdonor på transplantasjon formål.">
+					description = <"6 - Erklært hjernedød, venter som organdonor på transplantasjon formål.">
+				>
+				["at0009"] = <
+					text = <"1E Normal frisk pasient. (Akutt=">
+					description = <"ASA status 1 i en akutt situasjon.">
+				>
+				["at0010"] = <
+					text = <"2E - En pasient med mild systemisk sykdom (Akutt)">
+					description = <"ASA status 2 i en akutt situasjon.">
+				>
+				["at0011"] = <
+					text = <"3E- En pasient med alvorlig systemisk sykdom. (Akutt)">
+					description = <"ASA status 3 i en akutt situasjon.">
+				>
+				["at0012"] = <
+					text = <"4E- En pasient med alvorlig systemisk sykdom der er i konstant livsfare.">
+					description = <"ASA status 4 i en akutt situasjon">
+				>
+				["at0013"] = <
+					text = <"5E - En moribund pasient som ikke forventes å overleve operasjonen (Akutt).">
+					description = <"ASA status 5 i en akutt situasjon">
+				>
+				["at0014"] = <
+					text = <"Kommentar">
+					description = <"Narrative kommentar om ASA pasient status vurderingen.">
+				>
+			>
+		>
 		["en"] = <
 			items = <
 				["at0000"] = <
