@@ -62,35 +62,38 @@
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Encounter" name="Operatørvurdering">
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.surgery_details.v1" concept_name="Operasjonsdetaljer" max="1" path="/content">
-      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]">
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId queryName="MED-SÅRRENHETSGRAD" />
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId queryName="UDS-LEIE" />
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0012]/items[at0007]">
         <constraint xsi:type="textConstraint">
           <includedValues>Høyre</includedValues>
           <includedValues>Venstre</includedValues>
           <includedValues>Bilateralt</includedValues>
         </constraint>
       </Rule>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.special_requirements_surgery.v1" concept_name="spesielle behov kirurgi" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0011]">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.special_requirements_surgery.v1" concept_name="Spesielle behov kirurgi" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0011]">
         <Rule path="/items[at0007]" max="1" />
         <Rule path="/items[at0010]" max="1" />
         <Rule path="/items[at0013]" hide_on_form="true" />
       </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.medicine_surgery.v1" concept_name="Medikamenter ved kirurgi" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0011]">
-        <Rule path="/items[at0001]" max="1">
-          <constraint xsi:type="textConstraint" limitToList="false">
-            <includedValues>Cefalotin 2 g x 4, 30-60 før knivstart</includedValues>
-            <includedValues>Cefalotin 2 g, 30-60 før knivstart</includedValues>
-            <includedValues>Avvente prøvetaking deretter Cefalotin 2 g x 4</includedValues>
-            <includedValues>Klindamycin 600 mg x 4, 30-60 min før knivstart</includedValues>
-            <includedValues>Klindamycin 600 mg, 30-60 min før knivstart</includedValues>
-          </constraint>
-        </Rule>
+        <Rule path="/items[at0004]/items[at0001]" max="1" />
+        <Rule path="/items[at0004]/items[at0005]" default="http://sites.helsedirektoratet.no/sites/antibiotikabruk-i-sykehus/om/Sider/default.aspx" name="Nasjonal faglig retningslinje for bruk av antibiotika i sykehus" />
         <Rule path="/items[at0002]" max="1">
           <constraint xsi:type="textConstraint" limitToList="false">
             <includedValues>Cyclokapron/Traneksamsyre 10mg/kg etter avtale før blodtomhetslipp. + etter 3 timer</includedValues>
             <includedValues>Cyclokapron/Traneksamsyre 10mg/kg 20-30 min før knivstart + etter 3 timer</includedValues>
           </constraint>
         </Rule>
-        <Rule path="/items[at0003]" hide_on_form="true" />
+        <Rule path="/items[at0006]/items[at0007]" default="http://www.magicapp.org/app#/guideline/1" name="Retningslinjer for antitrombotisk behandling og profylakse" />
       </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.additional_information_surgery.v1" concept_name="Tilleggsinformasjon kirurgi" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0011]" />
     </Content>
@@ -98,52 +101,71 @@
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0026]" hide_on_form="true" />
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0018]" hide_on_form="true" />
     </Content>
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_weight.v1" concept_name="Kroppsvekt" max="1" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_weight.v1" concept_name="Kroppsvekt" max="1" path="/content">
+      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0038]" hide_on_form="true" />
+      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0024]" hide_on_form="true" />
+      <Rule path="/data[at0002]/events[at0003]/state[at0008]" hide_on_form="true" />
+      <Rule path="/data[at0002]/events[at0003]/state[at0008]/items[at0009]" hide_on_form="true" />
+      <Rule path="/data[at0002]/events[at0003]/state[at0008]/items[at0025]" hide_on_form="true" />
+      <Rule path="/data[at0002]/events[at0026]" hide_on_form="true" />
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.blood_pressure.v1" concept_name="Blodtrykk" path="/content">
+      <Rule path="/data[at0001]/events[at0006]/data[at0003]/items[at1006]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0006]/data[at0003]/items[at1007]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0006]/data[at0003]/items[at0033]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0006]/state[at0007]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at1042]" hide_on_form="true" />
+      <Rule path="/protocol[at0011]" hide_on_form="true" />
+    </Content>
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.organ_status_evaluation_surgery.v1" concept_name="Organstatus evaluering kirurgi" max="1" path="/content">
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]/items[at0005]">
-        <constraint xsi:type="ordinalConstraint">
-          <includedValues>1. Normal, ingen klaffesykdom, ingen ischemisk hjertesykdom og EF &gt; 50 %</includedValues>
-          <includedValues>2. Lett redusert, asymtomatiske klaffesykdom og/eller ischemisk hjertesykdom NYHA 1 og/eller EF 40 - 50 %</includedValues>
-          <includedValues>3. Moderat redusert, symptomatisk klaffesykdom i aktivitet og/eller ischemisk hjertesykdom NYHA 2-3 og/eller EF 30-40%</includedValues>
-          <includedValues>4. Alvorlig redusert, symptomatisk klaffesykdom i hvile, ischemsik hjertesykdom  NYHA 4 og/eller EF &lt; 30 %</includedValues>
+        <constraint xsi:type="textConstraint">
+          <termQueryId queryName="UDS-HJERTEFUNKSJON OPR" />
         </constraint>
       </Rule>
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]/items[at0008]">
-        <constraint xsi:type="ordinalConstraint">
-          <includedValues>1. Normal</includedValues>
-          <includedValues>2. Lett redusert, klinisk vurdert</includedValues>
-          <includedValues>3. Moderat redusert, klinisk vurdert</includedValues>
-          <includedValues>4. Alvorlig redusert, klinisk vurdert</includedValues>
+        <constraint xsi:type="textConstraint">
+          <termQueryId queryName="UDS-LUNGEFUNKSJON OPR" />
         </constraint>
       </Rule>
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0010]/items[at0011]">
-        <constraint xsi:type="ordinalConstraint">
-          <includedValues>1. Normal, Estimert GFR &gt; 60 ml/min/1,73 m2</includedValues>
-          <includedValues>2. Lett redusert, Estimert GFR 60 -30 ml/min/1,73 m2</includedValues>
-          <includedValues>3. Moderat redusert, Estimert GFR 30 -15 ml/min/1,73 m2</includedValues>
-          <includedValues>4. Alvorlig redusert, Estimert GFR &lt; 15 ml/min/1,73 m2</includedValues>
-          <includedValues>5. Dialysebehandles</includedValues>
+        <constraint xsi:type="textConstraint">
+          <termQueryId queryName="UDS-NYREFUNKSJON OPR" />
         </constraint>
       </Rule>
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0013]/items[at0014]">
-        <constraint xsi:type="ordinalConstraint">
-          <includedValues>1. Våken og adekvat</includedValues>
-          <includedValues>2. Våken, men ikke adekvat</includedValues>
-          <includedValues>3. Konfusorisk</includedValues>
-          <includedValues>4. Somnolent</includedValues>
-          <includedValues>5. Comatøs</includedValues>
-          <includedValues>6. Medikamentelt sedert</includedValues>
+        <constraint xsi:type="textConstraint">
+          <termQueryId queryName="UDS-MENTAL FUNKSJON OPR" />
         </constraint>
       </Rule>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA fysisk status klassifikasjon" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0023]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA fysisk status klassifikasjon" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0023]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <excludedValues>local::at0008</excludedValues>
+            <excludedValues>local::at0009</excludedValues>
+            <excludedValues>local::at0010</excludedValues>
+            <excludedValues>local::at0011</excludedValues>
+            <excludedValues>local::at0012</excludedValues>
+            <excludedValues>local::at0013</excludedValues>
+          </constraint>
+        </Rule>
+      </Items>
     </Content>
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.risk_factor_medicine_surgery.v1" concept_name="Risikofaktor medisiner kirurgi" max="1" path="/content">
-      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]" max="1" />
-      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]" max="1" />
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.risk.v1" concept_name="Helserisiko" max="1" path="/content" name="Risiko medikamenter">
+      <Rule path="/data[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Medikamenter</includedValues>
+        </constraint>
+      </Rule>
     </Content>
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.substance_use_summary-tobacco.v1" concept_name="Tobakksbruk" max="1" path="/content">
       <Rule path="/data[at0001]/items[at0005]" hide_on_form="true" />
-      <Rule path="/data[at0001]/items[at0007]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0007]/items[at0008]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0007]/items[at0015]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0007]/items[at0009.1]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0007]/items[at0010.1]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0007]/items[at0012.1]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0007]/items[at0013]" hide_on_form="true" />
     </Content>
     <Context />
   </definition>
