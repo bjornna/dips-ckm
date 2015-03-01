@@ -61,18 +61,67 @@
     </other_details>
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Encounter" name="Anestesi previsitt">
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.risk_assessment_anesthesia.v1" concept_name="Vurdering anestesirisiko" path="/content">
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA fysisk status klassifikasjon" path="/data[at0001]/events[at0002]/data[at0003]/items[at0023]" />
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.check_list.v1" concept_name="En helseorientert sjekkliste" max="1" path="/content" name="Sjekkliste anestesi previsitt">
+      <Rule path="/data[at0001]/items[at0004]/items[at0002]" max="1" name="Previsitt ferdigstilt" />
+      <Rule path="/data[at0001]/items[at0004]/items[at0002]/items[at0003]">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Boolean</includedTypes>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0004]/items[at0002]/items[at0005]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Pasient tilsett</includedValues>
+          <includedValues>Vurdert i DIPS</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0006]" hide_on_form="true" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.check_list.v1" concept_name="En helseorientert sjekkliste" max="1" path="/content" name="Vurdering blodprøver">
+      <Rule path="/data[at0001]/items[at0004]/items[at0002]" max="1" name="Blodprøver vurdert" />
+      <Rule path="/data[at0001]/items[at0004]/items[at0002]/items[at0003]">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Boolean</includedTypes>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0006]" hide_on_form="true" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.check_list.v1" concept_name="En helseorientert sjekkliste" max="1" path="/content" name="Vurdering EKG">
+      <Rule path="/data[at0001]/items[at0004]/items[at0002]" max="1" name="EKG vurdert" />
+      <Rule path="/data[at0001]/items[at0004]/items[at0002]/items[at0003]">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Boolean</includedTypes>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0006]" hide_on_form="true" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.check_list.v1" concept_name="En helseorientert sjekkliste" max="1" path="/content" name="Vurdering ekko">
+      <Rule path="/data[at0001]/items[at0004]/items[at0002]" max="1" name="Ekko vurdert" />
+      <Rule path="/data[at0001]/items[at0004]/items[at0002]/items[at0003]">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Boolean</includedTypes>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0006]" hide_on_form="true" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.check_list.v1" concept_name="En helseorientert sjekkliste" max="1" path="/content" name="Vurdering røntgen thorax">
+      <Rule path="/data[at0001]/items[at0004]/items[at0002]" max="1" name="Røntgen thorax vurdert" />
+      <Rule path="/data[at0001]/items[at0004]/items[at0002]/items[at0003]">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Boolean</includedTypes>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0006]" hide_on_form="true" />
     </Content>
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.blood_pressure.v1" concept_name="Blodtrykk" path="/content" />
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.height.v1" concept_name="Høyde/Lengde" path="/content" />
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.risk.v1" concept_name="Helserisiko" path="/content" />
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_weight.v1" concept_name="Kroppsvekt" path="/content" />
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.risk_factor_heart_anesthesia.v1" concept_name="Risikofaktor hjerte anestesi" path="/content" />
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.nyha_heart_failure_score.v1" concept_name="NYHA Heart failure classification" path="/content" />
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.risk_factor_lungs_anesthesia.v1" concept_name="Risikofaktor lunge anestesi" path="/content" />
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.risk_factors_anesthesia.v1" concept_name="Risk factors anesthesia" path="/content" />
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.other_risk_factors_anesthesia.v1" concept_name="Annen risikofaktor anestesi" path="/content" />
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.planned_anesthesia.v1" concept_name="Planlagt anestesi" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.nyha_heart_failure_score.v1" concept_name="NYHA Hjerte svikt klassifikasjon" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.preoperative_evaluation_anesthesia.v1" concept_name="Evaluering anestesi previsitt" path="/content">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA fysisk status klassifikasjon" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.preoperative_clarifications_anesthesia.v1" concept_name="Avklaringer før operasjon anestesi" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.planned_anesthesia.v1" concept_name="Planlagt anestesi" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]" />
+    </Content>
     <Context />
   </definition>
 </template>
