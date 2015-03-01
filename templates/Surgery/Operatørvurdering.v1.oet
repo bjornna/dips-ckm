@@ -93,7 +93,6 @@
             <includedValues>Cyclokapron/Traneksamsyre 10mg/kg 20-30 min før knivstart + etter 3 timer</includedValues>
           </constraint>
         </Rule>
-        <Rule path="/items[at0006]/items[at0007]" default="http://www.magicapp.org/app#/guideline/1" name="Retningslinjer for antitrombotisk behandling og profylakse" />
       </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.additional_information_surgery.v1" concept_name="Tilleggsinformasjon kirurgi" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0011]" />
     </Content>
@@ -117,28 +116,8 @@
       <Rule path="/data[at0001]/events[at1042]" hide_on_form="true" />
       <Rule path="/protocol[at0011]" hide_on_form="true" />
     </Content>
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.organ_status_evaluation_surgery.v1" concept_name="Organstatus evaluering kirurgi" max="1" path="/content">
-      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]/items[at0005]">
-        <constraint xsi:type="textConstraint">
-          <termQueryId queryName="UDS-HJERTEFUNKSJON OPR" />
-        </constraint>
-      </Rule>
-      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]/items[at0008]">
-        <constraint xsi:type="textConstraint">
-          <termQueryId queryName="UDS-LUNGEFUNKSJON OPR" />
-        </constraint>
-      </Rule>
-      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0010]/items[at0011]">
-        <constraint xsi:type="textConstraint">
-          <termQueryId queryName="UDS-NYREFUNKSJON OPR" />
-        </constraint>
-      </Rule>
-      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0013]/items[at0014]">
-        <constraint xsi:type="textConstraint">
-          <termQueryId queryName="UDS-MENTAL FUNKSJON OPR" />
-        </constraint>
-      </Rule>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA fysisk status klassifikasjon" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0023]">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.organ_status_evaluation_surgery.v1" concept_name="Organstatus kirurgi" max="1" path="/content">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA fysisk status klassifikasjon" path="/data[at0001]/events[at0002]/data[at0003]/items[at0023]">
         <Rule path="/items[at0001]">
           <constraint xsi:type="textConstraint">
             <excludedValues>local::at0008</excludedValues>
@@ -150,13 +129,30 @@
           </constraint>
         </Rule>
       </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.exam.v1" concept_name="Undersøkelse" path="/data[at0001]/events[at0002]/data[at0003]/items[at0024]">
+        <Rule path="/items[at0004]/items[at0005]" max="1" />
+        <Rule path="/items[at0002]" hide_on_form="true" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.auscultation-chest.v1" concept_name="Auslutasjon av thorax" max="1" path="/items[at0008]/items[at0009]">
+          <Rule path="/items[at0004]" hide_on_form="true" />
+          <Rule path="/items[at0002]/items[at0.15]/items[at0.67]" hide_on_form="true" />
+          <Rule path="/items[at0002]/items[at0.15]/items[at0.68]" hide_on_form="true" />
+          <Rule path="/items[at0002]/items[at0.69]/items[at0.82]" hide_on_form="true" />
+          <Rule path="/items[at0002]/items[at0010]" hide_on_form="true" />
+          <Rule path="/items[at0002]/items[at0089]" hide_on_form="true" />
+          <Rule path="/items[at0002]/items[at0086]" hide_on_form="true" />
+        </Items>
+      </Items>
     </Content>
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.risk.v1" concept_name="Helserisiko" max="1" path="/content" name="Risiko medikamenter">
-      <Rule path="/data[at0001]/items[at0002]">
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.risk.v1" concept_name="Helserisiko" max="1" path="/content" name="Medikamenter">
+      <Rule path="/data[at0001]/items[at0002]" hide_on_form="true">
         <constraint xsi:type="textConstraint">
           <includedValues>Medikamenter</includedValues>
         </constraint>
       </Rule>
+      <Rule path="/data[at0001]/items[at0013]" max="1" name="Medikament" />
+      <Rule path="/data[at0001]/items[at0012]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0003]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0004]" hide_on_form="true" />
     </Content>
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.substance_use_summary-tobacco.v1" concept_name="Tobakksbruk" max="1" path="/content">
       <Rule path="/data[at0001]/items[at0005]" hide_on_form="true" />
@@ -166,6 +162,46 @@
       <Rule path="/data[at0001]/items[at0007]/items[at0010.1]" hide_on_form="true" />
       <Rule path="/data[at0001]/items[at0007]/items[at0012.1]" hide_on_form="true" />
       <Rule path="/data[at0001]/items[at0007]/items[at0013]" hide_on_form="true" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.adverse_reaction_fhir.v1" concept_name="Overfølsomhetsreaksjon" max="1" path="/content" name="Allergi">
+      <Rule path="/data[at0001]/items[at0063]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0101]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0058]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0120]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0117]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0006]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0009]/items[at0010]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0009]/items[at0021]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0009]/items[at0011]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0009]/items[at0012]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0009]/items[at0027]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0009]/items[at0028]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0009]/items[at0089]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0009]/items[at0020]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0009]/items[at0025]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0009]/items[at0106]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0009]/items[at0018]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0009]/items[at0040]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0009]/items[at0032]" hide_on_form="true" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.identification_medicine.v1" concept_name="Identifisering medisin" max="1" path="/data[at0001]/items[at0009 and name/value='Reaksjons hendelse']/items[at0041]">
+        <Rule path="/items[at0001]" hide_on_form="true" />
+        <Rule path="/items[at0004]" hide_on_form="true" />
+        <Rule path="/items[at0003]" hide_on_form="true" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.information_source.v1" concept_name="Informasjonskilde" max="1" path="/data[at0001]/items[at0009 and name/value='Reaksjons hendelse']/items[at0116]">
+        <Rule path="/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>1. Pasientens egne opplysninger</includedValues>
+            <includedValues>2. Pårørendes opplysninger</includedValues>
+            <includedValues>3. Hentet fra tidligere journal</includedValues>
+            <includedValues>4. Observert av behandlende lege</includedValues>
+            <includedValues>5. Resultat av tester/analyser</includedValues>
+            <includedValues>6. Annet</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0001]" hide_on_form="true" />
+        <Rule path="/items[at0003]" hide_on_form="true" />
+      </Items>
     </Content>
     <Context />
   </definition>
