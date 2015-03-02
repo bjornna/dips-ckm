@@ -62,13 +62,14 @@
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Encounter" name="Anestesi previsitt">
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.check_list.v1" concept_name="En helseorientert sjekkliste" max="1" path="/content" name="Sjekkliste anestesi previsitt">
-      <Rule path="/data[at0001]/items[at0004]/items[at0002]" max="1" name="Previsitt ferdigstilt" />
+      <Rule path="/data[at0001]/items[at0004]" max="1" name="Previsitt" />
+      <Rule path="/data[at0001]/items[at0004]/items[at0002]" max="1" name="Previsitt ferdigstilt?" />
       <Rule path="/data[at0001]/items[at0004]/items[at0002]/items[at0003]">
         <constraint xsi:type="multipleConstraint">
           <includedTypes>Boolean</includedTypes>
         </constraint>
       </Rule>
-      <Rule path="/data[at0001]/items[at0004]/items[at0002]/items[at0005]">
+      <Rule path="/data[at0001]/items[at0004]/items[at0002]/items[at0005]" name="Kommentar">
         <constraint xsi:type="textConstraint">
           <includedValues>Pasient tilsett</includedValues>
           <includedValues>Vurdert i DIPS</includedValues>
@@ -77,50 +78,223 @@
       <Rule path="/data[at0001]/items[at0006]" hide_on_form="true" />
     </Content>
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.check_list.v1" concept_name="En helseorientert sjekkliste" max="1" path="/content" name="Vurdering blodprøver">
-      <Rule path="/data[at0001]/items[at0004]/items[at0002]" max="1" name="Blodprøver vurdert" />
+      <Rule path="/data[at0001]/items[at0004]" max="1" name="Blodprøver" />
+      <Rule path="/data[at0001]/items[at0004]/items[at0002]" max="1" name="Blodprøver vurdert?" />
       <Rule path="/data[at0001]/items[at0004]/items[at0002]/items[at0003]">
         <constraint xsi:type="multipleConstraint">
           <includedTypes>Boolean</includedTypes>
         </constraint>
       </Rule>
+      <Rule path="/data[at0001]/items[at0004]/items[at0002]/items[at0005]" name="Kommentar " />
       <Rule path="/data[at0001]/items[at0006]" hide_on_form="true" />
     </Content>
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.check_list.v1" concept_name="En helseorientert sjekkliste" max="1" path="/content" name="Vurdering EKG">
+      <Rule path="/data[at0001]/items[at0004]" max="1" name="EKG" />
       <Rule path="/data[at0001]/items[at0004]/items[at0002]" max="1" name="EKG vurdert" />
       <Rule path="/data[at0001]/items[at0004]/items[at0002]/items[at0003]">
         <constraint xsi:type="multipleConstraint">
           <includedTypes>Boolean</includedTypes>
         </constraint>
       </Rule>
+      <Rule path="/data[at0001]/items[at0004]/items[at0002]/items[at0005]" name="Kommentar" />
       <Rule path="/data[at0001]/items[at0006]" hide_on_form="true" />
     </Content>
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.check_list.v1" concept_name="En helseorientert sjekkliste" max="1" path="/content" name="Vurdering ekko">
+      <Rule path="/data[at0001]/items[at0004]" max="1" name="Ekko" />
       <Rule path="/data[at0001]/items[at0004]/items[at0002]" max="1" name="Ekko vurdert" />
       <Rule path="/data[at0001]/items[at0004]/items[at0002]/items[at0003]">
         <constraint xsi:type="multipleConstraint">
           <includedTypes>Boolean</includedTypes>
         </constraint>
       </Rule>
+      <Rule path="/data[at0001]/items[at0004]/items[at0002]/items[at0005]" name="Kommentar" />
       <Rule path="/data[at0001]/items[at0006]" hide_on_form="true" />
     </Content>
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.check_list.v1" concept_name="En helseorientert sjekkliste" max="1" path="/content" name="Vurdering røntgen thorax">
+      <Rule path="/data[at0001]/items[at0004]" max="1" name="Røntgen thorax" />
       <Rule path="/data[at0001]/items[at0004]/items[at0002]" max="1" name="Røntgen thorax vurdert" />
       <Rule path="/data[at0001]/items[at0004]/items[at0002]/items[at0003]">
         <constraint xsi:type="multipleConstraint">
           <includedTypes>Boolean</includedTypes>
         </constraint>
       </Rule>
+      <Rule path="/data[at0001]/items[at0004]/items[at0002]/items[at0005]" name="Kommentar" />
       <Rule path="/data[at0001]/items[at0006]" hide_on_form="true" />
     </Content>
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.blood_pressure.v1" concept_name="Blodtrykk" path="/content" />
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.height.v1" concept_name="Høyde/Lengde" path="/content" />
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.risk.v1" concept_name="Helserisiko" path="/content" />
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_weight.v1" concept_name="Kroppsvekt" path="/content" />
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.nyha_heart_failure_score.v1" concept_name="NYHA Hjerte svikt klassifikasjon" path="/content" />
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.preoperative_evaluation_anesthesia.v1" concept_name="Evaluering anestesi previsitt" path="/content">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.blood_pressure.v1" concept_name="Blodtrykk" path="/content">
+      <Rule path="/data[at0001]/events[at0006]/data[at0003]/items[at1006]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0006]/data[at0003]/items[at1007]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0006]/data[at0003]/items[at0033]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0006]/state[at0007]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at1042]" hide_on_form="true" />
+      <Rule path="/protocol[at0011]" hide_on_form="true" />
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.height.v1" concept_name="Høyde/Lengde" max="1" path="/content">
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0026]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0018]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0002]/state[at0013]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0021]" hide_on_form="true" />
+      <Rule path="/protocol[at0007]" hide_on_form="true" />
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_weight.v1" concept_name="Kroppsvekt" max="1" path="/content">
+      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0038]" hide_on_form="true" />
+      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0024]" hide_on_form="true" />
+      <Rule path="/data[at0002]/events[at0003]/state[at0008]" hide_on_form="true" />
+      <Rule path="/data[at0002]/events[at0026]" hide_on_form="true" />
+      <Rule path="/protocol[at0015]" hide_on_form="true" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.risk.v1" concept_name="Helserisiko" max="1" path="/content" name="Hjerte">
+      <Rule path="/data[at0001]/items[at0002]" name="Hjerte">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Hjerte</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0013]">
+        <constraint xsi:type="textConstraint" limitToList="false">
+          <includedValues>Hjertesvikt</includedValues>
+          <includedValues>Koronarsykdom</includedValues>
+          <includedValues>Angina</includedValues>
+          <includedValues>Hypertensjon</includedValues>
+          <includedValues>Arrytmi</includedValues>
+          <includedValues>Klaffefeil</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0012]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0003]" name="Signifikans" />
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.nyha_heart_failure_score.v1" concept_name="NYHA Hjerte svikt klassifikasjon" max="1" path="/content" />
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.risk.v1" concept_name="Helserisiko" max="1" path="/content" name="Lunge">
+      <Rule path="/data[at0001]/items[at0002]" name="Lunge">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Lunge</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0013]">
+        <constraint xsi:type="textConstraint" limitToList="false">
+          <includedValues>KOLS</includedValues>
+          <includedValues>Astma</includedValues>
+          <includedValues>Infeksjon</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0012]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0003]" name="Signifikans" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.risk.v1" concept_name="Helserisiko" max="1" path="/content" name="Øvrige organer">
+      <Rule path="/data[at0001]/items[at0002]" name="Øvrige organer">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Øvrige organer</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0013]">
+        <constraint xsi:type="textConstraint" limitToList="false">
+          <includedValues>CNS/nevrologi</includedValues>
+          <includedValues>Diabetes</includedValues>
+          <includedValues>GI traktus/lever</includedValues>
+          <includedValues>Ernæringstilstand</includedValues>
+          <includedValues>Nyre</includedValues>
+          <includedValues>Hematologi</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0012]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0003]" name="Signifikans" />
+      <Rule path="/data[at0001]/items[at0004]" max="1" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.risk.v1" concept_name="Helserisiko" max="1" path="/content" name="Skal vurderes separat">
+      <Rule path="/data[at0001]/items[at0002]" name="Skal vurderes separat">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Skal vurderes separat</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0013]">
+        <constraint xsi:type="textConstraint" limitToList="false">
+          <includedValues>Nakke ekstensjon</includedValues>
+          <includedValues>Tannstatus</includedValues>
+          <includedValues>Gapeevne</includedValues>
+          <includedValues>Mallampati</includedValues>
+          <includedValues>Forventet vanskelig intubasjon</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0012]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0003]" name="Signifikans" />
+      <Rule path="/data[at0001]/items[at0004]" max="1" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.risk.v1" concept_name="Helserisiko" max="1" path="/content" name="Annet">
+      <Rule path="/data[at0001]/items[at0002]" name="Annet">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Annet</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0013]">
+        <constraint xsi:type="textConstraint" limitToList="false">
+          <includedValues>Røyker</includedValues>
+          <includedValues>Andre stilmulantia</includedValues>
+          <includedValues>Aspirasjonsrisiko</includedValues>
+          <includedValues>Tidligere anestesi</includedValues>
+          <includedValues>PONV/bilsyke</includedValues>
+          <includedValues>Malign sykdom</includedValues>
+          <includedValues>Psyke</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0012]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0003]" name="Signifikans" />
+      <Rule path="/data[at0001]/items[at0004]" max="1" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.risk.v1" concept_name="Helserisiko" max="1" path="/content" name="Medikamenter">
+      <Rule path="/data[at0001]/items[at0002]" name="Medikamenter">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Medikamenter</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0012]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0003]" name="Signifikans" />
+      <Rule path="/data[at0001]/items[at0004]" max="1" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.risk.v1" concept_name="Helserisiko" max="1" path="/content" name="Allergi">
+      <Rule path="/data[at0001]/items[at0002]" name="Allergi">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Medikamenter</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0013]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Allergi</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0012]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0003]" name="Signifikans" />
+      <Rule path="/data[at0001]/items[at0004]" max="1" />
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.preoperative_evaluation_anesthesia.v1" concept_name="Evaluering anestesi previsitt" max="1" path="/content">
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA fysisk status klassifikasjon" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.preoperative_clarifications_anesthesia.v1" concept_name="Avklaringer før operasjon anestesi" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.planned_anesthesia.v1" concept_name="Planlagt anestesi" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.preoperative_clarifications_anesthesia.v1" concept_name="Avklaringer før operasjon anestesi" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+        <Rule path="/items[at0001]" max="1" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.planned_anesthesia.v1" concept_name="Planlagt anestesi" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+        <Rule path="/items[at0005]">
+          <constraint xsi:type="textConstraint" limitToList="false">
+            <includedValues>Paracetamol 1g (po/iv) x 4</includedValues>
+            <includedValues>Paracetamol 1,5 g po x4</includedValues>
+            <includedValues>Diclofenac 50 mg po x 3</includedValues>
+            <includedValues>Diclifenac 50 mg po x 2</includedValues>
+            <includedValues>Morfin 4-6 mg iv v/b</includedValues>
+            <includedValues>Morfin 3-4 mg iv v/b</includedValues>
+            <includedValues>Ketorolac 30 mg iv x 1 - 3</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0006]">
+          <constraint xsi:type="textConstraint" limitToList="false">
+            <includedValues>Ondansetron 4 mg iv</includedValues>
+            <includedValues>Dexamethason (Fortecortin) 4 mg - 8 mg iv</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.important_information_procedure.v1" concept_name="Viktig informasjon prosedyre" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]" name="Viktig informasjon fra anestesi">
+        <Rule path="/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>anestesi</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
     </Content>
     <Context />
   </definition>

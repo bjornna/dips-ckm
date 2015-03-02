@@ -95,6 +95,13 @@
         </Rule>
       </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.additional_information_surgery.v1" concept_name="Tilleggsinformasjon kirurgi" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0011]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.important_information_procedure.v1" concept_name="Viktig informasjon prosedyre" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0011]" name="Viktig informasjon fra kirurg">
+        <Rule path="/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>kirurg</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
     </Content>
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.height.v1" concept_name="Høyde/Lengde" max="1" path="/content">
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0026]" hide_on_form="true" />
@@ -111,6 +118,16 @@
       <Rule path="/data[at0001]/events[at0006]/state[at0007]" hide_on_form="true" />
       <Rule path="/data[at0001]/events[at1042]" hide_on_form="true" />
       <Rule path="/protocol[at0011]" hide_on_form="true" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.risk.v1" concept_name="Helserisiko" max="1" path="/content" name="Medikamenter">
+      <Rule path="/data[at0001]/items[at0002]" name="Medikamenter">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Medikamenter</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0012]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0003]" hide_on_form="true" name="Signifikans" />
+      <Rule path="/data[at0001]/items[at0004]" hide_on_form="true" />
     </Content>
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.organ_status_evaluation_surgery.v1" concept_name="Organstatus kirurgi" max="1" path="/content">
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA fysisk status klassifikasjon" path="/data[at0001]/events[at0002]/data[at0003]/items[at0023]">
@@ -138,17 +155,6 @@
           <Rule path="/items[at0002]/items[at0086]" hide_on_form="true" />
         </Items>
       </Items>
-    </Content>
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.risk.v1" concept_name="Helserisiko" max="1" path="/content" name="Medikamenter">
-      <Rule path="/data[at0001]/items[at0002]" hide_on_form="true">
-        <constraint xsi:type="textConstraint">
-          <includedValues>Medikamenter</includedValues>
-        </constraint>
-      </Rule>
-      <Rule path="/data[at0001]/items[at0013]" max="1" name="Medikament" />
-      <Rule path="/data[at0001]/items[at0012]" hide_on_form="true" />
-      <Rule path="/data[at0001]/items[at0003]" hide_on_form="true" />
-      <Rule path="/data[at0001]/items[at0004]" hide_on_form="true" />
     </Content>
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.substance_use_summary-tobacco.v1" concept_name="Tobakksbruk" max="1" path="/content">
       <Rule path="/data[at0001]/items[at0005]" hide_on_form="true" />
