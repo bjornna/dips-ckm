@@ -1,146 +1,146 @@
 archetype (adl_version=1.4)
-	openEHR-EHR-OBSERVATION.organ_status_evaluation_surgery.v1
+    openEHR-EHR-OBSERVATION.organ_status_evaluation_surgery.v1
 
 concept
-	[at0000]	-- Organstatus evaluering kirurgi
+    [at0000]
+
 language
-	original_language = <[ISO_639-1::nb]>
-	translations = <
-		["no"] = <
-			language = <[ISO_639-1::no]>
-			author = <
-				["name"] = <"?">
-			>
-		>
-	>
+    original_language = <[ISO_639-1::nb]>
+    translations = <
+        ["no"] = <
+            language = <[ISO_639-1::no]>
+            author = <
+                ["name"] = <"?">
+            >
+        >
+    >
+
 description
-	original_author = <
-		["name"] = <"Anca Heyd">
-		["organisation"] = <"DIPS ASA">
-		["email"] = <"ahe@dips.no">
-		["date"] = <"2015-02-16">
-	>
-	details = <
-		["no"] = <
-			language = <[ISO_639-1::no]>
-			purpose = <"Å gi en beskrivelse av organstatus i forkant av en operasjon. ">
-			use = <"Brukes i forbindelse med en planlagt kirurgisk prosedyre. Brukes for å beskrive kirurgens vurdering av organstatus i forkant av det planlagte inngrepet.">
-			keywords = <"kirurgi", "organstatus", "vurdering">
-			misuse = <"Skal ikke brukes for å beskrive funn ved klinisk undersøkelse av ogansystemet. Til dette skal f.eks. arketypen funn ved klinisk undersøkelse benyttes.">
-			copyright = <"">
-		>
-		["nb"] = <
-			language = <[ISO_639-1::nb]>
-			purpose = <"Å gi en beskrivelse av organstatus i forkant av en operasjon. Dette kan være en kombinasjon ev en evaluering og dokumentasjon av undersøkelsesfunn og sykehistorie.">
-			use = <"Brukes i forbindelse med en planlagt kirurgisk prosedyre. Brukes for å beskrive kirurgens vurdering av organstatus og dokumentere kliniske funn og sykehistorie som har betydning for inngrepet.">
-			keywords = <"kirurgi", "organstatus", "vurdering">
-			misuse = <"">
-			copyright = <"">
-		>
-	>
-	lifecycle_state = <"0">
-	other_contributors = <>
-	other_details = <
-		["MD5-CAM-1.0.1"] = <"D6ED1C3EC7FE357ACD4E6C027F9796A6">
-	>
+    original_author = <
+        ["email"] = <"ahe@dips.no">
+        ["organisation"] = <"DIPS ASA">
+        ["name"] = <"Anca Heyd">
+        ["date"] = <"2015-02-16">
+    >
+    lifecycle_state = <"0">
+    details = <
+        ["nb"] = <
+            language = <[ISO_639-1::nb]>
+            purpose = <"Å gi en beskrivelse av organstatus i forkant av en operasjon. Dette kan være en kombinasjon ev en evaluering og dokumentasjon av undersøkelsesfunn og sykehistorie.">
+            keywords = <"kirurgi","organstatus","vurdering">
+            use = <"Brukes i forbindelse med en planlagt kirurgisk prosedyre. Brukes for å beskrive kirurgens vurdering av organstatus og dokumentere kliniske funn og sykehistorie som har betydning for inngrepet.">
+        >
+        ["no"] = <
+            language = <[ISO_639-1::no]>
+            purpose = <"Å gi en beskrivelse av organstatus i forkant av en operasjon. Dette kan være en kombinasjon ev en evaluering og dokumentasjon av undersøkelsesfunn og sykehistorie.">
+            keywords = <"kirurgi","organstatus","vurdering">
+            use = <"Brukes i forbindelse med en planlagt kirurgisk prosedyre. Brukes for å beskrive kirurgens vurdering av organstatus og dokumentere kliniske funn og sykehistorie som har betydning for inngrepet.">
+        >
+    >
 
 definition
-	OBSERVATION[at0000] matches {	-- Organstatus evaluering kirurgi
-		data matches {
-			HISTORY[at0001] matches {	-- Event Series
-				events cardinality matches {1..*; unordered} matches {
-					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
-						data matches {
-							ITEM_TREE[at0003] matches {	-- Tree
-								items cardinality matches {0..*; unordered} matches {
-									allow_archetype CLUSTER[at0023] occurrences matches {0..1} matches {	-- ASA fysisk status klassifkasjon 
-										include
-											archetype_id/value matches {/openEHR-EHR-CLUSTER\.asa_status(-[a-zA-Z0-9_]+)*\.v1/}
-									}
-									allow_archetype CLUSTER[at0024] occurrences matches {0..*} matches {	-- Kliniske faktorer
-										include
-											archetype_id/value matches {/.*/}
-									}
-									ELEMENT[at0026] occurrences matches {0..1} matches {	-- *New element(nb)
-										value matches {
-											DV_BOOLEAN matches {
-												value matches {True}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+    OBSERVATION[at0000] matches {
+        data matches {
+            HISTORY[at0001] matches {
+                events cardinality matches {1..*; unordered} matches {
+                    EVENT[at0002] occurrences matches {0..1} matches {
+                        data matches {
+                            ITEM_TREE[at0003] matches {
+                                items cardinality matches {0..*; unordered} matches {
+                                    allow_archetype CLUSTER[at0024] occurrences matches {0..*} matches {
+                                        include
+                                            archetype_id/value matches {/.*/}
+                                    }
+                                    ELEMENT[at0026] occurrences matches {0..1} matches {
+                                        value matches {
+                                            DV_BOOLEAN matches {
+                                                value matches {true}
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
 ontology
-	term_definitions = <
-		["no"] = <
-			items = <
-				["at0000"] = <
-					text = <"Organstatus kirurgi">
-					description = <"Kirurgens vurdering av organstatus i forkant av en operasjon.">
-				>
-				["at0001"] = <
-					text = <"Event Series">
-					description = <"@ internal @">
-				>
-				["at0002"] = <
-					text = <"Any event">
-					description = <"*">
-				>
-				["at0003"] = <
-					text = <"Tree">
-					description = <"@ internal @">
-				>
-				["at0023"] = <
-					text = <"ASA fysisk status klassifkasjon ">
-					description = <"Klassifikasjons system anvendt av American Society of Anesthesiologists for bedømning av den per-operative fysiske status.">
-				>
-				["at0024"] = <
-					text = <"Kliniske faktorer">
-					description = <"Mulighet til å legge inn cluster for å registrere kliniske faktorer som har betydning for inngrepet og evaluering av ASA status. F.eks. informsajon om tidligere sykdommer, undersøkelse av organer som skal operers etc.">
-				>
-				["at0026"] = <
-					text = <"Økt blødningsfare">
-					description = <"Sann indikerer økt blødningsfare under inngrepet.">
-				>
-			>
-		>
-		["nb"] = <
-			items = <
-				["at0000"] = <
-					text = <"Organstatus kirurgi">
-					description = <"Kirurgens vurdering av organstatus i forkant av en operasjon.">
-				>
-				["at0001"] = <
-					text = <"Event Series">
-					description = <"@ internal @">
-				>
-				["at0002"] = <
-					text = <"Any event">
-					description = <"*">
-				>
-				["at0003"] = <
-					text = <"Tree">
-					description = <"@ internal @">
-				>
-				["at0023"] = <
-					text = <"ASA fysisk status klassifkasjon ">
-					description = <"Klassifikasjons system anvendt av American Society of Anesthesiologists for bedømning av den per-operative fysiske status.">
-				>
-				["at0024"] = <
-					text = <"Kliniske faktorer">
-					description = <"Mulighet til å legge inn cluster for å registrere kliniske faktorer som har betydning for inngrepet og evaluering av ASA status. F.eks. informsajon om tidligere sykdommer, undersøkelse av organer som skal operers etc.">
-				>
-				["at0026"] = <
-					text = <"Økt blødningsfare">
-					description = <"Sann indikerer økt blødningsfare under inngrepet.">
-				>
-			>
-		>
-	>
+    term_definitions = <
+        ["no"] = <
+            items = <
+                ["at0000"] = <
+                    text = <"Organstatus kirurgi">
+                    description = <"Kirurgens vurdering av organstatus i forkant av en operasjon.">
+
+                >
+                ["at0001"] = <
+                    text = <"Event Series">
+                    description = <"@ internal @">
+
+                >
+                ["at0002"] = <
+                    text = <"Any event">
+                    description = <"*">
+
+                >
+                ["at0003"] = <
+                    text = <"Tree">
+                    description = <"@ internal @">
+
+                >
+                ["at0024"] = <
+                    text = <"Detaljer">
+                    description = <"Detaljer vedrørende organstatus som har betydning for inngrepet. F.eks. ASA status, informsajon om tidligere sykdommer, undersøkelse av organer som skal operers etc.">
+
+                >
+                ["at0026"] = <
+                    text = <"Økt blødningsfare">
+                    description = <"Sann indikerer økt blødningsfare under inngrepet.">
+
+                >
+            >
+        >
+        ["nb"] = <
+            items = <
+                ["at0000"] = <
+                    text = <"Organstatus kirurgi">
+                    description = <"Kirurgens vurdering av organstatus i forkant av en operasjon.">
+
+                >
+                ["at0001"] = <
+                    text = <"Event Series">
+                    description = <"@ internal @">
+
+                >
+                ["at0002"] = <
+                    text = <"Any event">
+                    description = <"*">
+
+                >
+                ["at0003"] = <
+                    text = <"Tree">
+                    description = <"@ internal @">
+
+                >
+                ["at0024"] = <
+                    text = <"Detaljer">
+                    description = <"Detaljer vedrørende organstatus som har betydning for inngrepet. F.eks. ASA status, informsajon om tidligere sykdommer, undersøkelse av organer som skal operers etc.">
+
+                >
+                ["at0026"] = <
+                    text = <"Økt blødningsfare">
+                    description = <"Sann indikerer økt blødningsfare under inngrepet.">
+
+                >
+            >
+        >
+    >
+    constraint_definitions = <
+    >
+    term_binding = <
+    >
+    constraint_binding = <
+    >
