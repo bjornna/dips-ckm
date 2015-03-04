@@ -64,12 +64,12 @@
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.surgery_details.v1" concept_name="Operasjonsdetaljer" max="1" path="/content">
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
         <constraint xsi:type="textConstraint">
-          <termQueryId queryName="MED-SÅRRENHETSGRAD" />
+          <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="MED-SÅRRENHETSGRAD" />
         </constraint>
       </Rule>
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
         <constraint xsi:type="textConstraint">
-          <termQueryId queryName="UDS-LEIE" />
+          <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="UDS-LEIE" />
         </constraint>
       </Rule>
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0012]/items[at0007]">
@@ -85,7 +85,11 @@
         <Rule path="/items[at0013]" hide_on_form="true" />
       </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.medicine_surgery.v1" concept_name="Medikamenter ved kirurgi" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0011]">
-        <Rule path="/items[at0004]/items[at0001]" max="1" />
+        <Rule path="/items[at0004]/items[at0001]" max="1">
+          <constraint xsi:type="textConstraint">
+            <termQueryId queryName="UDS- AB-PROFYLAKSE OPR" />
+          </constraint>
+        </Rule>
         <Rule path="/items[at0004]/items[at0005]" default="http://sites.helsedirektoratet.no/sites/antibiotikabruk-i-sykehus/om/Sider/default.aspx" name="Nasjonal faglig retningslinje for bruk av antibiotika i sykehus" />
         <Rule path="/items[at0002]" max="1">
           <constraint xsi:type="textConstraint" limitToList="false">
@@ -130,6 +134,7 @@
       <Rule path="/data[at0001]/items[at0004]" hide_on_form="true" />
     </Content>
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.exam.v1" concept_name="Funn ved klinisk undersøkelse" max="1" path="/content" name="Undersøkelse hjerte">
+      <Rule path="/data[at0001]/events[at0002]" max="1" name="Any event" />
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]" max="1">
         <constraint xsi:type="textConstraint">
           <includedValues>Normal</includedValues>
@@ -138,7 +143,7 @@
         </constraint>
       </Rule>
       <Rule path="/protocol[at0007]" hide_on_form="true" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.bodypart.v1" concept_name="Kroppsdel" path="/data[at0001]/events[at0002 and name/value='Uspesifisert hendelse']/data[at0003]/items[at0005]">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.bodypart.v1" concept_name="Kroppsdel" path="/data[at0001]/events[at0002 and name/value='Any event']/data[at0003]/items[at0005]">
         <Rule path="/items[at0001]">
           <constraint xsi:type="textConstraint">
             <excludedValues>local::at0003</excludedValues>
@@ -165,6 +170,7 @@
       </Items>
     </Content>
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.exam.v1" concept_name="Funn ved klinisk undersøkelse" max="1" path="/content" name="Undersøkelse lunge">
+      <Rule path="/data[at0001]/events[at0002]" max="1" name="Any event" />
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]" max="1">
         <constraint xsi:type="textConstraint">
           <includedValues>Normal</includedValues>
@@ -174,7 +180,7 @@
       </Rule>
       <Rule path="/data[at0001]/events[at0002]/state[at0009]" hide_on_form="true" />
       <Rule path="/protocol[at0007]" hide_on_form="true" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.bodypart.v1" concept_name="Kroppsdel" path="/data[at0001]/events[at0002 and name/value='Uspesifisert hendelse']/data[at0003]/items[at0005]">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.bodypart.v1" concept_name="Kroppsdel" path="/data[at0001]/events[at0002 and name/value='Any event']/data[at0003]/items[at0005]">
         <Rule path="/items[at0001]">
           <constraint xsi:type="textConstraint">
             <excludedValues>local::at0003</excludedValues>
@@ -230,6 +236,7 @@
       <Rule path="/data[at0001]/items[at0120]" hide_on_form="true" />
       <Rule path="/data[at0001]/items[at0117]" hide_on_form="true" />
       <Rule path="/data[at0001]/items[at0006]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0009]" max="1" name="Reaction event" />
       <Rule path="/data[at0001]/items[at0009]/items[at0010]" hide_on_form="true" />
       <Rule path="/data[at0001]/items[at0009]/items[at0021]" hide_on_form="true" />
       <Rule path="/data[at0001]/items[at0009]/items[at0011]" hide_on_form="true" />
@@ -243,12 +250,12 @@
       <Rule path="/data[at0001]/items[at0009]/items[at0018]" hide_on_form="true" />
       <Rule path="/data[at0001]/items[at0009]/items[at0040]" hide_on_form="true" />
       <Rule path="/data[at0001]/items[at0009]/items[at0032]" hide_on_form="true" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.identification_medicine.v1" concept_name="Identifisering medisin" max="1" path="/data[at0001]/items[at0009 and name/value='Reaksjons hendelse']/items[at0041]">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.identification_medicine.v1" concept_name="Identifisering medisin" max="1" path="/data[at0001]/items[at0009 and name/value='Reaction event']/items[at0041]">
         <Rule path="/items[at0001]" hide_on_form="true" />
         <Rule path="/items[at0004]" hide_on_form="true" />
         <Rule path="/items[at0003]" hide_on_form="true" />
       </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.information_source.v1" concept_name="Informasjonskilde" max="1" path="/data[at0001]/items[at0009 and name/value='Reaksjons hendelse']/items[at0116]">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.information_source.v1" concept_name="Informasjonskilde" max="1" path="/data[at0001]/items[at0009 and name/value='Reaction event']/items[at0116]">
         <Rule path="/items[at0002]">
           <constraint xsi:type="textConstraint">
             <includedValues>1. Pasientens egne opplysninger</includedValues>
