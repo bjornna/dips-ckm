@@ -44,12 +44,20 @@ description
 		["date"] = <"2007-04-02">
 	>
 	details = <
-		["ar-sy"] = <
-			language = <[ISO_639-1::ar-sy]>
-			purpose = <"قائمة مراجعة لتسجيل الأسئلة المركبة و الإجابات المتعلقة بالأدوية">
-			use = <"يستخدم لتسجيل عملية تجميع المعلومات حول الأدوية">
-			keywords = <"التحقق/ المراجعة", "قائمة", "الأدوية">
-			misuse = <"لا يستخدم لتسجيل الأمر بالأدوية أو سجلات تناول الدواء ">
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"En sjekkliste for å dokumentere strukturerte spørsmål og svar vedrørende medikasjon. ">
+			use = <"Brukes for å dokumentere informasjonsfangst vedrørende medisin. ">
+			keywords = <"sjekk", "liste", "medikasjon">
+			misuse = <"Ikke for å dokumentere medisin forordning eller administrering. ">
+			copyright = <"*© openEHR Foundation(en)">
+		>
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Eine Kontrollliste zur Dokumentation strukturierter Fragen und Antworten zur Medikation.">
+			use = <"Zur Dokumentation von gesammelten Informationen zur Medikation">
+			keywords = <"Kontrolle", "Liste", "Medikation">
+			misuse = <"Nicht zur Dokumentation von Verordnungen oder Verabreichungen">
 			copyright = <"© openEHR Foundation">
 		>
 		["en"] = <
@@ -60,21 +68,13 @@ description
 			misuse = <"Not for recording medication orders or administration records.">
 			copyright = <"© openEHR Foundation">
 		>
-		["de"] = <
-			language = <[ISO_639-1::de]>
-			purpose = <"Eine Kontrollliste zur Dokumentation strukturierter Fragen und Antworten zur Medikation.">
-			use = <"Zur Dokumentation von gesammelten Informationen zur Medikation">
-			keywords = <"Kontrolle", "Liste", "Medikation">
-			misuse = <"Nicht zur Dokumentation von Verordnungen oder Verabreichungen">
+		["ar-sy"] = <
+			language = <[ISO_639-1::ar-sy]>
+			purpose = <"قائمة مراجعة لتسجيل الأسئلة المركبة و الإجابات المتعلقة بالأدوية">
+			use = <"يستخدم لتسجيل عملية تجميع المعلومات حول الأدوية">
+			keywords = <"التحقق/ المراجعة", "قائمة", "الأدوية">
+			misuse = <"لا يستخدم لتسجيل الأمر بالأدوية أو سجلات تناول الدواء ">
 			copyright = <"© openEHR Foundation">
-		>
-		["no"] = <
-			language = <[ISO_639-1::no]>
-			purpose = <"En sjekkliste for å dokumentere strukturerte spørsmål og svar vedrørende medikasjon. ">
-			use = <"Brukes for å dokumentere informasjonsfangst vedrørende medisin. ">
-			keywords = <"sjekk", "liste", "medikasjon">
-			misuse = <"Ikke for å dokumentere medisin forordning eller administrering. ">
-			copyright = <"*© openEHR Foundation(en)">
 		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
@@ -88,7 +88,7 @@ description
 	lifecycle_state = <"AuthorDraft">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"2FA171DCC10AC4739B83AED88398F706">
+		["MD5-CAM-1.0.1"] = <"4B7AB38CAE3A9CFF783EC15F1DD2DEC1">
 	>
 
 definition
@@ -100,18 +100,14 @@ definition
 						items cardinality matches {1..*; unordered} matches {
 							CLUSTER[at0002] occurrences matches {1..*} matches {	-- Spørsmål
 								items cardinality matches {1..2; unordered} matches {
-									CLUSTER[at0.2] occurrences matches {0..1} matches {	-- *New cluster(en)
-										items cardinality matches {1..*; unordered} matches {
-											ELEMENT[at0003.1] occurrences matches {1..*} matches {	-- Medikasjon
-												value matches {
-													DV_TEXT matches {*}
-												}
-											}
-											ELEMENT[at0005] occurrences matches {0..1} matches {	-- Kommentar til svaret
-												value matches {
-													DV_TEXT matches {*}
-												}
-											}
+									ELEMENT[at0003.1] matches {	-- Medikasjon
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Kommentar til svaret
+										value matches {
+											DV_TEXT matches {*}
 										}
 									}
 								}
@@ -333,7 +329,7 @@ ontology
 					description = <"Svaret til spørsmålet.">
 				>
 				["at0003.1"] = <
-					text = <"Medikament">
+					text = <"Medikasjon">
 					description = <"Navn på medikamentet som er svar til spørsmålet.">
 				>
 				["at0004"] = <

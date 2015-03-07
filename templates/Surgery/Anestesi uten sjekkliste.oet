@@ -85,20 +85,15 @@
     </Content>
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.nyha_heart_failure_score.v1" concept_name="NYHA Hjerte svikt klassifikasjon" max="1" path="/content" />
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.risk_forslag.v1" template_id="a1548b3f-cfaf-4c67-84aa-e4babc7e8eb2" concept_name="Risiko anestesi tabell" path="/content" />
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.check_list-medication.v1" template_id="40d808c2-80f3-457b-8422-3cc16e376492" concept_name="Sjekkliste medikasjon" path="/content" />
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.risk.v1" concept_name="Helserisiko" max="1" path="/content" name="Allergi">
-      <Rule path="/data[at0001]/items[at0002]" hide_on_form="true" name="Komplikasjoner i forbindelse med kirurgi og/eller anestesi">
-        <constraint xsi:type="textConstraint">
-          <includedValues>Komplikasjoner i forbindelse med kirurgi og/eller anestesi</includedValues>
-        </constraint>
-      </Rule>
-      <Rule path="/data[at0001]/items[at0016]" max="1" name="Allergi" />
-      <Rule path="/data[at0001]/items[at0016]/items[at0012]" hide_on_form="true" />
-    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.check_list-medication.v1" concept_name="En sjekkliste for medikasjon." path="/content" />
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.preoperative_evaluation_anesthesia.v1" concept_name="Evaluering anestesi previsitt" max="1" path="/content">
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA fysisk status klassifikasjon" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]" />
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.preoperative_clarifications_anesthesia.v1" concept_name="Avklaringer før operasjon anestesi" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
-        <Rule path="/items[at0001]" max="1" />
+        <Rule path="/items[at0001]/items[at0004]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="HEALTHCAREPARTY" />
+          </constraint>
+        </Rule>
       </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.planned_anesthesia.v1" concept_name="Planlagt anestesi" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
         <Rule path="/items[at0001]">
