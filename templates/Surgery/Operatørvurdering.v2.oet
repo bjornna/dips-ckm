@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>8a9b4ea8-e986-421f-82b8-146691984514</id>
+  <name>Operatørvurdering.v1</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose />
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Encounter" name="Operatørvurdering">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.surgery_details.v1" concept_name="Operasjonsdetaljer" max="1" path="/content">
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="MED-SÅRRENHETSGRAD" />
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="UDS-LEIE" />
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0012]/items[at0007]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Høyre</includedValues>
+          <includedValues>Venstre</includedValues>
+          <includedValues>Bilateralt</includedValues>
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.special_requirements_surgery.v1" concept_name="Spesielle behov kirurgi" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0011]">
+        <Rule path="/items[at0007]" max="1" />
+        <Rule path="/items[at0010]" max="1" />
+        <Rule path="/items[at0013]" hide_on_form="true" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.medicine_surgery.v1" concept_name="Medikamenter ved kirurgi" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0011]">
+        <Rule path="/items[at0004]/items[at0001]" max="1">
+          <constraint xsi:type="textConstraint">
+            <termQueryId queryName="UDS- AB-PROFYLAKSE OPR" />
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0004]/items[at0005]" default="http://sites.helsedirektoratet.no/sites/antibiotikabruk-i-sykehus/om/Sider/default.aspx" name="Nasjonal faglig retningslinje for bruk av antibiotika i sykehus" />
+        <Rule path="/items[at0002]" max="1">
+          <constraint xsi:type="textConstraint" limitToList="false">
+            <includedValues>Cyclokapron/Traneksamsyre 10mg/kg etter avtale før blodtomhetslipp. + etter 3 timer</includedValues>
+            <includedValues>Cyclokapron/Traneksamsyre 10mg/kg 20-30 min før knivstart + etter 3 timer</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.additional_information_surgery.v1" concept_name="Tilleggsinformasjon kirurgi" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0011]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.important_information_procedure.v1" concept_name="Viktig informasjon prosedyre" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0011]" name="Viktig informasjon fra kirurg">
+        <Rule path="/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>kirurg</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.height.v1" concept_name="Høyde/Lengde" max="1" path="/content">
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0026]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0018]" hide_on_form="true" />
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_weight.v1" concept_name="Kroppsvekt" max="1" path="/content">
+      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0024]" hide_on_form="true" />
+      <Rule path="/data[at0002]/events[at0026]" hide_on_form="true" />
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.blood_pressure.v1" concept_name="Blodtrykk" path="/content">
+      <Rule path="/data[at0001]/events[at0006]/data[at0003]/items[at1006]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0006]/data[at0003]/items[at1007]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0006]/data[at0003]/items[at0033]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at0006]/state[at0007]" hide_on_form="true" />
+      <Rule path="/data[at0001]/events[at1042]" hide_on_form="true" />
+      <Rule path="/protocol[at0011]" hide_on_form="true" />
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.exam.v1" concept_name="Funn ved klinisk undersøkelse" max="1" path="/content" name="Undersøkelse hjerte">
+      <Rule path="/data[at0001]/events[at0002]" max="1" name="Any event" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]" max="1">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Normal</includedValues>
+          <includedValues>Avvik</includedValues>
+          <includedValues>Ikke undersøkt</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/protocol[at0007]" hide_on_form="true" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.bodypart.v1" concept_name="Kroppsdel" path="/data[at0001]/events[at0002 and name/value='Any event']/data[at0003]/items[at0005]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <excludedValues>local::at0003</excludedValues>
+            <excludedValues>local::at0004</excludedValues>
+            <excludedValues>local::at0005</excludedValues>
+            <excludedValues>local::at0006</excludedValues>
+            <excludedValues>local::at0007</excludedValues>
+            <excludedValues>local::at0008</excludedValues>
+            <excludedValues>local::at0009</excludedValues>
+            <excludedValues>local::at0011</excludedValues>
+            <excludedValues>local::at0012</excludedValues>
+            <excludedValues>local::at0013</excludedValues>
+            <excludedValues>local::at0014</excludedValues>
+            <excludedValues>local::at0029</excludedValues>
+            <excludedValues>local::at0030</excludedValues>
+            <excludedValues>local::at0031</excludedValues>
+            <excludedValues>local::at0056</excludedValues>
+            <excludedValues>local::at0057</excludedValues>
+            <excludedValues>local::at0058</excludedValues>
+            <excludedValues>local::at0059</excludedValues>
+            <excludedValues>local::at0060</excludedValues>
+          </constraint>
+        </Rule>
+      </Items>
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.exam.v1" concept_name="Funn ved klinisk undersøkelse" max="1" path="/content" name="Undersøkelse lunge">
+      <Rule path="/data[at0001]/events[at0002]" max="1" name="Any event" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]" max="1">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Normal</includedValues>
+          <includedValues>Avvik</includedValues>
+          <includedValues>Ikke undersøkt</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0002]/state[at0009]" hide_on_form="true" />
+      <Rule path="/protocol[at0007]" hide_on_form="true" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.bodypart.v1" concept_name="Kroppsdel" path="/data[at0001]/events[at0002 and name/value='Any event']/data[at0003]/items[at0005]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <excludedValues>local::at0003</excludedValues>
+            <excludedValues>local::at0004</excludedValues>
+            <excludedValues>local::at0005</excludedValues>
+            <excludedValues>local::at0006</excludedValues>
+            <excludedValues>local::at0007</excludedValues>
+            <excludedValues>local::at0008</excludedValues>
+            <excludedValues>local::at0009</excludedValues>
+            <excludedValues>local::at0010</excludedValues>
+            <excludedValues>local::at0012</excludedValues>
+            <excludedValues>local::at0013</excludedValues>
+            <excludedValues>local::at0014</excludedValues>
+            <excludedValues>local::at0029</excludedValues>
+            <excludedValues>local::at0030</excludedValues>
+            <excludedValues>local::at0031</excludedValues>
+            <excludedValues>local::at0056</excludedValues>
+            <excludedValues>local::at0057</excludedValues>
+            <excludedValues>local::at0058</excludedValues>
+            <excludedValues>local::at0059</excludedValues>
+            <excludedValues>local::at0060</excludedValues>
+          </constraint>
+        </Rule>
+      </Items>
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.organ_status_evaluation_surgery.v1" concept_name="Organstatus kirurgi" max="1" path="/content">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA fysisk status klassifikasjon" path="/data[at0001]/events[at0002]/data[at0003]/items[at0024]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <excludedValues>local::at0008</excludedValues>
+            <excludedValues>local::at0009</excludedValues>
+            <excludedValues>local::at0010</excludedValues>
+            <excludedValues>local::at0011</excludedValues>
+            <excludedValues>local::at0012</excludedValues>
+            <excludedValues>local::at0013</excludedValues>
+          </constraint>
+        </Rule>
+      </Items>
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.check_list-medication.v1" concept_name="En sjekkliste for medikasjon." path="/content" />
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.check_list.v1" concept_name="En helseorientert sjekkliste" max="1" path="/content" name="Allergier med betydning for kirurgi og anestesi">
+      <Rule path="/data[at0001]/items[at0004]" max="1" name="Allergier med betydning for kirurgi og anestesi" />
+      <Rule path="/data[at0001]/items[at0004]/items[at0002]" max="1" name="Har pasienten allergier med betydning for kirurgi og eller anestesi?" />
+      <Rule path="/data[at0001]/items[at0004]/items[at0002]/items[at0003]">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Boolean</includedTypes>
+        </constraint>
+      </Rule>
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.check_list.v1" concept_name="En helseorientert sjekkliste" max="1" path="/content" name="Pasientens reservasjoner">
+      <Rule path="/data[at0001]/items[at0004]" max="1" name="Pasientens reservasjoner" />
+      <Rule path="/data[at0001]/items[at0004]/items[at0002]" max="1" name="Finnes det reseravasjoner med relevans for kirurgi og eller anestesi" />
+      <Rule path="/data[at0001]/items[at0004]/items[at0002]/items[at0003]">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Boolean</includedTypes>
+        </constraint>
+      </Rule>
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.substance_use_summary-tobacco.v1" concept_name="Tobakksbruk" max="1" path="/content">
+      <Rule path="/data[at0001]/items[at0005]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0007]/items[at0008]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0007]/items[at0015]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0007]/items[at0009.1]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0007]/items[at0010.1]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0007]/items[at0012.1]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0007]/items[at0013]" hide_on_form="true" />
+    </Content>
+    <Context />
+  </definition>
+</template>
