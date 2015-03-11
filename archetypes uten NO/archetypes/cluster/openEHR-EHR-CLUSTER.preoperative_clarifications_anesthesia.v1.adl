@@ -1,0 +1,80 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.preoperative_clarifications_anesthesia.v1
+
+concept
+	[at0000]	-- Avklaringer før operasjon anestesi
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Å registrere avklaringer som er nødvendige i forkant av en anestesi i forbindelse med kirurgi. ">
+			use = <"Mildertidig arketype som brukes i påvente av at tilsvarende instructuions og actions er tatt i bruk.">
+			keywords = <"avklaring", "anestesi", "kirurgi", "operasjon">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"8AFA5D1CCAD02FD3C3BDBCC852B9AED1">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Avklaringer før operasjon anestesi
+		items cardinality matches {1..*; unordered} matches {
+			CLUSTER[at0001] occurrences matches {0..*} matches {	-- Må avklares før operasjon
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..*} matches {	-- Problemstilling
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..*} matches {	-- Tiltak
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Ansvarlig
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Avklaringer før operasjon anestesi">
+					description = <"Dokumentasjon av avklaringer som er nødvendige i forkant av en anestesi i forbindelse med kirurgi. Mildertidig arketype som brukes i påvente av at tilsvarende instructuions og actions er tatt i bruk.">
+				>
+				["at0001"] = <
+					text = <"Må avklares før operasjon">
+					description = <"Forhold som må avklares i forbindelse med anestesi før operasjonen.">
+				>
+				["at0002"] = <
+					text = <"Problemstilling">
+					description = <"En narrativ beskrivelse av problemstillingen rundt forhold i forbindelse med anestesi som må avklares før opersjonen.">
+				>
+				["at0003"] = <
+					text = <"Tiltak">
+					description = <"En narrativ beskrivelse av problemstillingen rundt forhold i forbindelse med anestesi som må avklares før opersjonen.">
+				>
+				["at0004"] = <
+					text = <"Ansvarlig">
+					description = <"Ansvarlig for å iverksette tiltak rundt forhold av betyding for anestesien som må avklares før opersjonen.">
+				>
+			>
+		>
+	>
+

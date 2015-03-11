@@ -1,0 +1,99 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.estimated_surgery_time.v1
+
+concept
+	[at0000]	-- Estimert knivtid
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["organisation"] = <"DIPS ASA">
+		["email"] = <"ahe@dips.no">
+		["date"] = <"2015-02-15">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"Knivtid ">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Å gi et estimat for knivtiden som man antar en kirurgisk prosedyre vil ta. ">
+			use = <"Brukes i forbindelse med en kirurgisk prosedyre. Dette er et estimat av tiden man tror en kirurg vil bruke fra kirurgen starter inngrepet, til krirurgen avslutter inngrepet.">
+			keywords = <"operasjon", "knivtid", "kirurgi", "prosedyre">
+			misuse = <"Brukes ikke for å registrere den reelle knivtiden som ble brukt for en kirurgisk prosedyre. Brukes heller ikke for beskrivelse av den totale tiden en operasjon tar der f.eks. anestesitiden er inkludert.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"6E473B8F554B05161EE2A6D30ABC8EAD">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Estimert knivtid
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Estimert knivtid
+				value matches {
+					DV_DURATION matches {
+						value matches {PTHM}
+					}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Gjennomsnitts knivtid
+				value matches {
+					DV_DURATION matches {*}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Estimert knivtid">
+					description = <"Estimert knivtid i forbindelse med en kirurgisk prosedyre. Midlertidig arketype som  brukes i påvente av at gjeldende instruction med activity og action er på plass.">
+				>
+				["at0001"] = <
+					text = <"Estimert knivtid">
+					description = <"Estimat av tiden som en kirurgisk prosedyre vil ta fra kirurgen har påbegynt inngrepet med f.eks. å sette snitt, til kirurgen har avslkuttet inngrepet.">
+				>
+				["at0003"] = <
+					text = <"Gjennomsnitts knivtid">
+					description = <"Beregnet gjennomsnitts knivtid for en gitt type prosedyre.">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Estimert knivtid">
+					description = <"Estimert knivtid i forbindelse med en kirurgisk prosedyre. Midlertidig arketype som  brukes i påvente av at gjeldende instruction med activity og action er på plass.">
+				>
+				["at0001"] = <
+					text = <"Estimert knivtid">
+					description = <"Modellerer knivtid ">
+				>
+				["at0003"] = <
+					text = <"New element">
+					description = <"">
+				>
+			>
+		>
+	>
+

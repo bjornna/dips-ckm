@@ -1,0 +1,156 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.exam.v1
+
+concept
+	[at0000]	-- Undersøkelse
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["organisation"] = <"DIPS ASA">
+				["name"] = <"Anca Heyd">
+				["email"] = <"ahe@dips.no">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Heather Leslie">
+		["organisation"] = <"Ocean Informatics, Australia">
+		["email"] = <"heather.leslie@oceaninformatics.com">
+		["date"] = <"10/07/2010">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"A generic cluster for recording findings on physical examination.">
+			use = <"">
+			keywords = <"examination", "physical">
+			misuse = <"">
+			copyright = <"copyright (c) 2010 openEHR Foundation">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Et generisk cluster for å registrere funn ved klinisk undersøkelse. ">
+			use = <"">
+			keywords = <"undersøkelse", "fysisk">
+			misuse = <"">
+			copyright = <"copyright (c) 2010 openEHR Foundation(en)">
+		>
+	>
+	lifecycle_state = <"AuthorDraft">
+	other_contributors = <"Sam Heard, Ocean Informatics, Australia", ...>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"3AD75D03C9811414BE092F028281FF61">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Undersøkelse
+		items cardinality matches {1..*; unordered} matches {
+			CLUSTER[at0004] occurrences matches {0..1} matches {	-- Normale funn
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0005] occurrences matches {0..*} matches {	-- Normale funn
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Klinisk beskrivelse
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			CLUSTER[at0008] occurrences matches {0..1} matches {	-- Funn
+				items cardinality matches {1..*; unordered} matches {
+					allow_archetype CLUSTER[at0009] occurrences matches {0..*} matches {	-- Detaljer
+						include
+							archetype_id/value matches {/openEHR-EHR-CLUSTER\.exam-generic(-[a-zA-Z0-9_]+)*\.v1|openEHR-EHR-CLUSTER\.auscultation(-[a-zA-Z0-9_]+)*\.v1|openEHR-EHR-CLUSTER\.inspection(-[a-zA-Z0-9_]+)*\.v1|openEHR-EHR-CLUSTER\.palpation(-[a-zA-Z0-9_]+)*\.v1|openEHR-EHR-CLUSTER\.percussion(-[a-zA-Z0-9_]+)*\.v1|openEHR-EHR-CLUSTER\.physical_properties(-[a-zA-Z0-9_]+)*\.v1/}
+					}
+				}
+			}
+			ELEMENT[at0006] occurrences matches {0..*} matches {	-- Bilde
+				value matches {
+					DV_MULTIMEDIA matches {
+						media_type matches {
+							[openEHR::
+							426, 
+							427, 
+							429]
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Examination">
+					description = <"Basic examination cluster for describing findings on physical examination when there is no named focus of examination.">
+				>
+				["at0002"] = <
+					text = <"Clinical description">
+					description = <"Textural description of the part examined.">
+				>
+				["at0004"] = <
+					text = <"Normal statements">
+					description = <"A group of statements about the normality of the examination.">
+				>
+				["at0005"] = <
+					text = <"Normal statement">
+					description = <"A specific statement of normality.">
+				>
+				["at0006"] = <
+					text = <"Image">
+					description = <"Drawing or image of the area examined.">
+				>
+				["at0008"] = <
+					text = <"Findings">
+					description = <"Clinical findings.">
+				>
+				["at0009"] = <
+					text = <"Detail">
+					description = <"More focused examination findings.">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Undersøkelse">
+					description = <"Grunnleggende undersøskelse clustersom som beskriver funn ved klinisk unders hvor det ikker er et navngitt fokus på undersøkelsen.">
+				>
+				["at0002"] = <
+					text = <"Klinisk beskrivelse">
+					description = <"Narrativ beskrivelse av det undersøkte området.">
+				>
+				["at0004"] = <
+					text = <"Normale funn">
+					description = <"En gruppe funn vedrørende normaliteten ved undersøkelsen. ">
+				>
+				["at0005"] = <
+					text = <"Normale funn">
+					description = <"En spesifikk bekreftelse av normaliteten.">
+				>
+				["at0006"] = <
+					text = <"Bilde">
+					description = <"Tegning eller bilde av det undersøkte området.">
+				>
+				["at0008"] = <
+					text = <"Funn">
+					description = <"Kliniske funn.">
+				>
+				["at0009"] = <
+					text = <"Detaljer">
+					description = <"Mer fokuserte kliniske funn.">
+				>
+			>
+		>
+	>
+

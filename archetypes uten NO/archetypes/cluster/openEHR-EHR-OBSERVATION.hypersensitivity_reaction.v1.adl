@@ -1,0 +1,252 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.hypersensitivity_reaction.v1
+
+concept
+	[at0000]	-- Overfølsomhetsreaksjoner
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["organisation"] = <"DIPS ASA">
+		["email"] = <"ahe@dips.no">
+		["date"] = <"2015-02-19">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Å registrere informasjon om agens, type reaksjon og reaksjonens alvorlighetsgrad samt i hvilken grad årsaken(e) til reaksjonen(e) er verifisert (sikkerhet for at informasjonen er korrekt).">
+			use = <"Brukes for å samle inn informasjon om tidligere alvorlige reaksjoner på legemidler eller andre stoffer som kan være av avgjørende betydning når man skal velge videre behandling for pasienten. ">
+			keywords = <"allergi", "overfølsomhet", "legemidler">
+			misuse = <"Allergier som ikke kan ha alvorlig konsekvens i en behandlingssituasjon dersom allergien er ukjent skal ikke registreres. Kun alvorlige allergier relevante i en medisinsk akuttsituasjon skal registreres.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["references"] = <"Rapport 2.0 for kritisk informsjon i kjernejournalen.
+Helsedirektoratet, januar 2015 (på høring)
+https://helsedirektoratet.no/Documents/Kjernejournal/Kritisk%20og%20viktig%20helseinformasjon%20i%20kjernejournal_Versjon%202.0.pdf
+
+">
+		["current_contact"] = <"Anca Heyd, DIPS ASA, ahe@dips.no">
+		["MD5-CAM-1.0.1"] = <"E0A2597037B437F3474CAFACAA0BB971">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Overfølsomhetsreaksjoner
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									CLUSTER[at0004] occurrences matches {0..1} matches {	-- Legemiddelreaksjoner
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0010] occurrences matches {0..1} matches {	-- Legemiddelnavn
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0009] occurrences matches {0..1} matches {	-- Merkevare ID
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0006] occurrences matches {0..*} matches {	-- ATC kode
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0021] occurrences matches {0..1} matches {	-- Reaksjonstype
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {[local::]}
+													}
+												}
+											}
+											ELEMENT[at0022] occurrences matches {0..1} matches {	-- Alvorlighetsgrad
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0023, 	-- Alvorlig
+															at0024]	-- Mindre alvorlig
+														}
+													}
+												}
+											}
+											ELEMENT[at0025] occurrences matches {0..1} matches {	-- Visshetsgrad
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0031, 	-- Mistenkt
+															at0032, 	-- Sannsynlig
+															at0033, 	-- Bekreftet
+															at0034]	-- Avkreftet
+														}
+													}
+												}
+											}
+											ELEMENT[at0029] occurrences matches {0..1} matches {	-- Informasjonsskilde
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0035, 	-- Pasientens egne opplysninger
+															at0036, 	-- Pårørendes opplysninger
+															at0037]	-- Hentet fra tidligere journal
+														}
+													}
+												}
+											}
+										}
+									}
+									CLUSTER[at0005] occurrences matches {0..1} matches {	-- Andre reaskjoner/allergier
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0026] occurrences matches {0..1} matches {	-- Reaksjonstype
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0027] occurrences matches {0..1} matches {	-- Alvorlighetsgrad
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0028] occurrences matches {0..1} matches {	-- Visshetsgrad
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0030] occurrences matches {0..1} matches {	-- Infomasjonsskilde
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Overfølsomhetsreaksjoner">
+					description = <"Modellerer overførlsomhetsreaksjoner mot elgemiddler eller andre stoffer.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Legemiddelreaksjoner">
+					description = <"">
+				>
+				["at0005"] = <
+					text = <"Andre reaskjoner/allergier">
+					description = <"">
+				>
+				["at0006"] = <
+					text = <"ATC kode">
+					description = <"">
+				>
+				["at0009"] = <
+					text = <"Merkevare ID">
+					description = <"">
+				>
+				["at0010"] = <
+					text = <"Legemiddelnavn">
+					description = <"">
+				>
+				["at0021"] = <
+					text = <"Reaksjonstype">
+					description = <"">
+				>
+				["at0022"] = <
+					text = <"Alvorlighetsgrad">
+					description = <"">
+				>
+				["at0023"] = <
+					text = <"Alvorlig">
+					description = <"">
+				>
+				["at0024"] = <
+					text = <"Mindre alvorlig">
+					description = <"">
+				>
+				["at0025"] = <
+					text = <"Visshetsgrad">
+					description = <"">
+				>
+				["at0026"] = <
+					text = <"Reaksjonstype">
+					description = <"">
+				>
+				["at0027"] = <
+					text = <"Alvorlighetsgrad">
+					description = <"">
+				>
+				["at0028"] = <
+					text = <"Visshetsgrad">
+					description = <"">
+				>
+				["at0029"] = <
+					text = <"Informasjonsskilde">
+					description = <"">
+				>
+				["at0030"] = <
+					text = <"Infomasjonsskilde">
+					description = <"">
+				>
+				["at0031"] = <
+					text = <"Mistenkt">
+					description = <"">
+				>
+				["at0032"] = <
+					text = <"Sannsynlig">
+					description = <"">
+				>
+				["at0033"] = <
+					text = <"Bekreftet">
+					description = <"">
+				>
+				["at0034"] = <
+					text = <"Avkreftet">
+					description = <"">
+				>
+				["at0035"] = <
+					text = <"Pasientens egne opplysninger">
+					description = <"">
+				>
+				["at0036"] = <
+					text = <"Pårørendes opplysninger">
+					description = <"">
+				>
+				["at0037"] = <
+					text = <"Hentet fra tidligere journal">
+					description = <"">
+				>
+			>
+		>
+	>
+
