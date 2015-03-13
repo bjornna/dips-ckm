@@ -1,0 +1,368 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-INSTRUCTION.larsmorgan_tester_instruction.v1
+
+concept
+	[at0000]	-- Larsmorgan tester instruction
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Til testformål
+">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"2F617D2A46C59D9A3FB380101CC73A91">
+	>
+
+definition
+	INSTRUCTION[at0000] matches {	-- Larsmorgan tester instruction
+		activities cardinality matches {0..*; unordered} matches {
+			ACTIVITY[at0001] occurrences matches {0..1} matches {	-- Oppstart
+				action_archetype_id matches {/openEHR-EHR-ACTION\.status_ressursbruk_behandler\.v1/}
+				description matches {
+					ITEM_TREE[at0002] matches {*}
+				}
+			}
+			ACTIVITY[at0003] occurrences matches {0..1} matches {	-- Neste aktivitet
+				action_archetype_id matches {/openEHR-EHR-ACTION\.procedure\.v1/}
+				description matches {
+					ITEM_TREE[at0004] matches {*}
+				}
+			}
+			ACTIVITY[at0005] occurrences matches {0..1} matches {	-- Enda en aktivitet
+				action_archetype_id matches {/openEHR-EHR-ACTION\.transfusion\.v1/}
+				description matches {
+					ITEM_TREE[at0006] matches {*}
+				}
+			}
+			ACTIVITY[at0007] occurrences matches {0..1} matches {	-- Siste aktivitet
+				action_archetype_id matches {/openEHR-EHR-ACTION\.review\.v1/}
+				description matches {
+					ITEM_TREE[at0008] matches {	-- Tree
+						items cardinality matches {0..*; unordered} matches {
+							ELEMENT[at0009] occurrences matches {0..1} matches {	-- Tekst 
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0011] occurrences matches {0..1} matches {	-- Intern kodeverk
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0012, 	-- Ja
+											at0013, 	-- Nei
+											at0014, 	-- Vet ikke
+											at0015]	-- Ikke aktuell
+										}
+									}
+								}
+							}
+							ELEMENT[at0010] occurrences matches {0..1} matches {	-- Kvantitet
+								value matches {
+									C_DV_QUANTITY <
+									>
+								}
+							}
+							ELEMENT[at0016] occurrences matches {0..1} matches {	-- Count
+								value matches {
+									DV_COUNT matches {*}
+								}
+							}
+							ELEMENT[at0017] occurrences matches {0..1} matches {	-- Date time
+								value matches {
+									DV_DATE_TIME matches {*}
+								}
+							}
+							ELEMENT[at0018] occurrences matches {0..1} matches {	-- Duration
+								value matches {
+									DV_DURATION matches {*}
+								}
+							}
+							ELEMENT[at0019] occurrences matches {0..1} matches {	-- Ordinal
+								value matches {
+									1|[local::at0020], 	-- Ett poeng
+									2|[local::at0021]  	-- To poeng
+								}
+							}
+							ELEMENT[at0022] occurrences matches {0..1} matches {	-- Sjekkboks (Boolean)
+								value matches {
+									DV_BOOLEAN matches {
+										value matches {True, False}
+									}
+								}
+							}
+							ELEMENT[at0023] occurrences matches {0..1} matches {	-- Interval of integer (Count)
+								value matches {
+									DV_INTERVAL<DV_COUNT> matches {
+										upper matches {
+											DV_COUNT matches {*}
+										}
+										lower matches {
+											DV_COUNT matches {*}
+										}
+									}
+								}
+							}
+							ELEMENT[at0024] occurrences matches {0..1} matches {	-- Interval of quantity
+								value matches {
+									DV_INTERVAL<DV_QUANTITY> matches {
+										upper matches {
+											C_DV_QUANTITY <
+											>
+										}
+										lower matches {
+											C_DV_QUANTITY <
+											>
+										}
+									}
+								}
+							}
+							ELEMENT[at0025] occurrences matches {0..1} matches {	-- Interval of date time
+								value matches {
+									DV_INTERVAL<DV_DATE_TIME> matches {
+										upper matches {
+											DV_DATE_TIME matches {*}
+										}
+										lower matches {
+											DV_DATE_TIME matches {*}
+										}
+									}
+								}
+							}
+							ELEMENT[at0026] occurrences matches {0..1} matches {	-- Choice
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0027, 	-- tekst 1
+											at0028, 	-- Tekst 2
+											at0029]	-- tekst 3
+										}
+									}
+									C_DV_QUANTITY <
+										property = <[openehr::586]>
+										list = <
+											["1"] = <
+												units = <"ml/min/1.73m2">
+											>
+										>
+									>
+									allow_archetype ELEMENT matches {
+										include
+											archetype_id/value matches {/.*/}
+									}
+									DV_BOOLEAN matches {
+										value matches {True, False}
+									}
+									DV_TEXT matches {*}
+									DV_COUNT matches {*}
+									DV_DATE_TIME matches {*}
+									DV_DURATION matches {*}
+									C_DV_ORDINAL <
+									>
+									DV_INTERVAL<DV_COUNT> matches {
+										upper matches {
+											DV_COUNT matches {*}
+										}
+										lower matches {
+											DV_COUNT matches {*}
+										}
+									}
+								}
+							}
+							ELEMENT[at0030] occurrences matches {0..1} matches {	-- Choice
+								value matches {
+									DV_TEXT matches {*}
+									DV_COUNT matches {*}
+								}
+							}
+							ELEMENT[at0031] occurrences matches {0..1} matches {*}
+							ELEMENT[at0032] occurrences matches {0..1} matches {	-- Proportion
+								value matches {
+									DV_PROPORTION matches {*}
+								}
+							}
+							ELEMENT[at0033] occurrences matches {0..1} matches {	-- Id
+								value matches {
+									DV_IDENTIFIER matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0035] occurrences matches {0..*} matches {	-- Cluster
+								include
+									archetype_id/value matches {/.*/}
+							}
+							ELEMENT[at0034] occurrences matches {0..1} matches {	-- Parsable
+								value matches {
+									DV_PARSABLE matches {*}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Larsmorgan tester instruction">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Oppstart">
+					description = <"Current Activity">
+				>
+				["at0002"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Neste aktivitet">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0005"] = <
+					text = <"Enda en aktivitet">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0007"] = <
+					text = <"Siste aktivitet">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0009"] = <
+					text = <"Tekst ">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Kvantitet">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Intern kodeverk">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Vet ikke">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Ikke aktuell">
+					description = <"*">
+				>
+				["at0016"] = <
+					text = <"Count">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Date time">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Duration">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"Ordinal">
+					description = <"*">
+				>
+				["at0020"] = <
+					text = <"Ett poeng">
+					description = <"Her får du score 1">
+				>
+				["at0021"] = <
+					text = <"To poeng">
+					description = <"Her får du score 2">
+				>
+				["at0022"] = <
+					text = <"Sjekkboks (Boolean)">
+					description = <"*">
+				>
+				["at0023"] = <
+					text = <"Interval of integer (Count)">
+					description = <"*">
+				>
+				["at0024"] = <
+					text = <"Interval of quantity">
+					description = <"*">
+				>
+				["at0025"] = <
+					text = <"Interval of date time">
+					description = <"*">
+				>
+				["at0026"] = <
+					text = <"Choice">
+					description = <"*">
+				>
+				["at0027"] = <
+					text = <"tekst 1">
+					description = <"*">
+				>
+				["at0028"] = <
+					text = <"Tekst 2">
+					description = <"*">
+				>
+				["at0029"] = <
+					text = <"tekst 3">
+					description = <"*">
+				>
+				["at0030"] = <
+					text = <"Choice">
+					description = <"*">
+				>
+				["at0031"] = <
+					text = <"Any">
+					description = <"*">
+				>
+				["at0032"] = <
+					text = <"Proportion">
+					description = <"*">
+				>
+				["at0033"] = <
+					text = <"Id">
+					description = <"*">
+				>
+				["at0034"] = <
+					text = <"Parsable">
+					description = <"*">
+				>
+				["at0035"] = <
+					text = <"Cluster">
+					description = <"*">
+				>
+			>
+		>
+	>
