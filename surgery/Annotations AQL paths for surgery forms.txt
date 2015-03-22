@@ -57,7 +57,7 @@ Annotations AQL paths for surgery forms
 
 #asa: openEHR-EHR-CLUSTER.asa_status.v1?scope=folder
 #asa:/items[at0001]/value					// ASA pasient status
-#asa:/items[at0014]/value/value				// Kommentar
+#asa:/items[at0014]/value					// Kommentar
 
 #cor: select c/uid/value as cid, o from composition c contains observation o[openEHR-EHR-OBSERVATION.exam.v1] contains cluster cl[openEHR-EHR-CLUSTER.bodypart.v1] where cl/items[at0001]/value/value = 'Cor' order by c/context/start_time/value desc fetch 1?scope=folder
 #cor:/data[at0001]/events[at0002]/data[at0003]/items[at0006]/value		// Fortolkning
@@ -67,7 +67,7 @@ Annotations AQL paths for surgery forms
 #pulm:/data[at0001]/events[at0002]/data[at0003]/items[at0006]	// Fortolkning
 #pulm:/data[at0001]/events[at0002]/data[at0003]/items[at0011]	// Beskrivelse lunge
 
-#ane_chklist: select c/uid/value as cid, e from composition c contains evaluation e[openEHR-EHR-EVALUATION.check_list.v1] where e/data[at0001]/items[at0004]/name/value = 'Anestesi previsitt' order by c/context/start_time/value DESC FETCH 1
+#ane_chklist: select c/uid/value as cid, e from composition c contains evaluation e[openEHR-EHR-EVALUATION.check_list.v1] where e/data[at0001]/items[at0004]/name/value = 'Anestesi previsitt' order by c/context/start_time/value DESC FETCH 1?scope=folder
 #ane_chklist:/data[at0001]/items[at0004]/items[at0002 and name/value='Previsitt ferdigstilt']/items[at0003]/value	// Previsitt ferdigstilt
 #ane_chklist:/data[at0001]/items[at0004]/items[at0002 and name/value='Previsitt ferdigstilt']/items[at0005]/value	// Kommentar til previsitt
 #ane_chklist:/data[at0001]/items[at0004]/items[at0002 and name/value='Pasient tilsett']/items[at0003]/value			// Pasient tilsett
@@ -76,8 +76,8 @@ Annotations AQL paths for surgery forms
 #ane_chklist:/data[at0001]/items[at0004]/items[at0002 and name/value='EKG vurdert']/items[at0005]/value				// Kommentar EKG
 #ane_chklist:/data[at0001]/items[at0004]/items[at0002 and name/value='Ekko vurdert']/items[at0003]/value			// Ekko vurdert
 #ane_chklist:/data[at0001]/items[at0004]/items[at0002 and name/value='Ekko vurdert']/items[at0005]/value			// Kommentar Ekko
-#ane_chklist:/data[at0001]/items[at0004]/items[at0002 and name/value='Røthorax vurdert']/items[at0003]/value		// Rø thorax vurdert
-#ane_chklist:/data[at0001]/items[at0004]/items[at0002 and name/value='Røthorax vurdert']/items[at0005]/value		// Kommentar Rø thorax
+#ane_chklist:/data[at0001]/items[at0004]/items[at0002 and name/value='Rø thorax vurdert']/items[at0003]/value		// Rø thorax vurdert
+#ane_chklist:/data[at0001]/items[at0004]/items[at0002 and name/value='Rø thorax vurdert']/items[at0005]/value		// Kommentar Rø thorax
 #ane_chklist:/data[at0001]/items[at0004]/items[at0002 and name/value='Blodprøver vurdert']/items[at0003]/value		// Blodprøver vurdert
 #ane_chklist:/data[at0001]/items[at0004]/items[at0002 and name/value='Blodprøver vurdert']/items[at0005]/value		// Kommentar blodprøver
 
@@ -97,9 +97,9 @@ Annotations AQL paths for surgery forms
 #ane_preop_eval:/data[at0001]/events[at0002]/data[at0003]/items[at0006]/value	// Oppsummering
 
 #allergier: select c/uid/value as cid, e from composition c contains evaluation e[openEHR-EHR-EVALUATION.risk.v1] where e/name/value='Allergier'order by c/context/start_time/value desc fetch 1?scope=folder
-#allergier:/data[at0001]/items[at0016]/items[at0013]		// Stoff
-#allergier:/data[at0001]/items[at0016]/items[at0017]		// Tilstedeværelse
-#allergier:/data[at0001]/items[at0016]/items[at0014]		// Beskrivelse
+#allergier:/data[at0001]/items[at0016]/items[at0013]/value		// Stoff, Risikofaktor, Allergen
+#allergier:/data[at0001]/items[at0016]/items[at0017]/value		// Tilstedeværelse
+#allergier:/data[at0001]/items[at0016]/items[at0014]/value		// Beskrivelse
 
 #hjerte: select c/uid/value as cid, e from composition c contains evaluation e[openEHR-EHR-EVALUATION.risk.v1] where e/name/value='Hjerte' order by c/context/start_time/value desc fetch 1?scope=folder
 #hjerte:/data[at0001]/items[at0016 and name/value='Hjertesvikt']/items[at0013 and name/value='Hjertesvikt']/value		// Hjertesvikt
@@ -149,4 +149,21 @@ Annotations AQL paths for surgery forms
 #tobakk: openEHR-EHR-EVALUATION.substance_use_summary-tobacco.v1?scope=folder
 #tobakk:/data[at0001]/items[at0002]/value					// Røyking status på bruk
 
-
+### Anestesi previsitt v3 bruker andre arketyper for risikovurdering enn Anestesi previsitt v2 ###
+#risk-surg: openEHR-EHR-EVALUATION.risk-surgery.v1?scope=folder
+#risk-surg:/data[at0001]/items[at0015]/value																		// Relevante sykdommer (rename fra Kommentar)
+#risk-surg:/data[at0001]/items[at0016 and name/value='Hjerte']/items[at0.23]/items[at0013.1]/value					// Hjerte tilstand
+#risk-surg:/data[at0001]/items[at0016 and name/value='Hjerte']/items[at0.23]/items[at0017]/value					// Hjerte tilstedeværelse
+#risk-surg:/data[at0001]/items[at0016 and name/value='Hjerte']/items[at0.23]/items[at0014]/value					// Hjerte beskrivelse
+#risk-surg:/data[at0001]/items[at0016 and name/value='Lunge']/items[at0.23]/items[at0013.1]/value					// Lunge tilstand
+#risk-surg:/data[at0001]/items[at0016 and name/value='Lunge']/items[at0.23]/items[at0017]/value						// Lunge tilstedeværelse
+#risk-surg:/data[at0001]/items[at0016 and name/value='Lunge']/items[at0.23]/items[at0014]/value						// Lunge beskrivelse
+#risk-surg:/data[at0001]/items[at0016 and name/value='Øvrige organer']/items[at0.23]/items[at0013.1]/value			// Øvrige organer tilstand
+#risk-surg:/data[at0001]/items[at0016 and name/value='Øvrige organer']/items[at0.23]/items[at0017]/value			// Øvrige organer tilstedeværelse
+#risk-surg:/data[at0001]/items[at0016 and name/value='Øvrige organer']/items[at0.23]/items[at0014]/value			// Øvrige organer beskrivelse
+#risk-surg:/data[at0001]/items[at0016 and name/value='Anestesi spesifikt']/items[at0.23]/items[at0013.1]/value		// Anestesi spesifikt tilstand
+#risk-surg:/data[at0001]/items[at0016 and name/value='Anestesi spesifikt']/items[at0.23]/items[at0017]/value		// Anestesi spesifikt tilstedeværelse
+#risk-surg:/data[at0001]/items[at0016 and name/value='Anestesi spesifikt']/items[at0.23]/items[at0014]/value		// Anestesi spesifikt beskrivelse
+#risk-surg:/data[at0001]/items[at0016 and name/value='Livsstil']/items[at0.23]/items[at0013.1]/value				// Livsstil tilstand
+#risk-surg:/data[at0001]/items[at0016 and name/value='Livsstil']/items[at0.23]/items[at0017]/value					// Livsstil tilstedeværelse
+#risk-surg:/data[at0001]/items[at0016 and name/value='Livsstil']/items[at0.23]/items[at0014]/value					// Livsstil beskrivelse
