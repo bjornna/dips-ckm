@@ -1,0 +1,152 @@
+Annotations AQL paths for surgery forms
+=======================================
+
+#ane: openEHR-EHR-CLUSTER.anesthesia_requested.v1?scope=folder
+#ane:/items[at0001]/value				// Ønsket anestesi
+
+#diag: openEHR-EHR-EVALUATION.problem_diagnosis.v1?scope=folder
+#diag:/data[at0001]/items[at0002]/value	// Diagnose
+
+#time: openEHR-EHR-CLUSTER.estimated_surgery_time.v1?scope=folder
+#time/items[at0001]/value/value			// Estimert knivtid
+
+#care: openEHR-EHR-CLUSTER.care_level.v1?scope=folder
+#care/items[at0001]/value/value			// Omsorgsnivå
+
+#proc: openEHR-EHR-INSTRUCTION.request-procedure.v1?scope=folder
+#proc:/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.additional_procedure_code.v1]/items[at0001]		// Tilleggsprosedyre
+#proc:/activities[at0001]/description[at0009]/items[at0135]/value														// Beskrivelse av prosedyre
+#proc:/activities[at0001]/description[at0009]/items[at0040]/value														// Kalkulert tidsfrist
+
+#spec_req: openEHR-EHR-CLUSTER.special_requirements_surgery.v1?scope=folder
+#spec_req:/items[at0007]/value/value	// Spesialutstyr
+#spec_req:/items[at0010]/value/value	// Blodprodukter
+#spec_req:/items[at0009]/value/value	// Blodtomhet
+#spec_req:/items[at0011]/value/value	// Frysesnitt
+
+#height: openEHR-EHR-OBSERVATION.height.v1?scope=folder
+#height:/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value	// Høyde/lengde
+
+#weight: openEHR-EHR-OBSERVATION.body_weight.v1?scope=folder
+#weight:/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value	// Kroppsvekt
+
+#bp: openEHR-EHR-OBSERVATION.blood_pressure.v1?scope=folder
+#bp:/data[at0001]/events[at0006]/data[at0003]/items[at0004]/value		// Systolsk
+#bp:/data[at0001]/events[at0006]/data[at0003]/items[at0005]/value		// Diastolsk
+
+#surg_dtl: openEHR-EHR-OBSERVATION.surgery_details.v1
+#surg_dtl:/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value					// Renhetsgrad
+#surg_dtl:/data[at0001]/events[at0002]/data[at0003]/items[at0005]/value					// Operasjonsleie
+#surg_dtl:/data[at0001]/events[at0002]/data[at0003]/items[at0012]/items[at0006]/value	// Avdekning/incisjon
+#surg_dtl:/data[at0001]/events[at0002]/data[at0003]/items[at0012]/items[at0007]/value	// Side
+
+#imp_info_proc: openEHR-EHR-CLUSTER.important_information_procedure.v1?scope=folder
+#imp_info_proc:/items[at0001]/value				// Viktig informasjon fra kirurg
+
+#medication: openEHR-EHR-EVALUATION.check_list-medication.v1?scope=folder
+#medication:/data[at0001]/items[at0004]/items[at0002]/items[at0003.1]/value		// Pasientens medikasjon
+#medication:/data[at0001]/items[at0004]/items[at0002]/items[at0005]/value		// Kommentar til svaret
+
+#medicine_surgery: openEHR-EHR-CLUSTER.medicine_surgery.v1?scope=folder
+#medicine_surgery:/items[at0004]/items[at0001]/value/value		// Antibiotikaprofylakse
+#medicine_surgery:/items[at0002]/value							// Annen medisin under operasjon
+
+#surg_add_info: openEHR-EHR-CLUSTER.additional_information_surgery.v1?scope=folder
+#surg_add_info:/items[at0010]/value/value			// Behov for ekstra undersøkelse
+#surg_add_info:/items[at0012]/value/value			// Kommentar ekstra undersøkelse
+
+#asa: openEHR-EHR-CLUSTER.asa_status.v1?scope=folder
+#asa:/items[at0001]/value					// ASA pasient status
+#asa:/items[at0014]/value/value				// Kommentar
+
+#cor: select c/uid/value as cid, o from composition c contains observation o[openEHR-EHR-OBSERVATION.exam.v1] contains cluster cl[openEHR-EHR-CLUSTER.bodypart.v1] where cl/items[at0001]/value/value = 'Cor' order by c/context/start_time/value desc fetch 1?scope=folder
+#cor:/data[at0001]/events[at0002]/data[at0003]/items[at0006]/value		// Fortolkning
+#cor:/data[at0001]/events[at0002]/data[at0003]/items[at0006]/value		// Beskrivelse hjerte
+
+#pulm: select c/uid/value as cid, o from composition c contains observation o[openEHR-EHR-OBSERVATION.exam.v1] contains cluster cl[openEHR-EHR-CLUSTER.bodypart.v1] where cl/items[at0001]/value/value = 'Pulm' order by c/context/start_time/value desc fetch 1?scope=folder
+#pulm:/data[at0001]/events[at0002]/data[at0003]/items[at0006]	// Fortolkning
+#pulm:/data[at0001]/events[at0002]/data[at0003]/items[at0011]	// Beskrivelse lunge
+
+#ane_chklist: select c/uid/value as cid, e from composition c contains evaluation e[openEHR-EHR-EVALUATION.check_list.v1] where e/data[at0001]/items[at0004]/name/value = 'Anestesi previsitt' order by c/context/start_time/value DESC FETCH 1
+#ane_chklist:/data[at0001]/items[at0004]/items[at0002 and name/value='Previsitt ferdigstilt']/items[at0003]/value	// Previsitt ferdigstilt
+#ane_chklist:/data[at0001]/items[at0004]/items[at0002 and name/value='Previsitt ferdigstilt']/items[at0005]/value	// Kommentar til previsitt
+#ane_chklist:/data[at0001]/items[at0004]/items[at0002 and name/value='Pasient tilsett']/items[at0003]/value			// Pasient tilsett
+#ane_chklist:/data[at0001]/items[at0004]/items[at0002 and name/value='Pasient tilsett']/items[at0005]/value			// Kommentar pasient tilsett
+#ane_chklist:/data[at0001]/items[at0004]/items[at0002 and name/value='EKG vurdert']/items[at0003]/value				// EKG vurdert
+#ane_chklist:/data[at0001]/items[at0004]/items[at0002 and name/value='EKG vurdert']/items[at0005]/value				// Kommentar EKG
+#ane_chklist:/data[at0001]/items[at0004]/items[at0002 and name/value='Ekko vurdert']/items[at0003]/value			// Ekko vurdert
+#ane_chklist:/data[at0001]/items[at0004]/items[at0002 and name/value='Ekko vurdert']/items[at0005]/value			// Kommentar Ekko
+#ane_chklist:/data[at0001]/items[at0004]/items[at0002 and name/value='Røthorax vurdert']/items[at0003]/value		// Rø thorax vurdert
+#ane_chklist:/data[at0001]/items[at0004]/items[at0002 and name/value='Røthorax vurdert']/items[at0005]/value		// Kommentar Rø thorax
+#ane_chklist:/data[at0001]/items[at0004]/items[at0002 and name/value='Blodprøver vurdert']/items[at0003]/value		// Blodprøver vurdert
+#ane_chklist:/data[at0001]/items[at0004]/items[at0002 and name/value='Blodprøver vurdert']/items[at0005]/value		// Kommentar blodprøver
+
+#ane_plan: openEHR-EHR-CLUSTER.planned_anesthesia.v1?scope=folder
+#ane_plan:/items[at0001]/value		// Planlagt anestesi
+#ane_plan:/items[at0002]/value		// Planlagt luftvei
+#ane_plan:/items[at0003]/value		// Planlagt ekstra overvåkning
+#ane_plan:/items[at0004]/value		// Postoperativ overvåking
+
+#ane_preop_clarif: openEHR-EHR-CLUSTER.preoperative_clarifications_anesthesia.v1?scope=folder
+#ane_preop_clarif:/items[at0001]/items[at0002]/value		// Avklaring før operasjon/Problemstilling
+#ane_preop_clarif:/items[at0001]/items[at0003]/value		// Tiltak
+#ane_preop_clarif:/items[at0001]/items[at0004]/value		// Ansvarlig
+
+#ane_preop_eval: openEHR-EHR-OBSERVATION.preoperative_evaluation_anesthesia.v1?scope=folder
+#ane_preop_eval:/data[at0001]/events[at0002]/data[at0003]/items[at0005]/value	// Kan opereres
+#ane_preop_eval:/data[at0001]/events[at0002]/data[at0003]/items[at0006]/value	// Oppsummering
+
+#allergier: select c/uid/value as cid, e from composition c contains evaluation e[openEHR-EHR-EVALUATION.risk.v1] where e/name/value='Allergier'order by c/context/start_time/value desc fetch 1?scope=folder
+#allergier:/data[at0001]/items[at0016]/items[at0013]		// Stoff
+#allergier:/data[at0001]/items[at0016]/items[at0017]		// Tilstedeværelse
+#allergier:/data[at0001]/items[at0016]/items[at0014]		// Beskrivelse
+
+#hjerte: select c/uid/value as cid, e from composition c contains evaluation e[openEHR-EHR-EVALUATION.risk.v1] where e/name/value='Hjerte' order by c/context/start_time/value desc fetch 1?scope=folder
+#hjerte:/data[at0001]/items[at0016 and name/value='Hjertesvikt']/items[at0013 and name/value='Hjertesvikt']/value		// Hjertesvikt
+#hjerte:/data[at0001]/items[at0016 and name/value='Hjertesvikt']/items[at0017]/value				// Hjertesvikt tilstedeværelse
+#hjerte:/data[at0001]/items[at0016 and name/value='Koronarsykdom']/items[at0017]/value				// Koronarsykdom tilstedeværelse
+#hjerte:/data[at0001]/items[at0016 and name/value='Angina']/items[at0017]/value						// Angina tilstedeværelse
+#hjerte:/data[at0001]/items[at0016 and name/value='Arrytmi']/items[at0017]/value					// Arrytmi tilstedeværelse
+#hjerte:/data[at0001]/items[at0016 and name/value='Klaffefeil']/items[at0017]/value					// Klaffefeil tilstedeværelse
+#hjerte:/data[at0001]/items[at0016 and name/value='Hypertensjon']/items[at0017]/value				// Hypertensjon tilstedeværelse
+#hjerte:/data[at0001]/items[at0015]/value															// Kommentar hjerte
+
+#lunge: select c/uid/value as cid, e from composition c contains evaluation e[openEHR-EHR-EVALUATION.risk.v1] where e/name/value='Lunge' order by c/context/start_time/value desc fetch 1?scope=folder
+#lunge:/data[at0001]/items[at0016 and name/value='KOLS']/items[at0017]/value						// KOLS tilstedeværelse
+#lunge:/data[at0001]/items[at0016 and name/value='Astma']/items[at0017]/value						// Astma tilstedeværelse
+#lunge:/data[at0001]/items[at0016 and name/value='Infeksjon']/items[at0017]/value					// Infeksjon tilstedeværelse
+#lunge:/data[at0001]/items[at0016 and name/value='Annen lungesykdom']/items[at0017]/value			// Annet lunge tilstedeværelse
+#lunge:/data[at0001]/items[at0015]/value															// Kommentar lunge
+
+#organer: select c/uid/value as cid, e from composition c contains evaluation e[openEHR-EHR-EVALUATION.risk.v1] where e/name/value='Øvrige organer' order by c/context/start_time/value desc fetch 1?scope=folder
+#organer:/data[at0001]/items[at0016 and name/value='CNS/nevrologi']/items[at0017]/value				// CNS/nevrologi tilstedeværelse
+#organer:/data[at0001]/items[at0016 and name/value='Diabetes']/items[at0017]/value					// Diabetes tilstedeværelse
+#organer:/data[at0001]/items[at0016 and name/value='GI-trakt/ lever']/items[at0017]/value			// GI-trakt/ lever tilstedeværelse
+#organer:/data[at0001]/items[at0016 and name/value='Nyre']/items[at0017]/value						// Nyre tilstedeværelse
+#organer:/data[at0001]/items[at0016 and name/value='Hematologi']/items[at0017]/value				// Hematologi tilstedeværelse
+#organer:/data[at0001]/items[at0016 and name/value='Malign sykdom']/items[at0017]/value				// Malign sykdom tilstedeværelse
+#organer:/data[at0001]/items[at0016 and name/value='Psyke']/items[at0017]/value						// Psyke tilstedeværelse
+#organer:/data[at0001]/items[at0016 and name/value='Annet']/items[at0017]/value						// Annet tilstedeværelse
+#organer:/data[at0001]/items[at0015]/value															// Kommentar øvrige organer
+
+#ane_spesf: select c/uid/value as cid, e from composition c contains evaluation e[openEHR-EHR-EVALUATION.risk.v1] where e/name/value='Anestesispesifikke faktorer' order by c/context/start_time/value desc fetch 1?scope=folder
+#ane_spesf:/data[at0001]/items[at0016 and name/value='Nakkeekstensjon']/items[at0017]/value						// Nakkeekstensjon tilstedeværelse
+#ane_spesf:/data[at0001]/items[at0016 and name/value='Tannstatus']/items[at0017]/value							// Tannstatus tilstedeværelse
+#ane_spesf:/data[at0001]/items[at0016 and name/value='Gapeevne']/items[at0017]/value							// Gapeevne tilstedeværelse
+#ane_spesf:/data[at0001]/items[at0016 and name/value='Mallampati']/items[at0017]/value							// Mallampati tilstedeværelse
+#ane_spesf:/data[at0001]/items[at0016 and name/value='Forventet vanskelig intubasjon']/items[at0017]/value		// Forventet vanskelig intubasjon tilstedeværelse
+#ane_spesf:/data[at0001]/items[at0016 and name/value='Aspirasjonsrisiko']/items[at0017]/value					// Aspirasjonsrisiko tilstedeværelse
+#ane_spesf:/data[at0001]/items[at0016 and name/value='PONV/bilsyke']/items[at0017]/value						// PONV/bilsyke tilstedeværelse
+#ane_spesf:/data[at0001]/items[at0016 and name/value='Tidligere anestesi']/items[at0017]/value					// Tidligere anestesi tilstedeværelse
+#ane_spesf:/data[at0001]/items[at0015]/value																	// Kommentar anestesi spesifikt
+
+#livsstil: select c/uid/value as cid, e from composition c contains evaluation e[openEHR-EHR-EVALUATION.risk.v1] where e/name/value='Livsstil' order by c/context/start_time/value desc fetch 1?scope=folder
+#livsstil:/data[at0001]/items[at0016 and name/value='Stimulantia']/items[at0017]/value				// Stimulantia tilstedeværelse
+#livsstil:/data[at0001]/items[at0016 and name/value='Stimulantia']/items[at0014]/value				// Stimulantia beskrivelse
+#livsstil:/data[at0001]/items[at0016 and name/value='Ernæringstilstand']/items[at0017]/value		// Ernæringstilstand tilstedeværelse
+#livsstil:/data[at0001]/items[at0015]/value															// Kommentar livsstil
+
+#tobakk: openEHR-EHR-EVALUATION.substance_use_summary-tobacco.v1?scope=folder
+#tobakk:/data[at0001]/items[at0002]/value					// Røyking status på bruk
+
+
