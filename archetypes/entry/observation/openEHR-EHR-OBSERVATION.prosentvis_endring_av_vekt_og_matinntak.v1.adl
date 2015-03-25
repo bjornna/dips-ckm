@@ -1,0 +1,277 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.prosentvis_endring_av_vekt_og_matinntak.v1
+
+concept
+	[at0000]	-- Prosentvis endring av vekt og matinntak
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"Hensikten er å kunne registerer prosentvis endring av vekt og matinntak på en pasient, som en utvidelse til NRS 2002 registreringen gjort i arketypen screening for ernæringsmessig risiko">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Hensikten er å kunne registerer prosentvis endring av vekt og matinntak på en pasient, som en utvidelse til NRS 2002 registreringen gjort i arketypen screening for ernæringsmessig risiko">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"1672375C2868A1BCF1AC72676960C8C8">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Prosentvis endring av vekt og matinntak
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									CLUSTER[at0006] occurrences matches {0..1} matches {	-- Vektendring
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0015] occurrences matches {0..1} matches {	-- Vektmåling for utgangspunkt
+												value matches {
+													C_DV_QUANTITY <
+														property = <[openehr::124]>
+														list = <
+															["1"] = <
+																units = <"kg">
+																magnitude = <|0.0..1000.0|>
+																precision = <|2|>
+															>
+															["2"] = <
+																units = <"gm">
+																magnitude = <|0.0..10000.0|>
+																precision = <|4|>
+															>
+														>
+													>
+												}
+											}
+											ELEMENT[at0016] occurrences matches {0..1} matches {	-- Vektmåling nå
+												value matches {
+													C_DV_QUANTITY <
+														property = <[openehr::124]>
+														list = <
+															["1"] = <
+																units = <"kg">
+																magnitude = <|0.0..1000.0|>
+																precision = <|2|>
+															>
+															["2"] = <
+																units = <"gm">
+																magnitude = <|0.0..10000.0|>
+																precision = <|4|>
+															>
+														>
+													>
+												}
+											}
+											allow_archetype CLUSTER[at0013] occurrences matches {0..*} matches {	-- Vektmåling for utgangspunkt
+												include
+													archetype_id/value matches {/.*/}
+											}
+											ELEMENT[at0004] occurrences matches {0..1} matches {	-- Prosentvis endring av vekt
+												value matches {
+													C_DV_QUANTITY <
+														property = <[openehr::380]>
+														list = <
+															["1"] = <
+																units = <"%">
+															>
+														>
+													>
+												}
+											}
+											ELEMENT[at0010] occurrences matches {0..1} matches {	-- Tidsrom for måling vektendring
+												value matches {
+													DV_INTERVAL<DV_DATE> matches {
+														upper matches {
+															DV_DATE matches {
+																value matches {yyyy-mm-dd}
+															}
+														}
+														lower matches {
+															DV_DATE matches {
+																value matches {yyyy-mm-dd}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+									CLUSTER[at0007] occurrences matches {0..1} matches {	-- Matinntak endring
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0005] occurrences matches {0..1} matches {	-- Prosentvis endring av matinntak
+												value matches {
+													C_DV_QUANTITY <
+														property = <[openehr::380]>
+														list = <
+															["1"] = <
+																units = <"%">
+															>
+														>
+													>
+												}
+											}
+											ELEMENT[at0012] occurrences matches {0..1} matches {	-- Tidsrom for måling matinntak
+												value matches {
+													DV_INTERVAL<DV_DATE> matches {
+														upper matches {
+															DV_DATE matches {
+																value matches {yyyy-mm-dd}
+															}
+														}
+														lower matches {
+															DV_DATE matches {
+																value matches {yyyy-mm-dd}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"Prosentvis endring av vekt og matinntak">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Prosentvis endring av vekt">
+					description = <"Benyttes for angi prosentvis endring av kroppsvekt over tid.">
+				>
+				["at0005"] = <
+					text = <"Prosentvis endring av matinntak">
+					description = <"Benyttes for angi prosentvis endring av matinntak.">
+				>
+				["at0006"] = <
+					text = <"Vektendring">
+					description = <"Registrering av prosentvis vektendring">
+				>
+				["at0007"] = <
+					text = <"Matinntak endring">
+					description = <"Registrering av prosentvis endring av matinntak">
+				>
+				["at0010"] = <
+					text = <"Tidsrom for måling vektendring">
+					description = <"Angi tidsrommet for måling av vektendring">
+				>
+				["at0012"] = <
+					text = <"Tidsrom for måling matinntak">
+					description = <"Angi tidsrom for måling av matinntak">
+				>
+				["at0013"] = <
+					text = <"*Vektmåling for utgangspunkt(nb)">
+					description = <"**(nb)">
+				>
+				["at0015"] = <
+					text = <"*Vektmåling for utgangspunkt(nb)">
+					description = <"*Vektmåling utgangspunkt(nb)">
+				>
+				["at0016"] = <
+					text = <"*Vektmåling nå(nb)">
+					description = <"**(nb)">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Prosentvis endring av vekt og matinntak">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Prosentvis endring av vekt">
+					description = <"Benyttes for angi prosentvis endring av kroppsvekt over tid.">
+				>
+				["at0005"] = <
+					text = <"Prosentvis endring av matinntak">
+					description = <"Benyttes for angi prosentvis endring av matinntak.">
+				>
+				["at0006"] = <
+					text = <"Vektendring">
+					description = <"Registrering av prosentvis vektendring">
+				>
+				["at0007"] = <
+					text = <"Matinntak endring">
+					description = <"Registrering av prosentvis endring av matinntak">
+				>
+				["at0010"] = <
+					text = <"Tidsrom for måling vektendring">
+					description = <"Angi tidsrommet for måling av vektendring">
+				>
+				["at0012"] = <
+					text = <"Tidsrom for måling matinntak">
+					description = <"Angi tidsrom for måling av matinntak">
+				>
+				["at0013"] = <
+					text = <"Vektmåling for utgangspunkt">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Vektmåling for utgangspunkt">
+					description = <"Vektmåling utgangspunkt">
+				>
+				["at0016"] = <
+					text = <"Vektmåling nå">
+					description = <"*">
+				>
+			>
+		>
+	>
