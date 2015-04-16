@@ -21,19 +21,21 @@ description
 		["no"] = <
 			language = <[ISO_639-1::no]>
 			purpose = <"Hensikten er å kunne registerer prosentvis endring av vekt og matinntak på en pasient, som en utvidelse til NRS 2002 registreringen gjort i arketypen screening for ernæringsmessig risiko">
+			use = <"Brukes bare til NRS utvidet screening">
+			misuse = <"All annen bruk">
 		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
 			purpose = <"Hensikten er å kunne registerer prosentvis endring av vekt og matinntak på en pasient, som en utvidelse til NRS 2002 registreringen gjort i arketypen screening for ernæringsmessig risiko">
-			use = <"">
-			misuse = <"">
+			use = <"Brukes bare til NRS utvidet screening">
+			misuse = <"All annen bruk">
 			copyright = <"">
 		>
 	>
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"1672375C2868A1BCF1AC72676960C8C8">
+		["MD5-CAM-1.0.1"] = <"6FA21AC1825259D7F565337C0BC49978">
 	>
 
 definition
@@ -45,9 +47,9 @@ definition
 						data matches {
 							ITEM_TREE[at0003] matches {	-- Tree
 								items cardinality matches {0..*; unordered} matches {
-									CLUSTER[at0006] occurrences matches {0..1} matches {	-- Vektendring
+									CLUSTER[at0006] occurrences matches {0..1} matches {	-- Vekttap
 										items cardinality matches {1..*; unordered} matches {
-											ELEMENT[at0015] occurrences matches {0..1} matches {	-- Vektmåling for utgangspunkt
+											ELEMENT[at0015] occurrences matches {0..1} matches {	-- Forrige vekt
 												value matches {
 													C_DV_QUANTITY <
 														property = <[openehr::124]>
@@ -66,7 +68,7 @@ definition
 													>
 												}
 											}
-											ELEMENT[at0016] occurrences matches {0..1} matches {	-- Vektmåling nå
+											ELEMENT[at0016] occurrences matches {0..1} matches {	-- Vekt nå
 												value matches {
 													C_DV_QUANTITY <
 														property = <[openehr::124]>
@@ -89,7 +91,7 @@ definition
 												include
 													archetype_id/value matches {/.*/}
 											}
-											ELEMENT[at0004] occurrences matches {0..1} matches {	-- Prosentvis endring av vekt
+											ELEMENT[at0004] occurrences matches {0..1} matches {	-- Vekttap i prosent
 												value matches {
 													C_DV_QUANTITY <
 														property = <[openehr::380]>
@@ -121,16 +123,19 @@ definition
 									}
 									CLUSTER[at0007] occurrences matches {0..1} matches {	-- Matinntak endring
 										items cardinality matches {1..*; unordered} matches {
-											ELEMENT[at0005] occurrences matches {0..1} matches {	-- Prosentvis endring av matinntak
+											ELEMENT[at0005] occurrences matches {0..1} matches {	-- Matinntak i prosent
 												value matches {
-													C_DV_QUANTITY <
-														property = <[openehr::380]>
-														list = <
-															["1"] = <
-																units = <"%">
-															>
-														>
-													>
+													0|[local::at0017], 	-- Ingen endring
+													1|[local::at0018], 	-- 10% reduksjon i matinntak
+													2|[local::at0019], 	-- 20% reduksjon i matinntak
+													3|[local::at0020], 	-- 30% reduksjon i matinntak
+													4|[local::at0021], 	-- 40% reduksjon i matinntak
+													5|[local::at0022], 	-- 50% reduksjon i matinntak
+													6|[local::at0023], 	-- 60% reduksjon i matinntak
+													7|[local::at0024], 	-- 70% reduksjon i matinntak
+													8|[local::at0025], 	-- 80% reduksjon i matinntak
+													9|[local::at0026], 	-- 90% reduksjon i matinntak
+													100|[local::at0027]  	-- 100% reduksjon i matinntak
 												}
 											}
 											ELEMENT[at0012] occurrences matches {0..1} matches {	-- Tidsrom for måling matinntak
@@ -181,15 +186,15 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0004"] = <
-					text = <"Prosentvis endring av vekt">
+					text = <"Vekttap i prosent">
 					description = <"Benyttes for angi prosentvis endring av kroppsvekt over tid.">
 				>
 				["at0005"] = <
-					text = <"Prosentvis endring av matinntak">
-					description = <"Benyttes for angi prosentvis endring av matinntak.">
+					text = <"*Matinntak i prosent(nb)">
+					description = <"*På en skala fra 0-10, hvor mye mindre spiser pasienten nå mot normalt? 4=40%(nb)">
 				>
 				["at0006"] = <
-					text = <"Vektendring">
+					text = <"Vekttap">
 					description = <"Registrering av prosentvis vektendring">
 				>
 				["at0007"] = <
@@ -205,16 +210,60 @@ ontology
 					description = <"Angi tidsrom for måling av matinntak">
 				>
 				["at0013"] = <
-					text = <"*Vektmåling for utgangspunkt(nb)">
-					description = <"**(nb)">
+					text = <"Vektmåling for utgangspunkt">
+					description = <"*">
 				>
 				["at0015"] = <
-					text = <"*Vektmåling for utgangspunkt(nb)">
-					description = <"*Vektmåling utgangspunkt(nb)">
+					text = <"Forrige vekt">
+					description = <"Vektmåling utgangspunkt">
 				>
 				["at0016"] = <
-					text = <"*Vektmåling nå(nb)">
-					description = <"**(nb)">
+					text = <"Vekt nå">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Ingen endring">
+					description = <"Ingen endring av matinntak">
+				>
+				["at0018"] = <
+					text = <"10% reduksjon i matinntak">
+					description = <"10% reduksjon">
+				>
+				["at0019"] = <
+					text = <"20% reduksjon i matinntak">
+					description = <"20% reduksjon">
+				>
+				["at0020"] = <
+					text = <"30% reduksjon i matinntak">
+					description = <"30% reduksjon">
+				>
+				["at0021"] = <
+					text = <"40% reduksjon i matinntak">
+					description = <"40% reduksjon">
+				>
+				["at0022"] = <
+					text = <"50% reduksjon i matinntak">
+					description = <"50% reduksjon">
+				>
+				["at0023"] = <
+					text = <"60% reduksjon i matinntak">
+					description = <"60% reduksjon">
+				>
+				["at0024"] = <
+					text = <"70% reduksjon i matinntak">
+					description = <"70% reduksjon">
+				>
+				["at0025"] = <
+					text = <"80% reduksjon i matinntak">
+					description = <"80% reduksjon">
+				>
+				["at0026"] = <
+					text = <"90% reduksjon i matinntak">
+					description = <"90% reduksjon">
+				>
+				["at0027"] = <
+					text = <"100% reduksjon i matinntak">
+					description = <"100% reduksjon">
 				>
 			>
 		>
@@ -237,15 +286,15 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0004"] = <
-					text = <"Prosentvis endring av vekt">
+					text = <"Vekttap i prosent">
 					description = <"Benyttes for angi prosentvis endring av kroppsvekt over tid.">
 				>
 				["at0005"] = <
-					text = <"Prosentvis endring av matinntak">
-					description = <"Benyttes for angi prosentvis endring av matinntak.">
+					text = <"Matinntak i prosent">
+					description = <"På en skala fra 0-10, hvor mye mindre spiser pasienten nå mot normalt? 4=40%">
 				>
 				["at0006"] = <
-					text = <"Vektendring">
+					text = <"Vekttap">
 					description = <"Registrering av prosentvis vektendring">
 				>
 				["at0007"] = <
@@ -265,12 +314,56 @@ ontology
 					description = <"*">
 				>
 				["at0015"] = <
-					text = <"Vektmåling for utgangspunkt">
+					text = <"Forrige vekt">
 					description = <"Vektmåling utgangspunkt">
 				>
 				["at0016"] = <
-					text = <"Vektmåling nå">
+					text = <"Vekt nå">
 					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Ingen endring">
+					description = <"Ingen endring av matinntak">
+				>
+				["at0018"] = <
+					text = <"10% reduksjon i matinntak">
+					description = <"10% reduksjon">
+				>
+				["at0019"] = <
+					text = <"20% reduksjon i matinntak">
+					description = <"20% reduksjon">
+				>
+				["at0020"] = <
+					text = <"30% reduksjon i matinntak">
+					description = <"30% reduksjon">
+				>
+				["at0021"] = <
+					text = <"40% reduksjon i matinntak">
+					description = <"40% reduksjon">
+				>
+				["at0022"] = <
+					text = <"50% reduksjon i matinntak">
+					description = <"50% reduksjon">
+				>
+				["at0023"] = <
+					text = <"60% reduksjon i matinntak">
+					description = <"60% reduksjon">
+				>
+				["at0024"] = <
+					text = <"70% reduksjon i matinntak">
+					description = <"70% reduksjon">
+				>
+				["at0025"] = <
+					text = <"80% reduksjon i matinntak">
+					description = <"80% reduksjon">
+				>
+				["at0026"] = <
+					text = <"90% reduksjon i matinntak">
+					description = <"90% reduksjon">
+				>
+				["at0027"] = <
+					text = <"100% reduksjon i matinntak">
+					description = <"100% reduksjon">
 				>
 			>
 		>
