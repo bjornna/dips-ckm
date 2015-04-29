@@ -2,18 +2,22 @@ archetype (adl_version=1.4)
 	openEHR-EHR-OBSERVATION.mallampati_classification.v1
 
 concept
-	[at0000]	-- Mallampati classification
+	[at0000]	-- Mallampati klassifikasjon
 language
 	original_language = <[ISO_639-1::nb]>
 description
 	original_author = <
-		["name"] = <"">
+		["name"] = <"Anca Heyd">
+		["organisation"] = <"Dips ASA">
+		["email"] = <"ahe@dips.no">
+		["date"] = <"2015-04-29">
 	>
 	details = <
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"">
-			use = <"">
+			purpose = <"Vurdering av mallampati i forkant av en planlagt anestesi.">
+			use = <"Brukes i forbindelse med evaluering av intubasjonsrisiko hos hos et individ i forkant av en planlagt anestesi.">
+			keywords = <"mallampati", "anestesi", "intubasjon">
 			misuse = <"">
 			copyright = <"">
 		>
@@ -21,15 +25,37 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"3E092E16730F9758BFC6AC369AC8658A">
+		["references"] = <"http://www.uptodate.com/contents/91218?search=mallampati+score&source=graphics_search&imageKey=EM/75229#graphicRef75229
+">
+		["MD5-CAM-1.0.1"] = <"829C9DD0ABD9E800D6D180D435C9F510">
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- Mallampati classification
+	OBSERVATION[at0000] matches {	-- Mallampati klassifikasjon
 		data matches {
 			HISTORY[at0001] matches {	-- Event Series
 				events cardinality matches {1..*; unordered} matches {
-					EVENT[at0002] occurrences matches {0..1} matches {*}
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Mallampati klassifikasjon
+										value matches {
+											1|[local::at0006], 	-- Klasse 1
+											2|[local::at0007], 	-- Klasse 2
+											3|[local::at0008], 	-- Klasse 3
+											4|[local::at0009]  	-- Klasse 4
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Kommentar
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
 				}
 			}
 		}
@@ -40,8 +66,8 @@ ontology
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"Mallampati classification">
-					description = <"unknown">
+					text = <"Mallampati klassifikasjon">
+					description = <"Klassifisering av mallampati for å vurdere risiko ved intubasjon.">
 				>
 				["at0001"] = <
 					text = <"Event Series">
@@ -50,6 +76,34 @@ ontology
 				["at0002"] = <
 					text = <"Any event">
 					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Mallampati klassifikasjon">
+					description = <"Mallampati klassifikasjon.">
+				>
+				["at0005"] = <
+					text = <"Kommentar">
+					description = <"Kommentar til mallampati klassifisering.">
+				>
+				["at0006"] = <
+					text = <"Klasse 1">
+					description = <"Fremre og bakre ganebue, uvula, hard gane og bløtgane synlig.">
+				>
+				["at0007"] = <
+					text = <"Klasse 2">
+					description = <"Partiell uvula og bløtgane synlig.">
+				>
+				["at0008"] = <
+					text = <"Klasse 3">
+					description = <"Kun bløtgane synlig.">
+				>
+				["at0009"] = <
+					text = <"Klasse 4">
+					description = <"Ingen strukturer bak tunga synlige.">
 				>
 			>
 		>
