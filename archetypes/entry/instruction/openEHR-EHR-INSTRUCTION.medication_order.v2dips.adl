@@ -1,0 +1,678 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-INSTRUCTION.medication_order.v2dips
+
+concept
+	[at0000]	-- Ordinasjon
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["organisation"] = <"Haukeland Universitets Hospital, Bergen Norge">
+				["name"] = <"Lars Bitsch-Larsen">
+			>
+			accreditation = <"MD, DEAA, MBA, spec in tropical med.">
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Sam Heard">
+		["organisation"] = <"OpenEHR Foundation">
+		["email"] = <"sam.heard@oceaninformatics.com">
+		["date"] = <"2013-05-16">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"Recording intent to use or to continue to use a medicine, vaccine or other therapeutic good including instructions on use, dispensing and administration, where neccessary.">
+			use = <"For recording instructions to dispense, administer or use a medicine, vaccine or other therapeutic good. This medication instruction can be used in many circumstances including: a record in a progress note; an item in a medication list, prescription  or drug chart (to be dispensed and/or administered); or in a summary document such as discharge summary or a referral for care. The instruction may be complex and involve more than one activity, such as in the case of a reducing dose of Predisolone, or multiple medications as components of the same order.  This would include a written order by a physician, dentist, nurse practitioner, or other designated health professional for a medication to be dispensed and administered to a patient.
+
+This instruction will generally apply to things that can be prescribed or are available 'over the counter'.
+
+Use for orders for vaccinations or other therapeutic goods. These may be presented differently in different applications but require the same structure.
+
+Use for the consistent representation of an item in a medication list comprising the medicines that a clinicians collectively expect the individual to be taking.
+
+The information recorded may separate dose, route and timing to achieve a computable and sharable specification but also allows for narrative instructions for orders like 'Frusemide 40mg two tablets in the morning and one at lunch' to ensure compatibility with existing systems. To achieve a structure statement for such compound orders, two items are required: 'Frusemide 40mg two tablets in the morning' and 'Frusemide 40mg one tablet at lunch'. The instruction will usually include information about the timing and dose  (which may be structured) and in some settings will include the route of administration. The amount of the medicines will usually be given in terms of a number and a dose unit but may be a textural statement to ensure compatibility with existing systems and also coverage of all scenarios.
+
+Use to represent a prescription item for a medicine, vaccine or other therapeutic good within a document such as an electronic prescription (see COMPOSITION.prescription) or a medication chart.
+
+The content is potentially complex. Where the content is re-usable in other contexts, especially the paired ACTION.medication archetype (for recording dispensing, administration etc) the content has been specified in re-useable CLUSTER archetypes. For example: CLUSTER.amount and CLUSTER.amount-range contain the detail about Medication dose; CLUSTER.timing contains detail about structured dose timing; CLUSTER.medication_administration contains structure around administration for both the order and the action; and CLUSTER.chemical_description described the specific ingredients within a medicine. All of these archetypes together are required to make up the total maximal dataset for a re-useable medication instruction.">
+			keywords = <"medication", "order", "prescribe", "therapy", "substance", "drug", "therapeutic", "otc", "therapeutic good">
+			misuse = <"Not to be used to record administration, use or dispensing. (For those use ACTION.medication)
+
+Not to be used to record ordering of blood products, implants or major devices such as pacemakers and defibrillators, etc.">
+			copyright = <"© Nasjonal IKT HF">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For dokumentasjon av hensikt til å bruke eller å fortsette å bruke en medisin, vaksine eller annen terapeutiske intervensjon, inkludert instruksjoner om bruk, utlevering og administrasjon, hvor nødvendig.">
+			use = <"For registrering av instruksjoner til å utlevere, administrere eller bruke en medisin, vaksine eller andre terapeutiske intervensjon. Denne medisin instruksjon kan brukes i mange sammenhenger, inkludert: som en registrering av fremgang; et element i en medikamentliste, resept eller narkotika liste (for å bli utlevert og / eller administrert); eller i et sammenfattende dokument som for eksempel epikrisen eller en henvisning for pleie. Instruksjonen kan være kompleks og involverer mer enn en aktivitet, for eksempel i tilfelle av en reduserende dose Predisolone eller flere medikamenter som komponenter av samme størrelsesorden. Dette vil inkludere en skriftlig ordinasjon av en lege, tannlege, sykepleier eller annen utpekt helsepersonell for et medikament som skal utleveres, og gis til en pasient. 
+
+Denne instruksjonen vil vanligvis gjelde for medikamenter som kan være ordinert eller er tilgjengelige i \"håndkjøp\".
+
+Brukes for bestillinger av vaksiner eller andre terapeutiske varer. Disse kan bli presentert forskjellig i forskjellige applikasjoner, men krever at den samme struktur.
+
+Brukes for konsekvent representasjon av et element i en medisinliste bestående av legemidler som klinikere kollektivt forventer at pasienten tar. Informasjonen som registreres kan skille dose, rute og timing for å oppnå en beregnbar og delelig spesifikasjon, men gir også mulighet for narrative instruksjoner for bestillinger som 'furosemid 40 mg to tabletter om morgenen og en på lunsj \"for å sikre kompatibilitet med eksisterende systemer. For å oppnå et struktuerrt utsagn for slike sammensatte ordinasjoner, kreves der to elementer: 'furosemid 40 mg to tabletter i morgen \"og\" furosemid 40 mg én tablett til lunsj \". Instruksjonen vil vanligvis inneholde informasjon om tidspunkt og dosering (som kan være strukturert), og i noen situasjoner omfatte administrasjons veien. Mengden av medisinene vil vanligvis bli gitt i form av et tall og en dose enhet, men kan være en stofflighet beskrivelse for å sikre kompatibilitet med eksisterende systemer og dekning av alle alternativer. 
+
+Brukes til å vise et ordinasjons element for en medisin, vaksine eller andre terapeutiske intervensjon i et dokument som elektronisk resept (se COMPOSITION.prescription) eller et medisin liste. 
+
+Innholdet er potensielt kompleks. Hvor innholdet er gjenbrukbar i andre sammenhenger, spesielt den parede ACTION.medication arketypen (for opptak utlevering og administrasjon etc) er innholdet spesifisert i gjenbrukbare CLUSTER arketyper. For eksempel: CLUSTER.amount og CLUSTER.amount-serien inneholder detaljer om medisinering dose; CLUSTER.timing inneholder detaljer om strukturert dose timing; CLUSTER.medication_administration inneholder struktur rundt administrasjon for både ordniasjon og handlingen; og CLUSTER.chemical_description beskrevet de spesifikke bestanddeler i en medisin. Alle disse arketypene sammen er nødvendige for å oppnå den totale maksimale datasettet for en gjenbrukbar medisinerings instruksjon.">
+			keywords = <"Medisin", "ordinasjon", "resept", "terapi", "stoff", "håndkjøps medisin", "medikament", "terapeutisk intervensjon">
+			misuse = <"Brukes ikke for registrering administrasjon, bruk eller utlevering. (Bruk ACTION.medication)
+
+Brukes ikke for registrering av ordinasjoner av blodprodukter, implantater eller andre større enheter som pacemakere og depilatorer.">
+			copyright = <"© Nasjonal IKT HF">
+		>
+	>
+	lifecycle_state = <"AuthorDraft">
+	other_contributors = <"John Bennett, NEHTA, Australia", "Sharmila Biswas, Australia", "Stephen Chu, NEHTA, Australia (Editor)", "Matthew Cordell, NEHTA, Australia", "Gail Easterbrook, Flinders Medical Centre, Australia", "David Evans, Queensland Health, Australia", "Sarah Gaunt, NEHTA, Australia", "Trina Gregory, cpc, Australia", "Sam Heard, Ocean Informatics, Australia (Editor)", "Mary Kelaher, NEHTA, Australia", "Robert L'egan, NEHTA, Australia", "Heather Leslie, Ocean Informatics, Australia (Editor)", "Susan McIndoe, Royal District Nursing Service, Australia", "David McKillop, NEHTA, Australia", "Chris Mitchell, RACGP, Australia", "Stewart Morrison, NEHTA, Australia", "Chris Pearce, Melbourne East GP Network, Australia", "Camilla Preeston, Royal Australian College of General Practitioners, Australia", "Margaret Prichard, NEHTA, Australia", "Cathy Richardson, NEHTA, Australia", "Robyn Richards, NEHTA - Clinical Terminology, Australia", "John Taylor, NEHTA, Australia", "Richard Townley-O'Neill, NEHTA, Australia (Editor)", "Kylie Young, The Royal Australian College of General Practitioners, Australia", "Ian McNicoll, Ocean Informatics. UK">
+	other_details = <
+		["references"] = <"Medication instruction, draft archetype, NEHTA Clinical Knowledge Manager [Internet]. NEHTA. Authored: 12 Nov 2010. Available at: http://dcm.nehta.org.au/ckm/#showArchetype_1013.1.838_15 (accessed 15 May 2013).
+Therapeutic Good Use Data Group, NEHTA  http://www.nehta.gov.au
+Intermountain Healthcare Medication order model, Personal Communication to Sam Heard by Dr Stan Huff.
+Royal Australian College of General Practitioners. Fact Sheet: Medicines List. 2010.">
+		["MD5-CAM-1.0.1"] = <"9207E42E0EB3060341781640EB740FA3">
+	>
+
+definition
+	INSTRUCTION[at0000] matches {	-- Ordinasjon
+		activities cardinality matches {0..*; unordered} matches {
+			ACTIVITY[at0001] occurrences matches {0..*} matches {	-- Ordinasjon
+				description matches {
+					ITEM_TREE[at0002] matches {	-- Tree
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0003] matches {	-- Medikament
+								value matches {
+									DV_TEXT matches {*}
+									DV_CODED_TEXT matches {
+										defining_code matches {[ac0001]}		-- Medisin navn
+									}
+								}
+							}
+							allow_archetype CLUSTER[at0050] occurrences matches {0..*} matches {	-- Medikamentdetaljer
+								include
+									archetype_id/value matches {/.*/}
+							}
+							ELEMENT[at0009] occurrences matches {0..1} matches {	-- Samlede anvisninger/DosingText??
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0004] occurrences matches {0..*} matches {	-- Innhold og form
+								include
+									archetype_id/value matches {/openEHR-EHR-CLUSTER\.medication_ingredients(-[a-zA-Z0-9_]+)*\.v1/}
+							}
+							ELEMENT[at0005] occurrences matches {0..1} matches {	-- Dose beskrivelse/ShortDosingText??
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0006] occurrences matches {0..1} matches {	-- Strukturert dose
+								include
+									archetype_id/value matches {/openEHR-EHR-CLUSTER\.medication_amount(-[a-zA-Z0-9_]+)*\.v1/}
+							}
+							ELEMENT[at0008] occurrences matches {0..1} matches {	-- Timing beskrivelse/??
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							CLUSTER[at0010] occurrences matches {0..1} matches {	-- Strukturert timing
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0029] occurrences matches {0..1} matches {	-- vb Ved behov (latin pro re nata)
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True}
+											}
+										}
+									}
+									ELEMENT[at0011] occurrences matches {0..*} matches {	-- Oppstart kriterier.
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0012] occurrences matches {0..1} matches {	-- Start dato
+										value matches {
+											DV_DATE_TIME matches {*}
+										}
+									}
+									ELEMENT[at0016] occurrences matches {0..*} matches {	-- Opphørs kriterier
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0013] occurrences matches {0..1} matches {	-- Opphørs dato
+										value matches {
+											DV_DATE_TIME matches {*}
+										}
+									}
+									ELEMENT[at0014] occurrences matches {0..1} matches {	-- Varighet av behandling
+										value matches {
+											DV_DURATION matches {*}
+										}
+									}
+									ELEMENT[at0047] occurrences matches {0..1} matches {	-- Varigheten av den tidligere behandling
+										value matches {
+											DV_DURATION matches {
+												value matches {|>=P0Y|}
+											}
+										}
+									}
+									ELEMENT[at0015] occurrences matches {0..1} matches {	-- Antall administrasjoner
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0017] occurrences matches {0..1} matches {	-- Langsikt
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									allow_archetype CLUSTER[at0037] occurrences matches {0..1} matches {	-- Detaljert timing
+										include
+											archetype_id/value matches {/openEHR-EHR-CLUSTER\.timing(-[a-zA-Z0-9_]+)*\.v1/}
+									}
+								}
+							}
+							ELEMENT[at0044] occurrences matches {0..*} matches {	-- Ytterligere instruksjoner/inkl forhåndsregler v inntak
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0048] occurrences matches {0..1} matches {	-- Medisinerings sikkerhets grenser
+								include
+									archetype_id/value matches {/.*/}
+							}
+							CLUSTER[at0052] occurrences matches {0..1} matches {	-- Indikasjon
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0053] occurrences matches {0..1} matches {	-- Klinisk indikasjon
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0054] occurrences matches {0..1} matches {	-- Bruksområde
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									allow_archetype CLUSTER[at0055] occurrences matches {0..*} matches {	-- Detaljer indikasjon
+										include
+											archetype_id/value matches {/.*/}
+									}
+								}
+							}
+							allow_archetype CLUSTER[at0043] occurrences matches {0..*} matches {	-- Medisinerings detaljer
+								include
+									archetype_id/value matches {/openEHR-EHR-CLUSTER\.medication_admin(-[a-zA-Z0-9_]+)*\.v1/}
+							}
+							CLUSTER[at0056] occurrences matches {0..1} matches {	-- Regionale/nasjonale detaljer
+								items cardinality matches {1..*; unordered} matches {
+									allow_archetype CLUSTER[at0057] occurrences matches {0..*} matches {	-- Myndighetsgodkjenning
+										include
+											archetype_id/value matches {/.*/}
+									}
+									allow_archetype CLUSTER[at0058] occurrences matches {0..*} matches {	-- Refusjon
+										include
+											archetype_id/value matches {/.*/}
+									}
+									allow_archetype CLUSTER[at0060] occurrences matches {0..*} matches {	-- Nasjonale utleveringsdetaljer
+										include
+											archetype_id/value matches {/.*/}
+									}
+									allow_archetype CLUSTER[at0059] occurrences matches {0..*} matches {	-- Nasjonale medikamentdetaljer
+										include
+											archetype_id/value matches {/.*/}
+									}
+								}
+							}
+							ELEMENT[at0035] occurrences matches {0..*} matches {	-- Kommentar
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							CLUSTER[at0023] occurrences matches {0..1} matches {	-- Utlevering
+								items cardinality matches {1..*; unordered} matches {
+									allow_archetype CLUSTER[at0045] occurrences matches {0..*} matches {	-- Mengde
+										include
+											archetype_id/value matches {/openEHR-EHR-CLUSTER\.medication_amount(-[a-zA-Z0-9_]+)*\.v1/}
+									}
+									ELEMENT[at0025] occurrences matches {0..1} matches {	-- Antall gjentakelser.
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|>=0|}
+											}
+										}
+									}
+									ELEMENT[at0046] occurrences matches {0..1} matches {	-- Minste intervall mellom utlevering
+										value matches {
+											DV_DURATION matches {*}
+										}
+									}
+									ELEMENT[at0026] occurrences matches {0..1} matches {	-- Tillat å bruke annen merkenavn.
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0028] occurrences matches {0..1} matches {	-- Utleverings instruksjoner
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0031] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0038] occurrences matches {0..*} matches {	-- Indikasjon for autorisert bruk.
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0032] occurrences matches {0..*} matches {	-- Medisinerings ID
+						value matches {
+							DV_IDENTIFIER matches {*}
+						}
+					}
+					ELEMENT[at0042] occurrences matches {0..1} matches {	-- Tilskudd
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Medication order">
+					description = <"Details of a medicine, vaccine or other therapeutic good with instructions for use.">
+				>
+				["at0001"] = <
+					text = <"Order">
+					description = <"The instructions for a particular medicine, vaccine or other therapeutic good including dose and timing.">
+				>
+				["at0002"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Medicine">
+					description = <"The medicine, vaccine or other therapeutic good being ordered, administered to or used by the subject of care. This item should be coded if possible.">
+				>
+				["at0004"] = <
+					text = <"Ingredients and form">
+					description = <"Detailed information about the ingredient(s) including form and strength.">
+				>
+				["at0005"] = <
+					text = <"Dose description">
+					description = <"The amount and units of the medicine, vaccine or other therapeutic good to be used or administered at one time.">
+				>
+				["at0006"] = <
+					text = <"Structured dose">
+					description = <"Structured information on dose with dose unit. If 'Structured dose' is used with 'Dose description' then these must be semantically equivalent.">
+				>
+				["at0008"] = <
+					text = <"Timing description">
+					description = <"The timing of the doses, which may include frequency and details such as relationship to food.">
+				>
+				["at0009"] = <
+					text = <"Overall directions">
+					description = <"A complete narrative description of how much, when and how to use the medicine, vaccine or other therapeutic good.">
+				>
+				["at0010"] = <
+					text = <"Structured timing">
+					description = <"Details of the timing of the use or administration of the medicine, vaccine or other therapeutic good.">
+				>
+				["at0011"] = <
+					text = <"Start criterion">
+					description = <"A condition which, when met, requires the start of administration or use.">
+				>
+				["at0012"] = <
+					text = <"Start date">
+					description = <"The date and optional time to begin using the medicine, vaccine or other therapeutic good.">
+				>
+				["at0013"] = <
+					text = <"Stop date">
+					description = <"The date and optional time to stop using the medicine, vaccine or other therapeutic good.">
+				>
+				["at0014"] = <
+					text = <"Duration of treatment">
+					description = <"The length of time for which the medicine, vaccine or other therapeutic good should be used or administered (from the initial dose to the final dose).">
+				>
+				["at0015"] = <
+					text = <"Number of administrations">
+					description = <"The total number of doses of the medicine, vaccine or other therapeutic good that are to be used or administered (from the initial dose to the final dose).">
+				>
+				["at0016"] = <
+					text = <"Stop criterion">
+					description = <"A condition which, when met, requires the cessation of administration or use.">
+				>
+				["at0017"] = <
+					text = <"Long-term">
+					description = <"It is anticipated that the medicine, vaccine or therapeutic good will be re-prescribed or re-dispensed over a period of time.">
+				>
+				["at0023"] = <
+					text = <"Dispensing">
+					description = <"Information for the dispenser.">
+				>
+				["at0025"] = <
+					text = <"Number of repeats">
+					description = <"The number of times the expressed quantity of medicine, vaccine or other therapeutic good may be refilled or redispensed without a new prescription.">
+				>
+				["at0026"] = <
+					text = <"Brand substitution permitted">
+					description = <"Indicates whether or not the substitution of a prescribed medicine with a different brand name of the same medicine, vaccine or other therapeutic good, which has been determined as bioequivalent, is allowed when the medication is dispensed/supplied.">
+				>
+				["at0028"] = <
+					text = <"Dispensing instructions">
+					description = <"Additional instructions to the person dispensing the medicine, vaccine or other therapeutic good.">
+				>
+				["at0029"] = <
+					text = <"PRN">
+					description = <"The timing is dependent within limits on the subject of care's condition or symptoms  (e.g. 4hrly p.r.n. means the medicine can be taken as frequently as every four hours if necessary). \"Pro re nata\" in latin means as circumstances arise.">
+				>
+				["at0031"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0032"] = <
+					text = <"Medication Instruction Id">
+					description = <"An identifier used in an external system and associated with this medication instruction.">
+				>
+				["at0035"] = <
+					text = <"Comment">
+					description = <"Any additional information that may be needed to ensure the continuity of supply, rationale for current dose and timing, or safe and appropriate use.">
+				>
+				["at0037"] = <
+					text = <"Detailed timing">
+					description = <"Structured details of the timing of the use or administration.">
+				>
+				["at0038"] = <
+					text = <"Indication for authorised use">
+					description = <"The specific indication for use that is required by an authorising agency to achieve subsidy for or access to the medicine, vaccine or other therapeutic good. This could be a national medication scheme, insurance company or other funding agency.">
+				>
+				["at0042"] = <
+					text = <"Concession benefit">
+					description = <"Indicates the category of subsidy appropriate to the item being prescribed.">
+				>
+				["at0043"] = <
+					text = <"Administration details">
+					description = <"Details of the administration of the medicine, vaccine or other therapeutic good.">
+				>
+				["at0044"] = <
+					text = <"Additional instruction">
+					description = <"An additional statement on how to use the medicine, vaccine or other therapeutic good.">
+				>
+				["at0045"] = <
+					text = <"Quantity">
+					description = <"The amount of medicine, vaccine or other therapeutic good to be dispensed.">
+				>
+				["at0046"] = <
+					text = <"Minimum interval between repeats">
+					description = <"The minimum time between repeat dispensing of the medicine, vaccine or therapeutic good. Note: This is specified by the ordering clinician for a specific reason such as safety or best practice.">
+				>
+				["at0047"] = <
+					description = <"The duraton of prior treatment  which has already for the same medication prior to this instruction.">
+					text = <"Duration of prior treatment">
+					comment = <"e.g To indicate that the patient has already taken 3 days of a 7 day course of treatment.">
+				>
+				["at0048"] = <
+					text = <"Medication safety limits">
+					description = <"Details of medication safety limits such as maximum dosage or frequency.">
+				>
+				["at0050"] = <
+					text = <"*Cluster(en)">
+					description = <"**(en)">
+				>
+				["at0052"] = <
+					text = <"*New cluster(en)">
+					description = <"**(en)">
+				>
+				["at0053"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0054"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0055"] = <
+					text = <"*Cluster(en)">
+					description = <"**(en)">
+				>
+				["at0056"] = <
+					text = <"*New cluster(en)">
+					description = <"**(en)">
+				>
+				["at0057"] = <
+					text = <"*Cluster(en)">
+					description = <"**(en)">
+				>
+				["at0058"] = <
+					text = <"*Cluster(en)">
+					description = <"**(en)">
+				>
+				["at0059"] = <
+					text = <"*Cluster(en)">
+					description = <"**(en)">
+				>
+				["at0060"] = <
+					text = <"*Cluster(en)">
+					description = <"**(en)">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Ordinasjon">
+					description = <"Detaljer om medisin, vaksine eller annen terapeutisk intervensjon med instruksjoner om bruk.">
+				>
+				["at0001"] = <
+					text = <"Ordinasjon">
+					description = <"Instruksjon for en spesifikk medisin, vaksine eller annen terapeutisk intervensjon inklusiv dosis og timing.">
+				>
+				["at0002"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Medikament">
+					description = <"Medisin, vaksine eller annen terapeutisk intervensjon som ordineres, gis eller brukes av pasienten. Dette element bør kodes hvis mulig.">
+				>
+				["at0004"] = <
+					text = <"Innhold og form">
+					description = <"Detaljer ingredienser inklusiv form og styrke.">
+				>
+				["at0005"] = <
+					text = <"Dose beskrivelse/ShortDosingText??">
+					description = <"Mengde og enheter av den medisin, vaksine eller annen terapeutisk intervensjon som brukes eller gis på et gitt tidspunkt.">
+				>
+				["at0006"] = <
+					text = <"Strukturert dose">
+					description = <"Strukturert informasjon om dose enhet. Hvis \"Structured dose\" brukes med \"Dose description\" må disse være semantiske like.">
+				>
+				["at0008"] = <
+					text = <"Timing beskrivelse/??">
+					description = <"Tidspunkt for dosering, som kan inkludere hyppighet og detaljer som relasjoner til mat.">
+				>
+				["at0009"] = <
+					text = <"Samlede anvisninger/DosingText??">
+					description = <"En komplett beskrivelse av hvor mye, når og hvordan du bruker medisin, vaksine eller annen terapeutiske intervensjon.">
+				>
+				["at0010"] = <
+					text = <"Strukturert timing">
+					description = <"Detaljer om tidspunkt for bruk eller administrasjon av medisin, vaksine eller annen terapeutisk intervensjon.">
+				>
+				["at0011"] = <
+					text = <"Oppstart kriterier.">
+					description = <"Tilstanden som, når oppfylt, krever oppstart av medisinering eller bruk.">
+				>
+				["at0012"] = <
+					text = <"Start dato">
+					description = <"Datoen og valgfrie tidspunkt for oppstart av bruken av medisin vaksine eller annen terapeutisk intervensjon.">
+				>
+				["at0013"] = <
+					text = <"Opphørs dato">
+					description = <"Dato og valgfri tidspunkt for bruk av medisin vaksine eller annen terapeutisk intervensjon.">
+				>
+				["at0014"] = <
+					text = <"Varighet av behandling">
+					description = <"Varigheten av den tiden som medisinen, vaksinen eller annen terapeutisk intervensjon bør brukes eller gis (fra første dosis til siste dosis).">
+				>
+				["at0015"] = <
+					text = <"Antall administrasjoner">
+					description = <"Det totale antall doser av et legemiddel, vaksine eller andre terapeutiske godt som skal brukes eller gis (fra den første dosen til den endelige dose).">
+				>
+				["at0016"] = <
+					text = <"Opphørs kriterier">
+					description = <"Tilstand, når oppfylt, som krever opphør av medisinering eller bruk.">
+				>
+				["at0017"] = <
+					text = <"Langsikt">
+					description = <"Det antas at medisinen, vaksinen eller annen terapeutisk intervensjon vil få fornyet resept eller utlevering over en periode.">
+				>
+				["at0023"] = <
+					text = <"Utlevering">
+					description = <"Informasjon for den som utleverer medisinen.">
+				>
+				["at0025"] = <
+					text = <"Antall gjentakelser.">
+					description = <"Antall ganger som den ordinerte mengde medisin vaksine eller annen terapeutisk intervensjon kan utleveres uten resept fornyelse.">
+				>
+				["at0026"] = <
+					text = <"Tillat å bruke annen merkenavn.">
+					description = <"Angir om substitusjon av den ordinerte medisin med et annet merkenavn av samme medisin, vaksine eller andre terapeutiske intervensjon, noe som er blitt fastsatt som bioekvivalente, er tillatt når medisinen blir utleveres / leveres.">
+				>
+				["at0028"] = <
+					text = <"Utleverings instruksjoner">
+					description = <"Ytterligere instruksjoner til den person som utleverer medisinen, vaksinen eller den terapeutiske intervensjonen.">
+				>
+				["at0029"] = <
+					text = <"vb Ved behov (latin pro re nata)">
+					description = <"Timing er avhengig, innen visse grenser; av pasientens tilstand eller symptomer (f.eks. max. hver fjerde time ved behov).">
+				>
+				["at0031"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0032"] = <
+					text = <"Medisinerings ID">
+					description = <"En identifikator som brukes i et eksternt system, og forbundet med denne medisinen instruksjon.">
+				>
+				["at0035"] = <
+					text = <"Kommentar">
+					description = <"Ytterligere informasjon der kan være nødvendig for å sikre kontinuerlig forsyning, rasjonale for aktuell dosis timing eller sikkerhet og passende bruk.">
+				>
+				["at0037"] = <
+					text = <"Detaljert timing">
+					description = <"Strukturerte detaljer om timing ved bruk eller medisinering.">
+				>
+				["at0038"] = <
+					text = <"Indikasjon for autorisert bruk.">
+					description = <"Den spesifikke indikasjon for bruk som kreves av den henvisende klinikk eller institusjon for å oppnå tilskudd til eller tilgang til medisin, vaksine eller andre terapeutiske intervensjon. Dette kan være en nasjonal medisinering ordningen, forsikringsselskap eller lign..">
+				>
+				["at0042"] = <
+					text = <"Tilskudd">
+					description = <"Indikerer tilskudds kategorien til den ordinerte medisin.">
+				>
+				["at0043"] = <
+					text = <"Medisinerings detaljer">
+					description = <"Detaljer om medisinering av medisin, vaksinasjon eller annen terapeutisk intervensjon.">
+				>
+				["at0044"] = <
+					text = <"Ytterligere instruksjoner/inkl forhåndsregler v inntak">
+					description = <"Et ytterlig utsagn om hvordan man bruke medisinen, vaksinen eller annen terapeutisk intervensjon.">
+				>
+				["at0045"] = <
+					text = <"Mengde">
+					description = <"Mengden av medisin vaksine eller annen terapeutisk intervensjon som skal utleveres.">
+				>
+				["at0046"] = <
+					text = <"Minste intervall mellom utlevering">
+					description = <"Det minst tid mellom gjentatte utleveringer av medisin vaksine eller annen terapeutisk intervensjon. NB: Dette er spesifisert i ordinasjonen av klinikker pga sikkerhet eller best practice.">
+				>
+				["at0047"] = <
+					description = <"Varigheten av den behandling som er blitt gitt med den samme medisin før denne instruksjon.">
+					text = <"Varigheten av den tidligere behandling">
+					comment = <"f.eks. for at indikere at pasienten allerede har tatt 3 dage av 7 i et behandlings forløp.">
+				>
+				["at0048"] = <
+					text = <"Medisinerings sikkerhets grenser">
+					description = <"Detaljer om grensene for sikkerhet som maksimal dosis eller hyppighet.">
+				>
+				["at0050"] = <
+					text = <"Medikamentdetaljer">
+					description = <"Detaljer om medikamentet fra FEST som f.eksATC-kode, ATC-substance, reseptgruppe, pakning, pris, produsent, generisk bytte mulig/lov">
+				>
+				["at0052"] = <
+					text = <"Indikasjon">
+					description = <"*">
+				>
+				["at0053"] = <
+					text = <"Klinisk indikasjon">
+					description = <"*">
+				>
+				["at0054"] = <
+					text = <"Bruksområde">
+					description = <"*">
+				>
+				["at0055"] = <
+					text = <"Detaljer indikasjon">
+					description = <"*">
+				>
+				["at0056"] = <
+					text = <"Regionale/nasjonale detaljer">
+					description = <"*">
+				>
+				["at0057"] = <
+					text = <"Myndighetsgodkjenning">
+					description = <"*">
+				>
+				["at0058"] = <
+					text = <"Refusjon">
+					description = <"*">
+				>
+				["at0059"] = <
+					text = <"Nasjonale medikamentdetaljer">
+					description = <"*">
+				>
+				["at0060"] = <
+					text = <"Nasjonale utleveringsdetaljer">
+					description = <"*">
+				>
+			>
+		>
+	>
+	constraint_definitions = <
+		["en"] = <
+			items = <
+				["ac0001"] = <
+					text = <"Medication name">
+					description = <"Any valid term for a medicine or other therapeutic agent.">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["ac0001"] = <
+					text = <"Medisin navn">
+					description = <"En valid navn på medisin eller annen terapeutisk emne.">
+				>
+			>
+		>
+	>
