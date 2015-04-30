@@ -1,0 +1,557 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-INSTRUCTION.medication_order_v2b.v1
+
+concept
+	[at0000]	-- *Ordinasjon v2b(nb)
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"*For dokumentasjon av intensjonen til å bruke eller å fortsette å bruke et legemiddel, en vaksine eller annen terapeutisk intervensjon, inkludert instruksjoner om bruk, utlevering og administrasjon, hvor nødvendig(nb)">
+			use = <"*(nb)">
+			misuse = <"*(nb)">
+			copyright = <"*(nb)">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For dokumentasjon av intensjonen til å bruke eller å fortsette å bruke et legemiddel, en vaksine eller annen terapeutisk intervensjon, inkludert instruksjoner om bruk, utlevering og administrasjon, hvor nødvendig">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"B9FF14B20844AE840B845141A974EDEC">
+	>
+
+definition
+	INSTRUCTION[at0000] matches {	-- *Ordinasjon v2b(nb)
+		activities cardinality matches {0..*; unordered} matches {
+			ACTIVITY[at0001] occurrences matches {0..1} matches {	-- *Current Activity(nb)
+				action_archetype_id matches {/openEHR-EHR-ACTION\.medication\.v1/}
+				description matches {
+					ITEM_TREE[at0002] matches {	-- *Tree(nb)
+						items cardinality matches {0..*; unordered} matches {
+							ELEMENT[at0003] occurrences matches {0..1} matches {*}
+							allow_archetype CLUSTER[at0036] occurrences matches {0..*} matches {	-- *NY Regionale legemiddeldetaljer(nb)
+								include
+									archetype_id/value matches {/openEHR-EHR-CLUSTER\.national_medication_details(-[a-zA-Z0-9_]+)*\.v1/}
+							}
+							ELEMENT[at0004] occurrences matches {0..1} matches {	-- *Samlede anvisninger(nb)
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0005] occurrences matches {0..*} matches {	-- *Innhold og form(nb)
+								include
+									archetype_id/value matches {/openEHR-EHR-CLUSTER\.medication_ingredients(-[a-zA-Z0-9_]+)*\.v1/}
+							}
+							ELEMENT[at0006] occurrences matches {0..1} matches {	-- *Dosebeskrivelse(nb)
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0007] occurrences matches {0..1} matches {	-- *Strukturert dose(nb)
+								include
+									archetype_id/value matches {/openEHR-EHR-CLUSTER\.medication_amount(-[a-zA-Z0-9_]+)*\.v1/}
+							}
+							ELEMENT[at0008] occurrences matches {0..1} matches {	-- *Timing beskrivelse(nb)
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							CLUSTER[at0010] occurrences matches {0..1} matches {	-- *Strukturert timing(nb)
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0017] occurrences matches {0..1} matches {	-- *Ved behov(nb)
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True}
+											}
+										}
+									}
+									ELEMENT[at0018] occurrences matches {0..1} matches {	-- *Oppstartskriterier(nb)
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0019] occurrences matches {0..1} matches {	-- *Startdato(nb)
+										value matches {
+											DV_DATE_TIME matches {*}
+										}
+									}
+									ELEMENT[at0020] occurrences matches {0..*} matches {	-- *Opphørskriterier(nb)
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0021] occurrences matches {0..1} matches {	-- *Opphørsdato(nb)
+										value matches {
+											DV_DATE_TIME matches {*}
+										}
+									}
+									ELEMENT[at0022] occurrences matches {0..1} matches {	-- *Varighet av behanling(nb)
+										value matches {
+											DV_DURATION matches {*}
+										}
+									}
+									ELEMENT[at0023] occurrences matches {0..1} matches {	-- *Varighet av den tidligere behandlingen(nb)
+										value matches {
+											DV_DURATION matches {
+												value matches {|>=P0Y|}
+											}
+										}
+									}
+									ELEMENT[at0024] occurrences matches {0..1} matches {	-- *Antall administrasjoner(nb)
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0025] occurrences matches {0..1} matches {	-- *Langsikt(nb)
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									allow_archetype CLUSTER[at0026] occurrences matches {0..1} matches {	-- *Detaljert timing(nb)
+										include
+											archetype_id/value matches {/openEHR-EHR-CLUSTER\.timing(-[a-zA-Z0-9_]+)*\.v1/}
+									}
+								}
+							}
+							ELEMENT[at0011] occurrences matches {0..*} matches {	-- *Ytterligere detaljer(nb)
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0012] occurrences matches {0..*} matches {	-- *Medisinerings sikkerhetsgrenser(nb)
+								include
+									archetype_id/value matches {/.*/}
+							}
+							ELEMENT[at0013] occurrences matches {0..*} matches {	-- *UTVIDE Klinisk indikasjon(nb)
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0014] occurrences matches {0..*} matches {	-- *Medisineringsdetaljer(nb)
+								include
+									archetype_id/value matches {/openEHR-EHR-CLUSTER\.medication_admin(-[a-zA-Z0-9_]+)*\.v1/}
+							}
+							ELEMENT[at0015] occurrences matches {0..*} matches {	-- *Kommentar(nb)
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							CLUSTER[at0016] occurrences matches {0..1} matches {	-- *UTVIDE Utlevering(nb)
+								items cardinality matches {1..*; unordered} matches {
+									allow_archetype CLUSTER[at0027] occurrences matches {0..*} matches {	-- *Mengde(nb)
+										include
+											archetype_id/value matches {/openEHR-EHR-CLUSTER\.medication_amount(-[a-zA-Z0-9_]+)*\.v1/}
+									}
+									ELEMENT[at0037] occurrences matches {0..1} matches {	-- *NY Reseptgyldighet(nb)
+										value matches {
+											DV_DURATION matches {*}
+										}
+									}
+									ELEMENT[at0038] occurrences matches {0..1} matches {	-- *NY Tidligste dato for utlevering(nb)
+										value matches {
+											DV_DATE_TIME matches {*}
+										}
+									}
+									ELEMENT[at0028] occurrences matches {0..1} matches {	-- *Antall gjentakelser(nb)
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|>=0|}
+											}
+										}
+									}
+									ELEMENT[at0029] occurrences matches {0..1} matches {	-- *Minste intervall mellom utlevering(nb)
+										value matches {
+											DV_DURATION matches {*}
+										}
+									}
+									ELEMENT[at0030] occurrences matches {0..1} matches {	-- *Tillatt å bruke annen merkevare(nb)
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0039] occurrences matches {0..1} matches {	-- *NY Ekspedringsanmodning(nb)
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0031] occurrences matches {0..1} matches {	-- *Utleveringsinstruksjoner(nb)
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0032] matches {	-- *Tree(nb)
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0033] occurrences matches {0..*} matches {	-- *Indikasjon for autorisert bruk(nb)
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0034] occurrences matches {0..*} matches {	-- *Medisinerings ID(nb)
+						value matches {
+							DV_IDENTIFIER matches {*}
+						}
+					}
+					ELEMENT[at0035] occurrences matches {0..1} matches {	-- *Tilskudd(nb)
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"*Ordinasjon v2b(nb)">
+					description = <"*Detaljer om legemiddel, vaksine eller annen terapeutisk intervensjon med instruksjoner om bruk.(nb)">
+				>
+				["at0001"] = <
+					text = <"*Current Activity(nb)">
+					description = <"*Current Activity(nb)">
+				>
+				["at0002"] = <
+					text = <"*Tree(nb)">
+					description = <"*@ internal @(nb)">
+				>
+				["at0003"] = <
+					text = <"*Medikament(nb)">
+					description = <"*Legemiddel, vaksine eller annen terapeutisk interaksjon som ordineres, gis eller brukes av pasienten. Dette elementet bør kodes om mulig.(nb)">
+				>
+				["at0004"] = <
+					text = <"*Samlede anvisninger(nb)">
+					description = <"*En komplett beskrivelse av hvor mye, når og hvordan legemiddel, vaksine eller annen terapeutisk intervensjon skal brukes(nb)">
+				>
+				["at0005"] = <
+					text = <"*Innhold og form(nb)">
+					description = <"*Detaljer om innhold, form og styrke(nb)">
+				>
+				["at0006"] = <
+					text = <"*Dosebeskrivelse(nb)">
+					description = <"*Mengde og enhet av legemiddel, vaksine eller annen terapeutisk intervensjon sp, brukes eller gis på et gitt tidspunkt(nb)">
+				>
+				["at0007"] = <
+					text = <"*Strukturert dose(nb)">
+					description = <"*Strukturert informasjon om doseringsenhet..?(nb)">
+				>
+				["at0008"] = <
+					text = <"*Timing beskrivelse(nb)">
+					description = <"*Tidspunkt for dosering, som kan inkludere hyppighet og detaljer som relasjoner til mat.(nb)">
+				>
+				["at0010"] = <
+					text = <"*Strukturert timing(nb)">
+					description = <"**(nb)">
+				>
+				["at0011"] = <
+					text = <"*Ytterligere detaljer(nb)">
+					description = <"**(nb)">
+				>
+				["at0012"] = <
+					text = <"*Medisinerings sikkerhetsgrenser(nb)">
+					description = <"**(nb)">
+				>
+				["at0013"] = <
+					text = <"*UTVIDE Klinisk indikasjon(nb)">
+					description = <"*Utvid med bruksområde(nb)">
+				>
+				["at0014"] = <
+					text = <"*Medisineringsdetaljer(nb)">
+					description = <"**(nb)">
+				>
+				["at0015"] = <
+					text = <"*Kommentar(nb)">
+					description = <"**(nb)">
+				>
+				["at0016"] = <
+					text = <"*UTVIDE Utlevering(nb)">
+					description = <"**(nb)">
+				>
+				["at0017"] = <
+					text = <"*Ved behov(nb)">
+					description = <"**(nb)">
+				>
+				["at0018"] = <
+					text = <"*Oppstartskriterier(nb)">
+					description = <"**(nb)">
+				>
+				["at0019"] = <
+					text = <"*Startdato(nb)">
+					description = <"**(nb)">
+				>
+				["at0020"] = <
+					text = <"*Opphørskriterier(nb)">
+					description = <"**(nb)">
+				>
+				["at0021"] = <
+					text = <"*Opphørsdato(nb)">
+					description = <"**(nb)">
+				>
+				["at0022"] = <
+					text = <"*Varighet av behanling(nb)">
+					description = <"**(nb)">
+				>
+				["at0023"] = <
+					text = <"*Varighet av den tidligere behandlingen(nb)">
+					description = <"**(nb)">
+				>
+				["at0024"] = <
+					text = <"*Antall administrasjoner(nb)">
+					description = <"**(nb)">
+				>
+				["at0025"] = <
+					text = <"*Langsikt(nb)">
+					description = <"**(nb)">
+				>
+				["at0026"] = <
+					text = <"*Detaljert timing(nb)">
+					description = <"**(nb)">
+				>
+				["at0027"] = <
+					text = <"*Mengde(nb)">
+					description = <"**(nb)">
+				>
+				["at0028"] = <
+					text = <"*Antall gjentakelser(nb)">
+					description = <"**(nb)">
+				>
+				["at0029"] = <
+					text = <"*Minste intervall mellom utlevering(nb)">
+					description = <"**(nb)">
+				>
+				["at0030"] = <
+					text = <"*Tillatt å bruke annen merkevare(nb)">
+					description = <"**(nb)">
+				>
+				["at0031"] = <
+					text = <"*Utleveringsinstruksjoner(nb)">
+					description = <"**(nb)">
+				>
+				["at0032"] = <
+					text = <"*Tree(nb)">
+					description = <"*@ internal @(nb)">
+				>
+				["at0033"] = <
+					text = <"*Indikasjon for autorisert bruk(nb)">
+					description = <"*Den spesifikke indikasjon for bruk som kreves av den henvisende klinikk eller institusjon for å oppnå tilskudd til eller tilgang til medisin, vaksine eller andre terapeutiske intervensjoner. Dette kan være en nasjonal medisineringsordning, forsikring eller liknende(nb)">
+				>
+				["at0034"] = <
+					text = <"*Medisinerings ID(nb)">
+					description = <"*En identifikator som brukes i et eksternt system, og forbundet med denne medisininstruksjon(nb)">
+				>
+				["at0035"] = <
+					text = <"*Tilskudd(nb)">
+					description = <"*Indikerer tilskuddskategorien til den ordinerte medisin(nb)">
+				>
+				["at0036"] = <
+					text = <"*NY Regionale legemiddeldetaljer(nb)">
+					description = <"*ALLE nasjonale detaljer - legemiddeldetaljer, markedsføringsdetaljer, refusjon og elektronisk resept/RF(nb)">
+				>
+				["at0037"] = <
+					text = <"*NY Reseptgyldighet(nb)">
+					description = <"**(nb)">
+				>
+				["at0038"] = <
+					text = <"*NY Tidligste dato for utlevering(nb)">
+					description = <"**(nb)">
+				>
+				["at0039"] = <
+					text = <"*NY Ekspedringsanmodning(nb)">
+					description = <"**(nb)">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Ordinasjon v2b">
+					description = <"Detaljer om legemiddel, vaksine eller annen terapeutisk intervensjon med instruksjoner om bruk.">
+				>
+				["at0001"] = <
+					text = <"Current Activity">
+					description = <"Current Activity">
+				>
+				["at0002"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Medikament">
+					description = <"Legemiddel, vaksine eller annen terapeutisk interaksjon som ordineres, gis eller brukes av pasienten. Dette elementet bør kodes om mulig.">
+				>
+				["at0004"] = <
+					text = <"Samlede anvisninger">
+					description = <"En komplett beskrivelse av hvor mye, når og hvordan legemiddel, vaksine eller annen terapeutisk intervensjon skal brukes">
+				>
+				["at0005"] = <
+					text = <"Innhold og form">
+					description = <"Detaljer om innhold, form og styrke">
+				>
+				["at0006"] = <
+					text = <"Dosebeskrivelse">
+					description = <"Mengde og enhet av legemiddel, vaksine eller annen terapeutisk intervensjon sp, brukes eller gis på et gitt tidspunkt">
+				>
+				["at0007"] = <
+					text = <"Strukturert dose">
+					description = <"Strukturert informasjon om doseringsenhet..?">
+				>
+				["at0008"] = <
+					text = <"Timing beskrivelse">
+					description = <"Tidspunkt for dosering, som kan inkludere hyppighet og detaljer som relasjoner til mat.">
+				>
+				["at0010"] = <
+					text = <"Strukturert timing">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Ytterligere detaljer">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Medisinerings sikkerhetsgrenser">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"UTVIDE Klinisk indikasjon">
+					description = <"Utvid med bruksområde">
+				>
+				["at0014"] = <
+					text = <"Medisineringsdetaljer">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Kommentar">
+					description = <"*">
+				>
+				["at0016"] = <
+					text = <"UTVIDE Utlevering">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Ved behov">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Oppstartskriterier">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"Startdato">
+					description = <"*">
+				>
+				["at0020"] = <
+					text = <"Opphørskriterier">
+					description = <"*">
+				>
+				["at0021"] = <
+					text = <"Opphørsdato">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Varighet av behanling">
+					description = <"*">
+				>
+				["at0023"] = <
+					text = <"Varighet av den tidligere behandlingen">
+					description = <"*">
+				>
+				["at0024"] = <
+					text = <"Antall administrasjoner">
+					description = <"*">
+				>
+				["at0025"] = <
+					text = <"Langsikt">
+					description = <"*">
+				>
+				["at0026"] = <
+					text = <"Detaljert timing">
+					description = <"*">
+				>
+				["at0027"] = <
+					text = <"Mengde">
+					description = <"*">
+				>
+				["at0028"] = <
+					text = <"Antall gjentakelser">
+					description = <"*">
+				>
+				["at0029"] = <
+					text = <"Minste intervall mellom utlevering">
+					description = <"*">
+				>
+				["at0030"] = <
+					text = <"Tillatt å bruke annen merkevare">
+					description = <"*">
+				>
+				["at0031"] = <
+					text = <"Utleveringsinstruksjoner">
+					description = <"*">
+				>
+				["at0032"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0033"] = <
+					text = <"Indikasjon for autorisert bruk">
+					description = <"Den spesifikke indikasjon for bruk som kreves av den henvisende klinikk eller institusjon for å oppnå tilskudd til eller tilgang til medisin, vaksine eller andre terapeutiske intervensjoner. Dette kan være en nasjonal medisineringsordning, forsikring eller liknende">
+				>
+				["at0034"] = <
+					text = <"Medisinerings ID">
+					description = <"En identifikator som brukes i et eksternt system, og forbundet med denne medisininstruksjon">
+				>
+				["at0035"] = <
+					text = <"Tilskudd">
+					description = <"Indikerer tilskuddskategorien til den ordinerte medisin">
+				>
+				["at0036"] = <
+					text = <"NY Regionale legemiddeldetaljer">
+					description = <"ALLE nasjonale detaljer - legemiddeldetaljer, markedsføringsdetaljer, refusjon og elektronisk resept/RF">
+				>
+				["at0037"] = <
+					text = <"NY Reseptgyldighet">
+					description = <"*">
+				>
+				["at0038"] = <
+					text = <"NY Tidligste dato for utlevering">
+					description = <"*">
+				>
+				["at0039"] = <
+					text = <"NY Ekspedringsanmodning">
+					description = <"*">
+				>
+			>
+		>
+	>

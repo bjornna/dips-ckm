@@ -1,0 +1,494 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-INSTRUCTION.medikamentregistrering.v1
+
+concept
+	[at0000]	-- Medikamentregistrering
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Medikamentregistrering ut fra med.order.v1, men tillagt våre behov">
+			use = <"Test">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"F72C87A9EB5A36A81E5403D1FBEA7A66">
+	>
+
+definition
+	INSTRUCTION[at0000] matches {	-- Medikamentregistrering
+		activities cardinality matches {0..*; unordered} matches {
+			ACTIVITY[at0001] occurrences matches {0..1} matches {	-- Current Activity
+				description matches {
+					ITEM_TREE[at0002] matches {	-- Tree
+						items cardinality matches {0..*; unordered} matches {
+							ELEMENT[at0040] occurrences matches {0..1} matches {*}
+							allow_archetype CLUSTER[at0032] occurrences matches {0..*} matches {	-- Legemiddeldetaljer
+								include
+									archetype_id/value matches {/.*/}
+							}
+							ELEMENT[at0004] occurrences matches {0..1} matches {	-- Samlede anvisninger
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0005] occurrences matches {0..*} matches {	-- Innhold og form
+								include
+									archetype_id/value matches {/openEHR-EHR-CLUSTER\.medication_ingredients(-[a-zA-Z0-9_]+)*\.v1/}
+							}
+							ELEMENT[at0006] occurrences matches {0..*} matches {	-- Dosebeskrivelse
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0007] occurrences matches {0..*} matches {	-- Strukturert dose
+								include
+									archetype_id/value matches {/openEHR-EHR-CLUSTER\.medication_amount(-[a-zA-Z0-9_]+)*\.v1/}
+							}
+							ELEMENT[at0008] occurrences matches {0..1} matches {	-- Timing
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							CLUSTER[at0010] occurrences matches {0..1} matches {	-- Strukturert timing
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0011] occurrences matches {0..1} matches {	-- Ved behov
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0012] occurrences matches {0..1} matches {	-- Oppstartskriterier
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0013] occurrences matches {0..1} matches {	-- Startdato
+										value matches {
+											DV_DATE_TIME matches {*}
+										}
+									}
+									ELEMENT[at0014] occurrences matches {0..1} matches {	-- Opphørskriterier
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0015] occurrences matches {0..1} matches {	-- Opphørsdato
+										value matches {
+											DV_DATE_TIME matches {*}
+										}
+									}
+									ELEMENT[at0016] occurrences matches {0..1} matches {	-- Varighet av behandling
+										value matches {
+											DV_DURATION matches {*}
+										}
+									}
+									ELEMENT[at0017] occurrences matches {0..1} matches {	-- Varighet av tidligere behandling
+										value matches {
+											DV_DURATION matches {*}
+										}
+									}
+									ELEMENT[at0018] occurrences matches {0..1} matches {	-- Antall administrasjoner
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0019] occurrences matches {0..1} matches {	-- Langsikt
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									allow_archetype CLUSTER[at0020] occurrences matches {0..*} matches {	-- Detaljert timing
+										include
+											archetype_id/value matches {/openEHR-EHR-CLUSTER\.timing(-[a-zA-Z0-9_]+)*\.v1/}
+									}
+								}
+							}
+							ELEMENT[at0021] occurrences matches {0..1} matches {	-- Ytterligere instruksjoner
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0022] occurrences matches {0..*} matches {	-- Medisinerings sikkerhetsgrenser
+								include
+									archetype_id/value matches {/.*/}
+							}
+							ELEMENT[at0023] occurrences matches {0..1} matches {	-- Klinisk indikasjon
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0033] occurrences matches {0..1} matches {	-- Bruksområde/effekt
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0024] occurrences matches {0..*} matches {	-- Medisineringsdetaljer
+								include
+									archetype_id/value matches {/openEHR-EHR-CLUSTER\.medication_admin(-[a-zA-Z0-9_]+)*\.v1/}
+							}
+							allow_archetype CLUSTER[at0048] occurrences matches {0..*} matches {	-- Markedsføringstillatelse
+								include
+									archetype_id/value matches {/.*/}
+							}
+							allow_archetype CLUSTER[at0035] occurrences matches {0..*} matches {	-- Refusjon
+								include
+									archetype_id/value matches {/.*/}
+							}
+							ELEMENT[at0025] occurrences matches {0..1} matches {	-- Kommentar
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0036] occurrences matches {0..*} matches {	-- E-resept/RF-detaljer
+								include
+									archetype_id/value matches {/.*/}
+							}
+							CLUSTER[at0026] occurrences matches {0..1} matches {	-- Utlevering
+								items cardinality matches {1..*; unordered} matches {
+									allow_archetype CLUSTER[at0027] occurrences matches {0..*} matches {	-- Mengde
+										include
+											archetype_id/value matches {/openEHR-EHR-CLUSTER\.medication_amount(-[a-zA-Z0-9_]+)*\.v1/}
+									}
+									ELEMENT[at0028] occurrences matches {0..1} matches {	-- Antall gjentakelser/Reit
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0029] occurrences matches {0..1} matches {	-- Minste intervall mellom utlevering
+										value matches {
+											DV_DURATION matches {*}
+										}
+									}
+									ELEMENT[at0030] occurrences matches {0..1} matches {	-- Tillatt å bruke annen merkevare
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0031] occurrences matches {0..1} matches {	-- Utleveringsinstruksjoner
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"*Medikamentregistrering(nb)">
+					description = <"*unknown(nb)">
+				>
+				["at0001"] = <
+					text = <"*Current Activity(nb)">
+					description = <"*Current Activity(nb)">
+				>
+				["at0002"] = <
+					text = <"*Tree(nb)">
+					description = <"*@ internal @(nb)">
+				>
+				["at0004"] = <
+					text = <"*Samlede anvisninger(nb)">
+					description = <"*En mer omfattende beskrivelse som kanskje kan brukes som oppsummering på f.eks magistrell forskr.(nb)">
+				>
+				["at0005"] = <
+					text = <"*Innhold og form(nb)">
+					description = <"**(nb)">
+				>
+				["at0006"] = <
+					text = <"*Dosebeskrivelse(nb)">
+					description = <"*Varianter av doser som kort- og langdose(nb)">
+				>
+				["at0007"] = <
+					text = <"*Strukturert dose(nb)">
+					description = <"**(nb)">
+				>
+				["at0008"] = <
+					text = <"*Timing(nb)">
+					description = <"**(nb)">
+				>
+				["at0010"] = <
+					text = <"*Strukturert timing(nb)">
+					description = <"**(nb)">
+				>
+				["at0011"] = <
+					text = <"*Ved behov(nb)">
+					description = <"**(nb)">
+				>
+				["at0012"] = <
+					text = <"*Oppstartskriterier(nb)">
+					description = <"**(nb)">
+				>
+				["at0013"] = <
+					text = <"*Startdato(nb)">
+					description = <"**(nb)">
+				>
+				["at0014"] = <
+					text = <"*Opphørskriterier(nb)">
+					description = <"**(nb)">
+				>
+				["at0015"] = <
+					text = <"*Opphørsdato(nb)">
+					description = <"**(nb)">
+				>
+				["at0016"] = <
+					text = <"*Varighet av behandling(nb)">
+					description = <"**(nb)">
+				>
+				["at0017"] = <
+					text = <"*Varighet av tidligere behandling(nb)">
+					description = <"**(nb)">
+				>
+				["at0018"] = <
+					text = <"*Antall administrasjoner(nb)">
+					description = <"**(nb)">
+				>
+				["at0019"] = <
+					text = <"*Langsikt(nb)">
+					description = <"**(nb)">
+				>
+				["at0020"] = <
+					text = <"*Detaljert timing(nb)">
+					description = <"**(nb)">
+				>
+				["at0021"] = <
+					text = <"*Ytterligere instruksjoner(nb)">
+					description = <"**(nb)">
+				>
+				["at0022"] = <
+					text = <"*Medisinerings sikkerhetsgrenser(nb)">
+					description = <"**(nb)">
+				>
+				["at0023"] = <
+					text = <"*Klinisk indikasjon(nb)">
+					description = <"**(nb)">
+				>
+				["at0024"] = <
+					text = <"*Medisineringsdetaljer(nb)">
+					description = <"**(nb)">
+				>
+				["at0025"] = <
+					text = <"*Kommentar(nb)">
+					description = <"**(nb)">
+				>
+				["at0026"] = <
+					text = <"*Utlevering(nb)">
+					description = <"**(nb)">
+				>
+				["at0027"] = <
+					text = <"*Mengde(nb)">
+					description = <"**(nb)">
+				>
+				["at0028"] = <
+					text = <"*Antall gjentakelser/Reit(nb)">
+					description = <"**(nb)">
+				>
+				["at0029"] = <
+					text = <"*Minste intervall mellom utlevering(nb)">
+					description = <"**(nb)">
+				>
+				["at0030"] = <
+					text = <"*Tillatt å bruke annen merkevare(nb)">
+					description = <"**(nb)">
+				>
+				["at0031"] = <
+					text = <"*Utleveringsinstruksjoner(nb)">
+					description = <"**(nb)">
+				>
+				["at0032"] = <
+					text = <"*Legemiddeldetaljer(nb)">
+					description = <"*Legemiddeldetaljer fra FEST(nb)">
+				>
+				["at0033"] = <
+					text = <"*Bruksområde/effekt(nb)">
+					description = <"*Hvis klinisk indikasjon angir årsaken til at medikamentet brukes, så kan bruksområdet/effekt angi effekten f.eks blodfortynnende, smertelindrende etc...(nb)">
+				>
+				["at0035"] = <
+					text = <"*Refusjon(nb)">
+					description = <"*NYTT CLUSTER. Nei/Ja. Hvis Ja -> §2/3a/3b/4/4a. Kodelistetype for refusjon med ID(nb)">
+				>
+				["at0036"] = <
+					text = <"*E-resept/RF-detaljer(nb)">
+					description = <"*NYTT CLUSTER. ......(nb)">
+				>
+				["at0040"] = <
+					text = <"*Medikament(nb)">
+					description = <"*Medikament, vaksine etc(nb)">
+				>
+				["at0048"] = <
+					text = <"*Markedsføringstillatelse(nb)">
+					description = <"**(nb)">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Medikamentregistrering">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Current Activity">
+					description = <"Current Activity">
+				>
+				["at0002"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Samlede anvisninger">
+					description = <"En mer omfattende beskrivelse som kanskje kan brukes som oppsummering på f.eks magistrell forskr.">
+				>
+				["at0005"] = <
+					text = <"Innhold og form">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Dosebeskrivelse">
+					description = <"Varianter av doser som kort- og langdose">
+				>
+				["at0007"] = <
+					text = <"Strukturert dose">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Timing">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Strukturert timing">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Ved behov">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Oppstartskriterier">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Startdato">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Opphørskriterier">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Opphørsdato">
+					description = <"*">
+				>
+				["at0016"] = <
+					text = <"Varighet av behandling">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Varighet av tidligere behandling">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Antall administrasjoner">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"Langsikt">
+					description = <"*">
+				>
+				["at0020"] = <
+					text = <"Detaljert timing">
+					description = <"*">
+				>
+				["at0021"] = <
+					text = <"Ytterligere instruksjoner">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Medisinerings sikkerhetsgrenser">
+					description = <"*">
+				>
+				["at0023"] = <
+					text = <"Klinisk indikasjon">
+					description = <"*">
+				>
+				["at0024"] = <
+					text = <"Medisineringsdetaljer">
+					description = <"*">
+				>
+				["at0025"] = <
+					text = <"Kommentar">
+					description = <"*">
+				>
+				["at0026"] = <
+					text = <"Utlevering">
+					description = <"*">
+				>
+				["at0027"] = <
+					text = <"Mengde">
+					description = <"*">
+				>
+				["at0028"] = <
+					text = <"Antall gjentakelser/Reit">
+					description = <"*">
+				>
+				["at0029"] = <
+					text = <"Minste intervall mellom utlevering">
+					description = <"*">
+				>
+				["at0030"] = <
+					text = <"Tillatt å bruke annen merkevare">
+					description = <"*">
+				>
+				["at0031"] = <
+					text = <"Utleveringsinstruksjoner">
+					description = <"*">
+				>
+				["at0032"] = <
+					text = <"Legemiddeldetaljer">
+					description = <"Legemiddeldetaljer fra FEST">
+				>
+				["at0033"] = <
+					text = <"Bruksområde/effekt">
+					description = <"Hvis klinisk indikasjon angir årsaken til at medikamentet brukes, så kan bruksområdet/effekt angi effekten f.eks blodfortynnende, smertelindrende etc...">
+				>
+				["at0035"] = <
+					text = <"Refusjon">
+					description = <"NYTT CLUSTER. Nei/Ja. Hvis Ja -> §2/3a/3b/4/4a. Kodelistetype for refusjon med ID">
+				>
+				["at0036"] = <
+					text = <"E-resept/RF-detaljer">
+					description = <"NYTT CLUSTER. ......">
+				>
+				["at0040"] = <
+					text = <"Medikament">
+					description = <"Medikament, vaksine etc">
+				>
+				["at0048"] = <
+					text = <"Markedsføringstillatelse">
+					description = <"*">
+				>
+			>
+		>
+	>
