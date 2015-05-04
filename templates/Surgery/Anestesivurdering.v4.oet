@@ -63,8 +63,55 @@
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Anestesivurdering">
     <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Adhoc heading" max="1" path="/content" name="Preoperativ evaluering">
       <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.anesthesia.v1" concept_name="Anesthesia" path="/items">
+        <Rule path="/description[at0001]/items[at0030]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="ANE-HOVEDTYPE " />
+          </constraint>
+        </Rule>
+        <Rule path="/description[at0001]/items[at0031]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="ANE-LUFTVEISTILGANG" />
+          </constraint>
+        </Rule>
+        <Rule path="/description[at0001]/items[at0033]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Arteriekanyle</includedValues>
+            <includedValues>CVK</includedValues>
+            <includedValues>CVK + CVP</includedValues>
+            <includedValues>TOF</includedValues>
+            <includedValues>BIS</includedValues>
+            <includedValues>PA-kateter</includedValues>
+            <includedValues>Ekko</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/description[at0001]/items[at0036]/items[at0037]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="UDS-PAS OVERFOERT PO TIL ..  OPR" />
+          </constraint>
+        </Rule>
         <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA fysisk status klassifikasjon" path="/description[at0001]/items[at0040]" />
         <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.preoperative_clarifications_anesthesia.v1" concept_name="Avklaringer før operasjon anestesi" path="/description[at0001]/items[at0040]" />
+      </Item>
+      <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.medication.v1" concept_name="Legemiddelhandling" max="1" path="/items" name="Premedikasjon">
+        <Rule path="/description[at0017]/items[at0020]">
+          <constraint xsi:type="textConstraint" limitToList="false">
+            <includedValues>Ondansetron 4 mg iv</includedValues>
+            <includedValues>Dexamethason (Fortecortin) 4mg - 8 mg iv</includedValues>
+          </constraint>
+        </Rule>
+      </Item>
+      <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.medication.v1" concept_name="Legemiddelhandling" max="1" path="/items" name="Postoperativ smertelindring">
+        <Rule path="/description[at0017]/items[at0020]">
+          <constraint xsi:type="textConstraint" limitToList="false">
+            <includedValues>Paracetamol 1g (po/iv) x4</includedValues>
+            <includedValues>Paracetamol 1,5g po x 4</includedValues>
+            <includedValues>Diclofenac 50 mg po x 3</includedValues>
+            <includedValues>Diclofenac 50 mg po x2</includedValues>
+            <includedValues>Morfin 4-6mg iv v/b</includedValues>
+            <includedValues>Morfin 3-4mg iv v/b</includedValues>
+            <includedValues>Ketorolac 30 mg iv x 1-3</includedValues>
+          </constraint>
+        </Rule>
       </Item>
     </Content>
     <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Adhoc heading" max="1" path="/content" name="Pasient">
