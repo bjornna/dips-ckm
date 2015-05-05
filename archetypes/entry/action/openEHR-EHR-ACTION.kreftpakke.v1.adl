@@ -1,0 +1,354 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-ACTION.kreftpakke.v1
+
+concept
+	[at0000]	-- Kreftpakke
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Bjørn Næss">
+		["organisation"] = <"DIPS ASA">
+		["email"] = <"bna@dips.no">
+		["date"] = <"2015-04-20">
+	>
+	details = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"*(nb)">
+			use = <"*(nb)">
+			misuse = <"*(nb)">
+			copyright = <"*(nb)">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Benyttes for å registrere hendelser i et kreftpakkeforløp ">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["references"] = <"Se dokumentasjon hos Helsedirektoratet: https://helsedirektoratet.no/kreft/pakkeforlop-for-kreft ">
+		["MD5-CAM-1.0.1"] = <"C8BE93A38BC080BD8CEB68BA5CFF6342">
+	>
+
+definition
+	ACTION[at0000] matches {	-- Kreftpakke
+		ism_transition matches {
+			ISM_TRANSITION[at0018] matches {	-- Start pakkeforløp
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::526]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0018]}		-- Start pakkeforløp
+					}
+				}
+			}
+			ISM_TRANSITION[at0030] matches {	-- Avslutning pakkeforløp
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::528]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0030]}		-- Avslutning pakkeforløp
+					}
+				}
+			}
+			ISM_TRANSITION[at0027] matches {	-- Planlagt første møte
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::529]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0027]}		-- Planlagt første møte
+					}
+				}
+			}
+			ISM_TRANSITION[at0019] matches {	-- Start utredning
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0019]}		-- Start utredning
+					}
+				}
+			}
+			ISM_TRANSITION[at0020] matches {	-- Klinisk beslutning
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0020]}		-- Klinisk beslutning
+					}
+				}
+			}
+			ISM_TRANSITION[at0028] matches {	-- Biopsi
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[openehr::
+							245, 
+							526]
+						}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0028]}		-- Biopsi
+					}
+				}
+			}
+			ISM_TRANSITION[at0029] matches {	-- Avslutning pakkeforløp
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::531]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0029]}		-- Avslutning pakkeforløp
+					}
+				}
+			}
+			ISM_TRANSITION[at0026] matches {	-- Behandling start
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0026]}		-- Behandling start
+					}
+				}
+			}
+		}
+		description matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0022] occurrences matches {0..1} matches {	-- Pakkeforløp
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0017] occurrences matches {0..1} matches {	-- Hendelse
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0023] occurrences matches {0..1} matches {	-- Beskrivelse
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0006] occurrences matches {0..*} matches {	-- Detaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0024] matches {	-- *Tree(nb)
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0032] occurrences matches {0..1} matches {	-- Ekstern hendelse
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0031] occurrences matches {0..1} matches {	-- Ansvarlig
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0033] occurrences matches {0..1} matches {	-- Ekstern organisasjon
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"Kreftpakke">
+					description = <"Oppfølging av kreftpakkeforløpet">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Detaljer">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Hendelse">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Start pakkeforløp">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"Start utredning">
+					description = <"Registreres ved første fremmøte">
+				>
+				["at0020"] = <
+					text = <"Klinisk beslutning">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Pakkeforløp">
+					description = <"Hvilket kreftpakkeforløp er pasienten i. Informasjonen er egentlig ikke nødvendig iden det ligger i INSTRUCTION. (nb)">
+				>
+				["at0023"] = <
+					text = <"Beskrivelse">
+					description = <"*">
+				>
+				["at0024"] = <
+					text = <"*Tree(nb)">
+					description = <"*@ internal @(nb)">
+				>
+				["at0026"] = <
+					text = <"Behandling start">
+					description = <"*">
+				>
+				["at0027"] = <
+					text = <"Planlagt første møte">
+					description = <"*">
+				>
+				["at0028"] = <
+					text = <"Biopsi">
+					description = <"*">
+				>
+				["at0029"] = <
+					text = <"Avslutning pakkeforløp">
+					description = <"*">
+				>
+				["at0030"] = <
+					text = <"Avslutning pakkeforløp">
+					description = <"*">
+				>
+				["at0031"] = <
+					text = <"Ansvarlig">
+					description = <"**(nb)">
+				>
+				["at0032"] = <
+					text = <"Ekstern hendelse">
+					description = <"**(nb)">
+				>
+				["at0033"] = <
+					text = <"Ekstern organisasjon">
+					description = <"Hvilken ekstern organisasjon">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Kreftpakke">
+					description = <"Oppfølging av kreftpakkeforløpet ">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0006"] = <
+					text = <"Detaljer">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Hendelse">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Start pakkeforløp">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"Start utredning - første fremmøte">
+					description = <"*">
+				>
+				["at0020"] = <
+					text = <"Klinisk beslutning">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Pakkeforløp">
+					description = <"Hvilket kreftpakkeforløp er pasienten i. Informasjonen er egentlig ikke nødvendig siden det ligger i INSTRUCTION. ">
+				>
+				["at0023"] = <
+					text = <"Beskrivelse">
+					description = <"*">
+				>
+				["at0024"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0026"] = <
+					text = <"Behandling start">
+					description = <"*">
+				>
+				["at0027"] = <
+					text = <"Første fremmøte satt opp">
+					description = <"*">
+				>
+				["at0028"] = <
+					text = <"Biopsi">
+					description = <"*">
+				>
+				["at0029"] = <
+					text = <"Avslutning pakkeforløp">
+					description = <"*">
+				>
+				["at0030"] = <
+					text = <"Avslutning pakkeforløp">
+					description = <"*">
+				>
+				["at0031"] = <
+					text = <"Ansvarlig">
+					description = <"*">
+				>
+				["at0032"] = <
+					text = <"Ekstern hendelse?">
+					description = <"*">
+				>
+				["at0033"] = <
+					text = <"Ekstern organisasjon">
+					description = <"*">
+				>
+			>
+		>
+	>
