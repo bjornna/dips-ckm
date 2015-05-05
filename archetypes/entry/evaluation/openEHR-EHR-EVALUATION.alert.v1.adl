@@ -2,22 +2,31 @@
 	openEHR-EHR-EVALUATION.alert.v1
 
 concept
-	[at0000]	-- Alert
+	[at0000]	-- Advarsel
 language
 	original_language = <[ISO_639-1::en]>
 	translations = <
-		["de"] = <
-			language = <[ISO_639-1::de]>
-			author = <
-				["name"] = <"Jasmin Buck, Sebastian Garde">
-				["organisation"] = <"University of Heidelberg, Central Queensland University">
-			>
-		>
 		["ar-sy"] = <
 			language = <[ISO_639-1::ar-sy]>
 			author = <
 				["name"] = <"Mona Saleh">
 			>
+		>
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			author = <
+				["organisation"] = <"University of Heidelberg, Central Queensland University">
+				["name"] = <"Jasmin Buck, Sebastian Garde">
+			>
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["organisation"] = <"Oslo universitetssykehus HF">
+				["name"] = <"Vebjørn Arntzen">
+				["email"] = <"varntzen@ous-hf.no">
+			>
+			accreditation = <"Virksomhetsarkitekt ved OUS, Off godkj sykepleier">
 		>
 	>
 description
@@ -35,15 +44,7 @@ description
 It will usually be entered manually, but in some clinical systems it may be automatically generated according to business rules and based on existing data or as new data is entered elsewhere in the system.(en)">
 			keywords = <"ملحوظة", "تحذير">
 			misuse = <"*Not to be used for recording notes (nota bene) or routine notifications, recalls or reminders.(en)">
-			copyright = <"© openEHR Foundation">
-		>
-		["de"] = <
-			language = <[ISO_639-1::de]>
-			purpose = <"Zur Dokumentation beliebiger Warnungen in der Patientenakte">
-			use = <"">
-			keywords = <"notabene", "Warnung">
-			misuse = <"">
-			copyright = <"© openEHR Foundation">
+			copyright = <"© Nasjonal IKT HF">
 		>
 		["en"] = <
 			language = <[ISO_639-1::en]>
@@ -52,31 +53,49 @@ It will usually be entered manually, but in some clinical systems it may be auto
 It will usually be entered manually, but in some clinical systems it may be automatically generated according to business rules and based on existing data or as new data is entered elsewhere in the system.">
 			keywords = <"warning", "risk">
 			misuse = <"Not to be used for recording notes (nota bene) or routine notifications, recalls or reminders.">
-			copyright = <"© openEHR Foundation">
+			copyright = <"© Nasjonal IKT HF">
+		>
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"Zur Dokumentation beliebiger Warnungen in der Patientenakte">
+			use = <"">
+			keywords = <"notabene", "Warnung">
+			misuse = <"">
+			copyright = <"© Nasjonal IKT HF">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For å registrere en påstand om potensiell helsefare for pasient, omsorgsperson eller helsearbeider/institusjon">
+			use = <"Brukes til å registrere en hvilken som helst påstand om helsefare for pasient, deres omsorgspersoner eller helsearbeider eller institusjon, og som må markeres visuelt i en klinisk applikasjon (\"program\") eller for å trigge en automatisert beslutningsstøtte.
+
+Data vil normalt bli lagt inn manuelt, men i noen kliniske systemer kan det bli lagt inn data automatisk, i henhold til programmerte regler og basert på eksiterende eller nye data som registreres annet sted i systemet (\"programmet\").">
+			keywords = <"Advarsel", "Varsel", "Risiko", "Risk">
+			misuse = <"Skal ikke brukes for å registrere merknader, rutinemessige varsler eller påminnelser.">
+			copyright = <"© Nasjonal IKT HF">
 		>
 	>
 	lifecycle_state = <"AuthorDraft">
 	other_contributors = <"Gustavo Bacelar, Brazil", "Ian McNicoll, Ocean Informatics, UK", "Heather Leslie, Ocean Informatics, Australia">
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"16F8B8C86E3FADF0BD2FACB6D2548F2F">
+		["MD5-CAM-1.0.1"] = <"F5108C087BD71B339B972F1A7C438A61">
 	>
 
 definition
-	EVALUATION[at0000] matches {	-- Alert
+	EVALUATION[at0000] matches {	-- Advarsel
 		data matches {
 			ITEM_LIST[at0001] matches {	-- List
 				items cardinality matches {1..*; unordered} matches {
-					ELEMENT[at0015] occurrences matches {0..1} matches {	-- Alert
+					ELEMENT[at0015] occurrences matches {0..1} matches {	-- Advarsel
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Category
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Kategori
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0003] matches {	-- Description
+					ELEMENT[at0003] matches {	-- Beskrivelse
 						value matches {
 							DV_TEXT matches {*}
 						}
@@ -86,24 +105,24 @@ definition
 							DV_CODED_TEXT matches {
 								defining_code matches {
 									[local::
-									at0011, 	-- Active
-									at0012, 	-- Inactive
-									at0013]	-- Resolved
+									at0011, 	-- Aktiv
+									at0012, 	-- Inaktiv
+									at0013]	-- Løst
 								}
 							}
 						}
 					}
-					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Start Date
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Startdato
 						value matches {
 							DV_DATE_TIME matches {*}
 						}
 					}
-					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Review Date
+					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Gjennomgått dato
 						value matches {
 							DV_DATE_TIME matches {*}
 						}
 					}
-					ELEMENT[at0014] occurrences matches {0..1} matches {	-- End Date
+					ELEMENT[at0014] occurrences matches {0..1} matches {	-- Sluttdato
 						value matches {
 							DV_DATE_TIME matches {*}
 						}
@@ -112,7 +131,6 @@ definition
 			}
 		}
 	}
-
 
 ontology
 	term_definitions = <
@@ -127,14 +145,14 @@ ontology
 					description = <"*@ internal @(en)">
 				>
 				["at0002"] = <
+					comment = <"*Coding of the category of alert with a terminology is desirable, where possible. For example, Medical Device Insertion; Significant Organism; or Social Circumstance.(en)">
 					text = <"الفئة">
 					description = <"فئة التنبيه">
-					comment = <"*Coding of the category of alert with a terminology is desirable, where possible. For example, Medical Device Insertion; Significant Organism; or Social Circumstance.(en)">
 				>
 				["at0003"] = <
+					comment = <"*For example, insertion of a medical device such as a pacemaker in left chest wall; presence of a significant organism such as MRSA on swab at last hospital admission; or aggressive dog at home which creates a risk for home visits.(en)">
 					text = <"الوصف">
 					description = <"تفاصيل التنبيه">
-					comment = <"*For example, insertion of a medical device such as a pacemaker in left chest wall; presence of a significant organism such as MRSA on swab at last hospital admission; or aggressive dog at home which creates a risk for home visits.(en)">
 				>
 				["at0004"] = <
 					text = <"حالة التنبيه">
@@ -165,9 +183,64 @@ ontology
 					description = <"نهاية فترة التنبيه إذا عُرِفَت">
 				>
 				["at0015"] = <
+					comment = <"*For example, pacemaker, Methiciliin Resistant Staphylococcus Aureus(MRSA), or aggressive dog.(en)">
 					text = <"*Alert(en)">
 					description = <"*Identification of the alert.(en)">
-					comment = <"*For example, pacemaker, Methiciliin Resistant Staphylococcus Aureus(MRSA), or aggressive dog.(en)">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Alert">
+					description = <"An assertion of potential threat to the welfare of the subject of care, carer or healthcare provider.">
+				>
+				["at0001"] = <
+					text = <"List">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					comment = <"Coding of the category of alert with a terminology is desirable, where possible. For example, Medical Device Insertion; Significant Organism; or Social Circumstance.">
+					text = <"Category">
+					description = <"The category of alert.">
+				>
+				["at0003"] = <
+					comment = <"For example, insertion of a medical device such as a pacemaker in left chest wall; presence of a significant organism such as MRSA on swab at last hospital admission; or aggressive dog at home which creates a risk for home visits.">
+					text = <"Description">
+					description = <"Narrative description of the alert.">
+				>
+				["at0004"] = <
+					text = <"Start Date">
+					description = <"The date and optional time at which the alert became active.">
+				>
+				["at0009"] = <
+					text = <"Status">
+					description = <"An indication of whether the alert is considered to be an active, currently inactive, or resolved and not likely to impact on the patient again.">
+				>
+				["at0010"] = <
+					text = <"Review Date">
+					description = <"The date and optional time when the alert Status requires review.">
+				>
+				["at0011"] = <
+					text = <"Active">
+					description = <"The alert is active.">
+				>
+				["at0012"] = <
+					text = <"Inactive">
+					description = <"The alert is not active at present.">
+				>
+				["at0013"] = <
+					text = <"Resolved">
+					description = <"The alert has resolved.">
+				>
+				["at0014"] = <
+					text = <"End Date">
+					description = <"The date and optional time at which the alert became inactive, if known.">
+				>
+				["at0015"] = <
+					comment = <"For example, pacemaker, Methiciliin Resistant Staphylococcus Aureus(MRSA), or aggressive dog.">
+					text = <"Alert">
+					description = <"Identification of the alert.">
 				>
 			>
 		>
@@ -223,58 +296,113 @@ ontology
 				>
 			>
 		>
-		["en"] = <
+		["no"] = <
 			items = <
 				["at0000"] = <
-					text = <"Alert">
-					description = <"An assertion of potential threat to the welfare of the subject of care, carer or healthcare provider.">
+					text = <"Advarsel">
+					description = <"En påstand om potensiell helsefare for pasient, omsorgsperson eller helsearbeider/institusjon.">
 				>
 				["at0001"] = <
 					text = <"List">
 					description = <"@ internal @">
 				>
 				["at0002"] = <
-					text = <"Category">
-					description = <"The category of alert.">
-					comment = <"Coding of the category of alert with a terminology is desirable, where possible. For example, Medical Device Insertion; Significant Organism; or Social Circumstance.">
+					comment = <"Kategori til advarselen bør om mulig kodes med en terminologi. For eksempel * (er Medical Device Insertion, Significant Oranism og Social Circumstance kjente internasjonale kodeverk som vi kan referere til, eller er det norske tilsvarende?)">
+					text = <"Kategori">
+					description = <"Kategori til advarselen.">
 				>
 				["at0003"] = <
-					text = <"Description">
-					description = <"Narrative description of the alert.">
-					comment = <"For example, insertion of a medical device such as a pacemaker in left chest wall; presence of a significant organism such as MRSA on swab at last hospital admission; or aggressive dog at home which creates a risk for home visits.">
+					comment = <"For eksempel: Implantert pacemaker på venstre side, påvist MRSA ved forrige sykehusinleggelse, eller aggresiv hund hjemme som kan være til fare for hjemmesykepleier.">
+					text = <"Beskrivelse">
+					description = <"Advarselen i beskrivende ordelag">
 				>
 				["at0004"] = <
-					text = <"Start Date">
-					description = <"The date and optional time at which the alert became active.">
+					text = <"Startdato">
+					description = <"Dato og (valgfritt) tidspunkt for når advarselen ble aktiv">
 				>
 				["at0009"] = <
 					text = <"Status">
-					description = <"An indication of whether the alert is considered to be an active, currently inactive, or resolved and not likely to impact on the patient again.">
+					description = <"Indikasjon om advarselen er vurdert til å være aktiv, inaktiv per nå, eller løst og sannsynligvis ikke ha betydning for denne pasienten igjen.">
 				>
 				["at0010"] = <
-					text = <"Review Date">
-					description = <"The date and optional time when the alert Status requires review.">
+					text = <"Gjennomgått dato">
+					description = <"Dato og (valgfritt) tidspunkt for når status for advarselen er gjennomgått, hvis nødvendig">
 				>
 				["at0011"] = <
-					text = <"Active">
-					description = <"The alert is active.">
+					text = <"Aktiv">
+					description = <"Advarselen er aktiv (gyldig)">
 				>
 				["at0012"] = <
-					text = <"Inactive">
-					description = <"The alert is not active at present.">
+					text = <"Inaktiv">
+					description = <"Advarselen er ikke aktiv (ugyldig) per nå.">
 				>
 				["at0013"] = <
-					text = <"Resolved">
-					description = <"The alert has resolved.">
+					text = <"Løst">
+					description = <"Advarselen er trukket tilbake">
 				>
 				["at0014"] = <
-					text = <"End Date">
-					description = <"The date and optional time at which the alert became inactive, if known.">
+					text = <"Sluttdato">
+					description = <"Dato og (valgfritt) tidspunkt, hvis den er kjent, for når advarselen ble gjort inaktiv.">
 				>
 				["at0015"] = <
-					text = <"Alert">
-					description = <"Identification of the alert.">
-					comment = <"For example, pacemaker, Methiciliin Resistant Staphylococcus Aureus(MRSA), or aggressive dog.">
+					comment = <"Eksempel: Pacemaker, MRSA, aggressiv hund i hagen.">
+					text = <"Advarsel">
+					description = <"Beskrivelse av advarsel.">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Advarsel">
+					description = <"En påstand om potensiell helsefare for pasient, omsorgsperson eller helsearbeider/institusjon.">
+				>
+				["at0001"] = <
+					text = <"List">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					comment = <"Kategori til advarselen bør om mulig kodes med en terminologi. For eksempel * (er Medical Device Insertion, Significant Oranism og Social Circumstance kjente internasjonale kodeverk som vi kan referere til, eller er det norske tilsvarende?)">
+					text = <"Kategori">
+					description = <"Kategori til advarselen.">
+				>
+				["at0003"] = <
+					comment = <"For eksempel: Implantert pacemaker på venstre side, påvist MRSA ved forrige sykehusinleggelse, eller aggresiv hund hjemme som kan være til fare for hjemmesykepleier.">
+					text = <"Beskrivelse">
+					description = <"Advarselen i beskrivende ordelag">
+				>
+				["at0004"] = <
+					text = <"Startdato">
+					description = <"Dato og (valgfritt) tidspunkt for når advarselen ble aktiv">
+				>
+				["at0009"] = <
+					text = <"Status">
+					description = <"Indikasjon om advarselen er vurdert til å være aktiv, inaktiv per nå, eller løst og sannsynligvis ikke ha betydning for denne pasienten igjen.">
+				>
+				["at0010"] = <
+					text = <"Gjennomgått dato">
+					description = <"Dato og (valgfritt) tidspunkt for når status for advarselen er gjennomgått, hvis nødvendig">
+				>
+				["at0011"] = <
+					text = <"Aktiv">
+					description = <"Advarselen er aktiv (gyldig)">
+				>
+				["at0012"] = <
+					text = <"Inaktiv">
+					description = <"Advarselen er ikke aktiv (ugyldig) per nå.">
+				>
+				["at0013"] = <
+					text = <"Løst">
+					description = <"Advarselen er trukket tilbake">
+				>
+				["at0014"] = <
+					text = <"Sluttdato">
+					description = <"Dato og (valgfritt) tidspunkt, hvis den er kjent, for når advarselen ble gjort inaktiv.">
+				>
+				["at0015"] = <
+					comment = <"Eksempel: Pacemaker, MRSA, aggressiv hund i hagen.">
+					text = <"Advarsel">
+					description = <"Beskrivelse av advarsel.">
 				>
 			>
 		>

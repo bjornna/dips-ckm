@@ -1,0 +1,205 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-INSTRUCTION.pakkeforlop_kreft.v1
+
+concept
+	[at0000]	-- Pakkeforløp kreft
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Bjørn Næss">
+		["organisation"] = <"DIPS ASA">
+		["email"] = <"bna@dips.no">
+		["date"] = <"2015-04-20">
+	>
+	details = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"*Benyttes for å iverksette et pakkeforløp for kreft. 
+Skal benyttes ved mottak/vurdering av henvisning som enten ha påvist kreft eller hvor det er mistanke/symptomer som tilfredsstiller kravene for kreftpakkeforløp. (nb)">
+			use = <"*(nb)">
+			keywords = <"*kreft(nb)", "*forløpsmal(nb)", "*forløp(nb)", "*pakkeforløp(nb)">
+			misuse = <"*(nb)">
+			copyright = <"*(nb)">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Benyttes for å iverksette et pakkeforløp for kreft. 
+Skal benyttes ved mottak/vurdering av henvisning som enten ha påvist kreft eller hvor det er mistanke/symptomer som tilfredsstiller kravene for kreftpakkeforløp. ">
+			use = <"">
+			keywords = <"kreft", "forløpsmal", "forløp", "pakkeforløp">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["references"] = <"Se dokumentasjon hos Helsedirektoratet: https://helsedirektoratet.no/kreft/pakkeforlop-for-kreft ">
+		["MD5-CAM-1.0.1"] = <"2C22F010E0D25811A4435B39C8FC84CF">
+	>
+
+definition
+	INSTRUCTION[at0000] matches {	-- Pakkeforløp kreft
+		activities cardinality matches {0..*; unordered} matches {
+			ACTIVITY[at0001] occurrences matches {0..1} matches {	-- Forløp
+				action_archetype_id matches {/openEHR-EHR-ACTION\.kreftpakke\.v1/}
+				description matches {
+					ITEM_TREE[at0002] matches {	-- Tree
+						items cardinality matches {0..*; unordered} matches {
+							ELEMENT[at0003] occurrences matches {0..1} matches {	-- Pakkeforløp
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0004] occurrences matches {0..1} matches {	-- Pakkeforløp start
+								value matches {
+									DV_DATE_TIME matches {*}
+								}
+							}
+							ELEMENT[at0007] occurrences matches {0..1} matches {	-- Beskrivelse
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0005] occurrences matches {0..1} matches {	-- Detaljer
+								include
+									archetype_id/value matches {/.*/}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0008] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0011] occurrences matches {0..1} matches {	-- Ekstern hendelse
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Ansvarlig
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Ansvarlig organisasjon
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"Pakkeforløp kreft">
+					description = <"Benyttes for å iverksette et kreftpakkeforløp">
+				>
+				["at0001"] = <
+					text = <"Forløp">
+					description = <"Forløp">
+				>
+				["at0002"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Pakkeforløp">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Pakkeforløp start">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Detaljer">
+					description = <"For oppretting av kreftpakkeforløp">
+				>
+				["at0007"] = <
+					text = <"Beskrivelse">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Tree">
+					description = <"*@ internal @(nb)">
+				>
+				["at0009"] = <
+					text = <"Ansvarlig">
+					description = <"">
+				>
+				["at0010"] = <
+					text = <"Ansvarlig organisasjon">
+					description = <"">
+				>
+				["at0011"] = <
+					text = <"Ekstern hendelse">
+					description = <"">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Pakkeforlop kreft">
+					description = <"Benyttes for å iverksette et kreftpakkeforløp ">
+				>
+				["at0001"] = <
+					text = <"Current Activity">
+					description = <"Current Activity">
+				>
+				["at0002"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Pakkeforløp">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Pakkeforløp start">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Detaljer">
+					description = <"For oppretting av kreftpakkeforløp">
+				>
+				["at0007"] = <
+					text = <"Beskrivelse">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0009"] = <
+					text = <"Ansvarlig">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Ansvarlig organisasjon">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Ekstern hendelse">
+					description = <"*">
+				>
+			>
+		>
+	>
