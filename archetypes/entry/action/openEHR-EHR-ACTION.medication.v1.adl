@@ -2,7 +2,7 @@
 	openEHR-EHR-ACTION.medication.v1
 
 concept
-	[at0000]	-- Legemiddelhandling
+	[at0000]	-- Medication action
 language
 	original_language = <[ISO_639-1::en]>
 	translations = <
@@ -33,14 +33,6 @@ language
 				["name"] = <"Art Latyp; Артур Латыпов">
 			>
 			accreditation = <"hmm">
-		>
-		["nb"] = <
-			language = <[ISO_639-1::nb]>
-			author = <
-				["organisation"] = <"Huakeland University Hospital, Bergen, Norway">
-				["name"] = <"Lars Bitsch-Larsen">
-			>
-			accreditation = <"MD,DEAA, MBA. spec in tropical med.">
 		>
 	>
 description
@@ -111,31 +103,19 @@ There is a date and time at which this ACTION took place (as there is for all AC
 			misuse = <"*Do not use when recording an instruction or order (use INSTRUCTION.medication).(en)">
 			copyright = <"© Nasjonal IKT HF">
 		>
-		["nb"] = <
-			language = <[ISO_639-1::nb]>
-			purpose = <"For registrering av aktiviteter i forbindelse med medisinering, vaksinasjon eller andre terapeutiske tiltak, med lenke til en INSTRUCTION-arketype dersom hensiktsmessig.">
-			use = <"For registrering av planlegging, utstedelse av resept, utdeling, administrering, seponering, utsettelse og ferdigstilling av medisineringen, vaksinasjon eller terapeutisk forbruksmateriell. Dette vil vanligvis være i forbindelse med en legemiddelordinasjon, men kan eventuelt gis umiddelbart uten ordinasjon, hvilket krever en registrering av administrasjonen alene ( f.eks. i en akutt situasjon.)
-
-En slik registrering kan gjøres som en indikasjon på administrering av en dose, utdeling av en viss mengde eller som dokumentasjon av seponering. Status til INSTRUCTION-arketypen endres av ACTION-arketypen som indikert i Pathway-definisjonen.
-
-Arketypen inneholder dato og tidspunkt for handlingen (som i alle ACTION arketyper) og bruken av denne arketypen indikerer at en handling faktisk har funnet sted.">
-			keywords = <"medisinering", "foreskrivning", "administrering", "seponering", "terapeutisk forbruksmateriell", "forsyning", "medisin", "medikament", "legemiddel">
-			misuse = <"Brukes ikke ved registrering av en instruksjon eller en ordinasjon (bruk INSTRUCTION.medication).">
-			copyright = <"© Nasjonal IKT HF">
-		>
 	>
 	lifecycle_state = <"AuthorDraft">
 	other_contributors = <"Stephen Chu, NEHTA, Australia (Editor)", "Samo Drnovšek, Marand, Slovenia (Editor)", "Jacquie Garton-Smith, Royal Perth Hospital and DoHWA, Australia", "Sam Heard, Ocean Informatics, Australia (Editor)", "Robert L'egan, NEHTA, Australia", "Heather Leslie, Ocean Informatics, Australia (Editor)", "Ian McNicoll, Ocean Informatics, UK", "Jude Michel, Queensland Health, Australia", "Chris Mitchell, RACGP, Australia", "Jodie Pycroft, Adelaide Northern Division of General Practice Ltd, Australia", "Gordon Tomes, Australian Institute of Health and Welfare, Australia", "Richard Townley-O'Neill, NEHTA, Australia (Editor)", "Kylie Young, The Royal Australian College of General Practitioners, Australia">
 	other_details = <
 		["references"] = <"Based on NEHTA Medication action archetype http://dcm.nehta.org.au/ckm/#showArchetype_1013.1.876_6
 NEHTA Therapeutic Good Use Datagroup http://nehta.gov.au/data-group-library/data-specifications/dgl-therapeutic-good-action">
-		["MD5-CAM-1.0.1"] = <"685DC1FEE83B3454FC7AE41996587FC1">
+		["MD5-CAM-1.0.1"] = <"35AE9CCC933120D4A5D0BC176436EB8C">
 	>
 
 definition
-	ACTION[at0000] matches {	-- Legemiddelhandling
+	ACTION[at0000] matches {	-- Medication action
 		ism_transition matches {
-			ISM_TRANSITION[at0042] matches {	-- Medisinering anbefalt
+			ISM_TRANSITION[at0042] matches {	-- Recommend medication
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::526]}
@@ -143,11 +123,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0042]}		-- Medisinering anbefalt
+						defining_code matches {[local::at0042]}		-- Recommend medication
 					}
 				}
 			}
-			ISM_TRANSITION[at0001] matches {	-- Medisinering planlagt
+			ISM_TRANSITION[at0001] matches {	-- Plan medication
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::524]}
@@ -155,11 +135,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0001]}		-- Medisinering planlagt
+						defining_code matches {[local::at0001]}		-- Plan medication
 					}
 				}
 			}
-			ISM_TRANSITION[at0013] matches {	-- Planlagt medisinering utsatt
+			ISM_TRANSITION[at0013] matches {	-- Suspend medication plan
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::527]}
@@ -167,11 +147,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0013]}		-- Planlagt medisinering utsatt
+						defining_code matches {[local::at0013]}		-- Suspend medication plan
 					}
 				}
 			}
-			ISM_TRANSITION[at0012] matches {	-- Planlagt medisinering avbrutt
+			ISM_TRANSITION[at0012] matches {	-- Cancel medication plan
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::528]}
@@ -179,11 +159,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0012]}		-- Planlagt medisinering avbrutt
+						defining_code matches {[local::at0012]}		-- Cancel medication plan
 					}
 				}
 			}
-			ISM_TRANSITION[at0016] matches {	-- Oppstartsdato/ tid for medisinering satt
+			ISM_TRANSITION[at0016] matches {	-- Set medication start date
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::529]}
@@ -191,11 +171,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0016]}		-- Oppstartsdato/ tid for medisinering satt
+						defining_code matches {[local::at0016]}		-- Set medication start date
 					}
 				}
 			}
-			ISM_TRANSITION[at0002] matches {	-- Resept er utstedt for legemiddelet
+			ISM_TRANSITION[at0002] matches {	-- Issue prescription for medication
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
@@ -207,11 +187,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0002]}		-- Resept er utstedt for legemiddelet
+						defining_code matches {[local::at0002]}		-- Issue prescription for medication
 					}
 				}
 			}
-			ISM_TRANSITION[at0003] matches {	-- Medisinen er utdelt
+			ISM_TRANSITION[at0003] matches {	-- Dispense medication
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
@@ -223,11 +203,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0003]}		-- Medisinen er utdelt
+						defining_code matches {[local::at0003]}		-- Dispense medication
 					}
 				}
 			}
-			ISM_TRANSITION[at0004] matches {	-- Medisineringen er startet
+			ISM_TRANSITION[at0004] matches {	-- Commence medication
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::245]}
@@ -235,11 +215,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0004]}		-- Medisineringen er startet
+						defining_code matches {[local::at0004]}		-- Commence medication
 					}
 				}
 			}
-			ISM_TRANSITION[at0005] matches {	-- Gjennomgang av medisineringen
+			ISM_TRANSITION[at0005] matches {	-- Review medication
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::245]}
@@ -247,11 +227,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0005]}		-- Gjennomgang av medisineringen
+						defining_code matches {[local::at0005]}		-- Review medication
 					}
 				}
 			}
-			ISM_TRANSITION[at0041] matches {	-- Medisineringen er blitt endret
+			ISM_TRANSITION[at0041] matches {	-- Medication order modified
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::245]}
@@ -259,11 +239,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0041]}		-- Medisineringen er blitt endret
+						defining_code matches {[local::at0041]}		-- Medication order modified
 					}
 				}
 			}
-			ISM_TRANSITION[at0006] matches {	-- Administrasjon
+			ISM_TRANSITION[at0006] matches {	-- Administer medication
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::245]}
@@ -271,11 +251,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0006]}		-- Administrasjon
+						defining_code matches {[local::at0006]}		-- Administer medication
 					}
 				}
 			}
-			ISM_TRANSITION[at0010] matches {	-- Resepten er blitt fornyet
+			ISM_TRANSITION[at0010] matches {	-- Re-issue prescription for medication
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::245]}
@@ -283,11 +263,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0010]}		-- Resepten er blitt fornyet
+						defining_code matches {[local::at0010]}		-- Re-issue prescription for medication
 					}
 				}
 			}
-			ISM_TRANSITION[at0018] matches {	-- Medisinering holdt tilbake
+			ISM_TRANSITION[at0018] matches {	-- Withhold medication
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::245]}
@@ -295,11 +275,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0018]}		-- Medisinering holdt tilbake
+						defining_code matches {[local::at0018]}		-- Withhold medication
 					}
 				}
 			}
-			ISM_TRANSITION[at0019] matches {	-- Medisineringen nektet
+			ISM_TRANSITION[at0019] matches {	-- Medication declined
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::245]}
@@ -307,11 +287,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0019]}		-- Medisineringen nektet
+						defining_code matches {[local::at0019]}		-- Medication declined
 					}
 				}
 			}
-			ISM_TRANSITION[at0035] matches {	-- Legemiddelmiddel i retur
+			ISM_TRANSITION[at0035] matches {	-- Return medication
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
@@ -323,11 +303,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0035]}		-- Legemiddelmiddel i retur
+						defining_code matches {[local::at0035]}		-- Return medication
 					}
 				}
 			}
-			ISM_TRANSITION[at0008] matches {	-- Forsinket legemiddelforsyning
+			ISM_TRANSITION[at0008] matches {	-- Delay medication supply
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::530]}
@@ -335,11 +315,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0008]}		-- Forsinket legemiddelforsyning
+						defining_code matches {[local::at0008]}		-- Delay medication supply
 					}
 				}
 			}
-			ISM_TRANSITION[at0009] matches {	-- Utsatt medisinering
+			ISM_TRANSITION[at0009] matches {	-- Suspend administration
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::530]}
@@ -347,11 +327,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0009]}		-- Utsatt medisinering
+						defining_code matches {[local::at0009]}		-- Suspend administration
 					}
 				}
 			}
-			ISM_TRANSITION[at0011] matches {	-- Fornying av resept utsatt
+			ISM_TRANSITION[at0011] matches {	-- Suspend re-issue of prescription
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::530]}
@@ -359,11 +339,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0011]}		-- Fornying av resept utsatt
+						defining_code matches {[local::at0011]}		-- Suspend re-issue of prescription
 					}
 				}
 			}
-			ISM_TRANSITION[at0015] matches {	-- Medisinering seponert
+			ISM_TRANSITION[at0015] matches {	-- Cease administration
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::531]}
@@ -371,11 +351,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0015]}		-- Medisinering seponert
+						defining_code matches {[local::at0015]}		-- Cease administration
 					}
 				}
 			}
-			ISM_TRANSITION[at0014] matches {	-- Resept trukket tilbake
+			ISM_TRANSITION[at0014] matches {	-- Reverse prescription for medication
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::531]}
@@ -383,11 +363,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0014]}		-- Resept trukket tilbake
+						defining_code matches {[local::at0014]}		-- Reverse prescription for medication
 					}
 				}
 			}
-			ISM_TRANSITION[at0039] matches {	-- Endring av dose eller administrasjonstidspunkt
+			ISM_TRANSITION[at0039] matches {	-- Change dose or timing
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::531]}
@@ -395,11 +375,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0039]}		-- Endring av dose eller administrasjonstidspunkt
+						defining_code matches {[local::at0039]}		-- Change dose or timing
 					}
 				}
 			}
-			ISM_TRANSITION[at0007] matches {	-- Fullført medisinering
+			ISM_TRANSITION[at0007] matches {	-- Complete medication
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::532]}
@@ -407,55 +387,55 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0007]}		-- Fullført medisinering
+						defining_code matches {[local::at0007]}		-- Complete medication
 					}
 				}
 			}
 		}
 		description matches {
 			ITEM_TREE[at0017] matches {	-- Tree
-				items cardinality matches {1..*; unordered} matches {
-					ELEMENT[at0020] matches {	-- Legemiddel
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0020] occurrences matches {0..1} matches {	-- Medicine
 						value matches {
 							DV_TEXT matches {*}
 							DV_CODED_TEXT matches {
-								defining_code matches {[ac0001]}		-- Legemiddelnavn
+								defining_code matches {[ac0001]}		-- Medication name
 							}
 						}
 					}
-					ELEMENT[at0033] occurrences matches {0..*} matches {	-- Instruksjoner
+					ELEMENT[at0033] occurrences matches {0..*} matches {	-- Instructions
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					allow_archetype CLUSTER[at0023] occurrences matches {0..*} matches {	-- Ingredienser og form
+					allow_archetype CLUSTER[at0023] occurrences matches {0..*} matches {	-- Ingredients and form
 						include
 							archetype_id/value matches {/openEHR-EHR-CLUSTER\.medication_ingredients(-[a-zA-Z0-9_]+)*\.v1/}
 					}
-					ELEMENT[at0021] occurrences matches {0..*} matches {	-- Årsak
+					ELEMENT[at0021] occurrences matches {0..*} matches {	-- Reason
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					allow_archetype CLUSTER[at0022] occurrences matches {0..1} matches {	-- Kvantitet
+					allow_archetype CLUSTER[at0022] occurrences matches {0..1} matches {	-- Quantity
 						include
 							archetype_id/value matches {/openEHR-EHR-CLUSTER\.medication_amount(-[a-zA-Z0-9_]+)*\.v1/}
 					}
-					ELEMENT[at0024] occurrences matches {0..1} matches {	-- Kommentarer
+					ELEMENT[at0024] occurrences matches {0..1} matches {	-- Comment
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0025] occurrences matches {0..1} matches {	-- Sekvensnummer
+					ELEMENT[at0025] occurrences matches {0..1} matches {	-- Sequence number
 						value matches {
 							DV_COUNT matches {*}
 						}
 					}
-					allow_archetype CLUSTER[at0027] occurrences matches {0..*} matches {	-- Administrasjon
+					allow_archetype CLUSTER[at0027] occurrences matches {0..*} matches {	-- Administration
 						include
 							archetype_id/value matches {/openEHR-EHR-CLUSTER\.medication_admin(-[a-zA-Z0-9_]+)*\.v1/}
 					}
-					ELEMENT[at0036] occurrences matches {0..1} matches {	-- Generisk bytte
+					ELEMENT[at0036] occurrences matches {0..1} matches {	-- Brand substituted
 						value matches {
 							DV_BOOLEAN matches {
 								value matches {True, False}
@@ -468,36 +448,41 @@ definition
 		protocol matches {
 			ITEM_TREE[at0030] matches {	-- Tree
 				items cardinality matches {1..*; unordered} matches {
-					ELEMENT[at0026] occurrences matches {0..1} matches {	-- Batch ID
+					ELEMENT[at0026] occurrences matches {0..1} matches {	-- BatchID
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0040] occurrences matches {0..1} matches {	-- Utløpsdato
+					ELEMENT[at0040] occurrences matches {0..1} matches {	-- Expiry date
 						value matches {
 							DV_DATE matches {*}
 						}
 					}
-					ELEMENT[at0031] occurrences matches {0..1} matches {	-- Utdelt til
+					ELEMENT[at0031] occurrences matches {0..1} matches {	-- Dispensed to
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0037] occurrences matches {0..1} matches {	-- Antall utleveringer
+					ELEMENT[at0037] occurrences matches {0..1} matches {	-- Number of times dispensed
 						value matches {
 							DV_COUNT matches {*}
 						}
 					}
-					ELEMENT[at0032] occurrences matches {0..1} matches {	-- Gjenværende utleveringer
+					ELEMENT[at0032] occurrences matches {0..1} matches {	-- Remaining repeats
 						value matches {
 							DV_COUNT matches {
 								magnitude matches {|>=0|}
 							}
 						}
 					}
-					ELEMENT[at0038] occurrences matches {0..1} matches {	-- Refusjon
+					ELEMENT[at0038] occurrences matches {0..1} matches {	-- Claim category
 						value matches {
 							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0043] occurrences matches {0..1} matches {	-- Scheduled action time
+						value matches {
+							DV_DATE_TIME matches {*}
 						}
 					}
 				}
@@ -507,167 +492,172 @@ definition
 
 ontology
 	term_definitions = <
-		["no"] = <
+		["ar-sy"] = <
 			items = <
 				["at0000"] = <
-					text = <"Legemiddelhandling">
-					description = <"Detaljer om bruk, administrasjon, utdeling eller andre tiltak i forbindelse med legemiddel, vaksine eller annet terapeutisk forbruksmateriell ordinert av en kliniker.">
+					text = <"فعل دوائي">
+					description = <"فعل نابع من الأمر الدوائي, يتم كتابته بواسطة الطبيب السريري الذي يقوم بتحديد أي الأدوية يقوم بتناولها, متى و لأي مدة,, إلى آخره.">
 				>
 				["at0001"] = <
-					text = <"Medisinering planlagt">
-					description = <"Medisinering er planlagt, men ikke utført.">
+					text = <"الخطة">
+					description = <"تم تخطيط استخدام الدواء و لكن لم يتم التنفيذ">
 				>
 				["at0002"] = <
-					text = <"Resept er utstedt for legemiddelet">
-					description = <"INSTRUCTION-arketypen har utstedt en resept på legemiddelet.">
+					text = <"تم عمل وصفة طبية">
+					description = <"تم تحويل الأمر إلى محل الصرف">
 				>
 				["at0003"] = <
-					text = <"Medisinen er utdelt">
-					description = <"Medisinen har blitt utdelt.">
+					text = <"تم الصرف">
+					description = <"تم صرف الدواء">
 				>
 				["at0004"] = <
-					text = <"Medisineringen er startet">
-					description = <"Legemiddelet er inntatt for første gang av pasienten.">
+					text = <"بدأ التناول">
+					description = <"تم بالفعل تناول الدواء بواسطة المريض">
 				>
 				["at0005"] = <
-					text = <"Gjennomgang av medisineringen">
-					description = <"Medisineringen er gjennomgått.">
+					text = <"مراجعة">
+					description = <"تمت مراجعة الأدوية">
 				>
 				["at0006"] = <
-					text = <"Administrasjon">
-					description = <"En enkeltdose er administrert.">
+					text = <"إعطاء الدواء - عند نقطة زمنية">
+					description = <"تم إعطاء الدواء">
 				>
 				["at0007"] = <
-					text = <"Fullført medisinering">
-					description = <"Medisineringen er blitt fullført som ordinert.">
+					text = <"اكتمل">
+					description = <"تم استكمال الدواء كما هو بالوصفة الطبية">
 				>
 				["at0008"] = <
-					text = <"Forsinket legemiddelforsyning">
-					description = <"Medisinen er ikke utdelt da den ikke er tilgjengelig ennå.">
+					text = <"تم التأخر في الإمداد">
+					description = <"لن يتم صرف الدواء حيث إنه غير متاح/متوفر">
 				>
 				["at0009"] = <
-					text = <"Utsatt medisinering">
-					description = <"Medisineringen er blitt utsatt.">
+					text = <"تم تعليق إعطاء الدواء">
+					description = <"تم تعليق إعطاء الدواء">
 				>
 				["at0010"] = <
-					text = <"Resepten er blitt fornyet">
-					description = <"Resepten er blitt fornyet iht. eksisterende instruksjon.">
+					text = <"إعادة تفعيل الوصفة الطبية">
+					description = <"تم إعادة الأمر أو إعادة تفعيل الوصفة الطبية">
 				>
 				["at0011"] = <
-					text = <"Fornying av resept utsatt">
-					description = <"Fornying av denne resepten kan ikke gjennomføres uten særlige tiltak.">
+					text = <"تم تعليق إعادة الأمر بالدواء">
+					description = <"إعادة الأمر بالدواء غير متاحة">
 				>
 				["at0012"] = <
-					text = <"Planlagt medisinering avbrutt">
-					description = <"Den planlagte medisineringen er avbrutt før administrasjon er startet.">
+					text = <"ملغى">
+					description = <"تم إلغاء تناول الدواء الذي كان مخططا له">
 				>
 				["at0013"] = <
-					text = <"Planlagt medisinering utsatt">
-					description = <"Planlagt medisinering er utsatt.">
+					text = <"تم تعليق الخطة">
+					description = <"تم تعليق الخطة الخاصة بالأمر بالدواء">
 				>
 				["at0014"] = <
-					text = <"Resept trukket tilbake">
-					description = <"Resepten er trukket tilbake, men administrering eller utdeling kan ha skjedd.">
+					text = <"تم إلغاء الوصفة الطبية">
+					description = <"تم إلغاء الوصفة الطبية">
 				>
 				["at0015"] = <
-					text = <"Medisinering seponert">
-					description = <"Administeringen av dette medikament er seponert før forventet avslutning.">
+					text = <"تم إلغاء الإعطاء">
+					description = <"تم إلغاء الإعطاء">
 				>
 				["at0016"] = <
-					text = <"Oppstartsdato/ tid for medisinering satt">
-					description = <"Tidspunkt for oppstart av medisineringen er fastlagt.">
+					text = <"تم تحديد توقيت البداية">
+					description = <"تم تحديد الوقت الخاص ببداية استخدام الدواء">
 				>
 				["at0017"] = <
-					text = <"Tree">
-					description = <"@ internal @">
+					text = <"*Tree(en)">
+					description = <"*@ internal @(en)">
 				>
 				["at0018"] = <
-					text = <"Medisinering holdt tilbake">
-					description = <"Medisinen er blitt holdt tilbake og ikke administert.">
+					text = <"*Withhold medication(en)">
+					description = <"*The administration of a medication has been withheld and not given.(en)">
 				>
 				["at0019"] = <
-					text = <"Medisineringen nektet">
-					description = <"Pasienten nekter å ta legemiddelet.">
+					text = <"*Medication declined(en)">
+					description = <"*An administration of the medication was refused by the subject of care (patient).(en)">
 				>
 				["at0020"] = <
-					text = <"Legemiddel">
-					description = <"Legemiddelet, vaksinen eller det terapeutiske forbruksmaterialet som er fokus for ordinasjonen. Dette elementet vil normalt bli kodet med en legemiddelterminologi, men fritekst kan kreves i særlige situasjoner.">
+					text = <"*Medicine(en)">
+					description = <"*The medicine, vaccine or other therapeutic good which was the focus of the action. This element will normally be coded with a medicines terminology but free text may be required in some cases.(en)">
 				>
 				["at0021"] = <
-					text = <"Årsak">
-					description = <"Årsaken(e) til den spesifikke handlingen. NB; Dette er ikke indikasjonen for medisinering, men årsak til endringer eller seponering av medisineringen.">
+					text = <"*Reason(en)">
+					description = <"*The reason(s) the specific action or step was carried out. Note: This is not the reason for the medication instruction, rather the specific reason e.g. for administration or for ceasing the medication.(en)">
 				>
 				["at0022"] = <
-					text = <"Kvantitet">
-					description = <"Mengde av legemiddel, vaksine eller annet terapeutisk forbruksmateriell.">
+					text = <"*Quantity(en)">
+					description = <"*The quantity of medicine, vaccine or other therapeutic good.(en)">
 				>
 				["at0023"] = <
-					text = <"Ingredienser og form">
-					description = <"Detaljert informasjon om ingredienser inkludert form og styrke.">
+					text = <"*Ingredients and form(en)">
+					description = <"*Detailed information about the ingredient(s) including form and strength.(en)">
 				>
 				["at0024"] = <
-					text = <"Kommentarer">
-					description = <"Kommentar til handlingen.">
+					text = <"*Comment(en)">
+					description = <"*A comment on the action taken.(en)">
 				>
 				["at0025"] = <
-					text = <"Sekvensnummer">
-					description = <"Sekvensnummer som er spesifikt til denne handlingen.">
+					text = <"*Sequence number(en)">
+					description = <"*The sequence number specific to the action being recorded.(en)">
 				>
 				["at0026"] = <
-					text = <"Batch ID">
-					description = <"Tildelt av produsenten for å identifisere produksjonsbatch av produktet.">
+					text = <"*BatchID(en)">
+					description = <"*Assigned by the manufacturer to identify the manufacturing batch of the item.(en)">
 				>
 				["at0027"] = <
-					text = <"Administrasjon">
-					description = <"Detaljer om administreringen av legemiddel, vaksinasjon eller annet terapeutisk forbruksmateriell.">
+					text = <"*Administration(en)">
+					description = <"*Details about the administration of the medicine, vaccine or other therapeutic good.(en)">
 				>
 				["at0030"] = <
-					text = <"Tree">
-					description = <"@ internal @">
+					text = <"*Tree(en)">
+					description = <"*@ internal @(en)">
 				>
 				["at0031"] = <
-					text = <"Utdelt til">
-					description = <"Navnet til personen som henter medisinen, om dette ikke er pasienten selv.">
+					text = <"*Dispensed to(en)">
+					description = <"*The name of the person to whom this was dispensed, if not the subject of care.(en)">
 				>
 				["at0032"] = <
-					text = <"Gjenværende utleveringer">
-					description = <"Antall ganger legemiddelet, vaksinen eller det terapeutiske forbruksmateriellet kan utleveres uten fornying av resept eller ordinasjon. Merk: Dette er informasjon som kreves av pasienten og resept utsteder.">
+					text = <"*Remaining repeats(en)">
+					description = <"*The number of times the medicine, vaccine or other therapeutic good may still be dispensed without re-issue of a prescription or order. Note: This is the information required by the subject of care and prescriber.(en)">
 				>
 				["at0033"] = <
-					text = <"Instruksjoner">
-					description = <"Instruksjoner gitt til en pasient eller helsearbeider ved oppstart.">
+					text = <"*Instructions(en)">
+					description = <"*Any instructions given to the subject of care or carer at the time of the action.(en)">
 				>
 				["at0035"] = <
-					text = <"Legemiddelmiddel i retur">
-					description = <"Det utdelte legemiddel returneres ubrukt.">
+					text = <"*Return medication(en)">
+					description = <"*A dispensed medication is returned or not collected without use.(en)">
 				>
 				["at0036"] = <
-					text = <"Generisk bytte">
-					description = <"En variant av samme legemiddel , vaksine eller terapeutisk forbruksmateriell fra annen produsent erstatter det ordinerte.">
+					text = <"*Brand substituted(en)">
+					description = <"*A different brand of the same medicine, vaccine or other therapeutic good was substituted for the one nominated in the order.(en)">
 				>
 				["at0037"] = <
-					text = <"Antall utleveringer">
-					description = <"Antall ganger denne resepten har blitt utlevert. Summen av antallet minus en og de gjenværende reiteringer gir antall reiteringer på den opprinnelige ordinasjonen.">
+					text = <"*Number of times dispensed(en)">
+					description = <"*The number of times this order has been dispensed. The sum of this number minus one and the remaining repeats provides the number of repeats on the original order.(en)">
 				>
 				["at0038"] = <
-					text = <"Refusjon">
-					description = <"Refusjonskategori eller tilskudd som ønskes for medisinen.">
+					text = <"*Claim category(en)">
+					description = <"*The category of reimbursement or subsidy sought for the item.(en)">
 				>
 				["at0039"] = <
-					text = <"Endring av dose eller administrasjonstidspunkt">
-					description = <"En ny ordinasjon med endret dose eller administrasjonstidspunkt erstatter denne.">
+					text = <"*Change dose or timing(en)">
+					description = <"*A new instruction with changed dose or timing has been created that replaces this one.(en)">
 				>
 				["at0040"] = <
-					text = <"Utløpsdato">
-					description = <"Utløpsdato som spesifisert av produsenten.">
+					text = <"*Expiry date(en)">
+					description = <"*The expiry date of the medicine administered as documented by the manufacturer.(en)">
 				>
 				["at0041"] = <
-					text = <"Medisineringen er blitt endret">
-					description = <"Ordinasjonen er blitt endret på en måte som ikke krever ny instruksjon/ordinasjon, iht. lokale kliniske retningslinjer.">
+					text = <"*Medication order modified(en)">
+					description = <"*The medication order has been changed in a manner which does not require a new instruction/order to be issued, according to local clinical rules.(en)">
 				>
 				["at0042"] = <
-					text = <"Medisinering anbefalt">
-					description = <"Medisinering har blitt anbefalt, normalt fra en kliniker til en annen, der den siste har ansvar for å ordinere/godkjenne legemiddelet.">
+					text = <"*Recommend medication(en)">
+					description = <"*The medication has been recommended, generally from one clinician to another, where the latter has the responsibility to order/authorise the medication.(en)">
+				>
+				["at0043"] = <
+					comment = <"* Used to compare variance from actual action time where this is not readily calculable from the original instruction.(en)">
+					text = <"*Scheduled action time(en)">
+					description = <"*The datetime at which the action was scheduled to occur.(en)">
 				>
 			>
 		>
@@ -834,6 +824,11 @@ ontology
 					text = <"*Planned(en)">
 					description = <"**(en)">
 				>
+				["at0043"] = <
+					comment = <"* Used to compare variance from actual action time where this is not readily calculable from the original instruction.(en)">
+					text = <"*Scheduled action time(en)">
+					description = <"*The datetime at which the action was scheduled to occur.(en)">
+				>
 			>
 		>
 		["es-ar"] = <
@@ -997,6 +992,11 @@ ontology
 				["at0042"] = <
 					text = <"*Recommend medication(en)">
 					description = <"*The medication has been recommended, generally from one clinician to another, where the latter has the responsibility to order/authorise the medication.(en)">
+				>
+				["at0043"] = <
+					comment = <"* Used to compare variance from actual action time where this is not readily calculable from the original instruction.(en)">
+					text = <"*Scheduled action time(en)">
+					description = <"*The datetime at which the action was scheduled to occur.(en)">
 				>
 			>
 		>
@@ -1162,169 +1162,10 @@ ontology
 					text = <"Recommend medication">
 					description = <"The medication has been recommended, generally from one clinician to another, where the latter has the responsibility to order/authorise the medication.">
 				>
-			>
-		>
-		["ar-sy"] = <
-			items = <
-				["at0000"] = <
-					text = <"فعل دوائي">
-					description = <"فعل نابع من الأمر الدوائي, يتم كتابته بواسطة الطبيب السريري الذي يقوم بتحديد أي الأدوية يقوم بتناولها, متى و لأي مدة,, إلى آخره.">
-				>
-				["at0001"] = <
-					text = <"الخطة">
-					description = <"تم تخطيط استخدام الدواء و لكن لم يتم التنفيذ">
-				>
-				["at0002"] = <
-					text = <"تم عمل وصفة طبية">
-					description = <"تم تحويل الأمر إلى محل الصرف">
-				>
-				["at0003"] = <
-					text = <"تم الصرف">
-					description = <"تم صرف الدواء">
-				>
-				["at0004"] = <
-					text = <"بدأ التناول">
-					description = <"تم بالفعل تناول الدواء بواسطة المريض">
-				>
-				["at0005"] = <
-					text = <"مراجعة">
-					description = <"تمت مراجعة الأدوية">
-				>
-				["at0006"] = <
-					text = <"إعطاء الدواء - عند نقطة زمنية">
-					description = <"تم إعطاء الدواء">
-				>
-				["at0007"] = <
-					text = <"اكتمل">
-					description = <"تم استكمال الدواء كما هو بالوصفة الطبية">
-				>
-				["at0008"] = <
-					text = <"تم التأخر في الإمداد">
-					description = <"لن يتم صرف الدواء حيث إنه غير متاح/متوفر">
-				>
-				["at0009"] = <
-					text = <"تم تعليق إعطاء الدواء">
-					description = <"تم تعليق إعطاء الدواء">
-				>
-				["at0010"] = <
-					text = <"إعادة تفعيل الوصفة الطبية">
-					description = <"تم إعادة الأمر أو إعادة تفعيل الوصفة الطبية">
-				>
-				["at0011"] = <
-					text = <"تم تعليق إعادة الأمر بالدواء">
-					description = <"إعادة الأمر بالدواء غير متاحة">
-				>
-				["at0012"] = <
-					text = <"ملغى">
-					description = <"تم إلغاء تناول الدواء الذي كان مخططا له">
-				>
-				["at0013"] = <
-					text = <"تم تعليق الخطة">
-					description = <"تم تعليق الخطة الخاصة بالأمر بالدواء">
-				>
-				["at0014"] = <
-					text = <"تم إلغاء الوصفة الطبية">
-					description = <"تم إلغاء الوصفة الطبية">
-				>
-				["at0015"] = <
-					text = <"تم إلغاء الإعطاء">
-					description = <"تم إلغاء الإعطاء">
-				>
-				["at0016"] = <
-					text = <"تم تحديد توقيت البداية">
-					description = <"تم تحديد الوقت الخاص ببداية استخدام الدواء">
-				>
-				["at0017"] = <
-					text = <"*Tree(en)">
-					description = <"*@ internal @(en)">
-				>
-				["at0018"] = <
-					text = <"*Withhold medication(en)">
-					description = <"*The administration of a medication has been withheld and not given.(en)">
-				>
-				["at0019"] = <
-					text = <"*Medication declined(en)">
-					description = <"*An administration of the medication was refused by the subject of care (patient).(en)">
-				>
-				["at0020"] = <
-					text = <"*Medicine(en)">
-					description = <"*The medicine, vaccine or other therapeutic good which was the focus of the action. This element will normally be coded with a medicines terminology but free text may be required in some cases.(en)">
-				>
-				["at0021"] = <
-					text = <"*Reason(en)">
-					description = <"*The reason(s) the specific action or step was carried out. Note: This is not the reason for the medication instruction, rather the specific reason e.g. for administration or for ceasing the medication.(en)">
-				>
-				["at0022"] = <
-					text = <"*Quantity(en)">
-					description = <"*The quantity of medicine, vaccine or other therapeutic good.(en)">
-				>
-				["at0023"] = <
-					text = <"*Ingredients and form(en)">
-					description = <"*Detailed information about the ingredient(s) including form and strength.(en)">
-				>
-				["at0024"] = <
-					text = <"*Comment(en)">
-					description = <"*A comment on the action taken.(en)">
-				>
-				["at0025"] = <
-					text = <"*Sequence number(en)">
-					description = <"*The sequence number specific to the action being recorded.(en)">
-				>
-				["at0026"] = <
-					text = <"*BatchID(en)">
-					description = <"*Assigned by the manufacturer to identify the manufacturing batch of the item.(en)">
-				>
-				["at0027"] = <
-					text = <"*Administration(en)">
-					description = <"*Details about the administration of the medicine, vaccine or other therapeutic good.(en)">
-				>
-				["at0030"] = <
-					text = <"*Tree(en)">
-					description = <"*@ internal @(en)">
-				>
-				["at0031"] = <
-					text = <"*Dispensed to(en)">
-					description = <"*The name of the person to whom this was dispensed, if not the subject of care.(en)">
-				>
-				["at0032"] = <
-					text = <"*Remaining repeats(en)">
-					description = <"*The number of times the medicine, vaccine or other therapeutic good may still be dispensed without re-issue of a prescription or order. Note: This is the information required by the subject of care and prescriber.(en)">
-				>
-				["at0033"] = <
-					text = <"*Instructions(en)">
-					description = <"*Any instructions given to the subject of care or carer at the time of the action.(en)">
-				>
-				["at0035"] = <
-					text = <"*Return medication(en)">
-					description = <"*A dispensed medication is returned or not collected without use.(en)">
-				>
-				["at0036"] = <
-					text = <"*Brand substituted(en)">
-					description = <"*A different brand of the same medicine, vaccine or other therapeutic good was substituted for the one nominated in the order.(en)">
-				>
-				["at0037"] = <
-					text = <"*Number of times dispensed(en)">
-					description = <"*The number of times this order has been dispensed. The sum of this number minus one and the remaining repeats provides the number of repeats on the original order.(en)">
-				>
-				["at0038"] = <
-					text = <"*Claim category(en)">
-					description = <"*The category of reimbursement or subsidy sought for the item.(en)">
-				>
-				["at0039"] = <
-					text = <"*Change dose or timing(en)">
-					description = <"*A new instruction with changed dose or timing has been created that replaces this one.(en)">
-				>
-				["at0040"] = <
-					text = <"*Expiry date(en)">
-					description = <"*The expiry date of the medicine administered as documented by the manufacturer.(en)">
-				>
-				["at0041"] = <
-					text = <"*Medication order modified(en)">
-					description = <"*The medication order has been changed in a manner which does not require a new instruction/order to be issued, according to local clinical rules.(en)">
-				>
-				["at0042"] = <
-					text = <"*Recommend medication(en)">
-					description = <"*The medication has been recommended, generally from one clinician to another, where the latter has the responsibility to order/authorise the medication.(en)">
+				["at0043"] = <
+					comment = <" Used to compare variance from actual action time where this is not readily calculable from the original instruction.">
+					text = <"Scheduled action time">
+					description = <"The datetime at which the action was scheduled to occur.">
 				>
 			>
 		>
@@ -1490,175 +1331,16 @@ ontology
 					text = <"*Planned(en)">
 					description = <"**(en)">
 				>
-			>
-		>
-		["nb"] = <
-			items = <
-				["at0000"] = <
-					text = <"Legemiddelhandling">
-					description = <"Detaljer om bruk, administrasjon, utdeling eller andre tiltak i forbindelse med legemiddel, vaksine eller annet terapeutisk forbruksmateriell ordinert av en kliniker.">
-				>
-				["at0001"] = <
-					text = <"Medisinering planlagt">
-					description = <"Medisinering er planlagt, men ikke utført.">
-				>
-				["at0002"] = <
-					text = <"Resept er utstedt for legemiddelet">
-					description = <"INSTRUCTION-arketypen har utstedt en resept på legemiddelet.">
-				>
-				["at0003"] = <
-					text = <"Medisinen er utdelt">
-					description = <"Medisinen har blitt utdelt.">
-				>
-				["at0004"] = <
-					text = <"Medisineringen er startet">
-					description = <"Legemiddelet er inntatt for første gang av pasienten.">
-				>
-				["at0005"] = <
-					text = <"Gjennomgang av medisineringen">
-					description = <"Medisineringen er gjennomgått.">
-				>
-				["at0006"] = <
-					text = <"Administrasjon">
-					description = <"En enkeltdose er administrert.">
-				>
-				["at0007"] = <
-					text = <"Fullført medisinering">
-					description = <"Medisineringen er blitt fullført som ordinert.">
-				>
-				["at0008"] = <
-					text = <"Forsinket legemiddelforsyning">
-					description = <"Medisinen er ikke utdelt da den ikke er tilgjengelig ennå.">
-				>
-				["at0009"] = <
-					text = <"Utsatt medisinering">
-					description = <"Medisineringen er blitt utsatt.">
-				>
-				["at0010"] = <
-					text = <"Resepten er blitt fornyet">
-					description = <"Resepten er blitt fornyet iht. eksisterende instruksjon.">
-				>
-				["at0011"] = <
-					text = <"Fornying av resept utsatt">
-					description = <"Fornying av denne resepten kan ikke gjennomføres uten særlige tiltak.">
-				>
-				["at0012"] = <
-					text = <"Planlagt medisinering avbrutt">
-					description = <"Den planlagte medisineringen er avbrutt før administrasjon er startet.">
-				>
-				["at0013"] = <
-					text = <"Planlagt medisinering utsatt">
-					description = <"Planlagt medisinering er utsatt.">
-				>
-				["at0014"] = <
-					text = <"Resept trukket tilbake">
-					description = <"Resepten er trukket tilbake, men administrering eller utdeling kan ha skjedd.">
-				>
-				["at0015"] = <
-					text = <"Medisinering seponert">
-					description = <"Administeringen av dette medikament er seponert før forventet avslutning.">
-				>
-				["at0016"] = <
-					text = <"Oppstartsdato/ tid for medisinering satt">
-					description = <"Tidspunkt for oppstart av medisineringen er fastlagt.">
-				>
-				["at0017"] = <
-					text = <"Tree">
-					description = <"@ internal @">
-				>
-				["at0018"] = <
-					text = <"Medisinering holdt tilbake">
-					description = <"Medisinen er blitt holdt tilbake og ikke administert.">
-				>
-				["at0019"] = <
-					text = <"Medisineringen nektet">
-					description = <"Pasienten nekter å ta legemiddelet.">
-				>
-				["at0020"] = <
-					text = <"Legemiddel">
-					description = <"Legemiddelet, vaksinen eller det terapeutiske forbruksmaterialet som er fokus for ordinasjonen. Dette elementet vil normalt bli kodet med en legemiddelterminologi, men fritekst kan kreves i særlige situasjoner.">
-				>
-				["at0021"] = <
-					text = <"Årsak">
-					description = <"Årsaken(e) til den spesifikke handlingen. NB; Dette er ikke indikasjonen for medisinering, men årsak til endringer eller seponering av medisineringen.">
-				>
-				["at0022"] = <
-					text = <"Kvantitet">
-					description = <"Mengde av legemiddel, vaksine eller annet terapeutisk forbruksmateriell.">
-				>
-				["at0023"] = <
-					text = <"Ingredienser og form">
-					description = <"Detaljert informasjon om ingredienser inkludert form og styrke.">
-				>
-				["at0024"] = <
-					text = <"Kommentarer">
-					description = <"Kommentar til handlingen.">
-				>
-				["at0025"] = <
-					text = <"Sekvensnummer">
-					description = <"Sekvensnummer som er spesifikt til denne handlingen.">
-				>
-				["at0026"] = <
-					text = <"Batch ID">
-					description = <"Tildelt av produsenten for å identifisere produksjonsbatch av produktet.">
-				>
-				["at0027"] = <
-					text = <"Administrasjon">
-					description = <"Detaljer om administreringen av legemiddel, vaksinasjon eller annet terapeutisk forbruksmateriell.">
-				>
-				["at0030"] = <
-					text = <"Tree">
-					description = <"@ internal @">
-				>
-				["at0031"] = <
-					text = <"Utdelt til">
-					description = <"Navnet til personen som henter medisinen, om dette ikke er pasienten selv.">
-				>
-				["at0032"] = <
-					text = <"Gjenværende utleveringer">
-					description = <"Antall ganger legemiddelet, vaksinen eller det terapeutiske forbruksmateriellet kan utleveres uten fornying av resept eller ordinasjon. Merk: Dette er informasjon som kreves av pasienten og resept utsteder.">
-				>
-				["at0033"] = <
-					text = <"Instruksjoner">
-					description = <"Instruksjoner gitt til en pasient eller helsearbeider ved oppstart.">
-				>
-				["at0035"] = <
-					text = <"Legemiddelmiddel i retur">
-					description = <"Det utdelte legemiddel returneres ubrukt.">
-				>
-				["at0036"] = <
-					text = <"Generisk bytte">
-					description = <"En variant av samme legemiddel , vaksine eller terapeutisk forbruksmateriell fra annen produsent erstatter det ordinerte.">
-				>
-				["at0037"] = <
-					text = <"Antall utleveringer">
-					description = <"Antall ganger denne resepten har blitt utlevert. Summen av antallet minus en og de gjenværende reiteringer gir antall reiteringer på den opprinnelige ordinasjonen.">
-				>
-				["at0038"] = <
-					text = <"Refusjon">
-					description = <"Refusjonskategori eller tilskudd som ønskes for medisinen.">
-				>
-				["at0039"] = <
-					text = <"Endring av dose eller administrasjonstidspunkt">
-					description = <"En ny ordinasjon med endret dose eller administrasjonstidspunkt erstatter denne.">
-				>
-				["at0040"] = <
-					text = <"Utløpsdato">
-					description = <"Utløpsdato som spesifisert av produsenten.">
-				>
-				["at0041"] = <
-					text = <"Medisineringen er blitt endret">
-					description = <"Ordinasjonen er blitt endret på en måte som ikke krever ny instruksjon/ordinasjon, iht. lokale kliniske retningslinjer.">
-				>
-				["at0042"] = <
-					text = <"Medisinering anbefalt">
-					description = <"Medisinering har blitt anbefalt, normalt fra en kliniker til en annen, der den siste har ansvar for å ordinere/godkjenne legemiddelet.">
+				["at0043"] = <
+					comment = <"* Used to compare variance from actual action time where this is not readily calculable from the original instruction.(en)">
+					text = <"*Scheduled action time(en)">
+					description = <"*The datetime at which the action was scheduled to occur.(en)">
 				>
 			>
 		>
 	>
 	constraint_definitions = <
-		["no"] = <
+		["ar-sy"] = <
 			items = <
 				["ac0001"] = <
 					text = <"*Medication name(en)">
@@ -1690,27 +1372,11 @@ ontology
 				>
 			>
 		>
-		["ar-sy"] = <
-			items = <
-				["ac0001"] = <
-					text = <"*Medication name(en)">
-					description = <"*Any valid term for a medicine or other therapeutic agent.(en)">
-				>
-			>
-		>
 		["ru"] = <
 			items = <
 				["ac0001"] = <
 					text = <"*Medication name(en)">
 					description = <"*Any valid term for a medicine or other therapeutic agent.(en)">
-				>
-			>
-		>
-		["nb"] = <
-			items = <
-				["ac0001"] = <
-					text = <"Legemiddelnavn">
-					description = <"En hvilket som helst term eller navn for medisinen eller terapeutisk stoff.">
 				>
 			>
 		>
