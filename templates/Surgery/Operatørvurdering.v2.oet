@@ -65,11 +65,11 @@
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.surgery_details.v1" concept_name="Operasjonsdetaljer" max="1" path="/description[at0001]/items[at0005]">
         <Rule path="/items[at0001]" min="1">
           <constraint xsi:type="textConstraint">
-            <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="MED-SÅRRENHETSGRAD" />
+            <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="UDS-SMITTESTATUS OPR" />
           </constraint>
         </Rule>
         <Rule path="/items[at0002]" min="1">
-          <constraint xsi:type="textConstraint">
+          <constraint xsi:type="textConstraint" limitToList="false">
             <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="UDS-LEIE" />
           </constraint>
         </Rule>
@@ -82,15 +82,18 @@
           </constraint>
         </Rule>
       </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.special_requirements_surgery.v1" concept_name="Spesielle behov kirurgi" max="1" path="/description[at0001]/items[at0005]">
-        <Rule path="/items[at0007]" max="1" />
-        <Rule path="/items[at0010]" max="1" />
-      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.important_information.v1" concept_name="Viktig informasjon" path="/description[at0001]/items[at0005]" />
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA fysisk status klassifikasjon" path="/description[at0001]/items[at0005]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.special_requirements_surgery.v1" template_id="35ddbcd4-6f68-4595-8313-a6dcf52343f5" concept_name="Spesielle behov kirurgi" path="/description[at0001]/items[at0005]" />
     </Content>
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.alert.v1" concept_name="Advarsel" path="/content" />
-    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.medication.v1" concept_name="Legemiddelhandling" max="1" path="/content" name="Antibiotikaprofylakse">
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.medication.v1" concept_name="Medication action" max="1" path="/content" name="Antibiotikaprofylakse">
       <Rule path="/description[at0017]/items[at0020]">
+        <constraint xsi:type="textConstraint" limitToList="false">
+          <includedValues>Cefalotin</includedValues>
+          <includedValues>Klindamycin</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0017]/items[at0033]">
         <constraint xsi:type="textConstraint" limitToList="false">
           <includedValues>Cefalotin 2 g x 4, 30-60 før knivstart</includedValues>
           <includedValues>Cefalotin 2 g, 30-60 før knivstart</includedValues>
@@ -100,8 +103,13 @@
         </constraint>
       </Rule>
     </Content>
-    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.medication.v1" concept_name="Legemiddelhandling" max="1" path="/content" name="Annen medikasjon under operasjon">
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.medication.v1" concept_name="Medication action" max="1" path="/content" name="Annen medikasjon under operasjon">
       <Rule path="/description[at0017]/items[at0020]">
+        <constraint xsi:type="textConstraint" limitToList="false">
+          <includedValues>Cyklokapron</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0017]/items[at0033]">
         <constraint xsi:type="textConstraint" limitToList="false">
           <includedValues>Cyclokapron/Traneksamsyre 10mg/kg etter avtale før blodtomhetslipp. + etter 3 timer</includedValues>
           <includedValues>Cyclokapron/Traneksamsyre 10mg/kg 20-30 min før knivstart + etter 3 timer</includedValues>
@@ -161,20 +169,30 @@
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.risk.v1" concept_name="Helserisiko" max="1" path="/content" name="Risikofaktorer kirurgi">
       <Rule path="/data[at0001]/items[at0002]" name="Sykdom i forbindelse med kirurgi/anestesi" />
       <Rule path="/data[at0001]/items[at0016]" max="1" name="Relevante allergier" />
-      <Rule path="/data[at0001]/items[at0016 and name/value='Relevante allergier']/items[at0013]" min="1">
+      <Rule path="/data[at0001]/items[at0016 and name/value='Relevante allergier']/items[at0013]" max="1" name="Relevante allergier">
         <constraint xsi:type="textConstraint" limitToList="false">
           <includedValues>Ingen</includedValues>
         </constraint>
       </Rule>
       <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Relevant medikasjon" />
-      <Rule path="/data[at0001]/items[at0016 and name/value='Relevant medikasjon']/items[at0013]" min="1">
+      <Rule path="/data[at0001]/items[at0016 and name/value='Relevant medikasjon']/items[at0013]" max="1" name="Relevant medikasjon">
         <constraint xsi:type="textConstraint" limitToList="false">
           <includedValues>Ingen</includedValues>
         </constraint>
       </Rule>
-      <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Relevant tobakksbruk" />
-      <Rule path="/data[at0001]/items[at0016 and name/value='Relevant tobakksbruk']/items[at0013]">
+      <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Røyking" />
+      <Rule path="/data[at0001]/items[at0016 and name/value='Røyking']/items[at0013]" max="1" name="Røyking">
         <constraint xsi:type="textConstraint" limitToList="false" />
+      </Rule>
+      <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Ernæringstilstand" />
+      <Rule path="/data[at0001]/items[at0016 and name/value='Ernæringstilstand']/items[at0013]" max="1" name="Ernæringstilstand" />
+      <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Stimulantia" />
+      <Rule path="/data[at0001]/items[at0016 and name/value='Stimulantia']/items[at0013]" max="1" name="Stimulantia" />
+      <Rule path="/data[at0001]/items[at0004]" name="Relevante risikofaktorer">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Ja</includedValues>
+          <includedValues>Nei</includedValues>
+        </constraint>
       </Rule>
     </Content>
     <Context />
