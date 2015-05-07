@@ -1,8 +1,8 @@
-n (adl_version=1.4)
+archetype (adl_version=1.4)
 	openEHR-EHR-OBSERVATION.preoperative_evaluation_anesthesia.v1
 
 concept
-	[at0000]	-- Preoperativ evaluering anestesi
+	[at0000]	-- Evaluering anestesi previsitt
 language
 	original_language = <[ISO_639-1::nb]>
 description
@@ -26,11 +26,11 @@ description
 	other_contributors = <>
 	other_details = <
 		["current_contact"] = <"Anca Heyd, DIPS ASA, ahe@dips.no">
-		["MD5-CAM-1.0.1"] = <"33DEE61BAB9A6D67353D7A3A132D717A">
+		["MD5-CAM-1.0.1"] = <"B53A9B9D7A4AF310D5EB3CEC3ED94DC9">
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- Preoperativ evaluering anestesi
+	OBSERVATION[at0000] matches {	-- Evaluering anestesi previsitt
 		data matches {
 			HISTORY[at0001] matches {	-- Event Series
 				events cardinality matches {1..*; unordered} matches {
@@ -43,27 +43,21 @@ definition
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0025] occurrences matches {0..1} matches {	-- Anestesivurdering ferdigstilt?
+									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Anestesitilsyn ferdigstilt
 										value matches {
-											DV_BOOLEAN matches {
-												value matches {True}
-											}
+											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0026] occurrences matches {0..1} matches {	-- Pasient fysisk tilsett?
+									ELEMENT[at0012] occurrences matches {0..1} matches {	-- Pasient tilsett
 										value matches {
-											DV_BOOLEAN matches {
-												value matches {True, False}
-											}
+											DV_TEXT matches {*}
 										}
 									}
 									CLUSTER[at0017] occurrences matches {0..1} matches {	-- Vurdering blodprøver
 										items cardinality matches {1; unordered} matches {
-											ELEMENT[at0027] occurrences matches {0..1} matches {	-- Blodprøver vurdert?
+											ELEMENT[at0018] occurrences matches {0..1} matches {	-- Blodprøver vurdert?
 												value matches {
-													DV_BOOLEAN matches {
-														value matches {True}
-													}
+													DV_TEXT matches {*}
 												}
 											}
 											ELEMENT[at0019] occurrences matches {0..1} matches {	-- Beskrivelse blodprøver
@@ -73,13 +67,30 @@ definition
 											}
 										}
 									}
+									CLUSTER[at0013] occurrences matches {0..1} matches {	-- Vurdering rø. thorax
+										items cardinality matches {1; unordered} matches {
+											ELEMENT[at0014] occurrences matches {0..1} matches {	-- Rø. thorax vurdert?
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0015] occurrences matches {0..1} matches {	-- Beskrivelse rø. thorax
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0016] occurrences matches {0..1} matches {	-- Lenke til rø. thorax
+												value matches {
+													DV_URI matches {*}
+												}
+											}
+										}
+									}
 									CLUSTER[at0021] occurrences matches {0..1} matches {	-- Vurdering EKG
 										items cardinality matches {1; unordered} matches {
-											ELEMENT[at0028] occurrences matches {0..1} matches {	-- EKG vurdert?
+											ELEMENT[at0022] occurrences matches {0..1} matches {	-- EKG vurdert?
 												value matches {
-													DV_BOOLEAN matches {
-														value matches {True}
-													}
+													DV_TEXT matches {*}
 												}
 											}
 											ELEMENT[at0023] occurrences matches {0..1} matches {	-- Beskrivelse EKG
@@ -96,11 +107,9 @@ definition
 									}
 									CLUSTER[at0009] occurrences matches {0..1} matches {	-- Vurdering Ekko
 										items cardinality matches {1; unordered} matches {
-											ELEMENT[at0029] occurrences matches {0..1} matches {	-- Ekko vurdert?
+											ELEMENT[at0008] occurrences matches {0..1} matches {	-- Ekko vurdert?
 												value matches {
-													DV_BOOLEAN matches {
-														value matches {True}
-													}
+													DV_TEXT matches {*}
 												}
 											}
 											ELEMENT[at0010] occurrences matches {0..1} matches {	-- Beskrivelse Ekko
@@ -109,27 +118,6 @@ definition
 												}
 											}
 											ELEMENT[at0011] occurrences matches {0..1} matches {	-- Lenke til ekko
-												value matches {
-													DV_URI matches {*}
-												}
-											}
-										}
-									}
-									CLUSTER[at0013] occurrences matches {0..1} matches {	-- Vurdering rø. thorax
-										items cardinality matches {1; unordered} matches {
-											ELEMENT[at0030] occurrences matches {0..1} matches {	-- Rø. thorax vurdert?
-												value matches {
-													DV_BOOLEAN matches {
-														value matches {True}
-													}
-												}
-											}
-											ELEMENT[at0015] occurrences matches {0..1} matches {	-- Beskrivelse rø. thorax
-												value matches {
-													DV_TEXT matches {*}
-												}
-											}
-											ELEMENT[at0016] occurrences matches {0..1} matches {	-- Lenke til rø. thorax
 												value matches {
 													DV_URI matches {*}
 												}
@@ -154,7 +142,7 @@ ontology
 		["no"] = <
 			items = <
 				["at0000"] = <
-					text = <"Preoperativ evaluering anestesi">
+					text = <"Evaluering anestesi previsitt">
 					description = <"Anestesipersonellets evaluering av pasientens totale risiko i forkant av en kirugisk prosedyre.">
 				>
 				["at0001"] = <
@@ -177,6 +165,110 @@ ontology
 					text = <"Oppsummering">
 					description = <"En tekstlig oppsummering av anestesipersonellets evaluering av pasientens totale risiko i forkant av en kirurgisk prosedyre.">
 				>
+				["at0007"] = <
+					text = <"*Anestesitilsyn ferdigstilt(nb)">
+					description = <"*Er anestesitilsynet ferdigstilt?(nb)">
+				>
+				["at0008"] = <
+					text = <"*Ekko vurdert?(nb)">
+					description = <"*Er ekko undersøkelse vurdert?(nb)">
+				>
+				["at0009"] = <
+					text = <"*Vurdering Ekko(nb)">
+					description = <"*Dokumenterer relevante funn vedrørende vurdering av ekko hjerte.(nb)">
+				>
+				["at0010"] = <
+					text = <"*Beskrivelse Ekko(nb)">
+					description = <"*Beskrivelse og dokumentasjon av relevante funn ved ekko undersøkelse. (nb)">
+				>
+				["at0011"] = <
+					text = <"*Lenke til ekko(nb)">
+					description = <"*Lenke til ekko undersøkelse av hjertet og eller relevante funn eller vurderinger.(nb)">
+				>
+				["at0012"] = <
+					text = <"*Pasient tilsett(nb)">
+					description = <"*Er pasienten tilsett?(nb)">
+				>
+				["at0013"] = <
+					text = <"*Vurdering rø. thorax(nb)">
+					description = <"*Dokumenterer relevante funn vedrørende vurdering av rø. thorax.(nb)">
+				>
+				["at0014"] = <
+					text = <"*Rø. thorax vurdert?(nb)">
+					description = <"*Er rø thorax vurdert?(nb)">
+				>
+				["at0015"] = <
+					text = <"*Beskrivelse rø. thorax(nb)">
+					description = <"*Beskrivelse og dokumentasjon av relevante funn ved rø. thorax. (nb)">
+				>
+				["at0016"] = <
+					text = <"*Lenke til rø. thorax(nb)">
+					description = <"*Lenke til rø thorax og eller relevante funn.(nb)">
+				>
+				["at0017"] = <
+					text = <"*Vurdering blodprøver(nb)">
+					description = <"*Dokumenterer relevante funn vedrørende relevante blodprøver.(nb)">
+				>
+				["at0018"] = <
+					text = <"*Blodprøver vurdert?(nb)">
+					description = <"*Er blodprøver vurdert?(nb)">
+				>
+				["at0019"] = <
+					text = <"*Beskrivelse blodprøver(nb)">
+					description = <"*Beskrivelse og dokumentasjon av relevante funn ved blodprøver. (nb)">
+				>
+				["at0021"] = <
+					text = <"*Vurdering EKG(nb)">
+					description = <"*Dokumenterer relevante funn vedrørende EKG.(nb)">
+				>
+				["at0022"] = <
+					text = <"*EKG vurdert?(nb)">
+					description = <"*Er EKG vurdert?(nb)">
+				>
+				["at0023"] = <
+					text = <"*Beskrivelse EKG(nb)">
+					description = <"*Beskrivelse og dokumentasjon av relevante funn ved EKG. (nb)">
+				>
+				["at0024"] = <
+					text = <"*Lenke EKG(nb)">
+					description = <"*Lenke til EKG og eller relevante funn.(nb)">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Evaluering anestesi previsitt">
+					description = <"Anestesipersonellets evaluering av pasientens totale risiko i forkant av en kirugisk prosedyre.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Detaljer">
+					description = <"Detaljer vedrørende evaluering av pasientens totalrisiko f.eks. ASA tilstand.">
+				>
+				["at0006"] = <
+					text = <"Oppsummering">
+					description = <"En tekstlig oppsummering av anestesipersonellets evaluering av pasientens totale risiko i forkant av en kirurgisk prosedyre.">
+				>
+				["at0007"] = <
+					text = <"Anestesitilsyn ferdigstilt">
+					description = <"Er anestesitilsynet ferdigstilt?">
+				>
+				["at0008"] = <
+					text = <"Ekko vurdert?">
+					description = <"Er ekko undersøkelse vurdert?">
+				>
 				["at0009"] = <
 					text = <"Vurdering Ekko">
 					description = <"Dokumenterer relevante funn vedrørende vurdering av ekko hjerte.">
@@ -189,9 +281,17 @@ ontology
 					text = <"Lenke til ekko">
 					description = <"Lenke til ekko undersøkelse av hjertet og eller relevante funn eller vurderinger.">
 				>
+				["at0012"] = <
+					text = <"Pasient tilsett">
+					description = <"Er pasienten tilsett?">
+				>
 				["at0013"] = <
 					text = <"Vurdering rø. thorax">
 					description = <"Dokumenterer relevante funn vedrørende vurdering av rø. thorax.">
+				>
+				["at0014"] = <
+					text = <"Rø. thorax vurdert?">
+					description = <"Er rø thorax vurdert?">
 				>
 				["at0015"] = <
 					text = <"Beskrivelse rø. thorax">
@@ -205,6 +305,10 @@ ontology
 					text = <"Vurdering blodprøver">
 					description = <"Dokumenterer relevante funn vedrørende relevante blodprøver.">
 				>
+				["at0018"] = <
+					text = <"Blodprøver vurdert?">
+					description = <"Er blodprøver vurdert?">
+				>
 				["at0019"] = <
 					text = <"Beskrivelse blodprøver">
 					description = <"Beskrivelse og dokumentasjon av relevante funn ved blodprøver. ">
@@ -213,6 +317,10 @@ ontology
 					text = <"Vurdering EKG">
 					description = <"Dokumenterer relevante funn vedrørende EKG.">
 				>
+				["at0022"] = <
+					text = <"EKG vurdert?">
+					description = <"Er EKG vurdert?">
+				>
 				["at0023"] = <
 					text = <"Beskrivelse EKG">
 					description = <"Beskrivelse og dokumentasjon av relevante funn ved EKG. ">
@@ -220,30 +328,6 @@ ontology
 				["at0024"] = <
 					text = <"Lenke EKG">
 					description = <"Lenke til EKG og eller relevante funn.">
-				>
-				["at0025"] = <
-					text = <"Anestesivurdering ferdigstilt?">
-					description = <"Sant indikerer at anestesivurderingen er ferdigstilt.">
-				>
-				["at0026"] = <
-					text = <"Pasient fysisk tilsett?">
-					description = <"Sant indikerer at pasienten er fysisk tilsett, usant at vurderingen f.eks. baseres på journalopplysninger.">
-				>
-				["at0027"] = <
-					text = <"Blodprøver vurdert?">
-					description = <"Sant indikerer at blodprøver er vurdert.">
-				>
-				["at0028"] = <
-					text = <"EKG vurdert?">
-					description = <"Sant indikerer at EKG er vurdert.">
-				>
-				["at0029"] = <
-					text = <"Ekko vurdert?">
-					description = <"Sant indikerer at ekko er vurdert.">
-				>
-				["at0030"] = <
-					text = <"Rø. thorax vurdert?">
-					description = <"Sant indikerer at rø. thorax er vurdert.">
 				>
 			>
 		>
