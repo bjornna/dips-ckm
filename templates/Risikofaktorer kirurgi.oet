@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
-  <id>35ddbcd4-6f68-4595-8313-a6dcf52343f5</id>
-  <name>Spesielle behov kirurgi</name>
+  <id>3211814a-36a5-4f84-95a3-ad3176417b04</id>
+  <name>Risikofaktorer kirurgi</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
@@ -60,14 +60,23 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.special_requirements_surgery.v1" concept_name="Spesielle behov kirurgi">
-    <Rule path="/items[at0014]">
+  <definition xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.risk.v1" concept_name="Helserisiko" max="1" name="Risikofaktorer kirurgi">
+    <Rule path="/data[at0001]/items[at0002]" name="Sykdom i forbindelse med kirurgi/anestesi" />
+    <Rule path="/data[at0001]/items[at0016]" max="1" name="Relevante allergier" />
+    <Rule path="/data[at0001]/items[at0016 and name/value='Relevante allergier']/items[at0013]" max="1" min="1" name="Relevante allergier">
       <constraint xsi:type="textConstraint" limitToList="false">
-        <includedValues>Blodtomhet</includedValues>
-        <includedValues>Frysesnitt</includedValues>
-        <includedValues>Gjennomlysning</includedValues>
-        <includedValues>Mikroskop</includedValues>
+        <includedValues>Ingen</includedValues>
       </constraint>
+    </Rule>
+    <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Relevant medikasjon" />
+    <Rule path="/data[at0001]/items[at0016 and name/value='Relevant medikasjon']/items[at0013]" max="1" min="1" name="Relevant medikasjon">
+      <constraint xsi:type="textConstraint" limitToList="false">
+        <includedValues>Ingen</includedValues>
+      </constraint>
+    </Rule>
+    <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Relevant tobakksbruk" />
+    <Rule path="/data[at0001]/items[at0016 and name/value='Relevant tobakksbruk']/items[at0013]" max="1" name="Relevant tobakksbruk">
+      <constraint xsi:type="textConstraint" limitToList="false" />
     </Rule>
   </definition>
 </template>

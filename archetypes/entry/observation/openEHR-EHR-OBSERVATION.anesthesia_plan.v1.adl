@@ -1,0 +1,146 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.anesthesia_plan.v1
+
+concept
+	[at0000]	-- Anesthesia plan
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["organisation"] = <"Dips ASA">
+		["email"] = <"ahe@dips.no">
+		["date"] = <"2015-05-07">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Å dokumentere planen som legges i forberedelsesfasen for anestesi i forbindelse med en planalgt anestesi eller prosedyre som krever anestesi.">
+			use = <"Brukes for å dokuementere planen som legges for anestesi i forberedelsesfasen til en planlagt anestesi.">
+			keywords = <"anestesi", "plan", "anestesivurdering", "anestesitilsyn">
+			misuse = <"Brukes ikke for å dokumentere den anestesien som er gitt under prosedyren.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"5F979045DFD35EE7FF9E09611EB227FA">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Anesthesia plan
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Aspirasjonsrisiko
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True}
+											}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Forventet vanskelig intubasjon
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True}
+											}
+										}
+									}
+									allow_archetype CLUSTER[at0006] occurrences matches {0..*} matches {	-- Planlagt anestesi
+										include
+											archetype_id/value matches {/.*/}
+									}
+									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Kommentar
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"Anesthesia plan">
+					description = <"Plan for anestesi i forbindelse med en planlagt anestesi.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Aspirasjonsrisiko">
+					description = <"Sant indikerer økt aspirasjonsrisiko.">
+				>
+				["at0005"] = <
+					text = <"Forventet vanskelig intubasjon">
+					description = <"Sant indikerer at en forventer vanskelig intubasjon.">
+				>
+				["at0006"] = <
+					text = <"Planlagt anestesi">
+					description = <"Dokumentasjon vedrørende planlagt anestesi legges inn her i spesifikke clustere.">
+				>
+				["at0007"] = <
+					text = <"Kommentar">
+					description = <"En narrativ beskrivelse av forhold rundt anestesiplanen. ">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Anesthesia plan">
+					description = <"Plan for anestesi i forbindelse med en planlagt anestesi.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Aspirasjonsrisiko">
+					description = <"Sant indikerer økt aspirasjonsrisiko.">
+				>
+				["at0005"] = <
+					text = <"Forventet vanskelig intubasjon">
+					description = <"Sant indikerer at en forventer vanskelig intubasjon.">
+				>
+				["at0006"] = <
+					text = <"Planlagt anestesi">
+					description = <"Dokumentasjon vedrørende planlagt anestesi legges inn her i spesifikke clustere.">
+				>
+				["at0007"] = <
+					text = <"Kommentar">
+					description = <"En narrativ beskrivelse av forhold rundt anestesiplanen. ">
+				>
+			>
+		>
+	>

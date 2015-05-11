@@ -62,56 +62,18 @@
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Anestesivurdering">
     <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Adhoc heading" max="1" path="/content" name="Preoperativ evaluering">
-      <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.anesthesia.v1" concept_name="Anesthesia" path="/items">
-        <Rule path="/description[at0001]/items[at0030]">
-          <constraint xsi:type="textConstraint">
-            <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="ANE-HOVEDTYPE " />
-          </constraint>
-        </Rule>
-        <Rule path="/description[at0001]/items[at0031]">
-          <constraint xsi:type="textConstraint">
-            <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="ANE-LUFTVEISTILGANG" />
-          </constraint>
-        </Rule>
-        <Rule path="/description[at0001]/items[at0033]">
-          <constraint xsi:type="textConstraint">
-            <includedValues>Arteriekanyle</includedValues>
-            <includedValues>CVK</includedValues>
-            <includedValues>CVK + CVP</includedValues>
-            <includedValues>TOF</includedValues>
-            <includedValues>BIS</includedValues>
-            <includedValues>PA-kateter</includedValues>
-            <includedValues>Ekko</includedValues>
-          </constraint>
-        </Rule>
-        <Rule path="/description[at0001]/items[at0036]/items[at0037]">
-          <constraint xsi:type="textConstraint">
-            <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="UDS-PAS OVERFØRT PO TIL OPR" />
-          </constraint>
-        </Rule>
-        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA fysisk status klassifikasjon" path="/description[at0001]/items[at0040]" />
-        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.preoperative_clarifications_anesthesia.v1" concept_name="Avklaringer før operasjon anestesi" path="/description[at0001]/items[at0040]" />
-      </Item>
-      <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.medication.v1" concept_name="Legemiddelhandling" max="1" path="/items" name="Premedikasjon">
-        <Rule path="/description[at0017]/items[at0020]">
-          <constraint xsi:type="textConstraint" limitToList="false">
-            <includedValues>Ondansetron 4 mg iv</includedValues>
-            <includedValues>Dexamethason (Fortecortin) 4mg - 8 mg iv</includedValues>
-          </constraint>
-        </Rule>
-      </Item>
-      <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.medication.v1" concept_name="Legemiddelhandling" max="1" path="/items" name="Postoperativ smertelindring">
-        <Rule path="/description[at0017]/items[at0020]">
-          <constraint xsi:type="textConstraint" limitToList="false">
-            <includedValues>Paracetamol 1g (po/iv) x4</includedValues>
-            <includedValues>Paracetamol 1,5g po x 4</includedValues>
-            <includedValues>Diclofenac 50 mg po x 3</includedValues>
-            <includedValues>Diclofenac 50 mg po x2</includedValues>
-            <includedValues>Morfin 4-6mg iv v/b</includedValues>
-            <includedValues>Morfin 3-4mg iv v/b</includedValues>
-            <includedValues>Ketorolac 30 mg iv x 1-3</includedValues>
-          </constraint>
-        </Rule>
+      <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.preoperative_evaluation_anesthesia.v1" concept_name="Preoperativ evaluering anestesi" path="/items">
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA fysisk status klassifikasjon" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+          <Rule path="/items[at0001]">
+            <constraint xsi:type="textConstraint">
+              <excludedValues>local::at0009</excludedValues>
+              <excludedValues>local::at0010</excludedValues>
+              <excludedValues>local::at0011</excludedValues>
+              <excludedValues>local::at0012</excludedValues>
+              <excludedValues>local::at0013</excludedValues>
+            </constraint>
+          </Rule>
+        </Items>
       </Item>
     </Content>
     <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Adhoc heading" max="1" path="/content" name="Pasient">
@@ -122,47 +84,83 @@
       <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_mass_index.v1" concept_name="Kroppsmasseindeks" path="/items" />
     </Content>
     <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Adhoc heading" max="1" path="/content" name="Risikovurdering pasient">
-      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.risk.v1" concept_name="Helserisiko" max="1" path="/items" name="Hjerte">
-        <Rule path="/data[at0001]/items[at0002]" name="Hjertesykdom i forbindelse med kirurgi og eller anestesi">
+      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.risk.v1" concept_name="Helserisiko" max="1" path="/items" name="Risikofaktorer kirurgi">
+        <Rule path="/data[at0001]/items[at0002]" name="Sykdom i forbindelse med kirurgi/anestesi" />
+        <Rule path="/data[at0001]/items[at0016]" max="1" name="Relevante allergier" />
+        <Rule path="/data[at0001]/items[at0016 and name/value='Relevante allergier']/items[at0013]" max="1" min="1" name="Relevante allergier">
           <constraint xsi:type="textConstraint">
-            <includedValues>Cor</includedValues>
+            <includedValues>Ingen</includedValues>
           </constraint>
         </Rule>
-        <Rule path="/data[at0001]/items[at0016]" max="1" name="Hjertesvikt" />
-        <Rule path="/data[at0001]/items[at0016 and name/value='Hjertesvikt']/items[at0013]" max="1" name="Hjertesvikt" />
-        <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Koronarsykdom" />
-        <Rule path="/data[at0001]/items[at0016 and name/value='Koronarsykdom']/items[at0013]" max="1" name="Koronarsykdom" />
-        <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Angina" />
-        <Rule path="/data[at0001]/items[at0016 and name/value='Angina']/items[at0013]" max="1" name="Angina" />
-        <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Arytmi" />
-        <Rule path="/data[at0001]/items[at0016 and name/value='Arytmi']/items[at0013]" max="1" name="Arytmi" />
-        <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Klaffefeil" />
-        <Rule path="/data[at0001]/items[at0016 and name/value='Klaffefeil']/items[at0013]" max="1" name="Klaffefeil" />
-        <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Hypertensjon" />
-        <Rule path="/data[at0001]/items[at0016 and name/value='Hypertensjon']/items[at0013]" max="1" name="Hypertensjon" />
-        <Rule path="/data[at0001]/items[at0004]" name="Relevante sykdommer">
-          <constraint xsi:type="textConstraint">
-            <includedValues>Ja</includedValues>
-            <includedValues>Nei</includedValues>
+        <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Relevant medikasjon" />
+        <Rule path="/data[at0001]/items[at0016 and name/value='Relevant medikasjon']/items[at0013]" max="1" min="1" name="Relevant medikasjon">
+          <constraint xsi:type="textConstraint" limitToList="false">
+            <includedValues>Ingen</includedValues>
           </constraint>
         </Rule>
-        <Rule path="/data[at0001]/items[at0015]">
+        <Rule path="/data[at0001]/items[at0004]" name="Relevante risikofaktorer">
           <constraint xsi:type="textConstraint">
             <includedValues>Ja</includedValues>
             <includedValues>Nei</includedValues>
           </constraint>
         </Rule>
       </Item>
-      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.risk.v1" concept_name="Helserisiko" max="1" path="/items" name="Lunge">
-        <Rule path="/data[at0001]/items[at0002]" name="Lungesykdom i forbindelse med kirurgi og eller anestesi">
+      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.risk.v1" concept_name="Helserisiko" max="1" path="/items" name="Sirkulasjon">
+        <Rule path="/data[at0001]/items[at0002]" name="Sykdom i sirkulasjonssystemet" />
+        <Rule path="/data[at0001]/items[at0016]" max="1" name="Hjertesvikt" />
+        <Rule path="/data[at0001]/items[at0016 and name/value='Hjertesvikt']/items[at0013]" max="1" name="Hjertesvikt">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Hjertesvikt</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Koronarsykdom" />
+        <Rule path="/data[at0001]/items[at0016 and name/value='Koronarsykdom']/items[at0013]" max="1" name="Koronarsykdom">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Koronarsykdom</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Hypertensjon" />
+        <Rule path="/data[at0001]/items[at0016 and name/value='Hypertensjon']/items[at0013]" max="1" name="Hypertensjon">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Hypertensjon</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Arytmi" />
+        <Rule path="/data[at0001]/items[at0016 and name/value='Arytmi']/items[at0013]" max="1" name="Arytmi">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Arytmi</includedValues>
+          </constraint>
+        </Rule>
+      </Item>
+      <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.nyha_heart_failure_score.v1" concept_name="NYHA Hjerte svikt klassifikasjon" max="1" path="/items" name="NYHA Hjertesvikt klassifikasjon">
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]" name="Hjertesvikt klassifikasjon" />
+      </Item>
+      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.risk.v1" concept_name="Helserisiko" max="1" path="/items" name="Respirasjon">
+        <Rule path="/data[at0001]/items[at0002]" name="Sykdom i respirasjonssystemet">
           <constraint xsi:type="textConstraint">
             <includedValues>Pulm</includedValues>
           </constraint>
         </Rule>
         <Rule path="/data[at0001]/items[at0016]" max="1" name="KOLS" />
-        <Rule path="/data[at0001]/items[at0016 and name/value='KOLS']/items[at0013]" max="1" name="KOLS" />
+        <Rule path="/data[at0001]/items[at0016 and name/value='KOLS']/items[at0013]" max="1" name="KOLS">
+          <constraint xsi:type="textConstraint">
+            <includedValues>KOLS</includedValues>
+          </constraint>
+        </Rule>
         <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Astma" />
-        <Rule path="/data[at0001]/items[at0016 and name/value='Astma']/items[at0013]" max="1" name="Astma" />
+        <Rule path="/data[at0001]/items[at0016 and name/value='Astma']/items[at0013]" max="1" name="Astma">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Astma</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Restriktiv lungesykdom" />
+        <Rule path="/data[at0001]/items[at0016 and name/value='Restriktiv lungesykdom']/items[at0013]" max="1" default="Restriktiv lungesykdom" name="Restriktiv lungesykdom" />
+        <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Søvnapne" />
+        <Rule path="/data[at0001]/items[at0016 and name/value='Søvnapne']/items[at0013]" max="1" name="Søvnapne">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Søvnapne</includedValues>
+          </constraint>
+        </Rule>
         <Rule path="/data[at0001]/items[at0004]" name="Relevante sykdommer">
           <constraint xsi:type="textConstraint">
             <includedValues>Ja</includedValues>
@@ -170,24 +168,56 @@
           </constraint>
         </Rule>
       </Item>
-      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.risk.v1" concept_name="Helserisiko" max="1" path="/items" name="Andre relevante sykdommer">
-        <Rule path="/data[at0001]/items[at0002]" name="Sykdom i forbindelse med kirurgi og eller anestesi" />
+      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.risk.v1" concept_name="Helserisiko" max="1" path="/items" name="Andre sykdommer">
+        <Rule path="/data[at0001]/items[at0002]" name="Andre sykdommer" />
         <Rule path="/data[at0001]/items[at0016]" max="1" name="CNS/nevrologi" />
-        <Rule path="/data[at0001]/items[at0016 and name/value='CNS/nevrologi']/items[at0013]" max="1" name="CNS/nevrologi" />
+        <Rule path="/data[at0001]/items[at0016 and name/value='CNS/nevrologi']/items[at0013]" max="1" name="CNS/nevrologi">
+          <constraint xsi:type="textConstraint">
+            <includedValues>CNS/nevrologi</includedValues>
+          </constraint>
+        </Rule>
         <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Diabetes" />
-        <Rule path="/data[at0001]/items[at0016 and name/value='Diabetes']/items[at0013]" max="1" name="Diabetes" />
-        <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="GI-trakt/lever" />
-        <Rule path="/data[at0001]/items[at0016 and name/value='GI-trakt/lever']/items[at0013]" max="1" name="GI-trakt/lever" />
-        <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Nyre" />
-        <Rule path="/data[at0001]/items[at0016 and name/value='Nyre']/items[at0013]" max="1" name="Nyre" />
-        <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Hematologi" />
-        <Rule path="/data[at0001]/items[at0016 and name/value='Hematologi']/items[at0013]" max="1" name="Hematologi" />
+        <Rule path="/data[at0001]/items[at0016 and name/value='Diabetes']/items[at0013]" max="1" name="Diabetes">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Diabetes</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="GI-tractus/lever" />
+        <Rule path="/data[at0001]/items[at0016 and name/value='GI-tractus/lever']/items[at0013]" max="1" name="GI-trakt/lever">
+          <constraint xsi:type="textConstraint">
+            <includedValues>GI-trakt/lever</includedValues>
+          </constraint>
+        </Rule>
         <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Ernæringstilstand" />
-        <Rule path="/data[at0001]/items[at0016 and name/value='Ernæringstilstand']/items[at0013]" max="1" name="Ernæringstilstand" />
+        <Rule path="/data[at0001]/items[at0016 and name/value='Ernæringstilstand']/items[at0013]" max="1" name="Ernæringstilstand">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Ernæringstilstand</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Nyre/urinveier" />
+        <Rule path="/data[at0001]/items[at0016 and name/value='Nyre/urinveier']/items[at0013]" max="1" name="Nyre/urinveier">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Nyre/urinveier</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Hematologi" />
+        <Rule path="/data[at0001]/items[at0016 and name/value='Hematologi']/items[at0013]" max="1" name="Hematologi">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Hematologi</includedValues>
+          </constraint>
+        </Rule>
         <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Malign sykdom" />
-        <Rule path="/data[at0001]/items[at0016 and name/value='Malign sykdom']/items[at0013]" max="1" name="Malign sykdom" />
-        <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Mental tilstand" />
-        <Rule path="/data[at0001]/items[at0016 and name/value='Mental tilstand']/items[at0013]" max="1" name="Mental tilstand" />
+        <Rule path="/data[at0001]/items[at0016 and name/value='Malign sykdom']/items[at0013]" max="1" name="Malign sykdom">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Malign sykdom</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Psyke" />
+        <Rule path="/data[at0001]/items[at0016 and name/value='Psyke']/items[at0013]" max="1" name="Psyke">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Psyke</includedValues>
+          </constraint>
+        </Rule>
         <Rule path="/data[at0001]/items[at0004]" name="Relevante sykdommer">
           <constraint xsi:type="textConstraint">
             <includedValues>Ja</includedValues>
@@ -195,40 +225,101 @@
           </constraint>
         </Rule>
       </Item>
-      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.risk.v1" template_id="28651016-fb7e-4a95-91e5-81a375206717" concept_name="Risikofaktorer kirurgi" max="1" path="/items" name="Risikofaktorer kirurgi" />
-      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.risk.v1" concept_name="Helserisiko" max="1" path="/items" name="Anestesispesifikke risikofaktorer">
-        <Rule path="/data[at0001]/items[at0002]" name="Komplikasjoner i forbindelse med anestesi" />
-        <Rule path="/data[at0001]/items[at0016]" max="1" name="Nedsatt nakkeekstensjon" />
-        <Rule path="/data[at0001]/items[at0016 and name/value='Nedsatt nakkeekstensjon']/items[at0013]" max="1" name="Nedsatt nakkeekstensjon" />
-        <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Tannstatus" />
-        <Rule path="/data[at0001]/items[at0016 and name/value='Tannstatus']/items[at0013]" max="1" name="Tannstatus">
-          <constraint xsi:type="textConstraint" limitToList="false">
-            <includedValues>God</includedValues>
-            <includedValues>Dårlig</includedValues>
-            <includedValues>Protese oppe</includedValues>
-            <includedValues>Protese nede</includedValues>
-          </constraint>
-        </Rule>
-        <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Nedsatt gapeevne" />
-        <Rule path="/data[at0001]/items[at0016 and name/value='Nedsatt gapeevne']/items[at0013]" max="1" name="Nedsatt gapeevne" />
-        <Rule path="/data[at0001]/items[at0016 and name/value='Nedsatt gapeevne']/items[at0017]">
+      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.risk.v1" concept_name="Helserisiko" max="1" path="/items" name="Annet">
+        <Rule path="/data[at0001]/items[at0002]" name="Sykdommer/komplikasjoner i forbindelse med anestesi" />
+        <Rule path="/data[at0001]/items[at0016]" max="1" name="PONV/bilsyke" />
+        <Rule path="/data[at0001]/items[at0016 and name/value='PONV/bilsyke']/items[at0013]" max="1" name="PONV/bilsyke">
           <constraint xsi:type="textConstraint">
-            <excludedValues>local::at0019</excludedValues>
+            <includedValues>PONV/bilsyke</includedValues>
           </constraint>
         </Rule>
-        <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Mallampati" />
-        <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Forventet vanskelig intubasjon" />
-        <Rule path="/data[at0001]/items[at0016 and name/value='Forventet vanskelig intubasjon']/items[at0013]" max="1" name="Forventet vanskelig intubasjon" />
-        <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Aspirasjonsrisiko" />
-        <Rule path="/data[at0001]/items[at0016 and name/value='Aspirasjonsrisiko']/items[at0013]" max="1" name="Aspirasjonsrisiko" />
-        <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="PONV/bilsyke" />
-        <Rule path="/data[at0001]/items[at0016 and name/value='PONV/bilsyke']/items[at0013]" max="1" name="PONV/bilsyke" />
         <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Tidligere anestesi" />
-        <Rule path="/data[at0001]/items[at0016 and name/value='Tidligere anestesi']/items[at0013]" max="1" name="Tidligere anestesi" />
+        <Rule path="/data[at0001]/items[at0016 and name/value='Tidligere anestesi']/items[at0013]" max="1" name="Tidligere anestesi">
+          <constraint xsi:type="textConstraint" limitToList="false">
+            <includedValues>Tidligere anestesi</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Røyking" />
+        <Rule path="/data[at0001]/items[at0016 and name/value='Røyking']/items[at0013]" max="1" name="Røyking">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Røyking</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0001]/items[at0016]" max="1" clone="true" name="Stimulantia" />
+        <Rule path="/data[at0001]/items[at0016 and name/value='Stimulantia']/items[at0013]" max="1" name="Stimulantia">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Stimulantia</includedValues>
+          </constraint>
+        </Rule>
         <Rule path="/data[at0001]/items[at0004]" name="Relevante risikofaktorer">
           <constraint xsi:type="textConstraint">
             <includedValues>Ja</includedValues>
             <includedValues>Nei</includedValues>
+          </constraint>
+        </Rule>
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Adhoc heading" max="1" path="/content" name="Plan">
+      <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.anesthesia_plan.v1" concept_name="Anesthesia plan" path="/items">
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.planned_anesthesia.v1" concept_name="Planlagt anestesi" path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]">
+          <Rule path="/items[at0001]">
+            <constraint xsi:type="textConstraint">
+              <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="ANE-HOVEDTYPE" />
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0002]">
+            <constraint xsi:type="textConstraint">
+              <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="ANE-LUFTVEISTILGANG" />
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0003]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>Arteriekanyle</includedValues>
+              <includedValues>CVK</includedValues>
+              <includedValues>CVK + CVP</includedValues>
+              <includedValues>TOF</includedValues>
+              <includedValues>BIS</includedValues>
+              <includedValues>PA-kateter</includedValues>
+              <includedValues>Ekko</includedValues>
+            </constraint>
+          </Rule>
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.important_information.v1" concept_name="Viktig informasjon" path="/items[at0007]" />
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.follow_up.v1" concept_name="Oppfølging" path="/items[at0007]" />
+        </Items>
+      </Item>
+      <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.mallampati_classification.v1" concept_name="Mallampati klassifikasjon" path="/items" />
+      <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.medication.v1" concept_name="Medication action" max="1" path="/items" name="Premedikasjon">
+        <Rule path="/description[at0017]/items[at0020]">
+          <constraint xsi:type="textConstraint" limitToList="false">
+            <includedValues>Ondansetron</includedValues>
+            <includedValues>Dexamethason (Fortecortin)</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/description[at0017]/items[at0033]">
+          <constraint xsi:type="textConstraint" limitToList="false">
+            <includedValues>Ondansetron 4 mg iv</includedValues>
+            <includedValues>Dexamethason (Fortecortin) 4mg - 8 mg iv</includedValues>
+          </constraint>
+        </Rule>
+      </Item>
+      <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.medication.v1" concept_name="Medication action" max="1" path="/items" name="Postoperativ smertelindring">
+        <Rule path="/description[at0017]/items[at0020]">
+          <constraint xsi:type="textConstraint" limitToList="false">
+            <includedValues>Paracetamol</includedValues>
+            <includedValues>Diclofenac</includedValues>
+            <includedValues>Morfin</includedValues>
+            <includedValues>Ketorolac</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/description[at0017]/items[at0033]">
+          <constraint xsi:type="textConstraint" limitToList="false">
+            <includedValues>Paracetamol 1g (po/iv) x4</includedValues>
+            <includedValues>Paracetamol 1,5g po x 4</includedValues>
+            <includedValues>Diclofenac 50 mg po x 3</includedValues>
+            <includedValues>Diclofenac 50 mg po x2</includedValues>
+            <includedValues>Morfin 4-6mg iv v/b</includedValues>
+            <includedValues>Morfin 3-4mg iv v/b</includedValues>
+            <includedValues>Ketorolac 30 mg iv x 1-3</includedValues>
           </constraint>
         </Rule>
       </Item>

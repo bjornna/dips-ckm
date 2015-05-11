@@ -3,6 +3,7 @@ Annotations AQL paths for surgery forms
 
 #ane: openEHR-EHR-CLUSTER.anesthesia_requested.v1?scope=folder
 #ane:/items[at0001]/value				// Ønsket anestesi
+#ane:/items[at0002]/value				// Kommentar
 
 #diag: openEHR-EHR-EVALUATION.problem_diagnosis.v1?scope=folder
 #diag:/data[at0001]/items[at0002]/value	// Diagnose
@@ -34,11 +35,14 @@ Annotations AQL paths for surgery forms
 #bp:/data[at0001]/events[at0006]/data[at0003]/items[at0004]/value		// Systolsk
 #bp:/data[at0001]/events[at0006]/data[at0003]/items[at0005]/value		// Diastolsk
 
-#surg_dtl: openEHR-EHR-OBSERVATION.surgery_details.v1
+#surg_dtl: openEHR-EHR-OBSERVATION.surgery_details.v1?scope=folder
 #surg_dtl:/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value					// Renhetsgrad
 #surg_dtl:/data[at0001]/events[at0002]/data[at0003]/items[at0005]/value					// Operasjonsleie
 #surg_dtl:/data[at0001]/events[at0002]/data[at0003]/items[at0012]/items[at0006]/value	// Avdekning/incisjon
 #surg_dtl:/data[at0001]/events[at0002]/data[at0003]/items[at0012]/items[at0007]/value	// Side
+
+#importantinfo: openEHR-EHR-CLUSTER.important_information.v1?scope=folder
+#importantinfo:/items[at0001]/value				// Viktig informasjon
 
 #imp_info_proc: openEHR-EHR-CLUSTER.important_information_procedure.v1?scope=folder
 #imp_info_proc:/items[at0001]/value				// Viktig informasjon fra kirurg
@@ -96,10 +100,14 @@ Annotations AQL paths for surgery forms
 #ane_preop_eval:/data[at0001]/events[at0002]/data[at0003]/items[at0005]/value	// Kan opereres
 #ane_preop_eval:/data[at0001]/events[at0002]/data[at0003]/items[at0006]/value	// Oppsummering
 
-#allergier: select c/uid/value as cid, e from composition c contains evaluation e[openEHR-EHR-EVALUATION.risk.v1] where e/name/value='Allergier'order by c/context/start_time/value desc fetch 1?scope=folder
+#allergier: select c/uid/value as cid, e from composition c contains evaluation e[openEHR-EHR-EVALUATION.risk.v1] where e/name/value='Relevante allergier' order by c/context/start_time/value desc fetch 1?scope=folder
 #allergier:/data[at0001]/items[at0016]/items[at0013]/value		// Stoff, Risikofaktor, Allergen
 #allergier:/data[at0001]/items[at0016]/items[at0017]/value		// Tilstedeværelse
 #allergier:/data[at0001]/items[at0016]/items[at0014]/value		// Beskrivelse
+
+#medikasjon: select c/uid/value as cid, e from composition c contains evaluation e[openEHR-EHR-EVALUATION.risk.v1] where e/name/value='Relevant medikasjon' order by c/context/start_time/value desc fetch 1?scope=folder
+#medikasjon:/data[at0001]/items[at0016]/items[at0017]/value		// Tilstedeværelse
+#medikasjon:/data[at0001]/items[at0016]/items[at0014]/value		// Beskrivelse
 
 #hjerte: select c/uid/value as cid, e from composition c contains evaluation e[openEHR-EHR-EVALUATION.risk.v1] where e/name/value='Hjerte' order by c/context/start_time/value desc fetch 1?scope=folder
 #hjerte:/data[at0001]/items[at0016 and name/value='Hjertesvikt']/items[at0013 and name/value='Hjertesvikt']/value		// Hjertesvikt
@@ -167,3 +175,6 @@ Annotations AQL paths for surgery forms
 #risk-surg:/data[at0001]/items[at0016 and name/value='Livsstil']/items[at0.23]/items[at0013.1]/value				// Livsstil tilstand
 #risk-surg:/data[at0001]/items[at0016 and name/value='Livsstil']/items[at0.23]/items[at0017]/value					// Livsstil tilstedeværelse
 #risk-surg:/data[at0001]/items[at0016 and name/value='Livsstil']/items[at0.23]/items[at0014]/value					// Livsstil beskrivelse
+
+#nyha: openEHR-EHR-OBSERVATION.nyha_heart_failure_score.v1?scope=folder
+#nyha:/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value		// Hjertesvikt klassifikasjon
