@@ -2,7 +2,7 @@
 	openEHR-EHR-COMPOSITION.medication.v1
 
 concept
-	[at0000]	-- Medikamentbestilling dips
+	[at0000]	-- Medikament dips
 language
 	original_language = <[ISO_639-1::en]>
 	translations = <
@@ -29,6 +29,12 @@ language
 			>
 			accreditation = <"MD, DEAA, MBA, spec in anesthesia, spec in tropical medicine.">
 		>
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			author = <
+				["name"] = <"">
+			>
+		>
 		["ko"] = <
 			language = <[ISO_639-1::ko]>
 			author = <
@@ -46,19 +52,28 @@ description
 		["email"] = <"hho@dips.no">
 	>
 	details = <
-		["ko"] = <
-			language = <[ISO_639-1::ko]>
-			purpose = <"외래기록, 경과기록, 간호기록과 일반적인 노트 등과 같은 환자를 대면한 후 작성하는 기록">
-			use = <"">
-			keywords = <"*경과(ko)", "*노트(ko)", "*외래(ko)">
-			misuse = <"">
-			copyright = <"© Nasjonal IKT HF">
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"For å registrere detaljer om en enkelt medikasjonsbestilling">
+			use = <"Brukes som en generisk container på dokument-nivå for å registrere detaljer om en medikamentbestilling. 
+">
+			keywords = <"*encounter(en)", "*contact(en)", "*visit(en)", "*care event(en)">
+			misuse = <"Brukes ikke til å inneholde persistent, oppsummert informasjon om individet, som f.eks medikamentliste">
+			copyright = <"*© Nasjonal IKT HF(en)">
 		>
 		["es-ar"] = <
 			language = <[ISO_639-1::es-ar]>
 			purpose = <"Registrar una consulta como una nota de evolucion">
 			use = <"">
 			keywords = <"Evolucion", "Notas", "Encuentro", "Consulta">
+			misuse = <"">
+			copyright = <"© Nasjonal IKT HF">
+		>
+		["ko"] = <
+			language = <[ISO_639-1::ko]>
+			purpose = <"외래기록, 경과기록, 간호기록과 일반적인 노트 등과 같은 환자를 대면한 후 작성하는 기록">
+			use = <"">
+			keywords = <"*경과(ko)", "*노트(ko)", "*외래(ko)">
 			misuse = <"">
 			copyright = <"© Nasjonal IKT HF">
 		>
@@ -109,11 +124,11 @@ Not to be used to represent the FHIR resource of the same name - there is a mism
 	other_contributors = <>
 	other_details = <
 		["current_contact"] = <", , ">
-		["MD5-CAM-1.0.1"] = <"14314F1C7DD0761523966C59D8701E92">
+		["MD5-CAM-1.0.1"] = <"0FB53884ECFFD78057258122C48B04BD">
 	>
 
 definition
-	COMPOSITION[at0000] matches {	-- Medikamentbestilling dips
+	COMPOSITION[at0000] matches {	-- Medikament dips
 		category matches {
 			DV_CODED_TEXT matches {
 				defining_code matches {[openehr::433]}
@@ -124,7 +139,7 @@ definition
 				other_context matches {
 					ITEM_TREE[at0001] matches {	-- Tree
 						items cardinality matches {0..*; unordered} matches {
-							allow_archetype CLUSTER[at0002] occurrences matches {0..*} matches {	-- Utvidelse medikasjon
+							allow_archetype CLUSTER[at0002] occurrences matches {0..*} matches {	-- Medikasjon
 								include
 									archetype_id/value matches {/.*/}
 							}
@@ -137,24 +152,24 @@ definition
 
 ontology
 	term_definitions = <
-		["ar-sy"] = <
+		["no"] = <
 			items = <
 				["at0000"] = <
-					text = <"*Encounter(en)">
-					description = <"*Interaction, contact or care event between a subject of care and healthcare provider(s).(en)">
+					text = <"Medikasjonsbestilling dips">
+					description = <"*">
 				>
 				["at0001"] = <
 					text = <"*Tree(en)">
 					description = <"*@ internal @(en)">
 				>
 				["at0002"] = <
-					comment = <"*e.g. Local hospital departmental infomation or additional metadata to align with FHIR or CIMI equivalents.(en)">
-					text = <"*Extension(en)">
 					description = <"*Additional information required to capture local context or to align with other reference models/formalisms.(en)">
+					text = <"Medikasjon">
+					comment = <"*e.g. Local hospital departmental infomation or additional metadata to align with FHIR or CIMI equivalents.(en)">
 				>
 			>
 		>
-		["es-ar"] = <
+		["ko"] = <
 			items = <
 				["at0000"] = <
 					text = <"*Encounter(en)">
@@ -188,7 +203,7 @@ ontology
 				>
 			>
 		>
-		["ko"] = <
+		["ar-sy"] = <
 			items = <
 				["at0000"] = <
 					text = <"*Encounter(en)">
@@ -208,7 +223,7 @@ ontology
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"Medikamentbestilling dips">
+					text = <"Medikament dips">
 					description = <"*">
 				>
 				["at0001"] = <
@@ -216,9 +231,26 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0002"] = <
-					comment = <"F.eks. lokal avdelingsinformasjon eller ytterligere metadata for tilpasning til FHIR eller CIMI.">
-					text = <"Utvidelse medikasjon">
 					description = <"Tilleggsinformasjon som kan være nødvendig for å dokumentere lokal kontekst, eller for å tilpasse til andre referansemodeller/formalismer.">
+					text = <"Medikasjon">
+					comment = <"F.eks. lokal avdelingsinformasjon eller ytterligere metadata for tilpasning til FHIR eller CIMI.">
+				>
+			>
+		>
+		["es-ar"] = <
+			items = <
+				["at0000"] = <
+					text = <"*Encounter(en)">
+					description = <"*Interaction, contact or care event between a subject of care and healthcare provider(s).(en)">
+				>
+				["at0001"] = <
+					text = <"*Tree(en)">
+					description = <"*@ internal @(en)">
+				>
+				["at0002"] = <
+					comment = <"*e.g. Local hospital departmental infomation or additional metadata to align with FHIR or CIMI equivalents.(en)">
+					text = <"*Extension(en)">
+					description = <"*Additional information required to capture local context or to align with other reference models/formalisms.(en)">
 				>
 			>
 		>

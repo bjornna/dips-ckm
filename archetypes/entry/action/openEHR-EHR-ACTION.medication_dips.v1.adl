@@ -2,14 +2,14 @@
 	openEHR-EHR-ACTION.medication_dips.v1
 
 concept
-	[at0000]	-- Legemiddelhandling dips
+	[at0000]	-- Medikamenthandling
 language
 	original_language = <[ISO_639-1::en]>
 	translations = <
-		["ar-sy"] = <
-			language = <[ISO_639-1::ar-sy]>
+		["no"] = <
+			language = <[ISO_639-1::no]>
 			author = <
-				["name"] = <"Mona Saleh">
+				["name"] = <"">
 			>
 		>
 		["sl"] = <
@@ -24,6 +24,12 @@ language
 			language = <[ISO_639-1::es-ar]>
 			author = <
 				["name"] = <"Guillermo Palli">
+			>
+		>
+		["ar-sy"] = <
+			language = <[ISO_639-1::ar-sy]>
+			author = <
+				["name"] = <"Mona Saleh">
 			>
 		>
 		["ru"] = <
@@ -51,6 +57,16 @@ description
 		["date"] = <"2010-11-09">
 	>
 	details = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"For registrering av aktiviteter i forbindelse med medisinering, vaksinasjon eller andre terapeutiske tiltak, med lenke til en INSTRUCTION-arketype dersom hensiktsmessig.">
+			use = <"For registrering av planlagt, utstedelse av resept, utdeling, administrering, seponering, utsettelse og ferdigstilling av medisineringen, vaksinasjon eller terapeutisk forbruksmateriell. Dette vil vanligvis være i forbindelse med en legemiddelordinasjon, men kan eventuelt gis umiddelbart uten ordinasjon, hvilket krever en registrering av administrasjonen alene (f.eks i en akutt situasjon).
+
+En slik registrering kan gjøres som en indikasjon på administrering av en dose, utdeling av en viss mengde eller som dokuentasjon av seponering. Status til INSTRUCTION-arketypen endres av ACTION-arketypen som indikert i Pathway-definisjonen.">
+			keywords = <"medisinering", "forskrivning", "administrering", "seponering", "medisin", "medikament", "legemiddel", "terapeutisk forbruksmateriell">
+			misuse = <"Brukes ikke ved registrering av en instruksjon eller en ordinasjon (bruk INSTRUCTION.medication).Med">
+			copyright = <"© Nasjonal IKT HF(en)">
+		>
 		["sl"] = <
 			language = <[ISO_639-1::sl]>
 			purpose = <"*The recording of activities undertaken with regard to a medicine, vaccine or other therapeutic good and linking to the instruction if appropriate.">
@@ -129,13 +145,13 @@ Arketypen inneholder dato og tidspunkt for handlingen (som i alle ACTION arketyp
 	other_details = <
 		["references"] = <"Based on NEHTA Medication action archetype http://dcm.nehta.org.au/ckm/#showArchetype_1013.1.876_6
 NEHTA Therapeutic Good Use Datagroup http://nehta.gov.au/data-group-library/data-specifications/dgl-therapeutic-good-action">
-		["MD5-CAM-1.0.1"] = <"49480BCFDAF05A9AFF0D2A347BEF7575">
+		["MD5-CAM-1.0.1"] = <"D590BC1B8E727C72DD0276B953630802">
 	>
 
 definition
-	ACTION[at0000] matches {	-- Legemiddelhandling dips
+	ACTION[at0000] matches {	-- Medikamenthandling
 		ism_transition matches {
-			ISM_TRANSITION[at0043] matches {	-- Satt ut av bruk
+			ISM_TRANSITION[at0043] matches {	-- *Completed(en)
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::532]}
@@ -143,11 +159,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0043]}		-- Satt ut av bruk
+						defining_code matches {[local::at0043]}		-- *Completed(en)
 					}
 				}
 			}
-			ISM_TRANSITION[at0044] matches {	-- Tilbakekalt
+			ISM_TRANSITION[at0044] matches {	-- *Completed(en)
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::532]}
@@ -155,11 +171,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0044]}		-- Tilbakekalt
+						defining_code matches {[local::at0044]}		-- *Completed(en)
 					}
 				}
 			}
-			ISM_TRANSITION[at0045] matches {	-- Satt ut av bruk og tilbakekalt
+			ISM_TRANSITION[at0045] matches {	-- *Completed(en)
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::532]}
@@ -167,7 +183,7 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0045]}		-- Satt ut av bruk og tilbakekalt
+						defining_code matches {[local::at0045]}		-- *Completed(en)
 					}
 				}
 			}
@@ -179,7 +195,7 @@ definition
 						value matches {
 							DV_TEXT matches {*}
 							DV_CODED_TEXT matches {
-								defining_code matches {[ac0001]}		-- Legemiddelnavn
+								defining_code matches {[ac0001]}		-- *Medication name(en)
 							}
 						}
 					}
@@ -270,7 +286,7 @@ ontology
 		["no"] = <
 			items = <
 				["at0000"] = <
-					text = <"Legemiddelhandling">
+					text = <"Medikamenthandling">
 					description = <"Detaljer om bruk, administrasjon, utdeling eller andre tiltak i forbindelse med legemiddel, vaksine eller annet terapeutisk forbruksmateriell ordinert av en kliniker.">
 				>
 				["at0017"] = <
@@ -799,7 +815,7 @@ ontology
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"Legemiddelhandling dips">
+					text = <"Medikamenthandling dips">
 					description = <"Detaljer om bruk, administrasjon, utdeling eller andre tiltak i forbindelse med legemiddel, vaksine eller annet terapeutisk forbruksmateriell ordinert av en kliniker.">
 				>
 				["at0017"] = <
