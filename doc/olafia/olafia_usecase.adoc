@@ -2,30 +2,59 @@
 
 == UseCase Medikasjonsliste Olafia 
 
+[source]
+----
 Som lege/sykeplier som har åpnet Olafia flisa
 Skal jeg ha en oversikt som viser 
-Medikamenter utdelt ved Olafia : 
+Medikamenter utdelt ved Olafia avdelingen 
+----
+
 * det skal være alle medikamenter utdelt til aktiv pasient 
 * det skal KUN være medikamenter delt ut ved angitt org.enhet (avdeling) 
 
 Lista skal være på formen:
 
-Navn Dose Utdelttid Utdeltav  
+|====
+| Navn | Dose | Utdelttid | Utdeltav 
+| Fluorokinolon | 1 X 3 | 2015.05.20 | DIPS-BNA
+| Sovirax | 1 x 4 | 2013.05.18 | DIPS-GFI
+| Cefalosporin | 1 x 3 | 2012.05.01  | DIPS-BNA
+| Doxycyclin | 1 x 3 | 2010.04.12 | DIPS-BNA
+|====
 
 
 Tilleggsfunksjoner: 
+
 * Som bruker skal jeg kunne sortere lista på de ulike kolonnene 
 * Som bruker skal jeg kunne sette filter i lista: 
 ** Medikamenter gitt innenfor tidsrom 
 ** Medikameter gitt av meg 
 ** Medikamenter med gitte navn (liste med navn som multiselect) 
 
-
-
+=== Pseduo implementasjon
 
 Gitt følgende AQL 
-
+[source]
+----
 select Navn, Dose, Utdelttid, UtdeltAv
 from 
-where Navn = ?, Dose = ?, Utdelttid between <?,?> , UtdeltAv matches (??)
+where Navn = ?, Dose = ?, Utdelttid between <?,?> , UtdeltAv matches ($author)
 order by Utdelttid desc 
+----
+
+
+[source, XML]
+-----
+<insight>
+<grid />
+
+<tableprovider id="medication">
+<aql>
+</aql>
+<scope>
+</scope>
+</tableprovider>
+</insight>
+
+
+-----
