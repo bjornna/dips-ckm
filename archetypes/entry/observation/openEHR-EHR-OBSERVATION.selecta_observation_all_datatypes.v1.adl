@@ -1,0 +1,447 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.selecta_observation_all_datatypes.v1
+
+concept
+	[at0000]	-- Selecta observation all datatypes
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Test av alle datatyper tilgjengelig i en Observation">
+			use = <"Test av datatypes i observation">
+			misuse = <"All annen bruk enn test og demo av datatyper i en observation">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"8FB7C012CBBAD79A8903053F3EF026D9">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Selecta observation all datatypes
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Text Free or Coded text
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0008] occurrences matches {0..1} matches {	-- Text Internal Codes
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0009, 	-- Term 1
+													at0010, 	-- Term 2
+													at0011]	-- Term 3
+												}
+											}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..*} matches {	-- Quantity Length all units no limits unbounded
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::122]>
+												list = <
+													["1"] = <
+														units = <"1000th in">
+													>
+													["2"] = <
+														units = <"Fr">
+													>
+													["3"] = <
+														units = <"in">
+													>
+													["4"] = <
+														units = <"cm">
+													>
+													["5"] = <
+														units = <"ft">
+													>
+													["6"] = <
+														units = <"km">
+													>
+													["7"] = <
+														units = <"m">
+													>
+													["8"] = <
+														units = <"micron">
+													>
+													["9"] = <
+														units = <"mile">
+													>
+													["10"] = <
+														units = <"mm">
+													>
+													["11"] = <
+														units = <"nanom">
+													>
+													["12"] = <
+														units = <"pc">
+													>
+													["13"] = <
+														units = <"um">
+													>
+													["14"] = <
+														units = <"yd">
+													>
+													["15"] = <
+														units = <"Å">
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {	-- Count no limits
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Date Time allow all
+										value matches {
+											DV_DATE_TIME matches {*}
+										}
+									}
+									ELEMENT[at0013] occurrences matches {0..1} matches {	-- Date Time Date and Time
+										value matches {
+											DV_DATE_TIME matches {
+												value matches {yyyy-mm-ddTHH:MM:SS}
+											}
+										}
+									}
+									ELEMENT[at0012] occurrences matches {0..1} matches {	-- Date Time Date only
+										value matches {
+											DV_DATE matches {*}
+										}
+									}
+									ELEMENT[at0014] occurrences matches {0..1} matches {	-- Date Time Time only
+										value matches {
+											DV_TIME matches {*}
+										}
+									}
+									ELEMENT[at0015] occurrences matches {0..1} matches {	-- Duration allow all no limits
+										value matches {
+											DV_DURATION matches {*}
+										}
+									}
+									ELEMENT[at0016] occurrences matches {0..1} matches {	-- Ordinal
+										value matches {
+											0|[local::at0017], 	-- null
+											1|[local::at0018], 	-- one
+											2|[local::at0019], 	-- two
+											3|[local::at0020]  	-- three
+										}
+									}
+									ELEMENT[at0021] occurrences matches {0..1} matches {	-- Boolean allow all
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0022] occurrences matches {0..1} matches {	-- Boolean allow true
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True}
+											}
+										}
+									}
+									ELEMENT[at0023] occurrences matches {0..1} matches {	-- Boolean allow false
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {False}
+											}
+										}
+									}
+									ELEMENT[at0024] occurrences matches {0..1} matches {	-- Interval of integer no limits
+										value matches {
+											DV_INTERVAL<DV_COUNT> matches {
+												upper matches {
+													DV_COUNT matches {*}
+												}
+												lower matches {
+													DV_COUNT matches {*}
+												}
+											}
+										}
+									}
+									ELEMENT[at0025] occurrences matches {0..1} matches {	-- Interval of quantity (Length in cm)
+										value matches {
+											DV_INTERVAL<DV_QUANTITY> matches {
+												upper matches {
+													C_DV_QUANTITY <
+													>
+												}
+												lower matches {
+													C_DV_QUANTITY <
+														property = <[openehr::122]>
+														list = <
+															["1"] = <
+																units = <"cm">
+															>
+														>
+													>
+												}
+											}
+										}
+									}
+									ELEMENT[at0026] occurrences matches {0..1} matches {	-- Interval of Date and Time (Allow all)
+										value matches {
+											DV_INTERVAL<DV_DATE_TIME> matches {
+												upper matches {
+													DV_DATE_TIME matches {*}
+												}
+												lower matches {
+													DV_DATE_TIME matches {*}
+												}
+											}
+										}
+									}
+									ELEMENT[at0027] occurrences matches {0..1} matches {*}
+									ELEMENT[at0028] occurrences matches {0..1} matches {	-- Choice Text Free or coded and Text Internal codes
+										value matches {
+											DV_TEXT matches {*}
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0029, 	-- Term 1
+													at0030, 	-- Term 2
+													at0031]	-- Term 3
+												}
+											}
+										}
+									}
+									ELEMENT[at0032] occurrences matches {0..1} matches {	-- Multimedia allow all
+										value matches {
+											DV_MULTIMEDIA matches {
+												media_type matches {
+													[openEHR::
+													387, 
+													388, 
+													389, 
+													390, 
+													391, 
+													392, 
+													393, 
+													394, 
+													395, 
+													396, 
+													397, 
+													398, 
+													399, 
+													400, 
+													409, 
+													410, 
+													411, 
+													412, 
+													413, 
+													517, 
+													518, 
+													519, 
+													637, 
+													682, 
+													683, 
+													401, 
+													402, 
+													404, 
+													405, 
+													406, 
+													407, 
+													414, 
+													415, 
+													416, 
+													417, 
+													418, 
+													419, 
+													420, 
+													421, 
+													422, 
+													423, 
+													424, 
+													425, 
+													426, 
+													427, 
+													428, 
+													429]
+												}
+											}
+										}
+									}
+									ELEMENT[at0033] occurrences matches {0..1} matches {	-- URI
+										value matches {
+											DV_URI matches {*}
+										}
+									}
+									ELEMENT[at0034] occurrences matches {0..1} matches {	-- Proportion Allow all As Percent no limits
+										value matches {
+											DV_PROPORTION matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Selecta observation all datatypes">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Text Free or Coded text">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Quantity Length all units no limits unbounded">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Count no limits">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Date Time allow all">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Text Internal Codes">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Term 1">
+					description = <"Term 1 Description">
+				>
+				["at0010"] = <
+					text = <"Term 2">
+					description = <"Term 2 Description">
+				>
+				["at0011"] = <
+					text = <"Term 3">
+					description = <"Term 3 Description">
+				>
+				["at0012"] = <
+					text = <"Date Time Date only">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Date Time Date and Time">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Date Time Time only">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Duration allow all no limits">
+					description = <"*">
+				>
+				["at0016"] = <
+					text = <"Ordinal">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"null">
+					description = <"null">
+				>
+				["at0018"] = <
+					text = <"one">
+					description = <"one">
+				>
+				["at0019"] = <
+					text = <"two">
+					description = <"two">
+				>
+				["at0020"] = <
+					text = <"three">
+					description = <"three">
+				>
+				["at0021"] = <
+					text = <"Boolean allow all">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Boolean allow true">
+					description = <"*">
+				>
+				["at0023"] = <
+					text = <"Boolean allow false">
+					description = <"*">
+				>
+				["at0024"] = <
+					text = <"Interval of integer no limits">
+					description = <"*">
+				>
+				["at0025"] = <
+					text = <"Interval of quantity (Length in cm)">
+					description = <"*">
+				>
+				["at0026"] = <
+					text = <"Interval of Date and Time (Allow all)">
+					description = <"*">
+				>
+				["at0027"] = <
+					text = <"Any">
+					description = <"*">
+				>
+				["at0028"] = <
+					text = <"Choice Text Free or coded and Text Internal codes">
+					description = <"*">
+				>
+				["at0029"] = <
+					text = <"Term 1">
+					description = <"Description of term 1">
+				>
+				["at0030"] = <
+					text = <"Term 2">
+					description = <"Description of term 2">
+				>
+				["at0031"] = <
+					text = <"Term 3">
+					description = <"Description of term 3">
+				>
+				["at0032"] = <
+					text = <"Multimedia allow all">
+					description = <"*">
+				>
+				["at0033"] = <
+					text = <"URI">
+					description = <"*">
+				>
+				["at0034"] = <
+					text = <"Proportion Allow all As Percent no limits">
+					description = <"*">
+				>
+			>
+		>
+	>
