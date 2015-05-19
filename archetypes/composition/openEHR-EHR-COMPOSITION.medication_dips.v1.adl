@@ -1,0 +1,257 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-COMPOSITION.medication_dips.v1
+
+concept
+	[at0000]	-- Medikament dips
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["ar-sy"] = <
+			language = <[ISO_639-1::ar-sy]>
+			author = <
+				["name"] = <"Mona Saleh">
+			>
+		>
+		["es-ar"] = <
+			language = <[ISO_639-1::es-ar]>
+			author = <
+				["organisation"] = <"VinculoMedico">
+				["name"] = <"Edgardo Vazquez">
+			>
+			accreditation = <"Medical Doctor">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["organisation"] = <"">
+				["name"] = <"">
+				["email"] = <"">
+			>
+			accreditation = <"MD, DEAA, MBA, spec in anesthesia, spec in tropical medicine.">
+		>
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			author = <
+				["name"] = <"">
+			>
+		>
+		["ko"] = <
+			language = <[ISO_639-1::ko]>
+			author = <
+				["organisation"] = <"NOUSCO Co.,Ltd.">
+				["name"] = <"Seung-Jong Yu">
+				["email"] = <"seungjong.yu@gmail.com">
+			>
+			accreditation = <"Certified Board of Family Medicine in South Korea">
+		>
+	>
+description
+	original_author = <
+		["date"] = <"2015-05-13">
+		["name"] = <"Hilde Hollås">
+		["email"] = <"hho@dips.no">
+	>
+	details = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"For å registrere detaljer om en enkelt medikasjonsbestilling">
+			use = <"Brukes som en generisk container på dokument-nivå for å registrere detaljer om en medikamentbestilling. 
+">
+			keywords = <"*encounter(en)", "*contact(en)", "*visit(en)", "*care event(en)">
+			misuse = <"Brukes ikke til å inneholde persistent, oppsummert informasjon om individet, som f.eks medikamentliste">
+			copyright = <"*© Nasjonal IKT HF(en)">
+		>
+		["ko"] = <
+			language = <[ISO_639-1::ko]>
+			purpose = <"외래기록, 경과기록, 간호기록과 일반적인 노트 등과 같은 환자를 대면한 후 작성하는 기록">
+			use = <"">
+			keywords = <"*경과(ko)", "*노트(ko)", "*외래(ko)">
+			misuse = <"">
+			copyright = <"© Nasjonal IKT HF">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record the document level details of a single interaction, contact or care event between a subject of care and healthcare provider(s) for the provision of healthcare service(s). This can be either a face-to-face or remote interaction.">
+			use = <"Use as a generic document-level container for recording details of a single interaction, contact or care event between a subject of care and healthcare provider(s). 
+The contact may be face-to-face, via telephone or another electronic medium. Modality can be captured, if required, via the reference model COMPOSITION/mode attribute.
+
+The main Sections/Content component has been deliberately left unconstrained. This will allow it to be populated with any SECTION or ENTRY archetypes appropriate for the clinical purpose within a template. 
+
+Even though unconstrained for clinical content, specification of COMPOSITION.Encounter provides significant value by allowing for explicit querying of all Encounters within a patient record.
+
+The Context component contains an optional 'Extension' SLOT that can be used in template design to:
+- add optional contextual information, such as episode information; or
+- allow for harmonisation or alignment with other model formalisms such as FHIR or CIMI, such as explicit representation of participants that are usually managed by the openEHR Reference Model in an openEHR archetype.
+
+Typical examples are a clinic visit, a nursing observation or a telemedicine consultation.">
+			keywords = <"encounter", "contact", "visit", "care event">
+			misuse = <"Not to be used to record details about an entire episode of care.
+
+Not to be used to carry persistent, summarised patient information, such as a problem list or medication summary.
+
+Not to be used to represent the report of a diagnostic service, such as imaging or laboratory testing.
+
+Not to be used to represent the FHIR resource of the same name - there is a mismatch scope and intent.">
+			copyright = <"© Nasjonal IKT HF">
+		>
+		["ar-sy"] = <
+			language = <[ISO_639-1::ar-sy]>
+			purpose = <"تسجيل المقابلة على هيئة ملاحظة تقدم الحالة">
+			use = <"">
+			keywords = <"التقدم", "ملاحظة", "المقابلة">
+			misuse = <"">
+			copyright = <"© Nasjonal IKT HF">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For å registrere detaljer om en enkelt medikamentbestilling">
+			use = <"Brukes som en generisk container på dokument-nivå for å registrere detaljer om en medikamentbestilling. 
+">
+			misuse = <"Brukes ikke til å inneholde persistent, oppsummert informasjon om individet, som f.eks. problemliste eller medikamentliste.
+">
+			copyright = <"© Nasjonal IKT HF">
+		>
+		["es-ar"] = <
+			language = <[ISO_639-1::es-ar]>
+			purpose = <"Registrar una consulta como una nota de evolucion">
+			use = <"">
+			keywords = <"Evolucion", "Notas", "Encuentro", "Consulta">
+			misuse = <"">
+			copyright = <"© Nasjonal IKT HF">
+		>
+	>
+	lifecycle_state = <"NotSet">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <", , ">
+		["MD5-CAM-1.0.1"] = <"EE69DB6DBFB781CB742B3E4066CB8276">
+	>
+
+definition
+	COMPOSITION[at0000] matches {	-- Medikament dips
+		category matches {
+			DV_CODED_TEXT matches {
+				defining_code matches {[openehr::433]}
+			}
+		}
+		context matches {
+			EVENT_CONTEXT matches {
+				other_context matches {
+					ITEM_TREE[at0001] matches {	-- Tree
+						items cardinality matches {0..*; unordered} matches {
+							allow_archetype CLUSTER[at0002] occurrences matches {0..*} matches {	-- Medikasjon
+								include
+									archetype_id/value matches {/.*/}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"Medikasjonsbestilling dips">
+					description = <"*">
+				>
+				["at0001"] = <
+					text = <"*Tree(en)">
+					description = <"*@ internal @(en)">
+				>
+				["at0002"] = <
+					comment = <"*e.g. Local hospital departmental infomation or additional metadata to align with FHIR or CIMI equivalents.(en)">
+					text = <"Medikasjon">
+					description = <"*Additional information required to capture local context or to align with other reference models/formalisms.(en)">
+				>
+			>
+		>
+		["es-ar"] = <
+			items = <
+				["at0000"] = <
+					text = <"*Encounter(en)">
+					description = <"*Interaction, contact or care event between a subject of care and healthcare provider(s).(en)">
+				>
+				["at0001"] = <
+					text = <"*Tree(en)">
+					description = <"*@ internal @(en)">
+				>
+				["at0002"] = <
+					description = <"*Additional information required to capture local context or to align with other reference models/formalisms.(en)">
+					text = <"*Extension(en)">
+					comment = <"*e.g. Local hospital departmental infomation or additional metadata to align with FHIR or CIMI equivalents.(en)">
+				>
+			>
+		>
+		["ko"] = <
+			items = <
+				["at0000"] = <
+					text = <"*Encounter(en)">
+					description = <"*Interaction, contact or care event between a subject of care and healthcare provider(s).(en)">
+				>
+				["at0001"] = <
+					text = <"*Tree(en)">
+					description = <"*@ internal @(en)">
+				>
+				["at0002"] = <
+					description = <"*Additional information required to capture local context or to align with other reference models/formalisms.(en)">
+					text = <"*Extension(en)">
+					comment = <"*e.g. Local hospital departmental infomation or additional metadata to align with FHIR or CIMI equivalents.(en)">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Encounter">
+					description = <"Interaction, contact or care event between a subject of care and healthcare provider(s).">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					description = <"Additional information required to capture local context or to align with other reference models/formalisms.">
+					text = <"Extension">
+					comment = <"e.g. Local hospital departmental infomation or additional metadata to align with FHIR or CIMI equivalents.">
+				>
+			>
+		>
+		["ar-sy"] = <
+			items = <
+				["at0000"] = <
+					text = <"*Encounter(en)">
+					description = <"*Interaction, contact or care event between a subject of care and healthcare provider(s).(en)">
+				>
+				["at0001"] = <
+					text = <"*Tree(en)">
+					description = <"*@ internal @(en)">
+				>
+				["at0002"] = <
+					description = <"*Additional information required to capture local context or to align with other reference models/formalisms.(en)">
+					text = <"*Extension(en)">
+					comment = <"*e.g. Local hospital departmental infomation or additional metadata to align with FHIR or CIMI equivalents.(en)">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Medikament dips">
+					description = <"*">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					comment = <"F.eks. lokal avdelingsinformasjon eller ytterligere metadata for tilpasning til FHIR eller CIMI.">
+					text = <"Medikasjon">
+					description = <"Tilleggsinformasjon som kan være nødvendig for å dokumentere lokal kontekst, eller for å tilpasse til andre referansemodeller/formalismer.">
+				>
+			>
+		>
+	>

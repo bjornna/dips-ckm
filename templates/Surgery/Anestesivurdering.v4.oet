@@ -63,7 +63,17 @@
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Anestesivurdering">
     <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Adhoc heading" max="1" path="/content" name="Preoperativ evaluering">
       <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.preoperative_evaluation_anesthesia.v1" concept_name="Preoperativ evaluering anestesi" path="/items">
-        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA fysisk status klassifikasjon" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA fysisk status klassifikasjon" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+          <Rule path="/items[at0001]">
+            <constraint xsi:type="textConstraint">
+              <excludedValues>local::at0009</excludedValues>
+              <excludedValues>local::at0010</excludedValues>
+              <excludedValues>local::at0011</excludedValues>
+              <excludedValues>local::at0012</excludedValues>
+              <excludedValues>local::at0013</excludedValues>
+            </constraint>
+          </Rule>
+        </Items>
       </Item>
     </Content>
     <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Adhoc heading" max="1" path="/content" name="Pasient">
@@ -122,7 +132,9 @@
           </constraint>
         </Rule>
       </Item>
-      <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.nyha_heart_failure_score.v1" concept_name="NYHA Hjerte svikt klassifikasjon" path="/items" />
+      <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.nyha_heart_failure_score.v1" concept_name="NYHA Hjerte svikt klassifikasjon" max="1" path="/items" name="NYHA Hjertesvikt klassifikasjon">
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]" name="Hjertesvikt klassifikasjon" />
+      </Item>
       <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.risk.v1" concept_name="Helserisiko" max="1" path="/items" name="Respirasjon">
         <Rule path="/data[at0001]/items[at0002]" name="Sykdom i respirasjonssystemet">
           <constraint xsi:type="textConstraint">
