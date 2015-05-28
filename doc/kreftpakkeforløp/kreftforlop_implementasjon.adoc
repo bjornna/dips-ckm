@@ -1,0 +1,130 @@
+== Implementasjon av pakkeforløp for kreft
+
+The following describes the use-cases to implement 'pakkeforløp for Kreft' i DIPS Arena. 
+
+== Phase 1: Use-cases
+The following is the primary use-cases to be able to follow up cancer patients in a "pakkeforløp".
+
+=== Create folder
+[source]
+----
+Given that a user approve a composition that contains INSTRUCTION of type openEHR-EHR-INSTRUCTION.pakkeforlop_kreft.v1
+Then Arena should create a folder of type "CANCER TRAJECTORY",
+And the INSTRUCTION should be the header entry for the folder.
+----
+
+=== View all "pakkeforløp"
+
+[source]
+----
+
+Given that an administrator creates a new list of type FOLDER,
+then the folder type combobox should display "CANCER TRAJECTORY" as an item to select,
+and the patient list should list all folders of this type.
+----
+
+[source]
+----
+
+Given that a user has selected a row in folder patientlist,
+and he creates a new openEHR entry on this row.
+Then the document MUST be connected to the selected folder.
+----
+
+The openEHR patientlist provider must make it possible to have several columns based on the same Archetype,
+and there should be where clausuls to separate the columns.
+
+
+|====
+|Start | Biopsi | Første fremmøte | Klinisk beslutning | Start behandling
+|27.april (3 dager siden)| I dag  | Nå | Organspesifikk | Nå
+|====
+
+
+=== Close folder
+[source]
+----
+Given that a user approve a composition that contains ACTION of type openEHR-EHR-ACTION.kreftpakke.v1,
+and the composition belongs to the folder,
+and the state of the Action is final state (cancel, abort or completed).
+Then the folder should be closed.
+----
+
+WARNING: We must agree on if this should be connected to aggregated state of the INSTRUCTION or the current ACTIVITY.
+
+
+=== "Pakkeforløp" in DIPS Classic
+Most users will not use DIPS Arena in the next months. This means that Classic users also should know if a patient is in a "pakkeforløp" and he should be able to read information from it.
+
+In Classic we must add a new menu button in the same way we added the "Kjernejournal" button. This is an interactive button which is loaded when the user activates the patient. Then it check if there are any active folders for the given patient. It there are active folders the button get activated and displays the number of active folders.
+
+When the user click the button he get a list of all the active folders. Each active folder has a summary based on Unify. When he click on the active folder item Classic opens the summary.
+
+The same module could also be added to Arena as a button on the patient line.
+
+[source]
+----
+Given that the user has activated a patient in Classic 
+and the patient has one ore more active 'Pakkeforløp'
+Then Classic MUST display a button in active state
+and the number of active 'Pakkeforløp' should be displayed. 
+----
+
+[source]
+----
+Given that the user click the button with active 'Pakkeforløp'
+Then Classic should display a list of the active 'Pakkeforløp' items
+and the user shold be able to click one of the 
+and Classic will display a summary of all entries in the 'Pakkeforløp'
+----
+
+== Phase 2 use-cases
+
+=== Generic folder tile
+
+Arena must have a generic tile that list all folders for the given patient. By default all active folders should be available and the number of folders should be readable on the minimized tile.
+
+Depending on the folder type there will be diffent kind of information to display. Each folder type should have its own configuration. This configuration is based on Arena Insight.
+
+=== Health record metadata to connect each document to folder
+
+Given that a user creates a new document in an EHR,
+it must be possible to connect the document to one or more active folders.
+
+This could be done from the Metadata panel in Healthrecord Client.
+
+=== Add an episode of care to folder
+
+It should be easy to add an episode of care ("kontakt") to an folder. This makes it possible to use the first episode of a given type to st the code "første fremmøte" in a "pakkeforløp".
+
+
+
+== Problem areas
+
+
+
+=== How can we make it "dead simple" to connect entries (documents) to the correct context?
+
+In Arena we have several layers of context for a given patient.
+
+* EHR
+** Periode of care
+*** Episode of care
+* Folder
+
+
+
+
+
+=== INSTRUCTION vs. ACTIVITY
+To be able to connect ACTION entries to an ACTIVITY each ACTION entry must store the ID to the ACTIVITY. This means that the context when creating a new ACTION must have information about the ACTIVITY.
+
+
+
+What is the id of the ACTIVITY?
+
+Each ACTION has a field named _instruction details_. This field contains the following attributes:
+
+Instruction id:: the path to the instruction as a Locatable Ref.
+Activity id :: the id of the activity
+Worfklow details:: a structure that defines the workflow definition
