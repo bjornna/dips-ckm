@@ -16,18 +16,11 @@ language
 description
 	original_author = <
 		["name"] = <"Bjørn Næss">
-		["organisation"] = <"DIPS ASA">
 		["email"] = <"bna@dips.no">
+		["organisation"] = <"DIPS ASA">
 		["date"] = <"2015-04-20">
 	>
 	details = <
-		["no"] = <
-			language = <[ISO_639-1::no]>
-			purpose = <"*(nb)">
-			use = <"*(nb)">
-			misuse = <"*(nb)">
-			copyright = <"*(nb)">
-		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
 			purpose = <"Benyttes for å registrere hendelser i et kreftpakkeforløp ">
@@ -35,12 +28,19 @@ description
 			misuse = <"">
 			copyright = <"">
 		>
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"*(nb)">
+			use = <"*(nb)">
+			misuse = <"*(nb)">
+			copyright = <"*(nb)">
+		>
 	>
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
 		["references"] = <"Se dokumentasjon hos Helsedirektoratet: https://helsedirektoratet.no/kreft/pakkeforlop-for-kreft ">
-		["MD5-CAM-1.0.1"] = <"C8BE93A38BC080BD8CEB68BA5CFF6342">
+		["MD5-CAM-1.0.1"] = <"EAB38F36290D4445234F728AA259B372">
 	>
 
 definition
@@ -109,11 +109,7 @@ definition
 			ISM_TRANSITION[at0028] matches {	-- Biopsi
 				current_state matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {
-							[openehr::
-							245, 
-							526]
-						}
+						defining_code matches {[openehr::245]}
 					}
 				}
 				careflow_step matches {
@@ -134,7 +130,7 @@ definition
 					}
 				}
 			}
-			ISM_TRANSITION[at0026] matches {	-- Behandling start
+			ISM_TRANSITION[at0026] matches {	-- Pakkeforløp slutt
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::532]}
@@ -142,7 +138,7 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0026]}		-- Behandling start
+						defining_code matches {[local::at0026]}		-- Pakkeforløp slutt
 					}
 				}
 			}
@@ -173,7 +169,7 @@ definition
 			}
 		}
 		protocol matches {
-			ITEM_TREE[at0024] matches {	-- *Tree(nb)
+			ITEM_TREE[at0024] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
 					ELEMENT[at0032] occurrences matches {0..1} matches {	-- Ekstern hendelse
 						value matches {
@@ -211,11 +207,11 @@ ontology
 				>
 				["at0006"] = <
 					text = <"Detaljer">
-					description = <"*">
+					description = <"Cluster for å kunne utvide til dokumentasjonen med strukturelle beskrivelser av hendelsen. ">
 				>
 				["at0017"] = <
 					text = <"Hendelse">
-					description = <"*">
+					description = <"Benyttes for å registrere hendelser i det angitte pakkeforløpet. ">
 				>
 				["at0018"] = <
 					text = <"Start pakkeforløp">
@@ -231,27 +227,27 @@ ontology
 				>
 				["at0022"] = <
 					text = <"Pakkeforløp">
-					description = <"Hvilket kreftpakkeforløp er pasienten i. Informasjonen er egentlig ikke nødvendig iden det ligger i INSTRUCTION. (nb)">
+					description = <"Hvilket kreftpakkeforløp er pasienten i. Dersom forløpet ikke skifter i løpet av prosessen vil det kun gjenbrukes tilsvarende felt fra INSTRUCTION. ">
 				>
 				["at0023"] = <
 					text = <"Beskrivelse">
-					description = <"*">
+					description = <"Angi eventuelle kommentarer til gjennomført hendelse. ">
 				>
 				["at0024"] = <
-					text = <"*Tree(nb)">
+					text = <"Tree">
 					description = <"*@ internal @(nb)">
 				>
 				["at0026"] = <
-					text = <"Behandling start">
-					description = <"*">
+					text = <"Pakkeforløp slutt">
+					description = <"Definerer at pakkeforløpet er slutt - for organspesifikk pakke er det start behandling. For diagnostisk pakkeforløp er det ved klinisk beslutning. ">
 				>
 				["at0027"] = <
 					text = <"Planlagt første møte">
-					description = <"*">
+					description = <"Det er satt opp time for første fremmøte. Det kodes ikke for dette ">
 				>
 				["at0028"] = <
 					text = <"Biopsi">
-					description = <"*">
+					description = <"Biopsi er utført. ">
 				>
 				["at0029"] = <
 					text = <"Avslutning pakkeforløp">
@@ -263,11 +259,11 @@ ontology
 				>
 				["at0031"] = <
 					text = <"Ansvarlig">
-					description = <"**(nb)">
+					description = <"">
 				>
 				["at0032"] = <
 					text = <"Ekstern hendelse">
-					description = <"**(nb)">
+					description = <"">
 				>
 				["at0033"] = <
 					text = <"Ekstern organisasjon">
@@ -291,7 +287,7 @@ ontology
 				>
 				["at0017"] = <
 					text = <"Hendelse">
-					description = <"*">
+					description = <"Benyttes for å registrere hendelser i det angitte pakkeforløpet. ">
 				>
 				["at0018"] = <
 					text = <"Start pakkeforløp">
@@ -318,8 +314,8 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0026"] = <
-					text = <"Behandling start">
-					description = <"*">
+					text = <"Pakkeforløp slutt">
+					description = <"Definerer at pakkeforløpet er slutt - for organspesifikk pakke er det start behandling. For diagnostisk pakkeforløp er det ved klinisk beslutning. ">
 				>
 				["at0027"] = <
 					text = <"Første fremmøte satt opp">

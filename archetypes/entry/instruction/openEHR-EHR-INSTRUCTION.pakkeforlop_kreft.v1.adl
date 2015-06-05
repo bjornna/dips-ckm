@@ -16,19 +16,19 @@ language
 description
 	original_author = <
 		["name"] = <"Bjørn Næss">
-		["organisation"] = <"DIPS ASA">
 		["email"] = <"bna@dips.no">
-		["date"] = <"2015-04-20">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2015-05-29">
 	>
 	details = <
 		["no"] = <
 			language = <[ISO_639-1::no]>
-			purpose = <"*Benyttes for å iverksette et pakkeforløp for kreft. 
-Skal benyttes ved mottak/vurdering av henvisning som enten ha påvist kreft eller hvor det er mistanke/symptomer som tilfredsstiller kravene for kreftpakkeforløp. (nb)">
-			use = <"*(nb)">
+			purpose = <"Benyttes for å iverksette et pakkeforløp for kreft. 
+Skal benyttes ved mottak/vurdering av henvisning som enten ha påvist kreft eller hvor det er mistanke/symptomer som tilfredsstiller kravene for kreftpakkeforløp. ">
+			use = <"">
 			keywords = <"*kreft(nb)", "*forløpsmal(nb)", "*forløp(nb)", "*pakkeforløp(nb)">
-			misuse = <"*(nb)">
-			copyright = <"*(nb)">
+			misuse = <"">
+			copyright = <"">
 		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
@@ -44,7 +44,7 @@ Skal benyttes ved mottak/vurdering av henvisning som enten ha påvist kreft elle
 	other_contributors = <>
 	other_details = <
 		["references"] = <"Se dokumentasjon hos Helsedirektoratet: https://helsedirektoratet.no/kreft/pakkeforlop-for-kreft ">
-		["MD5-CAM-1.0.1"] = <"2C22F010E0D25811A4435B39C8FC84CF">
+		["MD5-CAM-1.0.1"] = <"0464C30D2B8214E42F8263BE345D8FC8">
 	>
 
 definition
@@ -63,6 +63,42 @@ definition
 							ELEMENT[at0004] occurrences matches {0..1} matches {	-- Pakkeforløp start
 								value matches {
 									DV_DATE_TIME matches {*}
+								}
+							}
+							ELEMENT[at0012] occurrences matches {0..1} matches {	-- Dager til første fremmøte
+								value matches {
+									DV_COUNT matches {
+										magnitude matches {|>=0|}
+									}
+								}
+							}
+							ELEMENT[at0016] occurrences matches {0..1} matches {	-- Første fremmøte innen
+								value matches {
+									DV_DATE matches {*}
+								}
+							}
+							ELEMENT[at0013] occurrences matches {0..1} matches {	-- Dager til klinisk beslutning
+								value matches {
+									DV_COUNT matches {
+										magnitude matches {|>=0|}
+									}
+								}
+							}
+							ELEMENT[at0017] occurrences matches {0..1} matches {	-- Klinisk beslutning innen
+								value matches {
+									DV_DATE matches {*}
+								}
+							}
+							ELEMENT[at0015] occurrences matches {0..1} matches {	-- Dager til start behandling
+								value matches {
+									DV_COUNT matches {
+										magnitude matches {|>=0|}
+									}
+								}
+							}
+							ELEMENT[at0018] occurrences matches {0..1} matches {	-- Start behandling innen
+								value matches {
+									DV_DATE matches {*}
 								}
 							}
 							ELEMENT[at0007] occurrences matches {0..1} matches {	-- Beskrivelse
@@ -122,11 +158,11 @@ ontology
 				>
 				["at0003"] = <
 					text = <"Pakkeforløp">
-					description = <"*">
+					description = <"Angi hvilket pakkeforløp som startes.  Kodeverket dekker både diagnostisk og organspesifikt pakkeforløp">
 				>
 				["at0004"] = <
 					text = <"Pakkeforløp start">
-					description = <"*">
+					description = <"Angir tidspunktet hvor pakkeforløpet startet. Dersom pakkeforløpet har startet utenfor foretaket settes tidspunktet for opprinnelig oppstart. ">
 				>
 				["at0005"] = <
 					text = <"Detaljer">
@@ -142,27 +178,51 @@ ontology
 				>
 				["at0009"] = <
 					text = <"Ansvarlig">
-					description = <"">
+					description = <"*">
 				>
 				["at0010"] = <
 					text = <"Ansvarlig organisasjon">
-					description = <"">
+					description = <"*">
 				>
 				["at0011"] = <
 					text = <"Ekstern hendelse">
-					description = <"">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"*Dager til første fremmøte(nb)">
+					description = <"*Angir antall dager fra start pakkeforløp til første fremmøte. Antallet dager varierer for de ulike forløpene. (nb)">
+				>
+				["at0013"] = <
+					text = <"*Dager til klinisk beslutning(nb)">
+					description = <"*Angir tid fra første fremmøte til klinisk beslutning skal være tatt. (nb)">
+				>
+				["at0015"] = <
+					text = <"*Dager til start behandling(nb)">
+					description = <"*Angir tid fra klinisk beslutning ble tatt til initiell behandling har startet. Gjelder organspesifikke forløp. For diagnostisk forløp benyttes ikke denne. (nb)">
+				>
+				["at0016"] = <
+					text = <"Første fremmøte innen">
+					description = <"Angir siste dato for første fremmøte">
+				>
+				["at0017"] = <
+					text = <"Klinisk beslutning innen">
+					description = <"Estimert dato for klinisk beslutning. ">
+				>
+				["at0018"] = <
+					text = <"Start behandling innen">
+					description = <"Estimert dato for oppstart av initiell behandlling. ">
 				>
 			>
 		>
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"Pakkeforlop kreft">
-					description = <"Benyttes for å iverksette et kreftpakkeforløp ">
+					text = <"Pakkeforløp kreft">
+					description = <"Benyttes for å iverksette et kreftpakkeforløp">
 				>
 				["at0001"] = <
-					text = <"Current Activity">
-					description = <"Current Activity">
+					text = <"Forløp">
+					description = <"Forløp">
 				>
 				["at0002"] = <
 					text = <"Tree">
@@ -170,11 +230,11 @@ ontology
 				>
 				["at0003"] = <
 					text = <"Pakkeforløp">
-					description = <"*">
+					description = <"Angi hvilket pakkeforløp som startes.  Kodeverket dekker både diagnostisk og organspesifikt pakkeforløp">
 				>
 				["at0004"] = <
 					text = <"Pakkeforløp start">
-					description = <"*">
+					description = <"Angir tidspunktet hvor pakkeforløpet startet. Dersom pakkeforløpet har startet utenfor foretaket settes tidspunktet for opprinnelig oppstart. ">
 				>
 				["at0005"] = <
 					text = <"Detaljer">
@@ -186,7 +246,7 @@ ontology
 				>
 				["at0008"] = <
 					text = <"Tree">
-					description = <"@ internal @">
+					description = <"*@ internal @(nb)">
 				>
 				["at0009"] = <
 					text = <"Ansvarlig">
@@ -199,6 +259,30 @@ ontology
 				["at0011"] = <
 					text = <"Ekstern hendelse">
 					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Dager til første fremmøte">
+					description = <"Angir antall dager fra start pakkeforløp til første fremmøte. Antallet dager varierer for de ulike forløpene. ">
+				>
+				["at0013"] = <
+					text = <"Dager til klinisk beslutning">
+					description = <"Angir tid fra første fremmøte til klinisk beslutning skal være tatt. ">
+				>
+				["at0015"] = <
+					text = <"Dager til start behandling">
+					description = <"Angir tid fra klinisk beslutning ble tatt til initiell behandling har startet. Gjelder organspesifikke forløp. For diagnostisk forløp benyttes ikke denne. ">
+				>
+				["at0016"] = <
+					text = <"Første fremmøte innen">
+					description = <"Angir siste dato for første fremmøte">
+				>
+				["at0017"] = <
+					text = <"Klinisk beslutning innen">
+					description = <"Estimert dato for klinisk beslutning. ">
+				>
+				["at0018"] = <
+					text = <"Start behandling innen">
+					description = <"Estimert dato for oppstart av initiell behandlling. ">
 				>
 			>
 		>
