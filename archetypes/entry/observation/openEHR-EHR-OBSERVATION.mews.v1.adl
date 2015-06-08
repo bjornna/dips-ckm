@@ -1,0 +1,370 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.mews.v1
+
+concept
+	[at0000]	-- Modified Early Warning Score
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["name"] = <"Lars Bitsch-Larsen">
+				["organisation"] = <"Haukeland University Hospital of Bergen, Norway">
+			>
+			accreditation = <"MD, DEAA, MBA, spec in anesthesia, spec in tropical medicine.">
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Heather Leslie">
+		["organisation"] = <"Ocean Informatics">
+		["email"] = <"heather.leslie@oceaninformatics.com">
+		["date"] = <"2013-02-07">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record provide a composite score based on categorising physiological readings and observations, as a simple method to support objective assessment of the degree of illness in an unwell patient over the age of 14 years.">
+			use = <"Use to record a composite score to support assessmennt of the degree of illness in an unwell patient, over the age of 14 years. A score >5 has been correlated to an increased risk of death, HDU admission and ICU admission.
+
+MEWS is based on data derived from four physiological readings (systolic blood pressure, heart rate, respiratory rate, body temperature) and one observation (level of consciousness) which are compared to normal ranges. The score for each parameter is added to generate a single composite score.">
+			keywords = <"MEWS", "warning", "AVPU", "RR", "HR", "BP", "Temp", "SBP", "triage">
+			misuse = <"Not to be used to record each physical measurement or clinical observation. Use specific OBSERVATION archetypes for this purpose - OBSERVATION.blood_pressure, OBSERVATION.heart_rate, OBSERVATION.respirations, OBSERVATION.body_temperature, OBSERVATION.avpu and OBSERVATION.glasgow_coma.
+
+Not to be used for children/teens under the age of 14 years.">
+			copyright = <"© Nasjonal IKT HF">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Anvendes for å registrere en sammensatt score basert på strukturerte fysiologiske målinger og observasjoner, som en enkel metode for å støtte en objektiv vurdering av graden av sykdom hos en uvel pasient over 14 år.">
+			use = <"Anvendes til å registrere en sammensatt score for å støtte vurderingen av grad av sykdom i en uvel pasient over en alder av 14 år. En score >5 har vært korrelert til en økt risiko for død, ved innleggelse på intermediær- eller høyintensiv avdeling.
+
+MEWS er basert på data hentet fra fire fysiologiske målinger (systolisk blodtrykk, puls, respirasjonsfrekvens, kroppstemperatur) og observasjon av bevissthetsnivået, som sammenlignes med normalområdet. Scoringen for hver parameter adderes for å generere en enkelt sammensatt score.">
+			keywords = <"MEWS", "varsling", "AVPU (Våken, stemme, smerte, bevistløs (en forenklet Glasgow coma scoring))", "RF", "P", "BT", "Tp", "SBT", "triage", "modified early warning score", "respirasjonsfrekvens", "pulsl", "bodtrykk", "temperatur">
+			misuse = <"Anvendes ikke for registrering av hver enkelt fysiologisk parameter eller klinisk observasjon. Bruk spesifikke OBSERVATION-arketyper for dette formål - OBSERVATION.blood_pressure, OBSERVATION.pulse, OBSERVATION.respirations, OBSERVATION.body_temperature, OBSERVATION.avpu og OBSERVATION.glasgow_coma.
+
+Anvendes ikke til barn og unge under 14 år.">
+			copyright = <"© Nasjonal IKT HF">
+		>
+	>
+	lifecycle_state = <"CommitteeDraft">
+	other_contributors = <"Stephen Chu, NEHTA, Australia", "Sam Heard, Ocean Informatics, Australia (Editor)", "Oliver Hosking, Remote Health NT, Australia", "Heather Leslie, Ocean Informatics, Australia (Editor)", "Ian McNicoll, Ocean Informatics UK, United Kingdom", "Gary Sinclair, NT DoH, Australia", "Silje Ljosland Bakke, Helse Bergen HF, Norway">
+	other_details = <
+		["current_contact"] = <"Heather Leslie, Ocean Informatics, heather.leslie@oceaninformatics.com">
+		["references"] = <"Remote Health Atlas: Appendix to Retrieval Algorithm for patients outside Alice Springs Hospital (MEWS Score) [PDF]. Northern Territory Government, Department of Health & Families; February 2009. Available from: http://remotehealthatlas.nt.gov.au/appendix_mews.pdf.
+
+Remote Health Atlas: Retrieval Flowchart - Primary and Interfacility [PDF]. Northern Territory Government, Department of Health & Families; October 2008. Available from: http://remotehealthatlas.nt.gov.au/retrieval_flowchart_primary_&_interfacility.pdf.
+
+Pasientsikkerhet ved bruk av Modiﬁed Early Warning Score (Anne Kristin Ihle Melby) [PDF]. NSFLIS fagkongress; September 2013. Available from: https://www.nsf.no/Content/1312284/Bruk%20av%20kliniske%20observasjoner-%20MEWS%20til%20%C3%A5%20styrke%20pasientsikkerheten.%20Anne%20Kristin%20Ihle%20Melby.pdf">
+		["MD5-CAM-1.0.1"] = <"4748A7A3A3D0A0FAA9ABCFC9BF797385">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Modified Early Warning Score
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					POINT_EVENT[at0002] occurrences matches {0..1} matches {	-- Point in time
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Systolic Blood Pressure
+										value matches {
+											0|[local::at0014], 	-- 101-199
+											1|[local::at0015], 	-- 81-100
+											2|[local::at0016], 	-- 71-80 or >199
+											3|[local::at0017]  	-- <71
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Heart Rate
+										value matches {
+											0|[local::at0013], 	-- 51-100
+											1|[local::at0012], 	-- 41-50 or 101-110
+											2|[local::at0011], 	-- <41 or 111-129
+											3|[local::at0010]  	-- >129
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {	-- Respiratory Rate
+										value matches {
+											0|[local::at0018], 	-- 9-14
+											1|[local::at0019], 	-- 15-20
+											2|[local::at0020], 	-- <9 or 21-29
+											3|[local::at0021]  	-- >29
+										}
+									}
+									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Temperature
+										value matches {
+											0|[local::at0022], 	-- 36.1-38
+											1|[local::at0029], 	-- 35.1-36 or 38.1-38.5
+											2|[local::at0023]  	-- <=35 or >38.5
+										}
+									}
+									ELEMENT[at0008] occurrences matches {0..1} matches {	-- AVPU
+										value matches {
+											0|[local::at0024], 	-- A
+											1|[local::at0025], 	-- V
+											2|[local::at0026], 	-- P
+											3|[local::at0027]  	-- U
+										}
+									}
+									ELEMENT[at0028] occurrences matches {0..1} matches {	-- Total Score
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|0..13|}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Modified Early Warning Score">
+					description = <"A simple score used to provide an objective indication of the degree of illness of a patient.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Point in time">
+					description = <"A specific date and/or time which may be explicitly defined in a template or at run-time.">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Systolic Blood Pressure">
+					description = <"Range category for the systolic blood pressure (SBP) measurement of a patient.">
+				>
+				["at0005"] = <
+					text = <"Heart Rate">
+					description = <"Range category for the heart rate (HR) measurement of a patient.">
+				>
+				["at0006"] = <
+					text = <"Respiratory Rate">
+					description = <"Range category for the respiratory rate (RR) measurement of a patient.">
+				>
+				["at0007"] = <
+					text = <"Temperature">
+					description = <"Range category for the body temperature (Temp) measurement of a patient.">
+				>
+				["at0008"] = <
+					text = <"AVPU">
+					description = <"Observed category for the AVPU scale rating of a patient's conscious state.">
+				>
+				["at0010"] = <
+					text = <">129">
+					description = <"The heart rate measurement is greater than 129 beats/min; scored as 3 points.">
+				>
+				["at0011"] = <
+					text = <"<41 or 111-129">
+					description = <"The heart rate measurement is less than 41 beats/min or between 111 and 129 beats/min; scored as 2 points.">
+				>
+				["at0012"] = <
+					text = <"41-50 or 101-110">
+					description = <"The heart rate measurement is between 41 and 50 beats/min or between 101 and 110 beats/min; scored as 1 point.">
+				>
+				["at0013"] = <
+					text = <"51-100">
+					description = <"The heart rate measurement is between 51 and 100 beats/min; scored as 0 points.">
+				>
+				["at0014"] = <
+					text = <"101-199">
+					description = <"The systolic blood pressure measurement is between 101 and 199 mmHg; scored as 0 points.">
+				>
+				["at0015"] = <
+					text = <"81-100">
+					description = <"The systolic blood pressure measurement is between 81 and 100 mmHg; scored as 1 point.">
+				>
+				["at0016"] = <
+					text = <"71-80 or >199">
+					description = <"The systolic blood pressure measurement is between 71 and 80 mmHg or greater than 199 mmHg; scored as 2 points.">
+				>
+				["at0017"] = <
+					text = <"<71">
+					description = <"The systolic blood pressure measurement is less than 71 mmHg; scored as 3 points.">
+				>
+				["at0018"] = <
+					text = <"9-14">
+					description = <"The respiratory rate measurement is between 9 and 14 breaths/min; scored as 0 points.">
+				>
+				["at0019"] = <
+					text = <"15-20">
+					description = <"The respiratory rate measurement is between 15 and 20 breaths/min; scored as 1 point.">
+				>
+				["at0020"] = <
+					text = <"<9 or 21-29">
+					description = <"The respiratory rate measurement is less than 9 breaths/min or between 21 and 29 breaths/min; scored as 2 points.">
+				>
+				["at0021"] = <
+					text = <">29">
+					description = <"The respiratory rate measurement is greater than 29 breaths/min; scored as 3 points.">
+				>
+				["at0022"] = <
+					text = <"36.1-38">
+					description = <"The body temperature measurement is between 36.1 and 38 degrees Celsius; scored as 0 points.">
+				>
+				["at0023"] = <
+					text = <"<=35 or >38.5">
+					description = <"The body temperature measurement is less than or equal to 35 degrees Celsius or greater than 38.5 degrees Celsius; scored as 2 points.">
+				>
+				["at0024"] = <
+					text = <"A">
+					description = <"The patient is alert or awake; scored as 0 points.">
+				>
+				["at0025"] = <
+					text = <"V">
+					description = <"The patient responds to verbal stimulus or has a new confusion; scored as 1 point.">
+				>
+				["at0026"] = <
+					text = <"P">
+					description = <"The patient responds to painful stimulus; scored as 2 points.">
+				>
+				["at0027"] = <
+					text = <"U">
+					description = <"The patient is unconscious and not responding to stimulation; scored as 3 points.">
+				>
+				["at0028"] = <
+					text = <"Total Score">
+					description = <"The composite total score of each MEWS parameter category.">
+				>
+				["at0029"] = <
+					text = <"35.1-36 or 38.1-38.5">
+					description = <"The body temperature measurement is between 35.1 and 36 degrees Celsius or between 38.1 and 38.5 degrees Celsius; scored as 1 point.">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Modified Early Warning Score (MEWS)">
+					description = <"En enkel scoring anvendt til å gi objektiv indikasjon om en pasients grad av kritisk sykdom.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Tidspunkt">
+					description = <"Et spesifikt dato/tidspunkt som kan være definert i en mal eller template eller i tidsforløp.">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Systolisk blodtrykk">
+					description = <"Område kategori for det målte systoliske blodtrykket (SBT) til en pasient.">
+				>
+				["at0005"] = <
+					text = <"Hjertefrekvens">
+					description = <"Områdekategori for måling av en pasients hjertefrekvens.">
+				>
+				["at0006"] = <
+					text = <"Respirasjonsfrekvens">
+					description = <"Områdekategori for respirasjonsfrekvensen til en pasient.">
+				>
+				["at0007"] = <
+					text = <"Temperatur">
+					description = <"Områdekategori for kroppstemperatur til en pasient.">
+				>
+				["at0008"] = <
+					text = <"AVPU (Våken, tale, smerte, bevisstløs- vurdering)">
+					description = <"Observert kategori for APVU scoring av pasientens bevissthetstilstand.">
+				>
+				["at0010"] = <
+					text = <">129">
+					description = <"Hjertefrekvens målt høyere enn 129 pulsslag per min; scores som 3 poeng.">
+				>
+				["at0011"] = <
+					text = <"<41 eller over 111">
+					description = <"Hjertefrekvensen målt som mindre enn 41 pulsslag per min eller mellom 111-129 pulsslag; scores som 2 poeng.">
+				>
+				["at0012"] = <
+					text = <"41-50 eller 101-110">
+					description = <"Hjertefrekvensen målt mellom 41-50 eller mellom 101 og 110 pulsslag per min; scores som 1 poeng.">
+				>
+				["at0013"] = <
+					text = <"51-100">
+					description = <"Hjertefrekvensen målt mellom 51-100 pulsslag per min; scores som 0 poeng.">
+				>
+				["at0014"] = <
+					text = <"101-199">
+					description = <"Det systoliske blodtrykket målt mellom 101-199 mmHg; scores som 0 poeng.">
+				>
+				["at0015"] = <
+					text = <"81-101">
+					description = <"Det systoliske blodtrykket målt mellom 81-101 mm Hg; scores som 1 poeng.">
+				>
+				["at0016"] = <
+					text = <"71-80">
+					description = <"Det systoliske blodtrykket målt mellom 71-101 mm Hg eller høyere enn 199 mm Hg; scores som 2 poeng.">
+				>
+				["at0017"] = <
+					text = <"<71">
+					description = <"Det systoliske blodtrykket målt som mindre enn 71 mm Hg; scores som 3 poeng.">
+				>
+				["at0018"] = <
+					text = <"9-14">
+					description = <"Respirasjonsfrekvensen målt mellom 9 og 14 pust per min; scores som 0 poeng.">
+				>
+				["at0019"] = <
+					text = <"15-20">
+					description = <"Respirasjonsfrekvensen målt mellom 15 og 20 pust per min; scores som 1 poeng.">
+				>
+				["at0020"] = <
+					text = <"<9 eller 21-29">
+					description = <"Respirasjonsfrekvensen målt, mindre enn 9 eller mellom 21 og 29 pust per min; scores som 2 poeng.">
+				>
+				["at0021"] = <
+					text = <">29">
+					description = <"Respirasjonsfrekvensen målt, høyere enn 29 pust per min; scores som 3 poeng.">
+				>
+				["at0022"] = <
+					text = <"36,1-38">
+					description = <"Kroppstemperaturen målt mellom 36,1 og 38 grader Celsius; scores til 0 poeng.">
+				>
+				["at0023"] = <
+					text = <"<= 35 eller > 38,5">
+					description = <"Kroppstemperaturen målt til til mindre enn 35,5 grader Celcius eller høyere enn 38,5 grader Celsius; scores som 2 poeng.">
+				>
+				["at0024"] = <
+					text = <"Våken">
+					description = <"Pasienten er alert eller våken; scores som 0 poeng.">
+				>
+				["at0025"] = <
+					text = <"Reagerer på tale/lyd, våkner ikke">
+					description = <"Pasienten svarer på verbale stimuli eller er nylig blitt konfus; scores som 1 poeng.">
+				>
+				["at0026"] = <
+					text = <"Reagerer KUN på smertestimuli">
+					description = <"Pasienten responderer KUN på smertestimuli; scores som 2 poeng.">
+				>
+				["at0027"] = <
+					text = <"Bevisstløs, ingen reaksjon">
+					description = <"Pasienten er bevisstløs og responderer ikke på stimuli; scores som 3 poeng.">
+				>
+				["at0028"] = <
+					text = <"Total score">
+					description = <"Summen av scoren til hvert enkelt MEWS-parameter.">
+				>
+				["at0029"] = <
+					text = <"35,1-36,1 eller 38,1-38,5">
+					description = <"Kroppstemperaturen målt mellom 35,1 og 36 grader Celsius eller mellom 38,1 og 35,5 grader Celsius; scores til 1 poeng.">
+				>
+			>
+		>
+	>
