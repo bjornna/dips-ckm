@@ -1,0 +1,180 @@
+archetype (adl_version=1.4)
+    openEHR-EHR-ACTION.emergency_status-patient.v1
+specialize
+    openEHR-EHR-ACTION.emergency_status.v1
+
+concept
+    [at0000.1]
+
+language
+    original_language = <[ISO_639-1::nb]>
+    translations = <
+        ["no"] = <
+            language = <[ISO_639-1::no]>
+            author = <
+                ["name"] = <"?">
+            >
+        >
+        ["en"] = <
+            language = <[ISO_639-1::en]>
+            author = <
+                ["name"] = <"?">
+            >
+        >
+    >
+
+description
+    original_author = <
+        ["email"] = <"bna@dips.no">
+        ["organisation"] = <"DIPS ASA">
+        ["name"] = <"Bjørn Næss">
+        ["date"] = <"2014-02-26">
+    >
+    lifecycle_state = <"0">
+    details = <
+        ["nb"] = <
+            language = <[ISO_639-1::nb]>
+            purpose = <"Angir status for pasient ">
+            use = <"Spesialiseres til ulike spesifikke statuser - som pasientstatus, rad.status og lab.status">
+        >
+        ["en"] = <
+            language = <[ISO_639-1::en]>
+            purpose = <"Defines status of patient ">
+            use = <"Will be specialised to concrete status information, e.g. radiology status">
+        >
+        ["no"] = <
+            language = <[ISO_639-1::no]>
+            purpose = <"Angir status for pasient ">
+            use = <"Spesialiseres til ulike spesifikke statuser - som pasientstatus, rad.status og lab.status">
+        >
+    >
+
+definition
+    ACTION[at0000.1] matches {
+        ism_transition matches {
+            ISM_TRANSITION[at0003] matches {
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::532]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0003]
+                        }
+                    }
+                }
+            }
+        }
+        description matches {
+            ITEM_TREE[at0001] matches {
+                items cardinality matches {0..*; unordered} matches {
+                    ELEMENT[at0002] occurrences matches {0..1} matches {
+                        value matches {
+                            DV_TEXT matches {*}
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+ontology
+    term_definitions = <
+        ["no"] = <
+            items = <
+                ["at0000"] = <
+                    text = <"Status">
+                    description = <"Angir status for pasient ">
+
+                >
+                ["at0000.1"] = <
+                    text = <"Pasientstatus">
+                    description = <"Angir status for pasient ">
+
+                >
+                ["at0001"] = <
+                    text = <"Tree">
+                    description = <"@ internal @">
+
+                >
+                ["at0002"] = <
+                    text = <"Status">
+                    description = <"Angir nåværende status for pasienten">
+
+                >
+                ["at0003"] = <
+                    text = <"Status satt">
+                    description = <"*">
+
+                >
+            >
+        >
+        ["nb"] = <
+            items = <
+                ["at0000"] = <
+                    text = <"Status">
+                    description = <"Angir status for pasient ">
+
+                >
+                ["at0000.1"] = <
+                    text = <"Pasientstatus">
+                    description = <"Angir status for pasient ">
+
+                >
+                ["at0001"] = <
+                    text = <"Tree">
+                    description = <"@ internal @">
+
+                >
+                ["at0002"] = <
+                    text = <"Status">
+                    description = <"Angir nåværende status for pasienten">
+
+                >
+                ["at0003"] = <
+                    text = <"Status satt">
+                    description = <"*">
+
+                >
+            >
+        >
+        ["en"] = <
+            items = <
+                ["at0000"] = <
+                    text = <"Status">
+                    description = <"Defines status of patient at emergency ward ">
+
+                >
+                ["at0000.1"] = <
+                    text = <"*Pasientstatus(nb)">
+                    description = <"*Angir status for pasient (nb)">
+
+                >
+                ["at0001"] = <
+                    text = <"*Tree(nb)">
+                    description = <"*@ internal @(nb)">
+
+                >
+                ["at0002"] = <
+                    text = <"*Status(nb)">
+                    description = <"*Angir nåværende status for pasienten(nb)">
+
+                >
+                ["at0003"] = <
+                    text = <"*Status satt(nb)">
+                    description = <"**(nb)">
+
+                >
+            >
+        >
+    >
+    constraint_definitions = <
+    >
+    term_binding = <
+    >
+    constraint_binding = <
+    >
