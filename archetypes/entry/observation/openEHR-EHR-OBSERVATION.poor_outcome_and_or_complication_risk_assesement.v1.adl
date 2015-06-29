@@ -1,0 +1,149 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.poor_outcome_and_or_complication_risk_assesement.v1
+
+concept
+	[at0000]	-- Evaluering av risiko for dårlig resultat og eller komplikasjoner
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"BE347CED954EDB7DDFB9E7C27F0AB554">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Evaluering av risiko for dårlig resultat og eller komplikasjoner
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..*} matches {	-- Navn
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									CLUSTER[at0009] occurrences matches {0..*} matches {	-- Helsefaktor
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0010] occurrences matches {0..*} matches {	-- Helsefaktor navn/egenskap
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0011] occurrences matches {0..1} matches {	-- Tilstedeværelse
+												value matches {
+													DV_TEXT matches {*}
+													DV_BOOLEAN matches {
+														value matches {True}
+													}
+												}
+											}
+											ELEMENT[at0012] occurrences matches {0..*} matches {	-- Lenke til evidens
+												value matches {
+													DV_URI matches {*}
+												}
+											}
+											ELEMENT[at0013] occurrences matches {0..1} matches {	-- Risikovurdering
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {	-- Total evaluering
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									allow_archetype CLUSTER[at0007] occurrences matches {0..*} matches {	-- Detaljer
+										include
+											archetype_id/value matches {/.*/}
+									}
+									ELEMENT[at0008] occurrences matches {0..1} matches {	-- Kommentar
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Evaluering av risiko for dårlig resultat og eller komplikasjoner">
+					description = <"Beskriver faktorer og deres betydning for at resultatet av en behandling blir dårlig og eller at det oppstår komplkasjoner">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Navn">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Total evaluering">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Detaljer">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Kommentar">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Helsefaktor">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Helsefaktor navn/egenskap">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Tilstedeværelse">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Lenke til evidens">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Risikovurdering">
+					description = <"*">
+				>
+			>
+		>
+	>
