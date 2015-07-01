@@ -61,23 +61,182 @@
     </other_details>
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Operatørvurdering">
-    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" path="/content">
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.surgery_details.v1" concept_name="Operasjonsdetaljer" path="/description[at0001]/items[at0005]" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.important_information.v1" concept_name="Viktig informasjon" path="/description[at0001]/items[at0005]" />
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" max="1" path="/content">
+      <Rule path="/description[at0001]/items[at0002]" min="1">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="VI-OPERASJONSTYPER" />
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0001]/items[at0058]" max="0" />
+      <Rule path="/description[at0001]/items[at0060]" max="0" />
+      <Rule path="/description[at0001]/items[at0031]" max="0" />
+      <Rule path="/description[at0001]/items[at0035]" max="0" />
+      <Rule path="/description[at0001]/items[at0062]" max="0" />
+      <Rule path="/description[at0001]/items[at0059]" max="0" />
+      <Rule path="/description[at0001]/items[at0003]" max="0" />
+      <Rule path="/description[at0001]/items[at0009]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.additional_procedure_code.v1" concept_name="Tilleggsprosedyre" path="/description[at0001]/items[at0005]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="VI-OPERASJONSTYPER" />
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0002]" max="0" />
+        <Rule path="/items[at0003]" max="0" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.surgery_details.v1" concept_name="Operasjonsdetaljer" max="1" path="/description[at0001]/items[at0005]">
+        <Rule path="/items[at0001]" min="1">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="UDS-SMITTESTATUS OPR" />
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0002]" min="1">
+          <constraint xsi:type="textConstraint" limitToList="false">
+            <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="UDS-LEIE" />
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0003]/items[at0004]" min="1" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.important_information.v1" concept_name="Viktig informasjon" max="1" path="/description[at0001]/items[at0005]">
+        <Rule path="/items[at0002]" default="Kirurg" hide_on_form="true" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.anesthesia_requested.v1" concept_name="Ønsket anestesi" max="1" path="/description[at0001]/items[at0005]">
+        <Rule path="/items[at0001]" max="1" min="1">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="UDS - ØNSKET ANESTESI" />
+          </constraint>
+        </Rule>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.special_requirements_surgery.v1" template_id="35ddbcd4-6f68-4595-8313-a6dcf52343f5" concept_name="Spesielle behov kirurgi" max="1" path="/description[at0001]/items[at0005]" />
     </Content>
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.height.v1" concept_name="Høyde/Lengde" path="/content" />
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_weight.v1" concept_name="Kroppsvekt" path="/content" />
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_mass_index.v1" concept_name="Kroppsmasseindeks" path="/content" />
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.blood_pressure.v1" concept_name="Blodtrykk" path="/content" />
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.pulse.v1" concept_name="Puls/Hjertefrekvens" path="/content" />
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.exam.v1" concept_name="Funn ved fysisk undersøkelse" path="/content">
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.exam_chest.v0" concept_name="Thoraxundersøkelse" path="/data[at0001]/events[at0002 and name/value='Uspesifisert hendelse']/data[at0003]/items[at0005]">
-        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.exam_heart.v0" concept_name="Hjerteundersøkelse" path="/items[at0004]" />
-        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.exam_lung.v0" concept_name="Undersøkelse av en lunge" path="/items[at0004]" />
-        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.auscultation_lung.v0" concept_name="Lungeauskultasjon" path="/items[at0004]" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.height.v1" concept_name="Høyde/Lengde" max="1" path="/content">
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0026]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0018]" max="0" />
+      <Rule path="/data[at0001]/events[at0021]" max="0" />
+      <Rule path="/protocol[at0007]/items[at0025]" max="0" />
+      <Rule path="/protocol[at0007]/items[at0028]" max="0" />
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_weight.v1" concept_name="Kroppsvekt" max="1" path="/content">
+      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0004]">
+        <constraint xsi:type="quantityConstraint">
+          <excludedUnits>g</excludedUnits>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0038]" max="0" />
+      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0024]" max="0" />
+      <Rule path="/data[at0002]/events[at0003]/state[at0008]/items[at0009]" max="0" />
+      <Rule path="/data[at0002]/events[at0003]/state[at0008]/items[at0025]" max="0" />
+      <Rule path="/data[at0002]/events[at0026]" max="0" />
+      <Rule path="/protocol[at0015]/items[at0037]" max="0" />
+      <Rule path="/protocol[at0015]/items[at0041]" max="0" />
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_mass_index.v1" concept_name="Kroppsmasseindeks" max="1" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.blood_pressure.v1" concept_name="Blodtrykk" max="1" path="/content">
+      <Rule path="/data[at0001]/events[at0006]/data[at0003]/items[at1006]" max="0" />
+      <Rule path="/data[at0001]/events[at0006]/data[at0003]/items[at1007]" max="0" />
+      <Rule path="/data[at0001]/events[at0006]/data[at0003]/items[at0033]" max="0" />
+      <Rule path="/data[at0001]/events[at0006]/state[at0007]/items[at0008]" max="0" />
+      <Rule path="/data[at0001]/events[at0006]/state[at0007]/items[at1005]" max="0" />
+      <Rule path="/data[at0001]/events[at0006]/state[at0007]/items[at1052]" max="0" />
+      <Rule path="/data[at0001]/events[at0006]/state[at0007]/items[at1043]" max="0" />
+      <Rule path="/data[at0001]/events[at1042]" max="0" />
+      <Rule path="/protocol[at0011]/items[at0013]" max="0" />
+      <Rule path="/protocol[at0011]/items[at0014]" max="0" />
+      <Rule path="/protocol[at0011]/items[at1035]" max="0" />
+      <Rule path="/protocol[at0011]/items[at1038]" max="0" />
+      <Rule path="/protocol[at0011]/items[at1054]" max="0" />
+      <Rule path="/protocol[at0011]/items[at1055]" max="0" />
+      <Rule path="/protocol[at0011]/items[at1010]" max="0" />
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.pulse.v1" concept_name="Puls/Hjertefrekvens" max="1" path="/content">
+      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at1005]" default="Tilstede" hide_on_form="true" />
+      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at1030]" max="0" />
+      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at1022]" max="0" />
+      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at1023]" max="0" />
+      <Rule path="/data[at0002]/events[at0003]/state[at0012]/items[at0013]" max="0" />
+      <Rule path="/data[at0002]/events[at0003]/state[at0012]/items[at1018]" max="0" />
+      <Rule path="/data[at0002]/events[at1036]" max="0" />
+      <Rule path="/protocol[at0010]/items[at1019]" max="0" />
+      <Rule path="/protocol[at0010]/items[at1037]" max="0" />
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.exam.v1" concept_name="Funn ved fysisk undersøkelse" max="1" path="/content">
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/state[at0009]/items[at0008]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.exam_chest.v0" concept_name="Thoraxundersøkelse" max="1" path="/data[at0001]/events[at0002 and name/value='Uspesifisert hendelse']/data[at0003]/items[at0005]" name="Undersøkelse av hjerte og lunge">
+        <Rule path="/items[at0006]" max="0" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.exam_heart.v0" concept_name="Hjerteundersøkelse" max="1" path="/items[at0004]">
+          <Rule path="/items[at0006]" max="0" />
+          <Rule path="/items[at0007]" max="0" />
+        </Items>
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.exam_lungs.v0" concept_name="Undersøkelse av begge lunger" max="1" path="/items[at0004]">
+          <Rule path="/items[at0006]" max="0" />
+          <Rule path="/items[at0007]" max="0" />
+        </Items>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA fysisk status klassifikasjon" max="1" path="/data[at0001]/events[at0002 and name/value='Uspesifisert hendelse']/data[at0003]/items[at0005]">
+        <Rule path="/items[at0001]" min="1" />
       </Items>
     </Content>
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.poor_outcome_and_or_complication_risk_assesement.v1" concept_name="Evaluering av risiko for negativt utfall og eller komplikasjoner" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.poor_outcome_and_or_complication_risk_assesement.v1" template_id="2a5354c2-bfa7-4232-ac88-9a32e955d18d" concept_name="Evaluering av risiko for negativt utfall og eller komplikasjoner" max="1" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.tobacco_use.v0" template_id="1b99a49f-119b-48e8-8926-72e08562db1c" concept_name="Tobakksbruk" max="1" path="/content" />
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.medication_olafia.v1" concept_name="Medikasjonshandlinger" max="1" path="/content" name="Antibiotikaprofylakse">
+      <Rule path="/description[at0017]/items[at0020]" hide_on_form="true">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Cefalotin</includedValues>
+          <includedValues>Klindamycin</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0017]/items[at0033]" max="1" hide_on_form="true">
+        <constraint xsi:type="textConstraint" limitToList="false">
+          <includedValues>2gx4, 30-60 min. før knivstart</includedValues>
+          <includedValues>2g, 30-60 min før knivstart</includedValues>
+          <includedValues>Avvente prøvetaking, deretter 2gx4</includedValues>
+          <includedValues>600mg x4, 30-60 min. før knivstart</includedValues>
+          <includedValues>600mg, 30-60 min. før knivstart</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0017]/items[at0021]" max="0" />
+      <Rule path="/description[at0017]/items[at0024]" max="0" />
+      <Rule path="/description[at0017]/items[at0025]" max="0" />
+      <Rule path="/description[at0017]/items[at0036]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.ofte_brukte_medikamenter.v1" concept_name="Ofte brukte medikamenter" max="1" path="/description[at0017]/items[at0044]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Cefalotin 2 g x 4, 30-60 før knivstart</includedValues>
+            <includedValues>Cefalotin 2 g, 30-60 før knivstart</includedValues>
+            <includedValues>Avvente prøvetaking deretter Cefalotin 2 g x 4</includedValues>
+            <includedValues>Klindamycin 600 mg x 4, 30-60 min før knivstart</includedValues>
+            <includedValues>Klindamycin 600 mg, 30-60 min før knivstart</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+    </Content>
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.medication_olafia.v1" concept_name="Medikasjonshandlinger" max="1" path="/content" name="Annen medisin under operasjon">
+      <Rule path="/description[at0017]/items[at0020]" default="Cyklokapron/Tranexamsyre" hide_on_form="true">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Text</includedTypes>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0017]/items[at0033]" max="1" hide_on_form="true">
+        <constraint xsi:type="textConstraint" limitToList="false">
+          <includedValues>10 mg/kg etter avtale før blodtomhetsslipp, + etter 3 timer</includedValues>
+          <includedValues>10mg/kg, 20-30 min. før knivstart + etter 3 timer</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0017]/items[at0021]" max="0" />
+      <Rule path="/description[at0017]/items[at0024]" max="0" />
+      <Rule path="/description[at0017]/items[at0025]" max="0" />
+      <Rule path="/description[at0017]/items[at0036]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.ofte_brukte_medikamenter.v1" concept_name="Ofte brukte medikamenter" max="1" path="/description[at0017]/items[at0044]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint" limitToList="false">
+            <includedValues>Cyclokapron/Traneksamsyre 10mg/kg etter avtale før blodtomhetslipp. + etter 3 timer</includedValues>
+            <includedValues>Cyclokapron/Traneksamsyre 10mg/kg 20-30 min før knivstart + etter 3 timer</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+    </Content>
     <Context />
   </definition>
 </template>
