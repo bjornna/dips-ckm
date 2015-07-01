@@ -61,11 +61,67 @@
     </other_details>
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt">
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.preoperative_evaluation_anesthesia.v1" concept_name="Preoperativ evaluering anestesi" path="/content" />
-    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Adhoc heading" max="1" path="/content" name="Preoperativ evaluering" />
-    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Adhoc heading" max="1" path="/content" name="Pasient" />
-    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Adhoc heading" max="1" path="/content" name="Evaluering av risiko for komplikasjoner" />
-    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Adhoc heading" max="1" path="/content" name="Plan" />
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Adhoc heading" max="1" path="/content" name="Preoperativ evaluering">
+      <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.preoperative_evaluation_anesthesia.v1" concept_name="Preoperativ evaluering anestesi" path="/items">
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0021]" max="1" name="Vurdering blodprøver" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0021 and name/value='Vurdering blodprøver']/items[at0029]" name="Blodprøver vurdert?">
+          <constraint xsi:type="multipleConstraint">
+            <includedTypes>Boolean</includedTypes>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0021]" max="1" clone="true" name="Vurdering ekko" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0021 and name/value='Vurdering ekko']/items[at0029]" name="Ekko vurdert?" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0021]" max="1" clone="true" name="Vurdering rø. thorax" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0021 and name/value='Vurdering rø. thorax']/items[at0029]" name="Rø. thorax vurdert?">
+          <constraint xsi:type="multipleConstraint">
+            <includedTypes>Boolean</includedTypes>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0021]" max="1" clone="true" name="Vurdering EKG" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0021 and name/value='Vurdering EKG']/items[at0029]" name="EKG vurdert?" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.citation.v1" concept_name="Sitering" path="/data[at0001]/events[at0002]/data[at0003]/items[at0021 and name/value='Vurdering blodprøver']/items[at0031]">
+          <Rule path="/items[at0001]" max="0" />
+          <Rule path="/items[at0002]" max="0" />
+        </Items>
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.citation.v1" concept_name="Sitering" path="/data[at0001]/events[at0002]/data[at0003]/items[at0021 and name/value='Vurdering ekko']/items[at0031]" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.citation.v1" concept_name="Sitering" path="/data[at0001]/events[at0002]/data[at0003]/items[at0021 and name/value='Vurdering rø. thorax']/items[at0031]" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.citation.v1" concept_name="Sitering" path="/data[at0001]/events[at0002]/data[at0003]/items[at0021 and name/value='Vurdering EKG']/items[at0031]" />
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Adhoc heading" max="1" path="/content" name="Pasient">
+      <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.blood_pressure.v1" concept_name="Blodtrykk" path="/items" />
+      <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.pulse.v1" concept_name="Puls/Hjertefrekvens" path="/items" />
+      <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.height.v1" concept_name="Høyde/Lengde" path="/items" />
+      <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_weight.v1" concept_name="Kroppsvekt" path="/items" />
+      <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_mass_index.v1" concept_name="Kroppsmasseindeks" path="/items" />
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Adhoc heading" max="1" path="/content" name="Evaluering av risiko for komplikasjoner">
+      <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.poor_outcome_and_or_complication_risk_assesement.v1" template_id="2a5354c2-bfa7-4232-ac88-9a32e955d18d" concept_name="Evaluering av risiko for negativt utfall og eller komplikasjoner" path="/items" />
+      <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.tobacco_use.v0" template_id="1b99a49f-119b-48e8-8926-72e08562db1c" concept_name="Tobakksbruk" path="/items" />
+      <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.poor_outcome_and_or_complication_risk_assesement.v1" concept_name="Evaluering av risiko for negativt utfall og eller komplikasjoner" path="/items">
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]" max="1" name="Sirkulasjon" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]" max="1" clone="true" name="Respirasjon" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]" max="1" clone="true" name="Andre sykdommer" />
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]" max="1" clone="true" name="Annet" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA fysisk status klassifikasjon" path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.nyha_heart_failure_score.v1" concept_name="NYHA Hjerte svikt klassifikasjon" path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]" />
+      </Item>
+      <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.poor_outcome_and_or_complication_risk_assesement.v1" concept_name="Evaluering av risiko for negativt utfall og eller komplikasjoner" path="/items">
+        <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]" max="1" name="Luftvei" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.mallampati_classification.v1" concept_name="Modifisert Mallampati klassifikasjon" path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]" />
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Adhoc heading" max="1" path="/content" name="Plan">
+      <Item xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.request-procedure.v0" concept_name="Prosedyrerekvirering" path="/items">
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.planned_anesthesia.v1" concept_name="Planlagt anestesi" path="/activities[at0001 and name/value='Rekvirering']/description[at0009]/items[at0132]" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.important_information.v1" concept_name="Viktig informasjon" path="/activities[at0001 and name/value='Rekvirering']/description[at0009]/items[at0132]" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.follow_up.v1" concept_name="Oppfølging" path="/activities[at0001 and name/value='Rekvirering']/description[at0009]/items[at0132]" />
+      </Item>
+      <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.medication_olafia.v1" concept_name="Medikasjonshandlinger" max="1" path="/items" name="Premedikasjon">
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.ofte_brukte_medikamenter.v1" concept_name="Ofte brukte medikamenter" path="/description[at0017]/items[at0044]" />
+      </Item>
+      <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.medication_olafia.v1" concept_name="Medikasjonshandlinger" max="1" path="/items" name="Postoperativ smertelindring" />
+    </Content>
     <Context />
   </definition>
 </template>

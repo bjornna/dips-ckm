@@ -1,0 +1,116 @@
+﻿archetype (adl_version=1.4; uid=cf809711-cedc-4f96-97bd-adcbccb1311a)
+	openEHR-EHR-OBSERVATION.mallampati_classification.v0
+
+concept
+	[at0000]	-- Modifisert Mallampati klassifikasjon
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["organisation"] = <"Dips ASA">
+		["email"] = <"ahe@dips.no">
+		["date"] = <"2015-04-29">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"En del av vurderingen av vanskelighetsgrad for intubasjon i forkant av en planlagt anestesi.">
+			use = <"Brukes i forbindelse med evaluering av intubasjonens vanskelighetsgrad hos hos et individ i forkant av en planlagt anestesi. Undersøkelsen gjøres med pasienten i sittende posisjon, oppreist, med åpen munn og tunga maksimalt utstrakt uten phonasjon.">
+			keywords = <"mallampati", "anestesi", "intubasjon">
+			misuse = <"">
+			copyright = <"© Nasjonal IKT HF">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["revision"] = <"0.0.1-alpha">
+		["references"] = <"Lauren C Berkow, Strategies for airway management, Best Practice & Research Clinical Anaesthesiology, Volume 18, Issue 4, December 2004, Pages 531-548, ISSN 1521-6896, http://dx.doi.org/10.1016/j.bpa.2004.05.006.
+(http://www.sciencedirect.com/science/article/pii/S1521689604000400)
+
+Berkow L, Hagberg C, Crowley M. Airway management for induction of general anesthesia.  UpToDate.com (Mallampati)  19.05.2015.
+http://www.uptodate.com/contents/91218?search=mallampati+score&source=graphics_search&imageKey=EM/75229#graphicRef75229">
+		["build_uid"] = <"c193d761-569e-4f86-94aa-d209c3dda087">
+		["MD5-CAM-1.0.1"] = <"2F7823B4A77374827548D2EAF23A4307">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Modifisert Mallampati klassifikasjon
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Mallampati klassifikasjon
+										value matches {
+											1|[local::at0006], 	-- Klasse 1
+											2|[local::at0007], 	-- Klasse 2
+											3|[local::at0008], 	-- Klasse 3
+											4|[local::at0009]  	-- Klasse 4
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Kommentar
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Modifisert Mallampati klassifikasjon">
+					description = <"Klassifisering av grad av innsyn i munnhulen for å vurdere vanskelighetsgrad av intubasjon ved direkte laryngoskopi.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Uspesifisert hendelse">
+					description = <"Standard, uspesifisert tidspunkt eller tidsintervall som kan defineres mer eksplisitt i en template eller i en applikasjon.">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Mallampati klassifikasjon">
+					description = <"Mallampati klassifikasjon.">
+				>
+				["at0005"] = <
+					text = <"Kommentar">
+					description = <"Kommentar til mallampati klassifiseringen.">
+				>
+				["at0006"] = <
+					text = <"Klasse 1">
+					description = <"Hele tonsillsøylene, uvula, hard og bløt gane er synlig.">
+				>
+				["at0007"] = <
+					text = <"Klasse 2">
+					description = <"Partiell uvula og bløt gane er synlig.">
+				>
+				["at0008"] = <
+					text = <"Klasse 3">
+					description = <"Kun bløt gane er synlig.">
+				>
+				["at0009"] = <
+					text = <"Klasse 4">
+					description = <"Ingen visualisering av strukturer bak tungen.">
+				>
+			>
+		>
+	>
