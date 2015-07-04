@@ -1,0 +1,241 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ACTION.trajectory_follow_up.v1
+
+concept
+	[at0000]	-- Trajectory follow up
+language
+	original_language = <[ISO_639-1::en]>
+description
+	original_author = <
+		["name"] = <"Bjørn Næss">
+		["email"] = <"bna@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2015-06-20">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"Register events in a trajectory to follow up the pathway. ">
+			use = <"Register events in a trajectory to follow up the pathway. ">
+			keywords = <"trajectory", "pathway", "care plan">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"1F585988386C5F96EFC0E27699F3CBB6">
+	>
+
+definition
+	ACTION[at0000] matches {	-- Trajectory follow up
+		ism_transition matches {
+			ISM_TRANSITION[at0009] matches {	-- Trajectory initiated
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::526]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0009]}		-- Trajectory initiated
+					}
+				}
+			}
+			ISM_TRANSITION[at0017] matches {	-- Postpone
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::527]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0017]}		-- Postpone
+					}
+				}
+			}
+			ISM_TRANSITION[at0006] matches {	-- Cancel 
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::528]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0006]}		-- Cancel 
+					}
+				}
+			}
+			ISM_TRANSITION[at0008] matches {	-- Scheduled first treatment
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::529]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0008]}		-- Scheduled first treatment
+					}
+				}
+			}
+			ISM_TRANSITION[at0003] matches {	-- Active event
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0003]}		-- Active event
+					}
+				}
+			}
+			ISM_TRANSITION[at0016] matches {	-- Suspend
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::530]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0016]}		-- Suspend
+					}
+				}
+			}
+			ISM_TRANSITION[at0005] matches {	-- Abort
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::531]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0005]}		-- Abort
+					}
+				}
+			}
+			ISM_TRANSITION[at0007] matches {	-- Complete
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0007]}		-- Complete
+					}
+				}
+			}
+		}
+		description matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Event
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Description
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0014] occurrences matches {0..1} matches {	-- External event
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0011] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0012] occurrences matches {0..1} matches {	-- Responsible
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0013] occurrences matches {0..*} matches {	-- Responsible details
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Trajectory follow up">
+					description = <"Register events in a trajectory to follow up the pathway. ">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Event">
+					description = <"What kind of event was performed. ">
+				>
+				["at0003"] = <
+					text = <"Active event">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Abort">
+					description = <"Abort the ongoing trajectory">
+				>
+				["at0006"] = <
+					text = <"Cancel ">
+					description = <"Cancel the planned trajectory">
+				>
+				["at0007"] = <
+					text = <"Complete">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Scheduled first treatment">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Trajectory initiated">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Description">
+					description = <"Narrative description of the event">
+				>
+				["at0011"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0012"] = <
+					text = <"Responsible">
+					description = <"The local ID assigned to the responsible clinician for this action. ">
+				>
+				["at0013"] = <
+					text = <"Responsible details">
+					description = <"Details about the healthcare provider or organisation executing this action. ">
+				>
+				["at0014"] = <
+					text = <"External event">
+					description = <"Mark if this event happened outside of the responsible healthcare provider. ">
+				>
+				["at0016"] = <
+					text = <"Suspend">
+					description = <"Trajectory suspended - use description to tell the reason for suspension">
+				>
+				["at0017"] = <
+					text = <"Postpone">
+					description = <"The trajectory was postponed. Use description for reason to postpone">
+				>
+			>
+		>
+	>
