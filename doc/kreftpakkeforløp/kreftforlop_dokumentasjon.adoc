@@ -3,25 +3,24 @@
 :numbered:
 
 == Om et pakkeforløp
-Formålet med pakkeforløp er å sikre at kreftpasienter får tilbud om riktig behandling til rett tid. Forløpene skal kodes slik at det offentlige har kontroll på at denne pasientgruppen følges opp etter intensjonene. Pakkeforløpene er dokumentert på Helsedirektoratets hjemmesider: https://helsedirektoratet.no/kreft/pakkeforlop-for-kreft[]
+Formålet med pakkeforløp for kreft er å sikre at pasientene får tilbud om riktig behandling til rett tid. Forløpene skal kodes slik at det offentlige kan få bekreftet at pasientgruppen følges opp etter intensjonene. 
 
-Dette er første versjon av Arena Kreftpakkeforløp. Formålet med løsningen er å *forenkle* kodingen av pakkeforløpene og samtidig være et utgangspunkt for prosesstøtte ved oppfølging av disse pasientgruppene.
+Pakkeforløpene for kreft er godt dokumentert på Helsedirektoratets hjemmesider: https://helsedirektoratet.no/kreft/pakkeforlop-for-kreft[]
 
-TIP: Målsetningen med versjonen er å gjøre koding av pakkeforløp enklere.
+Dette dokumentet inneholder en innledende beskrivelse av Arena Kreftpakkeforløp. Dokumentasjonen er ment som informasjon og til dialog om utvikling av løsningen. Arena Kreftpakkeforløp er en modul som i stor grad er konfigurasjon av eksisterende funksjonalitet i DIPS Arena. Formålet med løsningen er å *forenkle* kodingen av pakkeforløpene og samtidig være et utgangspunkt for prosesstøtte ved oppfølging av disse pasientgruppene.
 
-=== Pakkeforløp og Pasientforløp 
-Pasientforløp og Behandlingslinje er to beslektede begrep. Under følger den definisjonen som legges til grunnn for dette: 
+Merk at målsetning med første versjon (Høst 2015) er å gjøre kodingen av pakkeforløp for kreft enklere. Samtidig er dette en løsning som videreutvikles til å støtte alle generelle pasientforløp og bruk av behandlingslinker i pasientforløpene. 
+
+Pasientforløp, behandlingslinje og pakkeforløp er beslektede begrep. 
 
 Pasientforløp::  En helhetlig, sammenhengende beskrivelse av en eller flere pasienters kontakter med ulike deler av helsevesenet i løpet av en sykdomsperiode. (Regjeringen.no)
 
 Behandlingslinje:: En dokumentert beskrivelse av et forventet pasientforløp for en definert diagnosegruppe, forankret i evidens og koplet til effektiv ressursutnyttelse og målbare resultater. (Helse Sør-Øst)
 
-Pakekforløp for kreft er en behandlingslinje for utvalgte diagnosegrupper. Behandlingslinjen er utarbeidet og forvaltes av Helsedirektoratet (HDir) og det HDir som har definert de målbare resultatparametrene de trenger. 
+Pakekforløp for kreft::  er en behandlingslinje for utvalgte diagnosegrupper. Behandlingslinjen er utarbeidet og forvaltes av Helsedirektoratet (HDir) og det HDir som har definert de målbare resultatparametrene de trenger. 
 
-Arena Kreftpakkeforløp er designet for å samle informasjon om iverksetting (start pakkeforløp) og hendelsesregistreringer for å de målbare resultatmålene. 
 
 TIP: Arena Pasientforløp vil være en senere løsning som rommer alle planer, aktiviteter og relevant informasjon i pasientforløpet og på tvers av helsetjenestetilbydere. 
-
 
 
 === Helsedirektoratets implementasjon av pakkeforløp
@@ -75,8 +74,19 @@ Følgende hendelser er definert:
 .. Overføring til annet helseforetak/sykehus
 .. Avslutt pakkeforløp
 
-Som eksempel på et pakkeforløp vises i figuren under brystkreft.
+Følgende arketyper er i bruk: 
 
+openEHR-EHR-COMPOSITION.trajectory.v1.adl:: https://github.com/bjornna/dips-ckm/blob/master/archetypes/composition/openEHR-EHR-COMPOSITION.trajectory.v1.adl[openEHR-EHR-COMPOSITION.trajectory.v1.adl]
+
+openEHR-EHR-INSTRUCTION.trajectory.v1.adl:: https://github.com/bjornna/dips-ckm/blob/master/archetypes/entry/instruction/openEHR-EHR-INSTRUCTION.trajectory.v1.adl[openEHR-EHR-INSTRUCTION.trajectory.v1.adl]
+
+openEHR-EHR-ACTION.trajectory_follow_up.v1.adl :: https://github.com/bjornna/dips-ckm/blob/master/archetypes/entry/action/openEHR-EHR-ACTION.trajectory_follow_up.v1.adl[openEHR-EHR-ACTION.trajectory_follow_up.v1.adl]
+
+openEHR-EHR-CLUSTER.cancer_trajectory_details.v1.adl::
+https://github.com/bjornna/dips-ckm/blob/master/archetypes/cluster/openEHR-EHR-CLUSTER.cancer_trajectory_details.v1.adl[openEHR-EHR-CLUSTER.cancer_trajectory_details.v1.adl]
+
+=== Eksempel Brystkreft
+Som eksempel på et pakkeforløp vises i figuren under brystkreft.
 
 image::Brystkreft_BPMN.png[]
 
@@ -90,7 +100,7 @@ Helsedirektoratet lister opp følgende tider for brystkreft: https://helsedirekt
 |Fra avsluttet utredning til start behandling | 10 kalenderdager | Medikamentell behandling |
 |====
 
-Eller om vi summerer opp hele forløpet 
+Oppsummert for hele forløpet gir det følgende tabell frem til start behandling: 
 
 |====
 | Forløpsbeskrivelse | Forløpstid | Type behandling 
@@ -98,6 +108,7 @@ Eller om vi summerer opp hele forløpet
 | Fra henvisning mottatt til start behandling | 24 kalenderdager | Medikamentell behandling 
 |====
 
+TIP: Mange forløp går ikke frem til behandling. Det kan f.eks. være pasienter som får beslutning om _ikke kreft_. 
 
 Pakkeforløpet startes ofte(st) i forbindelse med vurdering av henvisning. Denne pasientgruppen skal ha fått tilbud om og gjennomført første oppmøte inne det har gått 7 dager. Deretter skal helsetjenesten ha kommet frem til en klnisk beslutning 21 dager seinere. For mange pakkeforløp vil det være nødvendig å ha tatt og vurdert biopsi av området. Klinisk beslutning kan være både at det ikke er påvist brystkreft eller det påvises brystkreft. Dersom det påvises kreft skal pasienten få tilbud om en av to behandlinger. Det er operasjon eller medikamentell.
 
@@ -106,7 +117,7 @@ Når koder registreres i Arena Pakkeforløp gjøres dette med en forenklet kode.
 Et eksempel på hvordan kodingen i Arena vil skje er gitt i tabellen under:
 
 ==== Start pakkeforløp
-Lege vurderer henvisning til at dette er brystkreft og pasienten skal settes opp på pakkeforløp for brystkreft. Han vil da opprette et dokument _Kreftpakkeforløp start_ som inneholder en _openEHR-EHR-INSTRUCTION.trajectory_ . I skjema setter han pakkeforløp _Brystkreft_ som kodes med koden _A01_.
+Lege vurderer henvisning til at dette er brystkreft og pasienten skal settes opp på pakkeforløp for brystkreft. Han vil da opprette et dokument _Kreftpakkeforløp start_ som inneholder en  _openEHR-EHR-INSTRUCTION.trajectory_ . I skjema setter han pakkeforløp _Brystkreft_ som kodes med koden _A01_.
 
 Arena vil forstå at denne oppføringen markerer start på pakkeforløp brystkreft. Start pakkeforløp er hendelsen _A_. Her vil sammenstillingen av pakkeforløp Brystkreft _A01_ og Start pakkeforløp _A_ tilsammen gi NPR koden  *_A01A_*.
 
@@ -175,7 +186,6 @@ I eksempelet skal pasienten behandles kirurgisk _FK_ og pasienten står i et pak
 
 Registrering av start behandling markerer slutten på dette pakkeforløpet.
 
-
 ==== Oppsummering av koding i Arena Pakkeforløp
 Tabellen under viser eksempel på koding i Arena Pakkeforløp for Brystkreft.
 
@@ -232,10 +242,7 @@ Kreftpakke::WW::Annen hendelse
 
 ----
 
-CAUTION: Det er lagt inn en kode for Annen hendelse *WW*. Denner _kan_ brukes for å registrere hendelser i forløpet som _ikke_ skal rapporteres til NPR. Eksempel på dette kan være dokumentasjon av en telefonisk kontakt hvor pasient melder at han ønsker å utsette første fremmøte av private årsaker. 
-
-
-TIP: Kode for biopsi tatt skal gjøres hver gang det tas biopsi. Kan det være at denne hendelsen bør kodes på annen måte. F.eks. som en prosedyre som er utført. Sjekk med nyrebiopsi arbeidet med tanke på hvordan de dokumenterer biopsi taking.
+TIP: Det er lagt inn en kode for Annen hendelse *WW*. Denner _kan_ brukes for å registrere hendelser i forløpet som _ikke_ skal rapporteres til NPR. Eksempel på dette kan være dokumentasjon av en telefonisk kontakt hvor pasient melder at han ønsker å utsette første fremmøte av private årsaker. 
 
 Kodene er ikke komplette i forhold til det som skal oversendes Helsedirektoratet. Den korrekte koden for en hendelse er å flette sammen hendelseskoden sammen med pakkeforløpskoden. Et eksempel på dette er :
 
@@ -247,9 +254,7 @@ Kodene er ikke komplette i forhold til det som skal oversendes Helsedirektoratet
 
 
 === Koder for pakkeforløp
-Helsedirektoratet har definert ulike pakkeforløp. Kodene for disse er listet under.
-
-For noen av disse pakkeforløpene er det definerte kode- og diagnoseveiledere. I tillegg er det skrevet spesifikk dokumentasjon til pasienten. Pasientens dokumentasjon inneholder frister og informasjon om hva som skal skje i de ulike fasene.
+Helsedirektoratet har definert ulike pakkeforløp. Kodene for disse er listet under. For noen av disse pakkeforløpene er det definerte kode- og diagnoseveiledere. I tillegg er det skrevet spesifikk dokumentasjon til pasienten. Pasientens dokumentasjon inneholder frister og informasjon om hva som skal skje i de ulike fasene.
 
 [source]
 ----
@@ -282,7 +287,7 @@ Kreftpakke::A39::Nevroendokrine svulster
 Kreftpakke::A40::Galleveiskreft
 ----
 
-== Krav
+== Krav (overordnet)
 
 Det må være mulig å registrere tidligere hendelser i samme pakkeforløp.
 
@@ -295,10 +300,10 @@ Det må være mulig å finne ut hvor lang tid det er til neste hendelse i ethver
 === Ansvarlig
 Ansvarlig for en hendelse settes strukturert i skjema. I de fleste hendelser vil ansvarlig være samme som forfatter. Derfor er det ønskelig at pålogget bruker (forfatter) foreslås som ansvarlig for hendelsen. 
 
-Siden det i mange tilfeller vil gjøres registrering på vegne av må det også være mulig å angi ansvarlig. 
+Siden det i mange tilfeller vil gjøres registrering på vegne av må det også være mulig å angi ansvarlig.
 
 
-== Løsning
+=== Løsning for implementasjon 
 
 Ved vurdering av alle henvisninger skal det tas stilling til om gjeldende pasient faller inn unn et definert pasientforløp. I denne sammenheng tenker vi kun på om det foreligger grunn for å sette pasient opp i et kreftpakkeforløp. Dersom lege vurderer at det er grunnlag for det SKAL pasientens settes opp på et kreftpakkeforløp.
 
