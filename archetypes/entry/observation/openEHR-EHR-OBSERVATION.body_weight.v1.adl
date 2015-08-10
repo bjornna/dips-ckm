@@ -1,4 +1,4 @@
-﻿archetype (adl_version=1.4; uid=380f9f96-70fc-40fa-8ff4-663791b26067)
+﻿archetype (adl_version=1.4)
 	openEHR-EHR-OBSERVATION.body_weight.v1
 
 concept
@@ -8,6 +8,14 @@ language
 	translations = <
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
+			author = <
+				["name"] = <"Lars Bitsch-Larsen">
+				["organisation"] = <"Haukeland University Hospital">
+			>
+			accreditation = <"MD,DEAA, MBA, specialist in anesthesia, specialist in tropical medicine">
+		>
+		["no"] = <
+			language = <[ISO_639-1::no]>
 			author = <
 				["name"] = <"Lars Bitsch-Larsen">
 				["organisation"] = <"Haukeland University Hospital">
@@ -25,6 +33,22 @@ description
 	details = <
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes til registrering av et individs kroppsvekt - både målt, estimert og justert.">
+			use = <"Brukes til registrering av den faktiske måling av kroppsvekt, også når kroppsdel(er) mangler på grunn av en medfødt defekt eller etter kirurgisk/traumatisk fjerning. En kommentar som identifiserer eventuelt manglende kroppsdeler kan registreres i feltet \"Supplerende opplysninger\". Dette er standardarketypen som skal brukes for en vanlig måling av vekt, for eksempel selvmålt i hjemmet, på en klinikk/sykehus, på legekontor, helsestasjon eller skolehelsetjenesten, eller av en treningsinstruktør på et treningssenter.
+
+Kan også brukes for registrering av estimert kroppsvekt, i en klinisk situasjon hvor det ikke er mulig å måle nøyaktig kroppsvekt - for eksempel veiing av et ikke-samarbeidsvillig barn, eller estimere vekten av et foster (hvor subjektet er fosteret og registreringen skjer i mors journal). Dette er ikke modellert eksplisitt inn i arketypen idet openEHR referansemodellen tillater estimater for datatypen kvantitet (magnitude_status settes til \"~\"). Ved implementasjon kan det for eksempel settes kryss i en boks ved siden av datafeltet for vekt for å indikere at den registrerte vekten er et estimat. 
+
+Skal arketypen brukes til å påvise vekttap eller vektøkning, kan dette skje ved å sette begrensninger i \"Uspesifisert hendelse\" til et intervall med tilhørende matematisk funksjon.
+
+Ved registrering av den første vekten av et spedbarn kort tid etter fødselen, \"fødselsvekt\"- bruk hendelsen \"Fødsel\".
+
+Ved implementering må applikasjoner som bruker kroppsvekt til beregninger av f.eks. medikamentdoser eller BMI ta hensyn til at justert vekt er et eget datafelt.">
+			keywords = <"Vekt", "fedme", "anoreksi", "kroppsmasse", "obesitas", "overvekt", "avmagring", "undervekt", "vektøkning", "vekttap", "kakexi", "underernæring">
+			misuse = <"Skal ikke brukes til å registrere vekten av et ikke-kroppslig objekt eller en kroppsdel.">
+			copyright = <"© Nasjonal IKT HF">
+		>
+		["no"] = <
+			language = <[ISO_639-1::no]>
 			purpose = <"Brukes til registrering av et individs kroppsvekt - både målt, estimert og justert.">
 			use = <"Brukes til registrering av den faktiske måling av kroppsvekt, også når kroppsdel(er) mangler på grunn av en medfødt defekt eller etter kirurgisk/traumatisk fjerning. En kommentar som identifiserer eventuelt manglende kroppsdeler kan registreres i feltet \"Supplerende opplysninger\". Dette er standardarketypen som skal brukes for en vanlig måling av vekt, for eksempel selvmålt i hjemmet, på en klinikk/sykehus, på legekontor, helsestasjon eller skolehelsetjenesten, eller av en treningsinstruktør på et treningssenter.
 
@@ -183,6 +207,90 @@ definition
 ontology
 	term_definitions = <
 		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Kroppsvekt">
+					description = <"Individets kroppsvekt.">
+				>
+				["at0001"] = <
+					text = <"Simple">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"history">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Uspesifisert hendelse">
+					description = <"Standard, uspesifisert tidspunkt eller tidsintervall som kan defineres mer eksplisitt i en template eller i en applikasjon.">
+				>
+				["at0004"] = <
+					text = <"Kroppsvekt">
+					description = <"Et individs totale kroppsmasse.">
+				>
+				["at0008"] = <
+					text = <"state structure">
+					description = <"@ internal @">
+				>
+				["at0009"] = <
+					text = <"Påkledning">
+					description = <"Beskrivelse av personens påkledning på måletidspunktet.">
+				>
+				["at0010"] = <
+					text = <"Fullt påkledt inklusive sko">
+					description = <"Påkledning som kan øke vekten signifikant, inklusive sko.">
+				>
+				["at0011"] = <
+					text = <"Lette klær / undertøy">
+					description = <"Påkledning som ikke endrer vekten signifikant.">
+				>
+				["at0013"] = <
+					text = <"Naken">
+					description = <"Uten klær.">
+				>
+				["at0015"] = <
+					text = <"protocol structure">
+					description = <"@ internal @">
+				>
+				["at0017"] = <
+					text = <"Bleie">
+					description = <"Bare ikledt bleie - kan legge til signifikant vekt.">
+				>
+				["at0020"] = <
+					text = <"Måleapparat">
+					description = <"Detaljer om måleapparatet brukt til vektmålingen.">
+				>
+				["at0024"] = <
+					text = <"Kommentar">
+					description = <"Ytterligere beskrivelse av målingen av kroppsvekt som ikke dekkes i andre felt.">
+				>
+				["at0025"] = <
+					text = <"Konfunderende faktorer">
+					description = <"Registering av emner eller faktorer som kan ha betydning for måling av kroppsvekten, f.eks. inntak av mat og drikke, stort saltinntak, menstruasjonssyklus, tidspunkt for avføring, ødem eller uke av graviditet.">
+				>
+				["at0026"] = <
+					text = <"Fødsel">
+					description = <"Den første vekten målt etter fødselen. Denne hendelsen skal kun benyttes én gang per journal.">
+				>
+				["at0037"] = <
+					text = <"Justeringsmetode">
+					description = <"Matematisk formel for hvordan vekten som er registrert i feltet \"Justert vekt\" er beregnet.">
+				>
+				["at0038"] = <
+					text = <"Justert vekt">
+					description = <"Justert vekt er beregnet basert på en målt vekt. Justert vekt brukes til bl.a. utregning av medikamentdoser hvis pasienten mangler kroppsdeler, eller er overvektig eller ødematøs i slik grad at det signifikant påvirker målt kroppsvekt.">
+				>
+				["at0041"] = <
+					text = <"Begrunnelse for justering">
+					description = <"Begrunnelse for hvorfor feltet \"Justert vekt\" er benyttet.">
+				>
+				["at0042"] = <
+					text = <"Fullt påkledt uten sko">
+					description = <"Påkledning som kan øke vekten signifikant, uten sko.">
+				>
+			>
+		>
+		["no"] = <
 			items = <
 				["at0000"] = <
 					text = <"Kroppsvekt">
