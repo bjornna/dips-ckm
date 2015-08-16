@@ -105,8 +105,14 @@ Beslutningsnotat
 #add_info_patient:/items[at0008]/value		// Annen informasjon
 
 #req_med_pers: openEHR-EHR-CLUSTER.required_medical_personell.v1?scope=folder
-#req_med_pers:/items[at0001]/value		// Navngitt behandler
-#req_med_pers:/items[at0004]/value		// Obligatorisk
+#req_med_pers:/items[at0001]/value			// Navngitt behandler
+#req_med_pers:/items[at0004]/value			// Obligatorisk
+
+#add_proc
+#importantinfo
+#ane_req
+#asa
+#spec_req
 
 Anestesivurdering
 =================
@@ -115,11 +121,11 @@ Anestesivurdering
 #ane_eval:/data[at0001]/events[at0002]/data[at0003]/items[at0026]/value			// Pasient fysisk tilsett?
 #ane_eval:/data[at0001]/events[at0002]/data[at0003]/items[at0021 and name/value='Vurdering blodprøver']/items[at0029 and name/value='Blodprøver vurdert?']/value		// Blodprøver vurdert?
 #ane_eval:/data[at0001]/events[at0002]/data[at0003]/items[at0021 and name/value='Vurdering blodprøver']/items[openEHR-EHR-CLUSTER.citation.v1]/items[at0004]/value
-#ane_eval:/data[at0001]/events[at0002]/data[at0003]/items[at0021 and name/value='Vurdering EKG']/items[at0029,'EKG vurdert?']/value										// EKG vurdert?
+#ane_eval:/data[at0001]/events[at0002]/data[at0003]/items[at0021 and name/value='Vurdering EKG']/items[at0029 and name/value='EKG vurdert?']/value						// EKG vurdert?
 #ane_eval:/data[at0001]/events[at0002]/data[at0003]/items[at0021 and name/value='Vurdering EKG']/items[openEHR-EHR-CLUSTER.citation.v1]/items[at0004]/value
-#ane_eval:/data[at0001]/events[at0002]/data[at0003]/items[at0021 and name/value='Vurdering ekko']/items[at0029,'Ekko vurdert?']/value									// Ekko vurdert?
+#ane_eval:/data[at0001]/events[at0002]/data[at0003]/items[at0021 and name/value='Vurdering ekko']/items[at0029 and name/value='Ekko vurdert?']/value					// Ekko vurdert?
 #ane_eval:/data[at0001]/events[at0002]/data[at0003]/items[at0021 and name/value='Vurdering ekko']/items[openEHR-EHR-CLUSTER.citation.v1]/items[at0004]/value
-#ane_eval:/data[at0001]/events[at0002]/data[at0003]/items[at0021 and name/value='Vurdering rø. thorax']/items[at0029,'Rø. thorax vurdert?']/value						// Rø. thorax vurdert?
+#ane_eval:/data[at0001]/events[at0002]/data[at0003]/items[at0021 and name/value='Vurdering rø. thorax']/items[at0029 and name/value='Rø. thorax vurdert?']/value		// Rø. thorax vurdert?
 #ane_eval:/data[at0001]/events[at0002]/data[at0003]/items[at0021 and name/value='Vurdering rø. thorax']/items[openEHR-EHR-CLUSTER.citation.v1]/items[at0004]/value
 
 #pasientstatus: select c/uid/value as cid, o from composition c contains observation o[openEHR-EHR-OBSERVATION.poor_outcome_and_or_complication_risk_assesement.v1] where o/name/value='Pasientstatus' order by c/context/start_time/value desc fetch 1?scope=folder
@@ -155,50 +161,38 @@ Anestesivurdering
 #planned_anesthesia:/items[at0003]/value		// Planlagt ekstra overvåkning
 #planned_anesthesia:/items[openEHR-EHR-CLUSTER.follow_up.v1]/items[at0001]/value		// Overvåking
 
-
-GAMMELT SKROT
-=============
-
-#care: openEHR-EHR-CLUSTER.care_level.v1?scope=folder
-#care/items[at0001]/value/value			// Omsorgsnivå
-
-#imp_info_proc: openEHR-EHR-CLUSTER.important_information_procedure.v1?scope=folder
-#imp_info_proc:/items[at0001]/value				// Viktig informasjon fra kirurg
-
-#medication: openEHR-EHR-EVALUATION.check_list-medication.v1?scope=folder
-#medication:/data[at0001]/items[at0004]/items[at0002]/items[at0003.1]/value		// Pasientens medikasjon
-#medication:/data[at0001]/items[at0004]/items[at0002]/items[at0005]/value		// Kommentar til svaret
+#height
+#weight
+#bp
+#importantinfo
+#asa
+#medikamenter
+#allergier
+#tobakk
 
 
-#premed: select c/uid/value as cid, a from composition c contains action a[openEHR-EHR-ACTION.medication.v1] where a/name/value='Premedikasjon' order by c/context/start_time/value desc fetch 1?scope=folder
-#premed:/description[at0017]/items[at0033]/value	// Premedikasjon dosering og instruksjon
+FORMATTERING ANNOTATIONS FOR REUSE
+==================================
+På skjema defineres annotation for hver arketype, f.eks:
+Key:	#bp
+Value:	openEHR-EHR-OBSERVATION.blood_pressure.v1?scope=folder
 
-#postop_med: select c/uid/value as cid, a from composition c contains action a[openEHR-EHR-ACTION.medication.v1] where a/name/value='Postoperativ smertelindring' order by c/context/start_time/value desc fetch 1?scope=folder
-#postop_med:/description[at0017]/items[at0033]/value	// Postoperativ smertelindring dosering og instruksjon
-
-#surg_add_info: openEHR-EHR-CLUSTER.additional_information_surgery.v1?scope=folder
-#surg_add_info:/items[at0010]/value/value			// Behov for ekstra undersøkelse
-#surg_add_info:/items[at0012]/value/value			// Kommentar ekstra undersøkelse
-
-#ane_preop_clarif: openEHR-EHR-CLUSTER.preoperative_clarifications_anesthesia.v1?scope=folder
-#ane_preop_clarif:/items[at0001]/items[at0002]/value		// Avklaring før operasjon/Problemstilling
-#ane_preop_clarif:/items[at0001]/items[at0003]/value		// Tiltak
-#ane_preop_clarif:/items[at0001]/items[at0004]/value		// Ansvarlig
-
-#medikasjon: select c/uid/value as cid, e/data[at0001]/items[at0016 and name/value='Relevant medikasjon'] from composition c contains evaluation e[openEHR-EHR-EVALUATION.risk.v1] where e/data[at0001]/items[at0016]/name/value='Relevant medikasjon' order by c/context/start_time/value desc fetch 1?scope=folder
-#medikasjon:/items[at0017]/value		// Tilstedeværelse
-#medikasjon:/items[at0014]/value		// Beskrivelse
-
-{#medikasjon:/items[at0017]/value} - {#medikasjon:/items[at0014]/value}
-
-#royking: select c/uid/value as cid, e/data[at0001]/items[at0016 and name/value='Røyking'] from composition c contains evaluation e[openEHR-EHR-EVALUATION.risk.v1] where e/data[at0001]/items[at0016]/name/value='Røyking' order by c/context/start_time/value desc fetch 1?scope=folder
-#royking:/items[at0017]/value		// Tilstedeværelse
-#royking:/items[at0014]/value		// Beskrivelse
+På hvert enkelt felt som skal ha reuse defineres annotation med referanse til arketype og aql-path til feltet, f.eks:
+Key:	select
+Value:	{#bp:/data[at0001]/events[at0006]/data[at0003]/items[at0004]/value}
 
 
-#bmi: openEHR-EHR-OBSERVATION.body_mass_index.v1?scope=folder
-#bmi:/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value	// Kroppsmasseindeks
+FORMATTERING ANNOTATIONS FOR Å VISE INFORMASJON I GENERIC FIELD OG I UNIFY-VISNING
+=====================================================================================
+På skjema defineres annotation for hver arketype, f.eks:
+Key:	#bp
+Value:	openEHR-EHR-OBSERVATION.blood_pressure.v1?scope=folder
 
-#risk_hjertesvikt: select c/uid/value as cid, e/data[at0001]/items[at0016 and name/value='Hjertesvikt'] from composition c contains evaluation e[openEHR-EHR-EVALUATION.risk.v1] where e/data[at0001]/items[at0016]/name/value='Hjertesvikt' order by c/context/start_time/value desc fetch 1?scope=folder
+På generic field som skal vise informasjonen defineres annotation med referanse til arketype og aql-path til feltet, f.eks:
+Key:	format
+Value:	{#bp:/data[at0001]/events[at0006]/data[at0003]/items[at0004]/value}
 
-{#risk:/data[at0001]/items[at0016 and name/value='Hjertesvikt']/items[at0017]/value} - {#nyha:/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value/symbol/value}
+Dersom du ønsker mer avansert formattering så kan du sette sammen flere felt med formattering, f.eks:
+Key:	format
+Value:	{#bp:/data[at0001]/events[at0006]/data[at0003]/items[at0004]/value} / {#bp:/data[at0001]/events[at0006]/data[at0003]/items[at0005]/value}
+som vil gi deg blodtrykk formattert med systolsk og diastolsk og et skråstrek i mellom
