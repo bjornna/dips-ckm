@@ -1,0 +1,110 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.cancer_responsible_actor.v0
+
+concept
+	[at0000]	-- Ansvarlig for pakkeforløpet
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::no]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Bjørn Næss">
+		["email"] = <"bna@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2015-08-18">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To be used when defining which actor was responsible for an action related to a (cancer) trajectory. ">
+			use = <"This cluster is a simplification of openEHR-EHR-CLUSTER.organisation.v1 and openEHR-EHR-CLUSTER.individual_professional.v1. ">
+			misuse = <"Use openEHR-EHR-CLUSTER.organisation.v1 or openEHR-EHR-CLUSTER.individual_professional.v1 to define a proper structure for those types. ">
+			copyright = <"">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"*To be used when defining which actor was responsible for an action related to a (cancer) trajectory. (en)">
+			use = <"*This cluster is a simplification of openEHR-EHR-CLUSTER.organisation.v1 and openEHR-EHR-CLUSTER.individual_professional.v1. (en)">
+			misuse = <"*Use openEHR-EHR-CLUSTER.organisation.v1 or openEHR-EHR-CLUSTER.individual_professional.v1 to define a proper structure for those types. (en)">
+			copyright = <"*(en)">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"09FEA26F1C99476DC4E257CAE7FC9EDE">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Ansvarlig for pakkeforløpet
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Er ekstern?
+				value matches {
+					DV_BOOLEAN matches {
+						value matches {True, False}
+					}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Navn
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Organisasjon
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Cancer responsible actor">
+					description = <"Defines which actor is responsible for the event, i.e. start trajectory or a follow up event. ">
+				>
+				["at0001"] = <
+					text = <"Is external actor? ">
+					description = <"True if the actor responsible is from outside the current healthcare provider. ">
+				>
+				["at0002"] = <
+					text = <"Actor name">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Organisation">
+					description = <"*">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Ansvarlig for pakkeforløpet">
+					description = <"Definerer hvem som er ansvarlig for hendelse i pakkeforløpet">
+				>
+				["at0001"] = <
+					text = <"Er ekstern?">
+					description = <"Sann hvis den som utførte hendelsen tilhører annen organisajon enn den aktuelle. ">
+				>
+				["at0002"] = <
+					text = <"Navn">
+					description = <"Navnet på den som utførte hendelsen">
+				>
+				["at0003"] = <
+					text = <"Organisasjon">
+					description = <"Navnet på organisasjonen som utførte hendelsen">
+				>
+			>
+		>
+	>
