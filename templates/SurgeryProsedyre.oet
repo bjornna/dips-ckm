@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>0ee99884-019c-4145-bcd5-6d427a875b6a</id>
+  <name>Prosedyre</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose />
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre">
+    <Rule path="/description[at0001]/items[at0002]" min="1">
+      <constraint xsi:type="textConstraint">
+        <termQueryId terminologyID="ARK-VI-OPERASJONSTYPER" terminologyLang="en-GB" queryName="ARK-VI-OPERASJONSTYPER" />
+      </constraint>
+    </Rule>
+    <Rule path="/description[at0001]/items[at0058]" max="0" />
+    <Rule path="/description[at0001]/items[at0060]" max="0" />
+    <Rule path="/description[at0001]/items[at0031]" max="0" />
+    <Rule path="/description[at0001]/items[at0035]" max="0" />
+    <Rule path="/description[at0001]/items[at0062]" max="0" />
+    <Rule path="/description[at0001]/items[at0059]" max="0" />
+    <Rule path="/description[at0001]/items[at0003]" max="0" />
+    <Rule path="/description[at0001]/items[at0009]" max="0" />
+    <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.additional_procedure_code.v1" concept_name="Tilleggsprosedyre" path="/description[at0001]/items[at0005]">
+      <Rule path="/items[at0001]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="ARK-VI-OPERASJONSTYPER" terminologyLang="en-GB" queryName="ARK-VI-OPERASJONSTYPER" />
+        </constraint>
+      </Rule>
+      <Rule path="/items[at0002]" max="0" />
+    </Items>
+    <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.surgery_details.v1" concept_name="Operasjonsdetaljer" max="1" path="/description[at0001]/items[at0005]">
+      <Rule path="/items[at0001]" min="1">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="ARK-UDS-SMITTESTATUS OPR" terminologyLang="en-GB" queryName="ARK-UDS-SMITTESTATUS OPR" />
+        </constraint>
+      </Rule>
+      <Rule path="/items[at0002]" min="1">
+        <constraint xsi:type="textConstraint" limitToList="false">
+          <includedValues>Rygg m begge armer langs siden</includedValues>
+          <includedValues>Rygg med hengende kne</includedValues>
+          <includedValues>Rygg, venstre arm langs siden</includedValues>
+          <includedValues>Mageleie</includedValues>
+          <includedValues>Strumaleie</includedValues>
+          <includedValues>Strekkbord m venstre ben i benholder</includedValues>
+          <includedValues>Sideleie hø side opp</includedValues>
+          <includedValues>Trendelenburgs leie</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/items[at0003]/items[at0004]" min="1" />
+    </Items>
+    <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.important_information.v1" concept_name="Viktig informasjon" max="1" path="/description[at0001]/items[at0005]">
+      <Rule path="/items[at0002]" max="0" />
+    </Items>
+    <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.anesthesia_requested.v1" concept_name="Ønsket anestesi" max="1" path="/description[at0001]/items[at0005]">
+      <Rule path="/items[at0001]" max="1" min="1">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="ARK-UDS - ØNSKET ANESTESI" terminologyLang="en-GB" queryName="ARK-UDS - ØNSKET ANESTESI" />
+        </constraint>
+      </Rule>
+    </Items>
+    <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.special_requirements_surgery.v1" template_id="35ddbcd4-6f68-4595-8313-a6dcf52343f5" concept_name="Spesielle behov kirurgi" max="1" path="/description[at0001]/items[at0005]" />
+  </definition>
+</template>
