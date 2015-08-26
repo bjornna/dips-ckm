@@ -59,13 +59,11 @@ Operatørvurdering
 #tobakk:/data[at0001]/events[at0002]/data[at0003]/items[at0005]/items[at0015]/items[at0014]/value		// Antall røyket
 #tobakk:/data[at0001]/events[at0002]/data[at0003]/items[at0005]/items[at0015]/items[at0016]/value		// Brukt vekt
 
-#medikamenter: select c/uid/value as cid, o/data[at0001]/events[at0002]/data[at0003]/items[at0009] from composition c contains observation o[openEHR-EHR-OBSERVATION.poor_outcome_and_or_complication_risk_assesement.v1] where o/name/value='Medikamenter og allergier' and o/data[at0001]/events[at0002]/data[at0003]/items[at0009]/name/value='Bruk av medikamenter' order by c/context/start_time/value desc fetch 1?scope=folder
-#medikamenter:/items[at0011]/value			// Tilstedeværelse
-#medikamenter:/items[at0010]/value			// Helsefaktor navn/egenskap
-
-#allergier: select c/uid/value as cid, o/data[at0001]/events[at0002]/data[at0003]/items[at0009] from composition c contains observation o[openEHR-EHR-OBSERVATION.poor_outcome_and_or_complication_risk_assesement.v1] where o/name/value='Medikamenter og allergier' and o/data[at0001]/events[at0002]/data[at0003]/items[at0009]/name/value='Allergier' order by c/context/start_time/value desc fetch 1?scope=folder
-#allergier:/items[at0011]/value				// Tilstedeværelse
-#allergier:/items[at0010]/value				// Helsefaktor navn/egenskap
+#medikamenter_allergier: select c/uid/value as cid, o/data[at0001]/events[at0002]/data[at0003] from composition c contains observation o[openEHR-EHR-OBSERVATION.poor_outcome_and_or_complication_risk_assesement.v1] where o/name/value='Medikamenter og allergier' order by c/context/start_time/value desc fetch 1?scope=folder
+#medikamenter_allergier:/items[at0009,'Bruk av medikamenter']/items[at0011]/value			// Tilstedeværelse
+#medikamenter_allergier:/items[at0009,'Bruk av medikamenter']/items[at0010]/value			// Helsefaktor navn/egenskap
+#medikamenter_allergier:/items[at0009,'Allergier']/items[at0011]/value						// Tilstedeværelse
+#medikamenter_allergier:/items[at0009,'Allergier']/items[at0010]/value						// Helsefaktor navn/egenskap
 
 #ane_req: openEHR-EHR-CLUSTER.anesthesia_requested.v1?scope=folder
 #ane_req:/items[at0001]/value				// Ønsket anestesi
@@ -100,6 +98,10 @@ Beslutningsnotat
 #pri:/items[at0008]/value					// Skal pasienten settes på operasjonsprogrammet?
 #pri:/items[at0009]/value					// Fargekode hastegrad	
 #pri:/items[at0010]/value					// Fargekode varighet
+
+#care_level: openEHR-EHR-CLUSTER.care_level.v1?scope=folder
+#care_level:/items[at0001]/value 			// Omsorgsnivå
+#care_level:/items[at0002]/value            // Behandlingssted
 
 #add_info_patient: openEHR-EHR-CLUSTER.additional_information_patient_surgery.v1?scope=folder
 #add_info_patient:/items[at0004]/value		// Medisiner som skal seponeres
@@ -154,7 +156,6 @@ Anestesivurdering
 #eval_luftvei:/data[at0001]/events[at0002]/data[at0003]/items[at0009 and name/value='Luftvei']/items[at0011]/value				// Tilstedeværelse
 #eval_luftvei:/data[at0001]/events[at0002]/data[at0003]/items[at0009 and name/value='Luftvei']/items[at0013]/value				// Risikovurdering
 
-
 #mallampati: openEHR-EHR-CLUSTER.mallampati_classification.v1?scope=folder
 #mallampati:/items[at0001]/value				// Mallampati klassifikasjon
 
@@ -169,12 +170,12 @@ Anestesivurdering
 #bp
 #importantinfo
 #asa
-#medikamenter
-#allergier
+#medikamenter_allergier
 #tobakk
 
 ASA FRA HER OG DER
 ==================
+#asa_anestesi:/items[at0001]/value
 #asa_beslutning: select c/uid/value as cid, ci from composition c contains instruction i[openEHR-EHR-INSTRUCTION.request-procedure.v0] contains cluster ci[openEHR-EHR-CLUSTER.asa_status.v1] order by c/context/start_time/value desc fetch 1?scope=folder
 #asa_operator: select c/uid/value as cid, ci from composition c contains observation o[openEHR-EHR-OBSERVATION.exam.v1] contains cluster ci[openEHR-EHR-CLUSTER.asa_status.v1] order by c/context/start_time/value desc fetch 1?scope=folder
 #asa_anestesi: select c/uid/value as cid, ci from composition c contains observation o[openEHR-EHR-OBSERVATION.poor_outcome_and_or_complication_risk_assesement.v1] contains cluster ci[openEHR-EHR-CLUSTER.asa_status.v1] order by c/context/start_time/value desc fetch 1?scope=folder
