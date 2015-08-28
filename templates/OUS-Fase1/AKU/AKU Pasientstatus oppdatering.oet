@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>1e128b28-2bb4-4b4a-af37-9fac9f754d77</id>
+  <name>Pasientstatus oppdatering (AKU)</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose>Oppdatere statusinformasjon om pasient som kommer til Akuttmottaket ved OUS</purpose>
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Kontakt" name="Oppdatere statusinformasjon akuttmottak">
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.emergency_status-patient.v1" concept_name="Pasientstatus" max="1" path="/content">
+      <Rule path="/description[at0001]" hide_on_form="true" />
+      <Rule path="/description[at0001]/items[at0002]" annotation="ShowAs=radiobuttonlist;">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="Dips" terminologyLang="en-GB" queryName="ARK-AKMM1STATUS" />
+        </constraint>
+      </Rule>
+    </Content>
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.emergency_responsible_doctor.v1" concept_name="Ansvarlig lege" max="1" path="/content">
+      <Rule path="/description[at0001]" hide_on_form="true" />
+      <Rule path="/description[at0001]/items[at0002]" annotation="ShowAs=healthcarepartysearch;">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="Dips" terminologyLang="en-GB" queryName="healthcareparty" />
+        </constraint>
+      </Rule>
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.emergency_remark.v1" concept_name="Akuttmerknad" max="1" path="/content">
+      <Rule path="/data[at0001]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0002]/items[at0006]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="Dips" terminologyLang="en-GB" queryName="ARK-AKMM1MERKNADSKODER" />
+        </constraint>
+      </Rule>
+    </Content>
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.emergency_nurse_phone.v1" concept_name="Spl.mobil" max="1" path="/content">
+      <Rule path="/description[at0001]" hide_on_form="true" />
+      <Rule path="/description[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="Dips" terminologyLang="en-GB" queryName="ARK-AKMM1SPLMOBILNR" />
+        </constraint>
+      </Rule>
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.emergency_speciality.v1" concept_name="Spesialitet" max="1" path="/content">
+      <Rule path="/data[at0001]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="Dips" terminologyLang="en-GB" queryName="ARK-AKMM1SPESIALITET" />
+        </constraint>
+      </Rule>
+    </Content>
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.emergency_status-lab.v1" concept_name="Lab.status" max="1" path="/content">
+      <Rule path="/description[at0001]" hide_on_form="true" />
+      <Rule path="/description[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="Dips" terminologyLang="en-GB" queryName="ARK-AKMM1LABSTATUS" />
+        </constraint>
+      </Rule>
+    </Content>
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.emergency_status-rad.v1" concept_name="Rad.status" max="1" path="/content">
+      <Rule path="/description[at0001]" hide_on_form="true" />
+      <Rule path="/description[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="Dips" terminologyLang="en-GB" queryName="ARK-AKMM1RADSTATUS" />
+        </constraint>
+      </Rule>
+    </Content>
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.emergency_follow_up.v1" concept_name="Videre oppfølging" max="1" path="/content">
+      <Rule path="/description[at0001]" hide_on_form="true" />
+      <Rule path="/description[at0001]/items[at0002]" annotation="ShowAs=search;">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="Dips" terminologyLang="en-GB" queryName="ARK-AKMM1SENGEPOSTER " />
+        </constraint>
+      </Rule>
+    </Content>
+    <Context hide_on_form="true" />
+  </definition>
+</template>

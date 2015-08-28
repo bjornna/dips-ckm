@@ -1,0 +1,21 @@
+= AQL brukt ved OUS Fase 1 
+
+[source, SQL]
+----
+select a/uid as uid,  
+a_a/data[at0001]/items[at0002]/value as problem
+from EHR e
+contains COMPOSITION a
+contains EVALUATION a_a[openEHR-EHR-EVALUATION.patient_status.v1]
+offset 0 limit 100
+----
+
+[source, SQL]
+----
+select a_a/data[at0001]/items[at0002]/value as Innk
+from EHR e
+contains COMPOSITION a
+contains EVALUATION a_a[openEHR-EHR-EVALUATION.patient_arrival.v1]
+order by a_a/data[at0001]/items[at0002]/value/value asc
+offset 0 limit 100
+----
