@@ -78,10 +78,11 @@ Operatørvurdering
 
 Beslutningsnotat
 ================
-#proc_req: openEHR-EHR-INSTRUCTION.request-procedure.v0?scope=folder
+#proc_req: select c/uid/value as cid, i from composition c contains instruction i[openEHR-EHR-INSTRUCTION.request-procedure.v0] where i/activities[at0001]/description[at0009]/items[at0.2]/value/defining_code/code_string='P1' order by c/context/start_time/value desc fetch 1?scope=folder
 #proc_req:/activities[at0001]/description[at0009]/items[at0062]/value				// Indikasjon
 #proc_req:/activities[at0001]/description[at0009]/items[at0121.1]/value				// Prosedyrenavn
 #proc_req:/activities[at0001]/description[at0009]/items[at0135.1]/value				// Prosedyrebeskrivelse
+
 #proc_req:/activities[at0001]/description[at0009]/items[at0068]/value				// Hastegrad
 #proc_req:/activities[at0001]/description[at0009]/items[at0040.1]/value				// Ønskes gjennomført innen
 #proc_req:/activities[at0001]/description[at0009]/items[at0145.1]/value				// Tidligste dato for påbegynt prosedyre
@@ -134,6 +135,7 @@ Anestesivurdering
 
 #pasientstatus: select c/uid/value as cid, o from composition c contains observation o[openEHR-EHR-OBSERVATION.poor_outcome_and_or_complication_risk_assesement.v1] where o/name/value='Pasientstatus' order by c/context/start_time/value desc fetch 1?scope=folder
 #pasientstatus:/data[at0001]/events[at0002]/data[at0003]/items[at0008]/value														// Kommentar
+#pasientstatus:/data[at0001]/events[at0002]/data[at0003]/items[at0006 and name/value='Total evaluering']/value						// Total evaluering
 #pasientstatus:/data[at0001]/events[at0002]/data[at0003]/items[at0009 and name/value='Sirkulasjon']/items[at0010]/value				// Helsefaktor navn/egenskap
 #pasientstatus:/data[at0001]/events[at0002]/data[at0003]/items[at0009 and name/value='Sirkulasjon']/items[at0011]/value				// Tilstedeværelse
 #pasientstatus:/data[at0001]/events[at0002]/data[at0003]/items[at0009 and name/value='Sirkulasjon']/items[at0013]/value				// Risikovurdering
@@ -143,18 +145,17 @@ Anestesivurdering
 #pasientstatus:/data[at0001]/events[at0002]/data[at0003]/items[at0009 and name/value='Andre sykdommer']/items[at0010]/value			// Helsefaktor navn/egenskap
 #pasientstatus:/data[at0001]/events[at0002]/data[at0003]/items[at0009 and name/value='Andre sykdommer']/items[at0011]/value			// Tilstedeværelse
 #pasientstatus:/data[at0001]/events[at0002]/data[at0003]/items[at0009 and name/value='Andre sykdommer']/items[at0013]/value			// Risikovurdering
-#pasientstatus:/data[at0001]/events[at0002]/data[at0003]/items[at0009 and name/value='Annet']/items[at0010]/value					// Helsefaktor navn/egenskap
-#pasientstatus:/data[at0001]/events[at0002]/data[at0003]/items[at0009 and name/value='Annet']/items[at0011]/value					// Tilstedeværelse
-#pasientstatus:/data[at0001]/events[at0002]/data[at0003]/items[at0009 and name/value='Annet']/items[at0013]/value					// Risikovurdering
+#pasientstatus:/data[at0001]/events[at0002]/data[at0003]/items[at0009 and name/value='Andre helsefaktorer']/items[at0010]/value		// Helsefaktor navn/egenskap
+#pasientstatus:/data[at0001]/events[at0002]/data[at0003]/items[at0009 and name/value='Andre helsefaktorer']/items[at0011]/value		// Tilstedeværelse
+#pasientstatus:/data[at0001]/events[at0002]/data[at0003]/items[at0009 and name/value='Andre helsefaktorer']/items[at0013]/value		// Risikovurdering
 
 #nyha: openEHR-EHR-CLUSTER.nyha_heart_failure.v1?scope=folder
 #nyha:/items[at0001]/value		// Hjertesvikt klassifikasjon
 
 #eval_luftvei: select c/uid/value as cid, o from composition c contains observation o[openEHR-EHR-OBSERVATION.poor_outcome_and_or_complication_risk_assesement.v1] where o/name/value='Evaluering av luftvei' order by c/context/start_time/value desc fetch 1?scope=folder
-#eval_luftvei:/data[at0001]/events[at0002]/data[at0003]/items[at0006]/value														// Total evaluering
+#eval_luftvei:/data[at0001]/events[at0002]/data[at0003]/items[at0006]/value														// Total evaluering (evaluering luftvei)
 #eval_luftvei:/data[at0001]/events[at0002]/data[at0003]/items[at0009 and name/value='Luftvei']/items[at0010]/value				// Helsefaktor navn/egenskap
 #eval_luftvei:/data[at0001]/events[at0002]/data[at0003]/items[at0009 and name/value='Luftvei']/items[at0011]/value				// Tilstedeværelse
-#eval_luftvei:/data[at0001]/events[at0002]/data[at0003]/items[at0009 and name/value='Luftvei']/items[at0013]/value				// Risikovurdering
 
 #mallampati: openEHR-EHR-CLUSTER.mallampati_classification.v1?scope=folder
 #mallampati:/items[at0001]/value				// Mallampati klassifikasjon
