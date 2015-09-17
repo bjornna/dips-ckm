@@ -1,0 +1,152 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-ACTION.klagerett_tvang.v1
+
+concept
+	[at0000]	-- Klagerett
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"Benyttes i samband med dokumentasjon av tvunget psykisk helsevern for å dokumentere at informasjon knyttet til klagerett er gitt">
+			use = <"Til bruk ved registrering av vedtak i TPH">
+			misuse = <"Alle andre
+">
+			copyright = <"">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Benyttes i samband med dokumentasjon av tvunget psykisk helsevern for å dokumentere at informasjon knyttet til klagerett er gitt">
+			use = <"Til bruk ved registrering av vedtak i TPH">
+			misuse = <"Alle andre">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"BFB55D9D09E6AE27C4B5DF803213F999">
+	>
+
+definition
+	ACTION[at0000] matches {	-- Klagerett
+		ism_transition matches {
+			ISM_TRANSITION[at0011] matches {	-- Klageforløp dokumentert
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0011]}		-- Klageforløp dokumentert
+					}
+				}
+			}
+		}
+		description matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0012] occurrences matches {0..1} matches {	-- Pasienten er informert om sin klageadgang(nb)
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Klagerett
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0009, 	-- Nærmeste pårørende informeres om vedtaket og sin klageadgang
+									at0010]	-- Nærmeste pårørende informeres ikke, da denne ikke har kjent adresse og ettersporing vil kreve urimelig mye tid eller arbeid
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"Klagerett">
+					description = <"*">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0008"] = <
+					comment = <"*">
+					text = <"Klagerett">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Nærmeste pårørende informeres om vedtaket og sin klageadgang">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Nærmeste pårørende informeres ikke, da denne ikke har kjent adresse og ettersporing vil kreve urimelig mye tid eller arbeid">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Klageforløp dokumentert">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Pasienten er informert om sin klageadgang(nb)">
+					description = <"*">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Klagerett">
+					description = <"*">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0008"] = <
+					text = <"Klagerett">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Nærmeste pårørende informeres om vedtaket og sin klageadgang">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Nærmeste pårørende informeres ikke, da denne ikke har kjent adresse og ettersporing vil kreve urimelig mye tid eller arbeid">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Klageforløp dokumentert">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Pasienten er informert om sin klageadgang">
+					description = <"*">
+				>
+			>
+		>
+	>
