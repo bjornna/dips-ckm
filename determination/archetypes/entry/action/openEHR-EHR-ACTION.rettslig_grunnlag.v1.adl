@@ -1,0 +1,382 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-ACTION.rettslig_grunnlag.v1
+
+concept
+	[at0000]	-- *Rettslig grunnlag(nb)
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"*(nb)">
+			use = <"*(nb)">
+			misuse = <"*(nb)">
+			copyright = <"*(nb)">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"5370A2AD37D25E20256C176BCC113234">
+	>
+
+definition
+	ACTION[at0000] matches {	-- *Rettslig grunnlag(nb)
+		ism_transition matches {
+			ISM_TRANSITION[at0025] matches {	-- Rettslig grunnlag registrert
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0025]}		-- Rettslig grunnlag registrert
+					}
+				}
+			}
+		}
+		description matches {
+			ITEM_TREE[at0001] matches {	-- *Tree(nb)
+				items cardinality matches {3..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- *Pasienten har opphold på institusjon som ikke er godkjent for tvungent psykisk helsevern(nb)
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- *Dato påbegynt(nb)
+						value matches {
+							DV_DATE matches {*}
+						}
+					}
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- *Dato tilbakeført godkjent institusjon(nb)
+						value matches {
+							DV_DATE matches {*}
+						}
+					}
+					ELEMENT[at0005] matches {	-- *Vilkår for utsettelse av straff, jf. straffeloven § 53 nr 3f (nb)
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- *Utsettelse(nb)
+						value matches {
+							0|[local::at0007], 	-- *Psykiatrisk behandling som vilkår for utsettelse av straff(nb)
+							1|[local::at0009]  	-- *Psykiatrisk behandling på institusjon som vilkår for utsettelse av straff(nb)
+						}
+					}
+					ELEMENT[at0008] occurrences matches {0..1} matches {	-- *Godskrives som gjennomføring sv straff, jf. straffegjennomføringsloven(nb)
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0010] occurrences matches {0..1} matches {	-- *Gjennomføring(nb)
+						value matches {
+							0|[local::at0011], 	-- *Gjennomføring sv straff i institusjon (§ 12)(nb)
+							1|[local::at0012]  	-- *Gjennomføring av straff i sykehus (§ 13)(nb)
+						}
+					}
+					ELEMENT[at0013] occurrences matches {0..1} matches {	-- *Forlengelse nr.(nb)
+						value matches {
+							DV_COUNT matches {*}
+						}
+					}
+					ELEMENT[at0014] occurrences matches {0..1} matches {	-- *Status rettslig grunnlag(nb)
+						value matches {
+							0|[local::at0016], 	-- *Aktuelt rettslig grunnlag for behandlingen(nb)
+							1|[local::at0017], 	-- *Gyldighetsperiode for rettslig grunnlag overskredet uten at nytt rettslig grunnlag er etablert(nb)
+							2|[local::at0018], 	-- *Feilregistrert, erstattet av nytt, korrekt rettslig grunnlag(nb)
+							3|[local::at0019], 	-- *Erstattet av nytt rettslig grunnlag etter forlengelse av gyldighetsperioden(nb)
+							4|[local::at0020], 	-- *Erstattet av nytt rettslig grunnlag i henhold til nytt vedtak(nb)
+							5|[local::at0021], 	-- *Pasienten overført til annen institusjon innenfor det psykiske helsevern(nb)
+							6|[local::at0022], 	-- *Tvang opphørt, pasienten fortsattt ved institusjonen(nb)
+							7|[local::at0023]  	-- *Avsluttet, pasienten utskrevet(nb)
+						}
+					}
+					ELEMENT[at0015] occurrences matches {0..1} matches {	-- *Helsetjenesteenhet(nb)
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {[ac0001]}		-- *New constraint(nb)
+							}
+						}
+					}
+					ELEMENT[at0024] occurrences matches {0..1} matches {	-- *Merknad(nb)
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	terminologies_available = <"DIPS", ...>
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Rettslig grunnlag">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Pasienten har opphold på institusjon som ikke er godkjent for tvungent psykisk helsevern">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Dato påbegynt">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Dato tilbakeført godkjent institusjon">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Vilkår for utsettelse av straff, jf. straffeloven § 53 nr 3f ">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Utsettelse">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Psykiatrisk behandling som vilkår for utsettelse av straff">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Godskrives som gjennomføring sv straff, jf. straffegjennomføringsloven">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Psykiatrisk behandling på institusjon som vilkår for utsettelse av straff">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Gjennomføring">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Gjennomføring sv straff i institusjon (§ 12)">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Gjennomføring av straff i sykehus (§ 13)">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Forlengelse nr.">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Status rettslig grunnlag">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Helsetjenesteenhet">
+					description = <"*">
+				>
+				["at0016"] = <
+					text = <"Aktuelt rettslig grunnlag for behandlingen">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Gyldighetsperiode for rettslig grunnlag overskredet uten at nytt rettslig grunnlag er etablert">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Feilregistrert, erstattet av nytt, korrekt rettslig grunnlag">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"Erstattet av nytt rettslig grunnlag etter forlengelse av gyldighetsperioden">
+					description = <"*">
+				>
+				["at0020"] = <
+					text = <"Erstattet av nytt rettslig grunnlag i henhold til nytt vedtak">
+					description = <"*">
+				>
+				["at0021"] = <
+					text = <"Pasienten overført til annen institusjon innenfor det psykiske helsevern">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Tvang opphørt, pasienten fortsattt ved institusjonen">
+					description = <"*">
+				>
+				["at0023"] = <
+					text = <"Avsluttet, pasienten utskrevet">
+					description = <"*">
+				>
+				["at0024"] = <
+					text = <"Merknad">
+					description = <"*">
+				>
+				["at0025"] = <
+					text = <"Rettslig grunnlag registrert">
+					description = <"**(nb)">
+				>
+			>
+		>
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"Rettslig grunnlag">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Pasienten har opphold på institusjon som ikke er godkjent for tvungent psykisk helsevern">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Dato påbegynt">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Dato tilbakeført godkjent institusjon">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Vilkår for utsettelse av straff, jf. straffeloven § 53 nr 3f ">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Utsettelse">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Psykiatrisk behandling som vilkår for utsettelse av straff">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Godskrives som gjennomføring sv straff, jf. straffegjennomføringsloven">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Psykiatrisk behandling på institusjon som vilkår for utsettelse av straff">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Gjennomføring">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Gjennomføring sv straff i institusjon (§ 12)">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Gjennomføring av straff i sykehus (§ 13)">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Forlengelse nr.">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Status rettslig grunnlag">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Helsetjenesteenhet">
+					description = <"*">
+				>
+				["at0016"] = <
+					text = <"Aktuelt rettslig grunnlag for behandlingen">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Gyldighetsperiode for rettslig grunnlag overskredet uten at nytt rettslig grunnlag er etablert">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Feilregistrert, erstattet av nytt, korrekt rettslig grunnlag">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"Erstattet av nytt rettslig grunnlag etter forlengelse av gyldighetsperioden">
+					description = <"*">
+				>
+				["at0020"] = <
+					text = <"Erstattet av nytt rettslig grunnlag i henhold til nytt vedtak">
+					description = <"*">
+				>
+				["at0021"] = <
+					text = <"Pasienten overført til annen institusjon innenfor det psykiske helsevern">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Tvang opphørt, pasienten fortsattt ved institusjonen">
+					description = <"*">
+				>
+				["at0023"] = <
+					text = <"Avsluttet, pasienten utskrevet">
+					description = <"*">
+				>
+				["at0024"] = <
+					text = <"Merknad">
+					description = <"*">
+				>
+				["at0025"] = <
+					text = <"Rettslig grunnlag registrert">
+					description = <"**(nb)">
+				>
+			>
+		>
+	>
+	constraint_definitions = <
+		["nb"] = <
+			items = <
+				["ac0001"] = <
+					text = <"New constraint">
+					description = <"*">
+				>
+			>
+		>
+		["no"] = <
+			items = <
+				["ac0001"] = <
+					text = <"*New constraint(nb)">
+					description = <"**(nb)">
+				>
+			>
+		>
+	>
+	constraint_bindings = <
+		["DIPS"] = <
+			items = <
+				["ac0001"] = <terminology:DIPS?subset=healthcareparty>
+			>
+		>
+	>
