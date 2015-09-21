@@ -1,0 +1,172 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-EVALUATION.grunnlag_opphor_to_tph.v1
+
+concept
+	[at0000]	-- Grunnlag opphor to tph
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"18C4C2C39AB32DFF6A9604DDB324F3B9">
+	>
+
+definition
+	EVALUATION[at0000] matches {	-- Grunnlag opphor to tph
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- TPH opprinnelig vedtatt dato
+						value matches {
+							DV_DATE matches {*}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak om TPH i journalnotat av
+						value matches {
+							DV_DATE matches {*}
+						}
+					}
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak om opphør TPH i jounralnotat av
+						value matches {
+							DV_DATE matches {*}
+						}
+					}
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Pasienten er gitt anledning til å uttale seg
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Nærmeste pårørendes uttalerett
+						value matches {
+							0|[local::at0007], 	-- Nærmeste pårørende er gitt anledning til å uttale seg
+							1|[local::at0008], 	-- Nærmeste pårørende er ikke gitt anledning til å uttale seg da dennes adresse er ukjent og ettersporing vil kreve urimelig mye tid eller arbeid
+							2|[local::at0009]  	-- Ingen personer med status som nærmeste pårørende
+						}
+					}
+					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Den som har fremsatt begjæring etter psykisk helsevernloven § 3-6, er gitt anledning til å uttale seg, jf. psykisk helsevernloven § 3-9
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0017] occurrences matches {0..1} matches {	-- Vedtaket er påklaget og kontrollkommisjonens leder har besluttet utsatt iverksetting av vedtaket
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0020] occurrences matches {0..1} matches {	-- Helsetjenesteenhet
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {[ac0001]}		-- *
+							}
+						}
+					}
+					ELEMENT[at0021] occurrences matches {0..1} matches {	-- Dato
+						value matches {
+							DV_DATE matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	terminologies_available = <"DIPS", ...>
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Grunnlag opphor to tph">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"TPH opprinnelig vedtatt dato">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Begrunnelse for vedtak om TPH i journalnotat av">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Begrunnelse for vedtak om opphør TPH i jounralnotat av">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Pasienten er gitt anledning til å uttale seg">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Nærmeste pårørendes uttalerett">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Nærmeste pårørende er gitt anledning til å uttale seg">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Nærmeste pårørende er ikke gitt anledning til å uttale seg da dennes adresse er ukjent og ettersporing vil kreve urimelig mye tid eller arbeid">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Ingen personer med status som nærmeste pårørende">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Den som har fremsatt begjæring etter psykisk helsevernloven § 3-6, er gitt anledning til å uttale seg, jf. psykisk helsevernloven § 3-9">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Vedtaket er påklaget og kontrollkommisjonens leder har besluttet utsatt iverksetting av vedtaket">
+					description = <"*">
+				>
+				["at0020"] = <
+					text = <"Helsetjenesteenhet">
+					description = <"*">
+				>
+				["at0021"] = <
+					text = <"Dato">
+					description = <"*">
+				>
+			>
+		>
+	>
+	constraint_definitions = <
+		["nb"] = <
+			items = <
+				["ac0001"] = <
+					text = <"*">
+					description = <"*">
+				>
+			>
+		>
+	>
+	constraint_bindings = <
+		["DIPS"] = <
+			items = <
+				["ac0001"] = <terminology:DIPS?subset=healthcareparty>
+			>
+		>
+	>
