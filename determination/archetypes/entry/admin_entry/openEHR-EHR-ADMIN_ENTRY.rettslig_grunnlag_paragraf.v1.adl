@@ -1,0 +1,133 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ADMIN_ENTRY.rettslig_grunnlag_paragraf.v1
+
+concept
+	[at0000]	-- Rettslig grunnlag paragraf
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"*(nb)">
+			use = <"*(nb)">
+			misuse = <"*(nb)">
+			copyright = <"*(nb)">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"B1668B2980051A7465F7EB1CC459F84E">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {	-- Rettslig grunnlag paragraf
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0002] occurrences matches {0..*} matches {	-- Hjemmel
+						include
+							archetype_id/value matches {/openEHR-EHR-CLUSTER\.hjemmel(-[a-zA-Z0-9_]+)*\.v1/}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Merknad
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Med eller uten døgnopphold
+						value matches {
+							0|[local::at0005], 	-- *Behandling med døgnopphold(nb)
+							1|[local::at0006]  	-- *Behandling uten døgnopphold(nb)
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"Rettslig grunnlag paragraf">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Hjemmel">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Merknad">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Med eller uten døgnopphold">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"*Behandling med døgnopphold(nb)">
+					description = <"**(nb)">
+				>
+				["at0006"] = <
+					text = <"*Behandling uten døgnopphold(nb)">
+					description = <"**(nb)">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Rettslig grunnlag paragraf">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Hjemmel">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Merknad">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Med eller uten døgnopphold">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Behandling med døgnopphold">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Behandling uten døgnopphold">
+					description = <"*">
+				>
+			>
+		>
+	>

@@ -36,7 +36,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"D37CEE8A977DA8DF877919F5B331AAC9">
+		["MD5-CAM-1.0.1"] = <"4137595A3336922FEEDE2FD6E2140AB7">
 	>
 
 definition
@@ -44,6 +44,14 @@ definition
 		data matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {3..*; unordered} matches {
+					ELEMENT[at0051] occurrences matches {0..1} matches {	-- Aktuelt vedtak
+						value matches {
+							0|[local::at0052], 	-- Vedtak om tvungent psykisk helsevern med døgnopphold, etter psykisk helsevernloven § 3-3 jf. § 3-5 første ledd
+							1|[local::at0053], 	-- Vedtak om tvungent psykisk helsevern uten døgnopphold, etter psykisk helsevernloven § 3-3 jf. § 3-5 tredje ledd
+							2|[local::at0054], 	-- Tvungen observasjon med døgnopphold. Psykisk helsevernloven § 3-2 jf. § 3-5 første ledd
+							3|[local::at0055]  	-- Tvungen observasjon uten døgnopphold. Psykisk helsevernloven § 3-2 jf. § 3-5 tredje ledd
+						}
+					}
 					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Begrunnelse for vedtaket er gitt i journalnotat av
 						value matches {
 							DV_DATE matches {
@@ -127,39 +135,15 @@ definition
 							}
 						}
 					}
-					ELEMENT[at0026] occurrences matches {0..1} matches {	-- Tvungent psykisk helsevern er nødvendig for å hindre at vedkommende på grunn av sinnslidelsen
+					ELEMENT[at0062] occurrences matches {0..4} matches {	-- Tvungent psykisk helsevern er nødvendig for å hindre at vedkommende på grunn av sinnslidelsen
 						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					CLUSTER[at0039] occurrences matches {0..1} matches {	-- Tilleggsvilkår
-						items cardinality matches {1..*; unordered} matches {
-							ELEMENT[at0025] occurrences matches {0..1} matches {	-- Får sin utsikt til helbredelse eller vesentlig bedring i betydelig grad redusert
-								value matches {
-									DV_BOOLEAN matches {
-										value matches {True, False}
-									}
-								}
-							}
-							ELEMENT[at0027] occurrences matches {0..1} matches {	-- Med stor sannsynlighet i meget nær fremtid får sin tilstand vesentlig forverret
-								value matches {
-									DV_BOOLEAN matches {
-										value matches {True, False}
-									}
-								}
-							}
-							ELEMENT[at0028] occurrences matches {0..1} matches {	-- Utgjør en nærliggende og alvorlig fare for eget liv og helse
-								value matches {
-									DV_BOOLEAN matches {
-										value matches {True, False}
-									}
-								}
-							}
-							ELEMENT[at0029] occurrences matches {0..1} matches {	-- Utgjør en nærliggende og alvorlig fare for andres liv og helse
-								value matches {
-									DV_BOOLEAN matches {
-										value matches {True, False}
-									}
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0063, 	-- Får sin utsikt til helbredelse eller vesentlig bedring i betydelig grad redusert
+									at0064, 	-- Med stor sannsynlighet i meget nær fremtid får sin tilstand vesentlig forverret
+									at0065, 	-- Utgjør en nærliggende og alvorlig fare for eget liv og helse
+									at0066]	-- Utgjør en nærliggende og alvorlig fare for andres liv og helse
 								}
 							}
 						}
@@ -185,21 +169,21 @@ definition
 							}
 						}
 					}
-					ELEMENT[at0034] matches {	-- New element
+					ELEMENT[at0034] matches {	-- Nærmeste pårørendes uttalerett, jf. psykisk helsevernloven § 3-9
 						value matches {
 							0|[local::at0035], 	-- Nærmeste pårørende er gitt anledning til å uttale seg
 							1|[local::at0036], 	-- Nærmeste pårørende er ikke gitt anledning til å uttale seg da dennes adresse er ukjent og ettersporing vil kreve urimelig mye tid eller arbeid
 							2|[local::at0037]  	-- Ingen personer med status som nærmeste pårørende
 						}
 					}
-					ELEMENT[at0038] occurrences matches {0..1} matches {	-- Den som har fremsatt begjæring etter psykisk helsevernloven § 3-6, er informert om vedtaket og sin klageadgang
+					ELEMENT[at0038] occurrences matches {0..1} matches {	-- Den som har fremsatt begjæring etter psykisk helsevernloven § 3-6, er gitt anledning til å uttale seg, jf. psykisk helsevernloven § 3-9
 						value matches {
 							DV_BOOLEAN matches {
 								value matches {True, False}
 							}
 						}
 					}
-					CLUSTER[at0040] occurrences matches {0..1} matches {	-- *Ekstern legeundersøkelse(nb)
+					CLUSTER[at0040] occurrences matches {0..1} matches {	-- Ekstern legeundersøkelse
 						items cardinality matches {1..*; unordered} matches {
 							ELEMENT[at0041] occurrences matches {0..1} matches {	-- Dato
 								value matches {
@@ -208,21 +192,21 @@ definition
 									}
 								}
 							}
-							ELEMENT[at0042] occurrences matches {0..1} matches {	-- *Utført av(nb)
+							ELEMENT[at0042] occurrences matches {0..1} matches {	-- Utført av
 								value matches {
 									DV_CODED_TEXT matches {
-										defining_code matches {[ac0002]}		-- *New constraint(nb)
+										defining_code matches {[ac0002]}		-- New constraint
 									}
 								}
 							}
-							ELEMENT[at0043] occurrences matches {0..1} matches {	-- *Ekstern legeundersøkelse i journalnotat av(nb)
+							ELEMENT[at0043] occurrences matches {0..1} matches {	-- Ekstern legeundersøkelse i journalnotat av
 								value matches {
 									DV_DATE matches {
 										value matches {yyyy-mm-dd}
 									}
 								}
 							}
-							ELEMENT[at0044] occurrences matches {0..1} matches {	-- *Legeundersøkelsen er foretatt etter vedtak om tvungen legeundersøkelse(nb)
+							ELEMENT[at0044] occurrences matches {0..1} matches {	-- Legeundersøkelsen er foretatt etter vedtak om tvungen legeundersøkelse
 								value matches {
 									DV_BOOLEAN matches {
 										value matches {True, False}
@@ -231,28 +215,40 @@ definition
 							}
 						}
 					}
-					CLUSTER[at0045] occurrences matches {0..1} matches {	-- *Intern legeundersøkelse(nb)
+					CLUSTER[at0045] occurrences matches {0..1} matches {	-- Intern legeundersøkelse
 						items cardinality matches {1..*; unordered} matches {
-							ELEMENT[at0046] occurrences matches {0..1} matches {	-- *Dato(nb)
+							ELEMENT[at0046] occurrences matches {0..1} matches {	-- Dato
 								value matches {
 									DV_DATE matches {
 										value matches {yyyy-mm-dd}
 									}
 								}
 							}
-							ELEMENT[at0047] occurrences matches {0..1} matches {	-- *Utført av(nb)
+							ELEMENT[at0047] occurrences matches {0..1} matches {	-- Utført av
 								value matches {
 									DV_CODED_TEXT matches {
-										defining_code matches {[ac0001]}		-- *New constraint(nb)
+										defining_code matches {[ac0001]}		-- New constraint
 									}
 								}
 							}
-							ELEMENT[at0048] occurrences matches {0..1} matches {	-- *Intern legeundersøkelse i journalnotat av(nb)
+							ELEMENT[at0048] occurrences matches {0..1} matches {	-- Intern legeundersøkelse i journalnotat av
 								value matches {
 									DV_DATE matches {
 										value matches {yyyy-mm-dd}
 									}
 								}
+							}
+						}
+					}
+					ELEMENT[at0049] occurrences matches {0..1} matches {	-- Helsetjenesteenhet
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0050] occurrences matches {0..1} matches {	-- Dato vedtak fattet
+						value matches {
+							DV_DATE matches {
+								value matches {yyyy-mm-dd}
 							}
 						}
 					}
@@ -350,26 +346,6 @@ ontology
 					text = <"Det anses som overveiende sannsynlig at pasienten har en alvorlig sinnslidelse">
 					description = <"*">
 				>
-				["at0025"] = <
-					text = <"Får sin utsikt til helbredelse eller vesentlig bedring i betydelig grad redusert">
-					description = <"*">
-				>
-				["at0026"] = <
-					text = <"Tvungent psykisk helsevern er nødvendig for å hindre at vedkommende på grunn av sinnslidelsen">
-					description = <"*">
-				>
-				["at0027"] = <
-					text = <"Med stor sannsynlighet i meget nær fremtid får sin tilstand vesentlig forverret">
-					description = <"*">
-				>
-				["at0028"] = <
-					text = <"Utgjør en nærliggende og alvorlig fare for eget liv og helse">
-					description = <"*">
-				>
-				["at0029"] = <
-					text = <"Utgjør en nærliggende og alvorlig fare for andres liv og helse">
-					description = <"*">
-				>
 				["at0030"] = <
 					text = <"Institusjonen er faglig og materielt i stand til å tilby pasienten tilfredsstillende behandling og omsorg og er godkjent i henhold til psykisk helsevernloven § 3-5">
 					description = <"*">
@@ -383,7 +359,7 @@ ontology
 					description = <"*">
 				>
 				["at0034"] = <
-					text = <"Nærmeste pårørendes uttalerett, jf. psyksik helsevernloven § 3-9">
+					text = <"Nærmeste pårørendes uttalerett, jf. psykisk helsevernloven § 3-9">
 					description = <"*">
 				>
 				["at0035"] = <
@@ -399,11 +375,7 @@ ontology
 					description = <"*">
 				>
 				["at0038"] = <
-					text = <"Den som har fremsatt begjæring etter psykisk helsevernloven § 3-6, er informert om vedtaket og sin klageadgang">
-					description = <"*">
-				>
-				["at0039"] = <
-					text = <"Tilleggsvilkår">
+					text = <"Den som har fremsatt begjæring etter psykisk helsevernloven § 3-6, er gitt anledning til å uttale seg, jf. psykisk helsevernloven § 3-9">
 					description = <"*">
 				>
 				["at0040"] = <
@@ -441,6 +413,54 @@ ontology
 				["at0048"] = <
 					text = <"Intern legeundersøkelse i journalnotat av">
 					description = <"*">
+				>
+				["at0049"] = <
+					text = <"Helsetjenesteenhet">
+					description = <"*">
+				>
+				["at0050"] = <
+					text = <"Dato vedtak fattet">
+					description = <"*">
+				>
+				["at0051"] = <
+					text = <"Aktuelt vedtak">
+					description = <"*">
+				>
+				["at0052"] = <
+					text = <"Vedtak om tvungent psykisk helsevern med døgnopphold, etter psykisk helsevernloven § 3-3 jf. § 3-5 første ledd">
+					description = <"*">
+				>
+				["at0053"] = <
+					text = <"Vedtak om tvungent psykisk helsevern uten døgnopphold, etter psykisk helsevernloven § 3-3 jf. § 3-5 tredje ledd">
+					description = <"*">
+				>
+				["at0054"] = <
+					text = <"Tvungen observasjon med døgnopphold. Psykisk helsevernloven § 3-2 jf. § 3-5 første ledd">
+					description = <"*">
+				>
+				["at0055"] = <
+					text = <"Tvungen observasjon uten døgnopphold. Psykisk helsevernloven § 3-2 jf. § 3-5 tredje ledd">
+					description = <"*">
+				>
+				["at0062"] = <
+					text = <"Tvungent psykisk helsevern er nødvendig for å hindre at vedkommende på grunn av sinnslidelsen">
+					description = <"*">
+				>
+				["at0063"] = <
+					text = <"*Får sin utsikt til helbredelse eller vesentlig bedring i betydelig grad redusert(nb)">
+					description = <"**(nb)">
+				>
+				["at0064"] = <
+					text = <"*Med stor sannsynlighet i meget nær fremtid får sin tilstand vesentlig forverret(nb)">
+					description = <"**(nb)">
+				>
+				["at0065"] = <
+					text = <"*Utgjør en nærliggende og alvorlig fare for eget liv og helse(nb)">
+					description = <"**(nb)">
+				>
+				["at0066"] = <
+					text = <"*Utgjør en nærliggende og alvorlig fare for andres liv og helse(nb)">
+					description = <"**(nb)">
 				>
 			>
 		>
@@ -530,26 +550,6 @@ ontology
 					text = <"Det anses som overveiende sannsynlig at pasienten har en alvorlig sinnslidelse">
 					description = <"*">
 				>
-				["at0025"] = <
-					text = <"Får sin utsikt til helbredelse eller vesentlig bedring i betydelig grad redusert">
-					description = <"*">
-				>
-				["at0026"] = <
-					text = <"Tvungent psykisk helsevern er nødvendig for å hindre at vedkommende på grunn av sinnslidelsen">
-					description = <"*">
-				>
-				["at0027"] = <
-					text = <"Med stor sannsynlighet i meget nær fremtid får sin tilstand vesentlig forverret">
-					description = <"*">
-				>
-				["at0028"] = <
-					text = <"Utgjør en nærliggende og alvorlig fare for eget liv og helse">
-					description = <"*">
-				>
-				["at0029"] = <
-					text = <"Utgjør en nærliggende og alvorlig fare for andres liv og helse">
-					description = <"*">
-				>
 				["at0030"] = <
 					text = <"Institusjonen er faglig og materielt i stand til å tilby pasienten tilfredsstillende behandling og omsorg og er godkjent i henhold til psykisk helsevernloven § 3-5">
 					description = <"*">
@@ -563,7 +563,7 @@ ontology
 					description = <"*">
 				>
 				["at0034"] = <
-					text = <"Nærmeste pårørendes uttalerett, jf. psyksik helsevernloven § 3-9">
+					text = <"Nærmeste pårørendes uttalerett, jf. psykisk helsevernloven § 3-9">
 					description = <"*">
 				>
 				["at0035"] = <
@@ -579,11 +579,7 @@ ontology
 					description = <"*">
 				>
 				["at0038"] = <
-					text = <"Den som har fremsatt begjæring etter psykisk helsevernloven § 3-6, er informert om vedtaket og sin klageadgang">
-					description = <"*">
-				>
-				["at0039"] = <
-					text = <"Tilleggsvilkår">
+					text = <"Den som har fremsatt begjæring etter psykisk helsevernloven § 3-6, er gitt anledning til å uttale seg, jf. psykisk helsevernloven § 3-9">
 					description = <"*">
 				>
 				["at0040"] = <
@@ -620,6 +616,54 @@ ontology
 				>
 				["at0048"] = <
 					text = <"Intern legeundersøkelse i journalnotat av">
+					description = <"*">
+				>
+				["at0049"] = <
+					text = <"Helsetjenesteenhet">
+					description = <"*">
+				>
+				["at0050"] = <
+					text = <"Dato vedtak fattet">
+					description = <"*">
+				>
+				["at0051"] = <
+					text = <"Aktuelt vedtak">
+					description = <"*">
+				>
+				["at0052"] = <
+					text = <"Vedtak om tvungent psykisk helsevern med døgnopphold, etter psykisk helsevernloven § 3-3 jf. § 3-5 første ledd">
+					description = <"*">
+				>
+				["at0053"] = <
+					text = <"Vedtak om tvungent psykisk helsevern uten døgnopphold, etter psykisk helsevernloven § 3-3 jf. § 3-5 tredje ledd">
+					description = <"*">
+				>
+				["at0054"] = <
+					text = <"Tvungen observasjon med døgnopphold. Psykisk helsevernloven § 3-2 jf. § 3-5 første ledd">
+					description = <"*">
+				>
+				["at0055"] = <
+					text = <"Tvungen observasjon uten døgnopphold. Psykisk helsevernloven § 3-2 jf. § 3-5 tredje ledd">
+					description = <"*">
+				>
+				["at0062"] = <
+					text = <"Tvungent psykisk helsevern er nødvendig for å hindre at vedkommende på grunn av sinnslidelsen">
+					description = <"*">
+				>
+				["at0063"] = <
+					text = <"Får sin utsikt til helbredelse eller vesentlig bedring i betydelig grad redusert">
+					description = <"*">
+				>
+				["at0064"] = <
+					text = <"Med stor sannsynlighet i meget nær fremtid får sin tilstand vesentlig forverret">
+					description = <"*">
+				>
+				["at0065"] = <
+					text = <"Utgjør en nærliggende og alvorlig fare for eget liv og helse">
+					description = <"*">
+				>
+				["at0066"] = <
+					text = <"Utgjør en nærliggende og alvorlig fare for andres liv og helse">
 					description = <"*">
 				>
 			>
