@@ -1,0 +1,428 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ADMIN_ENTRY.tvangsmiddelvedtak.v1
+
+concept
+	[at0000]	-- Tvangsmiddelvedtak
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"*(nb)">
+			use = <"*(nb)">
+			misuse = <"*(nb)">
+			copyright = <"*(nb)">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"653AA80AFE2679D2D859A94E25BF212B">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {	-- Tvangsmiddelvedtak
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Tvangsmiddelvedtak innenfor aktuelt rettslig grunnlag, nr.
+						value matches {
+							DV_COUNT matches {*}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Helsetjenesteenhet
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {[ac0003]}		-- New constraint
+							}
+						}
+					}
+					ELEMENT[at0015] occurrences matches {0..*} matches {	-- Vurdering av lempeligere midler i dokument
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0004] occurrences matches {0..3} matches {	-- Bruk av tvangsmidler er uomgjengelig nødvendig for å
+						value matches {
+							0|[local::at0005], 	-- Hindre pasienten i å skade seg selv
+							1|[local::at0006], 	-- Hindre pasienten i å skade andre
+							2|[local::at0007]  	-- Avverge betydelig skade på bygninger, klær, inventar eller andre ting
+						}
+					}
+					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Vedtakstype
+						value matches {
+							0|[local::at0010], 	-- Belter/remmer: Mekaniske tvangsmidler som hindrer pasientens bevegelsesfrihet 
+							1|[local::at0011], 	-- Skadeforebyggende spesialklær: Mekaniske tvangsmidler som hindrer pasientens bevegelsesfrihet
+							2|[local::at0012], 	-- Kortvarig anbringelse bak låst eller stengt dør uten personale til stede
+							3|[local::at0013], 	-- Enkeltstående bruk av korttidsvirkende legemidler i beroligende eller bedøvende hensikt
+							4|[local::at0014]  	-- Kortvarig fastholding
+						}
+					}
+					ELEMENT[at0016] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak i dokument
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0017] occurrences matches {0..1} matches {	-- Gyldig fra
+						value matches {
+							DV_DATE_TIME matches {
+								value matches {yyyy-mm-ddTHH:??:??}
+							}
+						}
+					}
+					ELEMENT[at0019] occurrences matches {0..1} matches {	-- Hastevedtak om bruk av tvangsmidler fattet av
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {[ac0002]}		-- New constraint
+							}
+						}
+					}
+					ELEMENT[at0021] occurrences matches {0..1} matches {	-- Starttidspunkt
+						value matches {
+							DV_DATE_TIME matches {
+								value matches {yyyy-mm-ddTHH:??:??}
+							}
+						}
+					}
+					ELEMENT[at0022] occurrences matches {0..1} matches {	-- Faglig ansvarlig informert
+						value matches {
+							DV_DATE_TIME matches {
+								value matches {yyyy-mm-ddTHH:??:??}
+							}
+						}
+					}
+					ELEMENT[at0024] occurrences matches {0..*} matches {	-- Den faglig ansvarlige har foretatt en vurdering av hastevedtaket
+						value matches {
+							0|[local::at0025], 	-- På grunnlag av personlig kontakt med pasienten samt dokumentasjon i pasientens journal og eventuelt kontakt med den som fattet hastevedtaket
+							1|[local::at0026], 	-- På grunnlag av kontakt med den som fattet hastevedtaket
+							2|[local::at0027], 	-- Utelukkende på grunnlag av opplysninger i pasientens journal
+							3|[local::at0028]  	-- På grunnlag av opplysninger i pasientens journal samt kontakt med den som fattet hastevedtaket
+						}
+					}
+					ELEMENT[at0030] occurrences matches {0..1} matches {	-- Opprettholdelse av vedtaket
+						value matches {
+							0|[local::at0031], 	-- Den faglig ansvarlige har besluttet å opprettholde vedtaket
+							1|[local::at0032]  	-- Den faglig ansvarlige har besluttet å ikke opprettholde vedtaket
+						}
+					}
+					ELEMENT[at0034] occurrences matches {0..1} matches {	-- Vedtak fattet av faglig ansvarlig
+						value matches {
+							DV_DATE_TIME matches {
+								value matches {yyyy-mm-ddTHH:??:??}
+							}
+						}
+					}
+					ELEMENT[at0035] occurrences matches {0..1} matches {	-- Merknad
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	terminologies_available = <"DIPS", ...>
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Tvangsmiddelvedtak">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Tvangsmiddelvedtak innenfor aktuelt rettslig grunnlag, nr.">
+					description = <"Angir antall vedtak om bruk av tvangsmiddel innenfor aktuelt rettslig grunnlag. Oppdateres automatisk og er ikke redigerbart.">
+				>
+				["at0003"] = <
+					text = <"Helsetjenesteenhet">
+					description = <"Organisasjonskodeverk for spesialisthelsetjenesten ">
+				>
+				["at0004"] = <
+					text = <"Bruk av tvangsmidler er uomgjengelig nødvendig for å">
+					description = <"Begrunnelse for tvangsmiddelvedtak basert på kode, som angir hvorfor det har vært nødvendig å treffe vedtak om tvangsmidler">
+				>
+				["at0005"] = <
+					text = <"Hindre pasienten i å skade seg selv">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Hindre pasienten i å skade andre">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Avverge betydelig skade på bygninger, klær, inventar eller andre ting">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Vedtakstype">
+					description = <"Angir hvilken type tvangsmiddel vedtaket gjelder.">
+				>
+				["at0010"] = <
+					text = <"Belter/remmer: Mekaniske tvangsmidler som hindrer pasientens bevegelsesfrihet ">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Skadeforebyggende spesialklær: Mekaniske tvangsmidler som hindrer pasientens bevegelsesfrihet">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Kortvarig anbringelse bak låst eller stengt dør uten personale til stede">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Enkeltstående bruk av korttidsvirkende legemidler i beroligende eller bedøvende hensikt">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Kortvarig fastholding">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Vurdering av lempeligere midler i dokument">
+					description = <"Dato-referanse til dokument med vurdering av lempeligere midler.">
+				>
+				["at0016"] = <
+					text = <"Begrunnelse for vedtak i dokument">
+					description = <"Dato-referanse til dokument som inneholder begrunnelse for at vedtaket fattes">
+				>
+				["at0017"] = <
+					text = <"Gyldig fra">
+					description = <"Tidspunktet vedtaket er gyldig fra">
+				>
+				["at0019"] = <
+					text = <"Hastevedtak om bruk av tvangsmidler fattet av">
+					description = <"Den tjenesteyter som har fattet det aktuelle hastevedtaket om bruk av tvangsmidler">
+				>
+				["at0021"] = <
+					text = <"Starttidspunkt">
+					description = <"Starttidspunktet for vedtaket">
+				>
+				["at0022"] = <
+					text = <"Faglig ansvarlig informert">
+					description = <"Tidspunkt for når faglig ansvarlig ble informert om vedtaket">
+				>
+				["at0024"] = <
+					text = <"Den faglig ansvarlige har foretatt en vurdering av hastevedtaket">
+					description = <"Angivelse av hvordan den faglig ansvarlige har fulgt opp hastevedtaket">
+				>
+				["at0025"] = <
+					text = <"På grunnlag av personlig kontakt med pasienten samt dokumentasjon i pasientens journal og eventuelt kontakt med den som fattet hastevedtaket">
+					description = <"*">
+				>
+				["at0026"] = <
+					text = <"På grunnlag av kontakt med den som fattet hastevedtaket">
+					description = <"*">
+				>
+				["at0027"] = <
+					text = <"Utelukkende på grunnlag av opplysninger i pasientens journal">
+					description = <"*">
+				>
+				["at0028"] = <
+					text = <"På grunnlag av opplysninger i pasientens journal samt kontakt med den som fattet hastevedtaket">
+					description = <"*">
+				>
+				["at0030"] = <
+					text = <"Opprettholdelse av vedtaket">
+					description = <"Vurdering av faglig ansvarlig i forhold til om vedtaket skal opprettholdes.">
+				>
+				["at0031"] = <
+					text = <"Den faglig ansvarlige har besluttet å opprettholde vedtaket">
+					description = <"*">
+				>
+				["at0032"] = <
+					text = <"Den faglig ansvarlige har besluttet å ikke opprettholde vedtaket">
+					description = <"*">
+				>
+				["at0034"] = <
+					text = <"Vedtak fattet av faglig ansvarlig">
+					description = <"Tidspunktet vedtaket ble fattet av faglig ansvarlig">
+				>
+				["at0035"] = <
+					text = <"Merknad">
+					description = <"*">
+				>
+			>
+		>
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"Tvangsmiddelvedtak">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Tvangsmiddelvedtak innenfor aktuelt rettslig grunnlag, nr.">
+					description = <"Angir antall vedtak om bruk av tvangsmiddel innenfor aktuelt rettslig grunnlag. Oppdateres automatisk og er ikke redigerbart.">
+				>
+				["at0003"] = <
+					text = <"Helsetjenesteenhet">
+					description = <"Organisasjonskodeverk for spesialisthelsetjenesten ">
+				>
+				["at0004"] = <
+					text = <"Bruk av tvangsmidler er uomgjengelig nødvendig for å">
+					description = <"Begrunnelse for tvangsmiddelvedtak basert på kode, som angir hvorfor det har vært nødvendig å treffe vedtak om tvangsmidler">
+				>
+				["at0005"] = <
+					text = <"Hindre pasienten i å skade seg selv">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Hindre pasienten i å skade andre">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Avverge betydelig skade på bygninger, klær, inventar eller andre ting">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Vedtakstype">
+					description = <"Angir hvilken type tvangsmiddel vedtaket gjelder.">
+				>
+				["at0010"] = <
+					text = <"Belter/remmer: Mekaniske tvangsmidler som hindrer pasientens bevegelsesfrihet ">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Skadeforebyggende spesialklær: Mekaniske tvangsmidler som hindrer pasientens bevegelsesfrihet">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Kortvarig anbringelse bak låst eller stengt dør uten personale til stede">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Enkeltstående bruk av korttidsvirkende legemidler i beroligende eller bedøvende hensikt">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Kortvarig fastholding">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Vurdering av lempeligere midler i dokument">
+					description = <"Dato-referanse til dokument med vurdering av lempeligere midler.">
+				>
+				["at0016"] = <
+					text = <"Begrunnelse for vedtak i dokument">
+					description = <"Dato-referanse til dokument som inneholder begrunnelse for at vedtaket fattes">
+				>
+				["at0017"] = <
+					text = <"Gyldig fra">
+					description = <"Tidspunktet vedtaket er gyldig fra">
+				>
+				["at0019"] = <
+					text = <"Hastevedtak om bruk av tvangsmidler fattet av">
+					description = <"Den tjenesteyter som har fattet det aktuelle hastevedtaket om bruk av tvangsmidler">
+				>
+				["at0021"] = <
+					text = <"Starttidspunkt">
+					description = <"Starttidspunktet for vedtaket">
+				>
+				["at0022"] = <
+					text = <"Faglig ansvarlig informert">
+					description = <"Tidspunkt for når faglig ansvarlig ble informert om vedtaket">
+				>
+				["at0024"] = <
+					text = <"Faglig ansvarlig har foretatt en vurdering av hastevedtaket">
+					description = <"Angivelse av hvordan den faglig ansvarlige har fulgt opp hastevedtaket">
+				>
+				["at0025"] = <
+					text = <"På grunnlag av personlig kontakt med pasienten samt dokumentasjon i pasientens journal og eventuelt kontakt med den som fattet vedtaket">
+					description = <"*">
+				>
+				["at0026"] = <
+					text = <"På grunnlag av kontakt med den som fattet hastevedtaket">
+					description = <"*">
+				>
+				["at0027"] = <
+					text = <"Utelukkende på grunnlag av opplysninger i pasientens journal">
+					description = <"*">
+				>
+				["at0028"] = <
+					text = <"På grunnlag av opplysninger i pasientens journal samt kontakt med den som fattet hastevedtaket">
+					description = <"*">
+				>
+				["at0030"] = <
+					text = <"Beslutning">
+					description = <"Opplysning om hvorvidt den faglig ansvarlige har besluttet å opprettholde vedtaket eller ikke">
+				>
+				["at0031"] = <
+					text = <"Den faglig ansvarlige har besluttet å opprettholde vedtaket">
+					description = <"*">
+				>
+				["at0032"] = <
+					text = <"Den faglig ansvarlige har besluttet å ikke opprettholde vedtaket">
+					description = <"*">
+				>
+				["at0034"] = <
+					text = <"Vedtak fattet ">
+					description = <"Tidspunktet vedtaket ble fattet av den faglig ansvarlige">
+				>
+				["at0035"] = <
+					text = <"Merknad">
+					description = <"Merknad">
+				>
+			>
+		>
+	>
+	constraint_definitions = <
+		["nb"] = <
+			items = <
+				["ac0002"] = <
+					text = <"New constraint">
+					description = <"*">
+				>
+				["ac0003"] = <
+					text = <"New constraint">
+					description = <"*">
+				>
+			>
+		>
+		["no"] = <
+			items = <
+				["ac0002"] = <
+					text = <"*New constraint(nb)">
+					description = <"**(nb)">
+				>
+				["ac0003"] = <
+					text = <"*New constraint(nb)">
+					description = <"**(nb)">
+				>
+			>
+		>
+	>
+	constraint_bindings = <
+		["DIPS"] = <
+			items = <
+				["ac0002"] = <terminology:DIPS?subset=healthcareparty>
+			>
+		>
+	>
