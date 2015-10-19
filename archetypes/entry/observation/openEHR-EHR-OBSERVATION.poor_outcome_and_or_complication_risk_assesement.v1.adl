@@ -1,0 +1,304 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.poor_outcome_and_or_complication_risk_assesement.v1
+
+concept
+	[at0000]	-- Evaluering av risiko for negativt utfall og eller komplikasjoner
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"Dips ASA">
+		["date"] = <"2015-06-29">
+	>
+	details = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"Angir evaluering av risiko for dålig utfall eller komplikasjoner hos en pasient eg helsefaktorene som utgjør en risiko for utfallet.">
+			use = <"Brukes når en planlegger en behandling for å beskrive helseforhold som kan på virke en behanlding negativt eller som kan utgjøre en rsisko for komplikasjoner og for å angi vrudering av aktuell risiko eller fare for komplikasjoner. ">
+			keywords = <"risiko", "komplikasjoner", "behandling", "utfall", "outcome", "behandlingsresultat", "risikofaktorer">
+			misuse = <"Brukes kun ved planlegging av en behandling og i kontakts med den planlagte behandlingen mog ikke som en generell beskrivelse av helse risiko hos en pasient. Helsefaktorene som angis her må sees i sammenheng den planlagte behandlingen. F.eks. kan bilsyke hos en pasient være en risikofaktor for en planalgt anestesi, men utgjør ellers ingen helserisiko for individet. ">
+			copyright = <"">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Angir evaluering av risiko for dålig utfall eller komplikasjoner hos en pasient eg helsefaktorene som utgjør en risiko for utfallet.">
+			use = <"Brukes når en planlegger en behandling for å beskrive helseforhold som kan på virke en behanlding negativt eller som kan utgjøre en rsisko for komplikasjoner og for å angi vrudering av aktuell risiko eller fare for komplikasjoner. ">
+			keywords = <"risiko", "komplikasjoner", "behandling", "utfall", "outcome", "behandlingsresultat", "risikofaktorer">
+			misuse = <"Brukes kun ved planlegging av en behandling og i kontakts med den planlagte behandlingen mog ikke som en generell beskrivelse av helse risiko hos en pasient. Helsefaktorene som angis her må sees i sammenheng den planlagte behandlingen. F.eks. kan bilsyke hos en pasient være en risikofaktor for en planalgt anestesi, men utgjør ellers ingen helserisiko for individet. ">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"D2DD43EC0320AF2AD4CAB98E82222BA6">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Evaluering av risiko for negativt utfall og eller komplikasjoner
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..*} matches {	-- Navn
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									CLUSTER[at0009] occurrences matches {0..*} matches {	-- Helsefaktor
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0010] occurrences matches {0..*} matches {	-- Helsefaktor navn/egenskap
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0011] occurrences matches {0..1} matches {	-- Tilstedeværelse
+												value matches {
+													DV_TEXT matches {*}
+													DV_BOOLEAN matches {
+														value matches {True, False}
+													}
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0014, 	-- Tilstede
+															at0015]	-- Fraværende
+														}
+													}
+												}
+											}
+											ELEMENT[at0012] occurrences matches {0..*} matches {	-- Lenke til evidens
+												value matches {
+													DV_URI matches {*}
+												}
+											}
+											ELEMENT[at0013] occurrences matches {0..1} matches {	-- Risikovurdering
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..*} matches {	-- Total evaluering
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									allow_archetype CLUSTER[at0007] occurrences matches {0..*} matches {	-- Detaljer
+										include
+											archetype_id/value matches {/.*/}
+									}
+									ELEMENT[at0008] occurrences matches {0..1} matches {	-- Kommentar
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Evaluering av risiko for negativt utfall og eller komplikasjoner">
+					description = <"Beskriver helsefaktorer som kan påvirke resultatet av en behandling negativt eller som  utgjør en rsiko for komplikasjoner samt vurdering av deres betydning for utfallet. ">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Navn">
+					description = <"Navn på utfallet som kan være negativt påvirket ved en behandling f.eks. komplikasjoner i forbindelse med anestesi eller kirurgi.">
+				>
+				["at0006"] = <
+					text = <"Total evaluering">
+					description = <"Total evaluering av hvordan nevnte faktorer vil kunne påvirke resultatet av behandlingen. Evaluering kan være en tekstlig beskrivelse av vurderingen eller også angis som aktuelle risikofaktorer. Ved en vurdering av anestesirisiko kan evalueringen f.eks. vise forhøyet aspirasjonsrisiko og risiko for vanskelig intubasjon.">
+				>
+				["at0007"] = <
+					text = <"Detaljer">
+					description = <"Detaljert informasjon om forhold som kan påvirke utfallet f.eks. ASA score i forbindelse med vurdering av risiko for anestesi.">
+				>
+				["at0008"] = <
+					text = <"Kommentar">
+					description = <"Kommentar til forhold som kan påvirke utfallet til en behandling negativt.">
+				>
+				["at0009"] = <
+					text = <"Helsefaktor">
+					description = <"Helsefaktor eller egenskap ved en pasient som kan påvirke utfallet til en behandling negativt eller som utgjør en risiko for komplikasjoner. F.eks. pasientstatus, bruk av medisiner, allergier , diagnoser etc">
+				>
+				["at0010"] = <
+					text = <"Helsefaktor navn/egenskap">
+					description = <"Navn på helsefaktor som utgjør en rsiko for dårlig utfall. Når bruk av medisiner er helsefaktoren vil navnet helsefaktor navn være en substansgrupppe eller navn på medikamentene pasienten bruker. Når helsefaktor er pasientstatus kan det være en egneskap ved pasientens sirkulasjon f.eks. høyt blodtrykk. ">
+				>
+				["at0011"] = <
+					text = <"Tilstedeværelse">
+					description = <"Tilstedeværelse av beskrevet faktor. Tilstedeværelse kan angis på foskjellig måte og behovene vil være foskjellige avhengis av situasjon. En vil noen gang kun ha behov for å bekrefte at faktoren er til stede, andre ganger vil man også eksplisitt ønske å angi at nevnt faktor ikke er tilstede. Noen ganger er infomrasjonen ikke etterspurt eller ikke aktuell i denne sammenheng.">
+				>
+				["at0012"] = <
+					text = <"Lenke til evidens">
+					description = <"Lenke til evidens til registrerte hendelser/faktorer f.eks. allergier eller diagnoser som en pasient har, eller f.eks et funn som tidligere er dokumentert i journalen, f.eks. EKG.">
+				>
+				["at0013"] = <
+					text = <"Risikovurdering">
+					description = <"Vurdering av rsiko som denne helsefaktoren utgjør for utfallet til behandlingen. Det er ønskelig å bruke kodet tekst der dette er mulig og naturlig.">
+				>
+				["at0014"] = <
+					text = <"Tilstede">
+					description = <"Helsefaktoren er tilstede.">
+				>
+				["at0015"] = <
+					text = <"Fraværende">
+					description = <"Helsefaktoren er ikke tilstede.">
+				>
+			>
+		>
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"Evaluering av risiko for negativt utfall og eller komplikasjoner">
+					description = <"Beskriver helsefaktorer som kan påvirke resultatet av en behandling negativt eller som  utgjør en rsiko for komplikasjoner samt vurdering av deres betydning for utfallet. ">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Navn">
+					description = <"Navn på utfallet som kan være negativt påvirket ved en behandling f.eks. komplikasjoner i forbindelse med anestesi eller kirurgi.">
+				>
+				["at0006"] = <
+					text = <"Total evaluering">
+					description = <"Total evaluering av hvordan nevnte faktorer vil kunne påvirke resultatet av behandlingen. Evaluering kan være en tekstlig beskrivelse av vurderingen eller også angis som aktuelle risikofaktorer. Ved en vurdering av anestesirisiko kan evalueringen f.eks. vise forhøyet aspirasjonsrisiko og risiko for vanskelig intubasjon.">
+				>
+				["at0007"] = <
+					text = <"Detaljer">
+					description = <"Detaljert informasjon om forhold som kan påvirke utfallet f.eks. ASA score i forbindelse med vurdering av risiko for anestesi.">
+				>
+				["at0008"] = <
+					text = <"Kommentar">
+					description = <"Kommentar til forhold som kan påvirke utfallet til en behandling negativt.">
+				>
+				["at0009"] = <
+					text = <"Helsefaktor">
+					description = <"Helsefaktor eller egenskap ved en pasient som kan påvirke utfallet til en behandling negativt eller som utgjør en risiko for komplikasjoner. F.eks. pasientstatus, bruk av medisiner, allergier , diagnoser etc">
+				>
+				["at0010"] = <
+					text = <"Helsefaktor navn/egenskap">
+					description = <"Navn på helsefaktor som utgjør en rsiko for dårlig utfall. Når bruk av medisiner er helsefaktoren vil navnet helsefaktor navn være en substansgrupppe eller navn på medikamentene pasienten bruker. Når helsefaktor er pasientstatus kan det være en egneskap ved pasientens sirkulasjon f.eks. høyt blodtrykk. ">
+				>
+				["at0011"] = <
+					text = <"Tilstedeværelse">
+					description = <"Tilstedeværelse av beskrevet faktor. Tilstedeværelse kan angis på foskjellig måte og behovene vil være foskjellige avhengis av situasjon. En vil noen gang kun ha behov for å bekrefte at faktoren er til stede, andre ganger vil man også eksplisitt ønske å angi at nevnt faktor ikke er tilstede. Noen ganger er infomrasjonen ikke etterspurt eller ikke aktuell i denne sammenheng.">
+				>
+				["at0012"] = <
+					text = <"Lenke til evidens">
+					description = <"Lenke til evidens til registrerte hendelser/faktorer f.eks. allergier eller diagnoser som en pasient har, eller f.eks et funn som tidligere er dokumentert i journalen, f.eks. EKG.">
+				>
+				["at0013"] = <
+					text = <"Risikovurdering">
+					description = <"Vurdering av rsiko som denne helsefaktoren utgjør for utfallet til behandlingen. Det er ønskelig å bruke kodet tekst der dette er mulig og naturlig.">
+				>
+				["at0014"] = <
+					text = <"Tilstede">
+					description = <"Helsefaktoren er tilstede.">
+				>
+				["at0015"] = <
+					text = <"Fraværende">
+					description = <"Helsefaktoren er ikke tilstede.">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"*Evaluering av risiko for negativt utfall og eller komplikasjoner(nb)">
+					description = <"*Beskriver faktorer og deres betydning for at resultatet av en behandling blir dårlig og eller at det oppstår komplkasjoner(nb)">
+				>
+				["at0001"] = <
+					text = <"*Event Series(nb)">
+					description = <"*@ internal @(nb)">
+				>
+				["at0002"] = <
+					text = <"*Any event(nb)">
+					description = <"**(nb)">
+				>
+				["at0003"] = <
+					text = <"*Tree(nb)">
+					description = <"*@ internal @(nb)">
+				>
+				["at0004"] = <
+					text = <"*Navn(nb)">
+					description = <"*Navn på utfallet som kan være negativt påvirket ved en behandling f.eks. komplikasjoner i forbindelse med anestesi eller kirurgi.(nb)">
+				>
+				["at0006"] = <
+					text = <"*Total evaluering(nb)">
+					description = <"*Total evaluering av hvordan nevnte faktorer vil kunne påvirke resultatet av behandlingen. Evaluering kan være en tekstlig beskrivelse av vurderingen eller også angis som aktuelle risikofaktorer. Ved en vurdering av anestesirisiko kan evalueringen f.eks. vise forhøyet aspirasjonsrisiko og risiko for vanskelig intubasjon.(nb)">
+				>
+				["at0007"] = <
+					text = <"*Detaljer(nb)">
+					description = <"*Detaljert informasjon om forhold som kan påvirke utfallet f.eks. ASA score i forbindelse med vurdering av risiko for anestesi.(nb)">
+				>
+				["at0008"] = <
+					text = <"*Kommentar(nb)">
+					description = <"*Kommentar til forhold som kan påvirke utfallet til en behandling negativt.(nb)">
+				>
+				["at0009"] = <
+					text = <"*Helsefaktor(nb)">
+					description = <"*Helsefaktor eller egenskap ved en pasient som kan påvirke utfallet til en behandling negativt eller som utgjør en risiko for komplikasjoner. F.eks. pasientstatus, bruk av medisiner, allergier , diagnoser etc(nb)">
+				>
+				["at0010"] = <
+					text = <"*Helsefaktor navn/egenskap(nb)">
+					description = <"*Navn på helsefaktor som utgjør en rsiko for dårlig utfall. Når bruk av medisiner er helsefaktoren vil navnet helsefaktor navn være en substansgrupppe eller navn på medikamentene pasienten bruker. Når helsefaktor er pasientstatus kan det være en egneskap ved pasientens sirkulasjon f.eks. høyt blodtrykk. (nb)">
+				>
+				["at0011"] = <
+					text = <"*Tilstedeværelse(nb)">
+					description = <"*Tilstedeværelse av beskrevet faktor. Tilstedeværelse kan angis på foskjellig måte og behovene vil være foskjellige avhengis av situasjon. En vil noen gang kun ha behov for å bekrefte at faktoren er til stede, andre ganger vil man også eksplisitt ønske å angi at nevnt faktor ikke er tilstede. Noen ganger er infomrasjonen ikke etterspurt eller ikke aktuell i denne sammenheng.(nb)">
+				>
+				["at0012"] = <
+					text = <"*Lenke til evidens(nb)">
+					description = <"*Lenke til evidens til registrerte hendelser/faktorer f.eks. allergier eller diagnoser som en pasient har, eller f.eks et funn som tidligere er dokumentert i journalen, f.eks. EKG.(nb)">
+				>
+				["at0013"] = <
+					text = <"*Risikovurdering(nb)">
+					description = <"*Vurdering av rsiko som denne helsefaktoren utgjør for utfallet til behandlingen. Det er ønskelig å bruke kodet tekst der dette er mulig og naturlig.(nb)">
+				>
+				["at0014"] = <
+					text = <"*Tilstede(nb)">
+					description = <"*Helsefaktoren er tilstede.(nb)">
+				>
+				["at0015"] = <
+					text = <"*Fraværende(nb)">
+					description = <"*Helsefaktoren er ikke tilstede.(nb)">
+				>
+			>
+		>
+	>

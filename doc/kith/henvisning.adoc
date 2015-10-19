@@ -1,0 +1,102 @@
+= KITH Henvisning og openEHR
+
+== Preface
+This is a summary on how we can map infomation from openEHR archetypes to a KITH referal message.
+
+http://www.kith.no/templates/kith_WebPage____1014.aspx[KITH - Meldingsside henvisning].
+
+== Henvisningsårsak
+I henvisningen benyttes en rekke _reason as text_. Her brytes disse ned:
+
+=== Tidligere sykdommer
+Previous diseases is collected from a persistent Composition containing current previous diseases.
+
+CAUTION: In openEHR this will be several entires. Is it allowed to have multiple KITH Observation in the message or do we have to concatenate the information?
+
+[source, XML]
+----
+<!-- Tidligere sykdommer -->
+<InfItem>
+	<Observation>
+		<Description>Kjent diabetes mellitus, paavist 1993. Behandlet i Spania for hjerteinfarkt sommeren 1999. Kjent urinsyregikt.</Description>
+	</Observation>
+	<Type V="ANAM" DN="Sykehistorie" />
+</InfItem>
+----
+
+=== Familie/sosialt
+Familie og sosialt registreres i et persistent dokument i openEHR baserte system.
+
+[source, xml]
+----
+<ReasonAsText>
+	<Heading V="FA" DN="Familie/sosialt" /><!-- 8231 -->
+	<TextResultValue>Åpne forhold til fam, planl sydentur i vinter.</TextResultValue>
+</ReasonAsText>
+
+----
+
+==== Forvetnet utredning/behandling
+This is the service requested from the INSTRUCTION.
+
+[source, xml]
+----
+<ReasonAsText>
+	<Heading V="UTRED" DN="Forventet utredning/behandling" />
+	<TextResultValue>Vurd av cytostatikatilbud, kfr. samtale med dr Dyregod i dag.</TextResultValue>
+</ReasonAsText>
+----
+
+==== Funksjonsnivå/hjelpetiltak
+This should be modelled as CLUSTER in Patient requirements.
+
+[source, xml]
+----
+<ReasonAsText>
+	<Heading V="HJ" DN="Funksjonsnivå/hjelpetiltak" />
+	<TextResultValue>Har klart seg alene inntil nå.</TextResultValue>
+</ReasonAsText>
+----
+
+===== Informasjon til pasient/pårørende
+This should be modelled as CLUSTER in Patient requirements
+
+[source, xml]
+----
+<ReasonAsText>
+	<Heading V="IP" DN="Informasjon til pasient/pårørende" />
+	<TextResultValue>Er informert om tilstandens forventede dødelige utfall.</TextResultValue>
+</ReasonAsText>
+----
+
+===== Henvisningstekst/aktuell problemstilling
+This is the reason for request from the INSTRUCTION.
+[source, xml]
+----
+<ReasonAsText>
+	<!-- Henvisningstekst/aktuell problemstilling -->
+	<Heading V="PROB" DN="Problemstilling" />
+	<TextResultValue>Trenger bedre smertelindring, samt en plan for fremtidig lindring, siden bruk av morfin er kontraindisert.</TextResultValue>
+</ReasonAsText>
+----
+
+== Medikasjon
+This is information about what kind of Information the patient is using. This information is collected from active Medication INSTRUCTION. But when this information is reused in a Referal we should not use INSTRUCTION (?). Should there be some kind of separate EVALUATION or should we use a Medication cluster under Patient requirements?
+
+WARNING: To be modelled!!
+
+[source, XML]
+----
+<InfItem>
+	<!--Legemiddel #2-->
+	<Medication>
+		<DrugId OT="Albyl-E" S="2.16.578.1.12.4.1.1.7180" />
+		<!-- Attributtet S skal inneholde oid for benyttet kodeverk -->
+		<Status V="6" DN="Benyttes regelmessig" />
+		<UnitDose V="160" U="mg" />
+		<DosageText>1 tabl. om kvelden</DosageText>
+	</Medication>
+	<Type V="MEDB" DN="Legemiddelopplysning" />
+</InfItem>
+
+----

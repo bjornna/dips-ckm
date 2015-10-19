@@ -1,32 +1,18 @@
-﻿archetype (adl_version=1.4)
+﻿archetype (adl_version=1.4; uid=bd1f5af5-ffbb-4491-a062-442bb4588062)
 	openEHR-EHR-INSTRUCTION.request-procedure.v1
-specialize
+specialise
 	openEHR-EHR-INSTRUCTION.request.v1
 
 concept
-	[at0000.1]	-- Prosedyrerekvisisjon
+	[at0000.1]	-- Procedure request
 language
 	original_language = <[ISO_639-1::en]>
 	translations = <
-		["ar-sy"] = <
-			language = <[ISO_639-1::ar-sy]>
-			author = <
-				["name"] = <"Mona Saleh">
-			>
-		>
-		["es-ar"] = <
-			language = <[ISO_639-1::es-ar]>
-			author = <
-				["organisation"] = <"Hospital Universitario Austral, Buenos Aires, Argentina">
-				["name"] = <"Alan March">
-			>
-			accreditation = <"MD">
-		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
 			author = <
-				["organisation"] = <"Haukeland University Hospital of Bergen, Norway">
 				["name"] = <"Lars Bitsch-Larsen">
+				["organisation"] = <"Haukeland University Hospital of Bergen, Norway">
 			>
 			accreditation = <"MD, DEAA, MBA, spec in anesthesia, spec in tropical medicine.">
 		>
@@ -36,69 +22,67 @@ description
 		["name"] = <"Dr Ian McNicoll">
 		["organisation"] = <"Ocean Informatics, United Kingdom">
 		["email"] = <"ian.mcnicoll@oceaninformatics.com">
-		["date"] = <"08/12/2009">
+		["date"] = <"2009-12-08">
 	>
 	details = <
-		["ar-sy"] = <
-			language = <[ISO_639-1::ar-sy]>
-			purpose = <"يمثل هذا النموذج تفاصيل جنيسة (غير محدودة الملكية) و بسيطة عن طلب إجراءات طبية ينبغي إجراؤها.">
-			use = <"يستخدم لمشاركة معلومات حول الأمر أو الطلب بإجراء طبي. 
-تم تصميم هذا النموذج ليقوم بالإمداد بالمعلومات الجوهرية المطلوبة لطلب بسيط لغالبية الإجراءات الطبية. 
-إذا كان من المطلوب المزيد من التفاصيل عن الإجراءات فيمكن إضافة ذلك باستخدام عناقيد مناسبة يتم إدراجها في شرفات التفاصيل الخاصة.">
-			keywords = <"الطلب", "يُحيل", "الأمر", "الخدمة", "المُزَوِّد">
-			misuse = <"">
-			copyright = <"© Nasjonal IKT HF">
-		>
-		["es-ar"] = <
-			language = <[ISO_639-1::es-ar]>
-			purpose = <"Proveer detalles simples y generales acerca de la solicitud para un procedimiento a ser realizado.">
-			use = <"Utilizar para compartir detalles acerca de una orden o solicitud para un procedimiento a a ser realizado. Este arquetipo ha sido diseñado para proveer la información central requerida para una solicitus simple de la mayor parte de los procedimientos de salud. Si se requiere un detalles específico, el mismo puede ser agregado mediante los arquetipos CLUSTER introducidos en el slot de Detalles Específicos.">
-			keywords = <"solicitud", "derivar", "referir", "orden", "servicio", "proveer">
-			misuse = <"">
-			copyright = <"© Nasjonal IKT HF">
-		>
 		["en"] = <
 			language = <[ISO_639-1::en]>
 			purpose = <"Provide simple and generic details about the request for a procedure to be performed.">
-			use = <"Use to share details about the order or request for a procedure to be performed. This archetype has been designed to provide the core information required for a simple request for most procedures.  If more specific detail is required about the procedure it can be added via CLUSTER archetypes inserted into the Specific Details slot.">
+			use = <"Use to share details about the order or request for a procedure to be performed. This archetype has been designed to provide the core information required for a simple request for most procedures. If more specific detail is required about the procedure it can be added via CLUSTER archetypes inserted into the Specific Details slot.">
 			keywords = <"request", "refer", "order", "service", "provide">
 			misuse = <"">
 			copyright = <"© Nasjonal IKT HF">
 		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"Gi enkle og generelle detaljer om en rekvisisjon for en ønsket prosedyre.">
-			use = <"Brukes til å dele detaljer om en rekvisisjon eller en anmodning om utførsel av en prosedyre. Denne arketypen har blitt utformet for å gi kjerneinformasjon som kreves for en enkel rekvisisjon om de fleste prosedyrer. Hvis mer spesifikke detaljer er nødvendige om prosedyren kan det bli lagt via CLUSTER arketyper satt inn i Specific Details slot.">
-			keywords = <"rekvisisjon", "henvise", "ordre", "service", "prosedyre", "gi", "yte", "ytelse", "bestille">
-			misuse = <"">
+			purpose = <"Brukes til å registrere enkle og generelle detaljer om rekvirering av en ønsket prosedyre.">
+			use = <"Brukes til å dele detaljer om en rekvisisjon eller en anmodning om utføring av en prosedyre. Denne arketypen har blitt utformet for å gi kjerneinformasjon som kreves for enkel rekvirering av de fleste prosedyrer. Hvis mer spesifikke detaljer er nødvendige kan disse legges til via CLUSTER-arketyper satt inn i SLOTet \"Spesifikke detaljer\".">
+			keywords = <"rekvisisjon", "bestilling", "foreskriving", "tjeneste", "tjenesteyter", "rekvirere", "bestille", "anmodning", "forespørre", "forespørsel", "anmode", "tilsyn">
+			misuse = <"Benyttes ikke som rekvisisjon av billeddiagnostikk - bruk arketypen INSTRUCTION.request-imaging_exam.
+
+Benyttes ikke som laboratorierekvisisjon - bruk arketypen INSTRUCTION.request-laboratory_test.
+
+Benyttes ikke til å registrere henvisninger eller tilsynsforespørsler  -bruk arketypen INSTRUCTION.request-referral.
+
+Benyttes ikke til å rekvirere pasientopplæring - bruk INSTRUCTION.request-health_education til dette formålet.
+
+Benyttes ikke til å rekvirere administrative aktiviteter - bruk spesifikke INSTRUCTION-arketyper til dette formålet.
+
+Benyttes ikke til å registrere detaljer om en utført prosedyre - bruk ACTION.procedure for dette formålet.">
 			copyright = <"© Nasjonal IKT HF">
 		>
 	>
-	lifecycle_state = <"AuthorDraft">
-	other_contributors = <"Silje Ljosland Bakke, Helse Bergen HF, Norway (Editor)", "Anca Heyd, DIPS ASA", "Heather Leslie, Ocean Informatics, Australia", "John Tore Valand, Haukeland Universitetssjukehus, Norway (Editor)">
+	lifecycle_state = <"published">
+	other_contributors = <"Tomas Alme, DIPS ASA, Norway", "Anne Pauline Anderssen, Helse Nord RHF, Norway", "Vebjørn Arntzen, Oslo universitetssykehus HF, Norway", "Silje Ljosland Bakke, Nasjonal IKT HF, Norway (Nasjonal IKT redaktør)", "Lars Bitsch-Larsen, Haukeland University Hospital, Bergen, Norway", "Anita Bjørnnes, Helse Bergen, Norway", "Gunn Elin Blakkisrud, DIPS ASA, Norway", "B Christensen, HUS, Norway", "Lisbeth Dahlhaug, Helse Midt - Norge IT, Norway", "Rose Mari Eikås, Helse Bergen, Norway", "Einar Fosse, UNN HF, Norwegian Centre for Integrated Care and Telemedicine, Norway", "Frode Gilberg, PRIDOK AS, Norway", "Bjørn Grøva, Helsedirektoratet, Norway", "Knut Harboe, Stavanger Universitetssjukehus, Norway", "Anne Gunn Haugland, Helse Bergen HF, Norway", "Ingrid Heitmann, Oslo universitetssykehus HF, Norway", "Kristian Heldal, Telemark Hospital Trust, Norway", "Andreas Hering, Helse Bergen HF, Haukeland universitetssjukehus, Norway", "Anca Heyd, DIPS ASA, Norway", "Hilde Hollås, Norway", "Lars Ivar Mehlum, Helse Bergen HF, Norway", "Lars Morgan Karlsen, DIPS ASA, Norway", "Heather Leslie, Ocean Informatics, Australia", "Hallvard Lærum, Oslo Universitetssykehus HF, Norway", "Bjørn Næss, DIPS ASA, Norway", "Rune Pedersen, Universitetssykehuset i Nord Norge, Norway", "Line Sæle, Nasjonal IKT HF, Norway", "Micaela Thierley, Helse Bergen, Norway", "John Tore Valand, Haukeland Universitetssjukehus, Norway (Nasjonal IKT redaktør)", "Nils Widnes, Helse-Bergen, Norway">
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"8CDEE9BC0FD94CA76C060D5F3088BF7B">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["revision"] = <"1.0.0">
+		["build_uid"] = <"84dca40f-ffe1-4108-97c2-16842701e5f7">
+		["original_namespace"] = <"no.nasjonalikt">
+		["original_publisher"] = <"Nasjonal IKT">
+		["MD5-CAM-1.0.1"] = <"8CDA62221DFABEBA70262CE96D23E309">
+		["custodian_namespace"] = <"no.nasjonalikt">
+		["custodian_organisation"] = <"Nasjonal IKT">
 	>
 
 definition
-	INSTRUCTION[at0000.1] matches {	-- Prosedyrerekvisisjon
+	INSTRUCTION[at0000.1] matches {	-- Prosedyrerekvirering
 		activities cardinality matches {0..*; unordered} matches {
-			ACTIVITY[at0001] occurrences matches {1..*} matches {	-- Rekvisisjon
-				action_archetype_id matches {/openEHR-EHR-ACTION\.procedure\.v1/}
+			ACTIVITY[at0001] occurrences matches {1..*} matches {	-- Rekvirering
 				description matches {
 					ITEM_TREE[at0009] matches {	-- Tree
 						items cardinality matches {1..*; unordered} matches {
-							ELEMENT[at0121] matches {	-- Prosedyre rekvirert
+							ELEMENT[at0121.1] matches {	-- Prosedyrenavn
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0.146] occurrences matches {0..1} matches {	-- Type prosedyre
+							ELEMENT[at0.2] occurrences matches {0..1} matches {	-- Prosedyretype
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0135] occurrences matches {0..1} matches {	-- Beskrivelse av prosedyre
+							ELEMENT[at0135.1] occurrences matches {0..1} matches {	-- Prosedyrebeskrivelse
 								value matches {
 									DV_TEXT matches {*}
 								}
@@ -107,64 +91,67 @@ definition
 								include
 									archetype_id/value matches {/.*/}
 							}
-							ELEMENT[at0062] occurrences matches {0..1} matches {	-- Årsak til rekvisisjon
+							ELEMENT[at0062] occurrences matches {0..1} matches {	-- Rekvireringsårsak
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0064] occurrences matches {0..1} matches {	-- Årsaksbeskrvelse
+							ELEMENT[at0064] occurrences matches {0..1} matches {	-- Årsaksbeskrivelse
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0.145] occurrences matches {0..1} matches {	-- Formål
-								value matches {
-									DV_TEXT matches {*}
-								}
-							}
-							ELEMENT[at0065] occurrences matches {0..1} matches {	-- Hensikt
+							ELEMENT[at0065.1] occurrences matches {0..1} matches {	-- Hensikt
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
 							ELEMENT[at0068] occurrences matches {0..1} matches {	-- Hastegrad
 								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0136, 	-- Akutt
+											at0137, 	-- Haster
+											at0138]	-- Rutine
+										}
+									}
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0.147] occurrences matches {0..1} matches {	-- Ønkes gjennomført innen
-								value matches {
-									DV_DURATION matches {*}
-								}
-							}
-							ELEMENT[at0040] occurrences matches {0..1} matches {	-- Dato /tid for den ønskede service
+							ELEMENT[at0146.1] occurrences matches {0..1} matches {	-- Ønsket dato/tid for start av prosedyre
 								value matches {
 									DV_DATE_TIME matches {*}
 								}
 							}
-							ELEMENT[at0.148] occurrences matches {0..1} matches {	-- Tidligst dato for gjennomføring
+							ELEMENT[at0145.1] occurrences matches {0..1} matches {	-- Tidligste dato/tid for start av prosedyre
 								value matches {
 									DV_DATE_TIME matches {*}
 								}
 							}
-							ELEMENT[at0144] occurrences matches {0..1} matches {	-- Seneste dato for ønsket service
+							ELEMENT[at0040.1] occurrences matches {0..1} matches {	-- Ønsket dato/tid for fullført prosedyre
 								value matches {
 									DV_DATE_TIME matches {*}
 								}
 							}
-							ELEMENT[at0076] occurrences matches {0..1} matches {	-- Ytterligere informasjon følger
+							ELEMENT[at0144.1] occurrences matches {0..1} matches {	-- Seneste dato/tid for fullført prosedyre
+								value matches {
+									DV_DATE_TIME matches {*}
+								}
+							}
+							ELEMENT[at0076] occurrences matches {0..1} matches {	-- Supplerende informasjon følger
 								value matches {
 									DV_BOOLEAN matches {
 										value matches {True}
 									}
 								}
 							}
-							ELEMENT[at0078] occurrences matches {0..1} matches {	-- Ytterligere informasjon forventes
+							ELEMENT[at0078] occurrences matches {0..1} matches {	-- Detaljer om følgende supplerende informasjon
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							allow_archetype CLUSTER[at0116] occurrences matches {0..1} matches {	-- Pasientbehov
+							allow_archetype CLUSTER[at0116] occurrences matches {0..*} matches {	-- Pasientens behov
 								include
 									archetype_id/value matches {/.*/}
 							}
@@ -176,34 +163,34 @@ definition
 		protocol matches {
 			ITEM_TREE[at0008] matches {	-- Tree
 				items cardinality matches {1..*; unordered} matches {
-					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Rekvirentidenitifikator
+					ELEMENT[at0010.1] occurrences matches {0..1} matches {	-- Rekvisisjonsidentifikator
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					allow_archetype CLUSTER[at0141] occurrences matches {0..1} matches {	-- Rekvirent
+					allow_archetype CLUSTER[at0141] occurrences matches {0..*} matches {	-- Rekvirent
 						include
 							archetype_id/value matches {/.*/}
 					}
-					ELEMENT[at0011] occurrences matches {0..1} matches {	-- Mottakeridentifikator
+					ELEMENT[at0011] occurrences matches {0..1} matches {	-- Mottakers rekvisisjonsidentifikator
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					allow_archetype CLUSTER[at0142] occurrences matches {0..1} matches {	-- Mottaker
+					allow_archetype CLUSTER[at0142] occurrences matches {0..*} matches {	-- Mottaker
 						include
 							archetype_id/value matches {/.*/}
 					}
-					ELEMENT[at0127] occurrences matches {0..1} matches {	-- Rekvisisjonsstatus
+					ELEMENT[at0127.1] occurrences matches {0..1} matches {	-- Rekvisisjonsstatus
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					allow_archetype CLUSTER[at0128] occurrences matches {0..*} matches {	-- Distribusjonsliste for svar
+					allow_archetype CLUSTER[at0128] occurrences matches {0..*} matches {	-- Svarmottakere
 						include
 							archetype_id/value matches {/openEHR-EHR-CLUSTER\.distribution\.v1/}
 					}
-					allow_archetype CLUSTER[at0112] occurrences matches {0..*} matches {	-- Lokalitet
+					allow_archetype CLUSTER[at0112] occurrences matches {0..*} matches {	-- Tilleggsinformasjon
 						include
 							archetype_id/value matches {/.*/}
 					}
@@ -212,264 +199,18 @@ definition
 		}
 	}
 
+
 ontology
 	term_definitions = <
-		["ar-sy"] = <
-			items = <
-				["at0.145"] = <
-					text = <"المقصد">
-					description = <"تفاصيل حول الهدف أو المقصد المحدَّد الذي ينبغي تحقيقه بواسطة هذا الإجراء الطبي.">
-				>
-				["at0.146"] = <
-					text = <"نوع الإجراء الطبي">
-					description = <"*">
-				>
-				["at0.147"] = <
-					text = <"*New element(en)">
-					description = <"**(en)">
-				>
-				["at0.148"] = <
-					text = <"*New element(en)">
-					description = <"**(en)">
-				>
-				["at0000"] = <
-					text = <"*Healthcare service request(en)">
-					description = <"*Generic request for a range of different healthcare services e.g referral, lab request, equipment request.(en)">
-				>
-				["at0000.1"] = <
-					text = <"طلب الإجراء الطبي">
-					description = <"طلب لتنفيذ إجراء طبي">
-				>
-				["at0001"] = <
-					text = <"الطلب">
-					description = <"النشاط الحالي">
-				>
-				["at0008"] = <
-					text = <"*Tree(en)">
-					description = <"*@ internal @(en)">
-				>
-				["at0009"] = <
-					text = <"*Tree(en)">
-					description = <"*@ internal @(en)">
-				>
-				["at0010"] = <
-					text = <"العنصر التعريفي الخاص بطالب الخدمة">
-					description = <"العنصر التعريفي المحلي الذي تم تعيينه للأمر بواسطة مُزَوِّد الخدمة الصحية أو المؤسسة الصحية التي قامت بطلب الخدمة. و يتم الإشارة إليه أيضا بأنه العنصر التعريفي لمن قام بالأمر.">
-				>
-				["at0011"] = <
-					text = <"العتصر التعريفي الخاص بمُستقبِل الطلب">
-					description = <"العنصر التعريفي الذي تم تعيينه للأمر بواسطة مُزَوِّد الخدمة الصحية أو المؤسسة الصحية التي تستقبل الأمر لإجراء الخدمة. و يتم الإشارة إليه أيضا بالعنصر التعريفي لمُنَفِّذ الأمر.">
-				>
-				["at0040"] = <
-					text = <"تاريخ و توقيت الخدمة المطلوبة">
-					description = <"التاريخ و التوقيت الذي ينبغي إجراء أو إتمام الخدمة فيه">
-				>
-				["at0062"] = <
-					text = <"سبب الطلب">
-					description = <"وصف قصير لسبب الطلب. و عادةً ما يكون ذلك مُرمَزًا بواسطة نظام مصطلحات خارجي.">
-				>
-				["at0064"] = <
-					text = <"وصف السبب">
-					description = <"وصف برواية تصف سبب الطلب.">
-				>
-				["at0065"] = <
-					text = <"القصد">
-					description = <"التأثير المقصود أو الظرف/القضية الصحية وراء هذا الإجراء, مثلا: وقائي, علاجي, مُساعِد/إضافي, مُسانِد أو داعم">
-				>
-				["at0068"] = <
-					text = <"الإلحاح">
-					description = <"إلحاح الطلب">
-				>
-				["at0076"] = <
-					text = <"معلومات تكميلية ينبغي اتباعها">
-					description = <"إذا كانت هذه المعلومة صحيحة فذلك يشير إلى أنه تم التعرف على معلومات إضافية و سيتم إحالتها حينما تكون متاحة, مثلا: نتائج غير مكتملة لاختبار خاص بالباثولوجيا/المَرَضية.">
-				>
-				["at0078"] = <
-					text = <"المعلومات التكميلية المُتَوَقَّعة">
-					description = <"تفاصيل حول طبيعة المعلومات التكميلية التي ينبغي اتباعها, مثل اسم الاختبارات المعملية.">
-				>
-				["at0112"] = <
-					text = <"التوطين">
-					description = <"المعلومات الخاصة بالتفاصيل المحلية مثل متطلبات إجراءات الفوترة.">
-				>
-				["at0116"] = <
-					text = <"مُتطلبات المريض">
-					description = <"اللغة, وسيلة الانتقال, أو المتطلبات الشخصية الأخرى لدعم حضور و مشاركة المريض في أثناء تقديم الخدمة.">
-				>
-				["at0121"] = <
-					text = <"الإجراء الطبي الذي تم طلبه">
-					description = <"تعريف الخدمة التي تم طلبها. و عادة ما يكون مُرْمَزًا بواسطة نظام مصطلحات خارجي.">
-				>
-				["at0127"] = <
-					text = <"حالة الطلب">
-					description = <"حالة طلب الخدمة كما تتم الإشارة إليه بواسطة من طلب الأمر. 
-تستخدم الحالة للإشارة إلى ما إذا كان هذا هو الطلب المبدئي أم أنه طلب متابعة لتغيير معلومات أو التزويد بمعلومات تكميلية.
-">
-				>
-				["at0128"] = <
-					text = <"قائمة التوزيع للاستجابة">
-					description = <"قائمة من الأشخاص أو المؤسسات الذين ينبغي أن يستقبلوا نُسَخًا من أي نوع من الاتصال.">
-				>
-				["at0132"] = <
-					text = <"التفاصيل المُخصصة">
-					description = <"تفاصيل مُرَكَّبة لتعريف الخدمة التي تم طلبها, مثل عنقود في إحدى النماذج يصف تفاصيل الإجراء الطبي مع وجود أو عدم وجود متطلبات الاختبار.">
-				>
-				["at0135"] = <
-					text = <"وصف الإجراء الطبي">
-					description = <"وصف برواية مفصلة عن الخدمة التي تم طلبها.">
-				>
-				["at0141"] = <
-					text = <"الطالب">
-					description = <"تفاصيل حول مُزَوِّد الخدمة الصحية أو المؤسسة الصحية التي تطلب الخدمة.">
-				>
-				["at0142"] = <
-					text = <"المُستقبِل">
-					description = <"تفاصيل حول مُزَوِّد الخدمة الصحية أو المؤسسة الصحية التي تستقبل طلب تقديم الخدمة.">
-				>
-				["at0144"] = <
-					text = <"آخر تاريخ لاتزال الخدمة مطلوبة في أثناءه">
-					description = <"آخر تاريخ لا يزال فيه مقبولا أن يتم إكمال/إتمام الخدمة.">
-				>
-			>
-		>
-		["es-ar"] = <
-			items = <
-				["at0.145"] = <
-					text = <"Objetivo">
-					description = <"Detalles acerca del objetivo específico o meta que se busca lograr mediante el procedimiento.">
-				>
-				["at0.146"] = <
-					text = <"Tipo de procedimiento">
-					description = <"*">
-				>
-				["at0.147"] = <
-					text = <"*New element(en)">
-					description = <"**(en)">
-				>
-				["at0.148"] = <
-					text = <"*New element(en)">
-					description = <"**(en)">
-				>
-				["at0000"] = <
-					text = <"*Healthcare service request(en)">
-					description = <"*Generic request for a range of different healthcare services e.g referral, lab request, equipment request.(en)">
-				>
-				["at0000.1"] = <
-					text = <"Solicitud de procedimiento">
-					description = <"Solicitud para un procedimiento a ser realizado.">
-				>
-				["at0001"] = <
-					text = <"Solicitud">
-					description = <"Actividad actual">
-				>
-				["at0008"] = <
-					text = <"*Tree(en)">
-					description = <"*@ internal @(en)">
-				>
-				["at0009"] = <
-					text = <"*Tree(en)">
-					description = <"*@ internal @(en)">
-				>
-				["at0010"] = <
-					text = <"Identificador del Solicitante">
-					description = <"El ID local asignado a la solicitud por parte del prestador u organización proveedora de servicios de salud que solicita el servicio. También conocido como Identificador del Colocador de la Orden.">
-				>
-				["at0011"] = <
-					text = <"Identificador del Receptor">
-					description = <"El ID asignado a la solicitud por parte del prestador u organización proveedora de servicios de salud que recibe la solicitud del servicio. También conocido como Identificador del Receptor de la Orden.">
-				>
-				["at0040"] = <
-					text = <"Fecha y/o hora para el servicio solicitado">
-					description = <"La fecha y hora en la que el servicio debería ser realizado o cumplido.">
-				>
-				["at0062"] = <
-					text = <"Motivo de la solicitud">
-					description = <"Breve descripción del motivo de la solicitud. A menudo codificado mediante una terminología externa.">
-				>
-				["at0064"] = <
-					text = <"Descripción del motivo">
-					description = <"Descripción narrativa que explica el motivo de la solicitud.">
-				>
-				["at0065"] = <
-					text = <"Propósito">
-					description = <"Propósito declarado de la solicitud por parte del solicitante.">
-				>
-				["at0068"] = <
-					text = <"Urgencia">
-					description = <"Urgencia de la solicitud.">
-				>
-				["at0076"] = <
-					text = <"Información suplementaria a proveer">
-					description = <"\"Verdadero\" indica que se ha identificado información adicional y que será remitida cuando se encuentre disponible. Ej.: resultados de una prueba de patología incompleta.">
-				>
-				["at0078"] = <
-					text = <"Información suplementaria prevista">
-					description = <"Detalle de la naturaleza de la información suplementaria que se prevé. Ej.: nombre del resultado de laboratorio.">
-				>
-				["at0112"] = <
-					text = <"Localización">
-					description = <"Información local detallada, tal como la requerida para facturación.">
-				>
-				["at0116"] = <
-					text = <"Requerimientos para el paciente">
-					description = <"Requerimientos de idioma, transporte, u otros, que asistan al paciente para concurrir o participar en la provisión del servicio.">
-				>
-				["at0121"] = <
-					text = <"Procedimiento solicitado">
-					description = <"Identificación del procedimiento solicitado. A menudo se lo codifica mediante una terminología externa.">
-				>
-				["at0127"] = <
-					text = <"Estado de la solicitud">
-					description = <"El estado de la solicitud de servicio según el solicitante. 
-El \"estado\" se utiliza para denotar si se trata de un solicitud inicial, a una solicitud de cambio o provisión de información de la solicitud en curso.">
-				>
-				["at0128"] = <
-					text = <"Lista de distribución para la respuesta">
-					description = <"Lista de personas o la organización que debería recibir copias de cualquier comunicación.">
-				>
-				["at0132"] = <
-					text = <"Detalles específicos">
-					description = <"Información estructurada que detalla el servicio solicitado. Ej.: Arquetipo CLUSTER que especifica detalles del procedimiento: si requiere anestesia, o no.">
-				>
-				["at0135"] = <
-					text = <"Descripción del procedimiento">
-					description = <"Descripción narrativa del servicio solicitado.">
-				>
-				["at0141"] = <
-					text = <"Solicitante">
-					description = <"Detalles del prestador u organización proveedora de servicios de atención de la salud que solicita el servicio.">
-				>
-				["at0142"] = <
-					text = <"Receptor">
-					description = <"Detalles del prestador u organización proveedora de servicios de atención de la salud que recibe la solicitud del servicio.">
-				>
-				["at0144"] = <
-					text = <"Fecha límite del servicio solicitado">
-					description = <"La fecha mas tardía aceptable para el cumplimiento del servicio.">
-				>
-			>
-		>
 		["en"] = <
 			items = <
-				["at0.145"] = <
-					text = <"Objective">
-					description = <"Details about specific objective or goal to be achieved by procedure.">
-				>
-				["at0.146"] = <
+				["at0.2"] = <
 					text = <"Type of procedure">
-					description = <"*">
-				>
-				["at0.147"] = <
-					text = <"Procedure to be performed within">
-					description = <"Time interval within the procedure should be performed.">
-				>
-				["at0.148"] = <
-					text = <"First date service required">
-					description = <"First possible date when the required procedure can be performed.">
+					description = <"Description about the type of procedure.">
 				>
 				["at0000"] = <
-					text = <"Healthcare service request">
-					description = <"Generic request for a range of different healthcare services e.g referral, lab request, equipment request.">
+					text = <"*Healthcare service request(en)">
+					description = <"*Request for a healthcare service to be supplied by another healthcare provider or support agency.(en)">
 				>
 				["at0000.1"] = <
 					text = <"Procedure request">
@@ -477,7 +218,7 @@ El \"estado\" se utiliza para denotar si se trata de un solicitud inicial, a una
 				>
 				["at0001"] = <
 					text = <"Request">
-					description = <"Current Activity">
+					description = <"Description of the requested service.">
 				>
 				["at0008"] = <
 					text = <"Tree">
@@ -488,28 +229,42 @@ El \"estado\" se utiliza para denotar si se trata de un solicitud inicial, a una
 					description = <"@ internal @">
 				>
 				["at0010"] = <
+					text = <"*Requestor Identifier(en)">
+					description = <"*The local ID assigned to the order by the healthcare provider or organisation requesting the service. This is also referred to as Placer Order Identifier.(en)">
+				>
+				["at0010.1"] = <
 					text = <"Requestor Identifier">
-					description = <"The local ID assigned to the order by the healthcare provider or organisation requesting the service. This is also referred to as Placer Order Identifier.">
+					description = <"The local ID assigned to the order by the healthcare provider or organisation requesting the procedure. This is also referred to as Placer Order Identifier.">
 				>
 				["at0011"] = <
 					text = <"Receiver identifier">
 					description = <"The ID assigned to the order by the healthcare provider or organisation receiving the request for service. This is also referred to as Filler Order Identifier.">
 				>
 				["at0040"] = <
-					text = <"Date &/or time service required">
-					description = <"The date and time that the service should be performed or completed.">
+					text = <"*Date &/or time for completed service(en)">
+					description = <"*The date and time that the service should be performed or completed.(en)">
+				>
+				["at0040.1"] = <
+					text = <"Requested date/time for completed procedure">
+					description = <"The date and time that the procedure should be performed or completed.">
+					comment = <"In practice, clinicians will often think in terms of ordering services in inexact terms, for example: review in 3 months, 6 months or 12 months. As clinical systems need more exact parameters to operate on, this '3 month' will be converted to an exact date 3 months from the date of recording and stored using this data element.">
 				>
 				["at0062"] = <
 					text = <"Reason for request">
-					description = <"A short description of the reason for the request or indication.  This is often coded with an external terminology.">
+					description = <"A short description of the reason for the request.">
+					comment = <"Coding of the 'Reason for request' with a coding system is desirable, if available.">
 				>
 				["at0064"] = <
 					text = <"Reason description">
 					description = <"A narrative description explaining the reason for request.">
 				>
 				["at0065"] = <
+					text = <"*Intent(en)">
+					description = <"*The requestor's intention as to what they wish to achieve by the request.(en)">
+				>
+				["at0065.1"] = <
 					text = <"Intent">
-					description = <"Intended impact on underlying health condition or issue eg preventive, curative, palliative, adjunct, adjuvant or supportive.">
+					description = <"The requestor's intention as to what they wish to achieve by the procedure request.">
 				>
 				["at0068"] = <
 					text = <"Urgency">
@@ -517,201 +272,123 @@ El \"estado\" se utiliza para denotar si se trata de un solicitud inicial, a una
 				>
 				["at0076"] = <
 					text = <"Supplementary information to follow">
-					description = <"True indicates that additional information has been identified and will be forwarded when available eg incomplete pathology test results.">
+					description = <"True indicates that additional information has been identified and will be forwarded when available, eg incomplete laboratory test results.">
 				>
 				["at0078"] = <
-					text = <"Supplementary information expected">
+					text = <"Details of expected supplementary information">
 					description = <"Details of the nature of supplementary information that is to follow e.g name of laboratory results.">
 				>
 				["at0112"] = <
-					text = <"Localisation">
-					description = <"Local detailed information such as billing requirements.">
+					text = <"Extension">
+					description = <"Additional information required to capture local content or to align with other reference models/formalisms.">
+					comment = <"For example: local information requirements or additional metadata to align with FHIR or CIMI equivalents.">
 				>
 				["at0116"] = <
 					text = <"Patient requirements">
 					description = <"Language, transport or other personal requirements to support the patient's attendance or participation in provision of the service.">
 				>
 				["at0121"] = <
-					text = <"Procedure requested">
-					description = <"Identification of the service requested. This is often coded with an external terminology.">
+					text = <"*Service name(en)">
+					description = <"*Identification of the service requested, by name.(en)">
+				>
+				["at0121.1"] = <
+					text = <"Procedure name">
+					description = <"Identification of the procedure requested.">
+					comment = <"Coding of the 'Procedure name' with a coding system is desirable, if available.">
 				>
 				["at0127"] = <
+					text = <"*Request status(en)">
+					description = <"*The status of the request for service as indicated by the requester. 
+Status is used to denote whether this is the initial request, or a follow-up request to change or provide supplementary information.(en)">
+				>
+				["at0127.1"] = <
 					text = <"Request status">
-					description = <"The status of the request for service as indicated by the requester. 
-Status is used to denote whether this is the initial request, or a follow-up request to change or provide supplementary information.">
+					description = <"The status of the request for procedure as indicated by the requester. Status is used to denote whether this is the initial request, or a follow-up request to change or provide supplementary information.">
 				>
 				["at0128"] = <
-					text = <"Distribution list for response ">
+					text = <"Distribution list for response">
 					description = <"A list of person's or organisation who should receive copies of any communication.">
 				>
 				["at0132"] = <
-					text = <"Specific details  ">
-					description = <"Structured detail defining the service requested eg CLUSTER archetype specifying the specific details of the procedure, +/- anaesthetic requirements.">
+					text = <"Specific details">
+					description = <"Structured detail defining the service requested.">
+					comment = <"Example: CLUSTER archetype specifying the specific catheter that is to be inserted.">
 				>
 				["at0135"] = <
-					text = <"Description of Procedure">
-					description = <"A detailed narrative description of the service requested.">
+					text = <"*Description(en)">
+					description = <"*Narrative description of the service requested.(en)">
+				>
+				["at0135.1"] = <
+					text = <"Procedure description">
+					description = <"Narrative description of the procedure requested.">
+				>
+				["at0136"] = <
+					text = <"Emergency">
+					description = <"The request is an emergency.">
+				>
+				["at0137"] = <
+					text = <"Urgent">
+					description = <"The request is urgent.">
+				>
+				["at0138"] = <
+					text = <"Routine">
+					description = <"The request is routine.">
 				>
 				["at0141"] = <
-					text = <"Requestor ">
+					text = <"Requestor">
 					description = <"Details about the healthcare provider or organisation requesting the service.">
 				>
 				["at0142"] = <
-					text = <"Receiver ">
+					text = <"Receiver">
 					description = <"Details about the healthcare provider or organisation receiving the request for service.">
 				>
 				["at0144"] = <
-					text = <"Latest date service required">
-					description = <"The latest date that is acceptable for the service to be completed.">
+					text = <"*Latest date service required(en)">
+					description = <"*The latest date that is acceptable for the service to be completed.(en)">
 				>
-			>
-		>
-		["no"] = <
-			items = <
-				["at0.145"] = <
-					text = <"Formål">
-					description = <"Detaljer om den spesifikke årsaken eller formålet som ønskes oppnådd med denne prosedyren.">
+				["at0144.1"] = <
+					text = <"Latest date procedure completed">
+					description = <"The latest date that is acceptable for the procedure to be completed.">
+					comment = <"For example: a procedure may be required to be completed before another event, such as scheduled surgery.">
 				>
-				["at0.146"] = <
-					text = <"Type prosedyre">
-					description = <"*">
+				["at0145"] = <
+					text = <"*Earliest date service required(en)">
+					description = <"*The earliest date that is acceptable for the service to be started.(en)">
 				>
-				["at0.147"] = <
-					text = <"Ønkes gjennomført innen">
-					description = <"Tidsintervall innenfor en ønsker at prosedyren skal være gjennomført.">
+				["at0145.1"] = <
+					text = <"Earliest date procedure started">
+					description = <"The earliest date that is acceptable for the procedure to be started.">
+					comment = <"Somtimes a certain amount of time must pass before a service can be performed, for example some gastroscopies can only be performed once the patient has stopped taking certain medications for a set amount of time.">
 				>
-				["at0.148"] = <
-					text = <"Tidligst dato for gjennomføring">
-					description = <"Først mulige dato når prosedyren kan gjennomføres.">
+				["at0146"] = <
+					text = <"*Date &/or time for started service(en)">
+					description = <"*The date and time that the service should be started.(en)">
 				>
-				["at0000"] = <
-					text = <"*Healthcare service request(en)">
-					description = <"*Generic request for a range of different healthcare services e.g referral, lab request, equipment request.(en)">
-				>
-				["at0000.1"] = <
-					text = <"Prosedyrerekvisisjon">
-					description = <"Rekvisisjon for en prosedyre som ønskes utført.">
-				>
-				["at0001"] = <
-					text = <"Rekvisisjon">
-					description = <"Aktuell aktivitet">
-				>
-				["at0008"] = <
-					text = <"Tree">
-					description = <"@ internal @">
-				>
-				["at0009"] = <
-					text = <"Tree">
-					description = <"@ internal @">
-				>
-				["at0010"] = <
-					text = <"Rekvirentidenitifikator">
-					description = <"Den lokale ID tillagt til rekvisisjonen av helsetjenesten eller organisasjon som rekvirerer servicen. Dette kalles også Rekvirentidentifikator.">
-				>
-				["at0011"] = <
-					text = <"Mottakeridentifikator">
-					description = <"Den ID som tillegges en rekvisisjon av helsetjenesten eller organisasjonen som mottar rekvisisjonen. Dette kalles også Rekvisisjonsmottakeridentifikator.">
-				>
-				["at0040"] = <
-					text = <"Dato /tid for den ønskede service">
-					description = <"Datoen og tidspunktet hvor servicen bør være utført eller fullført.">
-				>
-				["at0062"] = <
-					text = <"Årsak til rekvisisjon">
-					description = <"En kort beskrivelse av indikasjonen for rekvisisjonen. Dette er ofte kodet i ekstern terminologi.">
-				>
-				["at0064"] = <
-					text = <"Årsaksbeskrvelse">
-					description = <"En narrativ beskrivelse som forklarer årsaken til denne rekvisisjon.">
-				>
-				["at0065"] = <
-					text = <"Hensikt">
-					description = <"Tiltenkt effekt på underliggende helsetilstand eller problem f.eks forebyggende, helbredende, lindrende, supplement, adjuvant eller støttende.">
-				>
-				["at0068"] = <
-					text = <"Hastegrad">
-					description = <"Hastegraden av den tiltenkte prosedyre.">
-				>
-				["at0076"] = <
-					text = <"Ytterligere informasjon følger">
-					description = <"\"Sann\" indikerer at ytterligere informasjon er blitt identifisert og vil bli fremsendt når det er tilgjengelig, f.eks. labsvar.">
-				>
-				["at0078"] = <
-					text = <"Ytterligere informasjon forventes">
-					description = <"Detaljer om arten av den supplerende informasjon, f.eks. labsvar.">
-				>
-				["at0112"] = <
-					text = <"Lokalitet">
-					description = <"Lokale detaljer som f.eks. fakturering.">
-				>
-				["at0116"] = <
-					text = <"Pasientbehov">
-					description = <"Språk, transport eller personlige krav som understøtter pasientens mulighet for fremmøte eller deltakelse i den tenkte prosedyren.">
-				>
-				["at0121"] = <
-					text = <"Prosedyre rekvirert">
-					description = <"Identifikasjon av den prosedyre som ønskes utført. Dette blir ofte kodet med ekstern terminologi.">
-				>
-				["at0127"] = <
-					text = <"Rekvisisjonsstatus">
-					description = <"Status til den rekvisisjon som indikert av rekvirenten.
-Status anvendes til å vise om det er den opprinnelige rekvisisjonen eller en oppfølgende rekvisisjon for endring eller for å oppgi tilleggsinformasjon.">
-				>
-				["at0128"] = <
-					text = <"Distribusjonsliste for svar">
-					description = <"En liste av person(er) eller organisasjon(er) som bør motta kopier av eventuell kommunikasjon.">
-				>
-				["at0132"] = <
-					text = <"Spesifikke detaljer">
-					description = <"Strukturerte detaljer som definerer den rekvirerte service f.eks. en CLUSTER-arketype som inneholder spesifikke detaljer om prosedyren, +/- krav i forbindelse med anestesi.">
-				>
-				["at0135"] = <
-					text = <"Beskrivelse av prosedyre">
-					description = <"Detaljert narrativ beskrivelse av den ønskede prosedyren.">
-				>
-				["at0141"] = <
-					text = <"Rekvirent">
-					description = <"Detaljer om den helsetjeneste eller organisasjon som rekvirerer servicen.">
-				>
-				["at0142"] = <
-					text = <"Mottaker">
-					description = <"Detaljer om helsetjeneste yter eller organisasjon som mottar rekvisisjonen.">
-				>
-				["at0144"] = <
-					text = <"Seneste dato for ønsket service">
-					description = <"Den seneste dato som er akseptabel for den utførte service.">
+				["at0146.1"] = <
+					text = <"Requested date/time for started procedure">
+					description = <"The date and time that the procedure should be started.">
 				>
 			>
 		>
 		["nb"] = <
 			items = <
-				["at0.145"] = <
-					text = <"Formål">
-					description = <"Detaljer om den spesifikke årsaken eller formålet som ønskes oppnådd med denne prosedyren.">
-				>
-				["at0.146"] = <
-					text = <"Type prosedyre">
-					description = <"*">
-				>
-				["at0.147"] = <
-					text = <"Ønkes gjennomført innen">
-					description = <"Tidsintervall innenfor en ønsker at prosedyren skal være gjennomført.">
-				>
-				["at0.148"] = <
-					text = <"Tidligst dato for gjennomføring">
-					description = <"Først mulige dato når prosedyren kan gjennomføres.">
+				["at0.2"] = <
+					text = <"Prosedyretype">
+					description = <"Beskrivelse av prosedyretypen.">
+					comment = <"For eksempel: Utredning, operasjon eller terapi.">
 				>
 				["at0000"] = <
-					text = <"*Healthcare service request(en)">
-					description = <"*Generic request for a range of different healthcare services e.g referral, lab request, equipment request.(en)">
+					text = <"Helsetjenesterekvirering">
+					description = <"Forespørsel om utførelse av en helsetjeneste, til annet helsepersonell eller andre organisasjoner.">
+					comment = <"For eksempel en forespørsel om postoperative observasjoner, eller en forespørsel om hjemmetjenester etter utskriving.">
 				>
 				["at0000.1"] = <
-					text = <"Prosedyrerekvisisjon">
-					description = <"Rekvisisjon for en prosedyre som ønskes utført.">
+					text = <"Prosedyrerekvirering">
+					description = <"Rekvirering av en klinisk aktivitet som skal utføres i undersøkende, diagnostisk, kurativ, terapeutisk, evaluerende eller palliativ hensikt.">
 				>
 				["at0001"] = <
-					text = <"Rekvisisjon">
-					description = <"Aktuell aktivitet">
+					text = <"Rekvirering">
+					description = <"Beskrivelse av tjenesten det rekvireres til.">
 				>
 				["at0008"] = <
 					text = <"Tree">
@@ -722,81 +399,151 @@ Status anvendes til å vise om det er den opprinnelige rekvisisjonen eller en op
 					description = <"@ internal @">
 				>
 				["at0010"] = <
-					text = <"Rekvirentidenitifikator">
-					description = <"Den lokale ID tillagt til rekvisisjonen av helsetjenesten eller organisasjon som rekvirerer servicen. Dette kalles også Rekvirentidentifikator.">
+					text = <"Rekvisisjonsidentifikator">
+					description = <"Rekvisisjonens identifikator, tilordnet av den som rekvirererer tjenesten. Det kan være helsepersonell, organisasjon eller applikasjonen.">
+				>
+				["at0010.1"] = <
+					text = <"Rekvisisjonsidentifikator">
+					description = <"Rekvisisjonens identifikator, tilordnet av den som rekvirererer prosedyren. Det kan være helsepersonell, organisasjon eller applikasjonen.">
 				>
 				["at0011"] = <
-					text = <"Mottakeridentifikator">
-					description = <"Den ID som tillegges en rekvisisjon av helsetjenesten eller organisasjonen som mottar rekvisisjonen. Dette kalles også Rekvisisjonsmottakeridentifikator.">
+					text = <"Mottakers rekvisisjonsidentifikator">
+					description = <"Rekvisisjonens identifikator, tilordnet av den som mottar rekvisisjonen. Mottaker kan være helsepersonell, organisasjon eller applikasjonen.">
 				>
 				["at0040"] = <
-					text = <"Dato /tid for den ønskede service">
-					description = <"Datoen og tidspunktet hvor servicen bør være utført eller fullført.">
+					text = <"Dato/tid for fullført tjeneste">
+					description = <"Dato/tid for når tjenesten bør være utført eller avsluttet.">
+					comment = <"I praksis vil klinikere ofte rekvirere tjenester med ikke-eksakte tidsangivelser, f.eks. kontroll om 3 måneder, 6 måneder eller 12 måneder. Kliniske systemer krever mer eksakte parametre å jobbe med, og \"3 mnd\" vil konverteres til en eksakt dato 3 måneder fra registreringsdatoen, og lagres i dette dataelementet.">
+				>
+				["at0040.1"] = <
+					text = <"Ønsket dato/tid for fullført prosedyre">
+					description = <"Dato/tid for når prosedyren bør være utført eller avsluttet.">
+					comment = <"I praksis vil klinikere ofte rekvirere prosedyrer med ikke-eksakte tidsangivelser, f.eks. om 3 måneder, 6 måneder eller 12 måneder. Kliniske systemer krever mer eksakte parametre å jobbe med, og \"3 mnd\" vil konverteres til en eksakt dato 3 måneder fra registreringsdatoen, og lagres i dette dataelementet.">
 				>
 				["at0062"] = <
-					text = <"Årsak til rekvisisjon">
-					description = <"En kort beskrivelse av indikasjonen for rekvisisjonen. Dette er ofte kodet i ekstern terminologi.">
+					text = <"Rekvireringsårsak">
+					description = <"En kort beskrivelse av årsaken eller indikasjon for rekvireringen.">
+					comment = <"Koding av rekvireringsårsaken med et kodeverk er ønskelig, dersom tilgjengelig.">
 				>
 				["at0064"] = <
-					text = <"Årsaksbeskrvelse">
-					description = <"En narrativ beskrivelse som forklarer årsaken til denne rekvisisjon.">
+					text = <"Årsaksbeskrivelse">
+					description = <"En fritekstlig beskrivelse som forklarer årsaken til rekvireringen.">
 				>
 				["at0065"] = <
 					text = <"Hensikt">
-					description = <"Tiltenkt effekt på underliggende helsetilstand eller problem f.eks forebyggende, helbredende, lindrende, supplement, adjuvant eller støttende.">
+					description = <"Rekvirentens hensikt, det vil si hva de ønsker å oppnå ved rekvireringen.">
+					comment = <"For eksempel en henvisning med den hensikt at spesialisthelsetjenesten skal ta over omsorgen for pasienten, eller for å få råd om hvordan fortsette med utredning eller behandling.">
+				>
+				["at0065.1"] = <
+					text = <"Hensikt">
+					description = <"Rekvirentens begrunnelse, det vil si hva rekvirenten ønsker å oppnå ved prosedyren.">
 				>
 				["at0068"] = <
 					text = <"Hastegrad">
-					description = <"Hastegraden av den tiltenkte prosedyre.">
+					description = <"Rekvirentens hastegrad.">
 				>
 				["at0076"] = <
-					text = <"Ytterligere informasjon følger">
-					description = <"\"Sann\" indikerer at ytterligere informasjon er blitt identifisert og vil bli fremsendt når det er tilgjengelig, f.eks. labsvar.">
+					text = <"Supplerende informasjon følger">
+					description = <"Verdien \"Sann\" indikerer at supplerende informasjon er blitt identifisert og vil bli ettersendt når den er tilgjengelig, for eksempel ufullstendige laboratoriesvar.">
 				>
 				["at0078"] = <
-					text = <"Ytterligere informasjon forventes">
-					description = <"Detaljer om arten av den supplerende informasjon, f.eks. labsvar.">
+					text = <"Detaljer om følgende supplerende informasjon">
+					description = <"Detaljer om hva slags supplerende informasjon som ettersendes, for eksempel navnet på laboratorieundersøkelse.">
 				>
 				["at0112"] = <
-					text = <"Lokalitet">
-					description = <"Lokale detaljer som f.eks. fakturering.">
+					text = <"Tilleggsinformasjon">
+					description = <"Ytterligere informasjon som er nødvendig for å registrere lokalt innhold/kontekst, eller for å sammenstille med andre referansemodeller/formalismer.">
+					comment = <"F.eks lokale informasjonskrav eller ekstra metadata for å tilpasse med FHIR eller CIMI ekvivalenter.">
 				>
 				["at0116"] = <
-					text = <"Pasientbehov">
-					description = <"Språk, transport eller personlige krav som understøtter pasientens mulighet for fremmøte eller deltakelse i den tenkte prosedyren.">
+					text = <"Pasientens behov">
+					description = <"Språk, transport eller andre personlige behov som er nødvendige for å sikre pasientens oppmøte eller deltakelse i utførelsen av den rekvirerte tjeneste.">
 				>
 				["at0121"] = <
-					text = <"Prosedyre rekvirert">
-					description = <"Identifikasjon av den prosedyre som ønskes utført. Dette blir ofte kodet med ekstern terminologi.">
+					text = <"Tjenestenavn">
+					description = <"Navn på forespurt tjeneste.">
+					comment = <"Koding av tjenestenavnet med et kodeverk er ønskelig, dersom tilgjengelig.">
+				>
+				["at0121.1"] = <
+					text = <"Prosedyrenavn">
+					description = <"Identifikasjon av den prosedyren som ønskes utført.">
+					comment = <"Koding av prosedyrenavnet med et kodeverk er ønskelig, dersom tilgjengelig.">
 				>
 				["at0127"] = <
 					text = <"Rekvisisjonsstatus">
-					description = <"Status til den rekvisisjon som indikert av rekvirenten.
-Status anvendes til å vise om det er den opprinnelige rekvisisjonen eller en oppfølgende rekvisisjon for endring eller for å oppgi tilleggsinformasjon.">
+					description = <"Status for rekvisisjonen oppgitt av rekvirenten. Status brukes for å vise om dette er den primære rekvisisjonen, en endring eller supplerende informasjon.">
+				>
+				["at0127.1"] = <
+					text = <"Rekvisisjonsstatus">
+					description = <"Status for rekvisisjonen oppgitt av rekvirenten. Status brukes for å vise om dette er den primære rekvisisjonen, en endring eller supplerende informasjon.">
+					comment = <"Koding av rekvisisjonsstatus med et kodeverk er ønskelig, dersom tilgjengelig.">
 				>
 				["at0128"] = <
-					text = <"Distribusjonsliste for svar">
-					description = <"En liste av person(er) eller organisasjon(er) som bør motta kopier av eventuell kommunikasjon.">
+					text = <"Svarmottakere">
+					description = <"En liste over personer eller organisasjoner som bør motta svar på rekvisisjonen.">
 				>
 				["at0132"] = <
 					text = <"Spesifikke detaljer">
-					description = <"Strukturerte detaljer som definerer den rekvirerte service f.eks. en CLUSTER-arketype som inneholder spesifikke detaljer om prosedyren, +/- krav i forbindelse med anestesi.">
+					description = <"Strukturerte detaljer om den rekvirerte tjenesten.">
+					comment = <"Eksempel: En CLUSTER-arketype som spesifiserer det spesifikke kateteret som skal legges inn.">
 				>
 				["at0135"] = <
-					text = <"Beskrivelse av prosedyre">
-					description = <"Detaljert narrativ beskrivelse av den ønskede prosedyren.">
+					text = <"Beskrivelse">
+					description = <"Fritekstlig beskrivelse av tjenesten som er rekvirert.">
+				>
+				["at0135.1"] = <
+					text = <"Prosedyrebeskrivelse">
+					description = <"Fritekst beskrivelse av prosedyren som er rekvirert.">
+				>
+				["at0136"] = <
+					text = <"Akutt">
+					description = <"Rekvisisjonen er akutt.">
+				>
+				["at0137"] = <
+					text = <"Haster">
+					description = <"Rekvisisjonen haster.">
+				>
+				["at0138"] = <
+					text = <"Rutine">
+					description = <"Rekvisisjonen er rutine.">
 				>
 				["at0141"] = <
 					text = <"Rekvirent">
-					description = <"Detaljer om den helsetjeneste eller organisasjon som rekvirerer servicen.">
+					description = <"Detaljer om helsepersonellet eller organisasjonen som har rekvirert prosedyren.">
 				>
 				["at0142"] = <
 					text = <"Mottaker">
-					description = <"Detaljer om helsetjeneste yter eller organisasjon som mottar rekvisisjonen.">
+					description = <"Detaljer om helsepersonellet eller organisasjonen som mottar prosedyrerekvisisjonen.">
 				>
 				["at0144"] = <
-					text = <"Seneste dato for ønsket service">
-					description = <"Den seneste dato som er akseptabel for den utførte service.">
+					text = <"Seneste dato for rekvirert tjeneste">
+					description = <"Seneste akseptable dato for å fullføre tjenesten.">
+					comment = <"Eksempel: I noen tilfeller må en tjeneste være utført før en annen hendelse, f.eks. planlagt kirurgi.">
+				>
+				["at0144.1"] = <
+					text = <"Seneste dato/tid for fullført prosedyre">
+					description = <"Seneste akseptable dato for å fullføre prosedyren.">
+					comment = <"Eksempel: I noen tilfeller må en prosedyre være utført før en annen hendelse, f.eks. planlagt kirurgi.">
+				>
+				["at0145"] = <
+					text = <"Tidligste dato for rekvirert tjeneste">
+					description = <"Tidligste akseptable dato for å påbegynne tjenesten.">
+					comment = <"I noen tilfeller må en viss tid løpe før en tjeneste kan utføres, f.eks. ved noen gastroskopier er en avhengig av at pasienten har seponert legemidler i en periode før prosedyren.">
+				>
+				["at0145.1"] = <
+					text = <"Tidligste dato/tid for start av prosedyre">
+					description = <"Tidligste akseptable dato for å påbegynne prosedyren.">
+					comment = <"I noen tilfeller må en viss tid løpe før en prosedyre kan utføres, f.eks. ved noen gastroskopier er en avhengig av at pasienten har seponert legemidler i en periode før prosedyren.">
+				>
+				["at0146"] = <
+					text = <"Dato/tid for påbegynt tjeneste">
+					description = <"Dato/tid for når tjenesten bør være påbegynt.">
+					comment = <"I praksis vil klinikere ofte rekvirere tjenester med ikke-eksakte tidsangivelser, f.eks. kontroll om 3 måneder, 6 måneder eller 12 måneder. Kliniske systemer krever mer eksakte parametre å jobbe med, og \"3 mnd\" vil konverteres til en eksakt dato 3 måneder fra registreringsdatoen, og lagres i dette dataelementet.">
+				>
+				["at0146.1"] = <
+					text = <"Ønsket dato/tid for start av prosedyre">
+					description = <"Dato/tid for når prosedyren bør være påbegynt.">
+					comment = <"I praksis vil klinikere ofte rekvirere prosedyrer med ikke-eksakte tidsangivelser, f.eks. om 3 måneder, 6 måneder eller 12 måneder. Kliniske systemer krever mer eksakte parametre å jobbe med, og \"3 mnd\" vil konverteres til en eksakt dato 3 måneder fra registreringsdatoen, og lagres i dette dataelementet.">
 				>
 			>
 		>

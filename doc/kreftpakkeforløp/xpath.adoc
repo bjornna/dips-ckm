@@ -1,0 +1,96 @@
+
+== AQL
+
+=== Siste bestilling av pakkeforløp
+
+[source]
+----
+select
+    a_a/activities[at0001]/description[at0002]/items[at0011]/value as External_start,
+    a_a/activities[at0001]/description[at0002]/items[at0003]/value as Trajectory,
+    a_b/items[at0004]/value as Clinical_decision,
+    a_b/items[at0001]/value as First_encounter,
+    a_a/activities[at0001]/description[at0002]/items[at0004]/value as Start,
+    a_b/items[at0007]/value as Referal_received_date,
+    a_b/items[at0006]/value as Start_treatment
+from EHR e
+contains COMPOSITION a
+contains (
+    INSTRUCTION a_a[openEHR-EHR-INSTRUCTION.trajectory.v1] and
+    CLUSTER a_b[openEHR-EHR-CLUSTER.cancer_trajectory_details.v1])
+order by a/context/start_time/value desc
+offset 0 limit 100
+----
+
+
+=== Siste hendelsesregistreringer
+
+[source]
+----
+select
+    a_a/description[at0001]/items[at0014]/value as External_event,
+    a_a/time,
+    a_a/description[at0001]/items[at0010]/value as Description,
+    a_a/description[at0001]/items[at0002]/value as Event,
+    a_c/name,
+    a_b/name
+from EHR e
+contains COMPOSITION a
+contains (
+    ACTION a_a[openEHR-EHR-ACTION.trajectory_follow_up.v1] and
+    CLUSTER a_b[openEHR-EHR-CLUSTER.organisation.v1] and
+    CLUSTER a_c[openEHR-EHR-CLUSTER.individual_professional.v1])
+order by a_a/time desc
+offset 0 limit 100
+----
+
+== XPath
+
+=== Instruction
+
+Pakke::
+//*[local-name() = 'activities' and @*[local-name()='archetype_node_id'] = 'at0001']/*[local-name() = 'description' and @*[local-name()='archetype_node_id'] = 'at0002']/*[local-name() = 'items' and @*[local-name()='archetype_node_id'] = 'at0003']/*[local-name() = 'value']/*[local-name() = 'value']
+
+Start::
+//*[local-name() = 'activities' and @*[local-name()='archetype_node_id'] = 'at0001']/*[local-name() = 'description' and @*[local-name()='archetype_node_id'] = 'at0002']/*[local-name() = 'items' and @*[local-name()='archetype_node_id'] = 'at0004']/*[local-name() = 'value']/*[local-name() = 'value']
+
+Beskrivelse ::
+//*[local-name() = 'activities' and @*[local-name()='archetype_node_id'] = 'at0001']/*[local-name() = 'description' and @*[local-name()='archetype_node_id'] = 'at0002']/*[local-name() = 'items' and @*[local-name()='archetype_node_id'] = 'at0007']/*[local-name() = 'value']/*[local-name() = 'value']
+
+Ansvarlig ::
+//*[local-name() = 'protocol' and @*[local-name()='archetype_node_id'] = 'at0008']/*[local-name() = 'items' and @*[local-name()='archetype_node_id'] = 'at0009']/*[local-name() = 'value']/*[local-name() = 'value']
+
+
+
+=== Action
+
+Utført::
+//*[local-name() = 'time']/*[local-name() = 'value']
+
+Hendelse ::
+//*[local-name() = 'description' and @*[local-name()='archetype_node_id'] = 'at0001']/*[local-name() = 'items' and @*[local-name()='archetype_node_id'] = 'at0017']/*[local-name() = 'value']/*[local-name() = 'value']
+
+Careflow step::
+//*[local-name() = 'ism_transition']/*[local-name() = 'careflow_step']/*[local-name() = 'value']
+
+Ansvarlig ::
+//*[local-name() = 'protocol' and @*[local-name()='archetype_node_id'] = 'at0024'][*[local-name()='name']/*[local-name()='value'] = 'Ansvarlig']/*[local-name() = 'items' and @*[local-name()='archetype_node_id'] = 'at0031']/*[local-name() = 'value']/*[local-name() = 'value']
+
+
+== Pasientlister
+
+KreftAlt2;Fellesdemo;Anonym;Pakkeforløp;Olafia;Kontakter;Akuttmottak aktive;Akutt Sengepostliste;Ankomstliste;Risikomøte;PlanlagtListe;Skadelegevakt aktive;Skadelegevakt planlagte;Skadelegevakt Obs.post;Gerds pasientliste akuttmottak;TSH (do not touch)
+
+Pakkeforløp;KreftAlt2;Anonym;Olafia;Kontakter;Akuttmottak aktive;Akutt Sengepostliste;Ankomstliste;Risikomøte;PlanlagtListe;Skadelegevakt aktive;TSH (do not touch)
+
+
+=== Observasjon
+
+Utført::
+//*[local-name() = 'time']/*[local-name() = 'value']
+/content[openEHR-EHR-OBSERVATION.kreftpakke_followup.v1 and name/value='Første fremmøte']/data[at0001]/events[at0002]
+
+//*[local-name() = 'data' and @*[local-name()='archetype_node_id'] = 'at0001']/*[local-name() = 'events' and @*[local-name()='archetype_node_id'] = 'at0002']/*[local-name() = 'time']/*[local-name() = 'value']
+
+
+1003524

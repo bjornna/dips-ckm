@@ -1,0 +1,116 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ACTION.emergency_nurse_phone.v1
+
+concept
+	[at0000]	-- Tlf. spl
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Bjørn Næss">
+		["organisation"] = <"DIPS ASA">
+		["email"] = <"bna@dips.no">
+		["date"] = <"2014-02-26">
+	>
+	details = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"Kontaktinformasjon for ansvarlig sykepleier for en angitt pasient">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Kontaktinformasjon for ansvarlig sykepleier for en angitt pasient">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"66DD3B7C75AD0F3356AB8D405A73354E">
+	>
+
+definition
+	ACTION[at0000] matches {	-- Tlf. spl
+		ism_transition matches {
+			ISM_TRANSITION[at0003] matches {	-- Utført
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0003]}		-- Utført
+					}
+				}
+			}
+		}
+		description matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Tlf. spl
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"Tlf. spl">
+					description = <"Kontaktinformasjon for ansvarlig sykepleier for en angitt pasient">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Tlf. spl">
+					description = <"Telefonnummer til ansvarlig sykepleier.">
+				>
+				["at0003"] = <
+					text = <"Utført">
+					description = <"Sykepleiers mobilnummer er satt og vil vises på tavla">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Tlf. spl">
+					description = <"Kontaktinformasjon for ansvarlig sykepleier for en angitt pasient">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Tlf. spl">
+					description = <"Telefonnummer til ansvarlig sykepleier. ">
+				>
+				["at0003"] = <
+					text = <"Utført">
+					description = <"Sykepleiers mobilnummer er satt og vil vises på tavla">
+				>
+			>
+		>
+	>
