@@ -1,0 +1,55 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.tariff.v1
+
+concept
+	[at0000]	-- Takst
+language
+	original_language = <[ISO_639-1::no]>
+description
+	original_author = <
+		["name"] = <"Kjetil Valøy">
+		["email"] = <"kva@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2015-05-13">
+	>
+	details = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"Enable clinician personnel to add tariffs to a document. The tariffs will be automatically added to the outpatient visit by the Tariff module when the document is saved.">
+			use = <"In outpatient documents.">
+			misuse = <"In inpatient documents.">
+			copyright = <"DIPS ASA">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"B5AEA0F9F94B7D7F254AF5D6DA16039D">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Takst
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0002] occurrences matches {0..*} matches {	-- Kode
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"Takst">
+					description = <"This achetype is used to assign tariffs in outpatient documents in DIPS Arena">
+				>
+				["at0002"] = <
+					text = <"Kode">
+					description = <"Holds the code and description for the selected tariff from terminology DIPS-Tariff. Use 'DIPS-Tariff' as 'Terminology Name' in template designer. In 'Terminology Subset Name' use 'DIPS-Tariff'. The use of 'Terminology Subset Name' can be changed in the future.">
+				>
+			>
+		>
+	>

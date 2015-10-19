@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>10c83744-93af-482f-b72d-efbc291fb7fa</id>
+  <name>CancerTrajectory_v3.0.1</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose>Benyttes under utvikling av løsning for krefpakkeforløp</purpose>
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.trajectory.v1" concept_name="Trajectory" name="Pakkeforløp for kreft">
+    <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.trajectory.v1" concept_name="Forløp" max="1" path="/content" name="Start pakkeforløp">
+      <Rule path="/activities[at0001]" hide_on_form="true" />
+      <Rule path="/activities[at0001]/description[at0002]" hide_on_form="true" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0003]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Kreftpakke::C01::Diagnostisk pakkeforløp - alvorlig sykdom</includedValues>
+          <includedValues>Kreftpakke::B01::Metastaser med ukjent utgangspunkt</includedValues>
+          <includedValues>Kreftpakke::A01::Brystkreft</includedValues>
+          <includedValues>Kreftpakke::A02::Hode- halskreft</includedValues>
+          <includedValues>Kreftpakke::A03::Kronisk lymfatisk leukemi (KLL)</includedValues>
+          <includedValues>Kreftpakke::A04::Myelomatose</includedValues>
+          <includedValues>Kreftpakke::A05::Akutt leukemi og høyrisiko myelodysplasi</includedValues>
+          <includedValues>Kreftpakke::A06::Lymfomer</includedValues>
+          <includedValues>Kreftpakke::A07::Bukspyttkjertelkreft</includedValues>
+          <includedValues>Kreftpakke::A12::Tykk- og endetarmskreft</includedValues>
+          <includedValues>Kreftpakke::A14::Blærekreft</includedValues>
+          <includedValues>Kreftpakke::A15::Nyrekreft</includedValues>
+          <includedValues>Kreftpakke::A16::Prostatakreft</includedValues>
+          <includedValues>Kreftpakke::A17::Peniskreft</includedValues>
+          <includedValues>Kreftpakke::A18::Testikkelkreft</includedValues>
+          <includedValues>Kreftpakke::A20::Livmorkreft (endometrie)</includedValues>
+          <includedValues>Kreftpakke::A21::Eggstokkreft (ovarial)</includedValues>
+          <includedValues>Kreftpakke::A22::Livmorhalskreft (cervix)</includedValues>
+          <includedValues>Kreftpakke::A23::Hjernekreft</includedValues>
+          <includedValues>Kreftpakke::A26::Lungekreft</includedValues>
+          <includedValues>Kreftpakke::A30::Kreft hos barn</includedValues>
+          <includedValues>Kreftpakke::A32::Kreft i spiserør og magesekk</includedValues>
+          <includedValues>Kreftpakke::A34::Primær leverkreft (HCC)</includedValues>
+          <includedValues>Kreftpakke::A36::Sarkom</includedValues>
+          <includedValues>Kreftpakke::A37::Skjoldbruskkjertelkreft</includedValues>
+          <includedValues>Kreftpakke::A38::Føflekkreft</includedValues>
+          <includedValues>Kreftpakke::A39::Nevroendokrine svulster</includedValues>
+          <includedValues>Kreftpakke::A40::Galleveiskreft</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/protocol[at0007]" hide_on_form="true" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.cancer_trajectory_details.v1" concept_name="Detaljer om pakkeforløp kreft" max="1" path="/activities[at0001]/description[at0002]/items[at0006]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.cancer_responsible_actor.v0" concept_name="Ansvarlig for pakkeforløpet" max="1" path="/protocol[at0007]/items[at0009]" />
+    </Content>
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" path="/content">
+      <Rule path="/description[at0001]" hide_on_form="true" />
+      <Rule path="/description[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Kreftpakke::A::Start pakkeforløp - henvisning mottatt</includedValues>
+          <includedValues>Kreftpakke::S::Utredning start - første fremmøte</includedValues>
+          <includedValues>Kreftpakke::B::Biopsi - prøvetaking utført</includedValues>
+          <includedValues>Kreftpakke::O::Overført til et annet helseforetak / sykehus</includedValues>
+          <includedValues>Kreftpakke::CK::Klinisk beslutning; Organspesifikk kreft</includedValues>
+          <includedValues>Kreftpakke::CM::Klinisk beslutning; Mistanke om annen kreft</includedValues>
+          <includedValues>Kreftpakke::CU::Klinisk beslutning; Påvist metastase uten kjent utgangspunkt</includedValues>
+          <includedValues>Kreftpakke::CD::Klinisk beslutning; Mistanke om kreftsykdom (ny utredning)</includedValues>
+          <includedValues>Kreftpakke::CA::Klinisk beslutning; Påvist annen sykdom enn kreft</includedValues>
+          <includedValues>Kreftpakke::CI::Klinisk beslutning; Ikke påvist sykdom</includedValues>
+          <includedValues>Kreftpakke::FK::Behandling start - Kirurgisk</includedValues>
+          <includedValues>Kreftpakke::FM::Behandling start - Medikamentell</includedValues>
+          <includedValues>Kreftpakke::FS::Behandling start - Strålebehandling</includedValues>
+          <includedValues>Kreftpakke::FL::Behandling start - Symptomlindrende</includedValues>
+          <includedValues>Kreftpakke::FO::Behandling start - Overvåkning uten behandling</includedValues>
+          <includedValues>Kreftpakke::FI::Behandling start - Ingen behandling</includedValues>
+          <includedValues>Kreftpakke::X::Avslutning av pakkeforløp (andre årsaker)</includedValues>
+          <includedValues>Kreftpakke::WW::Annen hendelse</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/protocol[at0011]" hide_on_form="true" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.cancer_responsible_actor.v0" concept_name="Ansvarlig for pakkeforløpet" max="1" path="/protocol[at0011]/items[at0013]" />
+    </Content>
+    <Context>
+      <hide_on_form>true</hide_on_form>
+    </Context>
+  </definition>
+</template>
