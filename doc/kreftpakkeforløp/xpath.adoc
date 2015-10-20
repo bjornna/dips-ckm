@@ -1,3 +1,49 @@
+
+== AQL
+
+=== Siste bestilling av pakkeforløp
+
+[source]
+----
+select
+    a_a/activities[at0001]/description[at0002]/items[at0011]/value as External_start,
+    a_a/activities[at0001]/description[at0002]/items[at0003]/value as Trajectory,
+    a_b/items[at0004]/value as Clinical_decision,
+    a_b/items[at0001]/value as First_encounter,
+    a_a/activities[at0001]/description[at0002]/items[at0004]/value as Start,
+    a_b/items[at0007]/value as Referal_received_date,
+    a_b/items[at0006]/value as Start_treatment
+from EHR e
+contains COMPOSITION a
+contains (
+    INSTRUCTION a_a[openEHR-EHR-INSTRUCTION.trajectory.v1] and
+    CLUSTER a_b[openEHR-EHR-CLUSTER.cancer_trajectory_details.v1])
+order by a/context/start_time/value desc
+offset 0 limit 100
+----
+
+
+=== Siste hendelsesregistreringer
+
+[source]
+----
+select
+    a_a/description[at0001]/items[at0014]/value as External_event,
+    a_a/time,
+    a_a/description[at0001]/items[at0010]/value as Description,
+    a_a/description[at0001]/items[at0002]/value as Event,
+    a_c/name,
+    a_b/name
+from EHR e
+contains COMPOSITION a
+contains (
+    ACTION a_a[openEHR-EHR-ACTION.trajectory_follow_up.v1] and
+    CLUSTER a_b[openEHR-EHR-CLUSTER.organisation.v1] and
+    CLUSTER a_c[openEHR-EHR-CLUSTER.individual_professional.v1])
+order by a_a/time desc
+offset 0 limit 100
+----
+
 == XPath
 
 === Instruction
