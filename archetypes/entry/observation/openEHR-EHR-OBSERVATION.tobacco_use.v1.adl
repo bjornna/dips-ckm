@@ -1,15 +1,25 @@
-﻿archetype (adl_version=1.4)
+﻿archetype (adl_version=1.4; uid=72014ae3-815a-4952-95c7-0b9b5fb744c2)
 	openEHR-EHR-OBSERVATION.tobacco_use.v1
 
 concept
-	[at0000]	-- Tobacco Use
+	[at0000]	-- Tobakksbruk
 language
 	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["name"] = <"Anca Heyd">
+				["organisation"] = <"Dips ASA">
+				["ahe@dips.no"] = <"ahe@dips.no">
+			>
+		>
+	>
 description
 	original_author = <
 		["name"] = <"Heather Leslie">
-		["organisation"] = <"Ocean Informatics">
 		["email"] = <"heather.leslie@oceaninformatics.com">
+		["organisation"] = <"Ocean Informatics">
 		["date"] = <"6/5/2009">
 	>
 	details = <
@@ -23,52 +33,56 @@ A smoking or tobacco use diary could be built up over time by recording the use 
 A record of typical tobacco use during a period can be recorded by recording the amount of tobacco used using the 'Average use' event - the mean use over a specified period of time.">
 			keywords = <"tobacco", "cigarette", "cigar", "pipe", "snuff", "kretek", "beebi", "bibi", "shisha", "snuff", "snus", "hookah", "gutka", "smoking", "chewing">
 			misuse = <"Not to be used for recording persistent, summary details about tobacco use and consumption - this should be captured using the EVALUATION.tobacco_use_summary archetype.">
-			copyright = <"© 2011 National E-Health Transition Authority">
+			copyright = <"© Nasjonal IKT HF">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For å registrere detaljer om faktisk bruk av tobakk og produkter som inneholder tobakk.">
+			use = <"Brukes for å registrere detaljer om bruk av alle vanlige former for tobakk og produkter som inneholder tobakk. Dette omfatter faktisk bruk på et gitt tidspunkt og gjennomsnittsbruk over en tidsperiode.
+
+En dagbok over tobakksbruk kan bygges opp over tid ved å registrere bruken av tobakk over flere dager. Faktisk forbruk registreres ved å bruke dataelementet \"Spesifikk dag\" for hver daglige registrering.
+
+Registrering av faktisk tobakksbruk over en periode kan registreres ved å benytte dataelementet \"Gjennomsnittsbruk\", gjennomsnitt av bruk over en spesifikk tidsperiode.">
+			keywords = <"tobakk", "sigarett", "sigar", "pipe", "snus", "luktsnus", "snuff", "kretek", "beebi", "bibi", "shisha", "hookah", "gutka", "røyking", "tygging", "tyggetobakk">
+			misuse = <"Skal ikke benyttes for å registrere et persistent sammendrag av tobakksbruk - dette registreres ved å bruke arketypen EVALUATION.tobacco_use_summary.">
+			copyright = <"">
 		>
 	>
-	lifecycle_state = <"CommitteeDraft">
-	other_contributors = <"Ian McNicoll, Ocean Informatics, UK", "Sam Heard, Ocean Informatics, Australia">
+	lifecycle_state = <"NotSet">
+	other_contributors = <"Silje Ljosland Bakke, Nasjonal IKT HF, Norway (Nasjonal IKT redaktør)", "Sam Heard, Ocean Informatics, Australia", "Ian McNicoll, Ocean Informatics, UK", "John Tore Valand, Haukeland Universitetssjukehus, Norway (Nasjonal IKT redaktør)">
 	other_details = <
+		["revision"] = <"0.0.1-alpha">
 		["references"] = <"Tobacco Use draft archetype [Internet]. London: openEHR Clinical Knowledge Manager, openEHR Foundation; 06 May 2009 [cited 2011 Jul 15]. Available from: http://www.openehr.org/knowledge/OKM.html#showArchetype_1013.1.149_3.">
-		["MD5-CAM-1.0.1"] = <"4EE6CE90C17D90E084D4A2C86E8D9F4A">
+		["build_uid"] = <"53e71f53-6f88-41ef-8706-0b56f10e375b">
+		["MD5-CAM-1.0.1"] = <"056163975780001A272EDEA42AEFD3A8">
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- Tobacco Use
+	OBSERVATION[at0000] matches {	-- Tobakksbruk
 		data matches {
 			HISTORY[at0001] matches {	-- Event Series
 				events cardinality matches {1..*; unordered} matches {
-					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Uspesifisert hendelse
 						data matches {
 							ITEM_TREE[at0003] matches {	-- Tree
 								items cardinality matches {0..*; unordered} matches {
-									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Tobacco Use?
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Tobakksbruk?
 										value matches {
 											DV_BOOLEAN matches {
 												value matches {True, False}
 											}
 										}
 									}
-									CLUSTER[at0005] occurrences matches {0..*} matches {	-- Usage Details
+									CLUSTER[at0005] occurrences matches {0..*} matches {	-- Detaljer om bruk
 										items cardinality matches {1..*; unordered} matches {
-											ELEMENT[at0006] occurrences matches {0..1} matches {	-- Form
+											ELEMENT[at0006] occurrences matches {0..1} matches {	-- Type
 												value matches {
-													DV_CODED_TEXT matches {
-														defining_code matches {
-															[local::
-															at0007, 	-- Cigarette
-															at0008, 	-- Roll-Your-Own
-															at0009, 	-- Cigar
-															at0010, 	-- Pipe
-															at0012, 	-- Waterpipe
-															at0013]	-- Smokeless tobacco
-														}
-													}
+													DV_TEXT matches {*}
 												}
 											}
-											CLUSTER[at0015] occurrences matches {0..1} matches {	-- Amount
+											CLUSTER[at0015] occurrences matches {0..1} matches {	-- Mengde
 												items cardinality matches {1; unordered} matches {
-													ELEMENT[at0014] occurrences matches {0..1} matches {	-- Number Smoked
+													ELEMENT[at0014] occurrences matches {0..1} matches {	-- Antall røkt
 														value matches {
 															C_DV_QUANTITY <
 																property = <[openehr::382]>
@@ -89,16 +103,16 @@ definition
 															>
 														}
 													}
-													ELEMENT[at0016] occurrences matches {0..1} matches {	-- Weight Consumed
+													ELEMENT[at0016] occurrences matches {0..1} matches {	-- Mengde konsumert
 														value matches {
 															C_DV_QUANTITY <
 																property = <[openehr::347]>
 																list = <
 																	["1"] = <
-																		units = <"gm/d">
+																		units = <"g/d">
 																	>
 																	["2"] = <
-																		units = <"gm/wk">
+																		units = <"g/wk">
 																	>
 																>
 															>
@@ -106,24 +120,24 @@ definition
 													}
 												}
 											}
-											ELEMENT[at0017] occurrences matches {0..1} matches {	-- Triggers
+											ELEMENT[at0017] occurrences matches {0..1} matches {	-- Triggere
 												value matches {
 													DV_TEXT matches {*}
 												}
 											}
-											ELEMENT[at0018] occurrences matches {0..1} matches {	-- Context
+											ELEMENT[at0018] occurrences matches {0..1} matches {	-- Kontekst
 												value matches {
 													DV_TEXT matches {*}
 												}
 											}
 										}
 									}
-									ELEMENT[at0019] occurrences matches {0..1} matches {	-- Evidence of Dependence
+									ELEMENT[at0019] occurrences matches {0..1} matches {	-- Tegn på avhengighet
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0021] occurrences matches {0..1} matches {	-- Comment
+									ELEMENT[at0021] occurrences matches {0..1} matches {	-- Kommentar
 										value matches {
 											DV_TEXT matches {*}
 										}
@@ -132,27 +146,25 @@ definition
 							}
 						}
 					}
-					POINT_EVENT[at0023] occurrences matches {0..*} matches {	-- Specified Day
+					POINT_EVENT[at0023] occurrences matches {0..*} matches {	-- Spesifikk dag
 						data matches {
-							use_node ITEM_TREE /data[at0001]/events[at0002]/data[at0003]	-- /data[Event Series]/events[Any event]/data[Tree]
+							use_node ITEM_TREE /data[at0001]/events[at0002]/data[at0003]	-- /data[Event Series]/events[Uspesifisert hendelse]/data[Tree]
 						}
 					}
-					INTERVAL_EVENT[at0022] occurrences matches {0..*} matches {	-- Average Use Interval
+					INTERVAL_EVENT[at0022] occurrences matches {0..*} matches {	-- Gjennomsnittsbruk
 						math_function matches {
 							DV_CODED_TEXT matches {
 								defining_code matches {[openehr::146]}
 							}
 						}
 						data matches {
-							use_node ITEM_TREE /data[at0001]/events[at0002]/data[at0003]	-- /data[Event Series]/events[Any event]/data[Tree]
+							use_node ITEM_TREE /data[at0001]/events[at0002]/data[at0003]	-- /data[Event Series]/events[Uspesifisert hendelse]/data[Tree]
 						}
 					}
 				}
 			}
 		}
 	}
-
-
 
 ontology
 	term_definitions = <
@@ -186,30 +198,7 @@ ontology
 				["at0006"] = <
 					text = <"Form">
 					description = <"Form of tobacco used or consumed.">
-				>
-				["at0007"] = <
-					text = <"Cigarette">
-					description = <"Manufactured cigarettes, containing processed tobacco and rolled into a cylinder.">
-				>
-				["at0008"] = <
-					text = <"Roll-Your-Own">
-					description = <"Hand-filled cigarettes using loose tobacco rolled in a cigarette paper.">
-				>
-				["at0009"] = <
-					text = <"Cigar">
-					description = <"Air-cured and fermented tobaccos with a tobacco-leaf wrapper.">
-				>
-				["at0010"] = <
-					text = <"Pipe">
-					description = <"Tobacco placed in a bowl and smoke inhaled through a stem.">
-				>
-				["at0012"] = <
-					text = <"Waterpipe">
-					description = <"Tobacco, often flavoured, is burned then cooled through a basin of water eand consumed through a hose and mouthpiece.">
-				>
-				["at0013"] = <
-					text = <"Smokeless tobacco">
-					description = <"Tobacco consumed by inhalation or ingestion - including snuff, snus, gutka, dipping tobacco and dissolvable tobacco.">
+					comment = <"The geographical and cultural variation of commonly used forms varies enormously and so this value set should not be specified in this archetype, however coding of the Form with a terminology is desirable, where possible.">
 				>
 				["at0014"] = <
 					text = <"Number Smoked">
@@ -250,6 +239,80 @@ ontology
 				["at0023"] = <
 					text = <"Specified Day">
 					description = <"Actual tobacco consumption on a specified day. Supports recording consumption in a Smoking Diary.">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Tobakksbruk">
+					description = <"Detaljer om bruk av alle typer tobakk og produkter som inneholder tobakk på et gitt tidspunkt eller i en spesifisert tidsperiode.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Uspesifisert hendelse">
+					description = <"Standard, uspesifisert tidspunkt eller tidsintervall som kan defineres mer eksplisitt i en template eller i en applikasjon.">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Tobakksbruk?">
+					description = <"Brukes tobakk av en eller annen type?">
+					comment = <"Registrer som Sann dersom individet bruker tobakk. Registrer som Usann dersom individet ikke bruker tobakk.">
+				>
+				["at0005"] = <
+					text = <"Detaljer om bruk">
+					description = <"Detaljer om bruk eller forbruk av spesifikke former tobakk.">
+				>
+				["at0006"] = <
+					text = <"Type">
+					description = <"Type tobakk som brukes eller forbrukes.">
+					comment = <"Den geografiske og kulturelle variasjon i vanlig brukte typer tobakk varierer betydelig, så denne verdien bør ikke spesifiseres i arketypen. Derimot er koding av \"Type\" med terminologi ønskelig når mulig.">
+				>
+				["at0014"] = <
+					text = <"Antall røkt">
+					description = <"Antall enheter som inneholder tobakk som er røkt.">
+					comment = <"For eksempel sigaretter eller sigarer.">
+				>
+				["at0015"] = <
+					text = <"Mengde">
+					description = <"Mengde av tobakk som forbrukes.">
+					comment = <"Bare ett valg er tillatt per tobakkstype, enten antall røykt eller vekt konsumert.">
+				>
+				["at0016"] = <
+					text = <"Mengde konsumert">
+					description = <"Vekten til tobakksmengden som er konsumert.">
+					comment = <"For eksempel røkt i en pipe eller mengde tyggetobakk.">
+				>
+				["at0017"] = <
+					text = <"Triggere">
+					description = <"Identifiserte triggere som stimulerer til eller forårsaker bruk av angitt tobakkstype.">
+				>
+				["at0018"] = <
+					text = <"Kontekst">
+					description = <"Konteksten som man er i når man bruker angitt tobakksform.">
+					comment = <"For eksempel i en sosial situasjon, ved bilkjøring eller når man snakker i telefonen.">
+				>
+				["at0019"] = <
+					text = <"Tegn på avhengighet">
+					description = <"Beskrivelse av hvilket som helst tegn på avhengighet av tobakk.">
+				>
+				["at0021"] = <
+					text = <"Kommentar">
+					description = <"Yterrligere fritekst om tobakksbruk som ikke er registrert i andre felt.">
+				>
+				["at0022"] = <
+					text = <"Gjennomsnittsbruk">
+					description = <"Gjennomsnittlig eller faktisk bruk i et gitt tidsintervall. Tillater for eksempel registrering av gjennomsnittlig antall sigaretter som er røkt per uke de siste 10 årene.">
+				>
+				["at0023"] = <
+					text = <"Spesifikk dag">
+					description = <"Faktisk tobakksbruk på en spesifisert dag. Understøtter registrering av en tobakksdagbok.">
 				>
 			>
 		>
