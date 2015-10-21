@@ -1,0 +1,324 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-INSTRUCTION.hv_geriatri_pasliste_undersokelser.v1
+
+concept
+	[at0000]	-- Hv geriatri pasliste undersokelser
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"test av undersøkelser som instruction, activity, action.">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"65B1C277DE1AA9B126DFA2B81A94C78C">
+	>
+
+definition
+	INSTRUCTION[at0000] matches {	-- Hv geriatri pasliste undersokelser
+		activities cardinality matches {0..*; unordered} matches {
+			ACTIVITY[at0001] occurrences matches {0..1} matches {	-- Diagnostikk
+				action_archetype_id matches {/openEHR-EHR-ACTION\.procedure\.v1/}
+				description matches {
+					ITEM_TREE[at0002] matches {	-- Tree
+						items cardinality matches {0..*; unordered} matches {
+							ELEMENT[at0011] occurrences matches {0..1} matches {	-- Velg Diagnostikk
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0013, 	-- Gangtest
+											at0014]	-- Fettprosentmåling
+										}
+									}
+								}
+							}
+							ELEMENT[at0012] occurrences matches {0..1} matches {	-- Annet:
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+						}
+					}
+				}
+			}
+			ACTIVITY[at0003] occurrences matches {0..1} matches {	-- Bildediagnostikk
+				action_archetype_id matches {/openEHR-EHR-ACTION\.imaging\.v1/}
+				description matches {
+					ITEM_TREE[at0004] matches {	-- Tree
+						items cardinality matches {0..*; unordered} matches {
+							ELEMENT[at0015] occurrences matches {0..1} matches {	-- Velg bildedannende diagnostikk
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0016, 	-- MR
+											at0017, 	-- RG
+											at0018, 	-- UL
+											at0019]	-- CT
+										}
+									}
+								}
+							}
+							ELEMENT[at0020] occurrences matches {0..1} matches {	-- Annet:
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+						}
+					}
+				}
+			}
+			ACTIVITY[at0005] occurrences matches {0..1} matches {	-- Klinisk kjemi
+				action_archetype_id matches {/openEHR-EHR-ACTION\.follow_up\.v1/}
+				description matches {
+					ITEM_TREE[at0006] matches {	-- Tree
+						items cardinality matches {0..*; unordered} matches {
+							ELEMENT[at0021] occurrences matches {0..1} matches {	-- Velg pakke
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0022, 	-- Geriatrisk utredningspakke
+											at0023, 	-- MS pakke
+											at0024, 	-- ALS Pakke
+											at0025]	-- Parkinson pakke
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			ACTIVITY[at0007] occurrences matches {0..1} matches {	-- Mikrobiologi
+				action_archetype_id matches {/openEHR-EHR-ACTION\.follow_up\.v1/}
+				description matches {
+					ITEM_TREE[at0008] matches {	-- Tree
+						items cardinality matches {0..*; unordered} matches {
+							ELEMENT[at0026] occurrences matches {0..1} matches {	-- Velg pakke for mikrobiologi
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0027, 	-- Geriatrisk utredningspakke
+											at0028, 	-- MS pakke
+											at0029, 	-- ALS Pakke
+											at0030]	-- Parkinson pakke
+										}
+									}
+								}
+							}
+							ELEMENT[at0031] occurrences matches {0..1} matches {	-- Annet
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+						}
+					}
+				}
+			}
+			ACTIVITY[at0009] occurrences matches {0..1} matches {	-- Patologi
+				action_archetype_id matches {/openEHR-EHR-ACTION\.pathology_test\.v1/}
+				description matches {
+					ITEM_TREE[at0010] matches {	-- Tree
+						items cardinality matches {0..*; unordered} matches {
+							ELEMENT[at0032] occurrences matches {0..1} matches {	-- Velg preparattype
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0034, 	-- CITO
+											at0035, 	-- Frysesnitt
+											at0036, 	-- Sendeprøve
+											at0037, 	-- Biopsi - formalin
+											at0038]	-- Biopsi - tørr
+										}
+									}
+								}
+							}
+							ELEMENT[at0033] occurrences matches {0..1} matches {	-- Annet
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Hv geriatri pasliste undersokelser">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Diagnostikk">
+					description = <"Intern diagnostikk">
+				>
+				["at0002"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Bildediagnostikk">
+					description = <"Radiologisk diagnostikk inkludert UL og MR">
+				>
+				["at0004"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0005"] = <
+					text = <"Klinisk kjemi">
+					description = <"Blodprøver">
+				>
+				["at0006"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0007"] = <
+					text = <"Mikrobiologi">
+					description = <"Mikrobiologiske undersøkelser">
+				>
+				["at0008"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0009"] = <
+					text = <"Patologi">
+					description = <"Patologisk undersøkelser inkludert biopsi">
+				>
+				["at0010"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0011"] = <
+					text = <"Velg Diagnostikk">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Annet:">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Gangtest">
+					description = <"Mål gangavstand">
+				>
+				["at0014"] = <
+					text = <"Fettprosentmåling">
+					description = <"Måling av fettprosent">
+				>
+				["at0015"] = <
+					text = <"Velg bildedannende diagnostikk">
+					description = <"*">
+				>
+				["at0016"] = <
+					text = <"MR">
+					description = <"Magnetresonanstomografi">
+				>
+				["at0017"] = <
+					text = <"RG">
+					description = <"Konvensjonell flatrøntgen">
+				>
+				["at0018"] = <
+					text = <"UL">
+					description = <"Ultralyd">
+				>
+				["at0019"] = <
+					text = <"CT">
+					description = <"Computertomografi">
+				>
+				["at0020"] = <
+					text = <"Annet:">
+					description = <"*">
+				>
+				["at0021"] = <
+					text = <"Velg pakke">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Geriatrisk utredningspakke">
+					description = <"Standardpakke for geriatrisk utredning">
+				>
+				["at0023"] = <
+					text = <"MS pakke">
+					description = <"Standardpakke for multippel sklerose">
+				>
+				["at0024"] = <
+					text = <"ALS Pakke">
+					description = <"Amyotrofisk lateralskrelose utredningspakke">
+				>
+				["at0025"] = <
+					text = <"Parkinson pakke">
+					description = <"Parkinson pakke">
+				>
+				["at0026"] = <
+					text = <"Velg pakke for mikrobiologi">
+					description = <"*">
+				>
+				["at0027"] = <
+					text = <"Geriatrisk utredningspakke">
+					description = <"Standardpakke for geriatrisk utredning">
+				>
+				["at0028"] = <
+					text = <"MS pakke">
+					description = <"Standardpakke for multippel sklerose">
+				>
+				["at0029"] = <
+					text = <"ALS Pakke">
+					description = <"Amyotrofisk lateralskrelose utredningspakke">
+				>
+				["at0030"] = <
+					text = <"Parkinson pakke">
+					description = <"Parkinson pakke">
+				>
+				["at0031"] = <
+					text = <"Annet">
+					description = <"*">
+				>
+				["at0032"] = <
+					text = <"Velg preparattype">
+					description = <"*">
+				>
+				["at0033"] = <
+					text = <"Annet">
+					description = <"*">
+				>
+				["at0034"] = <
+					text = <"CITO">
+					description = <"hasteprøve">
+				>
+				["at0035"] = <
+					text = <"Frysesnitt">
+					description = <"Frysesnitt">
+				>
+				["at0036"] = <
+					text = <"Sendeprøve">
+					description = <"Sendeprøve">
+				>
+				["at0037"] = <
+					text = <"Biopsi - formalin">
+					description = <"Formalinpreparat">
+				>
+				["at0038"] = <
+					text = <"Biopsi - tørr">
+					description = <"Biopsi på tørt glass">
+				>
+			>
+		>
+	>
