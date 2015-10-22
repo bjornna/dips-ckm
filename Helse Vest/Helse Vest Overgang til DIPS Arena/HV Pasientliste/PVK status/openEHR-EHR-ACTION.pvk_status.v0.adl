@@ -1,0 +1,110 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ACTION.pvk_status.v0
+
+concept
+	[at0000]	-- PVK status
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Gir mulighet for registrering av status for PVK samt kolonne i Pasientlistevisning">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"ECA053C1A8F027D9793C84704D31CEC4">
+	>
+
+definition
+	ACTION[at0000] matches {	-- PVK status
+		ism_transition matches {
+			ISM_TRANSITION[at0003] matches {	-- Lagt inn
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0003]}		-- Lagt inn
+					}
+				}
+			}
+			ISM_TRANSITION[at0004] matches {	-- Stelt/skylt
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0004]}		-- Stelt/skylt
+					}
+				}
+			}
+			ISM_TRANSITION[at0005] matches {	-- Fjernet
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0005]}		-- Fjernet
+					}
+				}
+			}
+		}
+		description matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Merknad
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"PVK status">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Merknad">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Lagt inn">
+					description = <"PVK lagt inn">
+				>
+				["at0004"] = <
+					text = <"Stelt/skylt">
+					description = <"PVK stelt/skylt">
+				>
+				["at0005"] = <
+					text = <"Fjernet">
+					description = <"PVK fjernet">
+				>
+			>
+		>
+	>

@@ -1,0 +1,99 @@
+
+
+Sett globalt
+
+KEY= #asa     VALUE= openEHR-EHR-CLUSTER.asa_status.v1?scope=folder
+
+
+Sett på feltet
+
+KEY= select VALUE= {#asa:/items[at0001]/value}
+
+------------------------ ----------------------------------------------------------------------
+
+sett globalt
+
+KEY= #LMG VALUE= openEHR-EHR-OBSERVATION.legemiddelgjennomgang_status.v0?scope=episode
+
+Sett på feltet for status for gjennomgang
+
+KEY= select VALUE= {#LMG:/items[at0004]/value} <funket ikke
+
+VALUE= {#LMG:/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value}
+
+Sett på feltet for ansvarlig for gjennomgang
+
+KEY= select VALUE= {#LMG:/items[at0005]/value}
+
+
+ANsvarlig for gjennomgang
+/content[openEHR-EHR-OBSERVATION.legemiddelgjennomgang_status.v0]/data[at0001]/events[at0002]/data[at0003]/items[at0005]
+
+Status for gjennomgang
+/content[openEHR-EHR-OBSERVATION.legemiddelgjennomgang_status.v0]/data[at0001]/events[at0002]/data[at0003]/items[at0004]
+
+
+TRYKKSÅR
+
+/content[openEHR-EHR-EVALUATION.trykksaar_risiko.v1]/data[at0001]/items[at0002]
+
+Sett globalt
+
+Key: #HT
+Value: openEHR-EHR-EVALUATION.trykksaar_risiko.v1?scope=episode
+
+Sett følgende i har trykksår ved innleggelse/overflytting 
+
+Value: select
+Key: {#HT:/items[at0002]/value}
+
+
+-------------------------------------Trykksår eksperiment--------------------------------
+
+/content[openEHR-EHR-EVALUATION.trykksaar_risiko.v1]/data[at0001]/items[at0002]
+
+select c/uid/value as cid, o/data/items[at0002]/value from composition c contains evaluation o[openEHR-EHR-EVALUATION.trykksaar_risiko.v1] order by o/data/items[at0002]/value/value desc   fetch 1?scope=patient
+
+
+
+select c/uid/value as cid, o/data/items[at0002]/value from composition c contains evaluation o[openEHR-EHR-EVALUATION.trykksaar_risiko.v1] order by e/data/items[at0002]/value/value desc   fetch 1?scope=patient
+
+
+
+-------------------------------------Trykksår eksperiment slutt---------------------------
+
+
+------------------------------------Legemiddel eksperiment start--------------------------
+
+/content[openEHR-EHR-OBSERVATION.legemiddelgjennomgang_status.v0]/data[at0001]/events[at0002]/data[at0003]/items[at0004]
+
+select c/uid/value as cid, o/data/items[at0004]/value from composition c contains evaluation o[openEHR-EHR-OBSERVATION.legemiddelgjennomgang_status.v0] order by o/data/items[at0004]/value/value desc   fetch 1?scope=patient
+
+
+
+
+select
+    a_a/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value as Status_for_gjennomgang
+from EHR e
+contains COMPOSITION a
+contains OBSERVATION a_a[openEHR-EHR-OBSERVATION.legemiddelgjennomgang_status.v0] fetch 1?scope=EpisodeOfCare
+
+
+
+
+select
+    a_a/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value as Status_for_gjennomgang
+from EHR e
+contains COMPOSITION a
+contains OBSERVATION a_a[openEHR-EHR-OBSERVATION.legemiddelgjennomgang_status.v0]
+order by a_a/data[at0001]/events[at0002]/time desc
+offset 0 limit 1
+
+------------------------------------Legemiddel eksperiment slutt--------------------------
+
+
+cvk status
+
+/content[openEHR-EHR-ACTION.cvk_status.v0]/description[at0001]/items[at0002]
+
+

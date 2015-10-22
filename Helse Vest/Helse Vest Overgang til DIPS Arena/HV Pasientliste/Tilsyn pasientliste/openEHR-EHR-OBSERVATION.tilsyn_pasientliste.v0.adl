@@ -1,0 +1,117 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.tilsyn_pasientliste.v0
+
+concept
+	[at0000]	-- Tilsyn pasientliste
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Lars Morgan Karlsen">
+		["email"] = <"lmk@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2015-09-25">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Data til en pasientliste for å vise tilsynsstatus på en enhet">
+			use = <"Manuell registrering av tilsyn og status">
+			misuse = <"all annen bruk">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"AuthorDraft">
+	other_contributors = <"Pål Thorberg", ...>
+	other_details = <
+		["current_contact"] = <"Lars Morgan Karlsen, DIPS ASA<lmk@dips.no>">
+		["MD5-CAM-1.0.1"] = <"7BB161BF267A5831FD8AAA0E4EA5F48E">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Tilsyn pasientliste
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Tilsynsførende enhet
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {	-- Status tilsyn
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0007, 	-- TT
+													at0008, 	-- TS
+													at0009]	-- TU
+												}
+											}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Dato status
+										value matches {
+											DV_DATE_TIME matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Tilsyn pasientliste">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Tilsynsførende enhet">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Dato status">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Status tilsyn">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"TT">
+					description = <"Trenger tilsyn">
+				>
+				["at0008"] = <
+					text = <"TS">
+					description = <"Tilsynsforespørsel er sendt">
+				>
+				["at0009"] = <
+					text = <"TU">
+					description = <"Tilsyn utført">
+				>
+			>
+		>
+	>
