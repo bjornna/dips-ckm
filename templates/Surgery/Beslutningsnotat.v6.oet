@@ -61,7 +61,7 @@
     </other_details>
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Beslutningsnotat">
-    <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.request-procedure.v0" concept_name="Prosedyrerekvirering" max="1" path="/content">
+    <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.request-procedure.v1" concept_name="Prosedyrerekvirering" max="1" path="/content">
       <Rule path="/activities[at0001]/description[at0009]/items[at0121.1]">
         <constraint xsi:type="textConstraint">
           <termQueryId terminologyID="ARK-VI-OPERASJONSTYPER" terminologyLang="en-GB" queryName="ARK-VI-OPERASJONSTYPER" />
@@ -81,6 +81,7 @@
           <includedValues>Surgery.Hastegrad::2::Elektiv</includedValues>
         </constraint>
       </Rule>
+      <Rule path="/activities[at0001]/description[at0009]/items[at0146.1]" min="1" />
       <Rule path="/activities[at0001]/description[at0009]/items[at0040.1]" min="1" name="Ønskes gjennomført innen " />
       <Rule path="/activities[at0001]/description[at0009]/items[at0144.1]" name="Kalkulert tidsfrist" />
       <Rule path="/activities[at0001]/description[at0009]/items[at0076]" max="0" />
@@ -131,17 +132,9 @@
         <Rule path="/items[at0002]" default="Kirurg" hide_on_form="true" />
       </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.special_requirements_surgery.v1" template_id="35ddbcd4-6f68-4595-8313-a6dcf52343f5" concept_name="Spesielle behov kirurgi" max="1" path="/activities[at0001]/description[at0009]/items[at0132]" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA fysisk status klassifikasjon" max="1" path="/activities[at0001]/description[at0009]/items[at0116]">
-        <Rule path="/items[at0001]" min="1">
-          <constraint xsi:type="textConstraint">
-            <excludedValues>local::at0008</excludedValues>
-            <excludedValues>local::at0009</excludedValues>
-            <excludedValues>local::at0010</excludedValues>
-            <excludedValues>local::at0011</excludedValues>
-            <excludedValues>local::at0012</excludedValues>
-            <excludedValues>local::at0013</excludedValues>
-          </constraint>
-        </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA-klassifikasjon" max="1" path="/activities[at0001]/description[at0009]/items[at0116]">
+        <Rule path="/items[at0001]" min="1" />
+        <Rule path="/items[at0015]" max="0" />
       </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.additional_information_patient_surgery.v1" concept_name="Tilleggsinformasjon pasient" max="1" path="/activities[at0001]/description[at0009]/items[at0116]">
         <Rule path="/items[at0004]" max="1" />

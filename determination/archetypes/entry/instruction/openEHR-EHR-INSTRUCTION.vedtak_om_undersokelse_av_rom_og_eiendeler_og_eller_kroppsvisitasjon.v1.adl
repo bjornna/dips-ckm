@@ -1,0 +1,119 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-INSTRUCTION.vedtak_om_undersokelse_av_rom_og_eiendeler_og_eller_kroppsvisitasjon.v0
+
+concept
+	[at0000]	-- Vedtak om undersokelse av rom og eiendeler og eller kroppsvisitasjon
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"E722B4CD820853744CC09D6D62141AA0">
+	>
+
+definition
+	INSTRUCTION[at0000] matches {	-- Vedtak om undersokelse av rom og eiendeler og eller kroppsvisitasjon
+		activities cardinality matches {0..*; unordered} matches {
+			ACTIVITY[at0001] occurrences matches {0..1} matches {	-- Current Activity
+				description matches {
+					ITEM_TREE[at0002] matches {	-- Tree
+						items cardinality matches {0..*; unordered} matches {
+							ELEMENT[at0003] occurrences matches {0..1} matches {	-- Begrunnelse for vedtaket er gitt i journalnotat av
+								value matches {
+									DV_DATE matches {*}
+								}
+							}
+							ELEMENT[at0004] occurrences matches {0..1} matches {	-- Vedtatt tidspunkt
+								value matches {
+									DV_DATE_TIME matches {
+										value matches {yyyy-mm-ddTHH:MM:SS}
+									}
+								}
+							}
+							ELEMENT[at0005] occurrences matches {0..1} matches {	-- Besluttet ved enhet
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0006] occurrences matches {0..*} matches {	-- Vedtaket omfatter
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0007, 	-- Undersøkelse av pasientens rom og eiendeler
+											at0008]	-- Kroppsvisitasjon av pasienten
+										}
+									}
+								}
+							}
+							allow_archetype CLUSTER[at0009] occurrences matches {0..*} matches {	-- Begrunnelse 
+								include
+									archetype_id/value matches {/.*/}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Vedtak om undersokelse av rom og eiendeler og eller kroppsvisitasjon">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Current Activity">
+					description = <"Current Activity">
+				>
+				["at0002"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Begrunnelse for vedtaket er gitt i journalnotat av">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Vedtatt tidspunkt">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Besluttet ved enhet">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Vedtaket omfatter">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Undersøkelse av pasientens rom og eiendeler">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Kroppsvisitasjon av pasienten">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Begrunnelse ">
+					description = <"*">
+				>
+			>
+		>
+	>

@@ -5,7 +5,7 @@ Operatørvurdering
 =================
 #proc_act: openEHR-EHR-ACTION.procedure.v1?scope=folder
 #proc_act:/description[at0001]/items[at0002]/value		// Prosedyrenavn
-#proc_act:/description[at0001]/items[at0004]/value		// Beskrivelse
+#proc_act:/description[at0001]/items[at0049]/value		// Beskrivelse
 
 // Tilleggsprosedyrer:
 #proc_act:/description[at0001]/items[openEHR-EHR-CLUSTER.additional_procedure_code.v1]/items[at0001]/value	// Planlagt prosedyre
@@ -23,13 +23,13 @@ Operatørvurdering
 #spec_req:/items[at0010]/value			// Blodprodukter
 #spec_req:/items[at0014]/value			// Andre behov
 
-#antibiotika: select c/uid/value as cid, a from composition c contains action a[openEHR-EHR-ACTION.medication_olafia.v1] where a/name/value='Antibiotikaprofylakse' order by c/context/start_time/value desc fetch 1?scope=folder
+#antibiotika: select c/uid/value as cid, a from composition c contains action a[openEHR-EHR-ACTION.medication.v1] where a/name/value='Antibiotikaprofylakse' order by c/context/start_time/value desc fetch 1?scope=folder
 #antibiotika:/description[at0017]/items[at0020]/value			// Legemiddel / medisin
 #antibiotika:/description[at0017]/items[at0033]/value			// Foreskrivninger
 #antibiotika:/ism_transition/careflow_step
 #antibiotika:/description[at0017]/items[openEHR-EHR-CLUSTER.ofte_brukte_medikamenter.v1]/items[at0001]/value	// Hurtigvalg antibiotikaprofylakse
 
-#medicine_surgery: select c/uid/value as cid, a from composition c contains action a[openEHR-EHR-ACTION.medication_olafia.v1] where a/name/value='Annen medisin under operasjon' order by c/context/start_time/value desc fetch 1?scope=folder
+#medicine_surgery: select c/uid/value as cid, a from composition c contains action a[openEHR-EHR-ACTION.medication.v1] where a/name/value='Annen medisin under operasjon' order by c/context/start_time/value desc fetch 1?scope=folder
 #medicine_surgery:/description[at0017]/items[at0020]/value		// Legemiddel / medisin
 #medicine_surgery:/description[at0017]/items[at0033]/value		// Foreskrivninger
 #medicine_surgery:/ism_transition/careflow_step
@@ -45,15 +45,15 @@ Operatørvurdering
 #bp:/data[at0001]/events[at0006]/data[at0003]/items[at0004]/value		// Systolsk
 #bp:/data[at0001]/events[at0006]/data[at0003]/items[at0005]/value		// Diastolsk
 
-#exam_heart: select c/uid/value as cid, c2 from composition c contains observation o[openEHR-EHR-OBSERVATION.exam.v1] contains cluster c1[openEHR-EHR-CLUSTER.exam_chest.v0] contains cluster c2[openEHR-EHR-CLUSTER.exam_heart.v0] order by c/context/start_time/value desc fetch 1?scope=folder
+#exam_heart: select c/uid/value as cid, c2 from composition c contains observation o[openEHR-EHR-OBSERVATION.exam.v1] contains cluster c1[openEHR-EHR-CLUSTER.exam_chest.v1] contains cluster c2[openEHR-EHR-CLUSTER.exam_heart.v1] order by c/context/start_time/value desc fetch 1?scope=folder
 #exam_heart:/items[at0002]/value			// Uten anmerkning
 #exam_heart:/items[at0003]/value			// Klinisk beskrivelse
 
-#exam_lungs: select c/uid/value as cid, c2 from composition c contains observation o[openEHR-EHR-OBSERVATION.exam.v1] contains cluster c1[openEHR-EHR-CLUSTER.exam_chest.v0] contains cluster c2[openEHR-EHR-CLUSTER.exam_lungs.v0] where c1/name/value='Undersøkelse av hjerte og lunge' order by c/context/start_time/value desc fetch 1?scope=folder
+#exam_lungs: select c/uid/value as cid, c2 from composition c contains observation o[openEHR-EHR-OBSERVATION.exam.v1] contains cluster c1[openEHR-EHR-CLUSTER.exam_chest.v1] contains cluster c2[openEHR-EHR-CLUSTER.exam_lungs.v1] where c1/name/value='Undersøkelse av hjerte og lunge' order by c/context/start_time/value desc fetch 1?scope=folder
 #exam_lungs:/items[at0002]/value			// Uten anmerkning
 #exam_lungs:/items[at0003]/value			// Klinisk beskrivelse
 
-#tobakk: openEHR-EHR-OBSERVATION.tobacco_use.v0?scope=folder
+#tobakk: openEHR-EHR-OBSERVATION.tobacco_use.v1?scope=folder
 #tobakk:/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value									// Tobakksbruk?
 #tobakk:/data[at0001]/events[at0002]/data[at0003]/items[at0005]/items[at0006]/value						// Form
 #tobakk:/data[at0001]/events[at0002]/data[at0003]/items[at0005]/items[at0015]/items[at0014]/value		// Antall røyket
@@ -78,7 +78,7 @@ Operatørvurdering
 
 Beslutningsnotat
 ================
-#proc_req: select c/uid/value as cid, i from composition c contains instruction i[openEHR-EHR-INSTRUCTION.request-procedure.v0] where i/activities[at0001]/description[at0009]/items[at0.2]/value/defining_code/code_string='P1' order by c/context/start_time/value desc fetch 1?scope=folder
+#proc_req: select c/uid/value as cid, i from composition c contains instruction i[openEHR-EHR-INSTRUCTION.request-procedure.v1] where i/activities[at0001]/description[at0009]/items[at0.2]/value/defining_code/code_string='P1' order by c/context/start_time/value desc fetch 1?scope=folder
 #proc_req:/activities[at0001]/description[at0009]/items[at0062]/value				// Indikasjon
 #proc_req:/activities[at0001]/description[at0009]/items[at0121.1]/value				// Prosedyrenavn
 #proc_req:/activities[at0001]/description[at0009]/items[at0135.1]/value				// Prosedyrebeskrivelse
@@ -122,6 +122,7 @@ Beslutningsnotat
 Anestesivurdering
 =================
 #ane_eval: openEHR-EHR-OBSERVATION.preoperative_evaluation_anesthesia.v1?scope=folder
+#ane_eval:/data[at0001]/events[at0002]/data[at0003]/items[at0006]/value			// Oppsummering/merknad
 #ane_eval:/data[at0001]/events[at0002]/data[at0003]/items[at0025]/value			// Anestesivurdering ferdigstilt?
 #ane_eval:/data[at0001]/events[at0002]/data[at0003]/items[at0026]/value			// Pasient fysisk tilsett?
 #ane_eval:/data[at0001]/events[at0002]/data[at0003]/items[at0021 and name/value='Vurdering blodprøver']/items[at0029 and name/value='Blodprøver vurdert?']/value		// Blodprøver vurdert?
@@ -158,7 +159,7 @@ Anestesivurdering
 #eval_luftvei:/data[at0001]/events[at0002]/data[at0003]/items[at0009 and name/value='Luftvei']/items[at0011]/value				// Tilstedeværelse
 
 #mallampati: openEHR-EHR-CLUSTER.mallampati_classification.v1?scope=folder
-#mallampati:/items[at0001]/value				// Mallampati klassifikasjon
+#mallampati:/items[at0004]/value				// Mallampati klassifikasjon
 
 #planned_anesthesia: openEHR-EHR-CLUSTER.planned_anesthesia.v1?scope=folder
 #planned_anesthesia:/items[at0001]/value		// Planlagt anestesi
@@ -177,7 +178,7 @@ Anestesivurdering
 ASA FRA HER OG DER
 ==================
 #asa_anestesi:/items[at0001]/value
-#asa_beslutning: select c/uid/value as cid, ci from composition c contains instruction i[openEHR-EHR-INSTRUCTION.request-procedure.v0] contains cluster ci[openEHR-EHR-CLUSTER.asa_status.v1] order by c/context/start_time/value desc fetch 1?scope=folder
+#asa_beslutning: select c/uid/value as cid, ci from composition c contains instruction i[openEHR-EHR-INSTRUCTION.request-procedure.v1] contains cluster ci[openEHR-EHR-CLUSTER.asa_status.v1] order by c/context/start_time/value desc fetch 1?scope=folder
 #asa_operator: select c/uid/value as cid, ci from composition c contains observation o[openEHR-EHR-OBSERVATION.exam.v1] contains cluster ci[openEHR-EHR-CLUSTER.asa_status.v1] order by c/context/start_time/value desc fetch 1?scope=folder
 #asa_anestesi: select c/uid/value as cid, ci from composition c contains observation o[openEHR-EHR-OBSERVATION.poor_outcome_and_or_complication_risk_assesement.v1] contains cluster ci[openEHR-EHR-CLUSTER.asa_status.v1] order by c/context/start_time/value desc fetch 1?scope=folder
 
