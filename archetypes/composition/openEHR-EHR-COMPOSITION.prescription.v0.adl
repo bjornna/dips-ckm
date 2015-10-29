@@ -1,0 +1,106 @@
+﻿archetype (adl_version=1.4; uid=dd3c4fc0-05cf-487e-b6e2-9b22d49489b0)
+	openEHR-EHR-COMPOSITION.prescription.v0
+
+concept
+	[at0000]	-- Prescription
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["ar-sy"] = <
+			language = <[ISO_639-1::ar-sy]>
+			author = <
+				["name"] = <"Monica Saleh">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Sam Heard">
+		["organisation"] = <"Ocean Informatics">
+		["email"] = <"sam.heard@oceaninformatics.com">
+		["date"] = <"2006-03-23">
+	>
+	details = <
+		["ar-sy"] = <
+			language = <[ISO_639-1::ar-sy]>
+			purpose = <"بِنية لنقل الأوامر بالأدوية إلى الصيدلية.">
+			use = <"تستخدم هذه البنية فقط في توصيل الأدوية إلى الصيدلية.">
+			keywords = <"الدواء", "وصف العلاج", "الأمر">
+			misuse = <"يستخدم نموذج فعل. وصف العلاج, لتسجيل الأوامر بالأدوية و التعليمات الخاصة بها. 
+تستخدم هذه البنية فقط في توصيل الأدوية إلى الصيدلية عبر الـ openEHR.">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"A composition for transferring medication orders to the pharmacy.">
+			use = <"This composition is only required for transfer of medications to the pharmacy.">
+			keywords = <"medication", "prescribe", "order">
+			misuse = <"Medication orders, as instructions, have a prescribe action that records prescription and communication to the pharmacy. This composition is only required if the medication orders are required to be transmitted within openEHR to the pharmacy.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"NotSet">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"5C0F577488D322FCA4914851682615EE">
+	>
+
+definition
+	COMPOSITION[at0000] matches {	-- Prescription
+		category matches {
+			DV_CODED_TEXT matches {
+				defining_code matches {[openehr::433]}
+			}
+		}
+		context matches {
+			EVENT_CONTEXT matches {
+				other_context matches {
+					ITEM_TREE[at0001] matches {	-- Tree
+						items cardinality matches {0..*; unordered} matches {
+							allow_archetype CLUSTER[at0007] occurrences matches {0..*} matches {	-- Extension
+								include
+									archetype_id/value matches {/.*/}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["ar-sy"] = <
+			items = <
+				["at0000"] = <
+					text = <"وصف العلاج">
+					description = <"مجموعة من أوامر الأدوية يتم توصيلها إلى الصيدلية.">
+				>
+				["at0001"] = <
+					text = <"*Tree(en)">
+					description = <"*@ internal @(en)">
+				>
+				["at0007"] = <
+					comment = <"*e.g. Local hospital departmental infomation or additional metadata to align with FHIR or CIMI equivalents.(en)">
+					text = <"*Extension(en)">
+					description = <"*Additional information required to capture local context or to align with other reference models/formalisms.(en)">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Prescription">
+					description = <"Set of medication orders communicated to pharmacy.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0007"] = <
+					comment = <"e.g. Local hospital departmental infomation or additional metadata to align with FHIR or CIMI equivalents.">
+					text = <"Extension">
+					description = <"Additional information required to capture local context or to align with other reference models/formalisms.">
+				>
+			>
+		>
+	>
