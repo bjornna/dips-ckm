@@ -1,0 +1,121 @@
+﻿archetype (adl_version=1.4; uid=b40ad367-5aeb-4689-93bd-576986ede5cc)
+	openEHR-EHR-CLUSTER.timing_repetition.v0
+
+concept
+	[at0000]	-- Timing repetition pattern
+language
+	original_language = <[ISO_639-1::en]>
+description
+	original_author = <
+		["name"] = <"Ian McNicoll">
+		["organisation"] = <"freshEHR Clinical Informatics Ltd.">
+		["email"] = <"ian@freshehr.com">
+		["date"] = <"2015-09-11">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record details of scheduled activities over periods longer than a single day.">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"NotSet">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"D09D8B270B903F78D9CE0840DBD34FCF">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Timing repetition pattern
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..*} matches {	-- Specific date
+				value matches {
+					DV_DATE_TIME matches {*}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Repetition interval
+				value matches {
+					DV_DURATION matches {
+						value matches {PYMW/|>=P0W|}
+					}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..*} matches {	-- Specific day of week
+				value matches {
+					DV_COUNT matches {
+						magnitude matches {|0..6|}
+					}
+				}
+			}
+			ELEMENT[at0004] occurrences matches {0..*} matches {	-- Specific day of month
+				value matches {
+					DV_COUNT matches {
+						magnitude matches {|0..31|}
+					}
+				}
+			}
+			CLUSTER[at0006] occurrences matches {0..*} matches {	-- Specific event
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Event name
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Start interval
+						value matches {
+							DV_DURATION matches {
+								value matches {PYMWD/|>=P0M|}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Timing repetition pattern">
+					description = <"Details of timing schedules repeating over periods longer than a single day.">
+				>
+				["at0001"] = <
+					comment = <"e.g. 'on 12 Jan 2017'">
+					text = <"Specific date">
+					description = <"The activity should take place on a specific date.">
+				>
+				["at0002"] = <
+					comment = <"e.g. 'Every 3 weeks'">
+					text = <"Repetition interval">
+					description = <"The interval between repetitions of the activity.">
+				>
+				["at0003"] = <
+					comment = <"e.g. 'On Mondays, Wednesdays and Fridays'.">
+					text = <"Specific day of week">
+					description = <"The activity should take place on a specific day of the week, with 0 representing Sunday.">
+				>
+				["at0004"] = <
+					comment = <"e.g. 'on the 3rd, 13th and 23rd of each month'.">
+					text = <"Specific day of month">
+					description = <"The activity should take place on a specific day of the month.">
+				>
+				["at0005"] = <
+					text = <"Event name">
+					description = <"The name of the event that triggers the activity to take place.">
+				>
+				["at0006"] = <
+					text = <"Specific event">
+					description = <"The activity should take place in relation to a specific named event.">
+				>
+				["at0009"] = <
+					comment = <"e.g. '3 days after onset of menstruation', '2 weeks prior to admission'.">
+					text = <"Start interval">
+					description = <"The period of time before or after the named event when the activity should take place.">
+				>
+			>
+		>
+	>
