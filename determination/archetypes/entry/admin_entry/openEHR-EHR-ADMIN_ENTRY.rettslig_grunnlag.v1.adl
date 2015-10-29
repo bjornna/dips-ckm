@@ -18,13 +18,6 @@ description
 		["name"] = <"">
 	>
 	details = <
-		["no"] = <
-			language = <[ISO_639-1::no]>
-			purpose = <"*(nb)">
-			use = <"*(nb)">
-			misuse = <"*(nb)">
-			copyright = <"*(nb)">
-		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
 			purpose = <"">
@@ -32,11 +25,18 @@ description
 			misuse = <"">
 			copyright = <"">
 		>
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"*(nb)">
+			use = <"*(nb)">
+			misuse = <"*(nb)">
+			copyright = <"*(nb)">
+		>
 	>
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"C65D4681E15C78C98F4B6DF5CAC5E6DC">
+		["MD5-CAM-1.0.1"] = <"0222AE9F0A4B120D460D77B6479E3D50">
 	>
 
 definition
@@ -44,24 +44,56 @@ definition
 		data matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Pasienten har opphold på institusjon som ikke er godkjent for tvungent psykisk helsevern
+					ELEMENT[at0026] occurrences matches {0..1} matches {	-- Hjemmel for helsehjelp
+						value matches {
+							0|[local::at0032], 	-- Frivillig, eget samtykke. Psykisk helsevernloven § 2-1
+							1|[local::at0033], 	-- Frivillig, representert samtykke. Psykisk helsevernloven § 2-1, jf. pasient- og brukerrettighetsloven kapittel 4 
+							2|[local::at0034], 	-- Samtykke til å være undergitt reglene om tvungent psykisk helsevern i § 3-5. Psykisk helsevernloven § 2-2
+							3|[local::at0035], 	-- Tvungen observasjon. Psykisk helsevernloven § 3-2
+							4|[local::at0036], 	-- Tvungent psykisk helsevern. Psykisk helsevernloven § 3-3
+							5|[local::at0037], 	-- Tvungent psykisk helsevern uten døgnopphold med frivillig innleggelse. Psykisk helsevernloven § 3-5 tredje ledd, jf. § 2-1
+							6|[local::at0038], 	-- Dom på overføring til tvungent psykisk helsevern. Straffeloven § 39, jf. psykisk helsevernloven kapittel 5
+							7|[local::at0039], 	-- Dom på tvungen omsorg. Straffeloven § 39a, jf. psykisk helsevernloven kapittel 5
+							8|[local::at0040], 	-- Rettsbestemt innlegges til undersøkelse på psykiatrisk sykehus eller annet egnet undersøkelsessted. Straffeprosessloven § 167
+							9|[local::at0041], 	-- Barnevernloven
+							10|[local::at0042], 	-- Tilbakehold av rusmiddelavhengig i institusjon på grunnlag av eget samtykke. Helse- og omsorgstjenesteloven § 10-4
+							11|[local::at0043], 	-- Fylkesnemdsvedtak om tilbakehold av rusmiddelavhengig i institusjon uten eget samtykke. Helse- og omsorgstjenesteloven § 10-2 første ledd
+							12|[local::at0044], 	-- Midlertidig vedtak av kommunen om tilbakehold av rusmiddelavhengig. Helse- og omsorgstjenesteloven § 10-2 fjerde ledd
+							13|[local::at0045], 	-- Fylkesnemdsvedtak om tilbakeholdelse av gravide rusmiddelavhengige. Helse- og omsorgtjenestesloven § 10-3 første ledd
+							14|[local::at0046], 	-- Midlertidig vedtak av kommunen om tilbakeholdelse av gravide rusmiddelavhengige. Helse- og omsorgstjenesteloven § 10-3 femte ledd
+							15|[local::at0047], 	-- Nødrett (Straffeloven § 167) 
+							16|[local::at0048]  	-- Annen lovhjemmel/annet grunnlag 
+						}
+					}
+					ELEMENT[at0027] occurrences matches {0..1} matches {	-- Merknad
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0028] occurrences matches {0..1} matches {	-- Med eller uten døgnopphold
+						value matches {
+							0|[local::at0029], 	-- Behandling med døgnopphold
+							1|[local::at0030]  	-- Behandling uten døgnopphold
+						}
+					}
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- *Pasienten har opphold på institusjon som ikke er godkjent for tvungent psykisk helsevern(nb)
 						value matches {
 							DV_BOOLEAN matches {
 								value matches {True, False}
 							}
 						}
 					}
-					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Dato påbegynt
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- *Dato påbegynt(nb)
 						value matches {
 							DV_DATE matches {*}
 						}
 					}
-					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Dato tilbakeført godkjent institusjon
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- *Dato tilbakeført godkjent institusjon(nb)
 						value matches {
 							DV_DATE matches {*}
 						}
 					}
-					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Vilkår for utsettelse av straff, jf. straffeloven § 53 nr 3f 
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- *Vilkår for utsettelse av straff, jf. straffeloven § 53 nr 3f (nb)
 						value matches {
 							DV_BOOLEAN matches {
 								value matches {True, False}
@@ -74,7 +106,7 @@ definition
 							1|[local::at0008]  	-- Psykiatrisk behandling på institusjon som vilkår for utsettelse av straff
 						}
 					}
-					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Godskrives som gjennomføring av straff, jf. straffegjennomføringsloven
+					ELEMENT[at0009] occurrences matches {0..1} matches {	-- *Godskrives som gjennomføring av straff, jf. straffegjennomføringsloven(nb)
 						value matches {
 							DV_BOOLEAN matches {
 								value matches {True, False}
@@ -92,6 +124,11 @@ definition
 							DV_DATE matches {
 								value matches {yyyy-mm-dd}
 							}
+						}
+					}
+					ELEMENT[at0031] occurrences matches {0..1} matches {	-- Utløper
+						value matches {
+							DV_DATE_TIME matches {*}
 						}
 					}
 					ELEMENT[at0013] occurrences matches {0..1} matches {	-- Forlengelse nr.
@@ -114,7 +151,7 @@ definition
 					ELEMENT[at0022] occurrences matches {0..1} matches {	-- Helsetjenesteenhet
 						value matches {
 							DV_CODED_TEXT matches {
-								defining_code matches {[ac0001]}		-- New constraint
+								defining_code matches {[ac0001]}		-- *New constraint(nb)
 							}
 						}
 					}
@@ -142,101 +179,192 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0002"] = <
-					text = <"Pasienten har opphold på institusjon som ikke er godkjent for tvungent psykisk helsevern">
-					description = <"*">
+					text = <"*Pasienten har opphold på institusjon som ikke er godkjent for tvungent psykisk helsevern(nb)">
+					description = <"Angir om pasienten pga. andre (typisk somatiske) forhold har opphold på institusjon som ikke er godkjent for TPH">
 				>
 				["at0003"] = <
-					text = <"Dato påbegynt">
-					description = <"*">
+					text = <"*Dato påbegynt(nb)">
+					description = <"Dato oppholdet på ikke godkjent institusjon ble påbegynt">
 				>
 				["at0004"] = <
-					text = <"Dato tilbakeført godkjent institusjon">
-					description = <"*">
+					text = <"*Dato tilbakeført godkjent institusjon(nb)">
+					description = <"Dato for tilbakeføring til godkjent institusjon">
 				>
 				["at0005"] = <
-					text = <"Vilkår for utsettelse av straff, jf. straffeloven § 53 nr 3f ">
-					description = <"*">
+					text = <"*Vilkår for utsettelse av straff, jf. straffeloven § 53 nr 3f (nb)">
+					description = <"Angir om den psykiatriske behandlingen er et vilkår for utsettelse av straff">
 				>
 				["at0006"] = <
 					text = <"Utsettelse">
-					description = <"*">
+					description = <"">
 				>
 				["at0007"] = <
 					text = <"Psykiatrisk behandling som vilkår for utsettelse av straff">
-					description = <"*">
+					description = <"">
 				>
 				["at0008"] = <
 					text = <"Psykiatrisk behandling på institusjon som vilkår for utsettelse av straff">
-					description = <"*">
+					description = <"">
 				>
 				["at0009"] = <
-					text = <"Godskrives som gjennomføring av straff, jf. straffegjennomføringsloven">
-					description = <"*">
+					text = <"*Godskrives som gjennomføring av straff, jf. straffegjennomføringsloven(nb)">
+					description = <"Angir om et ophold i døgninstitusjon i det psykiske helsevernet samtidig godskrives som gjennomføring av straff i institusjon/sykehus.">
 				>
 				["at0010"] = <
 					text = <"Gjennomføring">
-					description = <"*">
+					description = <"">
 				>
 				["at0011"] = <
 					text = <"Gjennomføring av straff i institusjon (§ 12)">
-					description = <"*">
+					description = <"">
 				>
 				["at0012"] = <
 					text = <"Gjennomføring av straff i sykehus (§ 13)">
-					description = <"*">
+					description = <"">
 				>
 				["at0013"] = <
 					text = <"Forlengelse nr.">
-					description = <"*">
+					description = <"Angir hvor mange ganger det opprinnelige vedtaket er blitt forlenget">
 				>
 				["at0014"] = <
 					text = <"Status rettslig grunnlag">
-					description = <"*">
+					description = <"Kode som angir hvorvidt denne registreringen av rettslig grunnlag er aktuell eller om de gjelder et forhold som er avsluttet">
 				>
 				["at0015"] = <
 					text = <"Aktuelt rettslig grunnlag for behandlingen">
-					description = <"*">
+					description = <"">
 				>
 				["at0016"] = <
 					text = <"Gyldighetsperiode for rettslig grunnlag overskredet uten at nytt rettslig grunnlag er etablert">
-					description = <"*">
+					description = <"">
 				>
 				["at0017"] = <
 					text = <"Feilregistrert, erstattet av nytt, korrekt rettslig grunnlag">
-					description = <"*">
+					description = <"">
 				>
 				["at0018"] = <
 					text = <"Erstattet av nytt rettslig grunnlag etter forlengelse av gyldighetsperioden">
-					description = <"*">
+					description = <"">
 				>
 				["at0019"] = <
 					text = <"Erstattet av nytt rettslig grunnlag i henhold til nytt vedtak">
-					description = <"*">
+					description = <"">
 				>
 				["at0020"] = <
 					text = <"Pasienten overført til annen institusjon innenfor det psykiske helsevern">
-					description = <"*">
+					description = <"">
 				>
 				["at0021"] = <
 					text = <"Tvang opphørt, pasienten fortsattt ved institusjonen">
-					description = <"*">
+					description = <"">
 				>
 				["at0022"] = <
 					text = <"Helsetjenesteenhet">
-					description = <"*">
+					description = <"Den helsetjenesteenhet som pasienten er til behandling ved(kode fra Organisasjonskodeverk for spesialisthelsetjenesten)">
 				>
 				["at0023"] = <
 					text = <"Avsluttet, pasienten utskrevet">
-					description = <"*">
+					description = <"">
 				>
 				["at0024"] = <
 					text = <"Merknad">
-					description = <"*">
+					description = <"Supplerende opplysninger">
 				>
 				["at0025"] = <
-					comment = <"*(nb)">
 					text = <"Startdato aktuelt rettslig grunnlag">
-					description = <"*">
+					description = <"Dato for oppstart av rettslig grunnlag. Dersom registreringen gjelder en forlengelse av tidligere vedtak, vises datoen for det opprinnelige vedtaket">
+				>
+				["at0026"] = <
+					text = <"Hjemmel for helsehjelp">
+					description = <"Hjemmel for helsehjelp. Kodeverk 9300">
+				>
+				["at0027"] = <
+					text = <"Merknad">
+					description = <"Merknad dersom \"annen lovhjemmel/annet grunnlag\" er valgt">
+				>
+				["at0028"] = <
+					text = <"Med eller uten døgnopphold">
+					description = <"Angivelse av om behandlingen skjer med eller uten døgnopphold">
+				>
+				["at0029"] = <
+					text = <"Behandling med døgnopphold">
+					description = <"">
+				>
+				["at0030"] = <
+					text = <"Behandling uten døgnopphold">
+					description = <"">
+				>
+				["at0031"] = <
+					text = <"Utløper">
+					description = <"Siste dato det aktuelle rettslige grunnlaget er gyldig">
+				>
+				["at0032"] = <
+					text = <"Frivillig, eget samtykke. Psykisk helsevernloven § 2-1">
+					description = <"">
+				>
+				["at0033"] = <
+					text = <"Frivillig, representert samtykke. Psykisk helsevernloven § 2-1, jf. pasient- og brukerrettighetsloven kapittel 4 ">
+					description = <"">
+				>
+				["at0034"] = <
+					text = <"Samtykke til å være undergitt reglene om tvungent psykisk helsevern i § 3-5. Psykisk helsevernloven § 2-2">
+					description = <"">
+				>
+				["at0035"] = <
+					text = <"Tvungen observasjon. Psykisk helsevernloven § 3-2">
+					description = <"">
+				>
+				["at0036"] = <
+					text = <"Tvungent psykisk helsevern. Psykisk helsevernloven § 3-3">
+					description = <"">
+				>
+				["at0037"] = <
+					text = <"Tvungent psykisk helsevern uten døgnopphold med frivillig innleggelse. Psykisk helsevernloven § 3-5 tredje ledd, jf. § 2-1">
+					description = <"">
+				>
+				["at0038"] = <
+					text = <"Dom på overføring til tvungent psykisk helsevern. Straffeloven § 39, jf. psykisk helsevernloven kapittel 5">
+					description = <"">
+				>
+				["at0039"] = <
+					text = <"Dom på tvungen omsorg. Straffeloven § 39a, jf. psykisk helsevernloven kapittel 5">
+					description = <"">
+				>
+				["at0040"] = <
+					text = <"Rettsbestemt innlegges til undersøkelse på psykiatrisk sykehus eller annet egnet undersøkelsessted. Straffeprosessloven § 167">
+					description = <"">
+				>
+				["at0041"] = <
+					text = <"Barnevernloven">
+					description = <"">
+				>
+				["at0042"] = <
+					text = <"Tilbakehold av rusmiddelavhengig i institusjon på grunnlag av eget samtykke. Helse- og omsorgstjenesteloven § 10-4">
+					description = <"">
+				>
+				["at0043"] = <
+					text = <"Fylkesnemdsvedtak om tilbakehold av rusmiddelavhengig i institusjon uten eget samtykke. Helse- og omsorgstjenesteloven § 10-2 første ledd">
+					description = <"">
+				>
+				["at0044"] = <
+					text = <"Midlertidig vedtak av kommunen om tilbakehold av rusmiddelavhengig. Helse- og omsorgstjenesteloven § 10-2 fjerde ledd">
+					description = <"">
+				>
+				["at0045"] = <
+					text = <"Fylkesnemdsvedtak om tilbakeholdelse av gravide rusmiddelavhengige. Helse- og omsorgtjenestesloven § 10-3 første ledd">
+					description = <"">
+				>
+				["at0046"] = <
+					text = <"Midlertidig vedtak av kommunen om tilbakeholdelse av gravide rusmiddelavhengige. Helse- og omsorgstjenesteloven § 10-3 femte ledd">
+					description = <"">
+				>
+				["at0047"] = <
+					text = <"Nødrett (Straffeloven § 167) ">
+					description = <"">
+				>
+				["at0048"] = <
+					text = <"Annen lovhjemmel/annet grunnlag ">
+					description = <"">
 				>
 			>
 		>
@@ -252,19 +380,19 @@ ontology
 				>
 				["at0002"] = <
 					text = <"Pasienten har opphold på institusjon som ikke er godkjent for tvungent psykisk helsevern">
-					description = <"*">
+					description = <"Angir om pasienten pga. andre (typisk somatiske) forhold har opphold på institusjon som ikke er godkjent for TPH">
 				>
 				["at0003"] = <
 					text = <"Dato påbegynt">
-					description = <"*">
+					description = <"Dato oppholdet på ikke godkjent institusjon ble påbegynt">
 				>
 				["at0004"] = <
 					text = <"Dato tilbakeført godkjent institusjon">
-					description = <"*">
+					description = <"Dato for tilbakeføring til godkjent institusjon">
 				>
 				["at0005"] = <
 					text = <"Vilkår for utsettelse av straff, jf. straffeloven § 53 nr 3f ">
-					description = <"*">
+					description = <"Angir om den psykiatriske behandlingen er et vilkår for utsettelse av straff">
 				>
 				["at0006"] = <
 					text = <"Utsettelse">
@@ -280,7 +408,7 @@ ontology
 				>
 				["at0009"] = <
 					text = <"Godskrives som gjennomføring av straff, jf. straffegjennomføringsloven">
-					description = <"*">
+					description = <"Angir om et ophold i døgninstitusjon i det psykiske helsevernet samtidig godskrives som gjennomføring av straff i institusjon/sykehus.">
 				>
 				["at0010"] = <
 					text = <"Gjennomføring">
@@ -296,11 +424,11 @@ ontology
 				>
 				["at0013"] = <
 					text = <"Forlengelse nr.">
-					description = <"*">
+					description = <"Angir hvor mange ganger det opprinnelige vedtaket er blitt forlenget">
 				>
 				["at0014"] = <
 					text = <"Status rettslig grunnlag">
-					description = <"*">
+					description = <"•	Kode som angir hvorvidt denne registreringen av rettslig grunnlag er aktuell eller om de gjelder et forhold som er avsluttet">
 				>
 				["at0015"] = <
 					text = <"Aktuelt rettslig grunnlag for behandlingen">
@@ -332,7 +460,7 @@ ontology
 				>
 				["at0022"] = <
 					text = <"Helsetjenesteenhet">
-					description = <"*">
+					description = <"•	Den helsetjenesteenhet som pasienten er til behandling ved(kode fra Organisasjonskodeverk for spesialisthelsetjenesten)">
 				>
 				["at0023"] = <
 					text = <"Avsluttet, pasienten utskrevet">
@@ -340,10 +468,102 @@ ontology
 				>
 				["at0024"] = <
 					text = <"Merknad">
-					description = <"*">
+					description = <"Supplerende opplysninger">
 				>
 				["at0025"] = <
 					text = <"Startdato aktuelt rettslig grunnlag">
+					description = <"Dato for oppstart av rettslig grunnlag. Dersom registreringen gjelder en forlengelse av tidligere vedtak, vises datoen for det opprinnelige vedtaket.">
+				>
+				["at0026"] = <
+					text = <"Hjemmel for helsehjelp">
+					description = <"Hjemmel for helsehjelp. Kodeverk 9300.">
+				>
+				["at0027"] = <
+					text = <"Merknad">
+					description = <"Merknad dersom \"annen lovhjemmel/annet grunnlag\" er valgt.">
+				>
+				["at0028"] = <
+					text = <"Med eller uten døgnopphold">
+					description = <"Angivelse av om behandlingen skjer med eller uten døgnopphold. ">
+				>
+				["at0029"] = <
+					text = <"Behandling med døgnopphold">
+					description = <"*">
+				>
+				["at0030"] = <
+					text = <"Behandling uten døgnopphold">
+					description = <"*">
+				>
+				["at0031"] = <
+					text = <"Utløper">
+					description = <"Siste dato det aktuelle rettslige grunnlaget er gyldig">
+				>
+				["at0032"] = <
+					text = <"Frivillig, eget samtykke. Psykisk helsevernloven § 2-1">
+					description = <"*">
+				>
+				["at0033"] = <
+					text = <"Frivillig, representert samtykke. Psykisk helsevernloven § 2-1, jf. pasient- og brukerrettighetsloven kapittel 4 ">
+					description = <"*">
+				>
+				["at0034"] = <
+					text = <"Samtykke til å være undergitt reglene om tvungent psykisk helsevern i § 3-5. Psykisk helsevernloven § 2-2">
+					description = <"*">
+				>
+				["at0035"] = <
+					text = <"Tvungen observasjon. Psykisk helsevernloven § 3-2">
+					description = <"*">
+				>
+				["at0036"] = <
+					text = <"Tvungent psykisk helsevern. Psykisk helsevernloven § 3-3">
+					description = <"*">
+				>
+				["at0037"] = <
+					text = <"Tvungent psykisk helsevern uten døgnopphold med frivillig innleggelse. Psykisk helsevernloven § 3-5 tredje ledd, jf. § 2-1">
+					description = <"*">
+				>
+				["at0038"] = <
+					text = <"Dom på overføring til tvungent psykisk helsevern. Straffeloven § 39, jf. psykisk helsevernloven kapittel 5">
+					description = <"*">
+				>
+				["at0039"] = <
+					text = <"Dom på tvungen omsorg. Straffeloven § 39a, jf. psykisk helsevernloven kapittel 5">
+					description = <"*">
+				>
+				["at0040"] = <
+					text = <"Rettsbestemt innlegges til undersøkelse på psykiatrisk sykehus eller annet egnet undersøkelsessted. Straffeprosessloven § 167">
+					description = <"*">
+				>
+				["at0041"] = <
+					text = <"Barnevernloven">
+					description = <"*">
+				>
+				["at0042"] = <
+					text = <"Tilbakehold av rusmiddelavhengig i institusjon på grunnlag av eget samtykke. Helse- og omsorgstjenesteloven § 10-4">
+					description = <"*">
+				>
+				["at0043"] = <
+					text = <"Fylkesnemdsvedtak om tilbakehold av rusmiddelavhengig i institusjon uten eget samtykke. Helse- og omsorgstjenesteloven § 10-2 første ledd">
+					description = <"*">
+				>
+				["at0044"] = <
+					text = <"Midlertidig vedtak av kommunen om tilbakehold av rusmiddelavhengig. Helse- og omsorgstjenesteloven § 10-2 fjerde ledd">
+					description = <"*">
+				>
+				["at0045"] = <
+					text = <"Fylkesnemdsvedtak om tilbakeholdelse av gravide rusmiddelavhengige. Helse- og omsorgtjenestesloven § 10-3 første ledd">
+					description = <"*">
+				>
+				["at0046"] = <
+					text = <"Midlertidig vedtak av kommunen om tilbakeholdelse av gravide rusmiddelavhengige. Helse- og omsorgstjenesteloven § 10-3 femte ledd">
+					description = <"*">
+				>
+				["at0047"] = <
+					text = <"Nødrett (Straffeloven § 167) ">
+					description = <"*">
+				>
+				["at0048"] = <
+					text = <"Annen lovhjemmel/annet grunnlag ">
 					description = <"*">
 				>
 			>
