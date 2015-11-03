@@ -1,10 +1,18 @@
-﻿archetype (adl_version=1.4)
+archetype (adl_version=1.4)
 	openEHR-EHR-OBSERVATION.sexual_activity.v1
 
 concept
 	[at0000]	-- Sexual activity
 language
-	original_language = <[ISO_639-1::nb]>
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
 description
 	original_author = <
 		["name"] = <"">
@@ -15,13 +23,20 @@ description
 			purpose = <"">
 			use = <"">
 			misuse = <"">
-			copyright = <"© Nasjonal IKT HF">
+			copyright = <"">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
 		>
 	>
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"DF8C364FA6B26372F1784BEF70C32915">
+		["MD5-CAM-1.0.1"] = <"6750A1BD090E33AF239A6DB8CED5C07B">
 	>
 
 definition
@@ -33,173 +48,166 @@ definition
 						data matches {
 							ITEM_TREE[at0003] matches {	-- Tree
 								items cardinality matches {0..*; unordered} matches {
-									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Seksuelt aktiv?
+									ELEMENT[at0009] occurrences matches {0..1} matches {	-- Sexually active
 										value matches {
 											DV_CODED_TEXT matches {
 												defining_code matches {
 													[local::
-													at0005, 	-- Aktiv
-													at0006]	-- Inaktiv
+													at0022, 	-- Yes
+													at0023, 	-- No
+													at0024]	-- Unsure
 												}
 											}
 										}
 									}
-									ELEMENT[at0031] occurrences matches {0..1} matches {	-- Seksuelle partneres kjønn
+									ELEMENT[at0029] occurrences matches {0..1} matches {	-- If unsure, specify
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0025] occurrences matches {0..*} matches {	-- Types of sex
 										value matches {
 											DV_CODED_TEXT matches {
 												defining_code matches {
 													[local::
-													at0032, 	-- Bare menn
-													at0033, 	-- Bare kvinner
-													at0034]	-- Både menn og kvinner
+													at0027, 	-- Vaginal
+													at0028, 	-- Oral
+													at0026]	-- Anal
 												}
 											}
 										}
 									}
-									ELEMENT[at0036] occurrences matches {0..1} matches {	-- Antall seksualpartnere
+									ELEMENT[at0011] occurrences matches {0..1} matches {	-- Number of partners
 										value matches {
 											DV_COUNT matches {*}
 										}
 									}
-									CLUSTER[at0007] occurrences matches {0..*} matches {	-- Seksuell aktivitet
-										items cardinality matches {1..*; unordered} matches {
-											ELEMENT[at0008] matches {	-- Partner
-												value matches {
-													DV_CODED_TEXT matches {
-														defining_code matches {
-															[local::
-															at0009, 	-- Ektefelle/samboer
-															at0010, 	-- Fast partner jeg ikke bor sammen med
-															at0011, 	-- Annen kjent partner
-															at0012]	-- Ukjent partner
-														}
-													}
-												}
-											}
-											ELEMENT[at0013] occurrences matches {0..1} matches {	-- Siste gang
-												value matches {
-													DV_DATE_TIME matches {*}
-												}
-											}
-										}
-									}
-									CLUSTER[at0014] occurrences matches {0..*} matches {	-- Seksuell praksis
-										items cardinality matches {1..*; unordered} matches {
-											ELEMENT[at0015] occurrences matches {0..1} matches {	-- Type sex
-												value matches {
-													DV_CODED_TEXT matches {
-														defining_code matches {
-															[local::
-															at0016, 	-- Vaginal sex
-															at0017, 	-- Oralsex
-															at0018]	-- Analsex
-														}
-													}
-												}
-											}
-											CLUSTER[at0024] occurrences matches {0..1} matches {	-- Bruk av infeksjonsbarrierer
-												items cardinality matches {1..*; unordered} matches {
-													ELEMENT[at0052] occurrences matches {0..1} matches {	-- Har infeksjonsbarrieren sviktet?
-														value matches {
-															DV_CODED_TEXT matches {
-																defining_code matches {
-																	[local::
-																	at0053, 	-- Barrieren har sviktet
-																	at0054]	-- Barrieren har ikke sviktet
-																}
-															}
-														}
-													}
-													ELEMENT[at0025] occurrences matches {0..1} matches {	-- Type infeksjonsbarriere
-														value matches {
-															DV_CODED_TEXT matches {
-																defining_code matches {
-																	[local::
-																	at0026, 	-- Kondom
-																	at0027]	-- Slikkelapp
-																}
-															}
-														}
-													}
-													ELEMENT[at0019] occurrences matches {0..1} matches {	-- Frekvens
-														value matches {
-															DV_CODED_TEXT matches {
-																defining_code matches {
-																	[local::
-																	at0020, 	-- Alltid
-																	at0022, 	-- Ofte
-																	at0021, 	-- Sjelden
-																	at0023]	-- Aldri
-																}
-															}
-														}
-													}
-												}
-											}
-										}
-									}
-									ELEMENT[at0039] occurrences matches {0..1} matches {	-- ??????Seksuelle partneres bosted
+									ELEMENT[at0012] occurrences matches {0..*} matches {	-- Genders of sex partners
 										value matches {
 											DV_CODED_TEXT matches {
 												defining_code matches {
 													[local::
-													at0040, 	-- Innenlands
-													at0041]	-- Utenlands
+													at0013, 	-- Men
+													at0014, 	-- Women
+													at0015, 	-- Transwomen
+													at0016, 	-- Transmen
+													at0033]	-- Trans
 												}
 											}
 										}
 									}
-									ELEMENT[at0042] occurrences matches {0..1} matches {	-- Mottatt betaling for sex?
+									ELEMENT[at0046] occurrences matches {0..1} matches {	-- *New element(en)
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0017] occurrences matches {0..1} matches {	-- Number of transmale partners
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|>=0|}
+											}
+										}
+									}
+									ELEMENT[at0018] occurrences matches {0..1} matches {	-- Number of transfemale partners
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|>=0|}
+											}
+										}
+									}
+									ELEMENT[at0019] occurrences matches {0..1} matches {	-- Number of male partners
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|>=0|}
+											}
+										}
+									}
+									ELEMENT[at0020] occurrences matches {0..1} matches {	-- Number of female partners
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|>=0|}
+											}
+										}
+									}
+									ELEMENT[at0035] occurrences matches {0..1} matches {	-- New element
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|>=0|}
+											}
+										}
+									}
+									ELEMENT[at0036] occurrences matches {0..1} matches {	-- *New element(en)
 										value matches {
 											DV_CODED_TEXT matches {
 												defining_code matches {
 													[local::
-													at0043, 	-- Har mottatt betaling for sex
-													at0044]	-- Har ikke mottatt betaling for sex
+													at0037, 	-- *Ja(en)
+													at0038, 	-- *Nei(en)
+													at0039]	-- *Usikker(en)
 												}
 											}
 										}
 									}
-									ELEMENT[at0045] occurrences matches {0..1} matches {	-- Betalt for sex?
+									ELEMENT[at0044] occurrences matches {0..*} matches {	-- *New element(en)
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0041] occurrences matches {0..1} matches {	-- *New element(en)
 										value matches {
 											DV_CODED_TEXT matches {
 												defining_code matches {
 													[local::
-													at0046, 	-- Har betalt for sex
-													at0047]	-- Har ikke betalt for sex
+													at0042, 	-- *Ja(en)
+													at0043]	-- *Nei(en)
 												}
 											}
 										}
 									}
-									ELEMENT[at0028] occurrences matches {0..1} matches {	-- Har infeksjonsbarrieren sviktet?
+									allow_archetype CLUSTER[at0021] occurrences matches {0..*} matches {	-- Sexual partners
+										include
+											archetype_id/value matches {/.*/}
+									}
+									ELEMENT[at0040] occurrences matches {0..*} matches {	-- *New element(en)
 										value matches {
-											DV_CODED_TEXT matches {
-												defining_code matches {
-													[local::
-													at0029, 	-- Barrieren har sviktet
-													at0030]	-- Barrieren har ikke sviktet
-												}
-											}
+											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0049] occurrences matches {0..1} matches {	-- Infeksjonsbarriere brukt
+									ELEMENT[at0045] occurrences matches {0..*} matches {	-- *New element(en)
 										value matches {
-											DV_CODED_TEXT matches {
-												defining_code matches {
-													[local::
-													at0050, 	-- Kondom
-													at0051, 	-- Slikkelapp
-													at0056, 	-- Både kondom og slikkelapp
-													at0055]	-- Ingen
-												}
-											}
+											DV_TEXT matches {*}
 										}
 									}
 								}
 							}
 						}
 					}
-					INTERVAL_EVENT[at0037] occurrences matches {0..1} matches {	-- Siste 6 måneder
+					POINT_EVENT[at0004] occurrences matches {0..1} matches {	-- Last unprotected sex
+						data matches {
+							use_node ITEM_TREE /data[at0001]/events[at0002]/data[at0003]	-- /data[Event Series]/events[Any event]/data[Tree]
+						}
+					}
+					INTERVAL_EVENT[at0005] occurrences matches {0..1} matches {	-- 1 month
+						width matches {
+							DV_DURATION matches {
+								value matches {|P1M|}
+							}
+						}
+						data matches {
+							use_node ITEM_TREE /data[at0001]/events[at0002]/data[at0003]	-- /data[Event Series]/events[Any event]/data[Tree]
+						}
+					}
+					INTERVAL_EVENT[at0006] occurrences matches {0..1} matches {	-- 3 months
+						width matches {
+							DV_DURATION matches {
+								value matches {|P3M|}
+							}
+						}
+						data matches {
+							use_node ITEM_TREE /data[at0001]/events[at0002]/data[at0003]	-- /data[Event Series]/events[Any event]/data[Tree]
+						}
+					}
+					INTERVAL_EVENT[at0007] occurrences matches {0..1} matches {	-- 6 months
 						width matches {
 							DV_DURATION matches {
 								value matches {|P6M|}
@@ -209,7 +217,12 @@ definition
 							use_node ITEM_TREE /data[at0001]/events[at0002]/data[at0003]	-- /data[Event Series]/events[Any event]/data[Tree]
 						}
 					}
-					EVENT[at0038] occurrences matches {0..1} matches {	-- Siste gang
+					INTERVAL_EVENT[at0008] occurrences matches {0..1} matches {	-- 12 months
+						width matches {
+							DV_DURATION matches {
+								value matches {|P12M|}
+							}
+						}
 						data matches {
 							use_node ITEM_TREE /data[at0001]/events[at0002]/data[at0003]	-- /data[Event Series]/events[Any event]/data[Tree]
 						}
@@ -219,10 +232,353 @@ definition
 		}
 	}
 
-
 ontology
 	term_definitions = <
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"Seksuell aktivitet">
+					description = <"*">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Uspesifisert hendelse">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Siste ubeskyttede sex">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"1 måned">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"3 måned">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"6 måned">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"12 måned">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Seksuelt aktiv">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Antall partnere">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Sexpartneres kjønn">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Menn">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Kvinner">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Transkvinne">
+					description = <"En transkvinne er en mann-til-kvinne transperson som var betegnet mann ved fødsel.">
+				>
+				["at0016"] = <
+					text = <"Transmann">
+					description = <"En transmann er en kvinne-til-mann transperson som var betegnet kvinne ved fødsel.">
+				>
+				["at0017"] = <
+					text = <"Antall transmannlige partnere">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Antall transkvinnelige partnere">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"Antall mannlige partnere">
+					description = <"*">
+				>
+				["at0020"] = <
+					text = <"Antall kvinnelige partnere">
+					description = <"*">
+				>
+				["at0021"] = <
+					text = <"Seksualpartnere">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0023"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0024"] = <
+					text = <"Usikker">
+					description = <"*">
+				>
+				["at0025"] = <
+					text = <"Typer sex">
+					description = <"*">
+				>
+				["at0026"] = <
+					text = <"Anal">
+					description = <"*">
+				>
+				["at0027"] = <
+					text = <"Vaginal">
+					description = <"*">
+				>
+				["at0028"] = <
+					text = <"Oral">
+					description = <"*">
+				>
+				["at0029"] = <
+					text = <"Hvis usikker, spesifiser">
+					description = <"*">
+				>
+				["at0033"] = <
+					text = <"Trans">
+					description = <"*">
+				>
+				["at0035"] = <
+					text = <"Antall transpartnere">
+					description = <"*">
+				>
+				["at0036"] = <
+					text = <"Sex med sexarbeider">
+					description = <"*">
+				>
+				["at0037"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0038"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0039"] = <
+					text = <"Usikker">
+					description = <"*">
+				>
+				["at0040"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0041"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0042"] = <
+					text = <"*Ja(en)">
+					description = <"**(en)">
+				>
+				["at0043"] = <
+					text = <"*Nei(en)">
+					description = <"**(en)">
+				>
+				["at0044"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0045"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0046"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+			>
+		>
 		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Seksuell aktivitet">
+					description = <"*">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Uspesifisert hendelse">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Siste ubeskyttede sex">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"1 måned">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"3 måned">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"6 måned">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"12 måned">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Seksuelt aktiv">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Antall partnere">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Sexpartneres kjønn">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Menn">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Kvinner">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Transkvinne">
+					description = <"En transkvinne er en mann-til-kvinne transperson som var betegnet mann ved fødsel.">
+				>
+				["at0016"] = <
+					text = <"Transmann">
+					description = <"En transmann er en kvinne-til-mann transperson som var betegnet kvinne ved fødsel.">
+				>
+				["at0017"] = <
+					text = <"Antall transmannlige partnere">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Antall transkvinnelige partnere">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"Antall mannlige partnere">
+					description = <"*">
+				>
+				["at0020"] = <
+					text = <"Antall kvinnelige partnere">
+					description = <"*">
+				>
+				["at0021"] = <
+					text = <"Seksualpartnere">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0023"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0024"] = <
+					text = <"Usikker">
+					description = <"*">
+				>
+				["at0025"] = <
+					text = <"Typer sex">
+					description = <"*">
+				>
+				["at0026"] = <
+					text = <"Anal (endetarm)">
+					description = <"*">
+				>
+				["at0027"] = <
+					text = <"Vaginal (skjede)">
+					description = <"*">
+				>
+				["at0028"] = <
+					text = <"Oral (munn)">
+					description = <"*">
+				>
+				["at0029"] = <
+					text = <"Hvis usikker, spesifiser">
+					description = <"*">
+				>
+				["at0033"] = <
+					text = <"Trans">
+					description = <"*">
+				>
+				["at0035"] = <
+					text = <"Antall transpartnere">
+					description = <"*">
+				>
+				["at0036"] = <
+					text = <"Sex med sexarbeider">
+					description = <"*">
+				>
+				["at0037"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0038"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0039"] = <
+					text = <"Usikker">
+					description = <"*">
+				>
+				["at0040"] = <
+					text = <"Sexpartnere har vært fra">
+					description = <"*">
+				>
+				["at0041"] = <
+					text = <"Har du motatt betaling for sex?">
+					description = <"*">
+				>
+				["at0042"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0043"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0044"] = <
+					text = <"Risikofaktorer">
+					description = <"*">
+				>
+				["at0045"] = <
+					text = <"Sexpartnere har vært fra (nasjonalitet)">
+					description = <"*">
+				>
+				["at0046"] = <
+					text = <"Beskrivelse til sexpartners kjønn">
+					description = <"*">
+				>
+			>
+		>
+		["en"] = <
 			items = <
 				["at0000"] = <
 					text = <"Sexual activity">
@@ -241,208 +597,156 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0004"] = <
-					text = <"Seksuelt aktiv?">
+					text = <"Last unprotected sex">
 					description = <"*">
 				>
 				["at0005"] = <
-					text = <"Aktiv">
+					text = <"1 month">
 					description = <"*">
 				>
 				["at0006"] = <
-					text = <"Inaktiv">
+					text = <"3 months">
 					description = <"*">
 				>
 				["at0007"] = <
-					text = <"Seksuell aktivitet">
+					text = <"6 months">
 					description = <"*">
 				>
 				["at0008"] = <
-					text = <"Partner">
+					text = <"12 months">
 					description = <"*">
 				>
 				["at0009"] = <
-					text = <"Ektefelle/samboer">
-					description = <"*">
-				>
-				["at0010"] = <
-					text = <"Fast partner jeg ikke bor sammen med">
+					text = <"Sexually active">
 					description = <"*">
 				>
 				["at0011"] = <
-					text = <"Annen kjent partner">
+					text = <"Number of partners">
 					description = <"*">
 				>
 				["at0012"] = <
-					text = <"Ukjent partner">
+					text = <"Genders of sex partners">
 					description = <"*">
 				>
 				["at0013"] = <
-					text = <"Siste gang">
+					text = <"Men">
 					description = <"*">
 				>
 				["at0014"] = <
-					text = <"Seksuell praksis">
+					text = <"Women">
 					description = <"*">
 				>
 				["at0015"] = <
-					text = <"Type sex">
-					description = <"*">
+					text = <"Transwomen">
+					description = <"A transwoman is a male-to-female transgender person who was assigned male at birth.">
 				>
 				["at0016"] = <
-					text = <"Vaginal sex">
-					description = <"*">
+					text = <"Transmen">
+					description = <"A transman is a female-to-male transgender person who was assigned female at birth.">
 				>
 				["at0017"] = <
-					text = <"Oralsex">
+					text = <"Number of transmale partners">
 					description = <"*">
 				>
 				["at0018"] = <
-					text = <"Analsex">
+					text = <"Number of transfemale partners">
 					description = <"*">
 				>
 				["at0019"] = <
-					text = <"Frekvens">
+					text = <"Number of male partners">
 					description = <"*">
 				>
 				["at0020"] = <
-					text = <"Alltid">
+					text = <"Number of female partners">
 					description = <"*">
 				>
 				["at0021"] = <
-					text = <"Sjelden">
+					text = <"Sexual partners">
 					description = <"*">
 				>
 				["at0022"] = <
-					text = <"Ofte">
+					text = <"Yes">
 					description = <"*">
 				>
 				["at0023"] = <
-					text = <"Aldri">
+					text = <"No">
 					description = <"*">
 				>
 				["at0024"] = <
-					text = <"Bruk av infeksjonsbarrierer">
+					text = <"Unsure">
 					description = <"*">
 				>
 				["at0025"] = <
-					text = <"Type infeksjonsbarriere">
+					text = <"Types of sex">
 					description = <"*">
 				>
 				["at0026"] = <
-					text = <"Kondom">
+					text = <"Anal">
 					description = <"*">
 				>
 				["at0027"] = <
-					text = <"Slikkelapp">
+					text = <"Vaginal">
 					description = <"*">
 				>
 				["at0028"] = <
-					text = <"Har infeksjonsbarrieren sviktet?">
+					text = <"Oral">
 					description = <"*">
 				>
 				["at0029"] = <
-					text = <"Barrieren har sviktet">
-					description = <"*">
-				>
-				["at0030"] = <
-					text = <"Barrieren har ikke sviktet">
-					description = <"*">
-				>
-				["at0031"] = <
-					text = <"Seksuelle partneres kjønn">
-					description = <"*">
-				>
-				["at0032"] = <
-					text = <"Bare menn">
+					text = <"If unsure, specify">
 					description = <"*">
 				>
 				["at0033"] = <
-					text = <"Bare kvinner">
+					text = <"Trans">
 					description = <"*">
 				>
-				["at0034"] = <
-					text = <"Både menn og kvinner">
+				["at0035"] = <
+					text = <"New element">
 					description = <"*">
 				>
 				["at0036"] = <
-					text = <"Antall seksualpartnere">
-					description = <"*">
+					text = <"*New element(en)">
+					description = <"**(en)">
 				>
 				["at0037"] = <
-					text = <"Siste 6 måneder">
-					description = <"*">
+					text = <"*Ja(en)">
+					description = <"**(en)">
 				>
 				["at0038"] = <
-					text = <"Siste gang">
-					description = <"*">
+					text = <"*Nei(en)">
+					description = <"**(en)">
 				>
 				["at0039"] = <
-					text = <"??????Seksuelle partneres bosted">
-					description = <"*">
+					text = <"*Usikker(en)">
+					description = <"**(en)">
 				>
 				["at0040"] = <
-					text = <"Innenlands">
-					description = <"*">
+					text = <"*New element(en)">
+					description = <"**(en)">
 				>
 				["at0041"] = <
-					text = <"Utenlands">
-					description = <"*">
+					text = <"*New element(en)">
+					description = <"**(en)">
 				>
 				["at0042"] = <
-					text = <"Mottatt betaling for sex?">
-					description = <"*">
+					text = <"*Ja(en)">
+					description = <"**(en)">
 				>
 				["at0043"] = <
-					text = <"Har mottatt betaling for sex">
-					description = <"*">
+					text = <"*Nei(en)">
+					description = <"**(en)">
 				>
 				["at0044"] = <
-					text = <"Har ikke mottatt betaling for sex">
-					description = <"*">
+					text = <"*New element(en)">
+					description = <"**(en)">
 				>
 				["at0045"] = <
-					text = <"Betalt for sex?">
-					description = <"*">
+					text = <"*New element(en)">
+					description = <"**(en)">
 				>
 				["at0046"] = <
-					text = <"Har betalt for sex">
-					description = <"*">
-				>
-				["at0047"] = <
-					text = <"Har ikke betalt for sex">
-					description = <"*">
-				>
-				["at0049"] = <
-					text = <"Infeksjonsbarriere brukt">
-					description = <"*">
-				>
-				["at0050"] = <
-					text = <"Kondom">
-					description = <"*">
-				>
-				["at0051"] = <
-					text = <"Slikkelapp">
-					description = <"*">
-				>
-				["at0052"] = <
-					text = <"Har infeksjonsbarrieren sviktet?">
-					description = <"*">
-				>
-				["at0053"] = <
-					text = <"Barrieren har sviktet">
-					description = <"*">
-				>
-				["at0054"] = <
-					text = <"Barrieren har ikke sviktet">
-					description = <"*">
-				>
-				["at0055"] = <
-					text = <"Ingen">
-					description = <"*">
-				>
-				["at0056"] = <
-					text = <"Både kondom og slikkelapp">
-					description = <"*">
+					text = <"*New element(en)">
+					description = <"**(en)">
 				>
 			>
 		>
