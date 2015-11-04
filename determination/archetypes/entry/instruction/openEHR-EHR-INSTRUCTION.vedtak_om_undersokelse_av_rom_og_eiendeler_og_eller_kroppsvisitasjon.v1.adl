@@ -1,5 +1,5 @@
 archetype (adl_version=1.4)
-	openEHR-EHR-INSTRUCTION.vedtak_om_undersokelse_av_rom_og_eiendeler_og_eller_kroppsvisitasjon.v0
+	openEHR-EHR-INSTRUCTION.vedtak_om_undersokelse_av_rom_og_eiendeler_og_eller_kroppsvisitasjon.v1
 
 concept
 	[at0000]	-- Vedtak om undersokelse av rom og eiendeler og eller kroppsvisitasjon
@@ -21,7 +21,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"E722B4CD820853744CC09D6D62141AA0">
+		["MD5-CAM-1.0.1"] = <"BBBFFB6C4277387DF1B8146301DB600C">
 	>
 
 definition
@@ -31,16 +31,14 @@ definition
 				description matches {
 					ITEM_TREE[at0002] matches {	-- Tree
 						items cardinality matches {0..*; unordered} matches {
-							ELEMENT[at0003] occurrences matches {0..1} matches {	-- Begrunnelse for vedtaket er gitt i journalnotat av
+							ELEMENT[at0004] occurrences matches {0..1} matches {	-- Vedtatt tidspunkt
 								value matches {
 									DV_DATE matches {*}
 								}
 							}
-							ELEMENT[at0004] occurrences matches {0..1} matches {	-- Vedtatt tidspunkt
+							ELEMENT[at0010] occurrences matches {0..1} matches {	-- Begrunnelse for vedtaket er gitt i journalnotat av
 								value matches {
-									DV_DATE_TIME matches {
-										value matches {yyyy-mm-ddTHH:MM:SS}
-									}
+									DV_TEXT matches {*}
 								}
 							}
 							ELEMENT[at0005] occurrences matches {0..1} matches {	-- Besluttet ved enhet
@@ -48,20 +46,33 @@ definition
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0006] occurrences matches {0..*} matches {	-- Vedtaket omfatter
+							ELEMENT[at0006] occurrences matches {0..*} matches {	-- Hva vedtaket omfatter
 								value matches {
 									DV_CODED_TEXT matches {
 										defining_code matches {
 											[local::
 											at0007, 	-- Undersøkelse av pasientens rom og eiendeler
-											at0008]	-- Kroppsvisitasjon av pasienten
+											at0018]	-- Kroppsvisitasjon av pasienten
 										}
 									}
 								}
 							}
-							allow_archetype CLUSTER[at0009] occurrences matches {0..*} matches {	-- Begrunnelse 
+							ELEMENT[at0013] occurrences matches {0..*} matches {	-- Hva vedtaket er begrunnet i
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0019, 	-- Begrunnet mistanke om at medikamenter vil bli forsøkt innført
+											at0020, 	-- Begrunnet mistanke om at rusmidler vil bli forsøkt innført
+											at0021, 	-- Begrunnet mistanke om at rømningshjelpemiddel vil bli forsøkt innført
+											at0022]	-- Begrunnet mistanke om at farlig gjenstand vil bli forsøkt innført
+										}
+									}
+								}
+							}
+							allow_archetype CLUSTER[at0023] occurrences matches {0..*} matches {	-- Vedtakstype
 								include
-									archetype_id/value matches {/.*/}
+									archetype_id/value matches {/openEHR-EHR-CLUSTER\.vedtakstype(-[a-zA-Z0-9_]+)*\.v1/}
 							}
 						}
 					}
@@ -86,32 +97,56 @@ ontology
 					text = <"Tree">
 					description = <"@ internal @">
 				>
-				["at0003"] = <
-					text = <"Begrunnelse for vedtaket er gitt i journalnotat av">
-					description = <"*">
-				>
 				["at0004"] = <
 					text = <"Vedtatt tidspunkt">
-					description = <"*">
+					description = <"Den dato vedtaket ble fattet">
 				>
 				["at0005"] = <
 					text = <"Besluttet ved enhet">
-					description = <"*">
+					description = <"Identifikasjon av den enhet der vedtaket fattes">
 				>
 				["at0006"] = <
-					text = <"Vedtaket omfatter">
-					description = <"*">
+					text = <"Hva vedtaket omfatter">
+					description = <"Benyttes for å registrere en eller flere koder som angir hva vedtaket omfatter.
+ Standard kodeverk: 9286 Vedtak om romundersøkelse, kroppsvisitasjon mv - psykisk helsevern
+">
 				>
 				["at0007"] = <
 					text = <"Undersøkelse av pasientens rom og eiendeler">
 					description = <"*">
 				>
-				["at0008"] = <
+				["at0010"] = <
+					text = <"Begrunnelse for vedtaket er gitt i journalnotat av">
+					description = <"Referanse til det dokument i pasienten journal som inneholder nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette">
+				>
+				["at0013"] = <
+					text = <"Hva vedtaket er begrunnet i">
+					description = <"Benyttes for å registrere en eller flere koder som angir hva vedtaket er begrunnet i.
+ Standard kodeverk: 9285 Begrunnelse for postkontroll, romundersøkelse, kroppsvisitasjon mv - psykisk helsevern
+">
+				>
+				["at0018"] = <
 					text = <"Kroppsvisitasjon av pasienten">
 					description = <"*">
 				>
-				["at0009"] = <
-					text = <"Begrunnelse ">
+				["at0019"] = <
+					text = <"Begrunnet mistanke om at medikamenter vil bli forsøkt innført">
+					description = <"*">
+				>
+				["at0020"] = <
+					text = <"Begrunnet mistanke om at rusmidler vil bli forsøkt innført">
+					description = <"*">
+				>
+				["at0021"] = <
+					text = <"Begrunnet mistanke om at rømningshjelpemiddel vil bli forsøkt innført">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Begrunnet mistanke om at farlig gjenstand vil bli forsøkt innført">
+					description = <"*">
+				>
+				["at0023"] = <
+					text = <"Vedtakstype">
 					description = <"*">
 				>
 			>
