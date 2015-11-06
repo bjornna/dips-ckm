@@ -36,7 +36,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"83E2FB0A06CCDA61FF9C7B24E4DA0F33">
+		["MD5-CAM-1.0.1"] = <"4C5F0A436AB5AA76D3B677EAD44E937A">
 	>
 
 definition
@@ -58,23 +58,15 @@ definition
 							}
 							ELEMENT[at0005] occurrences matches {0..1} matches {	-- Pasienten er under TPH
 								value matches {
-									DV_CODED_TEXT matches {
-										defining_code matches {
-											[local::
-											at0082, 	-- Nei
-											at0081]	-- Ja
-										}
+									DV_BOOLEAN matches {
+										value matches {True}
 									}
 								}
 							}
-							ELEMENT[at0069] occurrences matches {0..1} matches {	-- Midlertidig døgnopphold på institusjon som ikke er godkjent for TPH
+							ELEMENT[at0069] occurrences matches {0..1} matches {	-- Midlertidig døgnopphold på (somatisk) institusjon som ikke er godkjent for TPH, jf. phvl. § 3-5 annet ledd.
 								value matches {
-									DV_CODED_TEXT matches {
-										defining_code matches {
-											[local::
-											at0083, 	-- Nei
-											at0084]	-- Ja
-										}
+									DV_BOOLEAN matches {
+										value matches {True, False}
 									}
 								}
 							}
@@ -111,7 +103,7 @@ definition
 									}
 								}
 							}
-							ELEMENT[at0015] occurrences matches {0..1} matches {	-- Vedtakstype
+							ELEMENT[at0015] occurrences matches {0..1} matches {	-- Vedtakstype undersøkelse og behandling uten eget samtykke
 								value matches {
 									DV_CODED_TEXT matches {
 										defining_code matches {
@@ -124,7 +116,7 @@ definition
 									}
 								}
 							}
-							ELEMENT[at0020] occurrences matches {0..1} matches {	-- Nærmere om vedtakstype
+							ELEMENT[at0020] occurrences matches {0..1} matches {	-- betegnelse på den/de typer behandling det dreier seg om
 								value matches {
 									DV_TEXT matches {*}
 								}
@@ -134,7 +126,7 @@ definition
 									DV_DATE matches {*}
 								}
 							}
-							ELEMENT[at0022] occurrences matches {0..1} matches {	-- Planlagt oppstart dato behandling
+							ELEMENT[at0022] occurrences matches {0..1} matches {	-- Planlagt oppstart dato
 								value matches {
 									DV_DATE matches {*}
 								}
@@ -151,7 +143,7 @@ definition
 									}
 								}
 							}
-							ELEMENT[at0025] occurrences matches {0..1} matches {	-- Tidspunkt vedtaket ble fattet
+							ELEMENT[at0025] occurrences matches {0..1} matches {	-- Vedtatt tidspunkt
 								value matches {
 									DV_DATE_TIME matches {
 										value matches {yyyy-mm-ddTHH:MM:SS}
@@ -175,7 +167,7 @@ definition
 									DV_DATE matches {*}
 								}
 							}
-							ELEMENT[at0053] occurrences matches {0..1} matches {	-- Dato for forskrivning
+							ELEMENT[at0053] occurrences matches {0..1} matches {	-- Referanse til forskrivning
 								value matches {
 									DV_DATE matches {*}
 								}
@@ -195,29 +187,25 @@ definition
 							}
 							ELEMENT[at0075] occurrences matches {0..1} matches {	-- Vedtaket er opphevet og erstattet av nytt vedtak
 								value matches {
-									DV_CODED_TEXT matches {
-										defining_code matches {
-											[local::
-											at0085, 	-- Nei
-											at0086]	-- Ja
-										}
+									DV_BOOLEAN matches {
+										value matches {True}
 									}
 								}
 							}
-							ELEMENT[at0074] occurrences matches {0..1} matches {	-- Dato for opphevet og erstattet av vedtak
+							ELEMENT[at0074] occurrences matches {0..1} matches {	-- Dato for nytt vedtak
 								value matches {
 									DV_DATE matches {*}
 								}
 							}
-							ELEMENT[at0061] occurrences matches {0..1} matches {	-- Legeundersøkelse er dokumentert i journalnotat av
+							ELEMENT[at0061] occurrences matches {0..1} matches {	-- Dato for legeundersøkelse
 								value matches {
 									DV_DATE matches {*}
 								}
 							}
-							ELEMENT[at0041] occurrences matches {0..1} matches {	-- Legeundersøkelsen ble gjennomført av
+							ELEMENT[at0041] occurrences matches {0..1} matches {	-- Legeundersøkelse utført av
 								value matches {
 									DV_CODED_TEXT matches {
-										defining_code matches {[ac0001]}		-- New constraint
+										defining_code matches {[ac0001]}		-- *New constraint(nb)
 									}
 								}
 							}
@@ -239,7 +227,7 @@ definition
 									}
 								}
 							}
-							ELEMENT[at0042] occurrences matches {0..1} matches {	-- Andre behandlingsformer enn behandling med legemidler eller ernæring uten eget samtykke
+							ELEMENT[at0042] occurrences matches {0..1} matches {	-- Beskrivelse av evt. andre behandlingsformer enn behandling med legemidler eller ernæring uten eget samtykke
 								value matches {
 									DV_TEXT matches {*}
 								}
@@ -282,7 +270,7 @@ ontology
 				>
 				["at0005"] = <
 					text = <"Pasienten er under TPH">
-					description = <"*">
+					description = <"Marker i sjekkboksen dersom pasienten er under tvungent psykisk helsevern.">
 				>
 				["at0009"] = <
 					text = <"Om manglende samtykke">
@@ -313,7 +301,7 @@ ontology
 					description = <"*">
 				>
 				["at0020"] = <
-					text = <"Nærmere om vedtakstype">
+					text = <"Betegnelse på den/de typer behandling det dreier seg om">
 					description = <"Dersom vedtaket omfatter former for behandling som ikke er dekket av de faste kategorier, skal det angis en betegnelse på den/de typer behandling det dreier seg om.">
 				>
 				["at0021"] = <
@@ -358,7 +346,7 @@ ontology
 				>
 				["at0034"] = <
 					text = <"Forutsetning for oppstart av tvangsernæring">
-					description = <"Kode som angir hvilken forutsetning som må være oppfylt før behandlingen kan starte.">
+					description = <"Hvilken forutsetning som må være oppfylt før behandlingen kan starte.">
 				>
 				["at0035"] = <
 					text = <"Pasienten er informert. Med mindre pasienten inngir klage kan behandlingen starte etter 48 timer.">
@@ -381,7 +369,7 @@ ontology
 					description = <"Den legen som foretok legeundersøkelsen i direkte tilknytning til vedtaket om ernæring uten eget samtykke.">
 				>
 				["at0042"] = <
-					text = <"Andre behandlingsformer enn behandling med legemidler eller ernæring uten eget samtykke">
+					text = <"Beskrivelse av evt. andre behandlingsformer enn behandling med legemidler eller ernæring uten eget samtykke">
 					description = <"Beskrivelse (stikkordsform) av en enkelt form for behandling som er omfattet av vedtaket.">
 				>
 				["at0053"] = <
@@ -414,7 +402,7 @@ ontology
 				>
 				["at0069"] = <
 					text = <"Midlertidig døgnopphold på institusjon som ikke er godkjent for TPH">
-					description = <"Pasienten er på midlertidig døgnopphold på (somatisk) institusjon som ikke er godkjent for tvungent psykisk helsevern, jf. psykisk helsevernloven § 3-5 annet ledd.">
+					description = <"Marker i sjekkboksen dersom pasienten er på midlertidig døgnopphold på (somatisk) institusjon som ikke er godkjent for tvungent psykisk helsevern, jf. psykisk helsevernloven § 3-5 annet ledd.">
 				>
 				["at0070"] = <
 					text = <"Det er forsøkt å oppnå samtykke til undersøkelsen eller behandlingen uten at dette har lyktes">
@@ -438,7 +426,7 @@ ontology
 				>
 				["at0075"] = <
 					text = <"Vedtaket er opphevet og erstattet av nytt vedtak">
-					description = <"*">
+					description = <"Marker i sjekkboksen dersom vedtaket er opphevet og erstattet av nytt vedtak.">
 				>
 				["at0076"] = <
 					text = <"Stilling">
@@ -458,30 +446,6 @@ ontology
 				>
 				["at0080"] = <
 					text = <"Vedtakstype">
-					description = <"*">
-				>
-				["at0081"] = <
-					text = <"Ja">
-					description = <"*">
-				>
-				["at0082"] = <
-					text = <"Nei">
-					description = <"*">
-				>
-				["at0083"] = <
-					text = <"Nei">
-					description = <"*">
-				>
-				["at0084"] = <
-					text = <"Ja">
-					description = <"*">
-				>
-				["at0085"] = <
-					text = <"Nei">
-					description = <"*">
-				>
-				["at0086"] = <
-					text = <"Ja">
 					description = <"*">
 				>
 			>
@@ -510,19 +474,19 @@ ontology
 				>
 				["at0005"] = <
 					text = <"Pasienten er under TPH">
-					description = <"*">
+					description = <"Marker i sjekkboksen dersom pasienten er under tvungent psykisk helsevern.">
 				>
 				["at0009"] = <
 					text = <"Om manglende samtykke">
-					description = <"Kode som angir hvorfor behandlingen ikke kan gjennomføres med pasientens samtykke.">
+					description = <"Hvorfor behandlingen ikke kan gjennomføres med pasientens samtykke.">
 				>
 				["at0012"] = <
 					text = <"Om andre frivillige tiltak">
-					description = <"Kode som angir hvorfor ikke andre frivillige tiltak kan gjennomføres.">
+					description = <"Hvorfor ikke andre frivillige tiltak kan gjennomføres.">
 				>
 				["at0015"] = <
 					text = <"Vedtakstype undersøkelse og behandling uten eget samtykke">
-					description = <"Kode som angir hvilken type vedtak registreringen gjelder.">
+					description = <"Hvilken type vedtak registreringen gjelder.">
 				>
 				["at0016"] = <
 					text = <"Behandling med legemidler uten eget samtykke">
@@ -541,7 +505,7 @@ ontology
 					description = <"*">
 				>
 				["at0020"] = <
-					text = <"Nærmere om vedtakstype">
+					text = <"betegnelse på den/de typer behandling det dreier seg om">
 					description = <"Dersom vedtaket omfatter former for behandling som ikke er dekket av de kategorier som det er mulig å velge ved registrering av vedtakstype, skal det her angis (på stikkordsform) hvilke typer behandling det dreier seg om.">
 				>
 				["at0021"] = <
@@ -566,7 +530,7 @@ ontology
 				>
 				["at0026"] = <
 					text = <"Observasjon før vedtak om tvangsbehandling">
-					description = <"Kodeverk som angir i hvilken grad pasienten har vært under observasjon og undersøkt før vedtak om tvangsbehandling.">
+					description = <"I hvilken grad pasienten har vært under observasjon og undersøkt før vedtak om tvangsbehandling.">
 				>
 				["at0027"] = <
 					text = <"Pasienten er undersøkt og har videre vært under observasjon i minimum tre døgn før vedtak om tvangsbehandling ble fattet">
@@ -609,7 +573,7 @@ ontology
 					description = <"Den legen som foretok legeundersøkelsen i direkte tilknytning til vedtaket om ernæring uten eget samtykke.">
 				>
 				["at0042"] = <
-					text = <"Andre behandlingsformer">
+					text = <"Beskrivelse av evt. andre behandlingsformer enn behandling med legemidler eller ernæring uten eget samtykke">
 					description = <"Beskrivelse (stikkordsform) av annen behandlingsform som er omfattet av vedtaket.">
 				>
 				["at0053"] = <
@@ -618,7 +582,7 @@ ontology
 				>
 				["at0056"] = <
 					text = <"Forutsetning for oppstart av behandling">
-					description = <"Kode som angir hvilken forutsetning som må være oppfylt før behandlingen kan starte.">
+					description = <"Hvilken forutsetning som må være oppfylt før behandlingen kan starte.">
 				>
 				["at0057"] = <
 					text = <"Pasienten er informert. Med mindre pasienten inngir klage kan behandlingen starte etter 48 timer.">
@@ -666,7 +630,7 @@ ontology
 				>
 				["at0075"] = <
 					text = <"Vedtaket er opphevet og erstattet av nytt vedtak">
-					description = <"*">
+					description = <"Marker i sjekkboksen dersom vedtaket er opphevet og erstattet av nytt vedtak.">
 				>
 				["at0076"] = <
 					text = <"Stilling">
@@ -674,7 +638,7 @@ ontology
 				>
 				["at0077"] = <
 					text = <"Begrunnelse for tvangsbehandling">
-					description = <"Kode som angir begrunnelse for å fatte vedtak om undersøkelse/behandling uten eget samtykke.">
+					description = <"Begrunnelse for å fatte vedtak om undersøkelse/behandling uten eget samtykke.">
 				>
 				["at0078"] = <
 					text = <"Behandlingen vil med stor sannsynlighet føre til helbredelse eller vesentlig bedring av pasientens tilstand">
@@ -686,30 +650,6 @@ ontology
 				>
 				["at0080"] = <
 					text = <"Vedtakstype">
-					description = <"*">
-				>
-				["at0081"] = <
-					text = <"Ja">
-					description = <"*">
-				>
-				["at0082"] = <
-					text = <"Nei">
-					description = <"*">
-				>
-				["at0083"] = <
-					text = <"Nei">
-					description = <"*">
-				>
-				["at0084"] = <
-					text = <"Ja">
-					description = <"*">
-				>
-				["at0085"] = <
-					text = <"Nei">
-					description = <"*">
-				>
-				["at0086"] = <
-					text = <"Ja">
 					description = <"*">
 				>
 			>
