@@ -1,0 +1,71 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-EVALUATION.provisional_diagnosis.v1
+
+concept
+	[at0000]	-- Provisional Diagnosis
+language
+	original_language = <[ISO_639-1::en]>
+description
+	original_author = <
+		["name"] = <"Heather Leslie">
+		["organisation"] = <"Ocean Informatics">
+		["email"] = <"heather.leslie@oceaninformatics.com">
+		["date"] = <"2013-02-12">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record the first considered diagnosis of a condition or illness, which may be changed as further information becomes available and analysed. It is used as a working diagnosis until a formal confirmation can be made.">
+			use = <"To record an initial working diagnosis of a condition or illness, which may be changed as further information becomes available and is analysed. A provisional diagnosis is used to set in motion the first stage of treatment and management and may be revised as needed, until a formal diagnosis is confirmed.
+
+This archetype is purposefully designed as a separate concept to the Problem/Diagnosis archetype to ensure that initial, working, or unconfirmed, diagnoses are not mixed with confirmed diagnoses and perpetuated as part of ongoing shared problem lists.">
+			keywords = <"provisional", "diagnosis", "working", "interim", "initial">
+			misuse = <"Not to be used to record a confirmed diagnosis. Use EVALUATION.problem_diagnosis instead.
+
+Not to be used within persisting and long-term Problem lists.">
+			copyright = <"© National E-Health Transition Authority">
+		>
+	>
+	lifecycle_state = <"CommitteeDraft">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <"Heather Leslie, Ocean Informatics, heather.leslie@oceaninformatics.com">
+		["MD5-CAM-1.0.1"] = <"0983E720F62F548A418D09784CB6D6A0">
+	>
+
+definition
+	EVALUATION[at0000] matches {	-- Provisional Diagnosis
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Provisional Diagnosis
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Provisional Diagnosis">
+					description = <"The first considered diagnosis of a condition or illness, which may be changed as further information becomes available and is analysed.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Provisional Diagnosis">
+					description = <"Identification of the initial or working diagnosis.">
+					comment = <"Coding of the problem or diagnosis with a terminology is preferred, where possible.">
+				>
+			>
+		>
+	>
