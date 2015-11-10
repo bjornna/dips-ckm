@@ -20,8 +20,8 @@ description
 	details = <
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"">
-			use = <"">
+			purpose = <"Overføring av pasient som er på TPH">
+			use = <"Brukes både i template/skjema \"Vedtak om overforing til annen institusjon\" og \"Vedtak om overforing mellom tvangsformer\".">
 			misuse = <"">
 			copyright = <"">
 		>
@@ -36,7 +36,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"0E64358207F9C7D9A1768CFDB4ECD040">
+		["MD5-CAM-1.0.1"] = <"D0C4765F5ACFA74F79BC0D463A4E06FD">
 	>
 
 definition
@@ -44,10 +44,10 @@ definition
 		data matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Vedtatt tidspunkt
+					ELEMENT[at0023] occurrences matches {0..1} matches {	-- Dato for etablering av tvungent psykisk helsevern
 						value matches {
-							DV_DATE_TIME matches {
-								value matches {yyyy-mm-ddTHH:??:??}
+							DV_DATE matches {
+								value matches {yyyy-mm-dd}
 							}
 						}
 					}
@@ -63,7 +63,7 @@ definition
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Overføring mellom tvangsformer
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Endring av tvangsform
 						value matches {
 							DV_CODED_TEXT matches {
 								defining_code matches {
@@ -120,6 +120,13 @@ definition
 							DV_TEXT matches {*}
 						}
 					}
+					ELEMENT[at0022] occurrences matches {0..1} matches {	-- Dato vedtak fattet
+						value matches {
+							DV_DATE_TIME matches {
+								value matches {yyyy-mm-ddTHH:??:??}
+							}
+						}
+					}
 					allow_archetype CLUSTER[at0018] occurrences matches {0..*} matches {	-- Vedtakstype (skal skjules)
 						include
 							archetype_id/value matches {/.*/}
@@ -145,10 +152,6 @@ ontology
 					text = <"Tree">
 					description = <"@ internal @">
 				>
-				["at0002"] = <
-					text = <"Vedtatt tidspunkt">
-					description = <"*">
-				>
 				["at0003"] = <
 					text = <"Vedtak TPH gjelder til">
 					description = <"Den dato vedtaket om tvungent psykisk helsevern, evt. siste samtykke av Kontrollomisjonen til forlengelse av dette, gjelder til">
@@ -158,7 +161,7 @@ ontology
 					description = <"*">
 				>
 				["at0005"] = <
-					text = <"Overføring mellom tvangsformer">
+					text = <"Endring av tvangsform">
 					description = <"Kode som angir om vedtaket innebærer en overføring mellom tvangsformer. Standard kodeverk: 9299 ">
 				>
 				["at0006"] = <
@@ -215,7 +218,15 @@ ontology
 				>
 				["at0021"] = <
 					text = <"Helsetjenesteenhet">
-					description = <"">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Dato vedtak fattet">
+					description = <"*">
+				>
+				["at0023"] = <
+					text = <"Dato for etablering av tvungent psykisk helsevern">
+					description = <"*">
 				>
 			>
 		>
@@ -229,10 +240,6 @@ ontology
 					text = <"Tree">
 					description = <"@ internal @">
 				>
-				["at0002"] = <
-					text = <"Vedtatt tidspunkt">
-					description = <"*">
-				>
 				["at0003"] = <
 					text = <"Vedtak TPH gjelder til">
 					description = <"Den dato vedtaket om tvungent psykisk helsevern, evt. siste samtykke av Kontrollomisjonen til forlengelse av dette, gjelder til">
@@ -242,7 +249,7 @@ ontology
 					description = <"*">
 				>
 				["at0005"] = <
-					text = <"Overføring mellom tvangsformer">
+					text = <"Endring av tvangsform">
 					description = <"Kode som angir om vedtaket innebærer en overføring mellom tvangsformer. Standard kodeverk: 9299 ">
 				>
 				["at0006"] = <
@@ -298,8 +305,16 @@ ontology
 					description = <"*">
 				>
 				["at0021"] = <
-					text = <"*Helsetjenesteenhet(nb)">
-					description = <"*(nb)">
+					text = <"Helsetjenesteenhet">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Dato vedtak fattet">
+					description = <"*">
+				>
+				["at0023"] = <
+					text = <"Dato for etablering av tvungent psykisk helsevern">
+					description = <"">
 				>
 			>
 		>
