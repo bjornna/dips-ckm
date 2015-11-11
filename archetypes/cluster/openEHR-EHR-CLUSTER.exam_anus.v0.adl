@@ -2,14 +2,22 @@
 	openEHR-EHR-CLUSTER.exam_anus.v0
 
 concept
-	[at0000]	-- Examination of anus
+	[at0000]	-- Rektaleksplorasjon
 language
 	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
 description
 	original_author = <
 		["name"] = <"Heather Leslie">
-		["organisation"] = <"Ocean Informatics">
 		["email"] = <"heather.leslie@oceaninformatics.com">
+		["organisation"] = <"Ocean Informatics">
 		["date"] = <"2015-07-17">
 	>
 	details = <
@@ -32,80 +40,97 @@ Not to be used for recording the clinical history - use specific OBSERVATION and
 Not to be used to record stand-alone clinical observations or measurements or test results - use specific OBSERVATION archetypes. For example OBSERVATION.blood_pressure or OBSERVATION.imaging_exam.">
 			copyright = <"© openEHR Foundation">
 		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"*For recording a narrative description and clinical interpretation of the findings observed during the physical examination of the anus.(en)">
+			use = <"*Use to record a narrative description of the overall findings observed during the physical examination of the anus. This initial draft archetype consists only of the core examination pattern data elements (as per CLUSTER.exam_pattern) and will likely be expanded further over time as specific clinical requirements are identified.
+
+This archetype has been specifically designed to be used in the 'Examination detail' SLOT within the OBSERVATION.exam archetype, but can also be used within other OBSERVATION or CLUSTER archetypes, where clinically appropriate.
+
+Use to provide a framework in which CLUSTER archetypes can be nested in the 'Examination findings' SLOT to record additional structured physical examination findings. 
+
+The CLUSTER.exclusion_exam archetype can be nested within the 'Examination not done' SLOT to optionally record explicit details about the examination not being performed.
+
+Use to incorporate the narrative descriptions of clinical findings within existing or legacy clinical systems into an archetyped format, using the 'Clinical Description' data element.(en)">
+			misuse = <"*Not to be used for recording data not related to the physical examination of anus.
+
+Not to be used for recording the clinical history - use specific OBSERVATION and CLUSTER archetypes. For example OBSERVATION.story and CLUSTER.symptom.
+
+Not to be used to record stand-alone clinical observations or measurements or test results - use specific OBSERVATION archetypes. For example OBSERVATION.blood_pressure or OBSERVATION.imaging_exam.(en)">
+			copyright = <"*© openEHR Foundation(en)">
+		>
 	>
-	lifecycle_state = <"in_development">
+	lifecycle_state = <"NotSet">
 	other_contributors = <"Silje Ljosland Bakke, Bergen Hospital Trust, Norway", "Ian McNicoll, freshEHR Clinical Informatics, United Kingdom", "John Tore Valand, Haukeland Universitetssjukehus, Norway", "Heather Leslie, Ocean Informatics, Australia">
 	other_details = <
-		["current_contact"] = <"Heather Leslie, Ocean Informatics<heather.leslie@oceaninformatics.com>">
 		["revision"] = <"0.0.1-alpha">
-		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
-		["build_uid"] = <"4345e3df-087a-406c-a689-7b43edef7258">
 		["original_publisher"] = <"openEHR Foundation">
+		["current_contact"] = <"Heather Leslie, Ocean Informatics<heather.leslie@oceaninformatics.com>">
+		["build_uid"] = <"4345e3df-087a-406c-a689-7b43edef7258">
 		["original_namespace"] = <"org.openehr">
-		["MD5-CAM-1.0.1"] = <"E99EB6F303575E8F2113BC4BD0E66A9A">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["MD5-CAM-1.0.1"] = <"AC4777C9E3E53AAA2C1E01BBD2A62701">
 		["custodian_namespace"] = <"org.openehr">
 		["custodian_organisation"] = <"openEHR Foundation">
 	>
 
 definition
-	CLUSTER[at0000] matches {	-- Examination of anus
+	CLUSTER[at0000] matches {	-- Rektaleksplorasjon
 		items cardinality matches {1..*; unordered} matches {
-			ELEMENT[at0002] occurrences matches {0..1} matches {	-- No abnormality detected
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Uten anmerkning
 				value matches {
 					DV_BOOLEAN matches {
 						value matches {True}
 					}
 				}
 			}
-			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Clinical description
+			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Klinisk beskrivelse
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			CLUSTER[at0011] occurrences matches {0..*} matches {	-- Finding
+			CLUSTER[at0011] occurrences matches {0..*} matches {	-- Funn
 				items cardinality matches {1..*; unordered} matches {
-					ELEMENT[at0012] occurrences matches {0..1} matches {	-- Clinical finding
+					ELEMENT[at0012] occurrences matches {0..1} matches {	-- *Clinical finding(en)
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					allow_archetype CLUSTER[at0013] occurrences matches {0..*} matches {	-- Site
+					allow_archetype CLUSTER[at0013] occurrences matches {0..*} matches {	-- *Site(en)
 						include
 							archetype_id/value matches {/openEHR-EHR-CLUSTER\.anatomical_location_clock(-[a-zA-Z0-9_]+)*\.v0/}
 					}
-					ELEMENT[at0014] occurrences matches {0..1} matches {	-- Clinical description
+					ELEMENT[at0014] occurrences matches {0..1} matches {	-- *Clinical description(en)
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
 				}
 			}
-			allow_archetype CLUSTER[at0004] occurrences matches {0..*} matches {	-- Examination findings
+			allow_archetype CLUSTER[at0004] occurrences matches {0..*} matches {	-- Undersøklesesfunn
 				include
 					archetype_id/value matches {/.*/}
 			}
-			allow_archetype CLUSTER[at0005] occurrences matches {0..*} matches {	-- Multimedia representation
+			allow_archetype CLUSTER[at0005] occurrences matches {0..*} matches {	-- Mulktimedia representasjon
 				include
 					archetype_id/value matches {/openEHR-EHR-CLUSTER\.multimedia(-[a-zA-Z0-9_]+)*\.v1/}
 			}
-			ELEMENT[at0006] occurrences matches {0..*} matches {	-- Clinical interpretation
+			ELEMENT[at0006] occurrences matches {0..*} matches {	-- Klinisk interpretasjon
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0007] occurrences matches {0..1} matches {	-- Comment
+			ELEMENT[at0007] occurrences matches {0..1} matches {	-- Kommentar
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			allow_archetype CLUSTER[at0008] occurrences matches {0..*} matches {	-- Examination not done
+			allow_archetype CLUSTER[at0008] occurrences matches {0..*} matches {	-- Undersøkelse ikke gjennomført
 				include
 					archetype_id/value matches {/openEHR-EHR-CLUSTER\.exclusion_exam(-[a-zA-Z0-9_]+)*\.v1/}
 			}
 		}
 	}
-
-
 
 ontology
 	term_definitions = <
@@ -160,6 +185,60 @@ ontology
 				["at0014"] = <
 					text = <"Clinical description">
 					description = <"Narrative description of the identified finding.">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Rektaleksplorasjon">
+					description = <"*Findings observed during the physical examination of anus.(en)">
+				>
+				["at0002"] = <
+					text = <"Uten anmerkning">
+					description = <"*Statement that no abnormality was detected (NAD) on physical examination.(en)">
+					comment = <"*Record as True if no abnormality was detected on examination. Specific statements about the examination can be included in the 'Clinical Interpretation' data element.(en)">
+				>
+				["at0003"] = <
+					text = <"Klinisk beskrivelse">
+					description = <"*Narrative description of the overall findings observed during the physical examination.(en)">
+				>
+				["at0004"] = <
+					text = <"Undersøklesesfunn">
+					description = <"*Structured details about the  physical examination findings.(en)">
+				>
+				["at0005"] = <
+					text = <"Mulktimedia representasjon">
+					description = <"*Digital image, video or diagram representing the physical examination findings.(en)">
+				>
+				["at0006"] = <
+					text = <"Klinisk interpretasjon">
+					description = <"*Single word, phrase or brief description that represents the clinical meaning and significance of the physical examination findings.(en)">
+				>
+				["at0007"] = <
+					text = <"Kommentar">
+					description = <"*Additional narrative about the physical examination findings, not captured in other fields.(en)">
+				>
+				["at0008"] = <
+					text = <"Undersøkelse ikke gjennomført">
+					description = <"*Details to explicitly record that this examination was not performed.(en)">
+				>
+				["at0011"] = <
+					text = <"Funn">
+					description = <"*Description of findings at the anus.(en)">
+				>
+				["at0012"] = <
+					text = <"*Clinical finding(en)">
+					description = <"*Identification of the the finding, by name.(en)">
+					comment = <"*For example: haemorrhoid; fissure.(en)">
+				>
+				["at0013"] = <
+					text = <"*Site(en)">
+					description = <"*Record of the site of the finding at the anus.(en)">
+				>
+				["at0014"] = <
+					text = <"*Clinical description(en)">
+					description = <"*Narrative description of the identified finding.(en)">
 				>
 			>
 		>
