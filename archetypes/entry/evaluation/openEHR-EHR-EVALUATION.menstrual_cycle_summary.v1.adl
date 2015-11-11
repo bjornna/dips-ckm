@@ -1,0 +1,89 @@
+﻿archetype (adl_version=1.4; uid=1216e7ff-b88d-40e7-a304-b1838095319c)
+	openEHR-EHR-EVALUATION.menstrual_cycle_summary.v1
+
+concept
+	[at0000]	-- Menstrual cycle summary
+language
+	original_language = <[ISO_639-1::en]>
+description
+	original_author = <
+		["name"] = <"Heather Leslie">
+		["email"] = <"heather.leslie@oceaninformatics.com">
+		["organisation"] = <"Ocean Informatics, Australia">
+		["date"] = <"9/03/2011">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record an overview of the significant events related to menstrual cycle events.">
+			use = <"Use to record significant events related to the menstrual history.">
+			keywords = <"menstruation", "menstrual", "cycle", "period", "menarche", "menopause", "LNMP">
+			misuse = <"Not to be used to record information about menses or related symptoms for a specific menstrual cycle or pattern over multiple cycles. Use OBSERVATION.menstrual_cycle for this purpose.">
+			copyright = <"© Nasjonal IKT HF">
+		>
+	>
+	lifecycle_state = <"NotSet">
+	other_contributors = <"Sam Heard, Ocean Informatics, Australia", ...>
+	other_details = <
+		["revision"] = <"0.0.1-alpha">
+		["original_publisher"] = <"Nasjonal IKT">
+		["build_uid"] = <"02d68d8a-9e8f-4d2b-a30a-bf258b8fd9cb">
+		["original_namespace"] = <"no.nasjonalikt">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["MD5-CAM-1.0.1"] = <"06474735DC43578946D23AF4EB9508DE">
+		["custodian_namespace"] = <"no.nasjonalikt">
+		["custodian_organisation"] = <"Nasjonal IKT">
+	>
+
+definition
+	EVALUATION[at0000] matches {	-- Menstrual cycle summary
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Menarche
+						value matches {
+							DV_DATE matches {*}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Last normal menstrual period (LNMP)
+						value matches {
+							DV_DATE matches {*}
+						}
+					}
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Menopause
+						value matches {
+							DV_DATE matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Menstrual cycle summary">
+					description = <"Summary of significant menstrual cycle events.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Menarche">
+					description = <"Date of onset of first menstrual cycle. Partial dates, such as year only or year and month are allowed.">
+				>
+				["at0003"] = <
+					text = <"Last normal menstrual period (LNMP)">
+					description = <"Date of the onset of the last normal menstrual period. Useful to persist for calculations including estimated date of confinement in pregnancy, or to distinguish the latest typical menstrual cycle when there is an irregular menstrual pattern.">
+				>
+				["at0004"] = <
+					text = <"Menopause">
+					description = <"Onset of Menopause. Partial dates, such as year only or year and month are allowed.">
+				>
+			>
+		>
+	>
