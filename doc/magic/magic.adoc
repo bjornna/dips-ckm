@@ -1,0 +1,597 @@
+= Magic Archetypes and Queries
+Doc writer <bna@dips.no>
+v1.0, 2014-08-17
+:toc:
+:lab-test-crp: openEHR-EHR-OBSERVATION.lab_test-crp.v1
+:lab-test-full-blood: openEHR-EHR-OBSERVATION.lab_test-full_blood_count.v1
+:lab-test-urea: openEHR-EHR-OBSERVATION.lab_test-urea_and_electrolytes.v1
+:lab-test-glucose: openEHR-EHR-OBSERVATION.lab_test-blood_glucose.v1
+:lab-test-liver: openEHR-EHR-OBSERVATION.lab_test-liver_function.v1
+:lab-test-d-dimer: openEHR-EHR-OBSERVATION.lab_test-d_dimer.v1
+:body-temp: openEHR-EHR-OBSERVATION.body_temperature.v1
+
+{toc}
+
+== DIPS Magic
+DIPS Magic is an integration with http://www.magicapp.org[Magic App]. This is a resource of evidence based knowledge. Tha guidelines and recommendation contains structured data that opens for integration with DIPS Arena.
+
+This is the documenation of integration between EMR variables in MagicApp and openEHR archetypes. The integration is baed on AQL queries.
+
+
+
+=== Supported EMR variables
+
+
+
+
+=== Patients
+These are the demo patients used.
+
+,====
+Pasient, Født, NPR-id, EHR-id
+Kristin Ranestad , 10.04.1980 , 2012902 , http://vt-teambuktu01:8081/rest/v1/ehr/9ad8ecbf-9f4b-4af7-a5ba-a5e9225af1a2[9ad8ecbf-9f4b-4af7-a5ba-a5e9225af1a2]
+Ann Karin Steen , 07.04.1959 , 2012904 , http://vt-teambuktu01:8081/rest/v1/ehr/87f468e0-f4b6-4c4d-811d-ed271cced3b0[87f468e0-f4b6-4c4d-811d-ed271cced3b0]
+Erik Øie , 16.11.1938 , 2012906 , http://vt-teambuktu01:8081/rest/v1/ehr/9bbfe019-0485-406f-a260-b96ba03ed69f[9bbfe019-0485-406f-a260-b96ba03ed69f]
+,====
+
+== Score
+
+=== CHADSVAS
+
+*AQL*
+
+http://vt-teambuktu01:9000/api/Query?aql=SELECT%20%20%20a%2Fdata%5Bat0002%5D%2Fevents%5Bat0003%5D%2Ftime%20as%20DateTime%2C%20%20%20a%2Fdata%5Bat0002%5D%2Fevents%5Bat0003%5D%2Fdata%5Bat0001%5D%2Fitems%5Bat0099%5D%2Fvalue%20as%20Result%20FROM%20EHR%20e%5Behr_id%2Fvalue%3D'9bbfe019-0485-406f-a260-b96ba03ed69f'%5D%20CONTAINS%20OBSERVATION%20a%5BopenEHR-EHR-OBSERVATION.chadsvas_score.v1%5D%20ORDER%20BY%20a%2Fdata%5Bat0002%5D%2Fevents%5Bat0003%5D%2Ftime%20DESC%20FETCH%201[Try it out!]
+
+[source, Ruby]
+----
+SELECT
+  a/data[at0002]/events[at0003]/time as DateTime,
+  a/data[at0002]/events[at0003]/data[at0001]/items[at0099]/value as Result
+FROM EHR e[ehr_id/value='9bbfe019-0485-406f-a260-b96ba03ed69f']
+CONTAINS OBSERVATION a[openEHR-EHR-OBSERVATION.chadsvas_score.v1]
+ORDER BY a/data[at0002]/events[at0003]/time DESC
+FETCH 1
+----
+
+
+[source, JSON]
+----
+{
+  "resultSet": [
+    {
+      "DateTime": {
+        "value": "2014-08-18T10:15:33.0+02:00"
+      },
+      "Result": {
+        "magnitude": 2,
+        "other_reference_ranges": [],
+        "magnitude_status": "="
+      }
+    }
+  ]
+}
+----
+
+=== BMI
+
+*AQL*
+
+http://vt-teambuktu01:9000/api/Query?aql=SELECT%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Ftime%20as%20DateTime%2C%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0004%5D%2Fvalue%20as%20Result%20FROM%20EHR%20e%5Behr_id%2Fvalue%3D'9bbfe019-0485-406f-a260-b96ba03ed69f'%5D%20CONTAINS%20OBSERVATION%20a%5BopenEHR-EHR-OBSERVATION.body_mass_index.v1%5D%20ORDER%20BY%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Ftime%20DESC%20FETCH%201[Try it out!]
+
+[source, Ruby]
+----
+SELECT
+  a/data[at0001]/events[at0002]/time as DateTime,
+  a/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value as Result
+FROM EHR e[ehr_id/value='9bbfe019-0485-406f-a260-b96ba03ed69f']
+CONTAINS OBSERVATION a[openEHR-EHR-OBSERVATION.body_mass_index.v1]
+ORDER BY a/data[at0001]/events[at0002]/time DESC
+FETCH 1
+----
+
+
+== Laboratory
+
+
+=== Leukocytter
+Hvite blodceller/leukocytter is defined in {lab-test-full-blood}, defined by white cell count.
+
+*AQL*
+
+http://vt-teambuktu01:9000/api/Query?aql=SELECT%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Ftime%20as%20DateTime%2C%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0078.13%5D%2Fvalue%20as%20Result%20FROM%20EHR%20e%5Behr_id%2Fvalue%3D'9ad8ecbf-9f4b-4af7-a5ba-a5e9225af1a2'%5D%20CONTAINS%20OBSERVATION%20a%5BopenEHR-EHR-OBSERVATION.lab_test-full_blood_count.v1%5D%20WHERE%20(%20%20%20%20%20%20%20%20%20(%20%20%20%20%20%20%20%20%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0078.13%5D%2Fvalue%2Fmagnitude%20%3E%200%20%20%20%20%20%20%20%20%20%20%20AND%20%20%20%20%20%20%20%20%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0078.13%5D%2Fvalue%2Funits%3D'10*9%2Fl'%20%20%20%20%20%20%20%20%20)%20%20%20%20%20%20%20)%20ORDER%20BY%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Ftime%20DESC%20FETCH%201[Try it out!]
+[source, Ruby]
+----
+SELECT
+  a/data[at0001]/events[at0002]/time as DateTime,
+  a/data[at0001]/events[at0002]/data[at0003]/items[at0078.13]/value as Result
+FROM EHR e[ehr_id/value='9ad8ecbf-9f4b-4af7-a5ba-a5e9225af1a2']
+CONTAINS OBSERVATION a[openEHR-EHR-OBSERVATION.lab_test-full_blood_count.v1]
+WHERE (
+        (
+          a/data[at0001]/events[at0002]/data[at0003]/items[at0078.13]/value/magnitude > 0
+          AND
+          a/data[at0001]/events[at0002]/data[at0003]/items[at0078.13]/value/units='10*9/l'
+        )
+      )
+ORDER BY a/data[at0001]/events[at0002]/time DESC
+FETCH 1
+----
+
+
+
+
+Resultatet på spørringen vil se slik ut i JSON format.
+
+[source, JSON]
+----
+{
+  "resultSet": [
+    {
+      "DateTime": {
+        "value": "2014-08-18T07:56:00.0+02:00"
+      },
+      "Result": {
+        "magnitude": 10.6,
+        "units": "10*9/l",
+        "precision": 0,
+        "other_reference_ranges": [],
+        "magnitude_status": "="
+      }
+    }
+  ]
+}
+----
+
+XML representasjon av responsen ser slik ut:
+
+[source, XML]
+----
+<resultSet xmlns="http://www.w3.org/2001/XMLSchema-instance">
+  <name/>
+  <totalResults>1</totalResults>
+  <columns>
+    <name>DateTime</name>
+    <path/>
+  </columns>
+  <columns>
+    <name>Result</name>
+    <path/>
+  </columns>
+  <rows>
+    <row>
+      <items p4:type="DV_DATE_TIME" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.openehr.org/v1">
+        <magnitude_status>=</magnitude_status>
+        <value>2014-08-18T07:56:00.0+02:00</value>
+      </items>
+      <items p4:type="DV_QUANTITY" xmlns:p4="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.openehr.org/v1">
+        <magnitude_status>=</magnitude_status>
+        <magnitude>10.6</magnitude>
+        <units>10*9/l</units>
+        <precision>0</precision>
+      </items>
+    </row>
+  </rows>
+  <head/>
+</resultSet>
+----
+
+
+=== Trombocytter
+
+{lab-test-full-blood}, defined by element platelet count
+
+*AQL*
+
+http://vt-teambuktu01:9000/api/Query?aql=SELECT%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Ftime%20as%20DateTime%2C%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0078.12%5D%2Fvalue%20as%20Result%20FROM%20EHR%20e%5Behr_id%2Fvalue%3D'9ad8ecbf-9f4b-4af7-a5ba-a5e9225af1a2'%5D%20CONTAINS%20OBSERVATION%20a%5BopenEHR-EHR-OBSERVATION.lab_test-full_blood_count.v1%5D%20WHERE%20(%20%20%20%20%20%20%20%20%20(%20%20%20%20%20%20%20%20%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0078.12%5D%2Fvalue%2Fmagnitude%20%3E%200%20%20%20%20%20%20%20%20%20%20%20AND%20%20%20%20%20%20%20%20%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0078.12%5D%2Fvalue%2Funits%3D'10*9%2Fl'%20%20%20%20%20%20%20%20%20)%20%20%20%20%20%20%20)%20ORDER%20BY%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Ftime%20DESC%20FETCH%201[Try it out!]
+
+[source, Ruby]
+----
+SELECT
+  a/data[at0001]/events[at0002]/time as DateTime,
+  a/data[at0001]/events[at0002]/data[at0003]/items[at0078.12]/value as Result
+FROM EHR e[ehr_id/value='9ad8ecbf-9f4b-4af7-a5ba-a5e9225af1a2']
+CONTAINS OBSERVATION a[openEHR-EHR-OBSERVATION.lab_test-full_blood_count.v1]
+WHERE (
+        (
+          a/data[at0001]/events[at0002]/data[at0003]/items[at0078.12]/value/magnitude > 0
+          AND
+          a/data[at0001]/events[at0002]/data[at0003]/items[at0078.12]/value/units='10*9/l'
+        )
+      )
+ORDER BY a/data[at0001]/events[at0002]/time DESC
+FETCH 1
+----
+
+
+
+
+=== Senkning
+
+Senkning is defined in {lab-test-full-blood}, defined by erythorcyte sedimentation rate (ESR)
+*AQL*
+
+http://vt-teambuktu01:9000/api/Query?aql=SELECT%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Ftime%20as%20DateTime%2C%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0078.11%5D%2Fvalue%20as%20Result%20FROM%20EHR%20e%5Behr_id%2Fvalue%3D'9ad8ecbf-9f4b-4af7-a5ba-a5e9225af1a2'%5D%20CONTAINS%20OBSERVATION%20a%5BopenEHR-EHR-OBSERVATION.lab_test-full_blood_count.v1%5D%20WHERE%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0078.11%5D%2Fvalue%2Fmagnitude%20%3E%200%20ORDER%20BY%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Ftime%20DESC%20FETCH%201[Try it out!]
+
+[source, Ruby]
+----
+SELECT
+  a/data[at0001]/events[at0002]/time as DateTime,
+  a/data[at0001]/events[at0002]/data[at0003]/items[at0078.11]/value as Result
+FROM EHR e[ehr_id/value='9ad8ecbf-9f4b-4af7-a5ba-a5e9225af1a2']
+CONTAINS OBSERVATION a[openEHR-EHR-OBSERVATION.lab_test-full_blood_count.v1]
+WHERE a/data[at0001]/events[at0002]/data[at0003]/items[at0078.11]/value/magnitude > 0
+ORDER BY a/data[at0001]/events[at0002]/time DESC
+FETCH 1
+----
+
+
+=== Natrium / Sodium
+
+Natrium :: {lab-test-urea}, defined by element *sodium*.
+
+*AQL*
+
+http://vt-teambuktu01:9000/api/Query?aql=SELECT%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Ftime%20as%20DateTime%2C%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0078.5%5D%2Fvalue%20as%20Result%20FROM%20EHR%20e%5Behr_id%2Fvalue%3D'9ad8ecbf-9f4b-4af7-a5ba-a5e9225af1a2'%5D%20CONTAINS%20OBSERVATION%20a%5BopenEHR-EHR-OBSERVATION.lab_test-urea_and_electrolytes.v1%5D%20WHERE%20(%20%20%20%20%20%20%20%20%20(%20%20%20%20%20%20%20%20%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0078.5%5D%2Fvalue%2Fmagnitude%20%3E%200%20%20%20%20%20%20%20%20%20%20%20AND%20%20%20%20%20%20%20%20%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0078.5%5D%2Fvalue%2Funits%3D'mmol%2Fl'%20%20%20%20%20%20%20%20%20)%20%20%20%20%20%20%20)%20ORDER%20BY%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Ftime%20DESC%20FETCH%201[Try it out!]
+
+[source, Ruby]
+----
+SELECT
+  a/data[at0001]/events[at0002]/time as DateTime,
+  a/data[at0001]/events[at0002]/data[at0003]/items[at0078.5]/value as Result
+FROM EHR e[ehr_id/value='9ad8ecbf-9f4b-4af7-a5ba-a5e9225af1a2']
+CONTAINS OBSERVATION a[openEHR-EHR-OBSERVATION.lab_test-urea_and_electrolytes.v1]
+WHERE (
+        (
+          a/data[at0001]/events[at0002]/data[at0003]/items[at0078.5]/value/magnitude > 0
+          AND
+          a/data[at0001]/events[at0002]/data[at0003]/items[at0078.5]/value/units='mmol/l'
+        )
+      )
+ORDER BY a/data[at0001]/events[at0002]/time DESC
+FETCH 1
+----
+
+
+
+=== Kalium / Potassium
+{lab-test-urea}, defined by element potassium.
+
+*AQL*
+
+http://vt-teambuktu01:9000/api/Query?aql=SELECT%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Ftime%20as%20DateTime%2C%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0078.4%5D%2Fvalue%20as%20Result%20FROM%20EHR%20e%5Behr_id%2Fvalue%3D%279ad8ecbf-9f4b-4af7-a5ba-a5e9225af1a2%27%5D%20CONTAINS%20OBSERVATION%20a%5BopenEHR-EHR-OBSERVATION.lab_test-urea_and_electrolytes.v1%5D%20WHERE%20(%20%20%20%20%20%20%20%20%20(%20%20%20%20%20%20%20%20%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0078.4%5D%2Fvalue%2Fmagnitude%20%3E%200%20%20%20%20%20%20%20%20%20%20%20AND%20%20%20%20%20%20%20%20%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0078.4%5D%2Fvalue%2Funits%3D%27mmol%2Fl%27%20%20%20%20%20%20%20%20%20)%20%20%20%20%20%20%20)%20ORDER%20BY%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Ftime%20DESC%20FETCH%201[Try it]
+
+
+[source, Ruby]
+----
+SELECT
+  a/data[at0001]/events[at0002]/time as DateTime,
+  a/data[at0001]/events[at0002]/data[at0003]/items[at0078.4]/value as Result
+FROM EHR e[ehr_id/value='9ad8ecbf-9f4b-4af7-a5ba-a5e9225af1a2']
+CONTAINS OBSERVATION a[openEHR-EHR-OBSERVATION.lab_test-urea_and_electrolytes.v1]
+WHERE (
+        (
+          a/data[at0001]/events[at0002]/data[at0003]/items[at0078.4]/value/magnitude > 0
+          AND
+          a/data[at0001]/events[at0002]/data[at0003]/items[at0078.4]/value/units='mmol/l'
+        )
+      )
+ORDER BY a/data[at0001]/events[at0002]/time DESC
+FETCH 1
+----
+
+
+
+=== Kreatinin
+
+{lab-test-urea}, defined by element creatinin
+
+*AQL*
+
+http://vt-teambuktu01:9000/api/Query?aql=SELECT%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Ftime%20as%20DateTime%2C%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0078.7%5D%2Fvalue%20as%20Result%20FROM%20EHR%20e%5Behr_id%2Fvalue%3D'9ad8ecbf-9f4b-4af7-a5ba-a5e9225af1a2'%5D%20CONTAINS%20OBSERVATION%20a%5BopenEHR-EHR-OBSERVATION.lab_test-urea_and_electrolytes.v1%5D%20WHERE%20(%20%20%20%20%20%20%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0078.7%5D%2Fvalue%2Fmagnitude%20%3E%200%20%20%20%20%20%20%20)%20ORDER%20BY%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Ftime%20DESC%20FETCH%201[Try it out!]
+
+
+[source, Ruby]
+----
+SELECT
+  a/data[at0001]/events[at0002]/time as DateTime,
+  a/data[at0001]/events[at0002]/data[at0003]/items[at0078.7]/value as Result
+FROM EHR e[ehr_id/value='9ad8ecbf-9f4b-4af7-a5ba-a5e9225af1a2']
+CONTAINS OBSERVATION a[openEHR-EHR-OBSERVATION.lab_test-urea_and_electrolytes.v1]
+WHERE (
+        a/data[at0001]/events[at0002]/data[at0003]/items[at0078.7]/value/magnitude > 0
+      )
+ORDER BY a/data[at0001]/events[at0002]/time DESC
+FETCH 1
+----
+
+
+
+=== D-dimer
+
+*AQL*
+
+http://vt-teambuktu01:9000/api/Query?aql=SELECT%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Ftime%20as%20DateTime%2C%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0078.1%5D%2Fvalue%20as%20Result%20FROM%20EHR%20e%5Behr_id%2Fvalue%3D%279ad8ecbf-9f4b-4af7-a5ba-a5e9225af1a2%27%5D%20CONTAINS%20OBSERVATION%20a%5BopenEHR-EHR-OBSERVATION.lab_test-d_dimer.v1%5D%20WHERE%20(%20%20%20(%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0078.1%5D%2Fvalue%2Fmagnitude%20%3E%200%20%20%20%20%20AND%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0078.1%5D%2Fvalue%2Funits%3D%27mg%2Fl%27%20%20%20)%20)%20%20ORDER%20BY%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Ftime%20DESC%20FETCH%201[Try it out!]
+
+
+[source, Ruby]
+----
+SELECT a/data[at0001]/events[at0002]/time as DateTime,
+a/data[at0001]/events[at0002]/data[at0003]/items[at0078.1]/value as Result
+FROM EHR e[ehr_id/value='9ad8ecbf-9f4b-4af7-a5ba-a5e9225af1a2']
+CONTAINS OBSERVATION a[openEHR-EHR-OBSERVATION.lab_test-d_dimer.v1]
+WHERE
+(
+  (
+  a/data[at0001]/events[at0002]/data[at0003]/items[at0078.1]/value/magnitude > 0
+    AND
+  a/data[at0001]/events[at0002]/data[at0003]/items[at0078.1]/value/units='mg/l'
+  )
+)
+
+ORDER BY a/data[at0001]/events[at0002]/time DESC
+FETCH 1
+----
+
+
+
+=== Hb
+Hb :: {lab-test-full-blood}, defined by element HB
+
+*AQL*
+
+http://vt-teambuktu01:9000/api/Query?aql=SELECT%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Ftime%20as%20DateTime%2C%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0078.4%5D%2Fvalue%20as%20Result%20FROM%20EHR%20e%5Behr_id%2Fvalue%3D'9ad8ecbf-9f4b-4af7-a5ba-a5e9225af1a2'%5D%20CONTAINS%20OBSERVATION%20a%5BopenEHR-EHR-OBSERVATION.lab_test-full_blood_count.v1%5D%20WHERE%20(%20%20%20%20%20%20%20%20%20(%20%20%20%20%20%20%20%20%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0078.4%5D%2Fvalue%2Fmagnitude%20%3E%200%20%20%20%20%20%20%20%20%20%20%20AND%20%20%20%20%20%20%20%20%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0078.4%5D%2Fvalue%2Funits%3D'gm%2Fl'%20%20%20%20%20%20%20%20%20)%20%20%20%20%20%20%20)%20ORDER%20BY%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Ftime%20DESC%20FETCH%201[Try it out!]
+
+[source, Ruby]
+----
+SELECT
+  a/data[at0001]/events[at0002]/time as DateTime,
+  a/data[at0001]/events[at0002]/data[at0003]/items[at0078.4]/value as Result
+FROM EHR e[ehr_id/value='9ad8ecbf-9f4b-4af7-a5ba-a5e9225af1a2']
+CONTAINS OBSERVATION a[openEHR-EHR-OBSERVATION.lab_test-full_blood_count.v1]
+WHERE (
+        (
+          a/data[at0001]/events[at0002]/data[at0003]/items[at0078.4]/value/magnitude > 0
+          AND
+          a/data[at0001]/events[at0002]/data[at0003]/items[at0078.4]/value/units='gm/l'
+        )
+      )
+ORDER BY a/data[at0001]/events[at0002]/time DESC
+FETCH 1
+----
+
+
+
+=== ALAT
+ALAT is defined in archetype {lab-test-liver} int the field Alanine Aminitransferase.
+
+*AQL*
+
+http://vt-teambuktu01:9000/api/Query?aql=SELECT%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Ftime%20as%20DateTime%2C%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0078.1%5D%2Fvalue%20as%20Result%20FROM%20EHR%20e%5Behr_id%2Fvalue%3D%279ad8ecbf-9f4b-4af7-a5ba-a5e9225af1a2%27%5D%20CONTAINS%20OBSERVATION%20a%5BopenEHR-EHR-OBSERVATION.lab_test-liver_function.v1%5D%20WHERE%20(%20%20%20%20%20%20%20%20%20(%20%20%20%20%20%20%20%20%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0078.1%5D%2Fvalue%2Fmagnitude%20%3E%200%20%20%20%20%20%20%20%20%20%20%20AND%20%20%20%20%20%20%20%20%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0078.1%5D%2Fvalue%2Funits%3D%27U%2Fl%27%20%20%20%20%20%20%20%20%20)%20%20%20%20%20%20%20)%20ORDER%20BY%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Ftime%20DESC%20FETCH%201[Try it out!]
+
+[source, Ruby]
+----
+SELECT
+  a/data[at0001]/events[at0002]/time as DateTime,
+  a/data[at0001]/events[at0002]/data[at0003]/items[at0078.1]/value as Result
+FROM EHR e[ehr_id/value='9ad8ecbf-9f4b-4af7-a5ba-a5e9225af1a2']
+CONTAINS OBSERVATION a[openEHR-EHR-OBSERVATION.lab_test-liver_function.v1]
+WHERE (
+        (
+          a/data[at0001]/events[at0002]/data[at0003]/items[at0078.1]/value/magnitude > 0
+          AND
+          a/data[at0001]/events[at0002]/data[at0003]/items[at0078.1]/value/units='U/l'
+        )
+      )
+ORDER BY a/data[at0001]/events[at0002]/time DESC
+FETCH 1
+----
+
+
+
+
+=== CRP
+CRP is saved in the archetype {lab-test-crp}
+
+
+*AQL*
+
+http://vt-teambuktu01:9000/api/Query?aql=SELECT%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Ftime%20as%20DateTime%2C%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0078.1%5D%2Fvalue%20as%20Result%20FROM%20EHR%20e%5Behr_id%2Fvalue%3D'298206f3-0246-4ce2-b7eb-f61f10ccc0ea'%5D%20CONTAINS%20OBSERVATION%20a%5BopenEHR-EHR-OBSERVATION.lab_test-crp.v1%5D%20ORDER%20BY%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Ftime%20DESC%20FETCH%201[Try it out!]
+
+
+[source, Ruby]
+----
+SELECT
+  a/data[at0001]/events[at0002]/time as DateTime,
+  a/data[at0001]/events[at0002]/data[at0003]/items[at0078.1]/value as Result
+FROM EHR e[ehr_id/value='298206f3-0246-4ce2-b7eb-f61f10ccc0ea']
+CONTAINS OBSERVATION a[openEHR-EHR-OBSERVATION.lab_test-crp.v1]
+ORDER BY a/data[at0001]/events[at0002]/time DESC
+FETCH 1
+----
+
+
+=== Glucose
+Glucose is defined in archetype {lab-test-glucose}.
+
+*AQL*
+
+http://vt-teambuktu01:9000/api/Query?aql=SELECT%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Ftime%20as%20DateTime%2C%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0078.2%5D%2Fvalue%20as%20Result%20FROM%20EHR%20e%5Behr_id%2Fvalue%3D'298206f3-0246-4ce2-b7eb-f61f10ccc0ea'%5D%20CONTAINS%20OBSERVATION%20a%5BopenEHR-EHR-OBSERVATION.lab_test-blood_glucose.v1%5D%20WHERE%20(%20%20%20%20%20%20%20%20%20(%20%20%20%20%20%20%20%20%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0078.2%5D%2Fvalue%2Fmagnitude%20%3E%200%20%20%20%20%20%20%20%20%20%20%20AND%20%20%20%20%20%20%20%20%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0078.2%5D%2Fvalue%2Funits%3D'mmol%2Fl'%20%20%20%20%20%20%20%20%20)%20%20%20%20%20%20%20)%20ORDER%20BY%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Ftime%20DESC%20FETCH%201[Try it out!]
+
+
+[source, Ruby]
+----
+SELECT
+  a/data[at0001]/events[at0002]/time as DateTime,
+  a/data[at0001]/events[at0002]/data[at0003]/items[at0078.2]/value as Result
+FROM EHR e[ehr_id/value='298206f3-0246-4ce2-b7eb-f61f10ccc0ea']
+CONTAINS OBSERVATION a[openEHR-EHR-OBSERVATION.lab_test-blood_glucose.v1]
+WHERE (
+        (
+          a/data[at0001]/events[at0002]/data[at0003]/items[at0078.2]/value/magnitude > 0
+          AND
+          a/data[at0001]/events[at0002]/data[at0003]/items[at0078.2]/value/units='mmol/l'
+        )
+      )
+ORDER BY a/data[at0001]/events[at0002]/time DESC
+FETCH 1
+----
+
+
+== Observations
+
+=== Bodytemperature
+Bodytemperature is defined in archetype *{body-temp}*
+
+http://vt-teambuktu01:9000/api/Query?aql=SELECT%20%20%20a%2Fdata%5Bat0002%5D%2Fevents%5Bat0003%5D%2Ftime%20as%20DateTime%2C%20%20%20a%2Fdata%5Bat0002%5D%2Fevents%5Bat0003%5D%2Fdata%5Bat0001%5D%2Fitems%5Bat0004%5D%2Fvalue%20as%20Result%20FROM%20EHR%20e%5Behr_id%2Fvalue%3D'9ad8ecbf-9f4b-4af7-a5ba-a5e9225af1a2'%5D%20CONTAINS%20OBSERVATION%20a%5BopenEHR-EHR-OBSERVATION.body_temperature.v1%5D%20ORDER%20BY%20a%2Fdata%5Bat0002%5D%2Fevents%5Bat0003%5D%2Ftime%20DESC%20FETCH%201[Try it out!]
+
+
+[source, Ruby]
+----
+SELECT
+  a/data[at0002]/events[at0003]/time as DateTime,
+  a/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value as Result
+FROM EHR e[ehr_id/value='9ad8ecbf-9f4b-4af7-a5ba-a5e9225af1a2']
+CONTAINS OBSERVATION a[openEHR-EHR-OBSERVATION.body_temperature.v1]
+ORDER BY a/data[at0002]/events[at0003]/time DESC
+FETCH 1
+----
+
+
+=== Bodyweight
+
+AQL
+
+http://vt-teambuktu01:9000/api/Query?aql=SELECT%20a%2Fdata%5Bat0002%5D%2Fevents%5Bat0003%5D%2Ftime%20as%20DateTime%2C%20a%2Fdata%5Bat0002%5D%2Fevents%5Bat0003%5D%2Fdata%5Bat0001%5D%2Fitems%5Bat0004%5D%2Fvalue%20as%20Result%20FROM%20EHR%20e%5Behr_id%2Fvalue%3D'9ad8ecbf-9f4b-4af7-a5ba-a5e9225af1a2'%5D%20CONTAINS%20OBSERVATION%20a%5BopenEHR-EHR-OBSERVATION.body_weight.v1%5D%20ORDER%20BY%20a%2Fdata%5Bat0002%5D%2Fevents%5Bat0003%5D%2Ftime%20DESC%20FETCH%201[Try it out!]
+
+
+[source, Ruby]
+----
+SELECT
+a/data[at0002]/events[at0003]/time as DateTime,
+a/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value as Result
+FROM EHR e[ehr_id/value='9ad8ecbf-9f4b-4af7-a5ba-a5e9225af1a2']
+CONTAINS OBSERVATION a[openEHR-EHR-OBSERVATION.body_weight.v1]
+ORDER BY a/data[at0002]/events[at0003]/time DESC
+FETCH 1
+----
+
+
+
+=== Height and Length
+
+*AQL*
+
+http://vt-teambuktu01:9000/api/Query?aql=SELECT%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Ftime%20as%20DateTime%20%2C%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0004%5D%2Fvalue%20as%20Result%20FROM%20EHR%20e%5Behr_id%2Fvalue%3D'9ad8ecbf-9f4b-4af7-a5ba-a5e9225af1a2'%5D%20CONTAINS%20OBSERVATION%20a%5BopenEHR-EHR-OBSERVATION.height.v1%5D%20ORDER%20BY%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Ftime%20DESC%20FETCH%201[Try it out!]
+
+[source, Ruby]
+----
+SELECT
+ a/data[at0001]/events[at0002]/time as DateTime ,
+ a/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value as Result
+FROM EHR e[ehr_id/value='9ad8ecbf-9f4b-4af7-a5ba-a5e9225af1a2']
+CONTAINS OBSERVATION a[openEHR-EHR-OBSERVATION.height.v1]
+ORDER BY a/data[at0001]/events[at0002]/time DESC
+FETCH 1
+----
+
+
+
+=== Blood Pressure
+
+*AQL*
+
+http://vt-teambuktu01:9000/api/Query?aql=SELECT%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0006%5D%2Ftime%20as%20DateTime%2C%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0006%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0004%5D%2Fvalue%20as%20Systolic%2C%20%20%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0006%5D%2Fdata%5Bat0003%5D%2Fitems%5Bat0005%5D%2Fvalue%20as%20Diastolic%20%20FROM%20EHR%20e%5Behr_id%2Fvalue%3D'9ad8ecbf-9f4b-4af7-a5ba-a5e9225af1a2'%5D%20%20CONTAINS%20OBSERVATION%20a%5BopenEHR-EHR-OBSERVATION.blood_pressure.v1%5D%20ORDER%20BY%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0006%5D%2Ftime%20DESC%20FETCH%201[Try it out!]
+
+
+[source, Ruby]
+----
+SELECT
+  a/data[at0001]/events[at0006]/time as DateTime,
+  a/data[at0001]/events[at0006]/data[at0003]/items[at0004]/value as Systolic,
+  a/data[at0001]/events[at0006]/data[at0003]/items[at0005]/value as Diastolic
+
+FROM EHR e[ehr_id/value='9ad8ecbf-9f4b-4af7-a5ba-a5e9225af1a2']
+
+CONTAINS OBSERVATION a[openEHR-EHR-OBSERVATION.blood_pressure.v1]
+ORDER BY a/data[at0001]/events[at0006]/time DESC
+FETCH 1
+----
+
+
+
+=== Pulse
+
+Pulse is defined in archetype ECG,*openEHR-EHR-OBSERVATION.ecg.v1*.
+
+*AQL*
+
+http://vt-teambuktu01:9000/api/Query?aql=SELECT%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Ftime%20as%20DateTime%2C%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Fdata%5Bat0005%5D%2Fitems%5Bat0006%5D%2Fitems%5Bat0013%5D%2Fvalue%20as%20Result%20FROM%20EHR%20e%5Behr_id%2Fvalue%3D'9ad8ecbf-9f4b-4af7-a5ba-a5e9225af1a2'%5D%20CONTAINS%20OBSERVATION%20a%5BopenEHR-EHR-OBSERVATION.ecg.v1%5D%20ORDER%20BY%20a%2Fdata%5Bat0001%5D%2Fevents%5Bat0002%5D%2Ftime%20DESC%20FETCH%201[Try it out!]
+
+
+[source, Ruby]
+----
+SELECT
+a/data[at0001]/events[at0002]/time as DateTime,
+a/data[at0001]/events[at0002]/data[at0005]/items[at0006]/items[at0013]/value as Result
+FROM EHR e[ehr_id/value='9ad8ecbf-9f4b-4af7-a5ba-a5e9225af1a2']
+CONTAINS OBSERVATION a[openEHR-EHR-OBSERVATION.ecg.v1]
+ORDER BY a/data[at0001]/events[at0002]/time DESC
+FETCH 1
+----
+
+== Conditions
+
+=== Diabetes
+
+*AQL*
+
+
+http://vt-teambuktu01:9000/api/Query?aql=SELECT%20%20%20%20c%2Fcontext%2Fstart_time%20as%20DateTime%2C%20%20%20%20a%2Fdata%5Bat0001%5D%2Fitems%5Bat0002%5D%2Fvalue%20as%20Diagnosis%2C%20%20%20%20a%2Fdata%5Bat0001%5D%2Fitems%5Bat0009%5D%2Fvalue%20as%20Description%2C%20%20%20%20a%2Fprotocol%5Bat0032%5D%2Fitems%5Bat0035%5D%2Fvalue%20as%20Reason%20%20FROM%20EHR%20e%20%5Behr_id%2Fvalue%3D%27298206f3-0246-4ce2-b7eb-f61f10ccc0ea%27%5D%20%20CONTAINS%20COMPOSITION%20c%20%20CONTAINS%20EVALUATION%20a%5BopenEHR-EHR-EVALUATION.problem_diagnosis.v1%5D%20%20WHERE%20%20%20%20a%2Fdata%5Bat0001%5D%2Fitems%5Bat0002%5D%2Fvalue%2Fvalue%20like%20%27E10*%27%20OR%20%20%20%20a%2Fdata%5Bat0001%5D%2Fitems%5Bat0002%5D%2Fvalue%2Fvalue%20like%20%27E11*%27%20%20ORDER%20BY%20%20c%2Fcontext%2Fstart_time%20desc%20FETCH%201[Try it out!]
+
+
+
+[source, ruby]
+----
+SELECT
+  c/context/start_time as DateTime,
+  a/data[at0001]/items[at0002]/value as Diagnosis,
+  a/data[at0001]/items[at0009]/value as Description,
+  a/protocol[at0032]/items[at0035]/value as Reason
+FROM EHR e [ehr_id/value='298206f3-0246-4ce2-b7eb-f61f10ccc0ea']
+CONTAINS COMPOSITION c
+CONTAINS EVALUATION a[openEHR-EHR-EVALUATION.problem_diagnosis.v1]
+WHERE
+  a/data[at0001]/items[at0002]/value/value like 'E10*' OR
+  a/data[at0001]/items[at0002]/value/value like 'E11*'
+ORDER BY  c/context/start_time desc FETCH 1
+----
+
+
+=== Liver disease
+
+*AQL*
+
+http://vt-teambuktu01:8081/query?query=SELECT+c%2Fcontext%2Fstart_time+as+DateTime%2C+a%2Fdata%5Bat0001%5D%2Fitems%5Bat0002%5D%2Fvalue+as+Diagnosis%2C+a%2Fdata%5Bat0001%5D%2Fitems%5Bat0009%5D%2Fvalue+as+Description%2C+a%2Fprotocol%5Bat0032%5D%2Fitems%5Bat0035%5D%2Fvalue+as+Reason+FROM+EHR+e+contains+COMPOSITION+c+CONTAINS+EVALUATION+a%5BopenEHR-EHR-EVALUATION.problem_diagnosis.v1%5D+WHERE+a%2Fdata%5Bat0001%5D%2Fitems%5Bat0002%5D%2Fvalue%2Fvalue+MATCHES+%7B+%27K71.1%27+%7D+OR+a%2Fdata%5Bat0001%5D%2Fitems%5Bat0002%5D%2Fvalue%2Fvalue+like+%27K72*%27+OR+%28+a%2Fdata%5Bat0001%5D%2Fitems%5Bat0002%5D%2Fvalue%2Fvalue+%3E+%27B15%27+AND+a%2Fdata%5Bat0001%5D%2Fitems%5Bat0002%5D%2Fvalue%2Fvalue+%3C+%27B19%27+%29+ORDER+BY+c%2Fcontext%2Fstart_time+desc+FETCH+1[Try it out! (in Think!EHR)]
+
+
+[source, ruby]
+----
+SELECT
+  c/context/start_time as DateTime,
+  a/data[at0001]/items[at0002]/value as Diagnosis,
+  a/data[at0001]/items[at0009]/value as Description,
+  a/protocol[at0032]/items[at0035]/value as Reason
+FROM EHR e contains COMPOSITION c
+CONTAINS EVALUATION a[openEHR-EHR-EVALUATION.problem_diagnosis.v1]
+WHERE
+  a/data[at0001]/items[at0002]/value/value MATCHES { 'K71.1' }
+  OR
+  a/data[at0001]/items[at0002]/value/value like 'K72*'
+  OR (
+      a/data[at0001]/items[at0002]/value/value > 'B15'
+      AND
+      a/data[at0001]/items[at0002]/value/value < 'B19'
+    )
+ORDER BY c/context/start_time desc
+FETCH 1
+----
