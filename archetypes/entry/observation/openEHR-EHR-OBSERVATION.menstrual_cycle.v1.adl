@@ -1,4 +1,4 @@
-﻿archetype (adl_version=1.4)
+﻿archetype (adl_version=1.4; uid=3d056cc5-e468-4fe7-beef-176b2b8077d6)
 	openEHR-EHR-OBSERVATION.menstrual_cycle.v1
 
 concept
@@ -8,9 +8,9 @@ language
 description
 	original_author = <
 		["name"] = <"Heather Leslie">
-		["organisation"] = <"Ocean Informatics">
 		["email"] = <"heather.leslie@oceaninformatics.com">
-		["date"] = <"9/03/2011">
+		["organisation"] = <"Ocean Informatics">
+		["date"] = <"2011-03-09">
 	>
 	details = <
 		["en"] = <
@@ -23,13 +23,22 @@ Use to record details about the typical, or average, menstrual pattern over mult
 Use some of the elements to record details about menstrual bleeding and associated symptoms on a single day eg as part of a menstrual diary - using the 'Specific day in a cycle' event.">
 			keywords = <"menstruation", "menses", "cycle", "menstrual">
 			misuse = <"">
-			copyright = <"© 2011 NEHTA">
+			copyright = <"© Nasjonal IKT HF">
 		>
 	>
-	lifecycle_state = <"CommitteeDraft">
+	lifecycle_state = <"NotSet">
 	other_contributors = <"Sam Heard, Ocean Informatics, Australia", ...>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"B7786879AA9DC4660960E6877E4D4B54">
+		["MD5-CAM-1.0.1"] = <"E4EBB0C308953AEA4635FA82D9E3CE46">
+		["original_publisher"] = <"Nasjonal IKT">
+		["current_contact"] = <"Heather Leslie, Ocean Informatics, heather.leslie@oceaninformatics.com">
+		["build_uid"] = <"fcb47d99-72ca-4885-9b30-54f41213a08e">
+		["original_namespace"] = <"no.nasjonalikt">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["references"] = <"Menstrual cycle, Draft Archetype [Internet]. National eHealth Transition Authority, NEHTA Clinical Knowledge Manager [cited: 2015-03-16]. Available from: http://dcm.nehta.org.au/ckm/#showArchetype_1013.1.994.">
+		["revision"] = <"0.0.1-alpha">
+		["custodian_namespace"] = <"no.nasjonalikt">
+		["custodian_organisation"] = <"Nasjonal IKT">
 	>
 
 definition
@@ -52,6 +61,12 @@ definition
 										value matches {
 											DV_TEXT matches {*}
 										}
+									}
+									allow_archetype ELEMENT[at0034] occurrences matches {0..*} matches {	-- Last Normal Menstrual Period (LNMP)
+										include
+											archetype_id/value matches {/openEHR-EHR-ELEMENT\.last_normal_menstrual_period(-[a-zA-Z0-9_]+)*\.v1/}
+										exclude
+											archetype_id/value matches {/.*/}
 									}
 									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Start of menses
 										value matches {
@@ -92,18 +107,18 @@ definition
 									ELEMENT[at0022] occurrences matches {0..1} matches {	-- Blood clots
 										value matches {
 											DV_BOOLEAN matches {
-												value matches {True, False}
+												value matches {True}
 											}
 										}
 									}
 									ELEMENT[at0023] occurrences matches {0..1} matches {	-- Flooding
 										value matches {
 											DV_BOOLEAN matches {
-												value matches {True, False}
+												value matches {True}
 											}
 										}
 									}
-									CLUSTER[at0024] occurrences matches {0..*} matches {	-- Sanitary products use
+									CLUSTER[at0024] occurrences matches {0..*} matches {	-- Sanitary products used
 										items cardinality matches {1..*; unordered} matches {
 											ELEMENT[at0025] occurrences matches {0..1} matches {	-- Type of product
 												value matches {
@@ -183,8 +198,6 @@ definition
 		}
 	}
 
-
-
 ontology
 	term_definitions = <
 		["en"] = <
@@ -207,7 +220,7 @@ ontology
 				>
 				["at0004"] = <
 					text = <"Start of menses">
-					description = <"Onset of menstrual bleeding in a single cycle.">
+					description = <"Date of onset of menstrual bleeding in a single cycle.">
 				>
 				["at0005"] = <
 					text = <"End of menses">
@@ -282,8 +295,8 @@ ontology
 					description = <"Presence of heavy menstrual flow that exceeded capacity of sanitary napkins and other menstrual products to absorb the menstrual flow.">
 				>
 				["at0024"] = <
-					text = <"Sanitary products use">
-					description = <"Sanitary products used.">
+					text = <"Sanitary products used">
+					description = <"Details about the type and amount of sanitary products used.">
 				>
 				["at0025"] = <
 					text = <"Type of product">
@@ -320,6 +333,10 @@ ontology
 				["at0033"] = <
 					text = <"Cloth pad or towel">
 					description = <"Use of a cloth pad or towel.">
+				>
+				["at0034"] = <
+					text = <"Last Normal Menstrual Period (LNMP)">
+					description = <"Date of onset of menstrual bleeding in the last normal menstrual cycle.">
 				>
 			>
 		>

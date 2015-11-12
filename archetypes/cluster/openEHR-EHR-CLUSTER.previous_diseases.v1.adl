@@ -1,0 +1,81 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.previous_diseases.v1
+
+concept
+	[at0000]	-- Tidligere sykdommer
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"Dips ASA">
+		["date"] = <"2015-11-11">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For å dokumentere strukturert informasjon om tidligere sykdommer.">
+			use = <"For å dokumentere strukturert informasjon om tidligere sykdommer.
+
+Arketypen skal brukes når man har behov for å registrere grov informasjon om tidligere sykdommer på en generell og rask måte.
+
+Arketypen er tenkt brukt innenfor arketypen OBSERVATION.problem/diagnose, men kan også brukes i andre kliniske sammenhenger hvor rask og grov informasjon om tidligere sykdommer trengs.
+
+">
+			keywords = <"sykdom", "tidligere sykdommer", "tilstand", "problemer">
+			misuse = <"Skal ikke brukes for å angi diagnosekoder eller en beskrivelse av en problemstilling. Til dette brukes arketypen OBSERVATION.problem/diagnose">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <"Anca Heyd, Dips ASA<ahe@dips.no>">
+		["MD5-CAM-1.0.1"] = <"5292F9B2FCBAFCD4EF862E08D78EEE71">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Tidligere sykdommer
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0002] occurrences matches {0..*} matches {	-- Sykdomsnavn eller gruppe
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Beskrivelse
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0004] occurrences matches {0..1} matches {	-- Kommentar
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Tidligere sykdommer">
+					description = <"Dokumentere strukturert informasjon om tidligere sykdommer.">
+				>
+				["at0002"] = <
+					text = <"Sykdomsnavn eller gruppe">
+					description = <"Navn på sykdom som øsnkes registrert eller gruppe sykdommer f.eks. sykdommer i sirkulasjonssystemet.">
+				>
+				["at0003"] = <
+					text = <"Beskrivelse">
+					description = <"Beskrivelse sv sykdom/sykdommer i sykdomsgruppen">
+				>
+				["at0004"] = <
+					text = <"Kommentar">
+					description = <"Kommentar til sykdom/sykdomsgruppe">
+				>
+			>
+		>
+	>

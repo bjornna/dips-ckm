@@ -1,0 +1,135 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.pregnancy_state.v1
+
+concept
+	[at0000]	-- Svangerskapsstatus
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"Dips ASA">
+		["date"] = <"2015-11-10">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For å dokumentere aktuell generell informasjon om evt. svangerskap på et gitt tidspunkt i forbindelse med en klinisk situasjon hvor informasjon om svangerskap er viktig, f.eks innkomstjournal.">
+			use = <"Brukes for å dokumentere aktuell generelle informasjon om evt. svangerskap i forbindelse med en klinisk situasjon hvor informasjon om svangerskap er viktig f.eks. når man skriver innkomstjournal.
+
+Arketypen skal brukes når man ikke trenger detaljert infomrasjon om gravidtet, men hvorvidt en person er gravid eller ikke samt tilhørende informasjon om graviditetslengde på et gitt tidspunkt, evt. informasjon om siste menstruasjon.">
+			keywords = <"svangerskap", "graviditet", "svangerskapstatus">
+			misuse = <"Skal ikke brukes for å dokumentere detaljert informasjon om tidligere svangerskap eller aktuelle svangerskap og eller menstruasjon. Til dette formålet brukes spesialiserte arketyper som EVALUTATION.pregnancy eller EVALUATION.obstetric_summary.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <"Anca Heyd, Dips ASA<ahe@dips.no>">
+		["MD5-CAM-1.0.1"] = <"CD2248D0B186E404447CDEBA16210F48">
+		["custodian_organisation"] = <"DIPS ASA">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Svangerskapsstatus
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Gravid?
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0005, 	-- Ja.
+													at0006, 	-- Nei.
+													at0007, 	-- Usikker
+													at0008]	-- Ukjent
+												}
+											}
+										}
+									}
+									ELEMENT[at0009] occurrences matches {0..1} matches {	-- Svangerskaplengde 
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::128]>
+												list = <
+													["1"] = <
+														units = <"wk">
+														magnitude = <|>=0.0|>
+														precision = <|0|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0010] occurrences matches {0..1} matches {	-- Siste menstruasjon
+										value matches {
+											DV_DATE matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Svangerskapsstatus">
+					description = <"For å dokumentere aktuell generell informasjon om evt. svangerskap på et gitt tidspunkt.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Gravid?">
+					description = <"Er pasienten gravid?">
+				>
+				["at0005"] = <
+					text = <"Ja.">
+					description = <"Pasienten er gravid.">
+				>
+				["at0006"] = <
+					text = <"Nei.">
+					description = <"Pasienten er ikke gravid.">
+				>
+				["at0007"] = <
+					text = <"Usikker">
+					description = <"Pasienten er usikker hvorvidt hun er gravid eller ikke.">
+				>
+				["at0008"] = <
+					text = <"Ukjent">
+					description = <"Det foreligger ingen informasjon om pasientens graviditetstilstand.">
+				>
+				["at0009"] = <
+					text = <"Svangerskaplengde ">
+					description = <"Svangerskapslengde i antall uker.">
+				>
+				["at0010"] = <
+					text = <"Siste menstruasjon">
+					description = <"Dato for siste menstruasjon.">
+				>
+			>
+		>
+	>
