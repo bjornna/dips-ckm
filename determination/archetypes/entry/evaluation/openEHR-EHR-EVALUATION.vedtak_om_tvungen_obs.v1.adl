@@ -18,13 +18,6 @@ description
 		["name"] = <"">
 	>
 	details = <
-		["nb"] = <
-			language = <[ISO_639-1::nb]>
-			purpose = <"">
-			use = <"">
-			misuse = <"">
-			copyright = <"">
-		>
 		["no"] = <
 			language = <[ISO_639-1::no]>
 			purpose = <"*(nb)">
@@ -32,11 +25,18 @@ description
 			misuse = <"*(nb)">
 			copyright = <"*(nb)">
 		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
 	>
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"D675F1BE7286A2B5549A70D22620995C">
+		["MD5-CAM-1.0.1"] = <"F43F82BFF7499AB53FC4452404686B97">
 	>
 
 definition
@@ -88,13 +88,6 @@ definition
 							}
 						}
 					}
-					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Dato vedtaket ble fattet
-						value matches {
-							DV_DATE_TIME matches {
-								value matches {yyyy-mm-ddTHH:MM:SS}
-							}
-						}
-					}
 					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Det er fremmet begjæring om tvungen observasjon
 						value matches {
 							DV_BOOLEAN matches {
@@ -129,7 +122,9 @@ definition
 					}
 					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Framsatt dato
 						value matches {
-							DV_DATE matches {*}
+							DV_DATE matches {
+								value matches {yyyy-mm-dd}
+							}
 						}
 					}
 					ELEMENT[at0008] matches {	-- Begjæring framsatt av
@@ -238,19 +233,29 @@ definition
 									DV_TEXT matches {*}
 								}
 							}
+							ELEMENT[at0083] occurrences matches {0..1} matches {	-- Stilling
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0084] occurrences matches {0..1} matches {	-- Institusjon
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
 							ELEMENT[at0043] occurrences matches {0..1} matches {	-- Ekstern legeundersøkelse i journalnotat av
 								value matches {
 									DV_DATE matches {*}
 								}
 							}
-							ELEMENT[at0081] occurrences matches {0..1} matches {	-- Undersøkelsen er foretatt av ekstern lege
+							ELEMENT[at0081] occurrences matches {0..1} matches {	-- Legeundersøkelsen er foretatt etter vedtak om tvungen legeundersøkelse
 								value matches {
 									DV_BOOLEAN matches {
 										value matches {True, False}
 									}
 								}
 							}
-							ELEMENT[at0044] occurrences matches {0..1} matches {	-- Bruk av tvang ved ekstern tegeundersøkelse
+							ELEMENT[at0044] occurrences matches {0..1} matches {	-- Foretatt av ekstern lege
 								value matches {
 									DV_BOOLEAN matches {
 										value matches {True, False}
@@ -278,14 +283,14 @@ definition
 							}
 						}
 					}
-					ELEMENT[at0049] occurrences matches {0..1} matches {	-- Besluttet ved enhet
+					ELEMENT[at0049] occurrences matches {0..1} matches {	-- Helsetjenesteenhet
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
 					ELEMENT[at0050] occurrences matches {0..1} matches {	-- Dato vedtak fattet
 						value matches {
-							DV_DATE matches {*}
+							DV_DATE_TIME matches {*}
 						}
 					}
 					allow_archetype CLUSTER[at0069] occurrences matches {0..*} matches {	-- Vedtakstype (skal skjules)
@@ -320,10 +325,6 @@ ontology
 				["at0003"] = <
 					text = <"Det gjøres unntak av konverteringsforbudet, jf. psykisk helsevernloven § 3-4 annet ledd">
 					description = <"Ved etableringen av tvungen observasjon gjøres det unntak fra konverteringsforbudet">
-				>
-				["at0004"] = <
-					text = <"Vedtatt tidspunkt">
-					description = <"Det tidspunktet vedtaket ble fattet.">
 				>
 				["at0005"] = <
 					text = <"Det foreligger en begjæring om tvungen observasjon">
@@ -438,8 +439,8 @@ ontology
 					description = <"*">
 				>
 				["at0044"] = <
-					text = <"Bruk av tvang ved ekstern tegeundersøkelse">
-					description = <"Ble den eksterne legeundersøkelsen foretatt etter vedtak om tvungen legeundersøkelse. ">
+					text = <"Foretatt av ekstern lege">
+					description = <"*">
 				>
 				["at0045"] = <
 					text = <"Intern legeundersøkelse">
@@ -458,7 +459,7 @@ ontology
 					description = <"*">
 				>
 				["at0049"] = <
-					text = <"Besluttet ved enhet">
+					text = <"Helsetjenesteenhet">
 					description = <"Den enhet hvor vedtaket ble fattet.">
 				>
 				["at0050"] = <
@@ -542,12 +543,20 @@ ontology
 					description = <"*">
 				>
 				["at0081"] = <
-					text = <"Undersøkelsen er foretatt av ekstern lege">
+					text = <"Legeundersøkelsen er foretatt etter vedtak om tvungen legeundersøkelse">
 					description = <"*">
 				>
 				["at0082"] = <
 					text = <"Begjærende instans er informert om sin klagerett">
 					description = <"*">
+				>
+				["at0083"] = <
+					text = <"Stilling">
+					description = <"*">
+				>
+				["at0084"] = <
+					text = <"Institusjon">
+					description = <"Navn på virksomheten legen tilhører">
 				>
 			>
 		>
@@ -568,10 +577,6 @@ ontology
 				["at0003"] = <
 					text = <"Det gjøres unntak av konverteringsforbudet, jf. psykisk helsevernloven § 3-4 annet ledd">
 					description = <"Ved etableringen av tvungen observasjon gjøres det unntak fra konverteringsforbudet">
-				>
-				["at0004"] = <
-					text = <"Dato vedtaket ble fattet">
-					description = <"Dato da vedtaket ble fattet.">
 				>
 				["at0005"] = <
 					text = <"Det er fremmet begjæring om tvungen observasjon">
@@ -686,7 +691,7 @@ ontology
 					description = <"*">
 				>
 				["at0044"] = <
-					text = <"Bruk av tvang ved ekstern tegeundersøkelse">
+					text = <"Foretatt av ekstern lege">
 					description = <"Ble den eksterne legeundersøkelsen foretatt etter vedtak om tvungen legeundersøkelse. ">
 				>
 				["at0045"] = <
@@ -706,7 +711,7 @@ ontology
 					description = <"*">
 				>
 				["at0049"] = <
-					text = <"Besluttet ved enhet">
+					text = <"Helsetjenesteenhet">
 					description = <"Den enhet hvor vedtaket ble fattet.">
 				>
 				["at0050"] = <
@@ -790,12 +795,20 @@ ontology
 					description = <"*">
 				>
 				["at0081"] = <
-					text = <"Undersøkelsen er foretatt av ekstern lege">
+					text = <"Legeundersøkelsen er foretatt etter vedtak om tvungen legeundersøkelse">
 					description = <"*">
 				>
 				["at0082"] = <
 					text = <"Begjærende instans er informert om sin klagerett">
 					description = <"*">
+				>
+				["at0083"] = <
+					text = <"Stilling">
+					description = <"*">
+				>
+				["at0084"] = <
+					text = <"Institusjon">
+					description = <"Navn på virksomheten legen tilhører">
 				>
 			>
 		>
