@@ -1,0 +1,331 @@
+﻿archetype (adl_version=1.4; uid=783fc8b5-07ad-4620-b448-4065fe795f0c)
+	openEHR-EHR-EVALUATION.tobacco_smoking_summary.v0
+
+concept
+	[at0000]	-- Tobacco Use Summary
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["name"] = <"Lars Bitsch-Larsen">
+				["organisation"] = <"haukeland University Hospital Bergen, Norway.">
+			>
+			accreditation = <"MD DEAA, MBA, spec in anesthesia and intensive care, spec in Tropical med">
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Heather Leslie">
+		["organisation"] = <"Ocean Informatics">
+		["email"] = <"heather.leslie@oceaninformatics.com">
+		["date"] = <"2009-06-21">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record summary information about the pattern of use of tobacco and tobacco-containing products.">
+			use = <"Use to record summary information about the pattern of use of tobacco and tobacco-containing products.">
+			keywords = <"tobacco", "cigarette", "cigar", "pipe", "snuff", "kretek", "beebi", "bibi", "shisha", "snuff", "snus", "hookah", "gutka", "smoking", "chewing">
+			misuse = <"Not to be used to record event-or period-based information about tobacco use or consumption, such as actual daily use or the average use over a specified period of time - use the OBSERVATION.tobacco_use archetype.">
+			copyright = <"© Nasjonal IKT HF">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For å registrere et sammendrag om et individs tobakksrøykehistorie.">
+			use = <"Brukes til å registrere et sammendrag av informasjon om mønster for røyking av tobakk. Denne arketypen er begrenset til å omhandle røyking av sigaretter, enten disse er ferdiglagede eller selvrullede.">
+			keywords = <"tobakk", "sigarett", "røyking">
+			misuse = <"Brukes ikke for å registrere informasjon om røyking av andre substanser enn tobakk.
+
+Brukes ikke for å registrere informasjon om andre former for inntak av tobakk, f.eks. snus.
+
+Brukes ikke for å registrere informasjon om andre former for inntak av nikotin, f.eks. e-sigaretter, tyggegummi eller plaster.
+
+Brukes ikke til å registrere enkeltepisoder eller perioder med tobakksrøyking, slik som faktisk daglig forbruk eller gjennomsnittlig bruk over en bestemt periode.">
+			copyright = <"© Nasjonal IKT HF">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <"Anne Pauline Anderssen, Helse Nord RHF, Norway", "Rita Apelt, Department of Health,NT, Australia", "Vebjørn Arntzen, Oslo universitetssykehus HF, Norway", "Silje Ljosland Bakke, Nasjonal IKT HF, Norway (Nasjonal IKT redaktør)", "Lars Bitsch-Larsen, Haukeland University Hospital, Bergen, Norway", "Fredrik Borchsenius, Oslo universitetssykehus, Norway", "Stephen Chu, NEHTA, Australia (Editor)", "Lisbeth Dahlhaug, Helse Midt - Norge IT, Norway", "Are Edvardsen, SKDE, Norway", "Einar Fosse, UNN HF, Norwegian Centre for Integrated Care and Telemedicine, Norway", "Liv Grøtvedt, Folkehelseinstituttet, Norway", "Sam Heard, Ocean Informatics, Australia", "Kristian Heldal, Telemark Hospital Trust, Norway", "Anca Heyd, DIPS ASA, Norway", "Tom Jarl Jakobsen, Helse Bergen, Norway", "Lars Morgan Karlsen, DIPS ASA, Norway", "Heather Leslie, Ocean Informatics, Australia", "Siv Marie Lien, DIPS ASA, Norway", "Camilla Lund, Institute for Cancer Genetics and Informatics, Norway", "Ian McNicoll, Ocean Informatics UK, United Kingdom", "Bjørn Næss, DIPS ASA, Norway", "Jeremy Oats, NT Health, Australia", "Rosalie Schultz, Anyinginyi Health Aboriginal Corporation, Australia", "John Tore Valand, Haukeland Universitetssjukehus, Norway (Nasjonal IKT redaktør)">
+	other_details = <
+		["current_contact"] = <"Heather Leslie, Ocean Informatics, heather.leslie@oceaninformatics.com">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["revision"] = <"0.0.1-alpha">
+		["references"] = <"Tobacco Use Summary draft archetype [Internet]. London: openEHR Clinical Knowledge Manager, openEHR Foundation; 21 Jun 2009 [cited 2011 Jul 15]. Available from: http://www.openehr.org/knowledge/OKM.html#showArchetype_1013.1.363_
+
+Tobacco Use Summary draft archetype [Internet]: NEHTA Clinical Knowledge Manager, NEHTA; 21 Jun 2009 [cited 2013 Oct 31]. Available from: http://dcm.nehta.org.au/ckm/#showArchetype_1013.1.1026_3.">
+		["build_uid"] = <"28af3a3d-f22f-4549-be26-2e4e879c6039">
+		["original_namespace"] = <"no.nasjonalikt">
+		["original_publisher"] = <"Nasjonal IKT">
+		["MD5-CAM-1.0.1"] = <"E76CF4797B05D5CD1951BF9B284857E1">
+		["custodian_namespace"] = <"no.nasjonalikt">
+		["custodian_organisation"] = <"Nasjonal IKT">
+	>
+
+definition
+	EVALUATION[at0000] matches {	-- Sammendrag av tobakksrøyking
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Røykestatus
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0003, 	-- Røyker
+									at0027, 	-- Sluttet siste 12 mnd
+									at0005, 	-- Eks-røyker
+									at0006]	-- Aldri røykt
+								}
+							}
+						}
+					}
+					ELEMENT[at0017] occurrences matches {0..1} matches {	-- Pakkeår
+						value matches {
+							DV_COUNT matches {
+								magnitude matches {|>=0|}
+							}
+						}
+					}
+					ELEMENT[at0015] occurrences matches {0..1} matches {	-- Dato for røykedebut
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0016] occurrences matches {0..1} matches {	-- Dato for røykeslutt
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0023] occurrences matches {0..1} matches {	-- Forbruk
+						value matches {
+							C_DV_QUANTITY <
+								property = <[openehr::382]>
+								list = <
+									["1"] = <
+										units = <"/d">
+										magnitude = <|>=0.0|>
+										precision = <|0|>
+									>
+									["2"] = <
+										units = <"/wk">
+									>
+								>
+							>
+							DV_INTERVAL<DV_QUANTITY> matches {
+								upper matches {
+									C_DV_QUANTITY <
+									>
+								}
+								lower matches {
+									C_DV_QUANTITY <
+										property = <[openehr::382]>
+										list = <
+											["1"] = <
+												units = <"/d">
+											>
+											["2"] = <
+												units = <"/wk">
+											>
+										>
+									>
+								}
+							}
+						}
+					}
+					ELEMENT[at0025] occurrences matches {0..1} matches {	-- Antall forsøk på å slutte
+						value matches {
+							DV_COUNT matches {
+								magnitude matches {|>=0|}
+							}
+						}
+					}
+					allow_archetype CLUSTER[at0026] occurrences matches {0..*} matches {	-- Detaljer om forsøk på å slutte
+						include
+							archetype_id/value matches {/openEHR-EHR-CLUSTER\.cessation_attempt(-[a-zA-Z0-9_]+)*\.v1/}
+					}
+					ELEMENT[at0019] occurrences matches {0..1} matches {	-- Kommentar
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0021] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0022] occurrences matches {0..1} matches {	-- Dato sist oppdatert
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0043] occurrences matches {0..*} matches {	-- Tilleggsinformasjon
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Tobacco Use Summary">
+					description = <"Summary or persisting information about tobacco use or consumption.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Smoking Status">
+					description = <"Statement about the individual's current tobacco smoking activity.">
+				>
+				["at0003"] = <
+					text = <"Current Smoker">
+					description = <"Individual is a current smoker of tobacco.">
+				>
+				["at0005"] = <
+					text = <"Ex-smoker">
+					description = <"Individual is a former or ex-smoker of tobacco.">
+				>
+				["at0006"] = <
+					text = <"Never Smoked">
+					description = <"Individual has never smoked tobacco.">
+				>
+				["at0015"] = <
+					text = <"Date Commenced">
+					description = <"Date that smoking commenced.">
+					comment = <"Can be a partial date, for example, only a year.">
+				>
+				["at0016"] = <
+					text = <"Date Ceased">
+					description = <"Date that smoking ceased.">
+					comment = <"Can be a partial date, for example, only a year. May also be known as the 'Quit Date'.">
+				>
+				["at0017"] = <
+					text = <"Pack Years">
+					description = <"Estimate of the cumulative amount of cigarettes smoked, measured in pack years.">
+					comment = <"Commonly used in assessment of cigarette use. It is calculated by multiplying the number of packs of cigarettes smoked per day by the number of years the individual has smoked. One pack year equals 365 packs of cigarettes.">
+				>
+				["at0019"] = <
+					text = <"Comment">
+					description = <"Additional narrative about the toacco use not captured in other fields.">
+					comment = <"For example: stopped smoking or reduced amount on becoming pregnant.">
+				>
+				["at0021"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0022"] = <
+					text = <"Date Last Updated">
+					description = <"The date this tobacco use summary was last updated.">
+				>
+				["at0023"] = <
+					text = <"Typical Smoked Amount">
+					description = <"Estimate of typical use of the form of smoked tobacco per day - as a whole number, a range or as a term (usually coded).">
+					comment = <"This data element allows a rough indication of cigarette use to be recorded in a number of formats. For example: 30 a day (quantity) or 5-10 per day (interval of quantity), or select from terminology value set (either a set specified in the template or from a specified external terminology reference set). Please note: the period of time to which this data element is not specified. If exact consumption at specific points in time or averages/maximums over specified intervals of time are required, use the OBSERVATION.tobacco_use archetype.">
+				>
+				["at0025"] = <
+					text = <"Number of Cessation Attempts">
+					description = <"Number of times the individual has attempted to stop smoking.">
+				>
+				["at0026"] = <
+					text = <"Cessation Attempts">
+					description = <"Details about each attempt to cease  smoking.">
+				>
+				["at0027"] = <
+					text = <"Quitting">
+					description = <"Individual has ceased smoking tobacco within the previous 12 months.">
+				>
+				["at0043"] = <
+					text = <"*Cluster(en)">
+					description = <"**(en)">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Sammendrag av tobakksrøyking">
+					description = <"Sammendrag om tobakksrøyking.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Røykestatus">
+					description = <"Individets røykestatus ved registreringstidspunktet.">
+				>
+				["at0003"] = <
+					text = <"Røyker">
+					description = <"Individet røyker tobakk.">
+				>
+				["at0005"] = <
+					text = <"Eks-røyker">
+					description = <"Individet har tidligere røykt tobakk.">
+				>
+				["at0006"] = <
+					text = <"Aldri røykt">
+					description = <"Individet har aldri røykt tobakk.">
+				>
+				["at0015"] = <
+					text = <"Dato for røykedebut">
+					description = <"Dato da individet startet å røyke.">
+					comment = <"Kan være en delvis dato f.eks. årstall.">
+				>
+				["at0016"] = <
+					text = <"Dato for røykeslutt">
+					description = <"Dato da individet sluttet å røyke.">
+					comment = <"Kan være en delvis dato f.eks. et årstall.">
+				>
+				["at0017"] = <
+					text = <"Pakkeår">
+					description = <"Anslått kumulativ mengde sigaretter røykt i individets levetid, angitt i pakkeår.">
+					comment = <"Vanligvis brukt i vurdering av sigarettbruk. Det beregnes ved multiplikasjon av antallet av pakker per dag med antallet år som individet har røykt. Ett pakkeår tilsvarer 365 pakker med 20 sigaretter.">
+				>
+				["at0019"] = <
+					text = <"Kommentar">
+					description = <"Ytterligere fritekstbeskrivelse om tobakksbruk som ikke er fanget opp i andre felter.">
+					comment = <"For eksempel sluttet å røyke eller reduserte forbruk ved graviditet.">
+				>
+				["at0021"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0022"] = <
+					text = <"Dato sist oppdatert">
+					description = <"Dato da sammendraget av tobakksbruk sist ble oppdatert.">
+				>
+				["at0023"] = <
+					text = <"Forbruk">
+					description = <"Anslått vanlig tobakksforbruk, angitt i antall sigaretter per dag eller uke. Intervaller tillates, f.eks. 10-20 sigaretter/dag.">
+					comment = <"Dette dataelement gir en grov indikasjon på sigarettbruk og kan registreres i en rekke formater. For eksempel: 30 om dagen (mengde) eller 5-10 per dag (intervall). NB: tidspunkt for dette dataelementet er ikke spesifisert. Hvis eksakt forbruk ved bestemte tidspunkter eller gjennomsnitt / maksimum av gitte intervaller av tid er nødvendig, må det benyttes en OBSERVATION-arketype.">
+				>
+				["at0025"] = <
+					text = <"Antall forsøk på å slutte">
+					description = <"Antall ganger individet har forsøkt å slutte å røyke.">
+				>
+				["at0026"] = <
+					text = <"Detaljer om forsøk på å slutte">
+					description = <"Detaljer om hvert forsøk på å slutte å røyke.">
+				>
+				["at0027"] = <
+					text = <"Sluttet siste 12 mnd">
+					description = <"Individet har sluttet å røyke tobakk i løpet av de siste 12 måneder.">
+				>
+				["at0043"] = <
+					text = <"Tilleggsinformasjon">
+					description = <"Ytterligere informasjon som er nødvendig for å sammenstille med andre referansemodeller/formalismer.">
+					comment = <"F.eks. lokale informasjonskrav eller ekstra metadata for å samsvare med FHIR eller CIMI ekvivalenter.">
+				>
+			>
+		>
+	>
