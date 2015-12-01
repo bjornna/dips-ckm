@@ -1,0 +1,332 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>c1d69941-94cf-4832-8436-94f1680ce74d</id>
+  <name>Anamnese v7</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose />
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Kontakt" name="Anamnese og selvregistrering">
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.reason_for_encounter.v1" concept_name="Kontaktårsak" max="1" path="/content" name="Hvorfor kommer du til Olafiaklinikken?">
+      <Rule path="/data[at0001]/items[at0002]" max="1">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Olafia::CK01::Kveldstilbud MSM</includedValues>
+          <includedValues>Olafia::CK02::KSK tilbud</includedValues>
+          <includedValues>Olafia::CK03::Standaktivitet</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0004]" min="1">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Olafia::ANA::Ønsker kun sjekk (ingen plager)</includedValues>
+          <includedValues>Olafia::AN1::Har plager nå som kan skyldes kjønnssykdom</includedValues>
+          <includedValues>Olafia::AN2::Innkalt av Olafiaklinikken som smittekontakt</includedValues>
+          <includedValues>Olafia::AN3::Oppfordret av partner som smittekontakt</includedValues>
+          <includedValues>Olafia::AN4::Henvist fra annen lege</includedValues>
+          <includedValues>Olafia::AN5::Møtt for behandling</includedValues>
+          <includedValues>Olafia::AN6::Møtt for kontroll</includedValues>
+          <includedValues>Olafia::AN7::Annen årsak</includedValues>
+        </constraint>
+      </Rule>
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.reason_for_encounter.v1" concept_name="Kontaktårsak" max="1" path="/content" name="Hvorfor kommer du til Olafiaklinikken? #2">
+      <Rule path="/data[at0001]/items[at0002]" max="1" />
+      <Rule path="/data[at0001]/items[at0004]" max="1" min="1" name="Utfyllende opplysninger til kontaktårsak" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.anamnese_olafia.v1" concept_name="Anamnese olafia" max="1" path="/content">
+      <Rule path="/data[at0001]/items[at0002]" min="1">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Olafia::APA::Mann</includedValues>
+          <includedValues>Olafia::AP2::Kvinne</includedValues>
+          <includedValues>Olafia::AP4::Trans</includedValues>
+          <includedValues>Olafia::AP5::Transkvinne</includedValues>
+          <includedValues>Olafia::AP7::Transmann</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0003]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Olafia::AOA::Nei</includedValues>
+          <includedValues>Olafia::AOB::Kløe/svie i urinrør</includedValues>
+          <includedValues>Olafia::AO1::Kløe/svie i underliv</includedValues>
+          <includedValues>Olafia::AO2::Svie ved vannlatning</includedValues>
+          <includedValues>Olafia::AO3::Utflod fra urinrør</includedValues>
+          <includedValues>Olafia::AO4::Endret vaginalutflod</includedValues>
+          <includedValues>Olafia::AO5::Genitale sår</includedValues>
+          <includedValues>Olafia::AO6::Vorter</includedValues>
+          <includedValues>Olafia::AO7::Smerter i nedre del av magen</includedValues>
+          <includedValues>Olafia::AO8::Annet</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0012]" name="Utfyllende opplysninger om plager" />
+      <Rule path="/data[at0001]/items[at0016]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Olafia::CM01::Ingen</includedValues>
+          <includedValues>Olafia::CM02::Kondom</includedValues>
+          <includedValues>Olafia::CM03::P-piller/minipiller</includedValues>
+          <includedValues>Olafia::CM04::P-stav</includedValues>
+          <includedValues>Olafia::CM05::P-sprøyte</includedValues>
+          <includedValues>Olafia::CM06::Hormonspiral</includedValues>
+          <includedValues>Olafia::CM07::Kobberspiral</includedValues>
+          <includedValues>Olafia::CM08::P-ring</includedValues>
+          <includedValues>Olafia::CM09::Avbrutt samleie/sikre perioder</includedValues>
+          <includedValues>Olafia::CM10::Annet</includedValues>
+        </constraint>
+      </Rule>
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.sexual_history.v1" concept_name="Seksuell historie" max="1" path="/content" name="Seksualhistorie">
+      <Rule path="/data[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <excludedValues>local::at0011</excludedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0004]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Olafia::AP1::Menn</includedValues>
+          <includedValues>Olafia::AP3::Kvinner</includedValues>
+          <includedValues>Olafia::AP4::Trans</includedValues>
+          <includedValues>Olafia::AP6::Transkvinner</includedValues>
+          <includedValues>Olafia::AP8::Transmenn</includedValues>
+        </constraint>
+      </Rule>
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.sti_summary.v1" concept_name="SOI-sammendrag" path="/content">
+      <Rule path="/data[at0001]/items[at0007]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Olafia::CV01::Klamydia</includedValues>
+          <includedValues>Olafia::CV02::Gonoré</includedValues>
+          <includedValues>Olafia::CV03::Herpes</includedValues>
+          <includedValues>Olafia::CV04::Mykoplasma</includedValues>
+          <includedValues>Olafia::CV05::Genitale vorter</includedValues>
+          <includedValues>Olafia::CV06::HIV</includedValues>
+          <includedValues>Olafia::CV07::Syfilis</includedValues>
+          <includedValues>Olafia::CV08::Hepatitt</includedValues>
+          <includedValues>Olafia::CV09::Annen</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0006]/items[at0045]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Olafia::CD01::Klamydia</includedValues>
+          <includedValues>Olafia::CD02::Gonoré</includedValues>
+          <includedValues>Olafia::CD03::Herpes</includedValues>
+          <includedValues>Olafia::CD04::Mykoplasma</includedValues>
+          <includedValues>Olafia::CD05::Genitale vorter</includedValues>
+          <includedValues>Olafia::CD06::HIV</includedValues>
+          <includedValues>Olafia::CD07::Syfilis</includedValues>
+          <includedValues>Olafia::CD08::Hepatitt</includedValues>
+          <includedValues>Olafia::CD09::Annen</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0006]/items[at0010]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Olafia::BG1::Lav</includedValues>
+          <includedValues>Olafia::BG2::Middels</includedValues>
+          <includedValues>Olafia::BG3::Høy</includedValues>
+        </constraint>
+      </Rule>
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.sexual_activity.v1" concept_name="Seksuell aktivitet" path="/content">
+      <Rule path="/data[at0001]/events[at0002]" max="0" />
+      <Rule path="/data[at0001]/events[at0004]" max="0" />
+      <Rule path="/data[at0001]/events[at0005]" max="0" />
+      <Rule path="/data[at0001]/events[at0006]" max="0" />
+      <Rule path="/data[at0001]/events[at0007]/data[at0003]/items[at0009]">
+        <constraint xsi:type="textConstraint">
+          <excludedValues>local::at0024</excludedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0007]/data[at0003]/items[at0012]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Olafia::AP1::Menn</includedValues>
+          <includedValues>Olafia::AP3::Kvinner</includedValues>
+          <includedValues>Olafia::AP4::Trans</includedValues>
+          <includedValues>Olafia::AP6::Transkvinner</includedValues>
+          <includedValues>Olafia::AP8::Transmenn</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0007]/data[at0003]/items[at0040]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Olafia::AQA::Skandinavia</includedValues>
+          <includedValues>Olafia::AQ1::Vest-Europa, utenom skandinavia</includedValues>
+          <includedValues>Olafia::AQ2::Øst-Europa</includedValues>
+          <includedValues>Olafia::AQ3::Afrika</includedValues>
+          <includedValues>Olafia::AQ4::Sør- og mellom-Amerika</includedValues>
+          <includedValues>Olafia::AQ5::Nord-Amerika</includedValues>
+          <includedValues>Olafia::AQ6::Asia</includedValues>
+          <includedValues>Olafia::AQ7::Australia</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0007]/data[at0003]/items[at0045]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="ARK-FE-STATSBORGERSKAP" terminologyLang="en-GB" queryName="ARK-FE-STATSBORGERSKAP" />
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0008]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.sexual_partner.v1" concept_name="Seksualpartner" path="/data[at0001]/events[at0007]/data[at0003]/items[at0021]">
+        <Rule path="/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Olafia::BF1::Siste partner</includedValues>
+            <includedValues>Olafia::BF2::Nest siste partner</includedValues>
+            <includedValues>Olafia::BF3::Tredje siste partner</includedValues>
+            <includedValues>Olafia::BF4::Annen/risiko-partner</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0003]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Olafia::APA::Mann</includedValues>
+            <includedValues>Olafia::AP2::Kvinne</includedValues>
+            <includedValues>Olafia::AP4::Trans</includedValues>
+            <includedValues>Olafia::AP5::Transkvinne</includedValues>
+            <includedValues>Olafia::AP7::Transmann</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0018]" max="0" />
+        <Rule path="/items[at0037]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="ARK-FE-STATSBORGERSKAP" terminologyLang="en-GB" queryName="ARK-FE-STATSBORGERSKAP" />
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0030]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Olafia::BH1::Lite sannsynlig</includedValues>
+            <includedValues>Olafia::BH2::Sannsynlig</includedValues>
+            <includedValues>Olafia::BH3::Ingen formening</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0041]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Olafia::BE1::Cruising</includedValues>
+            <includedValues>Olafia::BE2::Sauna</includedValues>
+            <includedValues>Olafia::BE3::Nettdating</includedValues>
+            <includedValues>Olafia::BE4::Gruppesex</includedValues>
+            <includedValues>Olafia::BE5::Swingers</includedValues>
+            <includedValues>Olafia::BE6::Tantra</includedValues>
+            <includedValues>Olafia::BE7::Chemo</includedValues>
+            <includedValues>Olafia::BE8::Potensfremmende</includedValues>
+            <includedValues>Olafia::BE9::SM</includedValues>
+            <includedValues>Olafia::BE10::Deling av sexleketøy/hjelpemidler</includedValues>
+          </constraint>
+        </Rule>
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.sexual_contact.v1" concept_name="Seksuell kontakt" path="/items[at0034]">
+          <Rule path="/items[at0025]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>Olafia::ARA::Anus - Penis</includedValues>
+              <includedValues>Olafia::ARB::Penis - Anus</includedValues>
+              <includedValues>Olafia::ARC::Vagina - Penis</includedValues>
+              <includedValues>Olafia::ARD::Penis - Vagina</includedValues>
+              <includedValues>Olafia::ARE::Vagina - Hånd/finger</includedValues>
+              <includedValues>Olafia::ARF::Hånd/finger - Vagina</includedValues>
+              <includedValues>Olafia::ARG::Anus - Hånd/finger</includedValues>
+              <includedValues>Olafia::ARH::Hånd/finger - Anus</includedValues>
+              <includedValues>Olafia::ARI::Munn - Munn</includedValues>
+              <includedValues>Olafia::ARJ::Vagina - Vagina</includedValues>
+              <includedValues>Olafia::ARK::Munn - Penis</includedValues>
+              <includedValues>Olafia::ARL::Penis - Munn</includedValues>
+              <includedValues>Olafia::ARM::Munn - Vagina</includedValues>
+              <includedValues>Olafia::ARN::Vagina - Munn</includedValues>
+              <includedValues>Olafia::ARO::Munn - Anus</includedValues>
+              <includedValues>Olafia::ARP::Anus - Munn</includedValues>
+              <includedValues>Olafia::ARQ::Hånd/finger - Penis</includedValues>
+              <includedValues>Olafia::ARR::Penis - Hånd/finger</includedValues>
+              <includedValues>Olafia::ARS::Penis - Penis</includedValues>
+            </constraint>
+          </Rule>
+        </Items>
+      </Items>
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.story.v1" concept_name="Anamnese" path="/content">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.reported_body_functions.v1" concept_name="Naturlige funksjoner" path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]">
+        <Rule path="/items[at0002]" max="0" />
+        <Rule path="/items[at0003]" max="0" />
+        <Rule path="/items[at0004]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.blood_borne_infection_risk.v1" concept_name="Blood borne infection risk" path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.symptom_ous.v1" concept_name="Symptom ous" path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]">
+        <Rule path="/items[at0035]" max="0" />
+        <Rule path="/items[at0151]" max="0" />
+        <Rule path="/items[at0152]" max="0" />
+        <Rule path="/items[at0028]" max="0" />
+        <Rule path="/items[at0021]" max="0" />
+        <Rule path="/items[at0026]" max="0" />
+        <Rule path="/items[at0155]" max="0" />
+        <Rule path="/items[at0003]" max="0" />
+        <Rule path="/items[at0161]" max="0" />
+        <Rule path="/items[at0057]" max="0" />
+        <Rule path="/items[at0018]" max="0" />
+        <Rule path="/items[at0031]" max="0" />
+        <Rule path="/items[at0163]" max="0" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.reported_pregnancy_bf_ous.v1" concept_name="Graviditet" path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]">
+        <Rule path="/items[at0005]" max="0" />
+        <Rule path="/items[at0008]" max="0" />
+      </Items>
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.status_olafia.v1" concept_name="Status olafia" path="/content">
+      <Rule path="/data[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Olafia::AZA::Selvregistrering utført</includedValues>
+          <includedValues>Olafia::AZB::Venter på sykepleier</includedValues>
+          <includedValues>Olafia::AZ1::Hos sykepleier</includedValues>
+          <includedValues>Olafia::AZ2::Venter på lege</includedValues>
+          <includedValues>Olafia::AZ3::Hos lege</includedValues>
+          <includedValues>Olafia::AZ5::Ferdig for dagen</includedValues>
+          <includedValues>Olafia::AZ4::Ferdig for dagen (Endre "smittefarlig sykdom")</includedValues>
+        </constraint>
+      </Rule>
+    </Content>
+    <Context />
+  </definition>
+</template>
