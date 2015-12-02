@@ -1,0 +1,18 @@
+Annotations AQL paths for surgery forms
+=======================================
+
+Innkomstjournal
+===============
+
+#height: openEHR-EHR-OBSERVATION.height.v1?scope=folder
+#height:/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value	// Høyde/lengde
+
+#weight: openEHR-EHR-OBSERVATION.body_weight.v1?scope=folder
+#weight:/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value	// Kroppsvekt
+
+#bp: openEHR-EHR-OBSERVATION.blood_pressure.v1?scope=folder
+#bp:/data[at0001]/events[at0006]/data[at0003]/items[at0004]/value		// Systolsk
+#bp:/data[at0001]/events[at0006]/data[at0003]/items[at0005]/value		// Diastolsk
+
+//Gjenbruk av tidligere lagret innkomstjournal
+reuseComposition: select c from composition c contains cluster[openEHR-EHR-CLUSTER.previous_diseases.v1] where c/archetype_details/template_id/value = 'Innkomstjournal' order by c/context/start_time/value desc fetch 1?scope=folder

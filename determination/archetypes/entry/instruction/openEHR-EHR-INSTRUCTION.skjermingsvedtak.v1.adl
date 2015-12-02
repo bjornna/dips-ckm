@@ -1,8 +1,8 @@
 archetype (adl_version=1.4)
-	openEHR-EHR-INSTRUCTION.vedtak_om_skjerming.v1
+	openEHR-EHR-INSTRUCTION.skjermingsvedtak.v1
 
 concept
-	[at0000]	-- Vedtak om skjerming v1
+	[at0000]	-- Skjermingsvedtak v1
 language
 	original_language = <[ISO_639-1::nb]>
 	translations = <
@@ -36,11 +36,11 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"6DC32773E7992B4E9342A27D01EDB768">
+		["MD5-CAM-1.0.1"] = <"E24ACE8258E0614DDDA5F62FCC765D41">
 	>
 
 definition
-	INSTRUCTION[at0000] matches {	-- Vedtak om skjerming v1
+	INSTRUCTION[at0000] matches {	-- Skjermingsvedtak v1
 		activities cardinality matches {0..*; unordered} matches {
 			ACTIVITY[at0001] occurrences matches {0..1} matches {	-- Current Activity
 				description matches {
@@ -51,7 +51,7 @@ definition
 									DV_COUNT matches {*}
 								}
 							}
-							ELEMENT[at0021] occurrences matches {0..1} matches {	-- Besluttet ved enhet
+							ELEMENT[at0021] occurrences matches {0..1} matches {	-- Helsetjenesteenhet
 								value matches {
 									DV_TEXT matches {*}
 								}
@@ -77,10 +77,6 @@ definition
 										}
 									}
 								}
-							}
-							allow_archetype CLUSTER[at0036] occurrences matches {0..*} matches {	-- Vedtakstype
-								include
-									archetype_id/value matches {/.*/}
 							}
 							ELEMENT[at0038] occurrences matches {0..1} matches {	-- Vedtakstype
 								value matches {
@@ -142,6 +138,22 @@ definition
 									}
 								}
 							}
+							allow_archetype CLUSTER[at0036] occurrences matches {0..*} matches {	-- Vedtakstype
+								include
+									archetype_id/value matches {/.*/}
+							}
+							ELEMENT[at0046] occurrences matches {0..1} matches {	-- Faglig ansvarlig informert
+								value matches {
+									DV_DATE_TIME matches {
+										value matches {yyyy-mm-ddTHH:MM:SS}
+									}
+								}
+							}
+							ELEMENT[at0047] occurrences matches {0..1} matches {	-- Begrunnelse for skjermingsvedtaket er fattet i journalnotat av
+								value matches {
+									DV_DATE matches {*}
+								}
+							}
 						}
 					}
 				}
@@ -155,7 +167,7 @@ ontology
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"Vedtak om skjerming v1">
+					text = <"Skjermingsvedtak v1">
 					description = <"unknown">
 				>
 				["at0001"] = <
@@ -179,7 +191,7 @@ ontology
 					description = <"Kode(r) som angir hva som var den utløsende årsak som gjorde det nødvendig å iverksette skjerming.">
 				>
 				["at0021"] = <
-					text = <"Besluttet ved enhet">
+					text = <"Helsetjenesteenhet">
 					description = <"Identifikasjon av den enhet pasienten behandles ved">
 				>
 				["at0029"] = <
@@ -248,15 +260,23 @@ ontology
 				>
 				["at0045"] = <
 					text = <"Skjerming avsluttet innen fristen (12/24 timer)">
+					description = <"Dersom skjermingen avsluttes innen hhv. 12 eller 24 timer, registreres tidspunktet">
+				>
+				["at0046"] = <
+					text = <"Faglig ansvarlig informert">
 					description = <"*">
+				>
+				["at0047"] = <
+					text = <"Begrunnelse for skjermingsvedtaket er fattet i journalnotat av">
+					description = <"**(nb)">
 				>
 			>
 		>
 		["no"] = <
 			items = <
 				["at0000"] = <
-					text = <"Vedtak om skjerming v1">
-					description = <"unknown">
+					text = <"*Skjermingsvedtak v1(nb)">
+					description = <"*unknown(nb)">
 				>
 				["at0001"] = <
 					text = <"Current Activity">
@@ -272,15 +292,15 @@ ontology
 				>
 				["at0012"] = <
 					text = <"Iverksatt tidspunkt">
-					description = <"Det tidspunktet skjermingen ble iverksatt">
+					description = <"Tidspunktet hvor skjermingen ble iverksatt">
 				>
 				["at0017"] = <
 					text = <"Utløsende årsak">
 					description = <"Her registreres kode(r) som angir hva som var den utløsende årsak som gjorde det nødvendig å treffe vedtak om skjerming">
 				>
 				["at0021"] = <
-					text = <"*Besluttet ved enhet(nb)">
-					description = <"*Identifikasjon av den enhet pasienten behandles ved(nb)">
+					text = <"*Helsetjenesteenhet(nb)">
+					description = <"Identifikasjon av den enhet pasienten behandles ved(nb)">
 				>
 				["at0029"] = <
 					text = <"Løpenummer">
@@ -348,7 +368,15 @@ ontology
 				>
 				["at0045"] = <
 					text = <"*Skjerming avsluttet innen fristen (12/24 timer)(nb)">
-					description = <"*(nb)">
+					description = <"*Dersom skjermingen avsluttes innen hhv. 12 eller 24 timer, registreres tidspunktet(nb)">
+				>
+				["at0046"] = <
+					text = <"*Faglig ansvarlig informert(nb)">
+					description = <"Faglig ansvarlig er informert">
+				>
+				["at0047"] = <
+					text = <"*Begrunnelse for skjermingsvedtaket er fattet i journalnotat av(nb)">
+					description = <"*">
 				>
 			>
 		>

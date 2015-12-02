@@ -27,7 +27,7 @@ description
 		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"">
+			purpose = <"Brukes i skjema for opphør av tph">
 			use = <"">
 			misuse = <"">
 			copyright = <"">
@@ -36,7 +36,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"27221819691E93194B7F71C954F84BC8">
+		["MD5-CAM-1.0.1"] = <"891063073A513A8138786479532C1466">
 	>
 
 definition
@@ -52,6 +52,13 @@ definition
 					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak om TPH i journalnotat av
 						value matches {
 							DV_DATE matches {*}
+						}
+					}
+					ELEMENT[at0022] occurrences matches {0..1} matches {	-- Det er fremmet begjæring
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
 						}
 					}
 					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak om opphør TPH i journalnotat av
@@ -98,6 +105,10 @@ definition
 								value matches {yyyy-mm-ddTHH:??:??}
 							}
 						}
+					}
+					allow_archetype CLUSTER[at0023] occurrences matches {0..*} matches {	-- Vedtakstype
+						include
+							archetype_id/value matches {/openEHR-EHR-CLUSTER\.vedtakstype(-[a-zA-Z0-9_]+)*\.v1/}
 					}
 				}
 			}
@@ -157,12 +168,21 @@ ontology
 					description = <"*">
 				>
 				["at0020"] = <
-					text = <"*Helsetjenesteenhet(nb)">
-					description = <"*Identifikasjon av den enhet hvor vedtaket fattes(nb)">
+					text = <"Helsetjenesteenhet">
+					description = <"Identifikasjon av den enhet hvor vedtaket fattes">
 				>
 				["at0021"] = <
 					text = <"Vedtatt tidspunkt">
 					description = <"Det tidspunkt vedtaket ble fattet">
+				>
+				["at0022"] = <
+					text = <"Det er fremmet begjæring">
+					description = <"Hukes av dersom det foreligger begjæring">
+				>
+				["at0023"] = <
+					comment = <"*(nb)">
+					text = <"Vedtakstype">
+					description = <"*">
 				>
 			>
 		>
@@ -223,6 +243,14 @@ ontology
 				["at0021"] = <
 					text = <"Vedtatt tidspunkt">
 					description = <"Det tidspunkt vedtaket ble fattet">
+				>
+				["at0022"] = <
+					text = <"Det er fremmet begjæring">
+					description = <"Hukes av dersom det foreligger begjæring">
+				>
+				["at0023"] = <
+					text = <"Vedtakstype">
+					description = <"*">
 				>
 			>
 		>
