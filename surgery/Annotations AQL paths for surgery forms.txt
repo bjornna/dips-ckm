@@ -65,6 +65,18 @@ Operatørvurdering
 #medikamenter_allergier:/items[at0009,'Allergier']/items[at0011]/value						// Tilstedeværelse
 #medikamenter_allergier:/items[at0009,'Allergier']/items[at0010]/value						// Helsefaktor navn/egenskap
 
+#medikamenter: select c/uid/value as cid, cl from composition c contains observation o[openEHR-EHR-OBSERVATION.medikamentbruk_midlertidig.v1] contains cluster cl[openEHR-EHR-CLUSTER.health_factor_generic.v1] where cl/name/value='Medikamentbruk' order by c/context/start_time/value desc fetch 1?scope=folder
+#medikamenter:/items[at0001]/value											// Kategori
+#medikamenter:/items[at0003 and name/value='Bruker medikamenter?']/value	// Bruker medikamenter?
+#medikamenter:/items[at0008]/value											// Medikament
+#medikamenter:/items[at0010]/value											// Kommentar
+
+#allergier: select c/uid/value as cid, cl from composition c contains observation o[openEHR-EHR-OBSERVATION.allergier_midlertidig.v1] contains cluster cl[openEHR-EHR-CLUSTER.health_factor_generic.v1] where cl/name/value='Allergier' order by c/context/start_time/value desc fetch 1?scope=folder
+#allergier:/items[at0001]/value												// Kategori
+#allergier:/items[at0003 and name/value='Har allergier?']/value				// Har allergier?
+#allergier:/items[at0008]/value												// Allergen
+#allergier:/items[at0010]/value												// Kommentar
+
 #ane_req: openEHR-EHR-CLUSTER.anesthesia_requested.v1?scope=folder
 #ane_req:/items[at0001]/value				// Ønsket anestesi
 #ane_req:/items[at0002]/value				// Kommentar
