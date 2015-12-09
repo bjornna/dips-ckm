@@ -14,5 +14,9 @@ Innkomstjournal
 #bp:/data[at0001]/events[at0006]/data[at0003]/items[at0004]/value		// Systolsk
 #bp:/data[at0001]/events[at0006]/data[at0003]/items[at0005]/value		// Diastolsk
 
+#allergier: select c/uid/value as cid, cl from composition c contains observation o[openEHR-EHR-OBSERVATION.allergier_midlertidig.v1] contains cluster cl[openEHR-EHR-CLUSTER.health_factor_generic.v1] where cl/name/value='Allergier' order by c/context/start_time/value desc fetch 1?scope=folder
+
+#medikamenter: select c/uid/value as cid, cl from composition c contains observation o[openEHR-EHR-OBSERVATION.medikamentbruk_midlertidig.v1] contains cluster cl[openEHR-EHR-CLUSTER.health_factor_generic.v1] where cl/name/value='Medikamentbruk' order by c/context/start_time/value desc fetch 1?scope=folder
+
 //Gjenbruk av tidligere lagret innkomstjournal
 reuseComposition: select c from composition c contains cluster[openEHR-EHR-CLUSTER.previous_diseases.v1] where c/archetype_details/template_id/value = 'Innkomstjournal' order by c/context/start_time/value desc fetch 1?scope=folder
