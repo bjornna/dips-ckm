@@ -1,0 +1,78 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.fasttrak_entry.v0
+
+concept
+	[at0000]	-- Fasttrak entry
+language
+	original_language = <[ISO_639-1::en]>
+description
+	original_author = <
+		["name"] = <"Bjørn Næss">
+		["email"] = <"bna@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2015-11-19">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To collect clinical variable ">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"A21D9CA3EA51DCD80436F8A22A0F5AD1">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Fasttrak entry
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									allow_archetype ELEMENT[at0004] occurrences matches {0..*} matches {	-- Fastrak
+										include
+											archetype_id/value matches {/openEHR-EHR-ELEMENT\.fasttrak_variabel(-[a-zA-Z0-9_]+)*\.v0/}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Fasttrak entry">
+					description = <"To collect fasttrak variables ">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Fastrak">
+					description = <"*">
+				>
+			>
+		>
+	>
