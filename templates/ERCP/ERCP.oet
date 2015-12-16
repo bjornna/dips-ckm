@@ -60,15 +60,24 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Kontakt" name="ERCP">
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="ERCP">
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" path="/content">
       <Rule path="/description[at0001]/items[at0002]" default="ERCP" />
+      <Rule path="/description[at0001]/items[at0014]" max="1" name="Indikasjon">
+        <constraint xsi:type="textConstraint" limitToList="false">
+          <includedValues>Gallegangsstein</includedValues>
+          <includedValues>Malign stenose</includedValues>
+          <includedValues>Benign stenose</includedValues>
+          <includedValues>Uavklart stenose</includedValues>
+          <includedValues>Papillestenose (Sphincter Oddi Dysfunction, SOD)</includedValues>
+          <includedValues>Papilletumor</includedValues>
+          <includedValues>Lekkasje</includedValues>
+          <includedValues>Prøvetaking</includedValues>
+        </constraint>
+      </Rule>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.prosedure_codes.v1" concept_name="Prosedyrekoder" path="/description[at0001]/items[at0003]" />
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.exam_ercp.v1" concept_name="ERCP" path="/description[at0001]/items[at0003]">
         <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.cotton_classification.v1" concept_name="Cotton classification" path="/items[at0004]" />
-        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.ercp_specific_procedure_problems.v1" concept_name="Ercp specific procedure problems" path="/items[at0004]">
-          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asge_procedure_complexity.v1" concept_name="Asge procedure complexity" path="/items[at0008]" />
-        </Items>
         <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.ercp_resultat.v1" concept_name="Ercp resultat" path="/items[at0004]" />
         <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.ercp_basic_information.v1" concept_name="ERCP basic information" path="/items[at0003]">
           <Rule path="/items[at0005]" max="0" />
@@ -132,6 +141,27 @@
         </Items>
         <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.clavien_dindo_classification.v1" concept_name="Clavien-Dindo klassifisering" path="/items[at0007]" />
       </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.care_level.v1" concept_name="Omsorgsnivå " path="/description[at0001]/items[at0003]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="ARK-ADM-OMSORGSNIVÅ" terminologyLang="en-GB" queryName="ARK-ADM-OMSORGSNIVÅ" />
+          </constraint>
+        </Rule>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA-klassifikasjon" path="/description[at0001]/items[at0003]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.health_factor_generic.v1" concept_name="Helsefaktor generisk" max="1" path="/description[at0001]/items[at0003]" name="Risikofaktorer">
+        <Rule path="/items[at0008]">
+          <constraint xsi:type="textConstraint" limitToList="false">
+            <includedValues>Pågående pankreatitt</includedValues>
+            <includedValues>Pågående kolangitt</includedValues>
+            <includedValues>Blødningstendens</includedValues>
+            <includedValues>Alvorlig hjertesykdom</includedValues>
+            <includedValues>Alvorlig lungesykdom</includedValues>
+            <includedValues>Diabetes</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.health_factor_generic.v1" concept_name="Helsefaktor generisk" max="1" path="/description[at0001]/items[at0003]" name="Helsefaktor generisk #1" />
     </Content>
     <Context />
   </definition>
