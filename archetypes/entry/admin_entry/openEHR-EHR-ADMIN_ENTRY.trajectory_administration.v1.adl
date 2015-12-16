@@ -1,0 +1,131 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ADMIN_ENTRY.trajectory_administration.v1
+
+concept
+	[at0000]	-- Administrasjon av pasientforløp
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Bjørn Næss">
+		["email"] = <"bna@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2015-09-18">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Benyttes for å administrere et pasientforløp. Det vil si å kunne markere at forløpet er avsluttet eller gjenåpne et forløp som har blitt avsluttet ved en feil. ">
+			use = <"Benyttes for å administrere et pasientforløp. Det vil si å kunne markere at forløpet er avsluttet eller gjenåpne et forløp som har blitt avsluttet ved en feil. ">
+			keywords = <"pasientforløp", ...>
+			misuse = <"Skal ikke brukes som primær arketype for å lukke pasientforøp. Det skal være egne trajectory follow up med koder for dette. Denne arketypen har kun som funksjon å gjøre adminstrative endringer, f.eks. ved feilregisteringer. ">
+			copyright = <"">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"published">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <"Bjørn Næss, DIPS ASA<bna@dips.no>">
+		["MD5-CAM-1.0.1"] = <"42E5971D17AD0A6B117407C5BD87859E">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {	-- Administrasjon av pasientforløp
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Hendelse
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0003, 	-- Gjenåpne
+									at0004]	-- Avslutt
+								}
+							}
+						}
+					}
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Lukket dato
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Trajectory administration">
+					description = <"Provides functionality to administrate a trajectory process. ">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Action">
+					description = <"Defines which action took place ">
+				>
+				["at0003"] = <
+					text = <"Re-open">
+					description = <"Reopens a closed trajectory ">
+				>
+				["at0004"] = <
+					text = <"Close">
+					description = <"Close a open trajectory">
+				>
+				["at0006"] = <
+					text = <"Closed date">
+					description = <"*">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Administrasjon av pasientforløp">
+					description = <"Tilbyr funksjonalitet for å administrere pasientforløp">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Hendelse">
+					description = <"Angir hvilken hendelse som utføres">
+				>
+				["at0003"] = <
+					text = <"Gjenåpne">
+					description = <"Gjenåpner et lukket pasientforløp">
+				>
+				["at0004"] = <
+					text = <"Avslutt">
+					description = <"Avslutter et åpent pasientforløp (administrativt)">
+				>
+				["at0006"] = <
+					text = <"Lukket dato">
+					description = <"Tidspunktet hvor pasientforløpet skal markeres som lukket">
+				>
+			>
+		>
+	>
