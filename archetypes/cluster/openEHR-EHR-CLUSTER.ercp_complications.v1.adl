@@ -36,139 +36,93 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"A1981D18F9A1B0D7975F124560E489CE">
+		["MD5-CAM-1.0.1"] = <"B89449309000C221A11B4BFA6852907F">
 	>
 
 definition
 	CLUSTER[at0000] matches {	-- Ercp complications
 		items cardinality matches {1..*; unordered} matches {
-			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Ingen
-				value matches {
-					DV_BOOLEAN matches {
-						value matches {True}
-					}
-				}
-			}
-			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Pankreatitt
-				value matches {
-					DV_BOOLEAN matches {
-						value matches {True}
-					}
-				}
-			}
-			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Kolangitt
-				value matches {
-					DV_BOOLEAN matches {
-						value matches {True}
-					}
-				}
-			}
-			ELEMENT[at0004] occurrences matches {0..1} matches {	-- Blødning
-				value matches {
-					DV_BOOLEAN matches {
-						value matches {True}
-					}
-				}
-			}
-			ELEMENT[at0005] occurrences matches {0..1} matches {	-- Kardiovaskulært
-				value matches {
-					DV_BOOLEAN matches {
-						value matches {True}
-					}
-				}
-			}
-			ELEMENT[at0006] occurrences matches {0..1} matches {	-- Respiratorisk
-				value matches {
-					DV_BOOLEAN matches {
-						value matches {True}
-					}
-				}
-			}
-			ELEMENT[at0007] occurrences matches {0..1} matches {	-- Perforasjon
-				value matches {
-					DV_BOOLEAN matches {
-						value matches {True}
-					}
-				}
-			}
-			ELEMENT[at0008] occurrences matches {0..1} matches {	-- Stentperforasjon
-				value matches {
-					DV_BOOLEAN matches {
-						value matches {True}
-					}
-				}
-			}
-			ELEMENT[at0011] occurrences matches {0..1} matches {	-- Ekstravasering
-				value matches {
-					DV_BOOLEAN matches {
-						value matches {True}
-					}
-				}
-			}
-			ELEMENT[at0013] occurrences matches {0..1} matches {	-- Antidot gitt
-				value matches {
-					DV_BOOLEAN matches {
-						value matches {True}
-					}
-				}
-			}
-			ELEMENT[at0012] occurrences matches {0..1} matches {	-- Beskrivelse
-				value matches {
-					DV_TEXT matches {*}
-				}
-			}
-			ELEMENT[at0009] occurrences matches {0..1} matches {	-- Annet
-				value matches {
-					DV_BOOLEAN matches {
-						value matches {True}
-					}
-				}
-			}
-			ELEMENT[at0010] occurrences matches {0..1} matches {	-- Beskrivelse
-				value matches {
-					DV_TEXT matches {*}
-				}
-			}
-			CLUSTER[at0021] occurrences matches {0..1} matches {	-- Konsekvens av komplikasjoner
+			CLUSTER[at0029] occurrences matches {0..1} matches {	-- Peroperative komplikasjoner
 				items cardinality matches {1..*; unordered} matches {
-					ELEMENT[at0014] occurrences matches {0..1} matches {	-- Endoskopisk intervensjon
+					ELEMENT[at0012] occurrences matches {0..*} matches {	-- Peroperative komplikasjoner
 						value matches {
-							DV_BOOLEAN matches {
-								value matches {True}
+							DV_TEXT matches {*}
+						}
+					}
+					CLUSTER[at0024] occurrences matches {0..1} matches {	-- Antidot
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0028] occurrences matches {0..1} matches {	-- Antidot gitt
+								value matches {
+									DV_BOOLEAN matches {
+										value matches {True}
+									}
+								}
+							}
+							ELEMENT[at0025] occurrences matches {0..1} matches {	-- Antidot
+								value matches {
+									DV_TEXT matches {*}
+								}
 							}
 						}
 					}
-					ELEMENT[at0015] occurrences matches {0..1} matches {	-- (Forlenget) innleggelse
+					allow_archetype CLUSTER[at0022] occurrences matches {0..*} matches {	-- Cotton klassifikasjon
+						include
+							archetype_id/value matches {/openEHR-EHR-CLUSTER\.cotton_classification(-[a-zA-Z0-9_]+)*\.v1/}
+					}
+				}
+			}
+			CLUSTER[at0030] occurrences matches {0..1} matches {	-- Postoperative komplikasjoner
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0033] occurrences matches {0..*} matches {	-- Postoperative komplikasjoner
 						value matches {
-							DV_BOOLEAN matches {
-								value matches {True}
-							}
+							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0016] occurrences matches {0..1} matches {	-- Kirurgisk behandling
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True}
-							}
-						}
-					}
-					ELEMENT[at0019] occurrences matches {0..1} matches {	-- Mors
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True}
-							}
-						}
-					}
-					ELEMENT[at0020] occurrences matches {0..1} matches {	-- Mors dato
+					ELEMENT[at0031] occurrences matches {0..1} matches {	-- Oppdaget dato
 						value matches {
 							DV_DATE matches {*}
 						}
 					}
+					allow_archetype CLUSTER[at0032] occurrences matches {0..*} matches {	-- Cotton klassifikasjon
+						include
+							archetype_id/value matches {/.*/}
+					}
 				}
 			}
-			allow_archetype CLUSTER[at0022] occurrences matches {0..*} matches {	-- Cotton klassifikasjon
-				include
-					archetype_id/value matches {/openEHR-EHR-CLUSTER\.cotton_classification(-[a-zA-Z0-9_]+)*\.v1/}
+			CLUSTER[at0021] occurrences matches {0..1} matches {	-- Konsekvens av komplikasjoner
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0036] occurrences matches {0..1} matches {	-- Konsekvens
+						value matches {
+							DV_TEXT matches {*}
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0034] occurrences matches {0..*} matches {	-- Konsekvens
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					CLUSTER[at0038] occurrences matches {0..1} matches {	-- Resultat
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0040] occurrences matches {0..1} matches {	-- Resultat
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0020] occurrences matches {0..1} matches {	-- Mors dato
+								value matches {
+									DV_DATE matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0039] occurrences matches {0..*} matches {	-- Clavien-Dindo
+								include
+									archetype_id/value matches {/.*/}
+							}
+						}
+					}
+				}
 			}
 		}
 	}
@@ -181,85 +135,73 @@ ontology
 					text = <"Ercp complications">
 					description = <"Ercp complications">
 				>
-				["at0001"] = <
-					text = <"Ingen">
-					description = <"">
-				>
-				["at0002"] = <
-					text = <"Pankreatitt">
-					description = <"">
-				>
-				["at0003"] = <
-					text = <"Kolangitt">
-					description = <"">
-				>
-				["at0004"] = <
-					text = <"Blødning">
-					description = <"">
-				>
-				["at0005"] = <
-					text = <"Kardiovaskulært">
-					description = <"">
-				>
-				["at0006"] = <
-					text = <"Respiratorisk">
-					description = <"">
-				>
-				["at0007"] = <
-					text = <"Perforasjon">
-					description = <"">
-				>
-				["at0008"] = <
-					text = <"Stentperforasjon">
-					description = <"">
-				>
-				["at0009"] = <
-					text = <"Annet">
-					description = <"">
-				>
-				["at0010"] = <
-					text = <"Beskrivelse">
-					description = <"">
-				>
-				["at0011"] = <
-					text = <"Ekstravasering">
-					description = <"">
-				>
 				["at0012"] = <
 					text = <"Beskrivelse">
-					description = <"">
-				>
-				["at0013"] = <
-					text = <"Antidot gitt">
-					description = <"">
-				>
-				["at0014"] = <
-					text = <"Endoskopisk intervensjon">
-					description = <"">
-				>
-				["at0015"] = <
-					text = <"(Forlenget) innleggelse">
-					description = <"">
-				>
-				["at0016"] = <
-					text = <"Kirurgisk behandling">
-					description = <"">
-				>
-				["at0019"] = <
-					text = <"Mors">
-					description = <"">
+					description = <"*">
 				>
 				["at0020"] = <
 					text = <"Mors dato">
-					description = <"">
+					description = <"*">
 				>
 				["at0021"] = <
 					text = <"Konsekvens av komplikasjoner">
-					description = <"">
+					description = <"*">
 				>
 				["at0022"] = <
 					text = <"Cotton klassifikasjon">
-					description = <"">
+					description = <"*">
+				>
+				["at0024"] = <
+					text = <"*New cluster(nb)">
+					description = <"**(nb)">
+				>
+				["at0025"] = <
+					text = <"*New element(nb)">
+					description = <"**(nb)">
+				>
+				["at0028"] = <
+					text = <"*New element(nb)">
+					description = <"**(nb)">
+				>
+				["at0029"] = <
+					text = <"*New cluster(nb)">
+					description = <"**(nb)">
+				>
+				["at0030"] = <
+					text = <"*New cluster(nb)">
+					description = <"**(nb)">
+				>
+				["at0031"] = <
+					text = <"*New element(nb)">
+					description = <"**(nb)">
+				>
+				["at0032"] = <
+					text = <"*Cluster(nb)">
+					description = <"**(nb)">
+				>
+				["at0033"] = <
+					text = <"*New element(nb)">
+					description = <"**(nb)">
+				>
+				["at0034"] = <
+					text = <"*New element(nb)">
+					description = <"**(nb)">
+				>
+				["at0036"] = <
+					text = <"*New element(nb)">
+					description = <"**(nb)">
+				>
+				["at0038"] = <
+					text = <"*New cluster(nb)">
+					description = <"**(nb)">
+				>
+				["at0039"] = <
+					text = <"*Cluster(nb)">
+					description = <"**(nb)">
+				>
+				["at0040"] = <
+					text = <"*New element(nb)">
+					description = <"**(nb)">
 				>
 			>
 		>
@@ -269,85 +211,73 @@ ontology
 					text = <"Ercp complications">
 					description = <"Ercp complications">
 				>
-				["at0001"] = <
-					text = <"Ingen">
-					description = <"">
-				>
-				["at0002"] = <
-					text = <"Pankreatitt">
-					description = <"">
-				>
-				["at0003"] = <
-					text = <"Kolangitt">
-					description = <"">
-				>
-				["at0004"] = <
-					text = <"Blødning">
-					description = <"">
-				>
-				["at0005"] = <
-					text = <"Kardiovaskulært">
-					description = <"">
-				>
-				["at0006"] = <
-					text = <"Respiratorisk">
-					description = <"">
-				>
-				["at0007"] = <
-					text = <"Perforasjon">
-					description = <"">
-				>
-				["at0008"] = <
-					text = <"Stentperforasjon">
-					description = <"">
-				>
-				["at0009"] = <
-					text = <"Annet">
-					description = <"">
-				>
-				["at0010"] = <
-					text = <"Beskrivelse">
-					description = <"">
-				>
-				["at0011"] = <
-					text = <"Ekstravasering">
-					description = <"">
-				>
 				["at0012"] = <
-					text = <"Beskrivelse">
-					description = <"">
-				>
-				["at0013"] = <
-					text = <"Antidot gitt">
-					description = <"">
-				>
-				["at0014"] = <
-					text = <"Endoskopisk intervensjon">
-					description = <"">
-				>
-				["at0015"] = <
-					text = <"(Forlenget) innleggelse">
-					description = <"">
-				>
-				["at0016"] = <
-					text = <"Kirurgisk behandling">
-					description = <"">
-				>
-				["at0019"] = <
-					text = <"Mors">
-					description = <"">
+					text = <"Peroperative komplikasjoner">
+					description = <"*">
 				>
 				["at0020"] = <
 					text = <"Mors dato">
-					description = <"">
+					description = <"*">
 				>
 				["at0021"] = <
 					text = <"Konsekvens av komplikasjoner">
-					description = <"">
+					description = <"*">
 				>
 				["at0022"] = <
 					text = <"Cotton klassifikasjon">
-					description = <"">
+					description = <"*">
+				>
+				["at0024"] = <
+					text = <"Antidot">
+					description = <"*">
+				>
+				["at0025"] = <
+					text = <"Antidot">
+					description = <"*">
+				>
+				["at0028"] = <
+					text = <"Antidot gitt">
+					description = <"*">
+				>
+				["at0029"] = <
+					text = <"Peroperative komplikasjoner">
+					description = <"*">
+				>
+				["at0030"] = <
+					text = <"Postoperative komplikasjoner">
+					description = <"*">
+				>
+				["at0031"] = <
+					text = <"Oppdaget dato">
+					description = <"*">
+				>
+				["at0032"] = <
+					text = <"Cotton klassifikasjon">
+					description = <"*">
+				>
+				["at0033"] = <
+					text = <"Postoperative komplikasjoner">
+					description = <"*">
+				>
+				["at0034"] = <
+					text = <"Konsekvens">
+					description = <"*">
+				>
+				["at0036"] = <
+					text = <"Konsekvens">
+					description = <"*">
+				>
+				["at0038"] = <
+					text = <"Resultat">
+					description = <"*">
+				>
+				["at0039"] = <
+					text = <"Clavien-Dindo">
+					description = <"*">
+				>
+				["at0040"] = <
+					text = <"Resultat">
+					description = <"*">
 				>
 			>
 		>
