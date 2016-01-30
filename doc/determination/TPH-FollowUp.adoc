@@ -1,0 +1,170 @@
+= Tvang i psykiatrien 
+:imagesdir: images
+
+== Forord 
+
+=== Formål 
+Dette dokumentet beskriver de kliniske modellene (arketyper, templates og kodeverk) for tvungent psykisk helsevern. Her beskriver kort bakgrunnsinformasjon om de ulike prosessene som et grunnlag for å forstå de kliniske modellene. Beskrivelsen av de kliniske modellen har til formål å forklare sammenhenger som ikke kommer frem ved å lese i arketypene isolert. Videre er formålet å forklare hvorfor modelleringen er gjort som beskrevet. 
+
+=== Status 
+Dokumentet er KLADD. 
+
+[cols="1,1,3",options="header"]
+|====
+|Dato | Forfatter | Beskrivelse 
+|30.01.2016|Bjørn Næss | Opprettet dokumentet 
+|====
+
+== Oppfølging av tvungent psykisk helsevern 
+Her legges til grunn at det er formalisert et vedtak om tvang. Dette er beskrevet i eget dokument. Formålet med dette avsnittet er å beskrive prosessen for oppfølging av det tvungne vernet. 
+
+Kontrollkommisjonen skal påse at riktig fremgangsmåte er fulgt, og den skal vurdere behovet for tvungent vern etter 3 måneder. De faglig ansvarlige for vedtak skal revurdere behovet for tvungent vern hver 3. måned. Tvungent psykisk helsevern kan forlenges med ett år om gangen, men den faglig ansvarlige for vedtak skal hele tiden vurdere om det tvungne vernet kan opphøre
+
+Det er med andre ord to parallelle prosesser knyttet til vurderingen av behovet for tvungent vern. Hver prosess har ulike ansvarlige: 
+
+* Kontrollkommisjonen 
+** Vurdere behov for tvungent vern etter 3 måneder 
+* Faglig ansvarlige 
+** Faglig ansvarlige for vedtak skal revurdere behovet for tvungent vern hver 3 måned 
+** Tvungent vern kan forlenges med ett år om gangen 
+
+
+
+Bildet under illustrerer aktivitetene og beslutningspunktene i denne prosessen. 
+
+image:Vedtak_Modell_KontrollUS_AKTIVITET.png[]
+
+Syklusen innenfor ett år blir dermed: 
+
+[cols="^1,^1,2,3",options="header"]
+|=== 
+2+|Periode (mnd) <| Ansvarlig | Hendelse 
+| 0| 3  | Kontrollkommisjon | Vurdere behovet for tvungent vern
+|0| 3  | Faglig ansvarlige | Revurdere behovet for tvungen vern 
+|3| 6  | Faglig ansvarlige | Revurdere behovet for tvungen vern 
+|6| 9  | Faglig ansvarlige | Revurdere behovet for tvungen vern 
+| 9|12 | Faglig ansvarlige | Forlenge tvungent vern (ved behov) 
+|===
+
+=== Klinisk modellering openEHR 
+
+Oppfølging av behovet for tvungent psykisk helsevern defineres som en prosess. Denne prosessen pågår innenfor ett kalenderår og har 5 subprosesser. Dette modelleres som en INSTRUCTION med 5 aktiviteter. 
+
+
+* openEHR-EHR-INSTRUCTION.follow_up.v1
+** Activity 1: Kontrollkommisjonens vurdering etter 3 MND 
+** Activity 2: Faglige ansvarliges revurdering innen 3 MND 
+** Activity 3: Faglig ansvarliges revurdering innen 6 MND 
+** Activity 4: Faglig ansvarlige revurdering innen 9 MND 
+** Activity 5: Faglige ansvarliges forlengelse innen 12 MND 
+
+
+Oppfølging av prosessene gjøres ved *openEHR-EHR-ACTION.follow_up.v1*  registreringer.
+[cols="1,3,^1",options="header"]
+|====
+|Prosesstrinn | Beskrivelse | Ny tilstand
+|Planlagt tjeneste
+|Tildeling av en helsetjeneste er planlagt (det er ikke opprettet en avtale).
+| planned
+
+|Tjeneste utsatt
+|Planlagt tjeneste er utsatt.
+| postponed
+
+|Tjeneste avlyst
+|Planlagt tjeneste er avlyst (ikke påbegynt).
+| cancelled
+
+|Avtale er planlagt
+|Det er gjort en tidfestet avtale om en tjeneste.
+| scheduled
+
+|Tjeneste utført
+|Helsetjenesteyter har utført tjenesten.
+| active
+
+|Tjeneste ikke utført
+|Tjenesten var planlagt men ble ikke utført.
+| active
+
+|Tjeneste utsatt
+|Utførelsen av tjenesten er utsatt uten at tjenesten er fullført.
+| suspended
+
+|Tjeneste avsluttet
+|Utførelsen av tjenesten er avsluttet uten at tjenesten er fullført.
+| aborted
+
+|Henvisning utløpt
+|Henvisning er utløpt før tjenesten er fullført.
+| aborted
+
+|Tjeneste fullført
+|Alle aktiviteter knyttet til tjenesten er utført.
+| completed
+
+|====
+
+
+
+
+
+
+== Terminology 
+Her er en sammenstilling av kodeverkene som benyttes for tvungent vern. 
+
+=== Volven
+Her er kodeverkene slik de er definert på Volven. 
+
+==== Vedtak i det psykiske helsevernet som innebærer bruk av tvang - TPH (OID=9281)
+Kode som angir hvilken type vedtak dette er. 
+
+Merk 1:: Kode for vedtakstype skal settes automatisk der denne er entydig gitt av den hjemmel som registreres. 
+
+Merk 2:: Tilsvarende dataelement inngår i alle typer EPJ dokument som omhandler vedtak i det psykiske helsevernet som innebærer bruk av tvang. Tillatte verdier for disse dataelementene er alltid en delmengde av kodeverk 9275 Vedtak i det psykiske helsevernet som innebærer bruk av tvang. Årsaken til at en gruppe dataelement inngår i en rekke typer EPJ dokument, er et behov for å kunne sammenstille disse opplysningene på tvers av dokumenttypene. 
+
+Merk 3:: Dette dataelementet skal ikke vises på skjerm ved registrering eller framvising av dokumentet, da opplysningene likevel vil framgå av dokumentet.
+
+[source]
+----
+2.16.578.1.12.4.1.1-9281::P11::Vedtak om TPH med døgnopphold
+2.16.578.1.12.4.1.1-9281::P12::Vedtak om TPH uten døgnopphold
+----
+
+==== Vedtak i det psykiske helsevernet som innebærer bruk av tvang - etablering tvungen observasjon (OID=9278) 
+
+Kode som angir hvilken type vedtak dette er. 
+
+Merk 1:: Kode for vedtakstype skal settes automatisk der denne er entydig gitt av den hjemmel som registreres. 
+
+Merk 2:: Tilsvarende dataelement inngår i alle typer EPJ dokument som omhandler vedtak i det psykiske helsevernet som innebærer bruk av tvang. Tillatte verdier for disse dataelementene er alltid en delmengde av kodeverk 9275 Vedtak i det psykiske helsevernet som innebærer bruk av tvang. Årsaken til at en gruppe dataelement inngår i en rekke typer EPJ dokument, er et behov for å kunne sammenstille disse opplysningene på tvers av dokumenttypene. 
+
+Merk 3:: Dette dataelementet skal ikke vises på skjerm ved registrering eller framvising av dokumentet, da opplysningene likevel vil framgå av dokumentet.
+
+[source]
+----
+2.16.578.1.12.4.1.1-9278::O11::Vedtak om tvungen observasjon med døgnopphold
+2.16.578.1.12.4.1.1-9278::O12::Vedtak om tvungen observasjon uten døgnopphold
+----
+
+==== Type tvang (OID = 8435)
+
+Dette kodeverket inneholder koder som beskriver type tvang som er anvendt.
+
+[source]
+----
+2.16.578.1.12.4.1.1-8435::1::Skjerming med vedtak - inntil 2 uker (jf §4-3)
+2.16.578.1.12.4.1.1-8435::2::Innskrenket forbindelse med omverdenen - inntil 14 dager (jf §4-5 annet ledd)
+2.16.578.1.12.4.1.1-8435::3::Undersøkelse av rom, eiendeler, samt kroppsvisitasjon (jf §4-6)
+2.16.578.1.12.4.1.1-8435::4::Beslag (jf §4-7)
+2.16.578.1.12.4.1.1-8435::5::Mekaniske tvangsmidler - ikke under 16 år (jf §4-8a)
+2.16.578.1.12.4.1.1-8435::6::Innelåsing uten personale til stede - ikke under 16 år (jf §4-8b)
+2.16.578.1.12.4.1.1-8435::7::Bruk av enkeltstående korttidsvirkende legemiddel (jf §4-8c)
+2.16.578.1.12.4.1.1-8435::8::Tvangsbehandling med legemiddel (jf §4-4a)
+2.16.578.1.12.4.1.1-8435::9::Annen tvangsbehandling (jf §4-4)
+2.16.578.1.12.4.1.1-8435::10::Skjerming uten vedtak - inntil 24 timer (jf §4-3)
+2.16.578.1.12.4.1.1-8435::11::Urinundersøkelse (jf §4-7a annet ledd)
+2.16.578.1.12.4.1.1-8435::12::Kortvarig fastholding (jf §4-8d)
+2.16.578.1.12.4.1.1-8435::13::Ernæring uten eget samtykke (jf §4-4b)
+2.16.578.1.12.4.1.1-8435::14::Overføring (jf §4-10)
+----
