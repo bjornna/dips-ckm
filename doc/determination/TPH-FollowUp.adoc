@@ -1,6 +1,7 @@
 = Tvang i psykiatrien 
 :imagesdir: images
 
+[preface]
 == Forord 
 
 === Formål 
@@ -70,20 +71,32 @@ Det er viktig at regler som skal sikre pasientenes rettssikkerhet er lett å fin
 
 TIP: Innholdet over er hentet fra https://helsedirektoratet.no/publikasjoner/psykisk-helsevernloven-og-psykisk-helsevernforskriften-med-kommentarer[Helsedirektoratet]
 
-TIP: Les hele forskriften her: https://helsedirektoratet.no/Lists/Publikasjoner/Attachments/422/Psykisk-helsevernloven-og-psykisk-helsevernforskriften-med-kommentarer-IS-9-2012.pdf[Psykisk-helsevernloven-og-psykisk-helsevernforskriften-med-kommentarer-IS-9-2012.pdf]
+TIP: Hele forskriften: https://helsedirektoratet.no/Lists/Publikasjoner/Attachments/422/Psykisk-helsevernloven-og-psykisk-helsevernforskriften-med-kommentarer-IS-9-2012.pdf[Psykisk-helsevernloven-og-psykisk-helsevernforskriften-med-kommentarer-IS-9-2012.pdf]
 
+[[ETABLERING_TPH]]
 == Etablering av psykisk helsevern 
+Her gis en _veldig_ kort fremstilling av prosessen for å etablere psykisk helsvern. Formålet er å gi en overordnet fremstilling av prosessen. 
+
+. Pasient har behov for psykisk helsevern og det opprettes en henvisning footnote:[Kan oppprettes i primærhelsetjenesten eller som øyeblikkelig henvisning ved akutte tilstander]. 
+. Henvisningen vurderes og det tas stilling til om vernet kan utføres frivillig. 
+.. Ja -> det etableres frivillig psykisk helsevern 
+.. Nei -> det vedtas tvungen observasjon for videre utredning av pasienten 
+. Tvungen observasjon varer inntil 10 dager og da må det vurderes om pasienten kan underlegges psykisk helsevern eller om det må etableres vern under tvang (TPH)
+.. Nei -> Det vedtas tvungent psykisk helsevern 
+
 
 Figuren under viser prosessen for etablering av psykisk helsevern: 
 
 image::PsykiskHelsevern-Flyt.png[]
 
 
-
+[[OPPF_TPH]]
 == Oppfølging av tvungent psykisk helsevern 
-Her legges til grunn at det er formalisert et vedtak om tvang. Dette er beskrevet i eget dokument. Formålet med dette avsnittet er å beskrive prosessen for oppfølging av det tvungne vernet. 
+For et pasientforløp som er underlagt tvungent psykisk helsevern skal det gjennomføres en protokoll i form av en rekke aktiviteter og beslutningspunkter for å vurdere om det fortsatt er behov for tvang. 
 
-Kontrollkommisjonen skal påse at riktig fremgangsmåte er fulgt, og den skal vurdere behovet for tvungent vern etter 3 måneder. De faglig ansvarlige for vedtak skal revurdere behovet for tvungent vern hver 3. måned. Tvungent psykisk helsevern kan forlenges med ett år om gangen, men den faglig ansvarlige for vedtak skal hele tiden vurdere om det tvungne vernet kan opphøre
+Kontrollkommisjonen:: skal påse at riktig fremgangsmåte er fulgt, og den skal vurdere behovet for tvungent vern etter 3 måneder. 
+
+De faglig ansvarlige:: for vedtak skal revurdere behovet for tvungent vern hver 3. måned. Tvungent psykisk helsevern kan forlenges med ett år om gangen, men den faglig ansvarlige for vedtak skal hele tiden vurdere om det tvungne vernet kan opphøre
 
 Det er med andre ord to parallelle prosesser knyttet til vurderingen av behovet for tvungent vern. Hver prosess har ulike ansvarlige: 
 
@@ -92,7 +105,6 @@ Det er med andre ord to parallelle prosesser knyttet til vurderingen av behovet 
 * Faglig ansvarlige 
 ** Faglig ansvarlige for vedtak skal revurdere behovet for tvungent vern hver 3 måned 
 ** Tvungent vern kan forlenges med ett år om gangen 
-
 
 
 Bildet under illustrerer aktivitetene og beslutningspunktene i denne prosessen. 
@@ -112,9 +124,12 @@ Syklusen innenfor ett år blir dermed:
 |===
 
 === Klinisk modellering openEHR 
+I <<OPPF_TPH>> er beskrevet aktiviter og beslutningspunkt for oppfølging av tvungent psykisk helsevern. Disse aktivitetene er en klinisk prosess. Denne prosessen pågår innenfor ett kalenderår og har 5 subprosesser fordelt på 2 ulike roller. 
 
-Oppfølging av behovet for tvungent psykisk helsevern defineres som en prosess. Denne prosessen pågår innenfor ett kalenderår og har 5 subprosesser. Dette modelleres som en INSTRUCTION med 5 aktiviteter. 
+Den beskrevne prosessen modelleres som *openEHR-EHR-INSTRUCTION.follow_up.v1* med 5 aktiviteter. Oppfølging av hver prosess gjøres som hendelsesregistrering innenfor hver aktivitet ved bruk av *openEHR-EHR-ACTION.follow_up.v1*. 
 
+==== Start av prosessen: openEHR-EHR-INSTRUCTION.follow_up.v1
+Iverksettelse av oppfølfinges aktivitene gjøres med følgende registrering i pasientens journal: 
 
 * openEHR-EHR-INSTRUCTION.follow_up.v1
 ** Activity 1: Kontrollkommisjonens vurdering etter 3 MND 
@@ -123,49 +138,88 @@ Oppfølging av behovet for tvungent psykisk helsevern defineres som en prosess. 
 ** Activity 4: Faglig ansvarlige revurdering innen 9 MND 
 ** Activity 5: Faglige ansvarliges forlengelse innen 12 MND 
 
+I det en bruker (rolle som faglig ansvarlig) godkjenner en slik registreringen i journalen startes det 5 parallelle prosesser som kan visualiseres og følges opp i EPJ. 
 
-Oppfølging av prosessene gjøres ved *openEHR-EHR-ACTION.follow_up.v1*  registreringer.
+Hver ACTIVITY i  _follow_up_ er definert i en egen arketype kalt *openEHR-EHR-ITEM_TREE.follow_up.v1*. Tabellen under lister opp elementer med tilhørende beskrivelse for denne strukturen. 
+
+[cols="1,3", options="header"]
+|==== 
+|Element | Beskrivelse 
+|Tjeneste | Kodet verdi for tjensten som skal utføres. Se <<DIPS-TPH-PROCESS>>
+|Detaljer | Detaljer om tjenesten 
+|Avtalens dato/tid | Det definerte tidspunkt om det er satt opp time for oppfølgingen
+|Utløpsdato | CLUSTER - velg en av elementene under
+|Utløper dato | Datoen hvor bestillingen utløper. Oppfølgingen skal være startet og sluttført før denne dato 
+|Utløper innenfor | Angir et intervall hvor tjenesten skal utføres. Tolkes som startes etter nedre intervall og må være avsluttet innen øvre intervall. 
+|====
+
+Konkret registrering for 3 mnds kontroll. Mer at t~TPH~ er tidspunktet hvor perioden med tvungent psykisk vern ble etablert. 
+
+[cols="1,3,3", options="header"]
+|==== 
+|Element | Verdi | Beskrivelse 
+|Tjeneste 
+|DIPS-TPH-PROCESS::FU3MND::3 MND revurdering av behovet for TPH
+| Angir at dette er kontroll etter 3 mnd 
+
+|Detaljer 
+| <valgfritt > 
+|Valgfri beskrivelse detaljer som gjelder dette forløpet 
+
+
+|Utløper innenfor 
+| (t~TPH~ + 3MND ) < t <  ( t~TPH~ + 3MND )
+|3 MND kontroll MÅ være utført innen den tredje månende av perioden med tvungent psykisk vern 
+|====
+
+
+
+
+==== Hendelseregistrering: openEHR-EHR-ACTION.follow_up.v1
+For å følge opp  aktivitetene knyttet til revurdering av behovet for TPH gjøres det hendelsesregistreringer i journalen. Disse registreringene benytter arketypen  *openEHR-EHR-ACTION.follow_up.v1*.
+
+Tabellen under viser de ulike prosesstrinn for ACTION arketypen. footnote:[Direkte kopiert fra arketyper.no]
 [cols="1,3,^1",options="header"]
 |====
 |Prosesstrinn | Beskrivelse | Ny tilstand
 |Planlagt tjeneste
-|Tildeling av en helsetjeneste er planlagt (det er ikke opprettet en avtale).
+|Det er planlagt at det skal gjennomføres revurdering av behovet for tvungent psykisk vern, men ingen tid er fastsatt
 | planned
 
 |Tjeneste utsatt
-|Planlagt tjeneste er utsatt.
+|Revurdering av TPH er utsatt
 | postponed
 
 |Tjeneste avlyst
-|Planlagt tjeneste er avlyst (ikke påbegynt).
+|Revurdering av TPH er avlyst og ble aldri påbegynt. 
 | cancelled
 
 |Avtale er planlagt
-|Det er gjort en tidfestet avtale om en tjeneste.
+|Tidspunkt for revurdering av behovet for TPH er fastsatt. 
 | scheduled
 
 |Tjeneste utført
-|Helsetjenesteyter har utført tjenesten.
+|Revurdering av behovet for TPH er utført. 
 | active
 
 |Tjeneste ikke utført
-|Tjenesten var planlagt men ble ikke utført.
+|Revurdering av behovet for TPH var planlagt, men ble ikke utført. 
 | active
 
 |Tjeneste utsatt
-|Utførelsen av tjenesten er utsatt uten at tjenesten er fullført.
+|Revurdering av behovet for TPH er utsatt, men tjenesten er ikke fullført og det er intensjon at den skal gjennomføres innenfor fastsatt tidsintervall. 
 | suspended
 
 |Tjeneste avsluttet
-|Utførelsen av tjenesten er avsluttet uten at tjenesten er fullført.
+|Revurdering av behovet for TPH er avsluttet uten at tjenesten ble fullført. 
 | aborted
 
 |Henvisning utløpt
-|Henvisning er utløpt før tjenesten er fullført.
+|Tidspunktet for revurdering av TPH er utløpt og tjenesten er IKKE gjennomført. 
 | aborted
 
 |Tjeneste fullført
-|Alle aktiviteter knyttet til tjenesten er utført.
+|Alle aktiviteter og formelle oppføring knyttet til tjenesten er fullført. 
 | completed
 
 |====
@@ -175,8 +229,25 @@ Oppfølging av prosessene gjøres ved *openEHR-EHR-ACTION.follow_up.v1*  registr
 == Terminology 
 Her er en sammenstilling av kodeverkene som benyttes for tvungent vern. 
 
+=== Spesifikke kodeverk 
+Kodeverkene i dette avsnittet er spesifikke koder som benyttes i DIPS Arena for å følge opp prosessene knyttet til vedtak. 
+
+[[DIPS-TPH-PROCESS]]
+==== Prosesskoder for oppfølging av TPH 
+Dette er koder som benyttes for å følge opp prosessene for revurdering av behovet for tvungent psykisk (helse)vern. Det er en kode for hver av de 5 aktivitene definert over. 
+[source]
+----
+DIPS-TPH-PROCESS::KK3MND::Kontrollkomiteens vurdering av behovet for TPH (innen 3 MND)
+DIPS-TPH-PROCESS::FU3MND::3 MND revurdering av behovet for TPH 
+DIPS-TPH-PROCESS::FU6MND::6 MND revurdering av behovet for TPH 
+DIPS-TPH-PROCESS::FU9MND::9 MND revurdering av behovet for TPH 
+DIPS-TPH-PROCESS::FU12MND::12 MND revurdering av behovet for TPH 
+----
+
+NOTE: 12 MND revurderingen er også en vurdering av om behovet for TPH er tilstede slik at vedtaksperioden skal forlentes med ytterligere 12 MND. 
+
 === Volven
-Her er kodeverkene slik de er definert på Volven. 
+I det følgende avsnittet listes opp noen av de offisielle kodeverkene som gjelder for tvungent psykisk vern. 
 
 ==== Vedtak etter psykisk helsevernloven (OID=9275)
 Dette kodeverket rommer alle vedtak som kan fattes i hehnhold til loven om psykisk helsevern. 
