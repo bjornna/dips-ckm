@@ -1,15 +1,15 @@
-﻿archetype (adl_version=1.4; uid=b40ad367-5aeb-4689-93bd-576986ede5cc)
+﻿archetype (adl_version=1.4; uid=449bd62a-f412-4d4b-a6a2-9badf1052dd4)
 	openEHR-EHR-CLUSTER.timing_repetition.v0
 
 concept
-	[at0000]	-- Timing repetition pattern
+	[at0000]	-- Timing repetition
 language
 	original_language = <[ISO_639-1::en]>
 description
 	original_author = <
 		["name"] = <"Ian McNicoll">
-		["organisation"] = <"freshEHR Clinical Informatics Ltd.">
 		["email"] = <"ian@freshehr.com">
+		["organisation"] = <"freshEHR Clinical Informatics Ltd.">
 		["date"] = <"2015-09-11">
 	>
 	details = <
@@ -18,28 +18,35 @@ description
 			purpose = <"To record details of scheduled activities over periods longer than a single day.">
 			use = <"">
 			misuse = <"">
-			copyright = <"">
+			copyright = <"© openEHR Foundation">
 		>
 	>
 	lifecycle_state = <"NotSet">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"D09D8B270B903F78D9CE0840DBD34FCF">
+		["revision"] = <"0.0.1-alpha">
+		["original_publisher"] = <"openEHR Foundation">
+		["build_uid"] = <"d8f4de78-c5ee-45ff-a1c1-deef0bf31bae">
+		["original_namespace"] = <"org.openehr">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["MD5-CAM-1.0.1"] = <"99D2DDE57CC03A636A76493E7C10F660">
+		["custodian_namespace"] = <"org.openehr">
+		["custodian_organisation"] = <"openEHR Foundation">
 	>
 
 definition
-	CLUSTER[at0000] matches {	-- Timing repetition pattern
+	CLUSTER[at0000] matches {	-- Timing repetition
 		items cardinality matches {1..*; unordered} matches {
-			ELEMENT[at0001] occurrences matches {0..*} matches {	-- Specific date
-				value matches {
-					DV_DATE_TIME matches {*}
-				}
-			}
 			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Repetition interval
 				value matches {
 					DV_DURATION matches {
-						value matches {PYMW/|>=P0W|}
+						value matches {PYMWD/|>=P0W|}
 					}
+				}
+			}
+			ELEMENT[at0001] occurrences matches {0..*} matches {	-- Specific date
+				value matches {
+					DV_DATE_TIME matches {*}
 				}
 			}
 			ELEMENT[at0003] occurrences matches {0..*} matches {	-- Specific day of week
@@ -52,7 +59,7 @@ definition
 			ELEMENT[at0004] occurrences matches {0..*} matches {	-- Specific day of month
 				value matches {
 					DV_COUNT matches {
-						magnitude matches {|0..31|}
+						magnitude matches {|1..31|}
 					}
 				}
 			}
@@ -66,7 +73,32 @@ definition
 					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Start interval
 						value matches {
 							DV_DURATION matches {
-								value matches {PYMWD/|>=P0M|}
+								value matches {PYMWD}
+							}
+						}
+					}
+				}
+			}
+			CLUSTER[at0010] occurrences matches {0..*} matches {	-- On /off cycle
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0011] occurrences matches {0..1} matches {	-- On
+						value matches {
+							DV_DURATION matches {
+								value matches {PYMWD/|>=P0Y|}
+							}
+						}
+					}
+					ELEMENT[at0012] occurrences matches {0..1} matches {	-- Off
+						value matches {
+							DV_DURATION matches {
+								value matches {PYWD/|>=P0Y|}
+							}
+						}
+					}
+					ELEMENT[at0013] occurrences matches {0..1} matches {	-- Repetitions
+						value matches {
+							DV_COUNT matches {
+								magnitude matches {|>=0|}
 							}
 						}
 					}
@@ -80,28 +112,28 @@ ontology
 		["en"] = <
 			items = <
 				["at0000"] = <
-					text = <"Timing repetition pattern">
+					text = <"Timing repetition">
 					description = <"Details of timing schedules repeating over periods longer than a single day.">
 				>
 				["at0001"] = <
-					comment = <"e.g. 'on 12 Jan 2017'">
 					text = <"Specific date">
 					description = <"The activity should take place on a specific date.">
+					comment = <"e.g. 'on 12 Jan 2017'">
 				>
 				["at0002"] = <
-					comment = <"e.g. 'Every 3 weeks'">
 					text = <"Repetition interval">
 					description = <"The interval between repetitions of the activity.">
+					comment = <"e.g. 'Every 3 weeks'">
 				>
 				["at0003"] = <
-					comment = <"e.g. 'On Mondays, Wednesdays and Fridays'.">
 					text = <"Specific day of week">
 					description = <"The activity should take place on a specific day of the week, with 0 representing Sunday.">
+					comment = <"e.g. 'On Mondays, Wednesdays and Fridays'.">
 				>
 				["at0004"] = <
-					comment = <"e.g. 'on the 3rd, 13th and 23rd of each month'.">
 					text = <"Specific day of month">
 					description = <"The activity should take place on a specific day of the month.">
+					comment = <"e.g. 'on the 3rd, 13th and 23rd of each month'.">
 				>
 				["at0005"] = <
 					text = <"Event name">
@@ -112,9 +144,26 @@ ontology
 					description = <"The activity should take place in relation to a specific named event.">
 				>
 				["at0009"] = <
-					comment = <"e.g. '3 days after onset of menstruation', '2 weeks prior to admission'.">
 					text = <"Start interval">
-					description = <"The period of time before or after the named event when the activity should take place.">
+					description = <"The period of time before or after the named event when the activity should take place. Negative durations can be used to signifify that the activity should be taken before a known event.">
+					comment = <"e.g. '3 days after onset of menstruation = menstrual onset + 3 days', '2 weeks prior to admission= admission -2 weeks'.">
+				>
+				["at0010"] = <
+					text = <"On /off cycle">
+					description = <"A cycle of activity where an on-off pattern is required.">
+					comment = <"e.g. 'take 3 tablets daily for 1 week, omit a week, then take 3 tablets daily for 1 week, repeat 4 times'">
+				>
+				["at0011"] = <
+					text = <"On">
+					description = <"The period of time for which the activity should take place.">
+				>
+				["at0012"] = <
+					text = <"Off">
+					description = <"The period of time for which the activity should NOT take place.">
+				>
+				["at0013"] = <
+					text = <"Repetitions">
+					description = <"The number of repetitions of the on/off cycle.">
 				>
 			>
 		>

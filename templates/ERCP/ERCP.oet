@@ -1,0 +1,413 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>e00aa984-02cc-4f5c-9585-265e5d2e2ddc</id>
+  <name>Upper_Endoscopy</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose />
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="ERCP">
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" path="/content">
+      <Rule path="/description[at0001]/items[at0002]" default="ERCP" />
+      <Rule path="/description[at0001]/items[at0048]" name="Målsetting oppnådd">
+        <constraint xsi:type="textConstraint">
+          <includedValues>ERCP::AI1::Ja</includedValues>
+          <includedValues>ERCP::AI2::Ja, planl. delmål</includedValues>
+          <includedValues>ERCP::AI3::Delvis</includedValues>
+          <includedValues>ERCP::AI4::Nei</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0001]/items[at0006]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>ERCP::AK1::Ja</includedValues>
+          <includedValues>ERCP::AK2::Ingen</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0001]/items[at0067]" name="Type inngrep">
+        <constraint xsi:type="textConstraint">
+          <includedValues>ERCP::AH1::Palliasjon</includedValues>
+          <includedValues>ERCP::AH2::Kurativt</includedValues>
+          <includedValues>ERCP::AH3::Bridge to surgery</includedValues>
+          <includedValues>ERCP::AH4::Profylaktisk</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0001]/items[at0014]" max="1" name="Indikasjon">
+        <constraint xsi:type="textConstraint" limitToList="false">
+          <includedValues>Gallegangsstein</includedValues>
+          <includedValues>Malign stenose</includedValues>
+          <includedValues>Benign stenose</includedValues>
+          <includedValues>Uavklart stenose</includedValues>
+          <includedValues>Papillestenose (Sphincter Oddi Dysfunction, SOD)</includedValues>
+          <includedValues>Papilletumor</includedValues>
+          <includedValues>Lekkasje</includedValues>
+          <includedValues>Prøvetaking</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/protocol[at0053]/items[at0054]" max="0" />
+      <Rule path="/protocol[at0053]/items[at0056]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.prosedure_codes.v1" concept_name="Prosedyrekoder" path="/description[at0001]/items[at0003]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.care_level.v1" concept_name="Omsorgsnivå " path="/description[at0001]/items[at0003]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ERCP::AM1::Dagbehandling</includedValues>
+            <includedValues>ERCP::AM2::Innlagt</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA-klassifikasjon" path="/description[at0001]/items[at0003]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.health_factor_generic.v1" concept_name="Helsefaktor generisk" max="1" path="/description[at0001]/items[at0003]" name="Risikofaktorer">
+        <Rule path="/items[at0008]">
+          <constraint xsi:type="textConstraint" limitToList="false">
+            <includedValues>Pågående pankreatitt</includedValues>
+            <includedValues>Pågående kolangitt</includedValues>
+            <includedValues>Blødningstendens</includedValues>
+            <includedValues>Alvorlig hjertesykdom</includedValues>
+            <includedValues>Alvorlig lungesykdom</includedValues>
+            <includedValues>Diabetes</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.ercp_basic_information.v1" concept_name="ERCP basic information" path="/description[at0001]/items[at0003]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ERCP::AF1::Ja</includedValues>
+            <includedValues>ERCP::AF2::Nei</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0005]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
+        <Rule path="/items[at0007]" max="0" />
+        <Rule path="/items[at0008]" max="0" />
+        <Rule path="/items[at0029]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ERCP::AA1::Tidligere mislykket kanylering</includedValues>
+            <includedValues>ERCP::AA2::Tidligere mislykket precut</includedValues>
+            <includedValues>ERCP::AA3::Tidligere ERCP komplikasjon</includedValues>
+            <includedValues>ERCP::AA4::Tidligere EST</includedValues>
+            <includedValues>ERCP::AA5::Metall stent in situ</includedValues>
+            <includedValues>ERCP::AA6::Plaststent in situ</includedValues>
+            <includedValues>ERCP::AA7::Tidligere Post ERCP Pankreatitt</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0033]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ERCP::AE1::Ja</includedValues>
+            <includedValues>ERCP::AE2::Nei</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0032]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ERCP::AB1::Sedo-analgesi</includedValues>
+            <includedValues>ERCP::AB2::Dyp sed./propofol</includedValues>
+            <includedValues>ERCP::AB3::Intubasjonsnarkose</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.ercp_profylakse.v1" concept_name="Ercp profylakse" path="/description[at0001]/items[at0003]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ERCP::AC1::Før</includedValues>
+            <includedValues>ERCP::AC2::Under</includedValues>
+            <includedValues>ERCP::AC3::Etter</includedValues>
+            <includedValues>ERCP::AC4::Ikke gitt</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ERCP::AD1::Gitt</includedValues>
+            <includedValues>ERCP::AD2::Ikke gitt</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0003]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ERCP::AE1::Ja</includedValues>
+            <includedValues>ERCP::AE2::Nei</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.health_factor_generic.v1" concept_name="Helsefaktor generisk" max="1" path="/description[at0001]/items[at0003]" name="Spesielle problemer">
+        <Rule path="/items[at0008]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ERCP::AG1::Urolig pasient</includedValues>
+            <includedValues>ERCP::AG2::Ventrikkelretensjon</includedValues>
+            <includedValues>ERCP::AG3::Duodenalstenose</includedValues>
+            <includedValues>ERCP::AG4::Slimhinneødem</includedValues>
+            <includedValues>ERCP::AG5::Divertikkel</includedValues>
+            <includedValues>ERCP::AG6::Tumorinnvekst</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.kirurgisk_anastomose.v1" concept_name="Kirurgisk anastomose" path="/description[at0001]/items[at0003]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ERCP::AE1::Ja</includedValues>
+            <includedValues>ERCP::AE2::Nei</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asge_procedure_complexity.v1" concept_name="Asge procedure complexity" path="/description[at0001]/items[at0003]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.ercp_locations.v1" concept_name="ERCP locations" max="1" path="/description[at0001]/items[at0003]" name="Gjennomførte prosedyrer galle">
+        <Rule path="/items[at0007]" default="Galle" />
+        <Rule path="/items[at0008]">
+          <constraint xsi:type="textConstraint" limitToList="false">
+            <includedValues>Sfinkterotomi</includedValues>
+            <includedValues>Steinekstraksjon</includedValues>
+            <includedValues>Stentplassering metallstent</includedValues>
+            <includedValues>Stentfjerning</includedValues>
+            <includedValues>Prøvetaking</includedValues>
+            <includedValues>Dilatasjon</includedValues>
+            <includedValues>Ønsket kanylering</includedValues>
+            <includedValues>Gjennomført kanylering</includedValues>
+            <includedValues>Precut for tilgang</includedValues>
+            <includedValues>Annet</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0010]">
+          <constraint xsi:type="textConstraint" limitToList="false">
+            <includedValues>Normale funn</includedValues>
+            <includedValues>Stein</includedValues>
+            <includedValues>Striktur</includedValues>
+            <includedValues>Lekkasje</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.ercp_locations.v1" concept_name="ERCP locations" max="1" path="/description[at0001]/items[at0003]" name="Gjennomførte prosedyrer pancreas">
+        <Rule path="/items[at0007]" default="Pancreas" />
+        <Rule path="/items[at0008]">
+          <constraint xsi:type="textConstraint" limitToList="false">
+            <includedValues>Sfinkterotomi</includedValues>
+            <includedValues>Steinekstraksjon</includedValues>
+            <includedValues>Stentplassering metallstent</includedValues>
+            <includedValues>Stentfjerning</includedValues>
+            <includedValues>Prøvetaking</includedValues>
+            <includedValues>Dilatasjon</includedValues>
+            <includedValues>Ønsket kanylering</includedValues>
+            <includedValues>Gjennomført kanylering</includedValues>
+            <includedValues>Precut for tilgang</includedValues>
+            <includedValues>Annet</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0010]">
+          <constraint xsi:type="textConstraint" limitToList="false">
+            <includedValues>Normale funn</includedValues>
+            <includedValues>Stein</includedValues>
+            <includedValues>Striktur</includedValues>
+            <includedValues>Lekkasje</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.ercp_locations.v1" concept_name="ERCP locations" max="1" path="/description[at0001]/items[at0003]" name="Gjennomførte prosedyrer bipapille">
+        <Rule path="/items[at0007]" default="Bipapille" />
+        <Rule path="/items[at0008]">
+          <constraint xsi:type="textConstraint" limitToList="false">
+            <includedValues>Sfinkterotomi</includedValues>
+            <includedValues>Steinekstraksjon</includedValues>
+            <includedValues>Stentplassering metallstent</includedValues>
+            <includedValues>Stentfjerning</includedValues>
+            <includedValues>Prøvetaking</includedValues>
+            <includedValues>Dilatasjon</includedValues>
+            <includedValues>Ønsket kanylering</includedValues>
+            <includedValues>Gjennomført kanylering</includedValues>
+            <includedValues>Precut for tilgang</includedValues>
+            <includedValues>Annet</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0010]" max="0" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.ercp_complications.v1" concept_name="Ercp complications" path="/description[at0001]/items[at0003]">
+        <Rule path="/items[at0029]/items[at0012]">
+          <constraint xsi:type="textConstraint" limitToList="false">
+            <includedValues>Blødning</includedValues>
+            <includedValues>Perforasjon</includedValues>
+            <includedValues>Ekstravasering</includedValues>
+            <includedValues>Kardiovaskulært</includedValues>
+            <includedValues>Respiratorisk</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0030]/items[at0033]">
+          <constraint xsi:type="textConstraint" limitToList="false">
+            <includedValues>Pankreatitt</includedValues>
+            <includedValues>Kolangitt</includedValues>
+            <includedValues>Blødning</includedValues>
+            <includedValues>Kardiovaskulært</includedValues>
+            <includedValues>Respiratorisk</includedValues>
+            <includedValues>Perforasjon</includedValues>
+            <includedValues>Stentperforasjon</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0021]/items[at0036]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ERCP::AK1::Ja</includedValues>
+            <includedValues>ERCP::AK2::Ingen</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0021]/items[at0034]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ERCP::AL1::Endoskopisk interv</includedValues>
+            <includedValues>ERCP::AL2::(Forlenget) innelggelse</includedValues>
+            <includedValues>ERCP::AL3::Kirurgisk behandling</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0021]/items[at0038]/items[at0040]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ERCP::AJ1::Ingen varig men</includedValues>
+            <includedValues>ERCP::AJ2::Varig men</includedValues>
+            <includedValues>ERCP::AJ3::Mors</includedValues>
+          </constraint>
+        </Rule>
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.cotton_classification.v1" concept_name="Cotton classification" path="/items[at0029]/items[at0022]" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.cotton_classification.v1" concept_name="Cotton classification" path="/items[at0030]/items[at0032]" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.clavien_dindo_classification.v1" concept_name="Clavien-Dindo klassifisering" path="/items[at0021]/items[at0038]/items[at0039]" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.executing_medical_personell.v1" concept_name="Utførende helsepersonell" max="1" path="/description[at0001]/items[at0003]" name="Lege 1">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="HEALTHCAREPARTY" />
+          </constraint>
+        </Rule>
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.professional_role.v1" concept_name="Professional role" path="/items[at0003]">
+          <Rule path="/items[at0001]" default="Lege" />
+          <Rule path="/items[at0004]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>ERCP::AE1::Ja</includedValues>
+              <includedValues>ERCP::AE2::Nei</includedValues>
+            </constraint>
+          </Rule>
+        </Items>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.executing_medical_personell.v1" concept_name="Utførende helsepersonell" max="1" path="/description[at0001]/items[at0003]" name="Lege 2">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="HEALTHCAREPARTY" />
+          </constraint>
+        </Rule>
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.professional_role.v1" concept_name="Professional role" path="/items[at0003]">
+          <Rule path="/items[at0001]" default="Lege" />
+        </Items>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.executing_medical_personell.v1" concept_name="Utførende helsepersonell" max="1" path="/description[at0001]/items[at0003]" name="Sykepleier 1">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="HEALTHCAREPARTY" />
+          </constraint>
+        </Rule>
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.professional_role.v1" concept_name="Professional role" path="/items[at0003]">
+          <Rule path="/items[at0001]" default="Sykepleier" />
+        </Items>
+      </Items>
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/diagnose" path="/content">
+      <Rule path="/data[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="ICD10" terminologyLang="en-GB" queryName="ICD10" />
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0009]" max="0" />
+      <Rule path="/data[at0001]/items[at0012]" max="0" />
+      <Rule path="/data[at0001]/items[at0077]" max="0" />
+      <Rule path="/data[at0001]/items[at0003]" max="0" />
+      <Rule path="/data[at0001]/items[at0005]" max="0" />
+      <Rule path="/data[at0001]/items[at0072]" max="0" />
+      <Rule path="/data[at0001]/items[at0030]" max="0" />
+      <Rule path="/data[at0001]/items[at0073]" max="0" />
+      <Rule path="/protocol[at0032]/items[at0070]" max="0" />
+    </Content>
+    <Context />
+  </definition>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1">
+    <digest id="MD5-CAM-1.0.1">1FEDBA6E4B610796E8F5D216DC909AE1</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-ACTION.procedure.v1">
+    <digest id="MD5-CAM-1.0.1">699049EE951DA0EF5426694466DFD248</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.prosedure_codes.v1">
+    <digest id="MD5-CAM-1.0.1">B8A8AF85F2CC14FB5C5AD1D4614E0831</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.exam_ercp.v1">
+    <digest id="MD5-CAM-1.0.1">827C51F011BF99058E885986CA7388C3</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.ercp_locations.v1">
+    <digest id="MD5-CAM-1.0.1">DA086869DA617A301079536FCF526336</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.ercp_findings.v1">
+    <digest id="MD5-CAM-1.0.1">4F313D8D850602216446D52D5D60CE9A</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.asge_procedure_complexity.v1">
+    <digest id="MD5-CAM-1.0.1">00866723380383EA22CAF7024754DBB7</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.ercp_procedures.v1">
+    <digest id="MD5-CAM-1.0.1">C86FA1794CFC2DA8EC5E87401B243FC9</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.ercp_basic_information.v1">
+    <digest id="MD5-CAM-1.0.1">B879AAFC1F86568DA3CFB15EB5C60C7E</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.cotton_classification.v1">
+    <digest id="MD5-CAM-1.0.1">1B69AE4C149831C93458280C5F3D5BAF</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.ercp_specific_procedure_problems.v1">
+    <digest id="MD5-CAM-1.0.1">A3AC87DF38350A3BDDD5EAB22634FD2F</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.ercp_resultat.v1">
+    <digest id="MD5-CAM-1.0.1">7675F2996200EDC52E04FB89CD488AC1</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.ercp_complications.v1">
+    <digest id="MD5-CAM-1.0.1">59448268137D592AD32215A614D01B62</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.clavien_dindo_classification.v1">
+    <digest id="MD5-CAM-1.0.1">AC70A38CC7F425B112AA00DA2E1763F6</digest>
+  </integrity_checks>
+</template>
