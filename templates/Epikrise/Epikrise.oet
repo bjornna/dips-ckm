@@ -64,7 +64,18 @@
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.utskrivelsesinformasjon.v1" concept_name="Utskrivelsesinformasjon" path="/content" />
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.reason_for_encounter.v1" concept_name="Kontaktårsak" path="/content" />
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.story.v1" concept_name="Anamnese" path="/content" />
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.social_summary.v1" concept_name="Sosialanamnese" max="1" path="/content" name="Familie- og sosialanamnese" />
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.social_summary.v1" concept_name="Sosialanamnese" max="1" path="/content" name="Familie- og sosialanamnese">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.mindrearige_barn_med_behov_for_oppfolging.v1" concept_name="Mindrearige barn med behov for oppfolging" path="/data[at0001]/items[at0003]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Volven_9191::11::Pasienten har ikke mindreårige barn</includedValues>
+            <includedValues>Volven_9191::21::Alle pasientens mindreårige barn (ett eller flere) er ivaretatt eller</includedValues>
+            <includedValues>Volven_9191::31::Pasienten har ett eller flere mindreårige barn som har behov for informasjon eller nødvendig oppfølging</includedValues>
+            <includedValues>Volven_9191::91::Det er ukjent om pasienten har omsorgsansvar for mindreårige barn</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+    </Content>
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.family_history.v1" concept_name="Familieanamnese" max="1" path="/content" name="Familieanamnese (hereditet)">
       <Rule path="/data[at0001]/items[at0003]" max="0" />
       <Rule path="/protocol[at0025]/items[at0026]" max="0" />
@@ -89,7 +100,17 @@
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.clinical_synopsis.v1" concept_name="Klinisk Sammendrag" path="/content" />
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.aktuelt_funksjonsniva_og_hjelpetiltak.v1" concept_name="Aktuelt funksjonsniva og hjelpetiltak" path="/content" />
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.barthel_no.v1" concept_name="Barthel ADL-indeks" path="/content" />
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.informasjon_til_pasient_og_parorende.v1" concept_name="Informasjon til pasient og parorende" path="/content" />
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.informasjon_til_pasient_og_parorende.v1" concept_name="Informasjon til pasient og parorende" path="/content">
+      <Rule path="/data[at0001]/items[at0004]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>2.16.578.1.12.4.1.1-9265::MS::Muntlig, med skriftlig kopi i tillegg</includedValues>
+          <includedValues>2.16.578.1.12.4.1.1-9265::MU::Muntlig, uten skriftlig kopi</includedValues>
+          <includedValues>2.16.578.1.12.4.1.1-9265::SB::Skriftlig med vanlig post</includedValues>
+          <includedValues>2.16.578.1.12.4.1.1-9265::SE::Elektronisk (sikker ePost eller lignende)</includedValues>
+          <includedValues>2.16.578.1.12.4.1.1-9265::SP::Skriftlig, personlig overlevert</includedValues>
+        </constraint>
+      </Rule>
+    </Content>
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_temperature.v1" concept_name="Kroppstemperatur" path="/content">
       <Rule path="/data[at0002]/events[at0003]/state[at0029]/items[at0030]" max="0" />
       <Rule path="/data[at0002]/events[at0003]/state[at0029]/items[at0041]" max="0" />
