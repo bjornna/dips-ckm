@@ -18,13 +18,6 @@ description
 		["name"] = <"">
 	>
 	details = <
-		["nb"] = <
-			language = <[ISO_639-1::nb]>
-			purpose = <"">
-			use = <"">
-			misuse = <"">
-			copyright = <"">
-		>
 		["no"] = <
 			language = <[ISO_639-1::no]>
 			purpose = <"*(nb)">
@@ -32,11 +25,18 @@ description
 			misuse = <"*(nb)">
 			copyright = <"*(nb)">
 		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
 	>
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"78439EC1D991B4833B73206B81F6FB5A">
+		["MD5-CAM-1.0.1"] = <"3125177AFA6ACD622CB71E17DF01F29D">
 	>
 
 definition
@@ -66,6 +66,30 @@ definition
 					}
 				}
 			}
+			ISM_TRANSITION[at0006] matches {	-- Aktuelt rettslig grunnlag for behandlingen
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0006]}		-- Aktuelt rettslig grunnlag for behandlingen
+					}
+				}
+			}
+			ISM_TRANSITION[at0007] matches {	-- Feilregistrert, erstattet av nytt, korrekt rettslig grunnlag
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::531]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0007]}		-- Feilregistrert, erstattet av nytt, korrekt rettslig grunnlag
+					}
+				}
+			}
 			ISM_TRANSITION[at0003] matches {	-- Avsluttet
 				current_state matches {
 					DV_CODED_TEXT matches {
@@ -90,6 +114,78 @@ definition
 					}
 				}
 			}
+			ISM_TRANSITION[at0008] matches {	-- Gyldighetsperiode for rettslig grunnlag overskredet uten at nytt rettslig grunnlag er etablert
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0008]}		-- Gyldighetsperiode for rettslig grunnlag overskredet uten at nytt rettslig grunnlag er etablert
+					}
+				}
+			}
+			ISM_TRANSITION[at0009] matches {	-- Erstattet av nytt rettslig grunnlag etter forlengelse av gyldighetsperioden
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0009]}		-- Erstattet av nytt rettslig grunnlag etter forlengelse av gyldighetsperioden
+					}
+				}
+			}
+			ISM_TRANSITION[at0010] matches {	-- Erstattet av nytt rettslig grunnlag i henhold til nytt vedtak
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0010]}		-- Erstattet av nytt rettslig grunnlag i henhold til nytt vedtak
+					}
+				}
+			}
+			ISM_TRANSITION[at0011] matches {	-- Pasienten overført til annen institusjon innenfor det psykiske helsevern
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0011]}		-- Pasienten overført til annen institusjon innenfor det psykiske helsevern
+					}
+				}
+			}
+			ISM_TRANSITION[at0012] matches {	-- Tvang opphørt, pasienten fortsatt ved institusjonen
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0012]}		-- Tvang opphørt, pasienten fortsatt ved institusjonen
+					}
+				}
+			}
+			ISM_TRANSITION[at0013] matches {	-- Avsluttet, pasienten utskrevet
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0013]}		-- Avsluttet, pasienten utskrevet
+					}
+				}
+			}
 		}
 		description matches {
 			ITEM_TREE[at0001] matches {*}
@@ -102,7 +198,7 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Vedtak status">
-					description = <"">
+					description = <"unknown">
 				>
 				["at0001"] = <
 					text = <"Tree">
@@ -110,19 +206,51 @@ ontology
 				>
 				["at0002"] = <
 					text = <"Aktiv">
-					description = <"">
+					description = <"*">
 				>
 				["at0003"] = <
 					text = <"Avsluttet">
-					description = <"Vedtaket er avsluttet">
+					description = <"*">
 				>
 				["at0004"] = <
 					text = <"Hastevedtak">
-					description = <"">
+					description = <"*">
 				>
 				["at0005"] = <
 					text = <"Fattet">
-					description = <"Vedtaket er fattet">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Aktuelt rettslig grunnlag for behandlingen">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Feilregistrert, erstattet av nytt, korrekt rettslig grunnlag">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Gyldighetsperiode for rettslig grunnlag overskredet uten at nytt rettslig grunnlag er etablert">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Erstattet av nytt rettslig grunnlag etter forlengelse av gyldighetsperioden">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Erstattet av nytt rettslig grunnlag i henhold til nytt vedtak">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Pasienten overført til annen institusjon innenfor det psykiske helsevern">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Tvang opphørt, pasienten fortsatt ved institusjonen">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Avsluttet, pasienten utskrevet">
+					description = <"*">
 				>
 			>
 		>
@@ -150,6 +278,38 @@ ontology
 				>
 				["at0005"] = <
 					text = <"Fattet">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Aktuelt rettslig grunnlag for behandlingen">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Feilregistrert, erstattet av nytt, korrekt rettslig grunnlag">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Gyldighetsperiode for rettslig grunnlag overskredet uten at nytt rettslig grunnlag er etablert">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Erstattet av nytt rettslig grunnlag etter forlengelse av gyldighetsperioden">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Erstattet av nytt rettslig grunnlag i henhold til nytt vedtak">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Pasienten overført til annen institusjon innenfor det psykiske helsevern">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Tvang opphørt, pasienten fortsatt ved institusjonen">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Avsluttet, pasienten utskrevet">
 					description = <"*">
 				>
 			>

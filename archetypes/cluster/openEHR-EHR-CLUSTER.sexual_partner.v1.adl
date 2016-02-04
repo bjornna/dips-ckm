@@ -2,9 +2,17 @@ archetype (adl_version=1.4)
 	openEHR-EHR-CLUSTER.sexual_partner.v1
 
 concept
-	[at0000]	-- Sexual partner
+	[at0000]	-- Seksualpartner
 language
 	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
 description
 	original_author = <
 		["name"] = <"">
@@ -17,37 +25,36 @@ description
 			misuse = <"">
 			copyright = <"">
 		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
 	>
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"D01FCF5863A6464447665532BCEE266D">
+		["MD5-CAM-1.0.1"] = <"4A96DB26E47F36EFC91ECDC3ED4D045A">
 	>
 
 definition
-	CLUSTER[at0000] matches {	-- Sexual partner
+	CLUSTER[at0000] matches {	-- Seksualpartner
 		items cardinality matches {1..*; unordered} matches {
-			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Date of last sexual activity
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Dato for siste sex
 				value matches {
 					DV_DATE matches {*}
 				}
 			}
-			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Indentification/Alias
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Identifikasjon/Alias
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Partner gender
+			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Partnerkjønn
 				value matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {
-							[local::
-							at0004, 	-- Man
-							at0005, 	-- Woman
-							at0006, 	-- Transman
-							at0007]	-- Transwoman
-						}
-					}
+					DV_TEXT matches {*}
 				}
 			}
 			ELEMENT[at0008] occurrences matches {0..1} matches {	-- Partner type
@@ -55,101 +62,400 @@ definition
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0009, 	-- Regular
-							at0010]	-- Not regular
+							at0009, 	-- Fast
+							at0010]	-- Ikke fast
 						}
 					}
 				}
 			}
-			ELEMENT[at0011] occurrences matches {0..1} matches {	-- Living arrangements
+			ELEMENT[at0011] occurrences matches {0..1} matches {	-- Boforhold
 				value matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0012, 	-- Living together/Cohabit
-							at0013]	-- Not living together
+							at0012, 	-- Bor sammen
+							at0013]	-- Bor ikke sammen
 						}
 					}
 				}
 			}
-			ELEMENT[at0014] occurrences matches {0..1} matches {	-- Partner category
+			ELEMENT[at0014] occurrences matches {0..1} matches {	-- Partner kategori
 				value matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0015, 	-- Spouse
-							at0016, 	-- Known partner
-							at0017]	-- Unknown partner
+							at0015, 	-- Ektefelle/samboer
+							at0016, 	-- Kjent partner
+							at0017]	-- Ukjent partner
 						}
 					}
 				}
 			}
-			ELEMENT[at0018] occurrences matches {0..1} matches {	-- Commercial Sex worker
+			ELEMENT[at0018] occurrences matches {0..1} matches {	-- Sexarbeider
 				value matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {
-							[local::
-							at0019, 	-- Yes
-							at0020]	-- No
-						}
+					DV_TEXT matches {
+						value matches {"at0019", "at0020"}
 					}
 				}
 			}
-			ELEMENT[at0021] occurrences matches {0..1} matches {	-- Length of sexual relationship
+			ELEMENT[at0021] occurrences matches {0..1} matches {	-- Lengde av seksuelt forhold
 				value matches {
 					DV_DURATION matches {
 						value matches {PYMWD}
 					}
 				}
 			}
-			ELEMENT[at0022] occurrences matches {0..1} matches {	-- Has this partner been living abroad for more than one year consecutive?
-				value matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {
-							[local::
-							at0023, 	-- Yes
-							at0024, 	-- No
-							at0025]	-- Unsure
-						}
-					}
-				}
-			}
-			ELEMENT[at0026] occurrences matches {0..1} matches {	-- If yes, Which country
+			ELEMENT[at0037] occurrences matches {0..1} matches {	-- Nasjonalitet
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0027] occurrences matches {0..1} matches {	-- Will the sexual relation continue?
+			ELEMENT[at0039] occurrences matches {0..1} matches {	-- Mors fødeland
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0040] occurrences matches {0..1} matches {	-- Fars fødeland
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0022] occurrences matches {0..1} matches {	-- Har denne partneren bodd i utlandet i over ett år sammenhengende?
 				value matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0028, 	-- Likely
-							at0029]	-- Unlikely
+							at0023, 	-- Ja
+							at0024, 	-- Nei
+							at0025]	-- Usikker
 						}
 					}
 				}
 			}
-			ELEMENT[at0030] occurrences matches {0..1} matches {	-- Do you think you may have been infected by this partner?
+			ELEMENT[at0026] occurrences matches {0..1} matches {	-- Hvis ja, hvilke land?
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0027] occurrences matches {0..1} matches {	-- Vil det seksuelle forholde fortsette?
 				value matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0031, 	-- Likely
-							at0032]	-- Unlikely
+							at0028, 	-- Sannsynlig
+							at0029]	-- Lite sannsynlig
 						}
 					}
 				}
 			}
-			allow_archetype CLUSTER[at0034] occurrences matches {0..*} matches {	-- Sexual contact
+			ELEMENT[at0046] occurrences matches {0..1} matches {	-- Ufrivillig sex?
+				value matches {
+					DV_BOOLEAN matches {
+						value matches {True}
+					}
+				}
+			}
+			ELEMENT[at0030] occurrences matches {0..1} matches {	-- Tror du at du kan ha blitt smittet av denne partneren?
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			allow_archetype CLUSTER[at0034] occurrences matches {0..*} matches {	-- Seksuell kontakt
 				include
 					archetype_id/value matches {/.*/}
+			}
+			ELEMENT[at0036] occurrences matches {0..1} matches {	-- Annet
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0041] occurrences matches {0..*} matches {	-- Risikofaktorer
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0042] occurrences matches {0..1} matches {	-- Beskrivelse risikofaktorer
+				value matches {
+					DV_TEXT matches {*}
+				}
 			}
 		}
 	}
 
 ontology
 	term_definitions = <
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"Seksualpartner">
+					description = <"*">
+				>
+				["at0001"] = <
+					text = <"Dato for siste sex">
+					description = <"*">
+				>
+				["at0002"] = <
+					text = <"Identifikasjon/Alias">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Partnerkjønn">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Partner type">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Fast">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Ikke fast">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Boforhold">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Bor sammen">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Bor ikke sammen">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Partner kategori">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Ektefelle">
+					description = <"*">
+				>
+				["at0016"] = <
+					text = <"Kjent partner">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Ukjent partner">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Sexarbeider">
+					description = <"*">
+				>
+				["at0021"] = <
+					text = <"Lengde av seksuelt forhold">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Har denne partneren bodd i utlandet i over ett år sammenhengende?">
+					description = <"*">
+				>
+				["at0023"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0024"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0025"] = <
+					text = <"Usikker">
+					description = <"*">
+				>
+				["at0026"] = <
+					text = <"Hvis ja, hvilke land?">
+					description = <"*">
+				>
+				["at0027"] = <
+					text = <"Vil det seksuelle forholde fortsette?">
+					description = <"*">
+				>
+				["at0028"] = <
+					text = <"Sannsynlig">
+					description = <"*">
+				>
+				["at0029"] = <
+					text = <"Lite sannsynig">
+					description = <"*">
+				>
+				["at0030"] = <
+					text = <"Tror du at du kan ha blitt smittet av denne partneren?">
+					description = <"*">
+				>
+				["at0034"] = <
+					text = <"Seksuell kontakt">
+					description = <"*">
+				>
+				["at0036"] = <
+					text = <"Annet">
+					description = <"*">
+				>
+				["at0037"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0039"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0040"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0041"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0042"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0046"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Seksualpartner">
+					description = <"*">
+				>
+				["at0001"] = <
+					text = <"Dato for siste sex">
+					description = <"*">
+				>
+				["at0002"] = <
+					text = <"Identifikasjon/Alias">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Partnerkjønn">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Partner type">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Fast">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Ikke fast">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Boforhold">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Bor sammen">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Bor ikke sammen">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Partner kategori">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Ektefelle/samboer">
+					description = <"*">
+				>
+				["at0016"] = <
+					text = <"Kjent partner">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Ukjent partner">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Sexarbeider">
+					description = <"*">
+				>
+				["at0021"] = <
+					text = <"Lengde av seksuelt forhold">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Har denne partneren bodd i utlandet i over ett år sammenhengende?">
+					description = <"*">
+				>
+				["at0023"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0024"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0025"] = <
+					text = <"Usikker">
+					description = <"*">
+				>
+				["at0026"] = <
+					text = <"Hvis ja, hvilke land?">
+					description = <"*">
+				>
+				["at0027"] = <
+					text = <"Vil det seksuelle forholde fortsette?">
+					description = <"*">
+				>
+				["at0028"] = <
+					text = <"Sannsynlig">
+					description = <"*">
+				>
+				["at0029"] = <
+					text = <"Lite sannsynlig">
+					description = <"*">
+				>
+				["at0030"] = <
+					text = <"Tror du at du kan ha blitt smittet av denne partneren?">
+					description = <"*">
+				>
+				["at0034"] = <
+					text = <"Seksuell kontakt">
+					description = <"*">
+				>
+				["at0036"] = <
+					text = <"Annet">
+					description = <"*">
+				>
+				["at0037"] = <
+					text = <"Nasjonalitet">
+					description = <"*">
+				>
+				["at0039"] = <
+					text = <"Mors fødeland">
+					description = <"*">
+				>
+				["at0040"] = <
+					text = <"Fars fødeland">
+					description = <"*">
+				>
+				["at0041"] = <
+					text = <"Risikofaktorer">
+					description = <"*">
+				>
+				["at0042"] = <
+					text = <"Beskrivelse risikofaktorer">
+					description = <"*">
+				>
+				["at0046"] = <
+					text = <"Ufrivillig sex?">
+					description = <"*">
+				>
+			>
+		>
 		["en"] = <
 			items = <
 				["at0000"] = <
@@ -158,135 +464,131 @@ ontology
 				>
 				["at0001"] = <
 					text = <"Date of last sexual activity">
-					description = <"">
+					description = <"*">
 				>
 				["at0002"] = <
 					text = <"Indentification/Alias">
-					description = <"">
+					description = <"*">
 				>
 				["at0003"] = <
 					text = <"Partner gender">
-					description = <"">
-				>
-				["at0004"] = <
-					text = <"Man">
-					description = <"">
-				>
-				["at0005"] = <
-					text = <"Woman">
-					description = <"">
-				>
-				["at0006"] = <
-					text = <"Transman">
-					description = <"">
-				>
-				["at0007"] = <
-					text = <"Transwoman">
-					description = <"">
+					description = <"*">
 				>
 				["at0008"] = <
 					text = <"Partner type">
-					description = <"">
+					description = <"*">
 				>
 				["at0009"] = <
 					text = <"Regular">
-					description = <"">
+					description = <"*">
 				>
 				["at0010"] = <
 					text = <"Not regular">
-					description = <"">
+					description = <"*">
 				>
 				["at0011"] = <
 					text = <"Living arrangements">
-					description = <"">
+					description = <"*">
 				>
 				["at0012"] = <
 					text = <"Living together/Cohabit">
-					description = <"">
+					description = <"*">
 				>
 				["at0013"] = <
 					text = <"Not living together">
-					description = <"">
+					description = <"*">
 				>
 				["at0014"] = <
 					text = <"Partner category">
-					description = <"">
+					description = <"*">
 				>
 				["at0015"] = <
 					text = <"Spouse">
-					description = <"">
+					description = <"*">
 				>
 				["at0016"] = <
 					text = <"Known partner">
-					description = <"">
+					description = <"*">
 				>
 				["at0017"] = <
 					text = <"Unknown partner">
-					description = <"">
+					description = <"*">
 				>
 				["at0018"] = <
 					text = <"Commercial Sex worker">
-					description = <"">
-				>
-				["at0019"] = <
-					text = <"Yes">
-					description = <"">
-				>
-				["at0020"] = <
-					text = <"No">
-					description = <"">
+					description = <"*">
 				>
 				["at0021"] = <
 					text = <"Length of sexual relationship">
-					description = <"">
+					description = <"*">
 				>
 				["at0022"] = <
 					text = <"Has this partner been living abroad for more than one year consecutive?">
-					description = <"">
+					description = <"*">
 				>
 				["at0023"] = <
 					text = <"Yes">
-					description = <"">
+					description = <"*">
 				>
 				["at0024"] = <
 					text = <"No">
-					description = <"">
+					description = <"*">
 				>
 				["at0025"] = <
 					text = <"Unsure">
-					description = <"">
+					description = <"*">
 				>
 				["at0026"] = <
 					text = <"If yes, Which country">
-					description = <"">
+					description = <"*">
 				>
 				["at0027"] = <
 					text = <"Will the sexual relation continue?">
-					description = <"">
+					description = <"*">
 				>
 				["at0028"] = <
 					text = <"Likely">
-					description = <"">
+					description = <"*">
 				>
 				["at0029"] = <
 					text = <"Unlikely">
-					description = <"">
+					description = <"*">
 				>
 				["at0030"] = <
 					text = <"Do you think you may have been infected by this partner?">
-					description = <"">
-				>
-				["at0031"] = <
-					text = <"Likely">
-					description = <"">
-				>
-				["at0032"] = <
-					text = <"Unlikely">
-					description = <"">
+					description = <"*">
 				>
 				["at0034"] = <
 					text = <"Sexual contact">
-					description = <"">
+					description = <"*">
+				>
+				["at0036"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0037"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0039"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0040"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0041"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0042"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0046"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
 				>
 			>
 		>
