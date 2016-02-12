@@ -1,0 +1,244 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.urination.v1
+
+concept
+	[at0000]	-- Vannlating
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For å dokumentere detaljer vedrørende vannlating.">
+			use = <"Brukes for å dokumentere detaljer vedrørende vannlating.">
+			keywords = <"urin", "vannlating", "naturlige funskjoner">
+			misuse = <"Brukes ikke for å dokumentere menden væske som går ut av kroppen i forindelse f.eks. med registrering av væskebaløanse. Til det brukes egne arketyper: OBSERVATION.body_fluid_ out og OBSERVATION.body_fluid_ balance.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"8C2E9BA3F9E8CF5F4A83901A738EA5DD">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Vannlating
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0032] occurrences matches {0..1} matches {	-- Klinisk vurdering
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0033, 	-- Normal
+													at0034]	-- Avvikende
+												}
+											}
+										}
+									}
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Klinisk beskrivelse
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Farge
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0008] occurrences matches {0..1} matches {	-- Utseende
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0025, 	-- Klar
+													at0026]	-- Uklar
+												}
+											}
+										}
+									}
+									ELEMENT[at0021] occurrences matches {0..1} matches {	-- Hyppighet
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::382]>
+												list = <
+													["1"] = <
+														units = <"1/h">
+														magnitude = <|>=0.0|>
+														precision = <|0|>
+													>
+													["2"] = <
+														units = <"1/d">
+														magnitude = <|>=0.0|>
+														precision = <|0|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0014] occurrences matches {0..1} matches {	-- Mengde
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0028, 	-- Ingen
+													at0029, 	-- Noen få dråper
+													at0030, 	-- En skvett.
+													at0031]	-- Normal
+												}
+											}
+											C_DV_QUANTITY <
+												property = <[openehr::129]>
+												list = <
+													["1"] = <
+														units = <"ml">
+														magnitude = <|>=0.0|>
+														precision = <|0|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0027] occurrences matches {0..1} matches {	-- Lukt
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True}
+											}
+										}
+									}
+									ELEMENT[at0011] occurrences matches {0..1} matches {	-- Siste vannlating
+										value matches {
+											DV_DATE_TIME matches {*}
+										}
+									}
+									allow_archetype CLUSTER[at0022] occurrences matches {0..*} matches {	-- Detaljer
+										include
+											archetype_id/value matches {/.*/}
+									}
+									ELEMENT[at0023] occurrences matches {0..1} matches {	-- Volum
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::129]>
+												list = <
+													["1"] = <
+														units = <"ml">
+														magnitude = <|>=0.0|>
+														precision = <|0|>
+													>
+												>
+											>
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Vannlating">
+					description = <"Dokumenterer detaljer vedrørende vannlating.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Klinisk beskrivelse">
+					description = <"Klinisk beskrivelse av vannlating og vannlatingsmønster.">
+				>
+				["at0005"] = <
+					text = <"Farge">
+					description = <"Urinens farge.">
+				>
+				["at0008"] = <
+					text = <"Utseende">
+					description = <"Detaljer vedrørende urinens utseende f.eks. klar, ">
+				>
+				["at0011"] = <
+					text = <"Siste vannlating">
+					description = <"Tidspunkt for siste vannlating.">
+				>
+				["at0014"] = <
+					text = <"Mengde">
+					description = <"Kvalitativ beskrivelse av urinmngde.">
+				>
+				["at0021"] = <
+					text = <"Hyppighet">
+					description = <"Antall avnnlatinger per time eller dag.">
+				>
+				["at0022"] = <
+					text = <"Detaljer">
+					description = <"Strukturerte detaljer f.eks. informasjon om syptomer i forbindelse med vannlating">
+				>
+				["at0023"] = <
+					text = <"Volum">
+					description = <"Volum ved vannlating.">
+				>
+				["at0025"] = <
+					text = <"Klar">
+					description = <"Urinen er klar.">
+				>
+				["at0026"] = <
+					text = <"Uklar">
+					description = <"Urinen er uklar.">
+				>
+				["at0027"] = <
+					text = <"Lukt">
+					description = <"Ja indikerer at urinen lukter.">
+				>
+				["at0028"] = <
+					text = <"Ingen">
+					description = <"Ingen urin.">
+				>
+				["at0029"] = <
+					text = <"Noen få dråper">
+					description = <"Urinmengde tilsvarer noen få dråper.">
+				>
+				["at0030"] = <
+					text = <"En skvett.">
+					description = <"U_rinmengde tilsvarer en skvett.">
+				>
+				["at0031"] = <
+					text = <"Normal">
+					description = <"Normal urinmengde.">
+				>
+				["at0032"] = <
+					text = <"Klinisk vurdering">
+					description = <"Oppsummert vurdering hvorvidt vannlating er normal ellera vvikende">
+				>
+				["at0033"] = <
+					text = <"Normal">
+					description = <"Vannlatingen er normal">
+				>
+				["at0034"] = <
+					text = <"Avvikende">
+					description = <"Vannlating er ikke normal.">
+				>
+			>
+		>
+	>

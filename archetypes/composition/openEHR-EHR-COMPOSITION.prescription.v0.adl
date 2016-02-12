@@ -1,0 +1,113 @@
+﻿archetype (adl_version=1.4; uid=7922d4ff-0ff5-45aa-963e-d4ba60cd5c46)
+	openEHR-EHR-COMPOSITION.prescription.v0
+
+concept
+	[at0000]	-- Prescription
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["ar-sy"] = <
+			language = <[ISO_639-1::ar-sy]>
+			author = <
+				["name"] = <"Monica Saleh">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Sam Heard">
+		["email"] = <"sam.heard@oceaninformatics.com">
+		["organisation"] = <"Ocean Informatics">
+		["date"] = <"2006-03-23">
+	>
+	details = <
+		["ar-sy"] = <
+			language = <[ISO_639-1::ar-sy]>
+			purpose = <"بِنية لنقل الأوامر بالأدوية إلى الصيدلية.">
+			use = <"تستخدم هذه البنية فقط في توصيل الأدوية إلى الصيدلية.">
+			keywords = <"الدواء", "وصف العلاج", "الأمر">
+			misuse = <"يستخدم نموذج فعل. وصف العلاج, لتسجيل الأوامر بالأدوية و التعليمات الخاصة بها. 
+تستخدم هذه البنية فقط في توصيل الأدوية إلى الصيدلية عبر الـ openEHR.">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"A composition for transferring medication orders to the pharmacy.">
+			use = <"This composition is only required for transfer of medications to the pharmacy.">
+			keywords = <"medication", "prescribe", "order">
+			misuse = <"Medication orders, as instructions, have a prescribe action that records prescription and communication to the pharmacy. This composition is only required if the medication orders are required to be transmitted within openEHR to the pharmacy.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"NotSet">
+	other_contributors = <>
+	other_details = <
+		["revision"] = <"0.0.1-alpha">
+		["original_publisher"] = <"openEHR Foundation">
+		["build_uid"] = <"76c9f2d9-813a-4e75-bf94-c1a0c0b5fbee">
+		["original_namespace"] = <"org.openehr">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["MD5-CAM-1.0.1"] = <"BD62E34377996CD78B9D9DE976E3B31A">
+		["custodian_namespace"] = <"org.openehr">
+		["custodian_organisation"] = <"openEHR Foundation">
+	>
+
+definition
+	COMPOSITION[at0000] matches {	-- Prescription
+		category matches {
+			DV_CODED_TEXT matches {
+				defining_code matches {[openehr::433]}
+			}
+		}
+		context matches {
+			EVENT_CONTEXT matches {
+				other_context matches {
+					ITEM_TREE[at0001] matches {	-- Tree
+						items cardinality matches {0..*; unordered} matches {
+							allow_archetype CLUSTER[at0007] occurrences matches {0..*} matches {	-- Extension
+								include
+									archetype_id/value matches {/.*/}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Prescription">
+					description = <"Set of medication orders communicated to pharmacy.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0007"] = <
+					text = <"Extension">
+					description = <"Additional information required to capture local context or to align with other reference models/formalisms.">
+					comment = <"e.g. Local hospital departmental infomation or additional metadata to align with FHIR or CIMI equivalents.">
+				>
+			>
+		>
+		["ar-sy"] = <
+			items = <
+				["at0000"] = <
+					text = <"وصف العلاج">
+					description = <"مجموعة من أوامر الأدوية يتم توصيلها إلى الصيدلية.">
+				>
+				["at0001"] = <
+					text = <"*Tree(en)">
+					description = <"*@ internal @(en)">
+				>
+				["at0007"] = <
+					text = <"*Extension(en)">
+					description = <"*Additional information required to capture local context or to align with other reference models/formalisms.(en)">
+					comment = <"*e.g. Local hospital departmental infomation or additional metadata to align with FHIR or CIMI equivalents.(en)">
+				>
+			>
+		>
+	>

@@ -2,149 +2,118 @@
 	openEHR-EHR-CLUSTER.exam_skin.v1
 
 concept
-	[at0000]	-- Exam skin
+	[at0000]	-- Hudundersøkelse
 language
-	original_language = <[ISO_639-1::en]>
+	original_language = <[ISO_639-1::nb]>
 description
 	original_author = <
-		["name"] = <"">
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"Dips ASA">
+		["date"] = <"2015-11-13">
 	>
 	details = <
-		["en"] = <
-			language = <[ISO_639-1::en]>
-			purpose = <"">
-			use = <"">
-			misuse = <"">
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Dokumentasjon av samlede funn og klinisk interpretasjon ved klinisk undersøkelse av hud.">
+			use = <"Brukes for å dokumentere en beskrivelse av alle funn og klinisk interpretasjon ved klinisk undersøkelse av hud Denne initielle mønsterarketypen inneholder kun kjernedata (som i CLUSTER.exam_pattern) og vil sansynligvis utvides over tid etter som nye kliniske behov kommer frem.
+
+Denne arketypen er spesiell utviklet for bruk i OBSERVATION.funn_ved_klinisk_undersøkelse arketypen\" eller innenfor andre Observation eller Cluster arketyper, der dette er klinisk hensiktsmessig. 
+
+Brukes for å gi et rammeverk hvor andre Cluster arketyper kan legges inn i \"Undersøkelsesfunn\" Slot for å dokumentere tilleggsfunn på en strukturert måte, f.eks. CLUSTER.breath_sounds.
+
+Cluster arketypen \"CLUSTER.exclusion_exam\" kan legges inn i \"Undersøkelse ikke gjennomført slotet for å dokumentere eksplistte detaljer som beskriver at undersøkelsen ikke ble gjennomført.
+
+Brukes for å bygge en en beskrivelse av kliniske funn i eksisterende eller .... (legacy) kliniske sytemer i arketypeformat ved å brfuke dataelementet \"klinisk beskrivelse\".">
+			keywords = <"hud", ...>
+			misuse = <"Skal ikke brukes for å dokumentere data som ikke er relatert til klinisk undersøkelse av hud. 
+
+Skal ikke brukes for å dokumentere anamnese - bruk spesifikke Observation og Cluster akretyper til dette formålet. For eksempel OBSERVATION.anamnese og CLUSTER.symptom.">
 			copyright = <"">
 		>
 	>
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"5ADF916A2F8A63962179478D41B1ABF5">
+		["current_contact"] = <"Anca Heyd, Dips ASA<ahe@dips.no>">
+		["MD5-CAM-1.0.1"] = <"1E671939FD2B1F378FFAD3E0483834B8">
 	>
 
 definition
-	CLUSTER[at0000] matches {	-- Exam skin
+	CLUSTER[at0000] matches {	-- Hudundersøkelse
 		items cardinality matches {1..*; unordered} matches {
-			CLUSTER[at0001] occurrences matches {0..*} matches {	-- Findings
-				items cardinality matches {1..*; unordered} matches {
-					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Finding
-						value matches {
-							DV_CODED_TEXT matches {
-								defining_code matches {
-									[local::
-									at0003, 	-- Warts
-									at0004, 	-- Blisters/Vesicles
-									at0005, 	-- Ulcers
-									at0006, 	-- Molluscum contagiosum
-									at0007, 	-- Spots
-									at0008, 	-- Folliculitis
-									at0009, 	-- Papules
-									at0010, 	-- Pustules
-									at0011, 	-- Papillomatosis
-									at0012, 	-- Fissures
-									at0013, 	-- Erosions
-									at0014, 	-- Erythema
-									at0015, 	-- Lice
-									at0016]	-- Scabies
-								}
-							}
-						}
-					}
-					ELEMENT[at0017] occurrences matches {0..1} matches {	-- Number
-						value matches {
-							DV_COUNT matches {*}
-						}
-					}
-					allow_archetype CLUSTER[at0018] occurrences matches {0..*} matches {	-- Structured Anatomical Details
-						include
-							archetype_id/value matches {/.*/}
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Intet unormalt avdekket
+				value matches {
+					DV_BOOLEAN matches {
+						value matches {True}
 					}
 				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Klinisk beskrivelse
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			allow_archetype CLUSTER[at0003] occurrences matches {0..*} matches {	-- Undersøkelsesfunn
+				include
+					archetype_id/value matches {/.*/}
+			}
+			allow_archetype CLUSTER[at0004] occurrences matches {0..*} matches {	-- Multimedia representasjon
+				include
+					archetype_id/value matches {/.*/}
+			}
+			ELEMENT[at0005] occurrences matches {0..1} matches {	-- Klinisk interpretasjon
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0006] occurrences matches {0..1} matches {	-- Kommentar
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			allow_archetype CLUSTER[at0007] occurrences matches {0..*} matches {	-- Undersøkelse ikke gjennomført
+				include
+					archetype_id/value matches {/openEHR-EHR-CLUSTER\.exclusion_exam(-[a-zA-Z0-9_]+)*\.v1/}
 			}
 		}
 	}
 
 ontology
 	term_definitions = <
-		["en"] = <
+		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"Exam skin">
-					description = <"unknown">
+					text = <"Hudundersøkelse">
+					description = <"Funn observert ved klinisk undersøkelse av hjertet.">
 				>
 				["at0001"] = <
-					text = <"Findings">
-					description = <"">
+					text = <"Intet unormalt avdekket">
+					description = <"Konstatering at funn ved undersøkelse ikke viste noe unormalt.">
 				>
 				["at0002"] = <
-					text = <"Finding">
-					description = <"">
+					text = <"Klinisk beskrivelse">
+					description = <"Beskrivelse av samlede funn observert ved klinisk undersøkelse av hud.">
 				>
 				["at0003"] = <
-					text = <"Warts">
-					description = <"">
+					text = <"Undersøkelsesfunn">
+					description = <"Strukturerte detaljer vedrørende funn ved fysisk undersøkelse.">
 				>
 				["at0004"] = <
-					text = <"Blisters/Vesicles">
-					description = <"">
+					text = <"Multimedia representasjon">
+					description = <"Digitale bilder, video eller diagram som representerer funnene ved klinisk undersøkelse.">
 				>
 				["at0005"] = <
-					text = <"Ulcers">
-					description = <"">
+					text = <"Klinisk interpretasjon">
+					description = <"Enkelt ord, frase eller kort beskrivelse som representerer klinisk betydning og signifikans av funnene ved klinisk undersøkelse.">
 				>
 				["at0006"] = <
-					text = <"Molluscum contagiosum">
-					description = <"">
+					text = <"Kommentar">
+					description = <"Tekstlig tilleggsinformasjon vedrørende klinisk undersøkelse, som ikke er fanget opp i de andre dataelementene.">
 				>
 				["at0007"] = <
-					text = <"Spots">
-					description = <"">
-				>
-				["at0008"] = <
-					text = <"Folliculitis">
-					description = <"">
-				>
-				["at0009"] = <
-					text = <"Papules">
-					description = <"">
-				>
-				["at0010"] = <
-					text = <"Pustules">
-					description = <"">
-				>
-				["at0011"] = <
-					text = <"Papillomatosis">
-					description = <"">
-				>
-				["at0012"] = <
-					text = <"Fissures">
-					description = <"">
-				>
-				["at0013"] = <
-					text = <"Erosions">
-					description = <"">
-				>
-				["at0014"] = <
-					text = <"Erythema">
-					description = <"">
-				>
-				["at0015"] = <
-					text = <"Lice">
-					description = <"">
-				>
-				["at0016"] = <
-					text = <"Scabies">
-					description = <"">
-				>
-				["at0017"] = <
-					text = <"Number">
-					description = <"">
-				>
-				["at0018"] = <
-					text = <"Structured Anatomical Details">
-					description = <"">
+					text = <"Undersøkelse ikke gjennomført">
+					description = <"*">
 				>
 			>
 		>

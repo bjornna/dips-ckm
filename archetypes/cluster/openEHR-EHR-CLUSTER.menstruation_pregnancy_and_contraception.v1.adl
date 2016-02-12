@@ -1,0 +1,158 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.menstruation_pregnancy_and_contraception.v1
+
+concept
+	[at0000]	-- Menstruasjon svangerskap og prevensjon
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"Dips ASA">
+		["date"] = <"2015-11-13">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For å dokumentere generell informasjon vedrørende menstruasjon, prevensjon og evt. svangerskap.">
+			use = <"Brukes for å dokumentere menstruasjon, prevensjon og evt. svangerskap.
+
+Denne arketypen er tenkt brukt i openEHR-EHR-OBSERVATION.bodily_functions.v1 men kan også brukes i andre OBSERVATION arketper hvor det er nødvendig å dokumentere strukturerte detaljer vedrørende vanlatingsfunskjonen.">
+			keywords = <"menstruasjon", "svangerskap", "graviditet", "prevensjon", "menarche", "menopause">
+			misuse = <"Skal ikke brukes for å dokumentere detaljer vedrørende et aktuell eller tidligere svangerskap eller en gitt menstruasjonssyklus. Til dette brukes egne spesialiserte arketyper.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <"Anca Heyd, Dips ASA<ahe@dips.no>">
+		["MD5-CAM-1.0.1"] = <"C5AE9BD29B98FF2ABB1ACD021AA2E09B">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Menstruasjon svangerskap og prevensjon
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Siste menstruasjon
+				value matches {
+					DV_DATE matches {*}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Menarche
+				value matches {
+					DV_DATE matches {*}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Menopause
+				value matches {
+					DV_DATE matches {*}
+				}
+			}
+			ELEMENT[at0004] occurrences matches {0..1} matches {	-- Gravid?
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0005, 	-- Ja
+							at0006, 	-- Nei
+							at0007, 	-- Usikker
+							at0008]	-- Ukjent
+						}
+					}
+				}
+			}
+			ELEMENT[at0009] occurrences matches {0..1} matches {	-- Svangerskapslengde
+				value matches {
+					DV_DURATION matches {
+						value matches {PMW/|>=P0M|}
+					}
+				}
+			}
+			ELEMENT[at0010] occurrences matches {0..1} matches {	-- Bruker prevensjon?
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0011, 	-- Ja
+							at0012, 	-- Nei
+							at0013]	-- Ukjent
+						}
+					}
+				}
+			}
+			ELEMENT[at0014] occurrences matches {0..1} matches {	-- Type prevensjon
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Menstruasjon svangerskap og prevensjon">
+					description = <"Dokumenterer generell informasjon vedrørende matlyst.">
+				>
+				["at0001"] = <
+					text = <"Siste menstruasjon">
+					description = <"Første dag av siste menstruasjon.">
+				>
+				["at0002"] = <
+					text = <"Menarche">
+					description = <"Dator for start av menstruasjonsblødning.">
+				>
+				["at0003"] = <
+					text = <"Menopause">
+					description = <"Start av menopause.">
+				>
+				["at0004"] = <
+					text = <"Gravid?">
+					description = <"Er pasienten gravid?">
+				>
+				["at0005"] = <
+					text = <"Ja">
+					description = <"Pasienten er gravid.">
+				>
+				["at0006"] = <
+					text = <"Nei">
+					description = <"Pasienten er ikke gravid">
+				>
+				["at0007"] = <
+					text = <"Usikker">
+					description = <"Det er usikker hvorvidt pasienten er gravid eller ikke.">
+				>
+				["at0008"] = <
+					text = <"Ukjent">
+					description = <"Det foreligger ingen informasjon om evt. svangerskap.">
+				>
+				["at0009"] = <
+					text = <"Svangerskapslengde">
+					description = <"Svangerskapslengde.">
+				>
+				["at0010"] = <
+					text = <"Bruker prevensjon?">
+					description = <"Bruker pasienten prevensjon?">
+				>
+				["at0011"] = <
+					text = <"Ja">
+					description = <"Pasienten bruker prevensjon.">
+				>
+				["at0012"] = <
+					text = <"Nei">
+					description = <"PAsienten bruker ikke prevensjon">
+				>
+				["at0013"] = <
+					text = <"Ukjent">
+					description = <"Det foreligger ingen informasjon om pasienten bruker prevensjon.">
+				>
+				["at0014"] = <
+					text = <"Type prevensjon">
+					description = <"Detlajer vedrørende prevensjonstype som pasienten bruker.">
+				>
+			>
+		>
+	>

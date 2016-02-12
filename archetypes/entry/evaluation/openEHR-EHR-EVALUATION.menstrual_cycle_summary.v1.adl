@@ -1,15 +1,25 @@
-﻿archetype (adl_version=1.4)
+﻿archetype (adl_version=1.4; uid=1216e7ff-b88d-40e7-a304-b1838095319c)
 	openEHR-EHR-EVALUATION.menstrual_cycle_summary.v1
 
 concept
-	[at0000]	-- Menstrual cycle summary
+	[at0000]	-- Menstruasjonssyklus oppsummering
 language
 	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["name"] = <"Anca Heyd">
+				["email"] = <"ahe@dips.no">
+				["organisation"] = <"DIPS ASA">
+			>
+		>
+	>
 description
 	original_author = <
 		["name"] = <"Heather Leslie">
-		["organisation"] = <"Ocean Informatics, Australia">
 		["email"] = <"heather.leslie@oceaninformatics.com">
+		["organisation"] = <"Ocean Informatics, Australia">
 		["date"] = <"9/03/2011">
 	>
 	details = <
@@ -19,26 +29,41 @@ description
 			use = <"Use to record significant events related to the menstrual history.">
 			keywords = <"menstruation", "menstrual", "cycle", "period", "menarche", "menopause", "LNMP">
 			misuse = <"Not to be used to record information about menses or related symptoms for a specific menstrual cycle or pattern over multiple cycles. Use OBSERVATION.menstrual_cycle for this purpose.">
-			copyright = <"© 2011 NEHTA">
+			copyright = <"© Nasjonal IKT HF">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Å dokumentere en oversikt over viktige hendelser relatert til menstruasjonssyklus. ">
+			use = <"Brukes for å dokumentere viktige hendelser relatert til menstruasjon.">
+			keywords = <"menstruasjon", "menarche", "menopause", "syklus", "periode", "menstruell">
+			misuse = <"Skal ikke brukes for å dokumentere informasjon om menstruasjon eller relaterte symptomer til en spesifikk menstruasjonssyklus. Til dette skal arketypen eller et møster over flere menstruasjonssykluser. Til dette skal  OBSERVATION.menstrual_cycle brukes.">
+			copyright = <"*© Nasjonal IKT HF(en)">
 		>
 	>
-	lifecycle_state = <"CommitteeDraft">
+	lifecycle_state = <"NotSet">
 	other_contributors = <"Sam Heard, Ocean Informatics, Australia", ...>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"3D97821FA60F1D0FB67D1C294A6669A8">
+		["revision"] = <"0.0.1-alpha">
+		["original_publisher"] = <"Nasjonal IKT">
+		["build_uid"] = <"02d68d8a-9e8f-4d2b-a30a-bf258b8fd9cb">
+		["original_namespace"] = <"no.nasjonalikt">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["MD5-CAM-1.0.1"] = <"4476C1D2D771AF404AE34679BE4FF5DE">
+		["custodian_namespace"] = <"no.nasjonalikt">
+		["custodian_organisation"] = <"Nasjonal IKT">
 	>
 
 definition
-	EVALUATION[at0000] matches {	-- Menstrual cycle summary
+	EVALUATION[at0000] matches {	-- Menstruasjonssyklus oppsummering
 		data matches {
-			ITEM_TREE[at0001] matches {	-- Tree
+			ITEM_TREE[at0001] matches {	-- *Tree(en)
 				items cardinality matches {0..*; unordered} matches {
 					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Menarche
 						value matches {
 							DV_DATE matches {*}
 						}
 					}
-					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Last normal menstrual period (LNMP)
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Sitste normale menstruasjon
 						value matches {
 							DV_DATE matches {*}
 						}
@@ -52,8 +77,6 @@ definition
 			}
 		}
 	}
-
-
 
 ontology
 	term_definitions = <
@@ -78,6 +101,30 @@ ontology
 				["at0004"] = <
 					text = <"Menopause">
 					description = <"Onset of Menopause. Partial dates, such as year only or year and month are allowed.">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Menstruasjonssyklus oppsummering">
+					description = <"Oppsummering av menstruasjonssyklus.">
+				>
+				["at0001"] = <
+					text = <"*Tree(en)">
+					description = <"*@ internal @(en)">
+				>
+				["at0002"] = <
+					text = <"Menarche">
+					description = <"Dato for start av første menstruasjonssyklus. Partiell dat osm kun måned eller år er tillatt.">
+				>
+				["at0003"] = <
+					text = <"Sitste normale menstruasjon">
+					description = <"Første dag av siste normale menstruasjonssyklus. Denne er nyttig for å beregne svangerskapslengde eller for å identifisere den siste normale syklus ved syklus uregelmessigheter.">
+				>
+				["at0004"] = <
+					text = <"Menopause">
+					description = <"Menopausestart. Partiell dato som kun måned eller år er tillatt.">
 				>
 			>
 		>

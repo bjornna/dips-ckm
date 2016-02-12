@@ -2,14 +2,22 @@
 	openEHR-EHR-EVALUATION.social_summary.v1
 
 concept
-	[at0000]	-- Social Summary
+	[at0000]	-- Sosialanamnese
 language
 	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
 description
 	original_author = <
 		["name"] = <"Heather Leslie">
-		["organisation"] = <"Ocean Informatics">
 		["email"] = <"heather.leslie@oceaninformatics.com">
+		["organisation"] = <"Ocean Informatics">
 		["date"] = <"24/05/2011">
 	>
 	details = <
@@ -28,28 +36,41 @@ The use of the term 'social summary' varies enormously in practice. This archety
 			misuse = <"Not to be used to record Lifestyle-related information - for example, use specific archetypes for alcohol, tobacco and other substance use; diet and nutrition; and physical activity.">
 			copyright = <"© National E-Health Transition Authority">
 		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For å dokumentere en beskrivelse av sosiale forhold og hendelser som kan ha betydning for et indidvds helse og for å gi en ramme hvor detaljerte CLUSTER archetyper som belyser de forskjellige sosiale aspekten i detalj. ">
+			use = <"Brukes for å dokumentere en narrativ oppsummering av sosiale forhold eller hendeler som kan ha betydening for et individs helse. 
+
+Brukes for å bake inn i arketypeformat en narrativ oppsummering av sosiale forhold eller hendelser som allerede er registrert i en eksisterende klinisk journal.   
+
+Brukes om en container archetype - får å tilby en generell, sporbar? ENTRY archtype som kan favne spesifikke, detaljerte CLUSTER archetyper. Eksempler på egnete archetyper kan inkludere men er ikke begrenset til releasjoner til andre, sosial støtte, livsomstendigheter, jobb relaterte forhold, utdanning og religion.
+
+Bruken av begrepet \"sosialanamnese\" varierer betydelig. Denne archetypen har blitt utformet for at konsepter som beskriver sosialanamnese i forskjellige kliniske sammenhenger representeres med en egnet blanding av gjenbrukbare archetyper.
+
+
+">
+			keywords = <"sosial", "familie", "utdanning", "yrke", "mlijø", "boforhold", "Finanser">
+			misuse = <"Skal ikke brukes for å registrere informasjon vedrørende livsstil f.eks. bruks spesifikke archetyper for alkohol, tobakk eller bruk av andre substanser; diett og ernæring; fysisk aktivitet">
+			copyright = <"*© National E-Health Transition Authority(en)">
+		>
 	>
 	lifecycle_state = <"AuthorDraft">
 	other_contributors = <"Rita Apelt, Department of Health,NT, Australia", "Stephen Chu, NEHTA, Australia", "Margaret Cotter, AMSANT, Australia", "Tanya Gardner, CAAC, Australia", "Sam Heard, Ocean Informatics, Australia (Editor)", "Heather Leslie, Ocean Informatics, Australia (Editor)", "Ian McNicoll, Ocean Informatics UK, United Kingdom", "Jeremy Oats, NT Health, Australia", "Steven Schatz, Department of Health (Northern Territory), Australia", "Rosalie Schultz, Central Australia Remote Health, Australia", "Jo Wright, NT Dept of Health, Australia (Editor)">
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"6E0C946BDBE806E83FE216A4BCD54F69">
+		["MD5-CAM-1.0.1"] = <"F46C9D57907025692406A03426084A4D">
 	>
 
 definition
-	EVALUATION[at0000] matches {	-- Social Summary
+	EVALUATION[at0000] matches {	-- Sosialanamnese
 		data matches {
-			ITEM_TREE[at0001] matches {	-- Tree
+			ITEM_TREE[at0001] matches {	-- *Tree(en)
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Description
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Beskrivelse
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					allow_archetype ELEMENT[at0005] occurrences matches {0..*} matches {	-- Social Summary Element
-						include
-							archetype_id/value matches {/.*/}
-					}
-					allow_archetype CLUSTER[at0006] occurrences matches {0..*} matches {	-- Social Summary Cluster
+					allow_archetype ITEM[at0003] occurrences matches {0..*} matches {	-- Sosialnamnese detaljer
 						include
 							archetype_id/value matches {/.*/}
 					}
@@ -71,17 +92,34 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0002"] = <
-					description = <"Narrative summary about social circumstances or experiences that may have a potential impact on an individual's health.">
 					text = <"Description">
+					description = <"Narrative summary about social circumstances or experiences that may have a potential impact on an individual's health.">
 					comment = <"May be used to record a narrative summary of the complete social circumstances or experiences or key aspects of the social summary, which will be supported by additioanl structured data. Details of specific structured findings can be included using CLUSTER archetypes in the 'Social Summary Detail' slot.">
 				>
-				["at0005"] = <
-					text = <"Social Summary Element">
-					description = <"*">
+				["at0003"] = <
+					text = <"Social Summary Detail">
+					description = <"Structured details about the social circumstances and experiences.">
 				>
-				["at0006"] = <
-					text = <"Social Summary Cluster">
-					description = <"*">
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Sosialanamnese">
+					description = <"Oppsummert informasjon om sosiale forhold eller hendelser som kan ha betydning for et individs helse.">
+				>
+				["at0001"] = <
+					text = <"*Tree(en)">
+					description = <"@ internal @(en)">
+				>
+				["at0002"] = <
+					text = <"Beskrivelse">
+					description = <"Narrativ beskrivelse av sosiale forhold eller hendelser som kan ha betdyning for et individs helse. ">
+					comment = <"*May be used to record a narrative summary of the complete social circumstances or experiences or key aspects of the social summary, which will be supported by additioanl structured data. Details of specific structured findings can be included using CLUSTER archetypes in the 'Social Summary Detail' slot.(en)">
+				>
+				["at0003"] = <
+					text = <"Sosialnamnese detaljer">
+					description = <"Strukturerte detaljer vedrørende forhold og hendelser.">
 				>
 			>
 		>

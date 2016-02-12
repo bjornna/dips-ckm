@@ -1,0 +1,1209 @@
+﻿archetype (adl_version=1.4; uid=1ca578b0-de68-4f49-86aa-8ff4a271ab37)
+	openEHR-EHR-CLUSTER.symptom_sign.v0
+
+concept
+	[at0000]	-- Symptom/Sign
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			author = <
+				["name"] = <"Jasmin Buck, Sebastian Garde">
+				["organisation"] = <"University of Heidelberg, Central Queensland University">
+			>
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["name"] = <"Lars Bitsch-Larsen">
+				["organisation"] = <"Haukeland University Hospital of Bergen, Norway">
+				["email"] = <"lbla@helse-bergen.no">
+			>
+			accreditation = <"MD, DEAA, MBA, spec in anesthesia, spec in tropical medicine.">
+		>
+		["ar-sy"] = <
+			language = <[ISO_639-1::ar-sy]>
+			author = <
+				["name"] = <"Mona Saleh">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Tony Shannon">
+		["organisation"] = <"UK NHS, Connecting for Health">
+		["email"] = <"tony.shannon@nhs.net">
+		["date"] = <"2007-02-20">
+	>
+	details = <
+		["ar-sy"] = <
+			language = <[ISO_639-1::ar-sy]>
+			purpose = <"*To record detail about a symptom - either self-recorded by an individual or recorded on the behalf of a patient by a clinician. A complete patient history may include varying level of details about a variety of symptoms.(en)">
+			use = <"*Use to record detailed information about a symptom as told to a clinician by a patient or self-recorded by the individual/patient.
+
+This archetype allows a 'nil significant' statement to be explicitly recorded.(en)">
+			misuse = <"*Not to be used to record details about pain. Use the specialisation of this archetype - the CLUSTER.symptom-pain instead.
+
+Not to be used for diagnoses and problems that form part of a persisting Problem List - use EVALUATION.problem_diagnosis.(en)">
+			copyright = <"© openEHR Foundation">
+		>
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"*To record detail about a symptom - either self-recorded by an individual or recorded on the behalf of a patient by a clinician. A complete patient history may include varying level of details about a variety of symptoms.(en)">
+			use = <"*Use to record detailed information about a symptom as told to a clinician by a patient or self-recorded by the individual/patient.
+
+This archetype allows a 'nil significant' statement to be explicitly recorded.(en)">
+			misuse = <"*Sollte nur für Symptome benutzt werden. (en)">
+			copyright = <"© openEHR Foundation">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For å registrere detaljer om en enkeltepisode av et rapportert symptom eller sykdomstegn.">
+			use = <"For å registrere detaljer om en enkeltepisode av et rapportert symptom eller sykdomstegn hos et individ, som redegjort av personen selv, foreldre, omsorgsperson eller andre parter. Registrering kan skje i forbindelse med opptak av anamnese, eller som en selvregistrering som en del av et klinisk spørreskjema eller personlig journal. 
+En fullstendig klinisk anamnese eller pasientanamnese kan inneholde beskrivelser med ulikt detaljnivå om flere episoder knyttet til samme symptom eller sykdomstegn, og vil også kunne inneholde flere ulike symptomer eller sykdomstegn.
+
+I egentlig forstand er symptomer subjektive observasjoner av en fysisk eller mental forstyrrelse mens sykdomstegn er objektive observasjoner av det samme, som er erfart av et individ og rapportert til en kliniker av individet eller av andre. Fra denne logikken følger at det burde være to arketyper til å registrere klinisk anamnese; en for rapporterte symptomer og en for rapporterte sykdomstegn. I virkeligheten er dette upraktisk og vil kreve registrering av kliniske data i enten den ene eller den andre av disse modellene. I praksis vil dette øke kompleksitet og tidsbruk knyttet til modellering og registrering av data. I tillegg overlapper ofte de kliniske konseptene, for eksempel: Vil tidligere oppkast eller blødning kategoriseres som et symptom eller som et rapportert sykdomstegn?
+Som svar på dette er arketypen laget for å tillate registrering av hele kontinuumet mellom tydelig definerte symptomer og rapporterte sykdomstegn når en registrerer en klinisk anamnese.
+
+Arketypen er designet for å gi et generisk rammeverk for alle symptomer og rapporterte sykdomstegn. SLOTet \"Spesifikke detaljer\" kan brukes for å utvide arketypen med ytterligere spesifikke dataelementer for komplekse symptomer eller sykdomstegn.
+
+Arketypen skal settes inn i \"Detaljer\"-SLOTet i OBSERVATION.story-arketypen men kan også brukes i en hvilken som helst OBSERVATION eller CLUSTER-arketype. Arketypen kan også gjenbrukes i andre instanser av CLUSTER.symptom_sign-arketypen i SLOTene \"Assosierte symptomer\" eller \"Tidligere detaljer\".
+
+Klinikere registrerer ofte frasen \"Ikke tilstede\" i forbindelse med spesifikke symptomer eller rapporterte tegn for å indikere at det er eksplisitt spurt om det spesifikke symptomet, og at det ble svart at symptomet ikke eksisterer i en slik grad at det påfører pasienten ubehag eller uro. Frasen brukes mer som en normalbeskrivelse enn en eksplisitt eksklusjon. Dataelementet \"Ikke tilstede\" er med hensikt lagt til for å tillate at klinikere enkelt og effektivt kan registrere denne informasjonen i det kliniske systemet. Eksempelvis kan \"Ikke tilstede\" brukes i brukergrensesnittet, er dette registrert som \"Sann\" kan de resterende dataelementene skjules i brukergrensesnittet. Denne pragmatiske tilnærmingen støtter hoveddelen av enkelt klinisk journalføring av symptomer og sykdomstegn. 
+
+Imidlertid kan det være fordelaktig å bruke arketypen CLUSTER.exclusion_symptom_sign dersom det eksisterer et klinisk behov for å eksplisitt registrere at et symptom eller sykdomstegn ikke er tilstede, for eksempel dersom dette vil brukes for å drive klinisk beslutningsstøtte. Bruk av CLUSTER.exclusion_symptom_sign vil øke kompleksiteten av templatmodellering, implementasjon og spørring. Det anbefales at CLUSTER.exclusion_symptom_sign kun vurderes brukt dersom man kan identifisere en klar gevinst, men bør ikke brukes for rutineregistreringer av symptomer eller sykdomstegn.">
+			keywords = <"lidelse", "plage", "problem", "ubehag", "symptom", "tilstedeværelse">
+			misuse = <"Brukes ikke til eksplisitt registrering av at et symptom eller sykdomstegn ikke er tilstede. Bruk CLUSTER.exclusion_symptom_sign varsomt da det øker tidsbruk ved registrering og tilfører økt kompleksitet, og bare når dataelementet \"Ikke tilstede\" i denne arketypen ikke er eksplisitt nok for registreringen.
+
+Brukes ikke til registrering av objektive funn som en del av en fysisk undersøkelse. Bruk OBSERVATION.exam og relaterte CLUSTER.exam-arketyper for dette formålet. 
+
+Brukes ikke til registrering av problemer og diagnoser som en del av en persistent problemliste, til dette brukes EVALUATION.problem_diagnosis.">
+			copyright = <"© openEHR Foundation">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record details about a single episode of a reported symptom or sign.">
+			use = <"Use to record details about a single episode of a symptom or reported sign in an individual, as reported by the individual, parent, care-giver or other party.  It may be recorded by a clinician as part of a clinical history record as reported to them, observed by the clinician or self-recorded as part of a clinical questionnaire or personal health record. A complete clinical history or patient story may include varying level of details about multiple episodes of an identified symptom or reproted sign, as well as multiple symptoms/signs.
+
+In the purest sense, symptoms are subjective observations of a physical or mental disturbance and signs are objective observations of the same, as experienced by an individual and reported to the history taker by the same individual or another party. From this logic it follows that we will need two archetypes to record clinical history - one for reported symptoms and another for reported signs. In reality this is impractical as it will require clinical data entry into either one of these models which adds signficant overheads to modellers and those entering data. In addition, there is often overlap in clinical concepts - for example, is previous vomiting or bleeding to be categorised as a symptom or reported sign? In response, this archetype has been specifically designed to proved a single information model that allows for recording of the entire continuum between clearly identifable symptoms and reported signs when recording a clinical history.
+
+This archetype has been intended to be used as a generic pattern for all symptoms and reported signs. The 'Specific details' SLOT can be used to extend the archetype to include additional, specific data elements for more complex symptoms or signs. 
+
+This archetype has been specifically designed to be used in the 'Structured detail' SLOT within the OBSERVATION.story archetype, but can also be used within other OBSERVATION or CLUSTER archetypes and in the 'Associated symptom/sign' or 'Previous episode' SLOT within other instances of this CLUSTER.symptom_sign archetype.
+
+Clinicians frequently record the phrase 'nil significant' against specific symptoms or reported signs as an efficient method to indicate that they asked the individual and it was not reported as causing any discomfort or disturbance - effectively used more like a 'normal statement' rather than an explicit exclusion. The 'Nil significant' data element has been deliberately included in this archetype to allow clinicians to record this same information in a simple and effective way in a clinical system. It can be used to drive a user interface, for example if 'Nil significant' is recorded as true then the remaining data elements can be hidden on a data entry screen. This pragmatic approach supports the majority of simple clinical recording requirements around reported symptoms and signs. 
+
+However if there is a clinical imperative to explicitly record that a Symptom or Sign was reported as not present, for example if it will be used to drive clinical decision support, then it would be preferable to use the CLUSTER.exclusion_symptom_sign archetype. The use of CLUSTER.exclusion_symptom_sign will increase the complexity of template modelling, implementation and querying. It is recommended that the CLUSTER.exclusion_symptom_sign archetype only be considered for use if clear benefit can be identified in specific situations, but should not be used for routine symptom/sign recording.">
+			keywords = <"complaint", "symptom", "disturbance", "problem", "discomfort", "presenting complaint", "presenting symptom">
+			misuse = <"Not to be used to record that a symptom or sign was explicitly reported as not present - use CLUSTER.exclusion_symptom_sign carefully for specific purposes where the overheads of recording in this way warrant the additional complexity, and only if the 'Nil significant' in this archetype is not specific enough for recording purposes.
+
+Not to be used for recording objective findings as part of a physical examination - use OBSERVATION.exam and related examination CLUSTER archetypes for this purpose.
+
+Not to be used for diagnoses and problems that form part of a persisting Problem List - use EVALUATION.problem_diagnosis.">
+			copyright = <"© openEHR Foundation">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <"Grethe Almenning, Bergen kommune, Norway", "Tomas Alme, DIPS ASA, Norway", "Anne Pauline Anderssen, Helse Nord RHF, Norway", "Vebjørn Arntzen, Oslo universitetssykehus HF, Norway", "Koray Atalag, University of Auckland, New Zealand", "Silje Ljosland Bakke, Nasjonal IKT HF, Norway (Nasjonal IKT redaktør)", "Lars Bitsch-Larsen, Haukeland University Hospital, Bergen, Norway", "Rong Chen, Cambio Healthcare Systems, Sweden", "Stephen Chu, Queensland Health, Australia", "Lisbeth Dahlhaug, Helse Midt - Norge IT, Norway", "Arild Faxvaag, NTNU, Norway", "Einar Fosse, UNN HF, Norwegian Centre for Integrated Care and Telemedicine, Norway", "Samuel Frade, Marand, Portugal", "Sebastian Garde, Ocean Informatics, Germany", "Gyri Gradek, Senter for medisinsk genetikk og molekylærmedisin, Haukeland Universitetssykehus, Norway", "Heather Grain, Llewelyn Grain Informatics, Australia", "Dag Hanoa, Oslo universitetssykehus, Norway", "Knut Harboe, Stavanger Universitetssjukehus, Norway", "Sam Heard, Ocean Informatics, Australia", "Kristian Heldal, Telemark Hospital Trust, Norway", "Andreas Hering, Helse Bergen HF, Haukeland universitetssjukehus, Norway", "Anca Heyd, DIPS ASA, Norway", "Tom Jarl Jakobsen, Helse Bergen, Norway", "Lars Karlsen, DIPS ASA, Norway", "Lars Morgan Karlsen, DIPS ASA, Norway", "Shinji Kobayashi, Kyoto University, Japan", "Nils Kolstrup, Norway", "Sabine Leh, Haukeland University Hospital, Department of Pathology, Norway", "Heather Leslie, Ocean Informatics, Australia", "Hallvard Lærum, Oslo Universitetssykehus HF, Norway", "alberto maldonado, UPV, Spain", "Luis Marco Ruiz, NST, Spain (Nasjonal IKT redaktør)", "Ian McNicoll, Ocean Informatics, United Kingdom", "Lars Ivar Mehlum, Helse Bergen HF, Norway", "Bjørn Næss, DIPS ASA, Norway", "Andrej Orel, Marand d.o.o., Slovenia", "Norwegian Review Summary, Nasjonal IKT, Norway", "Jussara Rotzsch, UNB, Brazil", "Thomas Schopf, University Hospital of North-Norway, Norway", "Anoop Shah, University College London, United Kingdom", "Nils Thomas Songstad, UNN HF, BUK, Barneavdelingen., Norway", "Line Sæle, Nasjonal IKT HF, Norway", "Rowan Thomas, St. Vincent's Hospital Melbourne, Australia", "Lene Thoresen, St. Olavs Hospital, Norway", "Jon Tysdahl, Furst medlab AS, Norway", "John Tore Valand, Haukeland Universitetssjukehus, Norway (Nasjonal IKT redaktør)">
+	other_details = <
+		["current_contact"] = <"Heather Leslie, Ocean Informatics, heather.leslie@oceaninformatics.com">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["revision"] = <"0.0.1-alpha">
+		["references"] = <"Common Terminology Criteria for Adverse Events (CTCAE) [Internet]. National Cancer Institute, USA. Available from: http://ctep.cancer.gov/protocolDevelopment/electronic_applications/ctc.htm (accessed 2015-07-13).">
+		["build_uid"] = <"481df6d9-e5a3-40f9-9994-9ae4be51be4d">
+		["original_publisher"] = <"openEHR Foundation">
+		["original_namespace"] = <"org.openehr">
+		["MD5-CAM-1.0.1"] = <"259E4E175D4BC4A7C1EFE70B7087ED41">
+		["custodian_namespace"] = <"org.openehr">
+		["custodian_organisation"] = <"openEHR Foundation">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Symptom/Sign
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] matches {	-- Symptom/Sign name
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0035] occurrences matches {0..1} matches {	-- Nil significant
+				value matches {
+					DV_BOOLEAN matches {
+						value matches {True}
+					}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Description
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0151] occurrences matches {0..*} matches {	-- Body site
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			allow_archetype CLUSTER[at0147] occurrences matches {0..*} matches {	-- Structured body site
+				include
+					archetype_id/value matches {/openEHR-EHR-CLUSTER\.anatomical_location(-[a-zA-Z0-9_]+)*\.v1|openEHR-EHR-CLUSTER\.anatomical_location_clock(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.anatomical_location_relative(-[a-zA-Z0-9_]+)*\.v1/}
+				exclude
+					archetype_id/value matches {/.*/}
+			}
+			ELEMENT[at0175] occurrences matches {0..1} matches {	-- Episodicity
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0176, 	-- New
+							at0177, 	-- Reoccurrence
+							at0178]	-- Ongoing
+						}
+					}
+				}
+			}
+			ELEMENT[at0152] occurrences matches {0..1} matches {	-- Onset date/time
+				value matches {
+					DV_DATE_TIME matches {*}
+				}
+			}
+			ELEMENT[at0164] occurrences matches {0..1} matches {	-- Onset type
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0028] occurrences matches {0..1} matches {	-- Duration
+				value matches {
+					DV_DURATION matches {*}
+				}
+			}
+			ELEMENT[at0021] occurrences matches {0..1} matches {	-- Severity category
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0023, 	-- Mild
+							at0024, 	-- Moderate
+							at0025]	-- Severe
+						}
+					}
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0026] occurrences matches {0..*} matches {	-- Severity rating
+				value matches {
+					C_DV_QUANTITY <
+						property = <[openehr::380]>
+						list = <
+							["1"] = <
+								units = <"1">
+								magnitude = <|0.0..10.0|>
+								precision = <|1|>
+							>
+						>
+					>
+				}
+			}
+			ELEMENT[at0180] occurrences matches {0..*} matches {	-- Progression
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0183, 	-- Worsening
+							at0182, 	-- Unchanged
+							at0181, 	-- Improving
+							at0184]	-- Resolved
+						}
+					}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Pattern
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			CLUSTER[at0018] occurrences matches {0..*} matches {	-- Modifying factor
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0019] occurrences matches {0..1} matches {	-- Factor
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0017] occurrences matches {0..1} matches {	-- Effect
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0159, 	-- Relieves
+									at0156, 	-- No effect
+									at0158]	-- Worsens
+								}
+							}
+						}
+					}
+					ELEMENT[at0056] occurrences matches {0..1} matches {	-- Description
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+			CLUSTER[at0165] occurrences matches {0..*} matches {	-- Precipitating/resolving factor
+				name matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0167, 	-- Precipitating factor
+							at0168]	-- Resolving factor
+						}
+					}
+				}
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0170] occurrences matches {0..1} matches {	-- Factor
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0154] occurrences matches {0..*} matches {	-- Factor detail
+						include
+							archetype_id/value matches {/openEHR-EHR-CLUSTER\.health_event(-[a-zA-Z0-9_]+)*\.v1|openEHR-EHR-CLUSTER\.symptom_sign(-[a-zA-Z0-9_]+)*\.v0/}
+					}
+					ELEMENT[at0171] occurrences matches {0..1} matches {	-- Time interval
+						value matches {
+							DV_DURATION matches {
+								value matches {|>=P0D|}
+							}
+						}
+					}
+					ELEMENT[at0185] occurrences matches {0..1} matches {	-- Description
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+			ELEMENT[at0155] occurrences matches {0..1} matches {	-- Impact
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0037] occurrences matches {0..1} matches {	-- Episode description
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			allow_archetype CLUSTER[at0153] occurrences matches {0..*} matches {	-- Specific details
+				include
+					archetype_id/value matches {/openEHR-EHR-CLUSTER\.vertigo(-[a-zA-Z0-9_]+)*\.v1|openEHR-EHR-CLUSTER\.headache(-[a-zA-Z0-9_]+)*\.v1/}
+			}
+			ELEMENT[at0161] occurrences matches {0..1} matches {	-- Resolution date/time
+				value matches {
+					DV_DATE_TIME matches {*}
+				}
+			}
+			ELEMENT[at0057] occurrences matches {0..1} matches {	-- Description of previous episodes
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0031] occurrences matches {0..1} matches {	-- Number of previous episodes
+				value matches {
+					DV_COUNT matches {
+						magnitude matches {|>=0|}
+					}
+				}
+			}
+			allow_archetype CLUSTER[at0146] occurrences matches {0..*} matches {	-- Previous episodes
+				include
+					archetype_id/value matches {/openEHR-EHR-CLUSTER\.symptom_sign(-[a-zA-Z0-9_]+)*\.v0/}
+			}
+			allow_archetype CLUSTER[at0063] occurrences matches {0..*} matches {	-- Associated symptom/sign
+				include
+					archetype_id/value matches {/openEHR-EHR-CLUSTER\.symptom_sign(-[a-zA-Z0-9_]+)*\.v0/}
+			}
+			ELEMENT[at0163] occurrences matches {0..1} matches {	-- Comment
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+		}
+	}
+
+
+
+ontology
+	terminologies_available = <"SNOMED-CT", ...>
+	term_definitions = <
+		["ar-sy"] = <
+			items = <
+				["at0000"] = <
+					text = <"*Symptom/Sign(en)">
+					description = <"*Reported subjective or objective observation of a physical or mental disturbance in an individual.(en)">
+				>
+				["at0001"] = <
+					text = <"*Symptom/Sign name(en)">
+					description = <"*The name of the reported symptom or sign.(en)">
+					comment = <"*Symptom name should be coded with a terminology, where possible.(en)">
+				>
+				["at0002"] = <
+					text = <"*Description(en)">
+					description = <"*Narrative description about the reported symptom or sign.(en)">
+				>
+				["at0003"] = <
+					text = <"*Pattern(en)">
+					description = <"*Narrative description about the pattern of the symptom or sign during this episode.(en)">
+					comment = <"*For example: pain could be described as constant or colicky.(en)">
+				>
+				["at0017"] = <
+					text = <"*Effect(en)">
+					description = <"*Perceived effect of the modifying factor on the symptom or sign.(en)">
+				>
+				["at0018"] = <
+					text = <"*Modifying factor(en)">
+					description = <"*Detail about how a specific factor effects the identified symptom or sign during this episode.(en)">
+				>
+				["at0019"] = <
+					text = <"*Factor(en)">
+					description = <"*Name of the modifying factor.(en)">
+					comment = <"*Examples of modifying factor: lying on multiple pillows, eating or administration of a specific medication.(en)">
+				>
+				["at0021"] = <
+					text = <"*Severity category(en)">
+					description = <"*Category representing the overall severity of the symptom or sign.(en)">
+					comment = <"*Defining values such as mild, moderate or severe in such a way that is applicable to multiple symptoms or signs plus allows multiple users to interpret and record them consistently is not easy. Some organisations extend the value set further with inclusion of additional values such as 'Trivial' and 'Very severe', and/or 'Mild-Moderate' and 'Moderate-Severe', adds to the definitional difficulty and may also worsen inter-recorder reliability issues. Use of 'Life-threatening' and 'Fatal' is also often considered as part of this value set, although from a pure point of view it may actually reflect an outcome rather than a severity. In view of the above, keeping to a well-defined but smaller list is preferred and so the mild/moderate/severe value set is offered, however the choice of other text allows for other value sets to be included at this data element in a template. Note: more specific grading of severity can be recorded using the 'Specific details' SLOT.(en)">
+				>
+				["at0023"] = <
+					text = <"*Mild(en)">
+					description = <"*The intensity of the symptom or sign does not cause interference with normal activity.(en)">
+				>
+				["at0024"] = <
+					text = <"*Moderate(en)">
+					description = <"*The intensity of the symptom or sign causes interference with normal activity.(en)">
+				>
+				["at0025"] = <
+					text = <"*Severe(en)">
+					description = <"*The intensity of the symptom or sign causes prevents normal activity.(en)">
+				>
+				["at0026"] = <
+					text = <"*Severity rating(en)">
+					description = <"*Numerical rating scale representing the overall severity of the symptom or sign.(en)">
+					comment = <"*Symptom severity can be rated by the individual by recording a score from 0 (ie symptom not present) to 10.0 (ie symptom is as severe as the individual can imagine). This score can be represented in the user interface as a visual analogue scale. The data element has occurrences set to 0..* to allow for variations such as 'maximal severity' or 'average severity' to be included in a template.(en)">
+				>
+				["at0028"] = <
+					text = <"*Duration(en)">
+					description = <"*The duration of the symptom or sign since onset.(en)">
+					comment = <"*If 'Date/time of onset' and 'Date/time of resolution' are used in systems, this data element may be calculated, or alternatively, be considered redundant in this scenario.(en)">
+				>
+				["at0031"] = <
+					text = <"*Number of previous episodes(en)">
+					description = <"*The number of times this symptom or sign has previously occurred.(en)">
+				>
+				["at0035"] = <
+					text = <"*Nil significant(en)">
+					description = <"*The identified symptom or sign was reported as not being present to any significant degree.(en)">
+					comment = <"*Record as True if the subject of care has reported the symptom as not significant. For example, the patient may experience a basal level of pain, which is regarded as normal for them. In this situation 'nil significant' enables recording of no additional pain that could be considered as significant or relevant to the history-taking.(en)">
+				>
+				["at0037"] = <
+					text = <"*Episode description(en)">
+					description = <"*Narrative description about the course of the symptom or sign during this episode.(en)">
+					comment = <"*For example: a text description of the immediate onset of the symptom, activities that worsened or relieved the symptom, whether it is improving or worsening and how it resolved over weeks.(en)">
+				>
+				["at0056"] = <
+					text = <"*Description(en)">
+					description = <"*Narrative description of the effect of the modifying factor on the symptom or sign.(en)">
+				>
+				["at0057"] = <
+					text = <"*Description of previous episodes(en)">
+					description = <"*Narrative description of any or all previous episodes.(en)">
+					comment = <"*For example: frequency/periodicity - per hour, day, week, month, year; and regularity. May include a comparison to this episode.(en)">
+				>
+				["at0063"] = <
+					text = <"*Associated symptom/sign(en)">
+					description = <"*Structured details about any associated symptoms or signs that are concurrent.(en)">
+					comment = <"*In linked clinical systems, it is possible that associated symptoms or signs are already recorded within the EHR. Systems can allow the clinician to LINK to relevant associated symptoms/signs. However in a system or message without LINKs to existing data or with a new patient, additional instances of the symptom archetype could be included here to represent associated symptoms/signs.(en)">
+				>
+				["at0146"] = <
+					text = <"*Previous episodes(en)">
+					description = <"*Structured details of the symptom or sign during a previous episode.(en)">
+					comment = <"*In linked clinical systems, it is possible that previous episodes are already recorded within the EHR. Systems can allow the clinician to LINK to relevant previous episodes. However in a system or message without LINKs to existing data or with a new patient, additional instances of the symptom archetype could be included here to represent previous episodes. It is recommended that new instances of the Symptom archetype inserted in this SLOT represent one or many previous episodes to this Symptom instance only.(en)">
+				>
+				["at0147"] = <
+					text = <"*Structured body site(en)">
+					description = <"*Structured body site where the symptom or sign was reported.(en)">
+					comment = <"*If the anatomical location is included in the Symptom name via precoordinated codes, use of this SLOT becomes redundant. If the anatomical location is recorded using the 'Body site' data element, then use of CLUSTER archetypes in this SLOT is not allowed - record only the simple 'Body site' OR 'Structured body site', but not both.(en)">
+				>
+				["at0151"] = <
+					text = <"*Body site(en)">
+					description = <"*Simple body site where the symptom or sign was reported.(en)">
+					comment = <"*Occurrences of this data element are set to 0..* to allow multiple body sites to be separated out in a template if desired. This allows for representation of clinical scenarios where a symptom or sign needs to be recorded in multiple locations or identifying both the originating and distal site in pain radiation, but where all of the other attributes such as impact and duration are identical. If the requirements for recording the body site are determined at run-time by the application or require more complex modelling such as relative locations then use the CLUSTER.anatomical_location or CLUSTER.relative_location within the Detailed anatomical location' SLOT in this archetype. 
+If the anatomical location is included in the Symptom name via precoordinated codes, this data element becomes redundant.  If the anatomical location is recorded using the 'Structured body site' SLOT, then use of this data element is not allowed - record only the simple 'Body site' OR 'Structured body site', but not both.(en)">
+				>
+				["at0152"] = <
+					text = <"*Onset date/time(en)">
+					description = <"*The onset for this episode of the symptom or sign.(en)">
+					comment = <"*While partial dates are permitted, the exact date and time of onset can be recorded, if appropriate. If this is a recurring symptom, this date is used to represent the most recent date or onset of exacerbation, relevant to the clinical presentation. If this is the first instance of this symptom, this date is used to represent the first ever start of symptoms.(en)">
+				>
+				["at0153"] = <
+					text = <"*Specific details(en)">
+					description = <"*Specific data elements that are additionally required to record as unique attributes of the identified symptom or sign.(en)">
+					comment = <"*For example: CTCAE grading.(en)">
+				>
+				["at0154"] = <
+					text = <"*Factor detail(en)">
+					description = <"*Structured detail about the factor associated with the identified symptom or sign.(en)">
+				>
+				["at0155"] = <
+					text = <"*Impact(en)">
+					description = <"*Description of the impact of this symptom or sign.(en)">
+					comment = <"*Assessment of impact could consider the severity, duration and frequency of the symptom as well as the type of impact including, but not limited to, functional, social and emotional impact. Occurrences of this data element are set to 0..* to allow multiple types of impact to be separated out in a template if desired. Examples for functional impact from hearing loss may include: 'Difficulty Hearing in Quiet Environment'; 'Difficulty Hearing the TV or Radio'; 'Difficulty Hearing Group Conversation'; and 'Difficulty Hearing on Phone'.(en)">
+				>
+				["at0156"] = <
+					text = <"*No effect(en)">
+					description = <"*Presence of the factor has no impact on the symptom or sign.(en)">
+				>
+				["at0158"] = <
+					text = <"*Worsens(en)">
+					description = <"*Presence of the factor exaccerbates severity or impact of the symptom or sign.(en)">
+				>
+				["at0159"] = <
+					text = <"*Relieves(en)">
+					description = <"*Presence of the factor reduces the severity or impact of the symptom or sign.(en)">
+				>
+				["at0161"] = <
+					text = <"*Resolution date/time(en)">
+					description = <"*The timing of the cessation of this episode of the symptom or sign.(en)">
+					comment = <"*If 'Date/time of onset' and 'Duration' are used in systems, this data element may be calculated, or alternatively, considered redundant. While partial dates are permitted, the exact date and time of resolution can be recorded, if appropriate.(en)">
+				>
+				["at0163"] = <
+					text = <"*Comment(en)">
+					description = <"*Additional narrative about the symptom or sign not captured in other fields.(en)">
+				>
+				["at0164"] = <
+					text = <"*Onset type(en)">
+					description = <"*Description of the onset of the symptom or sign.(en)">
+					comment = <"*The type of the onset can be coded with a terminology, if desired. For example: gradual; or sudden.(en)">
+				>
+				["at0165"] = <
+					text = <"*Precipitating/resolving factor(en)">
+					description = <"*Details about a health event, symptom, sign or other factor associated with the onset or cessation of the symptom or sign.(en)">
+					comment = <"*For example: onset of headache occurred one week prior to menstruation; or onset of headache occurred one hour after fall of bicycle.(en)">
+				>
+				["at0167"] = <
+					text = <"*Precipitating factor(en)">
+					description = <"*Identification of factors/events associated with onset or commencement of the symptom or sign.(en)">
+				>
+				["at0168"] = <
+					text = <"*Resolving factor(en)">
+					description = <"*Identification of factors/events associated with cessation of the symptom or sign.(en)">
+				>
+				["at0170"] = <
+					text = <"*Factor(en)">
+					description = <"*Name of the health event, symptom, reported sign or other factor.(en)">
+					comment = <"*For example: onset of another symptom; onset of menstruation; or fall off bicycle.(en)">
+				>
+				["at0171"] = <
+					text = <"*Time interval(en)">
+					description = <"*The interval of time between the occurrence or onset of the factor and onset/resolution of the symptom or sign.(en)">
+				>
+				["at0175"] = <
+					text = <"*Episodicity(en)">
+					description = <"*Category of this epsiode for the identified symptom or sign.(en)">
+				>
+				["at0176"] = <
+					text = <"*New(en)">
+					description = <"*This is the first ever  episode of the symptom or sign.(en)">
+				>
+				["at0177"] = <
+					text = <"*Reoccurrence(en)">
+					description = <"*This is a second or subsequent discrete episode of the symptom or sign, where each previous episode has completely resolved.(en)">
+				>
+				["at0178"] = <
+					text = <"*Ongoing(en)">
+					description = <"*This symptom or sign is continuously present, effectively a single, ongoing episode.(en)">
+				>
+				["at0180"] = <
+					text = <"*Progression(en)">
+					description = <"*Description progression of the symptom or sign at the time of reporting.(en)">
+					comment = <"*Occurrences of this data element are set to 0..* to allow multiple types of progression to be separated out in a template if desired - for example, severity or frequency.(en)">
+				>
+				["at0181"] = <
+					text = <"*Improving(en)">
+					description = <"*The severity of the symptom or sign has improved overall during this episode.(en)">
+				>
+				["at0182"] = <
+					text = <"*Unchanged(en)">
+					description = <"*The severity of the symptom or sign has not changed overall during this episode.(en)">
+				>
+				["at0183"] = <
+					text = <"*Worsening(en)">
+					description = <"*The severity of the symptom or sign has worsened overall during this episode.(en)">
+				>
+				["at0184"] = <
+					text = <"*Resolved(en)">
+					description = <"*The severity of the symptom or sign has resolved.(en)">
+				>
+				["at0185"] = <
+					text = <"*Description(en)">
+					description = <"*Narrative description about the effect of the factor on the identified symptom or sign.(en)">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Symptom/Sign">
+					description = <"Reported subjective or objective observation of a physical or mental disturbance in an individual.">
+				>
+				["at0001"] = <
+					text = <"Symptom/Sign name">
+					description = <"The name of the reported symptom or sign.">
+					comment = <"Symptom name should be coded with a terminology, where possible.">
+				>
+				["at0002"] = <
+					text = <"Description">
+					description = <"Narrative description about the reported symptom or sign.">
+				>
+				["at0003"] = <
+					text = <"Pattern">
+					description = <"Narrative description about the pattern of the symptom or sign during this episode.">
+					comment = <"For example: pain could be described as constant or colicky.">
+				>
+				["at0017"] = <
+					text = <"Effect">
+					description = <"Perceived effect of the modifying factor on the symptom or sign.">
+				>
+				["at0018"] = <
+					text = <"Modifying factor">
+					description = <"Detail about how a specific factor effects the identified symptom or sign during this episode.">
+				>
+				["at0019"] = <
+					text = <"Factor">
+					description = <"Name of the modifying factor.">
+					comment = <"Examples of modifying factor: lying on multiple pillows, eating or administration of a specific medication.">
+				>
+				["at0021"] = <
+					text = <"Severity category">
+					description = <"Category representing the overall severity of the symptom or sign.">
+					comment = <"Defining values such as mild, moderate or severe in such a way that is applicable to multiple symptoms or signs plus allows multiple users to interpret and record them consistently is not easy. Some organisations extend the value set further with inclusion of additional values such as 'Trivial' and 'Very severe', and/or 'Mild-Moderate' and 'Moderate-Severe', adds to the definitional difficulty and may also worsen inter-recorder reliability issues. Use of 'Life-threatening' and 'Fatal' is also often considered as part of this value set, although from a pure point of view it may actually reflect an outcome rather than a severity. In view of the above, keeping to a well-defined but smaller list is preferred and so the mild/moderate/severe value set is offered, however the choice of other text allows for other value sets to be included at this data element in a template. Note: more specific grading of severity can be recorded using the 'Specific details' SLOT.">
+				>
+				["at0023"] = <
+					text = <"Mild">
+					description = <"The intensity of the symptom or sign does not cause interference with normal activity.">
+				>
+				["at0024"] = <
+					text = <"Moderate">
+					description = <"The intensity of the symptom or sign causes interference with normal activity.">
+				>
+				["at0025"] = <
+					text = <"Severe">
+					description = <"The intensity of the symptom or sign causes prevents normal activity.">
+				>
+				["at0026"] = <
+					text = <"Severity rating">
+					description = <"Numerical rating scale representing the overall severity of the symptom or sign.">
+					comment = <"Symptom severity can be rated by the individual by recording a score from 0 (ie symptom not present) to 10.0 (ie symptom is as severe as the individual can imagine). This score can be represented in the user interface as a visual analogue scale. The data element has occurrences set to 0..* to allow for variations such as 'maximal severity' or 'average severity' to be included in a template.">
+				>
+				["at0028"] = <
+					text = <"Duration">
+					description = <"The duration of the symptom or sign since onset.">
+					comment = <"If 'Date/time of onset' and 'Date/time of resolution' are used in systems, this data element may be calculated, or alternatively, be considered redundant in this scenario.">
+				>
+				["at0031"] = <
+					text = <"Number of previous episodes">
+					description = <"The number of times this symptom or sign has previously occurred.">
+				>
+				["at0035"] = <
+					text = <"Nil significant">
+					description = <"The identified symptom or sign was reported as not being present to any significant degree.">
+					comment = <"Record as True if the subject of care has reported the symptom as not significant. For example, the patient may experience a basal level of pain, which is regarded as normal for them. In this situation 'nil significant' enables recording of no additional pain that could be considered as significant or relevant to the history-taking.">
+				>
+				["at0037"] = <
+					text = <"Episode description">
+					description = <"Narrative description about the course of the symptom or sign during this episode.">
+					comment = <"For example: a text description of the immediate onset of the symptom, activities that worsened or relieved the symptom, whether it is improving or worsening and how it resolved over weeks.">
+				>
+				["at0056"] = <
+					text = <"Description">
+					description = <"Narrative description of the effect of the modifying factor on the symptom or sign.">
+				>
+				["at0057"] = <
+					text = <"Description of previous episodes">
+					description = <"Narrative description of any or all previous episodes.">
+					comment = <"For example: frequency/periodicity - per hour, day, week, month, year; and regularity. May include a comparison to this episode.">
+				>
+				["at0063"] = <
+					text = <"Associated symptom/sign">
+					description = <"Structured details about any associated symptoms or signs that are concurrent.">
+					comment = <"In linked clinical systems, it is possible that associated symptoms or signs are already recorded within the EHR. Systems can allow the clinician to LINK to relevant associated symptoms/signs. However in a system or message without LINKs to existing data or with a new patient, additional instances of the symptom archetype could be included here to represent associated symptoms/signs.">
+				>
+				["at0146"] = <
+					text = <"Previous episodes">
+					description = <"Structured details of the symptom or sign during a previous episode.">
+					comment = <"In linked clinical systems, it is possible that previous episodes are already recorded within the EHR. Systems can allow the clinician to LINK to relevant previous episodes. However in a system or message without LINKs to existing data or with a new patient, additional instances of the symptom archetype could be included here to represent previous episodes. It is recommended that new instances of the Symptom archetype inserted in this SLOT represent one or many previous episodes to this Symptom instance only.">
+				>
+				["at0147"] = <
+					text = <"Structured body site">
+					description = <"Structured body site where the symptom or sign was reported.">
+					comment = <"If the anatomical location is included in the Symptom name via precoordinated codes, use of this SLOT becomes redundant. If the anatomical location is recorded using the 'Body site' data element, then use of CLUSTER archetypes in this SLOT is not allowed - record only the simple 'Body site' OR 'Structured body site', but not both.">
+				>
+				["at0151"] = <
+					text = <"Body site">
+					description = <"Simple body site where the symptom or sign was reported.">
+					comment = <"Occurrences of this data element are set to 0..* to allow multiple body sites to be separated out in a template if desired. This allows for representation of clinical scenarios where a symptom or sign needs to be recorded in multiple locations or identifying both the originating and distal site in pain radiation, but where all of the other attributes such as impact and duration are identical. If the requirements for recording the body site are determined at run-time by the application or require more complex modelling such as relative locations then use the CLUSTER.anatomical_location or CLUSTER.relative_location within the Detailed anatomical location' SLOT in this archetype. 
+If the anatomical location is included in the Symptom name via precoordinated codes, this data element becomes redundant.  If the anatomical location is recorded using the 'Structured body site' SLOT, then use of this data element is not allowed - record only the simple 'Body site' OR 'Structured body site', but not both.">
+				>
+				["at0152"] = <
+					text = <"Onset date/time">
+					description = <"The onset for this episode of the symptom or sign.">
+					comment = <"While partial dates are permitted, the exact date and time of onset can be recorded, if appropriate. If this is a recurring symptom, this date is used to represent the most recent date or onset of exacerbation, relevant to the clinical presentation. If this is the first instance of this symptom, this date is used to represent the first ever start of symptoms.">
+				>
+				["at0153"] = <
+					text = <"Specific details">
+					description = <"Specific data elements that are additionally required to record as unique attributes of the identified symptom or sign.">
+					comment = <"For example: CTCAE grading.">
+				>
+				["at0154"] = <
+					text = <"Factor detail">
+					description = <"Structured detail about the factor associated with the identified symptom or sign.">
+				>
+				["at0155"] = <
+					text = <"Impact">
+					description = <"Description of the impact of this symptom or sign.">
+					comment = <"Assessment of impact could consider the severity, duration and frequency of the symptom as well as the type of impact including, but not limited to, functional, social and emotional impact. Occurrences of this data element are set to 0..* to allow multiple types of impact to be separated out in a template if desired. Examples for functional impact from hearing loss may include: 'Difficulty Hearing in Quiet Environment'; 'Difficulty Hearing the TV or Radio'; 'Difficulty Hearing Group Conversation'; and 'Difficulty Hearing on Phone'.">
+				>
+				["at0156"] = <
+					text = <"No effect">
+					description = <"Presence of the factor has no impact on the symptom or sign.">
+				>
+				["at0158"] = <
+					text = <"Worsens">
+					description = <"Presence of the factor exaccerbates severity or impact of the symptom or sign.">
+				>
+				["at0159"] = <
+					text = <"Relieves">
+					description = <"Presence of the factor reduces the severity or impact of the symptom or sign.">
+				>
+				["at0161"] = <
+					text = <"Resolution date/time">
+					description = <"The timing of the cessation of this episode of the symptom or sign.">
+					comment = <"If 'Date/time of onset' and 'Duration' are used in systems, this data element may be calculated, or alternatively, considered redundant. While partial dates are permitted, the exact date and time of resolution can be recorded, if appropriate.">
+				>
+				["at0163"] = <
+					text = <"Comment">
+					description = <"Additional narrative about the symptom or sign not captured in other fields.">
+				>
+				["at0164"] = <
+					text = <"Onset type">
+					description = <"Description of the onset of the symptom or sign.">
+					comment = <"The type of the onset can be coded with a terminology, if desired. For example: gradual; or sudden.">
+				>
+				["at0165"] = <
+					text = <"Precipitating/resolving factor">
+					description = <"Details about a health event, symptom, sign or other factor associated with the onset or cessation of the symptom or sign.">
+					comment = <"For example: onset of headache occurred one week prior to menstruation; or onset of headache occurred one hour after fall of bicycle.">
+				>
+				["at0167"] = <
+					text = <"Precipitating factor">
+					description = <"Identification of factors/events associated with onset or commencement of the symptom or sign.">
+				>
+				["at0168"] = <
+					text = <"Resolving factor">
+					description = <"Identification of factors/events associated with cessation of the symptom or sign.">
+				>
+				["at0170"] = <
+					text = <"Factor">
+					description = <"Name of the health event, symptom, reported sign or other factor.">
+					comment = <"For example: onset of another symptom; onset of menstruation; or fall off bicycle.">
+				>
+				["at0171"] = <
+					text = <"Time interval">
+					description = <"The interval of time between the occurrence or onset of the factor and onset/resolution of the symptom or sign.">
+				>
+				["at0175"] = <
+					text = <"Episodicity">
+					description = <"Category of this epsiode for the identified symptom or sign.">
+				>
+				["at0176"] = <
+					text = <"New">
+					description = <"This is the first ever  episode of the symptom or sign.">
+				>
+				["at0177"] = <
+					text = <"Reoccurrence">
+					description = <"This is a second or subsequent discrete episode of the symptom or sign, where each previous episode has completely resolved.">
+				>
+				["at0178"] = <
+					text = <"Ongoing">
+					description = <"This symptom or sign is continuously present, effectively a single, ongoing episode.">
+				>
+				["at0180"] = <
+					text = <"Progression">
+					description = <"Description progression of the symptom or sign at the time of reporting.">
+					comment = <"Occurrences of this data element are set to 0..* to allow multiple types of progression to be separated out in a template if desired - for example, severity or frequency.">
+				>
+				["at0181"] = <
+					text = <"Improving">
+					description = <"The severity of the symptom or sign has improved overall during this episode.">
+				>
+				["at0182"] = <
+					text = <"Unchanged">
+					description = <"The severity of the symptom or sign has not changed overall during this episode.">
+				>
+				["at0183"] = <
+					text = <"Worsening">
+					description = <"The severity of the symptom or sign has worsened overall during this episode.">
+				>
+				["at0184"] = <
+					text = <"Resolved">
+					description = <"The severity of the symptom or sign has resolved.">
+				>
+				["at0185"] = <
+					text = <"Description">
+					description = <"Narrative description about the effect of the factor on the identified symptom or sign.">
+				>
+			>
+		>
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"*Symptom/Sign(en)">
+					description = <"*Reported subjective or objective observation of a physical or mental disturbance in an individual.(en)">
+				>
+				["at0001"] = <
+					text = <"*Symptom/Sign name(en)">
+					description = <"*The name of the reported symptom or sign.(en)">
+					comment = <"*Symptom name should be coded with a terminology, where possible.(en)">
+				>
+				["at0002"] = <
+					text = <"*Description(en)">
+					description = <"*Narrative description about the reported symptom or sign.(en)">
+				>
+				["at0003"] = <
+					text = <"*Pattern(en)">
+					description = <"*Narrative description about the pattern of the symptom or sign during this episode.(en)">
+					comment = <"*For example: pain could be described as constant or colicky.(en)">
+				>
+				["at0017"] = <
+					text = <"*Effect(en)">
+					description = <"*Perceived effect of the modifying factor on the symptom or sign.(en)">
+				>
+				["at0018"] = <
+					text = <"*Modifying factor(en)">
+					description = <"*Detail about how a specific factor effects the identified symptom or sign during this episode.(en)">
+				>
+				["at0019"] = <
+					text = <"*Factor(en)">
+					description = <"*Name of the modifying factor.(en)">
+					comment = <"*Examples of modifying factor: lying on multiple pillows, eating or administration of a specific medication.(en)">
+				>
+				["at0021"] = <
+					text = <"*Severity category(en)">
+					description = <"*Category representing the overall severity of the symptom or sign.(en)">
+					comment = <"*Defining values such as mild, moderate or severe in such a way that is applicable to multiple symptoms or signs plus allows multiple users to interpret and record them consistently is not easy. Some organisations extend the value set further with inclusion of additional values such as 'Trivial' and 'Very severe', and/or 'Mild-Moderate' and 'Moderate-Severe', adds to the definitional difficulty and may also worsen inter-recorder reliability issues. Use of 'Life-threatening' and 'Fatal' is also often considered as part of this value set, although from a pure point of view it may actually reflect an outcome rather than a severity. In view of the above, keeping to a well-defined but smaller list is preferred and so the mild/moderate/severe value set is offered, however the choice of other text allows for other value sets to be included at this data element in a template. Note: more specific grading of severity can be recorded using the 'Specific details' SLOT.(en)">
+				>
+				["at0023"] = <
+					text = <"*Mild(en)">
+					description = <"*The intensity of the symptom or sign does not cause interference with normal activity.(en)">
+				>
+				["at0024"] = <
+					text = <"*Moderate(en)">
+					description = <"*The intensity of the symptom or sign causes interference with normal activity.(en)">
+				>
+				["at0025"] = <
+					text = <"*Severe(en)">
+					description = <"*The intensity of the symptom or sign causes prevents normal activity.(en)">
+				>
+				["at0026"] = <
+					text = <"*Severity rating(en)">
+					description = <"*Numerical rating scale representing the overall severity of the symptom or sign.(en)">
+					comment = <"*Symptom severity can be rated by the individual by recording a score from 0 (ie symptom not present) to 10.0 (ie symptom is as severe as the individual can imagine). This score can be represented in the user interface as a visual analogue scale. The data element has occurrences set to 0..* to allow for variations such as 'maximal severity' or 'average severity' to be included in a template.(en)">
+				>
+				["at0028"] = <
+					text = <"*Duration(en)">
+					description = <"*The duration of the symptom or sign since onset.(en)">
+					comment = <"*If 'Date/time of onset' and 'Date/time of resolution' are used in systems, this data element may be calculated, or alternatively, be considered redundant in this scenario.(en)">
+				>
+				["at0031"] = <
+					text = <"*Number of previous episodes(en)">
+					description = <"*The number of times this symptom or sign has previously occurred.(en)">
+				>
+				["at0035"] = <
+					text = <"*Nil significant(en)">
+					description = <"*The identified symptom or sign was reported as not being present to any significant degree.(en)">
+					comment = <"*Record as True if the subject of care has reported the symptom as not significant. For example, the patient may experience a basal level of pain, which is regarded as normal for them. In this situation 'nil significant' enables recording of no additional pain that could be considered as significant or relevant to the history-taking.(en)">
+				>
+				["at0037"] = <
+					text = <"*Episode description(en)">
+					description = <"*Narrative description about the course of the symptom or sign during this episode.(en)">
+					comment = <"*For example: a text description of the immediate onset of the symptom, activities that worsened or relieved the symptom, whether it is improving or worsening and how it resolved over weeks.(en)">
+				>
+				["at0056"] = <
+					text = <"*Description(en)">
+					description = <"*Narrative description of the effect of the modifying factor on the symptom or sign.(en)">
+				>
+				["at0057"] = <
+					text = <"*Description of previous episodes(en)">
+					description = <"*Narrative description of any or all previous episodes.(en)">
+					comment = <"*For example: frequency/periodicity - per hour, day, week, month, year; and regularity. May include a comparison to this episode.(en)">
+				>
+				["at0063"] = <
+					text = <"*Associated symptom/sign(en)">
+					description = <"*Structured details about any associated symptoms or signs that are concurrent.(en)">
+					comment = <"*In linked clinical systems, it is possible that associated symptoms or signs are already recorded within the EHR. Systems can allow the clinician to LINK to relevant associated symptoms/signs. However in a system or message without LINKs to existing data or with a new patient, additional instances of the symptom archetype could be included here to represent associated symptoms/signs.(en)">
+				>
+				["at0146"] = <
+					text = <"*Previous episodes(en)">
+					description = <"*Structured details of the symptom or sign during a previous episode.(en)">
+					comment = <"*In linked clinical systems, it is possible that previous episodes are already recorded within the EHR. Systems can allow the clinician to LINK to relevant previous episodes. However in a system or message without LINKs to existing data or with a new patient, additional instances of the symptom archetype could be included here to represent previous episodes. It is recommended that new instances of the Symptom archetype inserted in this SLOT represent one or many previous episodes to this Symptom instance only.(en)">
+				>
+				["at0147"] = <
+					text = <"*Structured body site(en)">
+					description = <"*Structured body site where the symptom or sign was reported.(en)">
+					comment = <"*If the anatomical location is included in the Symptom name via precoordinated codes, use of this SLOT becomes redundant. If the anatomical location is recorded using the 'Body site' data element, then use of CLUSTER archetypes in this SLOT is not allowed - record only the simple 'Body site' OR 'Structured body site', but not both.(en)">
+				>
+				["at0151"] = <
+					text = <"*Body site(en)">
+					description = <"*Simple body site where the symptom or sign was reported.(en)">
+					comment = <"*Occurrences of this data element are set to 0..* to allow multiple body sites to be separated out in a template if desired. This allows for representation of clinical scenarios where a symptom or sign needs to be recorded in multiple locations or identifying both the originating and distal site in pain radiation, but where all of the other attributes such as impact and duration are identical. If the requirements for recording the body site are determined at run-time by the application or require more complex modelling such as relative locations then use the CLUSTER.anatomical_location or CLUSTER.relative_location within the Detailed anatomical location' SLOT in this archetype. 
+If the anatomical location is included in the Symptom name via precoordinated codes, this data element becomes redundant.  If the anatomical location is recorded using the 'Structured body site' SLOT, then use of this data element is not allowed - record only the simple 'Body site' OR 'Structured body site', but not both.(en)">
+				>
+				["at0152"] = <
+					text = <"*Onset date/time(en)">
+					description = <"*The onset for this episode of the symptom or sign.(en)">
+					comment = <"*While partial dates are permitted, the exact date and time of onset can be recorded, if appropriate. If this is a recurring symptom, this date is used to represent the most recent date or onset of exacerbation, relevant to the clinical presentation. If this is the first instance of this symptom, this date is used to represent the first ever start of symptoms.(en)">
+				>
+				["at0153"] = <
+					text = <"*Specific details(en)">
+					description = <"*Specific data elements that are additionally required to record as unique attributes of the identified symptom or sign.(en)">
+					comment = <"*For example: CTCAE grading.(en)">
+				>
+				["at0154"] = <
+					text = <"*Factor detail(en)">
+					description = <"*Structured detail about the factor associated with the identified symptom or sign.(en)">
+				>
+				["at0155"] = <
+					text = <"*Impact(en)">
+					description = <"*Description of the impact of this symptom or sign.(en)">
+					comment = <"*Assessment of impact could consider the severity, duration and frequency of the symptom as well as the type of impact including, but not limited to, functional, social and emotional impact. Occurrences of this data element are set to 0..* to allow multiple types of impact to be separated out in a template if desired. Examples for functional impact from hearing loss may include: 'Difficulty Hearing in Quiet Environment'; 'Difficulty Hearing the TV or Radio'; 'Difficulty Hearing Group Conversation'; and 'Difficulty Hearing on Phone'.(en)">
+				>
+				["at0156"] = <
+					text = <"*No effect(en)">
+					description = <"*Presence of the factor has no impact on the symptom or sign.(en)">
+				>
+				["at0158"] = <
+					text = <"*Worsens(en)">
+					description = <"*Presence of the factor exaccerbates severity or impact of the symptom or sign.(en)">
+				>
+				["at0159"] = <
+					text = <"*Relieves(en)">
+					description = <"*Presence of the factor reduces the severity or impact of the symptom or sign.(en)">
+				>
+				["at0161"] = <
+					text = <"*Resolution date/time(en)">
+					description = <"*The timing of the cessation of this episode of the symptom or sign.(en)">
+					comment = <"*If 'Date/time of onset' and 'Duration' are used in systems, this data element may be calculated, or alternatively, considered redundant. While partial dates are permitted, the exact date and time of resolution can be recorded, if appropriate.(en)">
+				>
+				["at0163"] = <
+					text = <"*Comment(en)">
+					description = <"*Additional narrative about the symptom or sign not captured in other fields.(en)">
+				>
+				["at0164"] = <
+					text = <"*Onset type(en)">
+					description = <"*Description of the onset of the symptom or sign.(en)">
+					comment = <"*The type of the onset can be coded with a terminology, if desired. For example: gradual; or sudden.(en)">
+				>
+				["at0165"] = <
+					text = <"*Precipitating/resolving factor(en)">
+					description = <"*Details about a health event, symptom, sign or other factor associated with the onset or cessation of the symptom or sign.(en)">
+					comment = <"*For example: onset of headache occurred one week prior to menstruation; or onset of headache occurred one hour after fall of bicycle.(en)">
+				>
+				["at0167"] = <
+					text = <"*Precipitating factor(en)">
+					description = <"*Identification of factors/events associated with onset or commencement of the symptom or sign.(en)">
+				>
+				["at0168"] = <
+					text = <"*Resolving factor(en)">
+					description = <"*Identification of factors/events associated with cessation of the symptom or sign.(en)">
+				>
+				["at0170"] = <
+					text = <"*Factor(en)">
+					description = <"*Name of the health event, symptom, reported sign or other factor.(en)">
+					comment = <"*For example: onset of another symptom; onset of menstruation; or fall off bicycle.(en)">
+				>
+				["at0171"] = <
+					text = <"*Time interval(en)">
+					description = <"*The interval of time between the occurrence or onset of the factor and onset/resolution of the symptom or sign.(en)">
+				>
+				["at0175"] = <
+					text = <"*Episodicity(en)">
+					description = <"*Category of this epsiode for the identified symptom or sign.(en)">
+				>
+				["at0176"] = <
+					text = <"*New(en)">
+					description = <"*This is the first ever  episode of the symptom or sign.(en)">
+				>
+				["at0177"] = <
+					text = <"*Reoccurrence(en)">
+					description = <"*This is a second or subsequent discrete episode of the symptom or sign, where each previous episode has completely resolved.(en)">
+				>
+				["at0178"] = <
+					text = <"*Ongoing(en)">
+					description = <"*This symptom or sign is continuously present, effectively a single, ongoing episode.(en)">
+				>
+				["at0180"] = <
+					text = <"*Progression(en)">
+					description = <"*Description progression of the symptom or sign at the time of reporting.(en)">
+					comment = <"*Occurrences of this data element are set to 0..* to allow multiple types of progression to be separated out in a template if desired - for example, severity or frequency.(en)">
+				>
+				["at0181"] = <
+					text = <"*Improving(en)">
+					description = <"*The severity of the symptom or sign has improved overall during this episode.(en)">
+				>
+				["at0182"] = <
+					text = <"*Unchanged(en)">
+					description = <"*The severity of the symptom or sign has not changed overall during this episode.(en)">
+				>
+				["at0183"] = <
+					text = <"*Worsening(en)">
+					description = <"*The severity of the symptom or sign has worsened overall during this episode.(en)">
+				>
+				["at0184"] = <
+					text = <"*Resolved(en)">
+					description = <"*The severity of the symptom or sign has resolved.(en)">
+				>
+				["at0185"] = <
+					text = <"*Description(en)">
+					description = <"*Narrative description about the effect of the factor on the identified symptom or sign.(en)">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Symptom/Sykdomstegn">
+					description = <"Rapportert subjektiv eller objektiv observasjon av en fysisk eller mental forstyrrelse hos et individ.">
+				>
+				["at0001"] = <
+					text = <"Navn på symptom/sykdomstegn">
+					description = <"Navnet på det rapporterte symptomet eller sykdomstegnet.">
+					comment = <"Navnet på symptom/sykdomstegn bør kodes med en terminologi om mulig.">
+				>
+				["at0002"] = <
+					text = <"Beskrivelse">
+					description = <"Fritekstbeskrivelse av det rapporterte symptomet eller sykdomstegnet.
+">
+				>
+				["at0003"] = <
+					text = <"Mønster">
+					description = <"Fritekstbeskrivelse av symptomet eller sykdomstegnet i løpet av denne episoden.">
+					comment = <"For eksempel: Smerte kan beskrives som konstant eller kolikklignende.">
+				>
+				["at0017"] = <
+					text = <"Effekt">
+					description = <"Oppfattet effekt av den modifiserende faktoren på symptomet eller sykdomstegnet.">
+				>
+				["at0018"] = <
+					text = <"Modifiserende faktor">
+					description = <"Detaljer om hvordan en spesifikk faktor påvirker det identifiserte symptomet eller sykdomstegnet i løpet av denne episoden.">
+				>
+				["at0019"] = <
+					text = <"Faktor">
+					description = <"Navn på den modifiserende faktoren.">
+					comment = <"Eksempel på modifiserende faktor: sengeleie med flere puter, spising eller administrering av et spesifikt legemiddel.">
+				>
+				["at0021"] = <
+					text = <"Alvorlighetskategori">
+					description = <"Kategori for å beskrive symptomets eller sykdomstegnets helhetlige alvorlighet.">
+					comment = <"Det er vanskelig å definere verdier som mild, moderat og alvorlig på en slik måte at det kan brukes om flere symptomer, og som samtidig sikrer at tolkning og registrering av verdiene er konsistent. Ved å utvide verdisettet med verdier som \"ubetydelig\" og \"veldig alvorlig\", og/eller \"moderat mild\" og \"moderat alvorlig\" øker kompleksiteten, og påliteligheten i registreringen reduseres. Bruk av verdier som \"Livstruende\" eller \"fatal\" tas ofte med i et slikt verdisett, men disse verdiene gjenspeiler heller resultat enn alvorlighet. I lys av dette foretrekkes en mindre, mer veldefinert liste. NB: En mer spesifikk gradering av alvorlighet kan registreres ved bruk av SLOTet \"Spesifikke detaljer\".">
+				>
+				["at0023"] = <
+					text = <"Mild">
+					description = <"Symptomet eller sykdomstegnets intensitet forstyrrer ikke normal aktivitet.">
+				>
+				["at0024"] = <
+					text = <"Moderat">
+					description = <"Symptomet eller sykdomstegnet intensitet forstyrrer normal aktivitet.">
+				>
+				["at0025"] = <
+					text = <"Alvorlig">
+					description = <"Symptomets eller sykdomstegnets intensitet hindrer normal aktivitet.">
+				>
+				["at0026"] = <
+					text = <"Gradering av alvorlighet">
+					description = <"Numerisk graderings skala som representerer den overordnede alvorligheten til symptomet eller sykdomstegnet.">
+					comment = <"Symptomets alvorlighet graderes av individet ved å registrere en skår fra 0 (symptom ikke tilstede) til 10 (symptomet er så alvorlig som individet kan forestille seg). Denne skåringen kan representeres i brukergrensesnittet som en visuell analog skala, Dataelementet er satt til 0..* for å tillate variasjonen som \"maksimum alvorlighet\" og \"gjennomsnittlig alvorlighet\" i et templat.">
+				>
+				["at0028"] = <
+					text = <"Varighet">
+					description = <"Varigheten av symptomet siden debut.">
+					comment = <"Brukes \"Dato/tid for debut\" og \"Dato/tid for opphør\" i systemer, kan dette dataelementet kalkuleres av systemet eller være overflødig.">
+				>
+				["at0031"] = <
+					text = <"Antall tidligere episoder">
+					description = <"Antall ganger symptomet eller sykdomstegnet tidligere har forekommet.">
+				>
+				["at0035"] = <
+					text = <"Ikke tilstede">
+					description = <"Symptomet eller sykdomstegnet ble rapportert at det ikke er tilstede i signifikant grad.">
+					comment = <"Registrer som Sann dersom helsetjenestemottakeren ikke har rapportert symptomet eller sykdomstegnet som betydningsfullt. For eksempel: Pasienten har kroniske smerter, noe som oppleves som normalt for pasienten. I denne situasjonen legger \"Ikke tilstede\" til rette for at pasienten ikke har økte smerter som er betydningsfulle eller relevenate for denne anamnesen.">
+				>
+				["at0037"] = <
+					text = <"Episodebeskrivelse">
+					description = <"Fritekstbeskrivelse av symptomet eller sykdomstegnets utvikling gjennom denne episoden.">
+					comment = <"For eksempel: Fritekstbeskrivelse av symptomdebuten, aktiviteter som forverret eller forbedret symptomet, om det er i bedring eller forverring og hvordan det ble fullstendig bedret i løpet av uker.">
+				>
+				["at0056"] = <
+					text = <"Beskrivelse">
+					description = <"Fritekstbeskrivelse av den modifiserende faktorens effekt på symptomet eller sykdomstegnet.">
+				>
+				["at0057"] = <
+					text = <"Beskrivelse av tidligere episoder">
+					description = <"Fritekstbeskrivelse av tidligere episoder.">
+					comment = <"For eksempel: Frekvens/periodisitet - pr. time, dag, uke, måned, år og regularitet. Kan inneholde en sammenligning med denne episoden.">
+				>
+				["at0063"] = <
+					text = <"Tilknyttede symptomer/sykdomstegn">
+					description = <"Strukturerte detaljer om ethvert tilknyttet symptom eller sykdomstegn som er tilstede samtidig.">
+					comment = <"I kliniske systemer med mulighet for linking er det mulig at tilknyttede symptomer/sykdomstegn allerede er registrert i det kliniske systemet. Systemet kan tillatte en kliniker å linke til relevante tilknyttede symptomer/sykdomstegn. Tillater ikke systemet linking eller det er en pasient som ikke har noen tilknyttede symptomer registrert, kan man legge til ytterligere instanser av symptom-arketypen for å beskrive de tidligere episodene.">
+				>
+				["at0146"] = <
+					text = <"Tidligere episoder">
+					description = <"Strukturerte detaljer om symptomet eller sykdomstegnet i løpet av en tidligere episode.">
+					comment = <"I kliniske systemer med mulighet for linking er det mulig at tidligere episoder allerede er registrert i det kliniske systemet. Systemet kan tillatte en kliniker å linke til relevante tilknyttede symptomer. Tillater ikke systemet linking eller det er en pasient som ikke har noen tilknyttede symptomer registrert, kan man legge til ytterligere instanser av symptom-arketypen for å beskrive de tidligere episodene.">
+				>
+				["at0147"] = <
+					text = <"Strukturert kroppssted">
+					description = <"Strukturert kroppssted hvor symptomet eller sykdomstegnet ble rapportert.">
+					comment = <"Hvis den anatomiske lokaliseringen allerede er satt i elementet \"Navn på symptom/sykdomstegn\" via prekoordinerte koder, blir dette SLOTet overflødig. Er den anatomiske lokaliseringen registrert i dataelementet \"Kroppssted\", er bruken av dette SLOTet ikke tillatt. Registrer bare \"Kroppssted\" eller \"Strukturert kroppssted\", ikke begge.">
+				>
+				["at0151"] = <
+					text = <"Kroppssted">
+					description = <"Registrering av ett enkelt område på kroppen hvor symptomet eller sykdomstegnet var rapportert.">
+					comment = <"Forekomster for dette dataelementet er satt 0..* for å tillate at flere kroppssted kan trekkes ut i et templat om ønsket. Dette åpner for å representere kliniske scenarier hvor et symptom må registreres flere steder på kroppen eller for å identifisere både opphavssted for smerte og ytterpunkt for utstråling av smerter, og alle andre dataelementer i arketypen som \"Innvirkning\" og \"Varighet\" er like. Om kravet for registrering av kroppsplassering er bestemt i en applikasjon eller krever en mer kompleks modellering som for eksempel relativ lokalisering, bruk arketypen CLUSTER.anatomical_location eller CLUSTER.relative_location i \"Detaljert kroppssted\"-SLOTet i denne arketypen. Er den anatomiske lokaliseringen inkludert i \"Navn på symptom/sykdomstegn\" via prekoordinerte koder er dette dataelementet overflødig. Registreres den anatomiske lokaliseringen i SLOTet \"Strukturert kroppssted\" er bruken av dette dataelementet ikke tillat. Registrer enten i \"Kroppssted\" eller i \"Detaljert kroppssted\", ikke i begge.
+
+">
+				>
+				["at0152"] = <
+					text = <"Dato/tid for debut">
+					description = <"Debuttidspunkt for denne episoden av symptomet eller sykdomstegnet.">
+					comment = <"Partielle datoer er tillatt. Nøyaktig tid for symptomets debut kan registreres, dersom relevant. Er dette et tilbakevendende symptom, brukes datoen for å representere den mest nyligste relevante datoen for forverring. Er dette første gang symptomet opptrer, brukes datoen for å representere første debut av symptomet.">
+				>
+				["at0153"] = <
+					text = <"Spesifikke detaljer">
+					description = <"Ekstra dataelementer som er nødvendige for å registrere egenskaper unike for det identifiserte symptomet eller sykdomstegnet.">
+					comment = <"For eksempel: Graderingen \"Common Terminology Criteria for Adverse Events\".">
+				>
+				["at0154"] = <
+					text = <"Faktordetaljer">
+					description = <"Strukturerte detaljer om faktoren som er forbundet med det identifiserte symptomet eller sykdomstegnet.">
+				>
+				["at0155"] = <
+					text = <"Innvirkning">
+					description = <"Beskrivelse av symptomet eller sykdomstegnets innvirkning.">
+					comment = <"Bedømmelsen av innvirkning må ta høyde for alvorlighet, varighet og frekvens av symptomet, i tillegg til type innvirkning, for eksempel: funksjonell, sosial og emosjonell innvirkning. Dataelementet er satt til 0..* for å tillate at flere typer innvirkning kan trekkes ut i et templat om ønskelig. For hørselstap vil innvirkning kunne omfatte \"Vansker med å høre i et stille miljø\", \"Vansker med å høre TV eller radio\"; \"Vansker med å høre gruppesamtaler\" og \"Vansker med å høre i telefon\".">
+				>
+				["at0156"] = <
+					text = <"Ingen effekt">
+					description = <"Tilstedeværelse av faktoren har ingen effekt på symptomet eller sykdomstegnet.">
+				>
+				["at0158"] = <
+					text = <"Forverrer">
+					description = <"Tilstedeværelse av faktoren forverrer alvorlighet eller innvirkning av symptomet eller sykdomstegnet.">
+				>
+				["at0159"] = <
+					text = <"Lindrer">
+					description = <"Tilstedeværelse av faktor reduserer alvorligheten eller innvirkning av symptomet eller sykdomstegnet.">
+				>
+				["at0161"] = <
+					text = <"Dato/tid for opphør">
+					description = <"Dato/tid for opphør av denne episoden av symptomet eller sykdomstegnet.">
+					comment = <"Brukes \"Dato/tid for debut\" og \"Varighet\" i systemer, kan dette dataelementet kalkuleres av systemet eller være overflødig. Ufullstendig dato er tillatt, nøyaktig dato og tid for opphør kan registreres om ønskelig.">
+				>
+				["at0163"] = <
+					text = <"Kommentar">
+					description = <"Ytterligere fritekst om symptomet eller sykdomstegnet som ikke er registrert i andre felt.">
+				>
+				["at0164"] = <
+					text = <"Debuttype">
+					description = <"Beskrivelse av symptomets eller sykdomstegnets debut.">
+					comment = <"Debuttypen kan kodes med en terminologi om ønsket. For eksempel: Gradvis eller plutselig.">
+				>
+				["at0165"] = <
+					text = <"Utløsende/avsluttende faktor">
+					description = <"Detaljer om en helserelatert hendelse, symptom, sykdomstegn eller annen faktor som er forbundet med debut eller opphør av symptomet eller sykdomstegnet.">
+					comment = <"For eksempel: Debut av hodepine oppstod en uke før menstruasjon eller debut av hodepine oppstod en time etter fall på sykkel.">
+				>
+				["at0167"] = <
+					text = <"Utløsende faktor">
+					description = <"Identifisering av faktorer/hendelser som er forbundet med debut av symptomet eller sykdomstegnet.">
+				>
+				["at0168"] = <
+					text = <"Avsluttende faktor">
+					description = <"Identifisering av faktorer/hendelser som er forbundet med opphør av symptomet eller sykdomstegnet.">
+				>
+				["at0170"] = <
+					text = <"Faktor">
+					description = <"Navn på helserelatert hendelse, symptom, rapportert sykdomstegn eller annen faktor.">
+					comment = <"For eksempel: Debut av annet symptom, menstruasjons debut, falt av sykkel.">
+				>
+				["at0171"] = <
+					text = <"Tidsintervall">
+					description = <"Tidsintervall mellom forekomst eller debut av faktoren og debut/opphør av symptomet eller sykdomstegnet.">
+				>
+				["at0175"] = <
+					text = <"Episodisitet">
+					description = <"Kategorisering av denne episoden av det identifiserte symptomet eller sykdomstegnet.">
+				>
+				["at0176"] = <
+					text = <"Nytt">
+					description = <"Dette er første gang symptomet eller sykdomstegnet oppstår.">
+				>
+				["at0177"] = <
+					text = <"Tilbakekomst">
+					description = <"Dette er andre eller påfølgende separate episode av symptomet eller sykdomstegnet, hvor hver enkelt foregående episode har gått over.">
+				>
+				["at0178"] = <
+					text = <"Pågående">
+					description = <"Symptomet eller sykdomstegnet er kontinuerlig tilstedeværende, i praksis en enkelt pågående episode.">
+				>
+				["at0180"] = <
+					text = <"Progresjon">
+					description = <"Beskrivelse av symptomets eller sykdomstegnets progresjon ved rapporteringstidspunktet.">
+					comment = <"Dataelementet er definert som 0..* for å tillate at flere typer progresjon trekkes ut i et templat om ønsket. For eksempel: alvorlighet eller frekvens.">
+				>
+				["at0181"] = <
+					text = <"Forbedret">
+					description = <"Symptomet eller sykdomstegnets alvorlighetsgrad er forbedret i løpet av denne episoden.">
+				>
+				["at0182"] = <
+					text = <"Uendret">
+					description = <"Symptomet eller sykdomstegnets alvorlighetsgrad er ikke endret i løpet av denne episoden.">
+				>
+				["at0183"] = <
+					text = <"Forverret">
+					description = <"Symptomet eller sykdomstegnets alvorighetsgrad har blitt forverret i løpet av denne episoden.">
+				>
+				["at0184"] = <
+					text = <"Fullstendig bedret">
+					description = <"Symptomet eller sykdomstegnets alvorlighetsgrad er fullstendig bedret løpet av denne episoden.">
+				>
+				["at0185"] = <
+					text = <"Beskrivelse">
+					description = <"Fritekstbeskrivelse av faktorens effekt på det identifiserte symptomet eller sykdomstegnet.">
+				>
+			>
+		>
+	>
+	term_bindings = <
+		["SNOMED-CT"] = <
+			items = <
+				["at0000"] = <[SNOMED-CT::19019007]>
+				["at0001"] = <[SNOMED-CT::19019007]>
+				["at0002"] = <[SNOMED-CT::162408000]>
+				["at0021"] = <[SNOMED-CT::162465004]>
+				["at0023"] = <[SNOMED-CT::162468002]>
+				["at0024"] = <[SNOMED-CT::162469005]>
+				["at0025"] = <[SNOMED-CT::162470006]>
+				["at0028"] = <[SNOMED-CT::162442009]>
+			>
+		>
+	>

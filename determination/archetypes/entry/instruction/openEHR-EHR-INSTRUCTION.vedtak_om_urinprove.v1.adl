@@ -1,0 +1,190 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-INSTRUCTION.vedtak_om_urinprove.v1
+
+concept
+	[at0000]	-- Vedtak om apning og kontroll av post
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for vedtak om urinprøve">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"*(nb)">
+			use = <"*(nb)">
+			misuse = <"*(nb)">
+			copyright = <"*(nb)">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"AB198A0750E4AF77390AAC28F231A51C">
+	>
+
+definition
+	INSTRUCTION[at0000] matches {	-- Vedtak om apning og kontroll av post
+		activities cardinality matches {0..*; unordered} matches {
+			ACTIVITY[at0001] occurrences matches {0..1} matches {	-- Current Activity
+				description matches {
+					ITEM_TREE[at0002] matches {	-- Tree
+						items cardinality matches {0..*; unordered} matches {
+							ELEMENT[at0003] occurrences matches {0..*} matches {	-- Begrunnelse for vedtaket er gitt i journalnotat av
+								value matches {
+									DV_DATE matches {
+										value matches {yyyy-mm-dd}
+									}
+								}
+							}
+							ELEMENT[at0011] occurrences matches {0..1} matches {	-- Det foreligger mistanke om rusmiddelbruk i forbindelse med behandlingsforløpet 
+								value matches {
+									DV_BOOLEAN matches {
+										value matches {True, False}
+									}
+								}
+							}
+							ELEMENT[at0012] occurrences matches {0..1} matches {	-- Det fremstår som strengt nødvendig å ta urinprøve av hensyn til helsehjelpen 
+								value matches {
+									DV_BOOLEAN matches {
+										value matches {True, False}
+									}
+								}
+							}
+							ELEMENT[at0013] occurrences matches {0..1} matches {	-- Pasienten er under tvungen observasjon ellet tvungent psykisk helsevern
+								value matches {
+									DV_BOOLEAN matches {
+										value matches {True, False}
+									}
+								}
+							}
+							ELEMENT[at0004] occurrences matches {0..1} matches {	-- Helsetjenesteenhet
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0005] occurrences matches {0..1} matches {	-- Dato vedtak fattet
+								value matches {
+									DV_DATE_TIME matches {
+										value matches {yyyy-mm-ddTHH:??:??}
+									}
+								}
+							}
+							allow_archetype CLUSTER[at0014] occurrences matches {0..*} matches {	-- Vedtakstype
+								include
+									archetype_id/value matches {/.*/}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Vedtak om urinprove">
+					description = <"*">
+				>
+				["at0001"] = <
+					text = <"Current Activity">
+					description = <"Current Activity">
+				>
+				["at0002"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Begrunnelse for vedtaket er gitt i journalnotat av">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Helsetjenesteenhet">
+					description = <"Identifikasjon av den enhet hvor vedtaket fattes">
+				>
+				["at0005"] = <
+					text = <"Dato vedtak fattet">
+					description = <"Det tidspunkt vedtaket ble fattet">
+				>
+				["at0011"] = <
+					text = <"Det foreligger mistanke om rusmiddelbruk i forbindelse med behandlingsforløpet ">
+					description = <"ANgir om det er mistanke om rusmiddelbruk">
+				>
+				["at0012"] = <
+					text = <"Det fremstår som strengt nødvendig å ta urinprøve av hensyn til helsehjelpen ">
+					description = <"Angir om urinprøve er strengt nødvendig">
+				>
+				["at0013"] = <
+					text = <"Pasienten er under tvungen observasjon ellet tvungent psykisk helsevern">
+					description = <"Angir om pasienten er på tvungen observasjon eller TPH">
+				>
+				["at0014"] = <
+					text = <"Vedtakstype">
+					description = <"**(nb)">
+				>
+			>
+		>
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"Vedtak om apning og kontroll av post">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Current Activity">
+					description = <"Current Activity">
+				>
+				["at0002"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Begrunnelse for vedtaket er gitt i journalnotat av">
+					description = <"Referanse til det dokument i journalen som inneholder opplysninger om vedtaket og begrunnelse for dette.">
+				>
+				["at0004"] = <
+					text = <"Helsetjenesteenhet">
+					description = <"Identifikasjon av den enhet hvor vedtaket fattes">
+				>
+				["at0005"] = <
+					text = <"Dato vedtak fattet">
+					description = <"Det tidspunkt vedtaket ble fattet">
+				>
+				["at0011"] = <
+					text = <"Det foreligger mistanke om rusmiddelbruk i forbindelse med behandlingsforløpet ">
+					description = <"ANgir om det er mistanke om rusmiddelbruk">
+				>
+				["at0012"] = <
+					text = <"Det fremstår som strengt nødvendig å ta urinprøve av hensyn til helsehjelpen ">
+					description = <"Angir om urinprøve er strengt nødvendig">
+				>
+				["at0013"] = <
+					text = <"Pasienten er under tvungen observasjon ellet tvungent psykisk helsevern">
+					description = <"Angir om pasienten er på tvungen observasjon eller TPH">
+				>
+				["at0014"] = <
+					text = <"Vedtakstype">
+					description = <"">
+				>
+			>
+		>
+	>

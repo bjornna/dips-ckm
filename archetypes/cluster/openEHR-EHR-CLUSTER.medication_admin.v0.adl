@@ -1,0 +1,305 @@
+﻿archetype (adl_version=1.4; uid=c6851ea7-6cd9-4eab-9ff0-95335dfaf466)
+	openEHR-EHR-CLUSTER.medication_admin.v0
+
+concept
+	[at0000]	-- Administrasjon av medikament.
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["organisation"] = <"Oslo universitetssykehus HF, Norway">
+				["name"] = <"Vebjørn Arntzen">
+			>
+			accreditation = <"RN, Enterprise Architect TOGAF sertified">
+		>
+		["sl"] = <
+			language = <[ISO_639-1::sl]>
+			author = <
+				["organisation"] = <"Marand, Ljubljana">
+				["name"] = <"Biljana Prinčič">
+				["email"] = <"biljana.princic@marand.si">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Sam Heard">
+		["organisation"] = <"NEHTA">
+		["email"] = <"sam.heard@oceaninformatics.com">
+		["date"] = <"10/11/2010">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To describe how a medication should be administered or was actually administered.">
+			use = <"To be used in INSTRUCTION.medication and ACTION.medication to describe the administration.">
+			keywords = <"medication administration", "injection">
+			misuse = <"Not to be used for administration of anything other than medication.">
+			copyright = <"© Nasjonal IKT HF">
+		>
+		["sl"] = <
+			language = <[ISO_639-1::sl]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"© Nasjonal IKT HF">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For å beskrive hvordan en foreskrevet medisin skal administreres, eller faktisk ble administrert.">
+			use = <"Skal brukes i INSTRUCTION.medication og ACTION.medication for å beskrive administrasjonen.">
+			keywords = <"administrasjon av medikament", "forordning", "injeksjon", "administrasjonsmåte">
+			misuse = <"Skal ikke benyttes for administrering av andre ting enn medikasjon.">
+			copyright = <"© Nasjonal IKT HF">
+		>
+	>
+	lifecycle_state = <"NotSet">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"539E37E7B26B5FAC253A34D9458569C8">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Administrasjon av medikament.
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..*} matches {	-- Administrasjonsvei
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[ac0001]}		-- Liste av administrasjonsveier
+					}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Lokalisering
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0006, 	-- Venstre overarm
+							at0007, 	-- Høyre overarm
+							at0008, 	-- Venstre lår
+							at0009, 	-- Høyre lår
+							at0010, 	-- Munn
+							at0011, 	-- Venstre setemuskel
+							at0012]	-- Høyre setemuskel
+						}
+					}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Administrasjonsmåte
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0004] occurrences matches {0..1} matches {	-- Doseringsvarighet
+				value matches {
+					DV_DURATION matches {
+						value matches {|>=PT0S|}
+					}
+				}
+			}
+			allow_archetype CLUSTER[at0005] occurrences matches {0..*} matches {	-- Infusjonsdetaljer
+				include
+					archetype_id/value matches {/openEHR-EHR-CLUSTER\.infusion_details(-[a-zA-Z0-9_]+)*\.v1/}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Medication administration">
+					description = <"Information about the future or actual administration of medication.">
+				>
+				["at0001"] = <
+					text = <"Route">
+					description = <"The route by which the medication is administered (e.g. oral, sublingual etc).">
+				>
+				["at0002"] = <
+					text = <"Site">
+					description = <"A description of the site of administration.">
+				>
+				["at0003"] = <
+					text = <"Delivery method">
+					description = <"The method of delivery if this should be specified (e.g. via a nebuliser or spacer).">
+				>
+				["at0004"] = <
+					text = <"Dose duration">
+					description = <"The length of time over which to administer each dose (e.g. an intravenous administration may have to be over a period of 5 minutes).">
+				>
+				["at0005"] = <
+					text = <"Infusion details">
+					description = <"Details of administration via infusion">
+				>
+				["at0006"] = <
+					text = <"Left upper arm">
+					description = <"Left upper arm">
+				>
+				["at0007"] = <
+					text = <"Right upper arm">
+					description = <"Right upper arm">
+				>
+				["at0008"] = <
+					text = <"Thigh left leg">
+					description = <"Thigh left leg">
+				>
+				["at0009"] = <
+					text = <"Thigh right leg">
+					description = <"Thigh right leg">
+				>
+				["at0010"] = <
+					text = <"Mouth">
+					description = <"Mouth">
+				>
+				["at0011"] = <
+					text = <"Gluteus left">
+					description = <"Gluteus left">
+				>
+				["at0012"] = <
+					text = <"Gluteus right">
+					description = <"Gluteus right">
+				>
+			>
+		>
+		["sl"] = <
+			items = <
+				["at0000"] = <
+					text = <"Aplikacija cepiva">
+					description = <"Podatki o aplikaciji cepiva">
+				>
+				["at0001"] = <
+					text = <"Pot uporabe">
+					description = <"Poti uporabe zdravila">
+				>
+				["at0002"] = <
+					text = <"Mesto aplikacije">
+					description = <"Mesto aplikacije">
+				>
+				["at0003"] = <
+					text = <"Vrsta aplikacije">
+					description = <"Vrsta apliciranja, če je določena (npr. inhalacije, oralno...)">
+				>
+				["at0004"] = <
+					text = <"Trajanje doze aplikacije">
+					description = <"Čas trajanja ene doze apliciranega zdravila">
+				>
+				["at0005"] = <
+					text = <"Podatki o infuziji">
+					description = <"Podatki o infuziji">
+				>
+				["at0006"] = <
+					text = <"Nadlaket leva roka">
+					description = <"Nadlaket leva roka">
+				>
+				["at0007"] = <
+					text = <"Nadlaket desna roka">
+					description = <"Nadlaket desna roka">
+				>
+				["at0008"] = <
+					text = <"Stegno leva noga">
+					description = <"Stegno leva noga">
+				>
+				["at0009"] = <
+					text = <"Stegno desna noga">
+					description = <"Stegno desna noga">
+				>
+				["at0010"] = <
+					text = <"Usta">
+					description = <"Usta">
+				>
+				["at0011"] = <
+					text = <"Zadnjična mišica levo">
+					description = <"Zadnjična mišica levo">
+				>
+				["at0012"] = <
+					text = <"Zadnjična mišica desno">
+					description = <"Zadnjična mišica desno">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Administrasjon av medikament.">
+					description = <"Informasjon om fremtidig eller faktisk administrasjon av medikament.">
+				>
+				["at0001"] = <
+					text = <"Administrasjonsvei">
+					description = <"Administrasjonsveien et medikament er administrert (for eksempel per os, sublingualt, intramuskulært, etc).">
+				>
+				["at0002"] = <
+					text = <"Lokalisering">
+					description = <"En beskrivelse av hvor medikamentet er satt/gitt.">
+				>
+				["at0003"] = <
+					text = <"Administrasjonsmåte">
+					description = <"Måten et medikament skal gis, hvis det er nødvendig å spesifisere det (for eksempel via forstøver eller inhalator).">
+				>
+				["at0004"] = <
+					text = <"Doseringsvarighet">
+					description = <"Varigheten et medikament skal gis over (for eksempel kan en intravenøs administrasjon måtte gis over et bestemt antall minutter eller timer).">
+				>
+				["at0005"] = <
+					text = <"Infusjonsdetaljer">
+					description = <"Detaljer knyttet til administrasjon som gjelder en infusjon.">
+				>
+				["at0006"] = <
+					text = <"Venstre overarm">
+					description = <"Venstre overarm">
+				>
+				["at0007"] = <
+					text = <"Høyre overarm">
+					description = <"Høyre overarm">
+				>
+				["at0008"] = <
+					text = <"Venstre lår">
+					description = <"Venstre lår">
+				>
+				["at0009"] = <
+					text = <"Høyre lår">
+					description = <"Høyre lår">
+				>
+				["at0010"] = <
+					text = <"Munn">
+					description = <"Munn">
+				>
+				["at0011"] = <
+					text = <"Venstre setemuskel">
+					description = <"Venstre setemuskel">
+				>
+				["at0012"] = <
+					text = <"Høyre setemuskel">
+					description = <"Høyre setemuskel">
+				>
+			>
+		>
+	>
+	constraint_definitions = <
+		["en"] = <
+			items = <
+				["ac0001"] = <
+					text = <"RouteOfAdministration">
+					description = <"A list of all possible routes of administration of medication.">
+				>
+			>
+		>
+		["sl"] = <
+			items = <
+				["ac0001"] = <
+					text = <"*RouteOfAdministration(en)">
+					description = <"*A list of all possible routes of administration of medication.(en)">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["ac0001"] = <
+					text = <"Liste av administrasjonsveier">
+					description = <"En liste over alle mulige administrasjonsveier til medikasjon.">
+				>
+			>
+		>
+	>

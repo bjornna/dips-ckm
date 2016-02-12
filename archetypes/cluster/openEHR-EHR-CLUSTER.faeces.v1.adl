@@ -1,0 +1,222 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.faeces.v1
+
+concept
+	[at0000]	-- Vannlating
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"Dips ASA">
+		["date"] = <"2015-11-12">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For å dokumentere detaljer vedrørende vannlating.">
+			use = <"Brukes for å dokumentere detaljer vedrørende vannlating. 
+
+Denne arketypen er tenkt brukt i openEHR-EHR-OBSERVATION.bodily_functions.v1 men kan også brukes i andre OBSERVATION arketper hvor det er nødvendig å dokumentere strukturerte detaljer vedrørende vanlatingsfunskjonen.">
+			keywords = <"urin", "vannlating", "naturlige funksjoner">
+			misuse = <"Brukes ikke for å dokumentere menden væske som går ut av kroppen i forindelse f.eks. med registrering av væskebaløanse. Til det brukes egne arketyper: OBSERVATION.body_fluid_ out og OBSERVATION.body_fluid_ balance.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <"Anca Heyd, Dips ASA<ahe@dips.no>">
+		["MD5-CAM-1.0.1"] = <"DA830EF043BB08DF13BD4099E7C6F3EC">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Vannlating
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Farge
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Konsistens
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0015, 	-- Hard.
+							at0016, 	-- Myk
+							at0017, 	-- Løs.
+							at0018]	-- Flytende
+						}
+					}
+				}
+			}
+			ELEMENT[at0005] occurrences matches {0..1} matches {	-- Hyppighet
+				value matches {
+					C_DV_QUANTITY <
+						property = <[openehr::382]>
+						list = <
+							["1"] = <
+								units = <"1/d">
+								magnitude = <|>=0.0|>
+								precision = <|0|>
+							>
+							["2"] = <
+								units = <"1/h">
+								magnitude = <|>=0.0|>
+								precision = <|0|>
+							>
+						>
+					>
+				}
+			}
+			ELEMENT[at0019] occurrences matches {0..1} matches {	-- Hatt avføring?
+				value matches {
+					DV_BOOLEAN matches {
+						value matches {True, False}
+					}
+				}
+			}
+			ELEMENT[at0012] occurrences matches {0..1} matches {	-- Siste avføring
+				value matches {
+					DV_DATE_TIME matches {*}
+				}
+			}
+			ELEMENT[at0020] occurrences matches {0..1} matches {	-- Mengde
+				value matches {
+					0|[local::at0021], 	-- Ingen.
+					1|[local::at0022], 	-- Vedlig lite.
+					2|[local::at0023], 	-- Lite.
+					5|[local::at0024], 	-- Normal.
+					8|[local::at0025], 	-- Mye.
+					10|[local::at0026]  	-- Veldig mye.
+				}
+			}
+			ELEMENT[at0006] occurrences matches {0..1} matches {	-- Volum
+				value matches {
+					C_DV_QUANTITY <
+						property = <[openehr::129]>
+						list = <
+							["1"] = <
+								units = <"dl">
+							>
+							["2"] = <
+								units = <"ml">
+							>
+						>
+					>
+				}
+			}
+			ELEMENT[at0014] occurrences matches {0..1} matches {	-- Inkontinens
+				value matches {
+					DV_BOOLEAN matches {
+						value matches {True, False}
+					}
+				}
+			}
+			ELEMENT[at0027] occurrences matches {0..1} matches {	-- Bruker avføringsmidler
+				value matches {
+					DV_BOOLEAN matches {
+						value matches {True}
+					}
+				}
+			}
+			allow_archetype CLUSTER[at0013] occurrences matches {0..*} matches {	-- Detaljer
+				include
+					archetype_id/value matches {/.*/}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Vannlating">
+					description = <"Dokumenterer detaljer vedrørende vannlating.">
+				>
+				["at0001"] = <
+					text = <"Farge">
+					description = <"Avføringens farge.">
+				>
+				["at0002"] = <
+					text = <"Konsistens">
+					description = <"Avføringskonsistens.">
+				>
+				["at0005"] = <
+					text = <"Hyppighet">
+					description = <"Antall tømminger per time eller dag.">
+				>
+				["at0006"] = <
+					text = <"Volum">
+					description = <"Avføringens volum.">
+				>
+				["at0012"] = <
+					text = <"Siste avføring">
+					description = <"Tidspunkt for siste avføring.">
+				>
+				["at0013"] = <
+					text = <"Detaljer">
+					description = <"Strukturerte detaljer f.eks. detaljer om inkontinens.">
+				>
+				["at0014"] = <
+					text = <"Inkontinens">
+					description = <"Ja indikerer at pasienten har urininkontinens, nei at pasienten er kontinent for urin.">
+				>
+				["at0015"] = <
+					text = <"Hard.">
+					description = <"Formet og veldig fast.">
+				>
+				["at0016"] = <
+					text = <"Myk">
+					description = <"Avføringen er formet, men myk.">
+				>
+				["at0017"] = <
+					text = <"Løs.">
+					description = <"Avføringen er ikke formet men det er fortsatt en betydelig mengde fast materiale.">
+				>
+				["at0018"] = <
+					text = <"Flytende">
+					description = <"Avføringen er vanntynn med lite fast materiale.">
+				>
+				["at0019"] = <
+					text = <"Hatt avføring?">
+					description = <"Har Pasienten hatt avføring?">
+				>
+				["at0020"] = <
+					text = <"Mengde">
+					description = <"Mengde som kategori.">
+				>
+				["at0021"] = <
+					text = <"Ingen.">
+					description = <"Ingen avføring.">
+				>
+				["at0022"] = <
+					text = <"Vedlig lite.">
+					description = <"Veldig lite avføring.">
+				>
+				["at0023"] = <
+					text = <"Lite.">
+					description = <"Lite avføring.">
+				>
+				["at0024"] = <
+					text = <"Normal.">
+					description = <"Normal mengde avføring.">
+				>
+				["at0025"] = <
+					text = <"Mye.">
+					description = <"Mye avføring.">
+				>
+				["at0026"] = <
+					text = <"Veldig mye.">
+					description = <"Veldig mye avføring.">
+				>
+				["at0027"] = <
+					text = <"Bruker avføringsmidler">
+					description = <"Ja indikerer at individet bruker avføringsmidler.">
+				>
+			>
+		>
+	>

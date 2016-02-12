@@ -5,7 +5,7 @@ Operatørvurdering
 =================
 #proc_act: openEHR-EHR-ACTION.procedure.v1?scope=folder
 #proc_act:/description[at0001]/items[at0002]/value		// Prosedyrenavn
-#proc_act:/description[at0001]/items[at0004]/value		// Beskrivelse
+#proc_act:/description[at0001]/items[at0049]/value		// Beskrivelse
 
 // Tilleggsprosedyrer:
 #proc_act:/description[at0001]/items[openEHR-EHR-CLUSTER.additional_procedure_code.v1]/items[at0001]/value	// Planlagt prosedyre
@@ -53,7 +53,7 @@ Operatørvurdering
 #exam_lungs:/items[at0002]/value			// Uten anmerkning
 #exam_lungs:/items[at0003]/value			// Klinisk beskrivelse
 
-#tobakk: openEHR-EHR-OBSERVATION.tobacco_use.v0?scope=folder
+#tobakk: openEHR-EHR-OBSERVATION.tobacco_use.v1?scope=folder
 #tobakk:/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value									// Tobakksbruk?
 #tobakk:/data[at0001]/events[at0002]/data[at0003]/items[at0005]/items[at0006]/value						// Form
 #tobakk:/data[at0001]/events[at0002]/data[at0003]/items[at0005]/items[at0015]/items[at0014]/value		// Antall røyket
@@ -64,6 +64,18 @@ Operatørvurdering
 #medikamenter_allergier:/items[at0009,'Bruk av medikamenter']/items[at0010]/value			// Helsefaktor navn/egenskap
 #medikamenter_allergier:/items[at0009,'Allergier']/items[at0011]/value						// Tilstedeværelse
 #medikamenter_allergier:/items[at0009,'Allergier']/items[at0010]/value						// Helsefaktor navn/egenskap
+
+#medikamenter: select c/uid/value as cid, cl from composition c contains observation o[openEHR-EHR-OBSERVATION.medikamentbruk_midlertidig.v1] contains cluster cl[openEHR-EHR-CLUSTER.health_factor_generic.v1] where cl/name/value='Medikamentbruk' order by c/context/start_time/value desc fetch 1?scope=folder
+#medikamenter:/items[at0001]/value											// Kategori
+#medikamenter:/items[at0003 and name/value='Bruker medikamenter?']/value	// Bruker medikamenter?
+#medikamenter:/items[at0008]/value											// Medikament
+#medikamenter:/items[at0010]/value											// Kommentar
+
+#allergier: select c/uid/value as cid, cl from composition c contains observation o[openEHR-EHR-OBSERVATION.allergier_midlertidig.v1] contains cluster cl[openEHR-EHR-CLUSTER.health_factor_generic.v1] where cl/name/value='Allergier' order by c/context/start_time/value desc fetch 1?scope=folder
+#allergier:/items[at0001]/value												// Kategori
+#allergier:/items[at0003 and name/value='Har allergier?']/value				// Har allergier?
+#allergier:/items[at0008]/value												// Allergen
+#allergier:/items[at0010]/value												// Kommentar
 
 #ane_req: openEHR-EHR-CLUSTER.anesthesia_requested.v1?scope=folder
 #ane_req:/items[at0001]/value				// Ønsket anestesi
@@ -159,7 +171,7 @@ Anestesivurdering
 #eval_luftvei:/data[at0001]/events[at0002]/data[at0003]/items[at0009 and name/value='Luftvei']/items[at0011]/value				// Tilstedeværelse
 
 #mallampati: openEHR-EHR-CLUSTER.mallampati_classification.v1?scope=folder
-#mallampati:/items[at0001]/value				// Mallampati klassifikasjon
+#mallampati:/items[at0004]/value				// Mallampati klassifikasjon
 
 #planned_anesthesia: openEHR-EHR-CLUSTER.planned_anesthesia.v1?scope=folder
 #planned_anesthesia:/items[at0001]/value		// Planlagt anestesi

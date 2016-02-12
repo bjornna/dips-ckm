@@ -2,14 +2,29 @@ archetype (adl_version=1.4)
 	openEHR-EHR-EVALUATION.sexual_history.v1
 
 concept
-	[at0000]	-- Sexual history
+	[at0000]	-- Seksuell historie
 language
 	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
 description
 	original_author = <
 		["name"] = <"">
 	>
 	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
 		["en"] = <
 			language = <[ISO_639-1::en]>
 			purpose = <"">
@@ -21,27 +36,27 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"610DE8B8D2530E57F2C42A3AE447CC5E">
+		["MD5-CAM-1.0.1"] = <"49276ADEB5305B5C8BE1DDB0BDE7436B">
 	>
 
 definition
-	EVALUATION[at0000] matches {	-- Sexual history
+	EVALUATION[at0000] matches {	-- Seksuell historie
 		data matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Ever had sex?
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Noen gang hatt sex?
 						value matches {
 							DV_CODED_TEXT matches {
 								defining_code matches {
 									[local::
-									at0009, 	-- Yes
-									at0010, 	-- No
-									at0011]	-- Unsure
+									at0009, 	-- Ja
+									at0010, 	-- Nei
+									at0011]	-- *Not sure(en)
 								}
 							}
 						}
 					}
-					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Age of sexual debut
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Alder ved seksuell debut
 						value matches {
 							C_DV_QUANTITY <
 								property = <[openehr::128]>
@@ -54,17 +69,14 @@ definition
 							>
 						}
 					}
-					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Genders had sex with
+					ELEMENT[at0004] occurrences matches {0..*} matches {	-- Kjønn pasienten har hatt sex med
 						value matches {
-							DV_CODED_TEXT matches {
-								defining_code matches {
-									[local::
-									at0005, 	-- Men
-									at0006, 	-- Women
-									at0007, 	-- Transmen
-									at0008]	-- Transwomen
-								}
-							}
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0012] occurrences matches {0..1} matches {	-- Beskrivelse til kjønn pas har hatt sex med
+						value matches {
+							DV_TEXT matches {*}
 						}
 					}
 				}
@@ -74,6 +86,86 @@ definition
 
 ontology
 	term_definitions = <
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"Seksuell historie">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Noen gang hatt sex?">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Alder ved seksuel debut">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Kjønn på partnere pasienten har hatt sex med">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"*Not sure(en)">
+					description = <"**(en)">
+				>
+				["at0012"] = <
+					text = <"*Description to partner gender(en)">
+					description = <"**(en)">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Seksuell historie">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Noen gang hatt sex?">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Alder ved seksuell debut">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Kjønn pasienten har hatt sex med">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"*Not sure(en)">
+					description = <"**(en)">
+				>
+				["at0012"] = <
+					text = <"Beskrivelse til kjønn pas har hatt sex med">
+					description = <"*">
+				>
+			>
+		>
 		["en"] = <
 			items = <
 				["at0000"] = <
@@ -86,43 +178,31 @@ ontology
 				>
 				["at0002"] = <
 					text = <"Ever had sex?">
-					description = <"">
+					description = <"*">
 				>
 				["at0003"] = <
 					text = <"Age of sexual debut">
-					description = <"">
+					description = <"*">
 				>
 				["at0004"] = <
 					text = <"Genders had sex with">
-					description = <"">
-				>
-				["at0005"] = <
-					text = <"Men">
-					description = <"">
-				>
-				["at0006"] = <
-					text = <"Women">
-					description = <"">
-				>
-				["at0007"] = <
-					text = <"Transmen">
-					description = <"A transman is a female-to-male transgender person who was assigned female at birth.">
-				>
-				["at0008"] = <
-					text = <"Transwomen">
-					description = <"A transwoman is a male-to-female transgender person who was assigned male at birth.">
+					description = <"*">
 				>
 				["at0009"] = <
 					text = <"Yes">
-					description = <"">
+					description = <"*">
 				>
 				["at0010"] = <
 					text = <"No">
-					description = <"">
+					description = <"*">
 				>
 				["at0011"] = <
-					text = <"Unsure">
-					description = <"">
+					text = <"Not sure">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Description to partner gender">
+					description = <"*">
 				>
 			>
 		>
