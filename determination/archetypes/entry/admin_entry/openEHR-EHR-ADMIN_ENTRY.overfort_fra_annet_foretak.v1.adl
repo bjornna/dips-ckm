@@ -1,0 +1,82 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ADMIN_ENTRY.overfort_fra_annet_foretak.v1
+
+concept
+	[at0000]	-- Overfort fra annet foretak
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes når man skal opprette sak hvor pasienten er overført fra annet foretak, og vedtaket skal videreføres">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"6ED52A330C6A4B98C96C906C547D6DBF">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {	-- Overfort fra annet foretak
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Overføres fra 
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Ankomst til institusjonen
+						value matches {
+							DV_DATE_TIME matches {
+								value matches {yyyy-mm-ddTHH:??:??}
+							}
+						}
+					}
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Vedtak i journalnotat av
+						value matches {
+							DV_DATE matches {
+								value matches {yyyy-mm-dd}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Overfort fra annet foretak">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Overføres fra ">
+					description = <"Foretak/institusjon og eventuelt organisasjonsenhet pasienten overføres fra">
+				>
+				["at0003"] = <
+					text = <"Ankomst til institusjonen">
+					description = <"Ankomst til aktuell institusjon">
+				>
+				["at0004"] = <
+					text = <"Vedtak i journalnotat av">
+					description = <"Referanse til vedtak opprettet på annen institusjon dersom dette foreligger i pasientens journal">
+				>
+			>
+		>
+	>
