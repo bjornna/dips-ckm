@@ -21,7 +21,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"BBDCC2C196FC822C852379602A2A59B1">
+		["MD5-CAM-1.0.1"] = <"809CA91A3BE68E2DC3A62C2A1E57A002">
 	>
 
 definition
@@ -59,7 +59,7 @@ definition
 									}
 								}
 							}
-							ELEMENT[at0007] occurrences matches {0..1} matches {	-- Begrunnelse for nattelåsing
+							ELEMENT[at0007] occurrences matches {0..*} matches {	-- Begrunnelse for nattelåsing
 								value matches {
 									DV_CODED_TEXT matches {
 										defining_code matches {
@@ -77,12 +77,7 @@ definition
 									}
 								}
 							}
-							ELEMENT[at0012] occurrences matches {0..1} matches {	-- Referanse til dokument(er) 
-								value matches {
-									DV_TEXT matches {*}
-								}
-							}
-							ELEMENT[at0013] occurrences matches {0..1} matches {	-- Pasienten vil bli gitt forsvarlig tilsyn mens pasientrom er nattelåst
+							ELEMENT[at0013] occurrences matches {0..1} matches {	-- Pasienten vil bli gitt forsvarlig tilsyn av pleiepersonale mens pasientrommet er nattelåst
 								value matches {
 									DV_BOOLEAN matches {
 										value matches {True}
@@ -92,6 +87,25 @@ definition
 							allow_archetype CLUSTER[at0014] occurrences matches {0..*} matches {	-- Vedtakstype
 								include
 									archetype_id/value matches {/openEHR-EHR-CLUSTER\.vedtakstype(-[a-zA-Z0-9_]+)*\.v1/}
+							}
+							ELEMENT[at0015] occurrences matches {0..1} matches {	-- Dato vedtak fattet
+								value matches {
+									DV_DATE matches {
+										value matches {yyyy-mm-dd}
+									}
+								}
+							}
+							ELEMENT[at0016] occurrences matches {0..1} matches {	-- Helsetjenesteenhet
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0017] occurrences matches {0..*} matches {	-- Vurdering av lempligere midler i dokument
+								value matches {
+									DV_DATE matches {
+										value matches {yyyy-mm-dd}
+									}
+								}
 							}
 						}
 					}
@@ -126,7 +140,7 @@ ontology
 				>
 				["at0005"] = <
 					text = <"Begrunnelse for vedtak er gitt i journalnotat av">
-					description = <"*">
+					description = <"Referanse til journalnotat som inneholder nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette">
 				>
 				["at0006"] = <
 					text = <"Det er foretatt en individuell vurdering av pasientens tilstand">
@@ -146,19 +160,27 @@ ontology
 				>
 				["at0010"] = <
 					text = <"Pasienten har opphold i en regional sikkerhetsavdeling eller i enhet med særlig høyt sikkerhetsnivå">
-					description = <"*">
-				>
-				["at0012"] = <
-					text = <"Referanse til dokument(er) ">
-					description = <"•	Referanse til dokument(er) i pasienten journal som dokumenterer hvilke lempeligere midler som har vist seg åpenbart forgjeves eller utilstrekkelige">
+					description = <"Markering for å angi at pasienten har opphold i en regional sikkerhetsavdeling eller i enhet med særlig høyt sikkerhetsnivå">
 				>
 				["at0013"] = <
-					text = <"Pasienten vil bli gitt forsvarlig tilsyn mens pasientrom er nattelåst">
+					text = <"Pasienten vil bli gitt forsvarlig tilsyn av pleiepersonale mens pasientrommet er nattelåst">
 					description = <"Markering for å angi at pasienten vil bli gitt forsvarlig tilsyn av pleiepersonale mens pasientrommet er nattelåst. ">
 				>
 				["at0014"] = <
 					text = <"Vedtakstype">
 					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Dato vedtak fattet">
+					description = <"Den dato vedtaket ble fattet">
+				>
+				["at0016"] = <
+					text = <"Helsetjenesteenhet">
+					description = <"Identifikasjon av den enhet hvor vedtaket fattes">
+				>
+				["at0017"] = <
+					text = <"Vurdering av lempligere midler i dokument">
+					description = <"Datoreferanse til dokument(er) i pasientens journal som dokumenterer hvilke lempligere midler som har vist seg åpenbart forgjeves eller utilstrekkelige">
 				>
 			>
 		>
