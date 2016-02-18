@@ -61,23 +61,37 @@
     </other_details>
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="GdlSirsScore">
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.heart_rate.v1" concept_name="Heart rate and rhythm" max="1" path="/content">
-      <Rule path="/data[at0002]" hide_on_form="true" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.pulse.v1" concept_name="Puls/Hjertefrekvens" path="/content">
       <Rule path="/data[at0002]/events[at0003]" max="1" hide_on_form="true" />
       <Rule path="/data[at0002]/events[at0003]/data[at0001]" hide_on_form="true" />
-      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at1005]" annotation="ShowAs=checkbox;" />
-      <Rule path="/data[at0002]/events[at0003]/state[at0012]" hide_on_form="true" />
-      <Rule path="/data[at0002]/events[at0003]/state[at0012]/items[at0013]" max="0" />
+      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at1005]">
+        <nameConstraint>
+          <excludedValues>local::at1046</excludedValues>
+        </nameConstraint>
+      </Rule>
+      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0004]">
+        <nameConstraint>
+          <excludedValues>local::at1027</excludedValues>
+        </nameConstraint>
+      </Rule>
+      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0005]" max="0" />
+      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at1030]" max="0" />
+      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at1022]" max="0" />
+      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at1023]" max="0" />
       <Rule path="/data[at0002]/events[at0003]/state[at0012]/items[at1018]" max="0" />
+      <Rule path="/data[at0002]/events[at1036]" max="0" />
       <Rule path="/protocol[at0010]" hide_on_form="true" />
-      <Rule path="/protocol[at0010]/items[at1019]" max="0" />
-      <Rule path="/protocol[at0010]/items[at1014]" max="0" />
-    </Content>
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.temperature.v1" concept_name="Temperature" max="1" path="/content">
-      <Rule path="/data[at0001]" hide_on_form="true" />
-      <Rule path="/data[at0001]/events[at0002]" max="1" hide_on_form="true" />
-      <Rule path="/data[at0001]/events[at0002]/data[at0003]" hide_on_form="true" />
-      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]" hide_on_form="true" />
+      <Rule path="/protocol[at0010]/items[at1019]">
+        <constraint xsi:type="textConstraint">
+          <excludedValues>local::at1034</excludedValues>
+          <excludedValues>local::at1050</excludedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/protocol[at0010]/items[at1037]">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Coded_text</includedTypes>
+        </constraint>
+      </Rule>
     </Content>
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_temperature.v1" concept_name="Kroppstemperatur" path="/content">
       <Rule path="/data[at0002]/events[at0003]" max="1" hide_on_form="true" />
