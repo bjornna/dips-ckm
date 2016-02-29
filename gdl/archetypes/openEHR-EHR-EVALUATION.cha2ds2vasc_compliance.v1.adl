@@ -1,0 +1,159 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-EVALUATION.cha2ds2vasc_compliance.v1
+
+concept
+	[at0000]	-- CHA2DS2-VASc compliance
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["sv"] = <
+			language = <[ISO_639-1::sv]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Rong Chen">
+		["organisation"] = <"Cambio Healthcare Systems">
+		["email"] = <"rong.chen@cambio.se">
+		["date"] = <"2013-12-19">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record information about the treatment compliance for stroke prevention according to the ESC guidelines.">
+			use = <"Use in patients with a diagnosis of atrial fibrillation to assess the use of anti-coagulation medications.">
+			keywords = <"compliance", "treatment compliance", "CHA2DS2-VASc", "anticoagulatants", "stroke", "prevention">
+			misuse = <"Do not use in patients with no diagnosis of atrial fibrillation.
+Do not use in cases where anticoagulation treatment is contraindicated.">
+			copyright = <"Cambio Healthcare Systems">
+		>
+		["sv"] = <
+			language = <[ISO_639-1::sv]>
+			purpose = <"För att registrera information om följsamhet till behandlingsriktlinjer för strokeprofylax enligt Socialstyrelsens riktlinjer.">
+			use = <"Används hos patienter med diagnos förmaksflimmer för att bedöma användningen av antikoagulantia.">
+			keywords = <"följsamhet", "behandlingsföljsamhet", "CHA2DS2-VASc", "antikoagulantia", "stroke", "profylax">
+			misuse = <"Används inte till patienter som inte har diagnosen förmaksflimmer.
+Används inte i de fall där antikoagulatia är kontraindicerat.">
+			copyright = <"Cambio Healthcare Systems">
+		>
+	>
+	lifecycle_state = <"AuthorDraft">
+	other_contributors = <>
+	other_details = <
+		["references"] = <"1. Lip GY, Nieuwlaat R, Pisters R, Lane DA, Crijns HJ. Refining clinical risk stratification for predicting stroke and thromboembolism in atrial fibrillation using a novel risk factor-based approach: the euro heart survey on atrial fibrillation. Chest. 2010 Feb;137(2):263-72.
+2. Camm a J, Kirchhof P, Lip GYH, Schotten U, Savelieva I, Ernst S, et al. Guidelines for the management of atrial fibrillation: the Task Force for the Management of Atrial Fibrillation of the European Society of Cardiology (ESC). Eur Heart J. 2010 Oct;31(19):2369–429.
+3. Lip GY, Frison L, Halperin JL, Lane DA. Identifying patients at high risk for stroke despite anticoagulation: a comparison of contemporary stroke risk stratification schemes in an anticoagulated atrial fibrillation cohort. Stroke. 2010 Dec;41(12):2731-8.">
+		["current_contact"] = <"Rong Chen, Cambio Healthcare Systems, rong.chen@cambio.se">
+		["MD5-CAM-1.0.1"] = <"18BB27210A42D93FCBB8D6D98520C5EA">
+	>
+
+definition
+	EVALUATION[at0000] matches {	-- CHA2DS2-VASc compliance
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Stroke prevention treatment compliance
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0003, 	-- Compliant
+									at0004]	-- Non compliant
+								}
+							}
+						}
+					}
+					ELEMENT[at0017] occurrences matches {0..1} matches {	-- Anti-coagulant medication
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0018, 	-- Present
+									at0019]	-- Absent
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"CHA2DS2-VASc compliance">
+					description = <"Atrial fibrillation treatment compliance based on the guidelines of the European Society of Cardiology (ESC).">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"*">
+				>
+				["at0002"] = <
+					text = <"Stroke prevention treatment compliance">
+					description = <"Study criteria: Atrial Fibrillation = Present">
+				>
+				["at0003"] = <
+					text = <"Compliant">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Non compliant">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Anti-coagulant medication">
+					description = <"Study criteria: Atrial Fibrillation = Present">
+				>
+				["at0018"] = <
+					text = <"Present">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"Absent">
+					description = <"*">
+				>
+			>
+		>
+		["sv"] = <
+			items = <
+				["at0000"] = <
+					text = <"CHA2DS2-VASc följsamhet">
+					description = <"Följsamhet till behandlingsriktlinjer vid förmaksflimmer baserade på riktlinjer från Socialstyrelsen.">
+				>
+				["at0001"] = <
+					text = <"Träd">
+					description = <"**@ internal @(sv)(en)">
+				>
+				["at0002"] = <
+					text = <"Förenlighet med strokeprofylaxbehandling">
+					description = <"CHA2DS2-VASc följsamhet">
+				>
+				["at0003"] = <
+					text = <"Förenlig">
+					description = <"I enlighet">
+				>
+				["at0004"] = <
+					text = <"Ej förenlig">
+					description = <"Ej i enlighet">
+				>
+				["at0017"] = <
+					text = <"Antikoagulantia">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Ja">
+					description = <"Finns">
+				>
+				["at0019"] = <
+					text = <"Nej">
+					description = <"Finns ej">
+				>
+			>
+		>
+	>

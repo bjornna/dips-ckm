@@ -2,14 +2,16 @@ archetype (adl_version=1.4)
 	openEHR-EHR-OBSERVATION.chadsvas_score.v1
 
 concept
-	[at0000]	-- CHADSVAS-poäng
+	[at0000]	-- CHA2DS2-VASc Score
 language
 	original_language = <[ISO_639-1::en]>
 	translations = <
 		["sv"] = <
 			language = <[ISO_639-1::sv]>
 			author = <
-				["name"] = <"?">
+				["organisation"] = <"Cambio Healthcare Systems">
+				["name"] = <"Konstantinos Kalliamvakos">
+				["email"] = <"Konstantinos.Kalliamvakos@cambio.se">
 			>
 		>
 	>
@@ -23,78 +25,84 @@ description
 	details = <
 		["en"] = <
 			language = <[ISO_639-1::en]>
-			purpose = <"To record CHA2DS2VASc score">
-			use = <"">
-			misuse = <"">
-			copyright = <"© openEHR Foundation">
+			purpose = <"To record an individual's CHA2DS2-VASc score parameters and total score.">
+			use = <"Use for stroke risk stratification in patients with atrial fibrillation.">
+			keywords = <"CHA2DS2-VASc", "atrial fibrillation", "stroke", "diabetes", "hypertension", "congestive heart failure", "CHF", "vascular disease", "age", "gender">
+			misuse = <"Do not use in patients with no diagnosis of atrial fibrillation.">
+			copyright = <"Cambio Healthcare Systems">
 		>
 		["sv"] = <
 			language = <[ISO_639-1::sv]>
-			purpose = <"*To record CHA2DS2VASc score(en)">
-			use = <"*(en)">
-			misuse = <"*(en)">
-			copyright = <"*© openEHR Foundation(en)">
+			purpose = <"För att registrera en individs CHA2DS2VASc parametrar samt totala poäng.">
+			use = <"Används för stratifiering av strokerisk hos patienter med förmaksflimmer.">
+			keywords = <"CHA2DS2-VASc", "förmaksflimmer", "stroke", "diabetes", "hypertoni", "hjärtsvikt", "VK-dysfunktion", "vaskulär sjukdom", "ålder", "kön">
+			misuse = <"Används inte till patienter som inte har diagnosen förmaksflimmer.">
+			copyright = <"Cambio Healthcare Systems">
 		>
 	>
-	lifecycle_state = <"NotSet">
-	other_contributors = <>
+	lifecycle_state = <"AuthorDraft">
+	other_contributors = <"Dr Carlos Valladares", ...>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"358A134B1ABD23E54295A3CDB235373A">
+		["references"] = <"1. Lip GY, Nieuwlaat R, Pisters R, Lane DA, Crijns HJ. Refining clinical risk stratification for predicting stroke and thromboembolism in atrial fibrillation using a novel risk factor-based approach: the euro heart survey on atrial fibrillation. Chest. 2010 Feb;137(2):263-72.
+2. Camm a J, Kirchhof P, Lip GYH, Schotten U, Savelieva I, Ernst S, et al. Guidelines for the management of atrial fibrillation: the Task Force for the Management of Atrial Fibrillation of the European Society of Cardiology (ESC). Eur Heart J. 2010 Oct;31(19):2369–429.
+3. Lip GY, Frison L, Halperin JL, Lane DA. Identifying patients at high risk for stroke despite anticoagulation: a comparison of contemporary stroke risk stratification schemes in an anticoagulated atrial fibrillation cohort. Stroke. 2010 Dec;41(12):2731-8.">
+		["current_contact"] = <"Rong Chen, Cambio Healthcare Systems, rong.chen@cambio.se">
+		["MD5-CAM-1.0.1"] = <"DD88C7CC1889E1E674E6CD44CEF77F23">
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- CHADSVAS-poäng
+	OBSERVATION[at0000] matches {	-- CHA2DS2-VASc Score
 		data matches {
-			HISTORY[at0002] matches {	-- historik
+			HISTORY[at0002] matches {	-- history
 				events cardinality matches {1..*; unordered} matches {
-					EVENT[at0003] occurrences matches {0..*} matches {	-- Alla händelser
+					EVENT[at0003] occurrences matches {0..*} matches {	-- Any event
 						data matches {
-							ITEM_TREE[at0001] matches {	-- Träd
-								items cardinality matches {1; unordered} matches {
-									ELEMENT[at0026] occurrences matches {0..1} matches {	-- Hjärtsvikt/VK-dysfunktion
+							ITEM_TREE[at0001] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0026] occurrences matches {0..1} matches {	-- Congestive Heart Failure
 										value matches {
-											0|[local::at0027], 	-- Finns ej
-											1|[local::at0028]  	-- Finns
+											0|[local::at0027], 	-- Absent
+											1|[local::at0028]  	-- Present
 										}
 									}
-									ELEMENT[at0029] occurrences matches {0..1} matches {	-- Hypertoni
+									ELEMENT[at0029] occurrences matches {0..1} matches {	-- Hypertension
 										value matches {
-											0|[local::at0030], 	-- Finns ej
-											1|[local::at0031]  	-- Finns
+											0|[local::at0027], 	-- Absent
+											1|[local::at0028]  	-- Present
 										}
 									}
 									ELEMENT[at0032] occurrences matches {0..1} matches {	-- Diabetes
 										value matches {
-											0|[local::at0033], 	-- Finns ej
-											1|[local::at0034]  	-- Finns
+											0|[local::at0027], 	-- Absent
+											1|[local::at0028]  	-- Present
 										}
 									}
-									ELEMENT[at0035] occurrences matches {0..1} matches {	-- Ålder
+									ELEMENT[at0035] occurrences matches {0..1} matches {	-- Age
 										value matches {
 											0|[local::at0036], 	-- Under 65
-											1|[local::at0037], 	-- Mellan 65-74
-											2|[local::at0038]  	-- Över eller lika med 75
+											1|[local::at0037], 	-- Between 65-74
+											2|[local::at0038]  	-- Above or equals to 75
 										}
 									}
-									ELEMENT[at0039] occurrences matches {0..1} matches {	-- Stroke/TIA
+									ELEMENT[at0039] occurrences matches {0..1} matches {	-- Stroke/TIA/Thromboembolism
 										value matches {
-											0|[local::at0040], 	-- Finns ej
-											2|[local::at0041]  	-- Finns
+											0|[local::at0027], 	-- Absent
+											2|[local::at0028]  	-- Present
 										}
 									}
-									ELEMENT[at0046] occurrences matches {0..1} matches {	-- Vaskulär sjukdom
+									ELEMENT[at0046] occurrences matches {0..1} matches {	-- Vascular disease
 										value matches {
-											0|[local::at0047], 	-- Finns ej
-											1|[local::at0048]  	-- Finns
+											0|[local::at0027], 	-- Absent
+											1|[local::at0028]  	-- Present
 										}
 									}
-									ELEMENT[at0042] occurrences matches {0..1} matches {	-- Kön
+									ELEMENT[at0042] occurrences matches {0..1} matches {	-- Gender
 										value matches {
-											0|[local::at0043], 	-- Manligt kön
-											1|[local::at0044]  	-- Kvinnligt kön
+											0|[local::at0043], 	-- Male
+											1|[local::at0044]  	-- Female
 										}
 									}
-									ELEMENT[at0099] occurrences matches {0..1} matches {	-- Total poäng
+									ELEMENT[at0099] occurrences matches {0..1} matches {	-- Total score
 										value matches {
 											DV_COUNT matches {*}
 										}
@@ -113,24 +121,24 @@ ontology
 		["en"] = <
 			items = <
 				["at0000"] = <
-					text = <"CHADSVAS Score">
-					description = <"CHADSVAS Score">
+					text = <"CHA2DS2-VASc Score">
+					description = <"Risk stratification for stroke based on the CHA2DS2-VASc score defined by the European Society of Cardiology (ESC) guidelines for management of atrial fibrillation.">
 				>
 				["at0001"] = <
-					text = <"Simple">
-					description = <"@ internal @">
+					text = <"Tree">
+					description = <"*">
 				>
 				["at0002"] = <
 					text = <"history">
-					description = <"@ internal @">
+					description = <"*">
 				>
 				["at0003"] = <
 					text = <"Any event">
-					description = <"Any event.">
+					description = <"*">
 				>
 				["at0026"] = <
 					text = <"Congestive Heart Failure">
-					description = <"*">
+					description = <"Study criteria: Atrial Fibrillation = Present">
 				>
 				["at0027"] = <
 					text = <"Absent">
@@ -142,31 +150,15 @@ ontology
 				>
 				["at0029"] = <
 					text = <"Hypertension">
-					description = <"*">
-				>
-				["at0030"] = <
-					text = <"Absent">
-					description = <"*">
-				>
-				["at0031"] = <
-					text = <"Present">
-					description = <"*">
+					description = <"Study criteria: Atrial Fibrillation = Present">
 				>
 				["at0032"] = <
 					text = <"Diabetes">
-					description = <"*">
-				>
-				["at0033"] = <
-					text = <"Absent">
-					description = <"*">
-				>
-				["at0034"] = <
-					text = <"Present">
-					description = <"*">
+					description = <"Study criteria: Atrial Fibrillation = Present">
 				>
 				["at0035"] = <
 					text = <"Age">
-					description = <"*">
+					description = <"Study criteria: Atrial Fibrillation = Present">
 				>
 				["at0036"] = <
 					text = <"Under 65">
@@ -181,20 +173,12 @@ ontology
 					description = <"*">
 				>
 				["at0039"] = <
-					text = <"Previous stroke">
-					description = <"*">
-				>
-				["at0040"] = <
-					text = <"Absent">
-					description = <"*">
-				>
-				["at0041"] = <
-					text = <"Present">
-					description = <"*">
+					text = <"Stroke/TIA/Thromboembolism">
+					description = <"Study criteria: Atrial Fibrillation = Present">
 				>
 				["at0042"] = <
 					text = <"Gender">
-					description = <"*">
+					description = <"Study criteria: Atrial Fibrillation = Present">
 				>
 				["at0043"] = <
 					text = <"Male">
@@ -205,28 +189,20 @@ ontology
 					description = <"*">
 				>
 				["at0046"] = <
-					text = <"Vascular diseases">
-					description = <"Prior myocardial infarction, Peripheral artery disease, Aortic plaque">
-				>
-				["at0047"] = <
-					text = <"Absent">
-					description = <"*">
-				>
-				["at0048"] = <
-					text = <"Present">
-					description = <"*">
+					text = <"Vascular disease">
+					description = <"Study criteria: Atrial Fibrillation = Present">
 				>
 				["at0099"] = <
 					text = <"Total score">
-					description = <"*">
+					description = <"Study criteria: Atrial Fibrillation = Present">
 				>
 			>
 		>
 		["sv"] = <
 			items = <
 				["at0000"] = <
-					text = <"CHADSVAS-poäng">
-					description = <"CHADSVAS-poäng">
+					text = <"CHA2DS2VASc Poäng">
+					description = <"Riskstratifiering av stroke baserat på CHA2DS2VASc-poäng definierat i Socialstyrelsens riktlinjer för hantering av förmaksflimmer.">
 				>
 				["at0001"] = <
 					text = <"Träd">
@@ -245,35 +221,19 @@ ontology
 					description = <"**(en)">
 				>
 				["at0027"] = <
-					text = <"Finns ej">
+					text = <"Nej">
 					description = <"**(en)">
 				>
 				["at0028"] = <
-					text = <"Finns">
+					text = <"Ja">
 					description = <"**(en)">
 				>
 				["at0029"] = <
 					text = <"Hypertoni">
 					description = <"**(en)">
 				>
-				["at0030"] = <
-					text = <"Finns ej">
-					description = <"**(en)">
-				>
-				["at0031"] = <
-					text = <"Finns">
-					description = <"**(en)">
-				>
 				["at0032"] = <
 					text = <"Diabetes">
-					description = <"**(en)">
-				>
-				["at0033"] = <
-					text = <"Finns ej">
-					description = <"**(en)">
-				>
-				["at0034"] = <
-					text = <"Finns">
 					description = <"**(en)">
 				>
 				["at0035"] = <
@@ -293,15 +253,7 @@ ontology
 					description = <"**(en)">
 				>
 				["at0039"] = <
-					text = <"Stroke/TIA">
-					description = <"**(en)">
-				>
-				["at0040"] = <
-					text = <"Finns ej">
-					description = <"**(en)">
-				>
-				["at0041"] = <
-					text = <"Finns">
+					text = <"Stroke/TIA/Tromboembolism">
 					description = <"**(en)">
 				>
 				["at0042"] = <
@@ -320,16 +272,8 @@ ontology
 					text = <"Vaskulär sjukdom">
 					description = <"Tidigare hjärtinfarkt, perifer vaskulär sjukdom, atherosclerosis">
 				>
-				["at0047"] = <
-					text = <"Finns ej">
-					description = <"**(en)">
-				>
-				["at0048"] = <
-					text = <"Finns">
-					description = <"**(en)">
-				>
 				["at0099"] = <
-					text = <"Total poäng">
+					text = <"Totalpoäng">
 					description = <"**(en)">
 				>
 			>
