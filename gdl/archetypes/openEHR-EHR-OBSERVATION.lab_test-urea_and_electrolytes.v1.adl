@@ -21,14 +21,14 @@ description
 			use = <"">
 			keywords = <"lab", "pathology", "biochemistry", "laboratory", "metabolic", "U & E">
 			misuse = <"">
-			copyright = <"© openEHR Foundation">
+			copyright = <"copyright (c) 2010 openEHR foundation">
 		>
 	>
 	lifecycle_state = <"AuthorDraft">
 	other_contributors = <"Heather Leslie AEG / Ocean Infomatics", "Sam Heard Ocean Informatics">
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"76A51397784E0FFBED908F1F31E85669">
 		["references"] = <"">
+		["MD5-CAM-1.0.1"] = <"76A51397784E0FFBED908F1F31E85669">
 	>
 
 definition
@@ -142,15 +142,20 @@ definition
 												property = <[openehr::119]>
 												list = <
 													["1"] = <
-														units = <"umol/l">
+														units = <"mmol/l">
 														magnitude = <|>=0.0|>
 													>
 												>
 											>
 										}
 									}
-									-- *** SODIUM/POTASSIUM WAS REMOVED!! TODO (Support)***
-				
+									ELEMENT[at0078.6] occurrences matches {0..1} matches {	-- Sodium / potassium ratio
+										value matches {
+											DV_PROPORTION matches {
+												numerator matches {|>=0.0|}
+											}
+										}
+									}
 									allow_archetype CLUSTER[at0089] occurrences matches {0..*} matches {	-- Per-result annotation
 										include
 											archetype_id/value matches {/openEHR-EHR-CLUSTER\.lab_result_annotation(-[a-zA-Z0-9_]+)*\.v1/}
@@ -162,8 +167,13 @@ definition
 											DV_TEXT matches {*}
 										}
 									}
-									-- *** MULTIMEDIA WAS REMOVED!! TODO (Support)***
-				
+									ELEMENT[at0010] occurrences matches {0..*} matches {	-- Multimedia representation
+										value matches {
+											DV_MULTIMEDIA matches {
+												media_type matches {[openEHR::]}
+											}
+										}
+									}
 								}
 							}
 						}
