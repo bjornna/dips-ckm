@@ -2,12 +2,23 @@
 	openEHR-EHR-INSTRUCTION.follow_up.v1
 
 concept
-	[at0000]	-- Follow up instruction
+	[at0000]	-- Oppfølgings bestilling
 language
 	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
 description
 	original_author = <
-		["name"] = <"unknown">
+		["name"] = <"Bjørn Næss">
+		["email"] = <"bna@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2016-02-18">
 	>
 	details = <
 		["en"] = <
@@ -17,20 +28,28 @@ description
 			misuse = <"">
 			copyright = <"copyright (c) 2009 openEHR Foundation">
 		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For å oppføre detaljer om en oppfølgingstjeneste ">
+			use = <"Benyttes for å bestille oppfølging av pasient - gjerne en form for adminstrativ oppfølgin ">
+			misuse = <"*(en)">
+			copyright = <"*copyright (c) 2009 openEHR Foundation(en)">
+		>
 	>
 	lifecycle_state = <"AuthorDraft">
 	other_contributors = <>
 	other_details = <
-		["references"] = <"">
+		["current_contact"] = <"Bjørn Næss, DIPS ASA<bna@dips.no>">
+		["MD5-CAM-1.0.1"] = <"C0FF5FA9632374B238C664EFEDA97274">
 	>
 
 definition
-	INSTRUCTION[at0000] matches {	-- Follow up instruction
+	INSTRUCTION[at0000] matches {	-- Oppfølgings bestilling
 		activities cardinality matches {0..*; unordered} matches {
-			ACTIVITY[at0001] occurrences matches {1..*} matches {	-- Follow up activity
+			ACTIVITY[at0001] occurrences matches {1..*} matches {	-- Oppfølgingsaktivitet
 				action_archetype_id matches {/openEHR-EHR-ACTION\.follow_up\.v1/}
 				description matches {
-					allow_archetype ITEM_TREE occurrences matches {0..1} matches {
+					allow_archetype ITEM_TREE matches {
 						include
 							archetype_id/value matches {/openEHR-EHR-ITEM_TREE\.follow_up\.v1/}
 						exclude
@@ -40,7 +59,6 @@ definition
 			}
 		}
 	}
-
 
 ontology
 	term_definitions = <
@@ -53,6 +71,18 @@ ontology
 				["at0001"] = <
 					text = <"Follow up activity">
 					description = <"The activity of the follow up">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Oppfølgings bestilling">
+					description = <"Instruksjon om oppfølging ">
+				>
+				["at0001"] = <
+					text = <"Oppfølgingsaktivitet">
+					description = <"Aktiviteten som skal følges opp ">
 				>
 			>
 		>
