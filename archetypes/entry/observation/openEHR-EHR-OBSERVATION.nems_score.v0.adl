@@ -21,7 +21,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"9E38DB02E51E3CD7F94DE4327B1E4278">
+		["MD5-CAM-1.0.1"] = <"3FFD50428C547A58288A09A5B2E283DD">
 	>
 
 definition
@@ -35,73 +35,46 @@ definition
 								items cardinality matches {0..*; unordered} matches {
 									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Basal Monitorering
 										value matches {
-											DV_BOOLEAN matches {
-												value matches {True}
-											}
+											0|[local::at0017], 	-- Nei
+											9|[local::at0018]  	-- Ja
 										}
 									}
 									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Intravenøs Medisinering
 										value matches {
-											DV_BOOLEAN matches {
-												value matches {True}
-											}
+											0|[local::at0019], 	-- Nei
+											6|[local::at0020]  	-- Ja
 										}
 									}
-									CLUSTER[at0006] occurrences matches {0..1} matches {	-- Respirasjon
-										items cardinality matches {1; unordered} matches {
-											ELEMENT[at0007] occurrences matches {0..1} matches {	-- Mekanisk ventilasjon
-												value matches {
-													DV_BOOLEAN matches {
-														value matches {True}
-													}
-												}
-											}
-											ELEMENT[at0008] occurrences matches {0..1} matches {	-- Annen respirasjonshjelp
-												value matches {
-													DV_BOOLEAN matches {
-														value matches {True}
-													}
-												}
-											}
+									ELEMENT[at0021] occurrences matches {0..1} matches {	-- Respirasjon
+										value matches {
+											0|[local::at0022], 	-- Ingen respirasjonshjelp
+											3|[local::at0024], 	-- Annen respirasjonshjelp
+											12|[local::at0023]  	-- Mekanisk ventilasjon
 										}
 									}
-									CLUSTER[at0009] occurrences matches {0..1} matches {	-- Vasoaktiv terapi
-										items cardinality matches {1; unordered} matches {
-											ELEMENT[at0010] occurrences matches {0..1} matches {	-- Vasoaktiv monoterapi
-												value matches {
-													DV_BOOLEAN matches {
-														value matches {True}
-													}
-												}
-											}
-											ELEMENT[at0011] occurrences matches {0..1} matches {	-- Vasoaktiv multiterapi
-												value matches {
-													DV_BOOLEAN matches {
-														value matches {True, False}
-													}
-												}
-											}
+									ELEMENT[at0025] occurrences matches {0..1} matches {	-- Vasoaktiv terapi
+										value matches {
+											0|[local::at0026], 	-- Ingen vasoaktiv terapi
+											7|[local::at0027], 	-- Vasoaktiv monoterapi
+											12|[local::at0028]  	-- Vasoaktiv multiterapi
 										}
 									}
 									ELEMENT[at0012] occurrences matches {0..1} matches {	-- Dialyse
 										value matches {
-											DV_BOOLEAN matches {
-												value matches {True}
-											}
+											0|[local::at0030], 	-- Ja
+											6|[local::at0029]  	-- Nei
 										}
 									}
 									ELEMENT[at0013] occurrences matches {0..1} matches {	-- Spesiell intervensjon i intensivavdeling
 										value matches {
-											DV_BOOLEAN matches {
-												value matches {True, False}
-											}
+											0|[local::at0031], 	-- Nei
+											5|[local::at0032]  	-- Ja
 										}
 									}
 									ELEMENT[at0014] occurrences matches {0..1} matches {	-- Spesiell intervensjon utenfor intensivavdeling
 										value matches {
-											DV_BOOLEAN matches {
-												value matches {True, False}
-											}
+											0|[local::at0033], 	-- Nei
+											6|[local::at0034]  	-- Ja
 										}
 									}
 									ELEMENT[at0015] occurrences matches {0..1} matches {	-- Nems Score
@@ -111,10 +84,10 @@ definition
 											}
 										}
 									}
-									ELEMENT[at0016] occurrences matches {0..1} matches {	-- Ingen NEMS, men registrer mekanisk ventilasjon
+									ELEMENT[at0035] occurrences matches {0..1} matches {	-- Samlet NEMS score
 										value matches {
-											DV_BOOLEAN matches {
-												value matches {True}
+											DV_COUNT matches {
+												magnitude matches {|>=0|}
 											}
 										}
 									}
@@ -155,30 +128,6 @@ ontology
 					text = <"Intravenøs Medisinering">
 					description = <"*">
 				>
-				["at0006"] = <
-					text = <"Respirasjon">
-					description = <"*">
-				>
-				["at0007"] = <
-					text = <"Mekanisk ventilasjon">
-					description = <"*">
-				>
-				["at0008"] = <
-					text = <"Annen respirasjonshjelp">
-					description = <"*">
-				>
-				["at0009"] = <
-					text = <"Vasoaktiv terapi">
-					description = <"*">
-				>
-				["at0010"] = <
-					text = <"Vasoaktiv monoterapi">
-					description = <"*">
-				>
-				["at0011"] = <
-					text = <"Vasoaktiv multiterapi">
-					description = <"*">
-				>
 				["at0012"] = <
 					text = <"Dialyse">
 					description = <"*">
@@ -195,8 +144,80 @@ ontology
 					text = <"Nems Score">
 					description = <"*">
 				>
-				["at0016"] = <
-					text = <"Ingen NEMS, men registrer mekanisk ventilasjon">
+				["at0017"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0020"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0021"] = <
+					text = <"Respirasjon">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Ingen respirasjonshjelp">
+					description = <"*">
+				>
+				["at0023"] = <
+					text = <"Mekanisk ventilasjon">
+					description = <"*">
+				>
+				["at0024"] = <
+					text = <"Annen respirasjonshjelp">
+					description = <"*">
+				>
+				["at0025"] = <
+					text = <"Vasoaktiv terapi">
+					description = <"*">
+				>
+				["at0026"] = <
+					text = <"Ingen vasoaktiv terapi">
+					description = <"*">
+				>
+				["at0027"] = <
+					text = <"Vasoaktiv monoterapi">
+					description = <"*">
+				>
+				["at0028"] = <
+					text = <"Vasoaktiv multiterapi">
+					description = <"*">
+				>
+				["at0029"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0030"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0031"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0032"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0033"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0034"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0035"] = <
+					text = <"Samlet NEMS score">
 					description = <"*">
 				>
 			>
