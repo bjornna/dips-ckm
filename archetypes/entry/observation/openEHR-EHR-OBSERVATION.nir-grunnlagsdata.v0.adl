@@ -21,7 +21,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"9FEBDB20A9703D8D2C132C1F35268648">
+		["MD5-CAM-1.0.1"] = <"D947E00DC186EDF3967733E396CFD9E3">
 	>
 
 definition
@@ -66,7 +66,7 @@ definition
 											}
 										}
 									}
-									ELEMENT[at0013] occurrences matches {0..1} matches {	-- Ble pasienten overflyttet til annen intensivenhet ila første 24 timer?
+									ELEMENT[at0013] occurrences matches {0..1} matches {	-- Ble pasienten overflyttet til annen intensivenhet (ved eget eller annet sykehus) ila første 24 timer?
 										value matches {
 											DV_CODED_TEXT matches {
 												defining_code matches {
@@ -99,6 +99,11 @@ definition
 											}
 										}
 									}
+									ELEMENT[at0095] occurrences matches {0..1} matches {	-- Kjønn
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
 									ELEMENT[at0022] occurrences matches {0..1} matches {	-- Morsdato
 										value matches {
 											DV_DATE matches {*}
@@ -111,9 +116,16 @@ definition
 											}
 										}
 									}
-									ELEMENT[at0024] occurrences matches {0..1} matches {	-- Reinnleggelse
+									ELEMENT[at0024] occurrences matches {0..1} matches {	-- Reinnleggelse (nytt intensivopphold under samme sykehusopphold)
 										value matches {
-											DV_TEXT matches {*}
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0097, 	-- Ja
+													at0098, 	-- Nei
+													at0099]	-- Ukjent
+												}
+											}
 										}
 									}
 									ELEMENT[at0025] occurrences matches {0..1} matches {	-- A) Primærårsak til dette intensivoppholdet (vurdert av lege)
@@ -121,8 +133,182 @@ definition
 											DV_CODED_TEXT matches {
 												defining_code matches {
 													[local::
-													at0027, 	-- Test 1
-													at0028]	-- Test 2
+													at0027, 	-- Respiratorisk svikt
+													at0028, 	-- Sirkulatorisk/kardiovaskulær svikt
+													at0100, 	-- Gastroenterologisk svikt
+													at0101, 	-- Nevrologisk svikt
+													at0102, 	-- Sepsis
+													at0103, 	-- Skade/traume
+													at0104, 	-- Metabolsk/intoksikasjon
+													at0105, 	-- Hematologisk svikt
+													at0106, 	-- Nyresvikt
+													at0107, 	-- Postoperativt
+													at0108]	-- Annet
+												}
+											}
+										}
+									}
+									ELEMENT[at0109] occurrences matches {0..1} matches {	-- Nærmere beskrivelse respiratorisk svikt
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0110, 	-- J96.0 Akutt respirasjonssvikt
+													at0111, 	-- J18.9 Pneumoni (uspes.)
+													at0112, 	-- J44.1 KOLS (forverring etc.)
+													at0113, 	-- J80 ARDS
+													at0114, 	-- J98.1 Atelektase
+													at0115, 	-- J81 Lungeødem/stuvning
+													at0116, 	-- J95.1  Postoperativ respirasjonssvikt  (torakal kirurgi)
+													at0117, 	-- J95.2  Postoperativ respirasjonssvikt  (ikke-torakal kirurgi)
+													at0118]	-- Annet
+												}
+											}
+										}
+									}
+									ELEMENT[at0119] occurrences matches {0..1} matches {	-- Nærmere beskrivelse sirkulatorisk svikt
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0120, 	-- I20 Angina pectoris
+													at0121, 	-- I21 Hjerteinfarkt
+													at0122, 	-- I50 Hjertesvikt
+													at0123, 	-- I49 Arytmi
+													at0124, 	-- I42 Kardiomyopati
+													at0125]	-- Annet
+												}
+											}
+										}
+									}
+									ELEMENT[at0126] occurrences matches {0..1} matches {	-- Nærmere beskrivelse gastroenterologisk svikt
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0127, 	-- K22.3 Øsofagusperforasjon
+													at0128, 	-- K92.0 Hematemese
+													at0129, 	-- K92.1 Melena
+													at0130, 	-- K63.1 Tarmperforasjon (ikke-traumatisk)
+													at0131, 	-- K56.7 Uspesifisert ileus
+													at0132, 	-- K85 Akutt pankreatitt
+													at0133, 	-- K83 Kolangitt
+													at0134, 	-- K52.9 Uspesifisert ikke-infeksiøs gastroenteritt og kolitt
+													at0135, 	-- - Infeksjon (appendicitt, kolecystitt, kolangitt, divertikulitt etc.)
+													at0136, 	-- K70 Alkoholisk leversykdom
+													at0137, 	-- K71 Toksisk leversykdom
+													at0138, 	-- B15, B16, B17 Akutt virushepatitt (Hep A, Hep B, annen virushepatitt)
+													at0139, 	-- K55.0 Akutt vaskulær forstyrrelse i tarm
+													at0140]	-- Annet
+												}
+											}
+										}
+									}
+									ELEMENT[at0141] occurrences matches {0..1} matches {	-- Nærmere beskrivelse nevrologisk svikt
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0142, 	-- G00 Bakteriell meningitt
+													at0143, 	-- G04 Encefalitt , myelitt og encefalomyelitt
+													at0144, 	-- G06.1  Abscess
+													at0145, 	-- G61 Inflammatorisk polynevropati  (Guillan-Barré etc.)
+													at0146, 	-- G40.9 Kramper (epilepsi)
+													at0147, 	-- R25.2 Kramper (andre)
+													at0148, 	-- I61 Blødning intrakranielt (hjerne, hjernestamme)
+													at0149, 	-- I60 Subaraknoidalbødning
+													at0150, 	-- I62 Epi-/subduralblødning
+													at0151, 	-- I63 Infarkt i SNS (hjerne, hjernestamme)
+													at0152, 	-- G93.1 Hypoksisk/anoksisk hjerneskade
+													at0153, 	-- R40 Koma/nedsatt bevissthet
+													at0154, 	-- C71 Tumor/neoplasme i SNS
+													at0155]	-- Annet
+												}
+											}
+										}
+									}
+									ELEMENT[at0156] occurrences matches {0..1} matches {	-- Nærmere beskrivelse sepsis
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0157, 	-- A39 Meningokokksepsis
+													at0158, 	-- A40 Streptokokksepsis
+													at0159, 	-- A41 Annen sepsis (inkl. uspesifisert)
+													at0160, 	-- R65.1 Alvorlig sepsis (SIRS, infeksiøs årsak, organsvikt)
+													at0161]	-- R57.2 Septisk sjokk
+												}
+											}
+										}
+									}
+									ELEMENT[at0162] occurrences matches {0..1} matches {	-- Nærmere beskrivelse skade/traume
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0163, 	-- Hode, ansikt, hals
+													at0164, 	-- Hjerne/sentralnervesystemet
+													at0165, 	-- Kolumna
+													at0166, 	-- Thorax
+													at0167, 	-- Abdomen
+													at0168, 	-- Bekken
+													at0169, 	-- Ekstremiteter
+													at0170, 	-- Annet
+													at0171, 	-- Penetrerende skade
+													at0172, 	-- Ikke-penetrerende skade
+													at0173, 	-- Trafikkskade
+													at0174]	-- Annet
+												}
+											}
+										}
+									}
+									ELEMENT[at0175] occurrences matches {0..1} matches {	-- Nærmere beskrivelse metabolsk/intoksikasjon
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0176, 	-- E10.0 Coma diabeticum (inkl. hypoglykemisk koma)
+													at0177, 	-- E86 Væsketap (dehydrering, hypovolemi etc)
+													at0178, 	-- E87 Andre forstyrrelser i væske-, elektrolytt- og syre-base- balanse
+													at0179]	-- T4n Forgiftning med terapeutiske legemidler og biologiske substanser
+												}
+											}
+										}
+									}
+									ELEMENT[at0180] occurrences matches {0..1} matches {	-- Nærmere beskrivelse hematologisk svikt
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0181, 	-- Lymfom
+													at0182, 	-- Leukemi
+													at0183, 	-- Neutropeni/trombocytopeni/pancytopeni
+													at0184]	-- Annet
+												}
+											}
+										}
+									}
+									ELEMENT[at0185] occurrences matches {0..1} matches {	-- Nærmere beskrivelse nyresvikt
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0186, 	-- Lymfom
+													at0187, 	-- Leukemi
+													at0188, 	-- Neutropeni/trombocytopeni/pancytopeni
+													at0189]	-- Annet
+												}
+											}
+										}
+									}
+									ELEMENT[at0190] occurrences matches {0..1} matches {	-- Nærmere beskrivelse postoperativt
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0191, 	-- T88 Anestesikomplikasjon
+													at0192, 	-- T81 Komplikasjoner til kirurgiske og medisinske prosedyrer
+													at0193]	-- Annet
 												}
 											}
 										}
@@ -132,8 +318,17 @@ definition
 											DV_CODED_TEXT matches {
 												defining_code matches {
 													[local::
-													at0029, 	-- Test 1
-													at0030]	-- Test 2
+													at0194, 	-- Respiratorisk svikt
+													at0195, 	-- Sirkulatorisk/kardiovaskulær svikt
+													at0196, 	-- Gastroenterologisk svikt
+													at0197, 	-- Nevrologisk svikt
+													at0198, 	-- Sepsis
+													at0199, 	-- Skade/traume
+													at0200, 	-- Metabolsk/intoksikasjon
+													at0201, 	-- Hematologisk svikt
+													at0202, 	-- Nyresvikt
+													at0203, 	-- Postoperativt
+													at0204]	-- Annet
 												}
 											}
 										}
@@ -163,14 +358,63 @@ definition
 											>
 										}
 									}
+									ELEMENT[at0206] occurrences matches {0..1} matches {	-- Non-invasiv ventilasjon/maske
+										value matches {
+											DV_DURATION matches {
+												value matches {PTHM/|PT0H..PT24H|}
+											}
+										}
+									}
+									ELEMENT[at0207] occurrences matches {0..1} matches {	-- Invasiv ventilasjon (tube/trakeostomi)
+										value matches {
+											DV_DURATION matches {
+												value matches {PTHM/|PT0H..PT24H|}
+											}
+										}
+									}
+									ELEMENT[at0208] occurrences matches {0..1} matches {	-- Respirasjonsstøtte (timer/24 = døgn)
+										value matches {
+											DV_DURATION matches {
+												value matches {PTHM/|PT0H..PT24H|}
+											}
+										}
+									}
 									ELEMENT[at0034] occurrences matches {0..1} matches {	-- Nyreerstattende behandling under dette intensivoppholdet
 										value matches {
 											DV_CODED_TEXT matches {
 												defining_code matches {
 													[local::
-													at0035, 	-- Test 1
-													at0036]	-- Test 2
+													at0035, 	-- Ja
+													at0036]	-- Nei
 												}
+											}
+										}
+									}
+									ELEMENT[at0209] occurrences matches {0..1} matches {	-- Kontinuerlig (hemofiltrasjon)
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0210] occurrences matches {0..1} matches {	-- Antall døgn
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|>=0|}
+											}
+										}
+									}
+									ELEMENT[at0211] occurrences matches {0..1} matches {	-- Intermitterende (hemodialyse)
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0212] occurrences matches {0..1} matches {	-- Antall døgn
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|>=0|}
 											}
 										}
 									}
@@ -179,15 +423,18 @@ definition
 											DV_CODED_TEXT matches {
 												defining_code matches {
 													[local::
-													at0039, 	-- Test 1
-													at0040]	-- Test 2
+													at0039, 	-- Nei
+													at0040, 	-- Ja - perkutan teknikk på intensiv/oppvåkning
+													at0214]	-- Ja – åpen teknikk (operativ)
 												}
 											}
 										}
 									}
 									ELEMENT[at0038] occurrences matches {0..1} matches {	-- Bukleie
 										value matches {
-											DV_TEXT matches {*}
+											DV_COUNT matches {
+												magnitude matches {|>=0|}
+											}
 										}
 									}
 									ELEMENT[at0041] occurrences matches {0..1} matches {	-- Utvidet hemodynamisk monitorering
@@ -195,8 +442,9 @@ definition
 											DV_CODED_TEXT matches {
 												defining_code matches {
 													[local::
-													at0042, 	-- Test 1
-													at0043]	-- Test 2
+													at0042, 	-- Nei
+													at0043, 	-- Måling av hjerteminuttvolum med termodilusjon (Picco-kateter og lignende)
+													at0213]	-- Pulmonaliskateter (PA-kateter)
 												}
 											}
 										}
@@ -208,14 +456,40 @@ definition
 											}
 										}
 									}
+									ELEMENT[at0215] occurrences matches {0..*} matches {	-- Spesielle tiltak/intervensjoner
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0216, 	-- Terapeutisk hypotermi
+													at0217, 	-- ECMO/ECLA (ekstrakorporal sirkulasjon)
+													at0218, 	-- IABP Aortaballongpumpe
+													at0219, 	-- ICP-måling av intrakranielt trykk
+													at0220, 	-- Oscillatorbehandling
+													at0221, 	-- NO-behandling (nitrogenmonoksid)
+													at0222, 	-- Leverdialyse
+													at0223, 	-- Hyperbar oksygenbehandling
+													at0224]	-- Kontinuerlig EEG
+												}
+											}
+										}
+									}
 									ELEMENT[at0045] occurrences matches {0..1} matches {	-- Isolering av intensivpasient
 										value matches {
 											DV_CODED_TEXT matches {
 												defining_code matches {
 													[local::
-													at0046, 	-- Test 1
-													at0047]	-- Test 2
+													at0046, 	-- Ingen
+													at0047, 	-- Kontaktsmitte
+													at0225]	-- Luftsmitte
 												}
+											}
+										}
+									}
+									ELEMENT[at0226] occurrences matches {0..1} matches {	-- Døgn totalt (luftsmitte)
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|>=0|}
 											}
 										}
 									}
@@ -243,15 +517,9 @@ definition
 											>
 										}
 									}
-									ELEMENT[at0050] occurrences matches {0..1} matches {	-- Type innleggelse
+									ELEMENT[at0050] occurrences matches {0..1} matches {	-- Type innleggelse (med i SAPS)
 										value matches {
-											DV_CODED_TEXT matches {
-												defining_code matches {
-													[local::
-													at0051, 	-- Ø-hjelp
-													at0052]	-- Elektiv
-												}
-											}
+											DV_TEXT matches {*}
 										}
 									}
 									ELEMENT[at0053] occurrences matches {0..1} matches {	-- Overført under pågående intensivbehandling
@@ -259,8 +527,68 @@ definition
 											DV_CODED_TEXT matches {
 												defining_code matches {
 													[local::
-													at0054, 	-- Ja
-													at0055]	-- Nei
+													at0227, 	-- Pasienten er ikke overført
+													at0228]	-- Pasienten er overført
+												}
+											}
+										}
+									}
+									ELEMENT[at0229] occurrences matches {0..1} matches {	-- Pasienten er overført til denne intensivenheten fra hvilken enhet/sykehus?
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0230, 	-- Sykehus fra 0 til 40,
+													at0231, 	-- 41: Utlandet,
+													at0232, 	-- 42: Annet sykehus i Norge
+													at0233]	-- Sykehus fra 43 til 62
+												}
+											}
+										}
+									}
+									ELEMENT[at0234] occurrences matches {0..1} matches {	-- Navn på avdeling/sykehus (kun ved import) FRA
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0235] occurrences matches {0..1} matches {	-- Årsak til overføringen FRA
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0236, 	-- Medisinsk
+													at0237, 	-- Plassmangel/kapasitetsmangel
+													at0238]	-- Tilbakeføring eller overføring til «hjemstedssykehus» etter behandling
+												}
+											}
+										}
+									}
+									ELEMENT[at0239] occurrences matches {0..1} matches {	-- Pasienten er overført fra denne intensivenhet til hvilken enhet/sykehus?
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0240, 	-- Sykehus fra 0 til 40,
+													at0241, 	-- 41: Utlandet,
+													at0242, 	-- 42: Annet sykehus i Norge
+													at0243]	-- Sykehus fra 43 til 62
+												}
+											}
+										}
+									}
+									ELEMENT[at0244] occurrences matches {0..1} matches {	-- Navn på avdeling/sykehus (kun ved import) TIL
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0245] occurrences matches {0..1} matches {	-- Årsak til overføringen TIL
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0246, 	-- Medisinsk
+													at0247, 	-- Plassmangel/kapasitetsmangel
+													at0248]	-- Tilbakeføring eller overføring til «hjemstedssykehus» etter behandling
 												}
 											}
 										}
@@ -270,9 +598,16 @@ definition
 											DV_CODED_TEXT matches {
 												defining_code matches {
 													[local::
-													at0057, 	-- Test 1
-													at0058]	-- Test 2
+													at0057, 	-- I live
+													at0058]	-- Død intensiv
 												}
+											}
+										}
+									}
+									ELEMENT[at0093] occurrences matches {0..1} matches {	-- Vil du registrere SOFA skåre på dette oppholdet?
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
 											}
 										}
 									}
@@ -280,10 +615,72 @@ definition
 										include
 											archetype_id/value matches {/.*/}
 									}
-									ELEMENT[at0093] occurrences matches {0..1} matches {	-- Vil du registrere SOFA skåre på dette oppholdet?
+									ELEMENT[at0249] occurrences matches {0..5} matches {	-- Diagnoser for oppholdet
 										value matches {
-											DV_BOOLEAN matches {
-												value matches {True, False}
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0250] occurrences matches {0..1} matches {	-- Var det mistenkt/påvist en potensielt dødelig hjerneskade hos pasienten?
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0253, 	-- Ja
+													at0254]	-- Nei
+												}
+											}
+										}
+									}
+									ELEMENT[at0251] occurrences matches {0..1} matches {	-- Ble det påvist opphevet intrakraniell sirkulasjon?
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0255, 	-- Ja
+													at0256]	-- Nei
+												}
+											}
+										}
+									}
+									ELEMENT[at0252] occurrences matches {0..1} matches {	-- Årsak til nei - intr.sirk
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0257, 	-- Avslag fra RH
+													at0258, 	-- Ikke oppfylt kriteriene for hjernedød
+													at0259, 	-- Pasient negativ til donasjon
+													at0260, 	-- Pårørende negative til donasjon
+													at0261, 	-- Plutselig død/hjertestans
+													at0262, 	-- Ikke kapasitet på intensiv
+													at0263, 	-- Ikke tenkt på donasjon
+													at0264, 	-- Uenighet i behandlingsteam
+													at0265]	-- Utført angiografi : Ikke opphevet intrakraniell sirkulasjon
+												}
+											}
+										}
+									}
+									ELEMENT[at0266] occurrences matches {0..1} matches {	-- Ble organdonasjon gjennomført?
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0267, 	-- Ja
+													at0268]	-- Nei
+												}
+											}
+										}
+									}
+									ELEMENT[at0269] occurrences matches {0..1} matches {	-- Årsak til nei - organdonasjon
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0270, 	-- Pasienten negativ til organdonasjon
+													at0271, 	-- Pårørende negative til donasjon
+													at0272, 	-- Plutselig død/hjertestans
+													at0273]	-- Avslag fra RH
+												}
 											}
 										}
 									}
@@ -353,7 +750,7 @@ ontology
 					description = <"*">
 				>
 				["at0013"] = <
-					text = <"Ble pasienten overflyttet til annen intensivenhet ila første 24 timer?">
+					text = <"Ble pasienten overflyttet til annen intensivenhet (ved eget eller annet sykehus) ila første 24 timer?">
 					description = <"*">
 				>
 				["at0014"] = <
@@ -397,8 +794,9 @@ ontology
 					description = <"*">
 				>
 				["at0024"] = <
-					text = <"Reinnleggelse">
-					description = <"*">
+					text = <"Reinnleggelse (nytt intensivopphold under samme sykehusopphold)">
+					description = <"Ja: pasienten blir innlagt samme intensivavsnitt igjen før det er gått 72 timer siden utskrivelse fra intensivavsnittet.
+Nei: pasienten har ikke vært innlagt ved dette intensivavsnittet før, eller det er gått 72 timer eller mer siden utskrivelse fra intensivavsnittet.">
 				>
 				["at0025"] = <
 					text = <"A) Primærårsak til dette intensivoppholdet (vurdert av lege)">
@@ -409,19 +807,11 @@ ontology
 					description = <"*">
 				>
 				["at0027"] = <
-					text = <"Test 1">
+					text = <"Respiratorisk svikt">
 					description = <"*">
 				>
 				["at0028"] = <
-					text = <"Test 2">
-					description = <"*">
-				>
-				["at0029"] = <
-					text = <"Test 1">
-					description = <"*">
-				>
-				["at0030"] = <
-					text = <"Test 2">
+					text = <"Sirkulatorisk/kardiovaskulær svikt">
 					description = <"*">
 				>
 				["at0031"] = <
@@ -441,11 +831,11 @@ ontology
 					description = <"*">
 				>
 				["at0035"] = <
-					text = <"Test 1">
+					text = <"Ja">
 					description = <"*">
 				>
 				["at0036"] = <
-					text = <"Test 2">
+					text = <"Nei">
 					description = <"*">
 				>
 				["at0037"] = <
@@ -454,14 +844,14 @@ ontology
 				>
 				["at0038"] = <
 					text = <"Bukleie">
-					description = <"*">
+					description = <"Antall ganger pasienten har vært snudd i bukleie under intensivoppholdet">
 				>
 				["at0039"] = <
-					text = <"Test 1">
+					text = <"Nei">
 					description = <"*">
 				>
 				["at0040"] = <
-					text = <"Test 2">
+					text = <"Ja - perkutan teknikk på intensiv/oppvåkning">
 					description = <"*">
 				>
 				["at0041"] = <
@@ -469,11 +859,11 @@ ontology
 					description = <"*">
 				>
 				["at0042"] = <
-					text = <"Test 1">
+					text = <"Nei">
 					description = <"*">
 				>
 				["at0043"] = <
-					text = <"Test 2">
+					text = <"Måling av hjerteminuttvolum med termodilusjon (Picco-kateter og lignende)">
 					description = <"*">
 				>
 				["at0044"] = <
@@ -485,43 +875,31 @@ ontology
 					description = <"*">
 				>
 				["at0046"] = <
-					text = <"Test 1">
+					text = <"Ingen">
 					description = <"*">
 				>
 				["at0047"] = <
-					text = <"Test 2">
+					text = <"Kontaktsmitte">
 					description = <"*">
 				>
 				["at0048"] = <
 					text = <"NEMS (totalt antall NEMS-poeng under oppholdet)">
-					description = <"*">
+					description = <"'- Totalt antall NEMS-poeng for dette intensivoppholdet. Faste definisjoner (Miranda)- NEMS skåres på ”pleiedøgnet”, dvs. fra morgen til morgen (07-07 eller 06-06), også om oppholdet varte > 24 t
+- Tid før og etter (første og siste døgn) teller med dersom det er mer enn 8 timer">
 				>
 				["at0049"] = <
 					text = <"NAS (%) Nursing Activity Score">
-					description = <"*">
+					description = <"1. NAS-døgnet beregnes fra midnatt til midnatt. Registreringen skjer etter avsluttet døgn. Aktiviteter på døgnet den 03.12. (fra kl.00:00 til 23:59), registreres på den 03.12. i SPISS/NAFreg.
+2. På inn- og utskrivningdøgn teller liggetid mer enn 8 timer med som et helt døgn i NAS %. Om det er mindre enn 8 timer, deles antall timer med 24 timer og multipliseres med NAS % som aktiviteten i disse timene ville gitt for et helt døgn 
+Eksempel: 3 hele døgn med 100%, og 6 timer på utskrivningsdøgn med total NAS % på det døgnet på 125 %. 
+Total NAS% for oppholdet på 3 døgn og 6 timer blir 300% + 6/24 x 125% = 331.25 % (331%)">
 				>
 				["at0050"] = <
-					text = <"Type innleggelse">
-					description = <"*">
-				>
-				["at0051"] = <
-					text = <"Ø-hjelp">
-					description = <"*">
-				>
-				["at0052"] = <
-					text = <"Elektiv">
+					text = <"Type innleggelse (med i SAPS)">
 					description = <"*">
 				>
 				["at0053"] = <
 					text = <"Overført under pågående intensivbehandling">
-					description = <"*">
-				>
-				["at0054"] = <
-					text = <"Ja">
-					description = <"*">
-				>
-				["at0055"] = <
-					text = <"Nei">
 					description = <"*">
 				>
 				["at0056"] = <
@@ -529,11 +907,11 @@ ontology
 					description = <"*">
 				>
 				["at0057"] = <
-					text = <"Test 1">
+					text = <"I live">
 					description = <"*">
 				>
 				["at0058"] = <
-					text = <"Test 2">
+					text = <"Død intensiv">
 					description = <"*">
 				>
 				["at0070"] = <
@@ -546,6 +924,721 @@ ontology
 				>
 				["at0094"] = <
 					text = <"NEMS-poeng">
+					description = <"*">
+				>
+				["at0095"] = <
+					text = <"Kjønn">
+					description = <"*">
+				>
+				["at0097"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0098"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0099"] = <
+					text = <"Ukjent">
+					description = <"*">
+				>
+				["at0100"] = <
+					text = <"Gastroenterologisk svikt">
+					description = <"*">
+				>
+				["at0101"] = <
+					text = <"Nevrologisk svikt">
+					description = <"*">
+				>
+				["at0102"] = <
+					text = <"Sepsis">
+					description = <"*">
+				>
+				["at0103"] = <
+					text = <"Skade/traume">
+					description = <"*">
+				>
+				["at0104"] = <
+					text = <"Metabolsk/intoksikasjon">
+					description = <"*">
+				>
+				["at0105"] = <
+					text = <"Hematologisk svikt">
+					description = <"*">
+				>
+				["at0106"] = <
+					text = <"Nyresvikt">
+					description = <"*">
+				>
+				["at0107"] = <
+					text = <"Postoperativt">
+					description = <"*">
+				>
+				["at0108"] = <
+					text = <"Annet">
+					description = <"*">
+				>
+				["at0109"] = <
+					text = <"Nærmere beskrivelse respiratorisk svikt">
+					description = <"*">
+				>
+				["at0110"] = <
+					text = <"J96.0 Akutt respirasjonssvikt">
+					description = <"">
+				>
+				["at0111"] = <
+					text = <"J18.9 Pneumoni (uspes.)">
+					description = <"">
+				>
+				["at0112"] = <
+					text = <"J44.1 KOLS (forverring etc.)">
+					description = <"">
+				>
+				["at0113"] = <
+					text = <"J80 ARDS">
+					description = <"">
+				>
+				["at0114"] = <
+					text = <"J98.1 Atelektase">
+					description = <"">
+				>
+				["at0115"] = <
+					text = <"J81 Lungeødem/stuvning">
+					description = <"">
+				>
+				["at0116"] = <
+					text = <"J95.1  Postoperativ respirasjonssvikt  (torakal kirurgi)">
+					description = <"">
+				>
+				["at0117"] = <
+					text = <"J95.2  Postoperativ respirasjonssvikt  (ikke-torakal kirurgi)">
+					description = <"">
+				>
+				["at0118"] = <
+					text = <"Annet">
+					description = <"">
+				>
+				["at0119"] = <
+					text = <"Nærmere beskrivelse sirkulatorisk svikt">
+					description = <"*">
+				>
+				["at0120"] = <
+					text = <"I20 Angina pectoris">
+					description = <"">
+				>
+				["at0121"] = <
+					text = <"I21 Hjerteinfarkt">
+					description = <"">
+				>
+				["at0122"] = <
+					text = <"I50 Hjertesvikt">
+					description = <"">
+				>
+				["at0123"] = <
+					text = <"I49 Arytmi">
+					description = <"">
+				>
+				["at0124"] = <
+					text = <"I42 Kardiomyopati">
+					description = <"">
+				>
+				["at0125"] = <
+					text = <"Annet">
+					description = <"">
+				>
+				["at0126"] = <
+					text = <"Nærmere beskrivelse gastroenterologisk svikt">
+					description = <"*">
+				>
+				["at0127"] = <
+					text = <"K22.3 Øsofagusperforasjon">
+					description = <"">
+				>
+				["at0128"] = <
+					text = <"K92.0 Hematemese">
+					description = <"">
+				>
+				["at0129"] = <
+					text = <"K92.1 Melena">
+					description = <"">
+				>
+				["at0130"] = <
+					text = <"K63.1 Tarmperforasjon (ikke-traumatisk)">
+					description = <"">
+				>
+				["at0131"] = <
+					text = <"K56.7 Uspesifisert ileus">
+					description = <"">
+				>
+				["at0132"] = <
+					text = <"K85 Akutt pankreatitt">
+					description = <"">
+				>
+				["at0133"] = <
+					text = <"K83 Kolangitt">
+					description = <"">
+				>
+				["at0134"] = <
+					text = <"K52.9 Uspesifisert ikke-infeksiøs gastroenteritt og kolitt">
+					description = <"">
+				>
+				["at0135"] = <
+					text = <"- Infeksjon (appendicitt, kolecystitt, kolangitt, divertikulitt etc.)">
+					description = <"">
+				>
+				["at0136"] = <
+					text = <"K70 Alkoholisk leversykdom">
+					description = <"">
+				>
+				["at0137"] = <
+					text = <"K71 Toksisk leversykdom">
+					description = <"">
+				>
+				["at0138"] = <
+					text = <"B15, B16, B17 Akutt virushepatitt (Hep A, Hep B, annen virushepatitt)">
+					description = <"">
+				>
+				["at0139"] = <
+					text = <"K55.0 Akutt vaskulær forstyrrelse i tarm">
+					description = <"">
+				>
+				["at0140"] = <
+					text = <"Annet">
+					description = <"">
+				>
+				["at0141"] = <
+					text = <"Nærmere beskrivelse nevrologisk svikt">
+					description = <"*">
+				>
+				["at0142"] = <
+					text = <"G00 Bakteriell meningitt">
+					description = <"">
+				>
+				["at0143"] = <
+					text = <"G04 Encefalitt , myelitt og encefalomyelitt">
+					description = <"">
+				>
+				["at0144"] = <
+					text = <"G06.1  Abscess">
+					description = <"">
+				>
+				["at0145"] = <
+					text = <"G61 Inflammatorisk polynevropati  (Guillan-Barré etc.)">
+					description = <"">
+				>
+				["at0146"] = <
+					text = <"G40.9 Kramper (epilepsi)">
+					description = <"">
+				>
+				["at0147"] = <
+					text = <"R25.2 Kramper (andre)">
+					description = <"">
+				>
+				["at0148"] = <
+					text = <"I61 Blødning intrakranielt (hjerne, hjernestamme)">
+					description = <"">
+				>
+				["at0149"] = <
+					text = <"I60 Subaraknoidalbødning">
+					description = <"">
+				>
+				["at0150"] = <
+					text = <"I62 Epi-/subduralblødning">
+					description = <"">
+				>
+				["at0151"] = <
+					text = <"I63 Infarkt i SNS (hjerne, hjernestamme)">
+					description = <"">
+				>
+				["at0152"] = <
+					text = <"G93.1 Hypoksisk/anoksisk hjerneskade">
+					description = <"">
+				>
+				["at0153"] = <
+					text = <"R40 Koma/nedsatt bevissthet">
+					description = <"">
+				>
+				["at0154"] = <
+					text = <"C71 Tumor/neoplasme i SNS">
+					description = <"">
+				>
+				["at0155"] = <
+					text = <"Annet">
+					description = <"">
+				>
+				["at0156"] = <
+					text = <"Nærmere beskrivelse sepsis">
+					description = <"*">
+				>
+				["at0157"] = <
+					text = <"A39 Meningokokksepsis">
+					description = <"">
+				>
+				["at0158"] = <
+					text = <"A40 Streptokokksepsis">
+					description = <"">
+				>
+				["at0159"] = <
+					text = <"A41 Annen sepsis (inkl. uspesifisert)">
+					description = <"">
+				>
+				["at0160"] = <
+					text = <"R65.1 Alvorlig sepsis (SIRS, infeksiøs årsak, organsvikt)">
+					description = <"">
+				>
+				["at0161"] = <
+					text = <"R57.2 Septisk sjokk">
+					description = <"">
+				>
+				["at0162"] = <
+					text = <"Nærmere beskrivelse skade/traume">
+					description = <"*">
+				>
+				["at0163"] = <
+					text = <"Hode, ansikt, hals">
+					description = <"">
+				>
+				["at0164"] = <
+					text = <"Hjerne/sentralnervesystemet">
+					description = <"">
+				>
+				["at0165"] = <
+					text = <"Kolumna">
+					description = <"">
+				>
+				["at0166"] = <
+					text = <"Thorax">
+					description = <"">
+				>
+				["at0167"] = <
+					text = <"Abdomen">
+					description = <"">
+				>
+				["at0168"] = <
+					text = <"Bekken">
+					description = <"">
+				>
+				["at0169"] = <
+					text = <"Ekstremiteter">
+					description = <"">
+				>
+				["at0170"] = <
+					text = <"Annet">
+					description = <"">
+				>
+				["at0171"] = <
+					text = <"Penetrerende skade">
+					description = <"">
+				>
+				["at0172"] = <
+					text = <"Ikke-penetrerende skade">
+					description = <"">
+				>
+				["at0173"] = <
+					text = <"Trafikkskade">
+					description = <"">
+				>
+				["at0174"] = <
+					text = <"Annet">
+					description = <"">
+				>
+				["at0175"] = <
+					text = <"Nærmere beskrivelse metabolsk/intoksikasjon">
+					description = <"*">
+				>
+				["at0176"] = <
+					text = <"E10.0 Coma diabeticum (inkl. hypoglykemisk koma)">
+					description = <"">
+				>
+				["at0177"] = <
+					text = <"E86 Væsketap (dehydrering, hypovolemi etc)">
+					description = <"">
+				>
+				["at0178"] = <
+					text = <"E87 Andre forstyrrelser i væske-, elektrolytt- og syre-base- balanse">
+					description = <"">
+				>
+				["at0179"] = <
+					text = <"T4n Forgiftning med terapeutiske legemidler og biologiske substanser">
+					description = <"">
+				>
+				["at0180"] = <
+					text = <"Nærmere beskrivelse hematologisk svikt">
+					description = <"*">
+				>
+				["at0181"] = <
+					text = <"Lymfom">
+					description = <"">
+				>
+				["at0182"] = <
+					text = <"Leukemi">
+					description = <"">
+				>
+				["at0183"] = <
+					text = <"Neutropeni/trombocytopeni/pancytopeni">
+					description = <"">
+				>
+				["at0184"] = <
+					text = <"Annet">
+					description = <"">
+				>
+				["at0185"] = <
+					text = <"Nærmere beskrivelse nyresvikt">
+					description = <"*">
+				>
+				["at0186"] = <
+					text = <"Lymfom">
+					description = <"">
+				>
+				["at0187"] = <
+					text = <"Leukemi">
+					description = <"">
+				>
+				["at0188"] = <
+					text = <"Neutropeni/trombocytopeni/pancytopeni">
+					description = <"">
+				>
+				["at0189"] = <
+					text = <"Annet">
+					description = <"">
+				>
+				["at0190"] = <
+					text = <"Nærmere beskrivelse postoperativt">
+					description = <"*">
+				>
+				["at0191"] = <
+					text = <"T88 Anestesikomplikasjon">
+					description = <"">
+				>
+				["at0192"] = <
+					text = <"T81 Komplikasjoner til kirurgiske og medisinske prosedyrer">
+					description = <"">
+				>
+				["at0193"] = <
+					text = <"Annet">
+					description = <"">
+				>
+				["at0194"] = <
+					text = <"Respiratorisk svikt">
+					description = <"*">
+				>
+				["at0195"] = <
+					text = <"Sirkulatorisk/kardiovaskulær svikt">
+					description = <"*">
+				>
+				["at0196"] = <
+					text = <"Gastroenterologisk svikt">
+					description = <"*">
+				>
+				["at0197"] = <
+					text = <"Nevrologisk svikt">
+					description = <"*">
+				>
+				["at0198"] = <
+					text = <"Sepsis">
+					description = <"*">
+				>
+				["at0199"] = <
+					text = <"Skade/traume">
+					description = <"*">
+				>
+				["at0200"] = <
+					text = <"Metabolsk/intoksikasjon">
+					description = <"*">
+				>
+				["at0201"] = <
+					text = <"Hematologisk svikt">
+					description = <"*">
+				>
+				["at0202"] = <
+					text = <"Nyresvikt">
+					description = <"*">
+				>
+				["at0203"] = <
+					text = <"Postoperativt">
+					description = <"*">
+				>
+				["at0204"] = <
+					text = <"Annet">
+					description = <"*">
+				>
+				["at0206"] = <
+					text = <"Non-invasiv ventilasjon/maske">
+					description = <"Den tiden pasienten har fått respirasjonsstøtte i form av et lukket maskesystem med eller uten inspiratorisk støtte: maske-CPAP, eller non-invasiv overtrykksventilasjon/NIV-maske).
+Tiden skal registreres i antall timer/24 = døgn, med én desimal. Ved pause/avbrudd i respirasjonsstøtten, summerer man tidene. 
+Skriv 0 i feltet ved ikke aktiv respirasjonsstøtte. ">
+				>
+				["at0207"] = <
+					text = <"Invasiv ventilasjon (tube/trakeostomi)">
+					description = <"Den tiden pasienten har fått respirasjonsstøtte i form av CPAP på tube eller trakeostomi, og/eller invasiv overtrykksventilasjon).
+Tiden skal registreres i antall timer/24 = døgn, med én desimal. Ved pause/avbrudd i respirasjonsstøtten, summerer man tidene. 
+Skriv 0 i feltet ved ikke aktiv respirasjonsstøtte. ">
+				>
+				["at0208"] = <
+					text = <"Respirasjonsstøtte (timer/24 = døgn)">
+					description = <"Respirasjonsstøtte (timer/24 = døgn)
+Den tiden pasienten har fått respirasjonsstøtte ut over O2-tilførsel i åpent system (dvs. bruk av et lukket system med eller uten inspiratorisk støtte: maske-CPAP, CPAP på tube eller trakeostomi, non-invasiv og invasiv overtrykksventilasjon).
+Tiden skal registreres i antall timer/24 = døgn, med én desimal. Ved pause/avbrudd i respirasjonsstøtten, summerer man tidene. 
+Skriv 0 i feltet ved ikke aktiv respirasjonsstøtte. Respirasjonstøtte er sum av non-invasiv og invasiv - automatisk beregnet.">
+				>
+				["at0209"] = <
+					text = <"Kontinuerlig (hemofiltrasjon)">
+					description = <"*">
+				>
+				["at0210"] = <
+					text = <"Antall døgn">
+					description = <"Antall døgn der det er gitt nyreerstattende behandling i heltall, dvs. skåre 0 eller 1 per 24 t liggetid intensiv. Skal inn i NEMS">
+				>
+				["at0211"] = <
+					text = <"Intermitterende (hemodialyse)">
+					description = <"*">
+				>
+				["at0212"] = <
+					text = <"Antall døgn">
+					description = <"*">
+				>
+				["at0213"] = <
+					text = <"Pulmonaliskateter (PA-kateter)">
+					description = <"*">
+				>
+				["at0214"] = <
+					text = <"Ja – åpen teknikk (operativ)">
+					description = <"*">
+				>
+				["at0215"] = <
+					text = <"Spesielle tiltak/intervensjoner">
+					description = <"*">
+				>
+				["at0216"] = <
+					text = <"Terapeutisk hypotermi">
+					description = <"">
+				>
+				["at0217"] = <
+					text = <"ECMO/ECLA (ekstrakorporal sirkulasjon)">
+					description = <"">
+				>
+				["at0218"] = <
+					text = <"IABP Aortaballongpumpe">
+					description = <"">
+				>
+				["at0219"] = <
+					text = <"ICP-måling av intrakranielt trykk">
+					description = <"">
+				>
+				["at0220"] = <
+					text = <"Oscillatorbehandling">
+					description = <"">
+				>
+				["at0221"] = <
+					text = <"NO-behandling (nitrogenmonoksid)">
+					description = <"">
+				>
+				["at0222"] = <
+					text = <"Leverdialyse">
+					description = <"">
+				>
+				["at0223"] = <
+					text = <"Hyperbar oksygenbehandling">
+					description = <"">
+				>
+				["at0224"] = <
+					text = <"Kontinuerlig EEG">
+					description = <"">
+				>
+				["at0225"] = <
+					text = <"Luftsmitte">
+					description = <"*">
+				>
+				["at0226"] = <
+					text = <"Døgn totalt (luftsmitte)">
+					description = <"*">
+				>
+				["at0227"] = <
+					text = <"Pasienten er ikke overført">
+					description = <"*">
+				>
+				["at0228"] = <
+					text = <"Pasienten er overført">
+					description = <"*">
+				>
+				["at0229"] = <
+					text = <"Pasienten er overført til denne intensivenheten fra hvilken enhet/sykehus?">
+					description = <"*">
+				>
+				["at0230"] = <
+					text = <"Sykehus fra 0 til 40,">
+					description = <"">
+				>
+				["at0231"] = <
+					text = <"41: Utlandet,">
+					description = <"">
+				>
+				["at0232"] = <
+					text = <"42: Annet sykehus i Norge">
+					description = <"">
+				>
+				["at0233"] = <
+					text = <"Sykehus fra 43 til 62">
+					description = <"">
+				>
+				["at0234"] = <
+					text = <"Navn på avdeling/sykehus (kun ved import) FRA">
+					description = <"*">
+				>
+				["at0235"] = <
+					text = <"Årsak til overføringen FRA">
+					description = <"*">
+				>
+				["at0236"] = <
+					text = <"Medisinsk">
+					description = <"*">
+				>
+				["at0237"] = <
+					text = <"Plassmangel/kapasitetsmangel">
+					description = <"*">
+				>
+				["at0238"] = <
+					text = <"Tilbakeføring eller overføring til «hjemstedssykehus» etter behandling">
+					description = <"*">
+				>
+				["at0239"] = <
+					text = <"Pasienten er overført fra denne intensivenhet til hvilken enhet/sykehus?">
+					description = <"*">
+				>
+				["at0240"] = <
+					text = <"Sykehus fra 0 til 40,">
+					description = <"">
+				>
+				["at0241"] = <
+					text = <"41: Utlandet,">
+					description = <"">
+				>
+				["at0242"] = <
+					text = <"42: Annet sykehus i Norge">
+					description = <"">
+				>
+				["at0243"] = <
+					text = <"Sykehus fra 43 til 62">
+					description = <"">
+				>
+				["at0244"] = <
+					text = <"Navn på avdeling/sykehus (kun ved import) TIL">
+					description = <"*">
+				>
+				["at0245"] = <
+					text = <"Årsak til overføringen TIL">
+					description = <"*">
+				>
+				["at0246"] = <
+					text = <"Medisinsk">
+					description = <"*">
+				>
+				["at0247"] = <
+					text = <"Plassmangel/kapasitetsmangel">
+					description = <"*">
+				>
+				["at0248"] = <
+					text = <"Tilbakeføring eller overføring til «hjemstedssykehus» etter behandling">
+					description = <"*">
+				>
+				["at0249"] = <
+					text = <"Diagnoser for oppholdet">
+					description = <"*">
+				>
+				["at0250"] = <
+					text = <"Var det mistenkt/påvist en potensielt dødelig hjerneskade hos pasienten?">
+					description = <"*">
+				>
+				["at0251"] = <
+					text = <"Ble det påvist opphevet intrakraniell sirkulasjon?">
+					description = <"*">
+				>
+				["at0252"] = <
+					text = <"Årsak til nei - intr.sirk">
+					description = <"*">
+				>
+				["at0253"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0254"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0255"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0256"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0257"] = <
+					text = <"Avslag fra RH">
+					description = <"*">
+				>
+				["at0258"] = <
+					text = <"Ikke oppfylt kriteriene for hjernedød">
+					description = <"*">
+				>
+				["at0259"] = <
+					text = <"Pasient negativ til donasjon">
+					description = <"*">
+				>
+				["at0260"] = <
+					text = <"Pårørende negative til donasjon">
+					description = <"*">
+				>
+				["at0261"] = <
+					text = <"Plutselig død/hjertestans">
+					description = <"*">
+				>
+				["at0262"] = <
+					text = <"Ikke kapasitet på intensiv">
+					description = <"*">
+				>
+				["at0263"] = <
+					text = <"Ikke tenkt på donasjon">
+					description = <"*">
+				>
+				["at0264"] = <
+					text = <"Uenighet i behandlingsteam">
+					description = <"*">
+				>
+				["at0265"] = <
+					text = <"Utført angiografi : Ikke opphevet intrakraniell sirkulasjon">
+					description = <"*">
+				>
+				["at0266"] = <
+					text = <"Ble organdonasjon gjennomført?">
+					description = <"*">
+				>
+				["at0267"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0268"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0269"] = <
+					text = <"Årsak til nei - organdonasjon">
+					description = <"*">
+				>
+				["at0270"] = <
+					text = <"Pasienten negativ til organdonasjon">
+					description = <"*">
+				>
+				["at0271"] = <
+					text = <"Pårørende negative til donasjon">
+					description = <"*">
+				>
+				["at0272"] = <
+					text = <"Plutselig død/hjertestans">
+					description = <"*">
+				>
+				["at0273"] = <
+					text = <"Avslag fra RH">
 					description = <"*">
 				>
 			>
