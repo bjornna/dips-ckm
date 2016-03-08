@@ -1,0 +1,275 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.sofa_score.v0
+
+concept
+	[at0000]	-- Sofa score
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"51C30D304943DDD004BFFD52F81972CE">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Sofa score
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Respirasjon
+										value matches {
+											0|[local::at0011], 	-- PaO2/FiO2: > 53 kPa
+											1|[local::at0012], 	-- PaO2/FiO2: 40 - 53 kPa
+											2|[local::at0013], 	-- PaO2/FiO2: 26,6 - 40 kPa
+											3|[local::at0014]  	-- PaO2/FiO2: 13,3 - 26,6 kPa
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Sirkulasjon
+										value matches {
+											0|[local::at0015], 	-- MAP > eller = 70
+											1|[local::at0016], 	-- MAP < 70
+											2|[local::at0017], 	-- DA < 5 u/k/m; Dobutamin
+											3|[local::at0018], 	-- DA > eller = NA/A < 0,1 u/kg/m
+											4|[local::at0019]  	-- NA/A > eller = 0,1 u/kg/m; VP
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {	-- SNS (sentralnervesystemet)
+										value matches {
+											0|[local::at0020], 	-- GCS 14 - 15
+											1|[local::at0021], 	-- GCS 12 - 13
+											2|[local::at0022], 	-- GCS 9 - 11
+											3|[local::at0023], 	-- GCS 6 - 8
+											4|[local::at0024]  	-- GCS 3 - 5
+										}
+									}
+									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Nyre
+										value matches {
+											0|[local::at0025], 	-- Kreatinin < 110 umol/l
+											1|[local::at0026], 	-- Kreatinin > eller = 110 umol/l
+											2|[local::at0027], 	-- Kreatinin > eller = 171 umol/l
+											3|[local::at0028], 	-- Kreatinin > eller = 300 eller DU < 500
+											4|[local::at0029]  	-- Kreatinin > eller = 440 eller DU < 200 eller nyreerstattende behandling: HD, HF, PD
+										}
+									}
+									ELEMENT[at0008] occurrences matches {0..1} matches {	-- Lever
+										value matches {
+											0|[local::at0030], 	-- Bilirubin < 20 umol/l
+											1|[local::at0031], 	-- Bilirubin 20 - 32 umol/l
+											2|[local::at0032], 	-- Bilirubin 33 - 101 umol/l
+											3|[local::at0033]  	-- Bilirubin 102 - 203 umol/l
+										}
+									}
+									ELEMENT[at0009] occurrences matches {0..1} matches {	-- Koagulasjon
+										value matches {
+											0|[local::at0034], 	-- TPK > eller = 150
+											1|[local::at0035], 	-- TPK < 150
+											2|[local::at0036], 	-- TPK < 100
+											3|[local::at0037], 	-- TPK < 50
+											4|[local::at0038]  	-- TPK < 20
+										}
+									}
+									ELEMENT[at0010] occurrences matches {0..1} matches {	-- SOFA score
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|>=0|}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Sofa score">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Respirasjon">
+					description = <"Ingen respiratorbehandling: kun 0, 1 eller2  
+Eksempel: 
+På resp. PaO2 12,3/FiO2 0,45=27,3 (2)
+På resp. PaO2   8,2/FiO2 0,55=14,9 (3)
+Ved åpent system: se egen tabell for FiO2
+3 & 4: Bare ved IPPV (overtrykksventilasjon)">
+				>
+				["at0005"] = <
+					text = <"Sirkulasjon">
+					description = <"MAP=middelarterietrykk. Skåre 2 er ved dopamin <5 og/eller alle doser dobutamin.
+
+DA=Dopamin, NA=Noradrenalin, A=Adrenalin">
+				>
+				["at0006"] = <
+					text = <"SNS (sentralnervesystemet)">
+					description = <"Ved intubert/sedert pasient: bruk GCS før sedasjon inntil ny vurd. er mulig. Var for eksempel GCS 13 før sedasjon, skal denne verdien brukes så lenge pasienten er sedert.">
+				>
+				["at0007"] = <
+					text = <"Nyre">
+					description = <"DU = døgnurin. Ved opphold < 24 t eller ikke fullt døgn, regnes om til DU. Eksempel: 8 t og 450 ml = DU 1350 ml
+
+DU=Døgnurin, HD=hemodilayse, HF=hemofiltrasjon, PD=peritoneal dialyse">
+				>
+				["at0008"] = <
+					text = <"Lever">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Koagulasjon">
+					description = <"TPK=Trombocyttkonsentrasjon">
+				>
+				["at0010"] = <
+					text = <"SOFA score">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"PaO2/FiO2: > 53 kPa">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"PaO2/FiO2: 40 - 53 kPa">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"PaO2/FiO2: 26,6 - 40 kPa">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"PaO2/FiO2: 13,3 - 26,6 kPa">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"MAP > eller = 70">
+					description = <"*">
+				>
+				["at0016"] = <
+					text = <"MAP < 70">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"DA < 5 u/k/m; Dobutamin">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"DA > eller = NA/A < 0,1 u/kg/m">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"NA/A > eller = 0,1 u/kg/m; VP">
+					description = <"*">
+				>
+				["at0020"] = <
+					text = <"GCS 14 - 15">
+					description = <"*">
+				>
+				["at0021"] = <
+					text = <"GCS 12 - 13">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"GCS 9 - 11">
+					description = <"*">
+				>
+				["at0023"] = <
+					text = <"GCS 6 - 8">
+					description = <"*">
+				>
+				["at0024"] = <
+					text = <"GCS 3 - 5">
+					description = <"*">
+				>
+				["at0025"] = <
+					text = <"Kreatinin < 110 umol/l">
+					description = <"*">
+				>
+				["at0026"] = <
+					text = <"Kreatinin > eller = 110 umol/l">
+					description = <"*">
+				>
+				["at0027"] = <
+					text = <"Kreatinin > eller = 171 umol/l">
+					description = <"*">
+				>
+				["at0028"] = <
+					text = <"Kreatinin > eller = 300 eller DU < 500">
+					description = <"*">
+				>
+				["at0029"] = <
+					text = <"Kreatinin > eller = 440 eller DU < 200 eller nyreerstattende behandling: HD, HF, PD">
+					description = <"*">
+				>
+				["at0030"] = <
+					text = <"Bilirubin < 20 umol/l">
+					description = <"*">
+				>
+				["at0031"] = <
+					text = <"Bilirubin 20 - 32 umol/l">
+					description = <"*">
+				>
+				["at0032"] = <
+					text = <"Bilirubin 33 - 101 umol/l">
+					description = <"*">
+				>
+				["at0033"] = <
+					text = <"Bilirubin 102 - 203 umol/l">
+					description = <"*">
+				>
+				["at0034"] = <
+					text = <"TPK > eller = 150">
+					description = <"*">
+				>
+				["at0035"] = <
+					text = <"TPK < 150">
+					description = <"*">
+				>
+				["at0036"] = <
+					text = <"TPK < 100">
+					description = <"*">
+				>
+				["at0037"] = <
+					text = <"TPK < 50">
+					description = <"*">
+				>
+				["at0038"] = <
+					text = <"TPK < 20">
+					description = <"*">
+				>
+			>
+		>
+	>
