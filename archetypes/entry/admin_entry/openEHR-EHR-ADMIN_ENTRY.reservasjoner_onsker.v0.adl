@@ -1,0 +1,105 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ADMIN_ENTRY.reservasjoner_onsker.v0
+
+concept
+	[at0000]	-- Reservasjoner og ønsker
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"A9186F762EA8D73A0360E072BE0C4727">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {	-- Reservasjoner og ønsker
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Reservasjonen gjelder
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Framsatt av pasienten
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					allow_archetype CLUSTER[at0007] occurrences matches {0..*} matches {	-- Framsatt av
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Reservasjonen ble framsatt
+						value matches {
+							DV_DATE matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0008] occurrences matches {0..*} matches {	-- Trukket tilbake av
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Reservasjonen ble trukket tilbake
+						value matches {
+							DV_DATE matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Reservasjoner og ønsker">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Reservasjonen gjelder">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Reservasjonen ble framsatt">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Reservasjonen ble trukket tilbake">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Framsatt av">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Trukket tilbake av">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Framsatt av pasienten">
+					description = <"*">
+				>
+			>
+		>
+	>
