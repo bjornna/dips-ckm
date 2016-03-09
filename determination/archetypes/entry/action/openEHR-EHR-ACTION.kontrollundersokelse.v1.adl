@@ -1,0 +1,138 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ACTION.kontrollundersokelse.v1
+
+concept
+	[at0000]	-- Kontrollundersokelse
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"B890B32BC402FDA16BDC9CD5DA02C6DE">
+	>
+
+definition
+	ACTION[at0000] matches {	-- Kontrollundersokelse
+		ism_transition matches {
+			ISM_TRANSITION[at0003] matches {	-- Planlagt
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::526]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0003]}		-- Planlagt
+					}
+				}
+			}
+			ISM_TRANSITION[at0004] matches {	-- kansellert
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::528]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0004]}		-- kansellert
+					}
+				}
+			}
+			ISM_TRANSITION[at0005] matches {	-- Utført
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0005]}		-- Utført
+					}
+				}
+			}
+		}
+		description matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Frist for undersøkelse
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Kategori
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0007, 	-- 3 mnd
+									at0008, 	-- 6 mnd
+									at0009]	-- 9 mnd
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Kontrollundersokelse">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Frist for undersøkelse">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Planlagt">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"kansellert">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Utført">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Kategori">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"3 mnd">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"6 mnd">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"9 mnd">
+					description = <"*">
+				>
+			>
+		>
+	>
