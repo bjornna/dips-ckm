@@ -1,0 +1,105 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-EVALUATION.reservasjoner_onske.v0
+
+concept
+	[at0000]	-- Reservasjoner og ønsker
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"759C190BC7F928772874E410DD390394">
+	>
+
+definition
+	EVALUATION[at0000] matches {	-- Reservasjoner og ønsker
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Reservasjonen eller ønsket gjelder
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Framsatt av pasienten
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					allow_archetype ITEM[at0003] occurrences matches {0..*} matches {	-- Framsatt av
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Framsatt
+						value matches {
+							DV_DATE matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0005] occurrences matches {0..*} matches {	-- Trukket tilbake av
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Trukket tilbake
+						value matches {
+							DV_DATE matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Reservasjoner og ønsker">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Reservasjonen eller ønsket gjelder">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Framsatt av">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Framsatt">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Trukket tilbake av">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Trukket tilbake">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Framsatt av pasienten">
+					description = <"*">
+				>
+			>
+		>
+	>
