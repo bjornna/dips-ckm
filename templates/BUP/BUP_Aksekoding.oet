@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
-  <id>902da86c-5625-4393-962d-f933d8d0c25f</id>
-  <name>Kontrollundersøkelse</name>
+  <id>2b2a2d76-e5cc-4f2e-937b-a6729773caa4</id>
+  <name>BUP_Aksekoding</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
@@ -60,21 +60,25 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.kontrollundersokelse.v1" concept_name="Kontrollundersokelse">
-    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.kontrollundersokelse.v1" concept_name="Kontrollundersokelse" path="/content">
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="BUP Aksekoding">
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/diagnose" path="/content">
       <Rule path="/data[at0001]/items[at0002]">
-        <constraint xsi:type="ordinalConstraint">
-          <excludedValues>3|*</excludedValues>
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="ICD10" terminologyLang="en-GB" queryName="ICD10" />
         </constraint>
       </Rule>
-      <Rule path="/data[at0001]/items[at0023]">
-        <constraint xsi:type="ordinalConstraint">
-          <excludedValues>2|*</excludedValues>
-        </constraint>
-      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.diagnosis_details.v0" concept_name="Diagnosedetaljer" max="1" path="/data[at0001]/items[at0043]">
+        <Rule path="/items[at0001]" name="Akse">
+          <constraint xsi:type="textConstraint">
+            <includedValues>BUP-AXIS::ax01::Akse 1</includedValues>
+            <includedValues>BUP-AXIS::ax02::Akse 2</includedValues>
+            <includedValues>BUP-AXIS::ax03::Akse 3</includedValues>
+            <includedValues>BUP-AXIS::ax04::Akse 4</includedValues>
+            <includedValues>BUP-AXIS::ax05::Akse 5</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
     </Content>
-    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.ny_faglig_ansvarlig.v1" concept_name="Ny faglig ansvarlig" path="/content" />
-    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.neste_kontrollundersokelse.v1" concept_name="Neste Kontrollundersokelse" path="/content" />
     <Context />
   </definition>
 </template>

@@ -1,8 +1,8 @@
 ﻿archetype (adl_version=1.4; uid=2b39973f-3b0b-4f00-b0ca-754e97620b9e)
-	openEHR-EHR-INSTRUCTION.request.v1
+	openEHR-EHR-INSTRUCTION.requestplo.v1
 
 concept
-	[at0000]	-- Healthcare service request
+	[at0000]	-- PLO
 language
 	original_language = <[ISO_639-1::en]>
 	translations = <
@@ -18,8 +18,8 @@ language
 description
 	original_author = <
 		["name"] = <"Dr Ian McNicoll">
-		["organisation"] = <"Ocean Informatics, United Kingdom">
 		["email"] = <"ian.mcnicoll@oceaninformatics.com">
+		["organisation"] = <"Ocean Informatics, United Kingdom">
 		["date"] = <"2009-12-08">
 	>
 	details = <
@@ -51,24 +51,24 @@ description
 	lifecycle_state = <"published">
 	other_contributors = <"Tomas Alme, DIPS ASA, Norway", "Anne Pauline Anderssen, Helse Nord RHF, Norway", "Vebjørn Arntzen, Oslo universitetssykehus HF, Norway", "Silje Ljosland Bakke, Helse Bergen HF, Norway (Editor)", "Lars Bitsch-Larsen, Haukeland University Hospital, Bergen, Norway", "Anita Bjørnnes, Helse Bergen, Norway", "Lisbeth Dahlhaug, Helse Midt - Norge IT, Norway", "Einar Fosse, UNN HF, Norwegian Centre for Integrated Care and Telemedicine, Norway", "Knut Harboe, Stavanger Universitetssjukehus, Norway", "Ingrid Heitmann, Oslo universitetssykehus HF, Norway", "Andreas Hering, Helse Bergen HF, Haukeland universitetssjukehus, Norway", "Anca Heyd, DIPS ASA, Norway", "Hilde Hollås, Norway", "Lars Morgan Karlsen, DIPS ASA, Norway", "Heather Leslie, Ocean Informatics, Australia", "Hallvard Lærum, Oslo Universitetssykehus HF, Norway", "Lars Ivar Mehlum, Helse Bergen HF, Norway", "Bjørn Næss, DIPS ASA, Norway", "Rune Pedersen, Universitetssykehuset i Nord Norge, Norway", "Line Sæle, Nasjonal IKT HF, Norway", "John Tore Valand, Haukeland Universitetssjukehus, Norway (Editor)">
 	other_details = <
-		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
 		["revision"] = <"1.0.0">
+		["original_publisher"] = <"Nasjonal IKT">
 		["build_uid"] = <"f31f7544-0907-4208-9bb8-3fd6fa31f335">
 		["original_namespace"] = <"no.nasjonalikt">
-		["original_publisher"] = <"Nasjonal IKT">
-		["MD5-CAM-1.0.1"] = <"41128C1BF3A0C67A9B6C6C6361AA99B1">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["MD5-CAM-1.0.1"] = <"EC2DD4F6BBDB1DC47CB30D11F2ECFEA8">
 		["custodian_namespace"] = <"no.nasjonalikt">
 		["custodian_organisation"] = <"Nasjonal IKT">
 	>
 
 definition
-	INSTRUCTION[at0000] matches {	-- Helsetjenesterekvirering
+	INSTRUCTION[at0000] matches {	-- PLO
 		activities cardinality matches {0..*; unordered} matches {
 			ACTIVITY[at0001] occurrences matches {1..*} matches {	-- Rekvirering
 				description matches {
 					ITEM_TREE[at0009] matches {	-- Tree
 						items cardinality matches {1..*; unordered} matches {
-							ELEMENT[at0121] matches {	-- Tjenestenavn
+							ELEMENT[at0121] occurrences matches {0..1} matches {	-- Tjenestenavn
 								value matches {
 									DV_TEXT matches {*}
 								}
@@ -189,7 +189,6 @@ definition
 			}
 		}
 	}
-
 
 ontology
 	term_definitions = <
@@ -322,7 +321,7 @@ Status is used to denote whether this is the initial request, or a follow-up req
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"Helsetjenesterekvirering">
+					text = <"PLO">
 					description = <"Forespørsel om utførelse av en helsetjeneste, til annet helsepersonell eller andre organisasjoner.">
 					comment = <"For eksempel en forespørsel om postoperative observasjoner, eller en forespørsel om hjemmetjenester etter utskriving.">
 				>

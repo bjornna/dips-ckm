@@ -2,17 +2,9 @@ archetype (adl_version=1.4)
 	openEHR-EHR-ACTION.neste_kontrollundersokelse.v1
 
 concept
-	[at0000]	-- Neste kontrollundersokelse
+	[at0000]	-- Neste Kontrollundersokelse
 language
 	original_language = <[ISO_639-1::nb]>
-	translations = <
-		["no"] = <
-			language = <[ISO_639-1::no]>
-			author = <
-				["name"] = <"?">
-			>
-		>
-	>
 description
 	original_author = <
 		["name"] = <"">
@@ -25,24 +17,17 @@ description
 			misuse = <"">
 			copyright = <"">
 		>
-		["no"] = <
-			language = <[ISO_639-1::no]>
-			purpose = <"*(nb)">
-			use = <"*(nb)">
-			misuse = <"*(nb)">
-			copyright = <"*(nb)">
-		>
 	>
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"B5609CBB8FEAC21FAF67BA1E54FD9761">
+		["MD5-CAM-1.0.1"] = <"EBBF90A044A68F901C7EF2441302E716">
 	>
 
 definition
-	ACTION[at0000] matches {	-- Neste kontrollundersokelse
+	ACTION[at0000] matches {	-- Neste Kontrollundersokelse
 		ism_transition matches {
-			ISM_TRANSITION[at0007] matches {	-- Planlagt
+			ISM_TRANSITION[at0003] matches {	-- Planlagt
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::526]}
@@ -50,31 +35,31 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0007]}		-- Planlagt
+						defining_code matches {[local::at0003]}		-- Planlagt
 					}
 				}
 			}
-			ISM_TRANSITION[at0008] matches {	-- Ingen aktuell
+			ISM_TRANSITION[at0004] matches {	-- kansellert
 				current_state matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[openehr::526]}
+						defining_code matches {[openehr::528]}
 					}
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0008]}		-- Ingen aktuell
+						defining_code matches {[local::at0004]}		-- kansellert
 					}
 				}
 			}
-			ISM_TRANSITION[at0009] matches {	-- Kansellert
+			ISM_TRANSITION[at0011] matches {	-- Ingen aktuelle
 				current_state matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[openehr::531]}
+						defining_code matches {[openehr::528]}
 					}
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0009]}		-- Kansellert
+						defining_code matches {[local::at0011]}		-- Ingen aktuelle
 					}
 				}
 			}
@@ -82,23 +67,22 @@ definition
 		description matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Frist for neste kontrollundersøkelse
-						value matches {
-							DV_DATE matches {
-								value matches {yyyy-mm-dd}
-							}
-						}
-					}
-					ELEMENT[at0003] occurrences matches {0..1} matches {	-- New element
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Neste kontrollundersøkelse
 						value matches {
 							DV_CODED_TEXT matches {
 								defining_code matches {
 									[local::
-									at0004, 	-- 3-mnd
-									at0005, 	-- 6-mnd
-									at0006]	-- 9-mnd
+									at0007, 	-- 3 mnd
+									at0008, 	-- 6 mnd
+									at0009, 	-- 9 mnd
+									at0010]	-- Ingen aktuell
 								}
 							}
+						}
+					}
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Frist neste kontrollundersøkelse
+						value matches {
+							DV_DATE_TIME matches {*}
 						}
 					}
 				}
@@ -111,7 +95,7 @@ ontology
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"Neste kontrollundersokelse">
+					text = <"Neste Kontrollundersokelse">
 					description = <"unknown">
 				>
 				["at0001"] = <
@@ -119,79 +103,39 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0002"] = <
-					text = <"Frist for neste kontrollundersøkelse">
-					description = <"First for neste kontrollundersøkelse">
+					text = <"Frist neste kontrollundersøkelse">
+					description = <"Frist for når neste kontrollundersøkelse skal være utført ">
 				>
 				["at0003"] = <
-					text = <"New element">
-					description = <"Type kontrollundersøkelse som skal utføres">
-				>
-				["at0004"] = <
-					text = <"3-mnd">
-					description = <"*">
-				>
-				["at0005"] = <
-					text = <"6-mnd">
-					description = <"*">
-				>
-				["at0006"] = <
-					text = <"9-mnd">
-					description = <"*">
-				>
-				["at0007"] = <
-					text = <"*Planned(nb)">
-					description = <"**(nb)">
-				>
-				["at0008"] = <
-					text = <"*Planned(nb)">
-					description = <"**(nb)">
-				>
-				["at0009"] = <
-					text = <"*ActiveAborted(nb)">
-					description = <"**(nb)">
-				>
-			>
-		>
-		["no"] = <
-			items = <
-				["at0000"] = <
-					text = <"Neste kontrollundersokelse">
-					description = <"unknown">
-				>
-				["at0001"] = <
-					text = <"Tree">
-					description = <"@ internal @">
-				>
-				["at0002"] = <
-					text = <"Frist for neste kontrollundersøkelse">
-					description = <"First for neste kontrollundersøkelse">
-				>
-				["at0003"] = <
-					text = <"New element">
-					description = <"Type kontrollundersøkelse som skal utføres">
-				>
-				["at0004"] = <
-					text = <"3-mnd">
-					description = <"">
-				>
-				["at0005"] = <
-					text = <"6-mnd">
-					description = <"">
-				>
-				["at0006"] = <
-					text = <"9-mnd">
-					description = <"">
-				>
-				["at0007"] = <
 					text = <"Planlagt">
 					description = <"*">
 				>
+				["at0004"] = <
+					text = <"kansellert">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Neste kontrollundersøkelse">
+					description = <"Angir hvilken kontrollundersøkelse som er den neste">
+				>
+				["at0007"] = <
+					text = <"3 mnd">
+					description = <"*">
+				>
 				["at0008"] = <
-					text = <"Ingen aktuell">
+					text = <"6 mnd">
 					description = <"*">
 				>
 				["at0009"] = <
-					text = <"Kansellert">
+					text = <"9 mnd">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Ingen aktuell">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Ingen aktuelle">
 					description = <"*">
 				>
 			>
