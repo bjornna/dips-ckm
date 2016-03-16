@@ -2,7 +2,7 @@ archetype (adl_version=1.4)
 	openEHR-EHR-INSTRUCTION.vedtak_om_urinprove.v1
 
 concept
-	[at0000]	-- Vedtak om apning og kontroll av post
+	[at0000]	-- Vedtak om urinprove
 language
 	original_language = <[ISO_639-1::nb]>
 	translations = <
@@ -18,13 +18,6 @@ description
 		["name"] = <"">
 	>
 	details = <
-		["nb"] = <
-			language = <[ISO_639-1::nb]>
-			purpose = <"Brukes for vedtak om urinprøve">
-			use = <"">
-			misuse = <"">
-			copyright = <"">
-		>
 		["no"] = <
 			language = <[ISO_639-1::no]>
 			purpose = <"*(nb)">
@@ -32,25 +25,30 @@ description
 			misuse = <"*(nb)">
 			copyright = <"*(nb)">
 		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for vedtak om urinprøve">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
 	>
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"AB198A0750E4AF77390AAC28F231A51C">
+		["MD5-CAM-1.0.1"] = <"0C63AE2EBB5A82F27F77BC99C0C673CC">
 	>
 
 definition
-	INSTRUCTION[at0000] matches {	-- Vedtak om apning og kontroll av post
+	INSTRUCTION[at0000] matches {	-- Vedtak om urinprove
 		activities cardinality matches {0..*; unordered} matches {
 			ACTIVITY[at0001] occurrences matches {0..1} matches {	-- Current Activity
 				description matches {
 					ITEM_TREE[at0002] matches {	-- Tree
 						items cardinality matches {0..*; unordered} matches {
-							ELEMENT[at0003] occurrences matches {0..*} matches {	-- Begrunnelse for vedtaket er gitt i journalnotat av
+							ELEMENT[at0003] occurrences matches {0..*} matches {	-- Begrunnelse for vedtak i journalnotat datert:
 								value matches {
-									DV_DATE matches {
-										value matches {yyyy-mm-dd}
-									}
+									DV_DATE matches {*}
 								}
 							}
 							ELEMENT[at0011] occurrences matches {0..1} matches {	-- Det foreligger mistanke om rusmiddelbruk i forbindelse med behandlingsforløpet 
@@ -79,14 +77,23 @@ definition
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0005] occurrences matches {0..1} matches {	-- Dato vedtak fattet
+							ELEMENT[at0005] occurrences matches {0..1} matches {	-- Tidspunkt vedtaket ble fattet:
 								value matches {
 									DV_DATE_TIME matches {
-										value matches {yyyy-mm-ddTHH:??:??}
+										value matches {yyyy-mm-ddTHH:MM:SS}
 									}
 								}
 							}
+							ELEMENT[at0015] occurrences matches {0..1} matches {	-- Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
 							allow_archetype CLUSTER[at0014] occurrences matches {0..*} matches {	-- Vedtakstype
+								include
+									archetype_id/value matches {/.*/}
+							}
+							allow_archetype CLUSTER[at0016] occurrences matches {0..*} matches {	-- Vurdering av pasientinnsyn
 								include
 									archetype_id/value matches {/.*/}
 							}
@@ -114,16 +121,16 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0003"] = <
-					text = <"Begrunnelse for vedtaket er gitt i journalnotat av">
-					description = <"*">
+					text = <"Begrunnelse for vedtak i journalnotat datert:">
+					description = <"Referanse til journalnotat med nærmere begrunnelse for vedtaket.">
 				>
 				["at0004"] = <
 					text = <"Helsetjenesteenhet">
-					description = <"Identifikasjon av den enhet hvor vedtaket fattes">
+					description = <"Identifikasjon av den enheten hvor vedtaket fattes.">
 				>
 				["at0005"] = <
-					text = <"Dato vedtak fattet">
-					description = <"Det tidspunkt vedtaket ble fattet">
+					text = <"Tidspunkt vedtaket ble fattet:">
+					description = <"Dato og klokkeslett vedtaket ble fattet.">
 				>
 				["at0011"] = <
 					text = <"Det foreligger mistanke om rusmiddelbruk i forbindelse med behandlingsforløpet ">
@@ -140,6 +147,14 @@ ontology
 				["at0014"] = <
 					text = <"Vedtakstype">
 					description = <"**(nb)">
+				>
+				["at0015"] = <
+					text = <"Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette">
+					description = <"Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette.">
+				>
+				["at0016"] = <
+					text = <"Vurdering av pasientinnsyn">
+					description = <"*">
 				>
 			>
 		>
@@ -158,16 +173,16 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0003"] = <
-					text = <"Begrunnelse for vedtaket er gitt i journalnotat av">
-					description = <"Referanse til det dokument i journalen som inneholder opplysninger om vedtaket og begrunnelse for dette.">
+					text = <"*Begrunnelse for vedtak i journalnotat datert:(nb)">
+					description = <"*Referanse til journalnotat med nærmere begrunnelse for vedtaket.(nb)">
 				>
 				["at0004"] = <
-					text = <"Helsetjenesteenhet">
-					description = <"Identifikasjon av den enhet hvor vedtaket fattes">
+					text = <"*Helsetjenesteenhet(nb)">
+					description = <"*Identifikasjon av den enheten hvor vedtaket fattes.(nb)">
 				>
 				["at0005"] = <
-					text = <"Dato vedtak fattet">
-					description = <"Det tidspunkt vedtaket ble fattet">
+					text = <"*Tidspunkt vedtaket ble fattet:(nb)">
+					description = <"*Dato og klokkeslett vedtaket ble fattet.(nb)">
 				>
 				["at0011"] = <
 					text = <"Det foreligger mistanke om rusmiddelbruk i forbindelse med behandlingsforløpet ">
@@ -183,7 +198,15 @@ ontology
 				>
 				["at0014"] = <
 					text = <"Vedtakstype">
-					description = <"">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"*Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette(nb)">
+					description = <"*Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette.(nb)">
+				>
+				["at0016"] = <
+					text = <"*Vurdering av pasientinnsyn(nb)">
+					description = <"**(nb)">
 				>
 			>
 		>

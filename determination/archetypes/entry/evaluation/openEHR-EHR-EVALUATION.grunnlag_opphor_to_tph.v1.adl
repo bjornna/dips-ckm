@@ -36,7 +36,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"90EA357AB8AEF00EE3B9C9FC1CDD025D">
+		["MD5-CAM-1.0.1"] = <"C79170BA2DAA79C4516AB2B23FFBB7F5">
 	>
 
 definition
@@ -49,9 +49,14 @@ definition
 							DV_DATE matches {*}
 						}
 					}
-					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak om TPH i journalnotat av
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak om TPH i journalnotat datert:
 						value matches {
 							DV_DATE matches {*}
+						}
+					}
+					ELEMENT[at0024] occurrences matches {0..1} matches {	-- Relevant og nødvendig begrunnelse for de ulike vilkårene i vedtaket
+						value matches {
+							DV_TEXT matches {*}
 						}
 					}
 					ELEMENT[at0022] occurrences matches {0..1} matches {	-- Det er fremmet begjæring
@@ -61,7 +66,7 @@ definition
 							}
 						}
 					}
-					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak om opphør TPH i journalnotat av
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak om opphør TPH i journalnotat datert:
 						value matches {
 							DV_DATE matches {*}
 						}
@@ -75,9 +80,9 @@ definition
 					}
 					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Nærmeste pårørendes uttalerett
 						value matches {
-							0|[local::at0007], 	-- Pasienten har ingen personer med status som nærmeste pårørende som kunne gis anledning til å utale seg
+							0|[local::at0007], 	-- Nærmeste pårørende er gitt anledning til å uttale seg
 							1|[local::at0008], 	-- Nærmeste pårørende er ikke gitt anledning til å uttale seg da dennes adresse er ukjent og ettersporing vil kreve urimelig mye tid eller arbeid
-							2|[local::at0009]  	-- Nærmeste pårørende er gitt anledning til å uttale seg
+							2|[local::at0009]  	-- Pasienten har ingen personer med status som nærmeste pårørende som kunne gis anledning til å utale seg
 						}
 					}
 					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Den som har fremsatt begjæring etter psykisk helsevernloven § 3-6, er gitt anledning til å uttale seg, jf. psykisk helsevernloven § 3-9
@@ -99,16 +104,20 @@ definition
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0021] occurrences matches {0..1} matches {	-- Vedtatt tidspunkt
+					ELEMENT[at0021] occurrences matches {0..1} matches {	-- Tidspunkt vedtaket ble fattet:
 						value matches {
 							DV_DATE_TIME matches {
-								value matches {yyyy-mm-ddTHH:??:??}
+								value matches {yyyy-mm-ddTHH:MM:SS}
 							}
 						}
 					}
 					allow_archetype CLUSTER[at0023] occurrences matches {0..*} matches {	-- Vedtakstype
 						include
 							archetype_id/value matches {/openEHR-EHR-CLUSTER\.vedtakstype(-[a-zA-Z0-9_]+)*\.v1/}
+					}
+					allow_archetype CLUSTER[at0025] occurrences matches {0..*} matches {	-- Vurdering av pasientinnsyn
+						include
+							archetype_id/value matches {/.*/}
 					}
 				}
 			}
@@ -132,12 +141,12 @@ ontology
 					description = <"Den dato tvungent psykisk helsevern opprinnelig ble vedtatt.">
 				>
 				["at0003"] = <
-					text = <"Begrunnelse for vedtak om TPH i journalnotat av">
-					description = <"Referanse til det dokument (vedtak) i pasienten journal som lå til grunn for etablering av tvungen observasjon">
+					text = <"*Begrunnelse for vedtak om TPH i journalnotat datert:(nb)">
+					description = <"*Referanse til journalnotat med nærmere begrunnelse for vedtaket.(nb)">
 				>
 				["at0004"] = <
-					text = <"Begrunnelse for vedtak om opphør TPH i journalnotat av">
-					description = <"Referanse til journalnotat med nærmere begrunnelse for vedtaket">
+					text = <"*Begrunnelse for vedtak om opphør TPH i journalnotat datert:(nb)">
+					description = <"*Referanse til journalnotat med nærmere begrunnelse for vedtaket.(nb)">
 				>
 				["at0005"] = <
 					text = <"Pasienten er gitt anledning til å uttale seg">
@@ -148,16 +157,16 @@ ontology
 					description = <"Kode som angir hvorvidt nærmeste pårørende er gitt anledning til å uttale se. Kodeverk 9309">
 				>
 				["at0007"] = <
-					text = <"*Pasienten har ingen personer med status som nærmeste pårørende som kunne gis anledning til å utale seg(nb)">
+					text = <"*Nærmeste pårørende er gitt anledning til å uttale seg(nb)">
 					description = <"**(nb)">
 				>
 				["at0008"] = <
-					text = <"Nærmeste pårørende er ikke gitt anledning til å uttale seg da dennes adresse er ukjent og ettersporing vil kreve urimelig mye tid eller arbeid">
-					description = <"*">
+					text = <"*Nærmeste pårørende er ikke gitt anledning til å uttale seg da dennes adresse er ukjent og ettersporing vil kreve urimelig mye tid eller arbeid(nb)">
+					description = <"**(nb)">
 				>
 				["at0009"] = <
-					text = <"Nærmeste pårørende er gitt anledning til å uttale seg">
-					description = <"*">
+					text = <"*Pasienten har ingen personer med status som nærmeste pårørende som kunne gis anledning til å utale seg(nb)">
+					description = <"**(nb)">
 				>
 				["at0010"] = <
 					text = <"Den som har fremsatt begjæring etter psykisk helsevernloven § 3-6, er gitt anledning til å uttale seg, jf. psykisk helsevernloven § 3-9">
@@ -168,12 +177,12 @@ ontology
 					description = <"*">
 				>
 				["at0020"] = <
-					text = <"Helsetjenesteenhet">
-					description = <"Identifikasjon av den enhet hvor vedtaket fattes">
+					text = <"*Helsetjenesteenhet(nb)">
+					description = <"*Identifikasjon av den enheten hvor vedtaket fattes.(nb)">
 				>
 				["at0021"] = <
-					text = <"Vedtatt tidspunkt">
-					description = <"Det tidspunkt vedtaket ble fattet">
+					text = <"*Tidspunkt vedtaket ble fattet:(nb)">
+					description = <"*Dato og klokkeslett vedtaket ble fattet.(nb)">
 				>
 				["at0022"] = <
 					text = <"Det er fremmet begjæring">
@@ -183,6 +192,14 @@ ontology
 					comment = <"*(nb)">
 					text = <"Vedtakstype">
 					description = <"*">
+				>
+				["at0024"] = <
+					text = <"*Relevant og nødvendig begrunnelse for de ulike vilkårene i vedtaket(nb)">
+					description = <"*Relevant og nødvendig begrunnelse for de ulike vilkårene i vedtaket.(nb)">
+				>
+				["at0025"] = <
+					text = <"*Vurdering av pasientinnsyn(nb)">
+					description = <"*(nb)">
 				>
 			>
 		>
@@ -201,12 +218,12 @@ ontology
 					description = <"Den dato tvungent psykisk helsevern opprinnelig ble vedtatt.">
 				>
 				["at0003"] = <
-					text = <"Begrunnelse for vedtak om TPH i journalnotat av">
-					description = <"Referanse til det dokument (vedtak) i pasienten journal som lå til grunn for etablering av tvungen observasjon">
+					text = <"Begrunnelse for vedtak om TPH i journalnotat datert:">
+					description = <"Referanse til journalnotat med nærmere begrunnelse for vedtaket.">
 				>
 				["at0004"] = <
-					text = <"Begrunnelse for vedtak om opphør TPH i journalnotat av">
-					description = <"Referanse til journalnotat med nærmere begrunnelse for vedtaket">
+					text = <"Begrunnelse for vedtak om opphør TPH i journalnotat datert:">
+					description = <"Referanse til journalnotat med nærmere begrunnelse for vedtaket.">
 				>
 				["at0005"] = <
 					text = <"Pasienten er gitt anledning til å uttale seg">
@@ -217,7 +234,7 @@ ontology
 					description = <"Kode som angir hvorvidt nærmeste pårørende er gitt anledning til å uttale se. Kodeverk 9309">
 				>
 				["at0007"] = <
-					text = <"Pasienten har ingen personer med status som nærmeste pårørende som kunne gis anledning til å utale seg">
+					text = <"Nærmeste pårørende er gitt anledning til å uttale seg">
 					description = <"*">
 				>
 				["at0008"] = <
@@ -225,7 +242,7 @@ ontology
 					description = <"*">
 				>
 				["at0009"] = <
-					text = <"Nærmeste pårørende er gitt anledning til å uttale seg">
+					text = <"Pasienten har ingen personer med status som nærmeste pårørende som kunne gis anledning til å utale seg">
 					description = <"*">
 				>
 				["at0010"] = <
@@ -238,11 +255,11 @@ ontology
 				>
 				["at0020"] = <
 					text = <"Helsetjenesteenhet">
-					description = <"Identifikasjon av den enhet hvor vedtaket fattes">
+					description = <"Identifikasjon av den enheten hvor vedtaket fattes.">
 				>
 				["at0021"] = <
-					text = <"Vedtatt tidspunkt">
-					description = <"Det tidspunkt vedtaket ble fattet">
+					text = <"Tidspunkt vedtaket ble fattet:">
+					description = <"Dato og klokkeslett vedtaket ble fattet.">
 				>
 				["at0022"] = <
 					text = <"Det er fremmet begjæring">
@@ -250,6 +267,14 @@ ontology
 				>
 				["at0023"] = <
 					text = <"Vedtakstype">
+					description = <"*">
+				>
+				["at0024"] = <
+					text = <"Relevant og nødvendig begrunnelse for de ulike vilkårene i vedtaket">
+					description = <"Relevant og nødvendig begrunnelse for de ulike vilkårene i vedtaket.">
+				>
+				["at0025"] = <
+					text = <"Vurdering av pasientinnsyn">
 					description = <"*">
 				>
 			>
