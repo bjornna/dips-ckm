@@ -36,7 +36,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"49B611B97592DE61D314B6FE053F80B3">
+		["MD5-CAM-1.0.1"] = <"209D1BA0145E7E1E4AB1BC5947F54F2B">
 	>
 
 definition
@@ -121,9 +121,14 @@ definition
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0021] occurrences matches {0..1} matches {	-- Vedtak begrunnet i journalnotat av
+							ELEMENT[at0021] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak i journalnotat datert:
 								value matches {
 									DV_DATE matches {*}
+								}
+							}
+							ELEMENT[at0083] occurrences matches {0..1} matches {	-- Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette
+								value matches {
+									DV_TEXT matches {*}
 								}
 							}
 							ELEMENT[at0081] occurrences matches {0..1} matches {	-- Til utregning av planlagt oppstart
@@ -153,7 +158,7 @@ definition
 									}
 								}
 							}
-							ELEMENT[at0025] occurrences matches {0..1} matches {	-- Dato vedtak fattet
+							ELEMENT[at0025] occurrences matches {0..1} matches {	-- Tidspunkt vedtaket ble fattet:
 								value matches {
 									DV_DATE_TIME matches {
 										value matches {yyyy-mm-ddTHH:MM:SS}
@@ -246,6 +251,10 @@ definition
 								include
 									archetype_id/value matches {/.*/}
 							}
+							allow_archetype CLUSTER[at0085] occurrences matches {0..*} matches {	-- Vurdering av pasientinnsyn
+								include
+									archetype_id/value matches {/.*/}
+							}
 						}
 					}
 				}
@@ -276,7 +285,7 @@ ontology
 				>
 				["at0004"] = <
 					text = <"Helsetjenesteenhet">
-					description = <"Den enhet hvor vedtaket ble fattet.">
+					description = <"Identifikasjon av den enheten hvor vedtaket fattes.">
 				>
 				["at0005"] = <
 					text = <"Pasienten er under TPH">
@@ -315,8 +324,8 @@ ontology
 					description = <"Dersom vedtaket omfatter former for behandling som ikke er dekket av de faste kategorier, skal det angis en betegnelse på den/de typer behandling det dreier seg om.">
 				>
 				["at0021"] = <
-					text = <"Vedtak begrunnet i journalnotat av">
-					description = <"Dato til dokumentasjon i pasienten journal som inneholder nødvendige, detaljerte opplysninger om den behandling som skal gjennomføres samt begrunnelsen for denne.">
+					text = <"Begrunnelse for vedtak i journalnotat datert:">
+					description = <"Referanse til journalnotat med nærmere begrunnelse for vedtaket.">
 				>
 				["at0022"] = <
 					text = <"Planlagt oppstart dato behandling">
@@ -331,8 +340,8 @@ ontology
 					description = <"Det tidspunktet pasienten ble informert om nødvendigheten av behandlingen.">
 				>
 				["at0025"] = <
-					text = <"Dato vedtak fattet">
-					description = <"Det tidspunktet vedtaket ble godkjent av den faglig ansvarlige.">
+					text = <"Tidspunkt vedtaket ble fattet:">
+					description = <"Dato og klokkeslett vedtaket ble fattet.">
 				>
 				["at0026"] = <
 					text = <"Observasjon før vedtak om tvangsbehandling">
@@ -466,6 +475,14 @@ ontology
 					text = <"Til utregning av varighet">
 					description = <"Til utregning av varighet. Skal skjules">
 				>
+				["at0083"] = <
+					text = <"Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette">
+					description = <"Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette.">
+				>
+				["at0085"] = <
+					text = <"Vurdering av pasientinnsyn">
+					description = <"*">
+				>
 			>
 		>
 		["no"] = <
@@ -487,8 +504,8 @@ ontology
 					description = <"Et nummer som unikt identifiserer vedtaket om tvangsmiddelbruk innenfor det aktuelle i rettslige grunnlag for behandlingen. Det første vedtak av denne typen som registreres i pasientens journal i tilknytning til et bestemt registrert rettslig grunnlag, skal gis løpenummer 1. For hvert nytt vedtak av denne typen som registreres i pasientens journal, økes løpenummeret med 1.">
 				>
 				["at0004"] = <
-					text = <"Helsetjenesteenhet">
-					description = <"Den enhet pasienten behandles ved.">
+					text = <"*Helsetjenesteenhet(nb)">
+					description = <"*Identifikasjon av den enheten hvor vedtaket fattes.(nb)">
 				>
 				["at0005"] = <
 					text = <"Pasienten er under TPH">
@@ -527,8 +544,8 @@ ontology
 					description = <"Dersom vedtaket omfatter former for behandling som ikke er dekket av de kategorier som det er mulig å velge ved registrering av vedtakstype, skal det her angis (på stikkordsform) hvilke typer behandling det dreier seg om.">
 				>
 				["at0021"] = <
-					text = <"Vedtak begrunnet i journalnotat av">
-					description = <"Dato til dokumentasjon som inneholder nødvendige, detaljerte opplysninger om den behandling som skal gjennomføres samt begrunnelsen for denne.">
+					text = <"*Begrunnelse for vedtak i journalnotat datert:(nb)">
+					description = <"*Referanse til journalnotat med nærmere begrunnelse for vedtaket.(nb)">
 				>
 				["at0022"] = <
 					text = <"Planlagt oppstart dato">
@@ -543,8 +560,8 @@ ontology
 					description = <"Det tidspunktet pasienten ble informert om nødvendigheten av behandlingen.">
 				>
 				["at0025"] = <
-					text = <"*Dato vedtak fattet(nb)">
-					description = <"*Det tidspunktet vedtaket ble godkjent av den faglig ansvarlige.(nb)">
+					text = <"*Tidspunkt vedtaket ble fattet:(nb)">
+					description = <"*Dato og klokkeslett vedtaket ble fattet.(nb)">
 				>
 				["at0026"] = <
 					text = <"Observasjon før vedtak om tvangsbehandling">
@@ -677,6 +694,14 @@ ontology
 				["at0082"] = <
 					text = <"Til utregning av varighet">
 					description = <"Til utregning av varighet. Skal skjules">
+				>
+				["at0083"] = <
+					text = <"*Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette(nb)">
+					description = <"*Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette.(nb)">
+				>
+				["at0085"] = <
+					text = <"*Vurdering av pasientinnsyn(nb)">
+					description = <"**(nb)">
 				>
 			>
 		>
