@@ -36,7 +36,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"0547F298FFAB5C885A12D6B404F43A24">
+		["MD5-CAM-1.0.1"] = <"7B985C0B2F02C99354B0C30A79658F54">
 	>
 
 definition
@@ -98,7 +98,7 @@ definition
 							}
 						}
 					}
-					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Det er fremmet begjæring om tvungen observasjon
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Det er framsatt begjæring om tvungen observasjon
 						value matches {
 							DV_BOOLEAN matches {
 								value matches {True}
@@ -130,30 +130,21 @@ definition
 							}
 						}
 					}
-					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Dato begjæringen ble framsatt
+					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Dato begjæringen ble fremmet
 						value matches {
-							DV_DATE matches {
-								value matches {yyyy-mm-dd}
-							}
+							DV_DATE matches {*}
 						}
 					}
 					allow_archetype CLUSTER[at0085] occurrences matches {0..*} matches {	-- Begjæring framsatt av
 						include
 							archetype_id/value matches {/openEHR-EHR-CLUSTER\.begjaerende_instans(-[a-zA-Z0-9_]+)*\.v1/}
 					}
-					ELEMENT[at0014] occurrences matches {0..1} matches {	-- Begjæring i journalnotat av
+					ELEMENT[at0014] occurrences matches {0..1} matches {	-- Begjæringen er dokumentert i journalnotat datert:
 						value matches {
 							DV_DATE matches {*}
 						}
 					}
 					ELEMENT[at0015] occurrences matches {0..1} matches {	-- Pasienten er under tvungen observasjon
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True}
-							}
-						}
-					}
-					ELEMENT[at0031] occurrences matches {0..1} matches {	-- Pasienten er gitt anledning til å uttale seg
 						value matches {
 							DV_BOOLEAN matches {
 								value matches {True}
@@ -205,6 +196,13 @@ definition
 							}
 						}
 					}
+					ELEMENT[at0031] occurrences matches {0..1} matches {	-- Pasienten er gitt anledning til å uttale seg
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True}
+							}
+						}
+					}
 					ELEMENT[at0034] matches {	-- Nærmeste pårørendes uttalerett, jf. psykisk helsevernloven § 3-9
 						value matches {
 							0|[local::at0035], 	-- Nærmeste pårørende er gitt anledning til å uttale seg
@@ -213,13 +211,6 @@ definition
 						}
 					}
 					ELEMENT[at0038] occurrences matches {0..1} matches {	-- Den som har framsatt begjæring etter psykisk helsevernloven § 3-6, er gitt anledning til å uttale seg, jf. psykisk helsevernloven § 3-9
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True}
-							}
-						}
-					}
-					ELEMENT[at0082] occurrences matches {0..1} matches {	-- Begjærende instans er informert om sin klagerett
 						value matches {
 							DV_BOOLEAN matches {
 								value matches {True}
@@ -285,7 +276,7 @@ definition
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0048] occurrences matches {0..1} matches {	-- Intern legeundersøkelse i journalnotat av
+							ELEMENT[at0048] occurrences matches {0..1} matches {	-- Intern legeundersøkelse dokumentert i journalnotat datert:
 								value matches {
 									DV_DATE matches {*}
 								}
@@ -343,20 +334,20 @@ ontology
 					description = <"*Ved etableringen av tvungen observasjon gjøres det unntak fra konverteringsforbudet.(nb)">
 				>
 				["at0005"] = <
-					text = <"Det foreligger en begjæring om tvungen observasjon">
-					description = <"*">
+					text = <"*Det er framsatt begjæring om tvungen observasjon(nb)">
+					description = <"*Angivelse av om begjæring foreligger.(nb)">
 				>
 				["at0006"] = <
 					text = <"*Unntaket er begrunnet i journalnotat datert:(nb)">
 					description = <"*Referanse til journalnotat med nærmere begrunnelse for unntaket.(nb)">
 				>
 				["at0007"] = <
-					text = <"*Dato begjæringen ble framsatt(nb)">
-					description = <"*Den dato begjæringen ble framsatt.(nb)">
+					text = <"*Dato begjæringen ble fremmet(nb)">
+					description = <"*Dato begjæringen ble fremmet.(nb)">
 				>
 				["at0014"] = <
-					text = <"Begjæring om tvungen observasjon i journalnotat av">
-					description = <"Dato til dokumentasjon av begjæring om tvungen observasjon.">
+					text = <"*Begjæringen er dokumentert i journalnotat datert:(nb)">
+					description = <"*Referanse til journalnotat der begjæringen er dokumentert.(nb)">
 				>
 				["at0015"] = <
 					text = <"Pasienten er under tvungen observasjon">
@@ -447,8 +438,8 @@ ontology
 					description = <"*Referanse til den tjenesteyter (lege) som foretok undersøkelsen.(nb)">
 				>
 				["at0048"] = <
-					text = <"Intern legeundersøkelse i journalnotat av">
-					description = <"*">
+					text = <"*Intern legeundersøkelse dokumentert i journalnotat datert:(nb)">
+					description = <"*Referanse til dokumentasjon av intern legeundersøkelse.(nb)">
 				>
 				["at0049"] = <
 					text = <"*Helsetjenesteenhet(nb)">
@@ -538,10 +529,6 @@ ontology
 					text = <"*Legeundersøkelsen er foretatt på bakgrunn av vedtak om tvungen legeundersøkelse(nb)">
 					description = <"*Legeundersøkelsen er foretatt på bakgrunn av vedtak om tvungen legeundersøkelse.(nb)">
 				>
-				["at0082"] = <
-					text = <"Begjærende instans er informert om sin klagerett">
-					description = <"*">
-				>
 				["at0085"] = <
 					text = <"Begjæring framsatt av">
 					description = <"*">
@@ -587,20 +574,20 @@ ontology
 					description = <"Ved etableringen av tvungen observasjon gjøres det unntak fra konverteringsforbudet.">
 				>
 				["at0005"] = <
-					text = <"Det er fremmet begjæring om tvungen observasjon">
-					description = <"*">
+					text = <"Det er framsatt begjæring om tvungen observasjon">
+					description = <"Angivelse av om begjæring foreligger.">
 				>
 				["at0006"] = <
 					text = <"Unntaket er begrunnet i journalnotat datert:">
 					description = <"Referanse til journalnotat med nærmere begrunnelse for unntaket.">
 				>
 				["at0007"] = <
-					text = <"Dato begjæringen ble framsatt">
-					description = <"Den dato begjæringen ble framsatt.">
+					text = <"Dato begjæringen ble fremmet">
+					description = <"Dato begjæringen ble fremmet.">
 				>
 				["at0014"] = <
-					text = <"Begjæring i journalnotat av">
-					description = <"Dato til dokumentasjon av begjæring om tvungen observasjon.">
+					text = <"Begjæringen er dokumentert i journalnotat datert:">
+					description = <"Referanse til journalnotat der begjæringen er dokumentert.">
 				>
 				["at0015"] = <
 					text = <"Pasienten er under tvungen observasjon">
@@ -691,8 +678,8 @@ ontology
 					description = <"Referanse til den tjenesteyter (lege) som foretok undersøkelsen.">
 				>
 				["at0048"] = <
-					text = <"Intern legeundersøkelse i journalnotat av">
-					description = <"*">
+					text = <"Intern legeundersøkelse dokumentert i journalnotat datert:">
+					description = <"Referanse til dokumentasjon av intern legeundersøkelse.">
 				>
 				["at0049"] = <
 					text = <"Helsetjenesteenhet">
@@ -781,10 +768,6 @@ ontology
 				["at0081"] = <
 					text = <"Legeundersøkelsen er foretatt på bakgrunn av vedtak om tvungen legeundersøkelse">
 					description = <"Legeundersøkelsen er foretatt på bakgrunn av vedtak om tvungen legeundersøkelse.">
-				>
-				["at0082"] = <
-					text = <"Begjærende instans er informert om sin klagerett">
-					description = <"*">
 				>
 				["at0085"] = <
 					text = <"Begjæring framsatt av">

@@ -36,7 +36,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"3EF3555BA85F8A77B6785383D5C10387">
+		["MD5-CAM-1.0.1"] = <"5275AA14B805738193FB2C7F60A9EF28">
 	>
 
 definition
@@ -89,7 +89,7 @@ definition
 							}
 						}
 					}
-					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Det foreligger en begjæring om tvungent psykisk helsevern
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Det er framsatt begjæring om tvungen observasjon
 						value matches {
 							DV_BOOLEAN matches {
 								value matches {True, False}
@@ -98,21 +98,17 @@ definition
 					}
 					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Dato begjæringen ble fremmet
 						value matches {
-							DV_DATE matches {
-								value matches {yyyy-mm-dd}
-							}
-						}
-					}
-					ELEMENT[at0014] occurrences matches {0..1} matches {	-- Referanse begjæring
-						value matches {
-							DV_DATE matches {
-								value matches {yyyy-mm-dd}
-							}
+							DV_DATE matches {*}
 						}
 					}
 					allow_archetype CLUSTER[at0072] occurrences matches {0..*} matches {	-- Begjæring framsatt av
 						include
 							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0014] occurrences matches {0..1} matches {	-- Begjæringen er dokumentert i journalnotat datert:
+						value matches {
+							DV_DATE matches {*}
+						}
 					}
 					ELEMENT[at0015] occurrences matches {0..1} matches {	-- Pasienten er under tvungen observasjon
 						value matches {
@@ -168,13 +164,6 @@ definition
 							}
 						}
 					}
-					ELEMENT[at0032] occurrences matches {0..1} matches {	-- Tvungent psykisk helsevern fremtrer etter en helhetsvurdering som den klart beste løsning for pasienten
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True, False}
-							}
-						}
-					}
 					ELEMENT[at0034] matches {	-- Nærmeste pårørendes uttalerett, jf. psykisk helsevernloven § 3-9
 						value matches {
 							0|[local::at0035], 	-- Nærmeste pårørende er gitt anledning til å uttale seg
@@ -183,6 +172,13 @@ definition
 						}
 					}
 					ELEMENT[at0038] occurrences matches {0..1} matches {	-- Den som har fremsatt begjæring etter psykisk helsevernloven § 3-6, er gitt anledning til å uttale seg, jf. psykisk helsevernloven § 3-9
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0032] occurrences matches {0..1} matches {	-- Tvungent psykisk helsevern fremtrer etter en helhetsvurdering som den klart beste løsning for pasienten
 						value matches {
 							DV_BOOLEAN matches {
 								value matches {True, False}
@@ -214,9 +210,7 @@ definition
 							}
 							ELEMENT[at0077] occurrences matches {0..1} matches {	-- Utført av
 								value matches {
-									DV_CODED_TEXT matches {
-										defining_code matches {[ac0004]}		-- New constraint
-									}
+									DV_TEXT matches {*}
 								}
 							}
 							ELEMENT[at0043] occurrences matches {0..1} matches {	-- Ekstern legeundersøkelse dokumentert i journalnotat datert:
@@ -254,7 +248,7 @@ definition
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0048] occurrences matches {0..1} matches {	-- Intern legeundersøkelse i journalnotat av
+							ELEMENT[at0048] occurrences matches {0..1} matches {	-- Intern legeundersøkelse dokumentert i journalnotat datert:
 								value matches {
 									DV_DATE matches {
 										value matches {yyyy-mm-dd}
@@ -314,8 +308,8 @@ ontology
 					description = <"Tidspunkt for pasientens ankomst til institusjonen">
 				>
 				["at0005"] = <
-					text = <"Det foreligger en begjæring om tvungent psykisk helsevern">
-					description = <"Angivelse av om begjæring foreligger">
+					text = <"*Det er framsatt begjæring om tvungen observasjon(nb)">
+					description = <"*Angivelse av om begjæring foreligger.(nb)">
 				>
 				["at0006"] = <
 					text = <"*Unntaket er begrunnet i journalnotat datert:(nb)">
@@ -326,8 +320,8 @@ ontology
 					description = <"*Dato begjæringen ble fremmet.(nb)">
 				>
 				["at0014"] = <
-					text = <"Referanse begjæring">
-					description = <"Referanse til begjæringen dersom beslutningen gjelder en begjæring om tvungen observasjon ">
+					text = <"*Begjæringen er dokumentert i journalnotat datert:(nb)">
+					description = <"*Referanse til journalnotat der begjæringen er dokumentert.(nb)">
 				>
 				["at0015"] = <
 					text = <"Pasienten er under tvungen observasjon">
@@ -415,8 +409,8 @@ Standard kodeverk: 9309">
 					description = <"Angir hvilken lege som har utført den interne undersøkelsen">
 				>
 				["at0048"] = <
-					text = <"Intern legeundersøkelse i journalnotat av">
-					description = <"Referanse til journalnotat som omhandler legeundersøkelsen">
+					text = <"*Intern legeundersøkelse dokumentert i journalnotat datert:(nb)">
+					description = <"*Referanse til dokumentasjon av intern legeundersøkelse.(nb)">
 				>
 				["at0049"] = <
 					text = <"*Helsetjenesteenhet(nb)">
@@ -518,8 +512,8 @@ Standard kodeverk: 9290">
 					description = <"Tidspunkt for pasientens ankomst til institusjonen">
 				>
 				["at0005"] = <
-					text = <"Det foreligger en begjæring om tvungent psykisk helsevern">
-					description = <"Angivelse av om begjæring foreligger">
+					text = <"Det er framsatt begjæring om tvungen observasjon">
+					description = <"Angivelse av om begjæring foreligger.">
 				>
 				["at0006"] = <
 					text = <"Unntaket er begrunnet i journalnotat datert:">
@@ -530,8 +524,8 @@ Standard kodeverk: 9290">
 					description = <"Dato begjæringen ble fremmet.">
 				>
 				["at0014"] = <
-					text = <"Referanse begjæring">
-					description = <"Referanse til begjæringen dersom beslutningen gjelder en begjæring om tvungen observasjon ">
+					text = <"Begjæringen er dokumentert i journalnotat datert:">
+					description = <"Referanse til journalnotat der begjæringen er dokumentert.">
 				>
 				["at0015"] = <
 					text = <"Pasienten er under tvungen observasjon">
@@ -619,8 +613,8 @@ Standard kodeverk: 9309">
 					description = <"Angir hvilken lege som har utført den interne undersøkelsen">
 				>
 				["at0048"] = <
-					text = <"Intern legeundersøkelse i journalnotat av">
-					description = <"Referanse til journalnotat som omhandler legeundersøkelsen">
+					text = <"Intern legeundersøkelse dokumentert i journalnotat datert:">
+					description = <"Referanse til dokumentasjon av intern legeundersøkelse.">
 				>
 				["at0049"] = <
 					text = <"Helsetjenesteenhet">
@@ -711,10 +705,6 @@ Standard kodeverk: 9290 ">
 					text = <"*New constraint(nb)">
 					description = <"**(nb)">
 				>
-				["ac0004"] = <
-					text = <"*New constraint(nb)">
-					description = <"**(nb)">
-				>
 			>
 		>
 		["nb"] = <
@@ -724,10 +714,6 @@ Standard kodeverk: 9290 ">
 					description = <"*">
 				>
 				["ac0003"] = <
-					text = <"New constraint">
-					description = <"*">
-				>
-				["ac0004"] = <
 					text = <"New constraint">
 					description = <"*">
 				>
