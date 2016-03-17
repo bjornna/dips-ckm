@@ -2,7 +2,7 @@
 	openEHR-EHR-CLUSTER.organisation.v1
 
 concept
-	[at0000]	-- Organisation
+	[at0000]	-- Organisasjon
 language
 	original_language = <[ISO_639-1::en]>
 	translations = <
@@ -14,25 +14,23 @@ language
 				["email"] = <"demski@helmholtz-muenchen.de">
 			>
 		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["name"] = <"Bjørn Næss">
+				["email"] = <"bna@dips.no">
+				["organisation"] = <"DIPS ASA">
+			>
+		>
 	>
 description
 	original_author = <
 		["name"] = <"Ian McNicoll">
-		["organisation"] = <"Ocean Informatics">
 		["email"] = <"ian.mcnicoll@oceaninformatics.com">
+		["organisation"] = <"Ocean Informatics">
 		["date"] = <"12/11/2007">
 	>
 	details = <
-		["en"] = <
-			language = <[ISO_639-1::en]>
-			purpose = <"To record details of an organisation, for example, a third party such as a care agency">
-			use = <"Use to identify an organisation that is not able to be identified by a reference within the electronic health record">
-			keywords = <"organisation", "agency">
-			misuse = <"Not to be used to identify the active care organisation which maintains the record and which would normally have a system reference to the organisation details.
-
-Not to be used to identify organisations who can be uniquely referenced from registers of demographic details eg within the electronic health record, master indexes etc.">
-			copyright = <"copyright (c) 2010 openEHR foundation">
-		>
 		["de"] = <
 			language = <[ISO_639-1::de]>
 			purpose = <"Zur Dokumentation von Angaben zu einer Einrichtung, z.B. einem Pflegeheim.">
@@ -44,46 +42,68 @@ Not to be used to identify organisations who can be uniquely referenced from reg
 Nicht zur Identifikation von Einrichtungen zu benutzen, die eindeutig Registern mit demografischen Daten zugeordnet werden können (z.B. einer elektronischen Krankenakte, einem Master Patient Index, etc.).">
 			copyright = <"copyright (c) 2010 openEHR foundation">
 		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record details of an organisation, for example, a third party such as a care agency">
+			use = <"Use to identify an organisation that is not able to be identified by a reference within the electronic health record">
+			keywords = <"organisation", "agency">
+			misuse = <"Not to be used to identify the active care organisation which maintains the record and which would normally have a system reference to the organisation details.
+
+Not to be used to identify organisations who can be uniquely referenced from registers of demographic details eg within the electronic health record, master indexes etc.">
+			copyright = <"copyright (c) 2010 openEHR foundation">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For å registrere detaljer om en organisasjon. Eksempel kan være tredjeparty som fastlegekontor eller pleie-/omsorgstjeneste">
+			use = <"Benyttes for å identifisere en organisasjon som ikke er identifisert som en referanse innenfor den elektroniske pasientjournalen. 
+
+Benyttes for å angi detaljer om mottaker av et dokument eller instruksjon. ">
+			keywords = <"organisasjon", "byrå">
+			misuse = <"Skal ikke benyttes for å identifisere den aktive helsetjenesteutøveren som vedlikeholder journalen og som normalt skal oppføres med en lenke til organisasjons detaljer. 
+
+Skal ikke benyttes for å identifisere organisasjoner som kan bli unikt referert fra registre med demografiske detaler. Det vil si denne arketypen skal ikke benyttes som et demografisk register. ">
+			copyright = <"copyright (c) 2010 openEHR foundation">
+		>
 	>
 	lifecycle_state = <"AuthorDraft">
 	other_contributors = <"Heather Leslie, Ocean Informatics, Australia", ...>
 	other_details = <
 		["references"] = <"From NHS Scotland SCI-XML messaging standards http://www.isdscotland.org/isd/files/general-v2-7.xsd NHS Scotland Interoperability Working Group http://www.isdscotland.org/isd/5194.html">
-		["MD5-CAM-1.0.1"] = <"B932A22934CC38489610A47273A86DA8">
+		["MD5-CAM-1.0.1"] = <"FD5DC887CA2740D8C2E6059325E6C7BF">
 	>
 
 definition
-	CLUSTER[at0000] matches {	-- Organisation
+	CLUSTER[at0000] matches {	-- Organisasjon
 		items cardinality matches {1..*; unordered} matches {
-			ELEMENT[at0001] matches {	-- Name of Organisation
+			ELEMENT[at0001] matches {	-- Navn
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0011] occurrences matches {0..1} matches {	-- Identifier
+			ELEMENT[at0011] occurrences matches {0..1} matches {	-- Identifikator
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			allow_archetype CLUSTER[at0008] occurrences matches {0..1} matches {	-- Address details
+			allow_archetype CLUSTER[at0008] occurrences matches {0..1} matches {	-- Adressedetaljer
 				include
 					archetype_id/value matches {/openEHR-EHR-CLUSTER\.address\.v1/}
 				exclude
 					archetype_id/value matches {/.*/}
 			}
-			allow_archetype CLUSTER[at0009] occurrences matches {0..1} matches {	-- Telecom details
+			allow_archetype CLUSTER[at0009] occurrences matches {0..1} matches {	-- Telekommunikasjonsdetaljer
 				include
 					archetype_id/value matches {/openEHR-EHR-CLUSTER\.telecom_details\.v1/}
 			}
-			CLUSTER[at0005] occurrences matches {0..*} matches {	-- Contact Person Details
+			CLUSTER[at0005] occurrences matches {0..*} matches {	-- Kontaktperson
 				items cardinality matches {1..*; unordered} matches {
-					allow_archetype CLUSTER[at0010] occurrences matches {0..*} matches {	-- Contact person's name
+					allow_archetype CLUSTER[at0010] occurrences matches {0..*} matches {	-- Navn på kontaktperson
 						include
 							archetype_id/value matches {/openEHR-EHR-CLUSTER\.person_name\.v1/}
 						exclude
 							archetype_id/value matches {/.*/}
 					}
-					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Role in organisation
+					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Rolle i organisasjon
 						value matches {
 							DV_TEXT matches {*}
 						}
@@ -92,7 +112,6 @@ definition
 			}
 		}
 	}
-
 
 ontology
 	term_definitions = <
@@ -165,6 +184,42 @@ ontology
 				["at0011"] = <
 					text = <"*New element(en)">
 					description = <"**(en)">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Organisasjon">
+					description = <"Detaljer om en organisasjone">
+				>
+				["at0001"] = <
+					text = <"Navn">
+					description = <"Navnet på organisasjonen">
+				>
+				["at0005"] = <
+					text = <"Kontaktperson">
+					description = <"Detaljer om kontaktperson i organisasjonen">
+				>
+				["at0007"] = <
+					text = <"Rolle i organisasjon">
+					description = <"Kontaktpersonens rolle i organisasjonen">
+				>
+				["at0008"] = <
+					text = <"Adressedetaljer">
+					description = <"Detaljer om adressen">
+				>
+				["at0009"] = <
+					text = <"Telekommunikasjonsdetaljer">
+					description = <"Detaljer om telekommunikasjon">
+				>
+				["at0010"] = <
+					text = <"Navn på kontaktperson">
+					description = <"Navnet til kontaktpersonen">
+				>
+				["at0011"] = <
+					text = <"Identifikator">
+					description = <"Identifikatoren til organisasjonen">
 				>
 			>
 		>
