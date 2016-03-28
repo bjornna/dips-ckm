@@ -21,7 +21,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"48388F370CA8508C420CD7E7065621D4">
+		["MD5-CAM-1.0.1"] = <"747F261D12806F8F50CCC3B400E2C5EC">
 	>
 
 definition
@@ -31,17 +31,20 @@ definition
 				description matches {
 					ITEM_TREE[at0002] matches {	-- Tree
 						items cardinality matches {0..*; unordered} matches {
-							ELEMENT[at0003] occurrences matches {0..1} matches {	-- Begrunnelse for vedtaket er gitt i journalnotat av
+							ELEMENT[at0003] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak i journalnotat datert:
 								value matches {
-									DV_DATE matches {
-										value matches {yyyy-mm-dd}
-									}
+									DV_DATE matches {*}
 								}
 							}
-							ELEMENT[at0004] occurrences matches {0..1} matches {	-- Dato vedtak fattet
+							ELEMENT[at0017] occurrences matches {0..1} matches {	-- Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette
 								value matches {
-									DV_DATE matches {
-										value matches {yyyy-mm-dd}
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0004] occurrences matches {0..1} matches {	-- Tidspunkt vedtaket ble fattet:
+								value matches {
+									DV_DATE_TIME matches {
+										value matches {yyyy-mm-ddTHH:MM:SS}
 									}
 								}
 							}
@@ -90,6 +93,10 @@ definition
 									DV_TEXT matches {*}
 								}
 							}
+							allow_archetype CLUSTER[at0018] occurrences matches {0..*} matches {	-- Vurdering av pasientinnsyn
+								include
+									archetype_id/value matches {/.*/}
+							}
 						}
 					}
 				}
@@ -114,12 +121,12 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0003"] = <
-					text = <"Begrunnelse for vedtaket er gitt i journalnotat av">
-					description = <"Datoreferanse til det dokument i pasienten journal som inneholder nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette">
+					text = <"Begrunnelse for vedtak i journalnotat datert:">
+					description = <"Referanse til journalnotat med nærmere begrunnelse for vedtaket.">
 				>
 				["at0004"] = <
-					text = <"Dato vedtak fattet">
-					description = <"Dato vedtak ble fattet">
+					text = <"Tidspunkt vedtaket ble fattet:">
+					description = <"Dato og klokkeslett vedtaket ble fattet.">
 				>
 				["at0005"] = <
 					text = <"Hvordan undersøkelsen skal gjennomføres">
@@ -167,7 +174,15 @@ ontology
 				>
 				["at0016"] = <
 					text = <"Helsetjenesteenhet">
-					description = <"Identifikasjon av den enhet der vedtaket fattes">
+					description = <"Identifikasjon av den enheten hvor vedtaket fattes.">
+				>
+				["at0017"] = <
+					text = <"Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette">
+					description = <"Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette.">
+				>
+				["at0018"] = <
+					text = <"Vurdering av pasientinnsyn">
+					description = <"*">
 				>
 			>
 		>

@@ -18,13 +18,6 @@ description
 		["name"] = <"">
 	>
 	details = <
-		["nb"] = <
-			language = <[ISO_639-1::nb]>
-			purpose = <"">
-			use = <"">
-			misuse = <"">
-			copyright = <"">
-		>
 		["no"] = <
 			language = <[ISO_639-1::no]>
 			purpose = <"øpenummer som unikt identifiserer tilfellet av skjerming innenfor det aktuelle  rettslige grunnlag for behandlingen">
@@ -32,11 +25,18 @@ description
 			misuse = <"*(nb)">
 			copyright = <"">
 		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
 	>
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"C53C820951EDA629B7139BFDCC322B2E">
+		["MD5-CAM-1.0.1"] = <"6E95EFF234825E42B7558A20720A065A">
 	>
 
 definition
@@ -46,6 +46,13 @@ definition
 				description matches {
 					ITEM_TREE[at0002] matches {	-- Tree
 						items cardinality matches {0..*; unordered} matches {
+							ELEMENT[at0049] occurrences matches {0..1} matches {	-- Skjermingsvedtak innenfor aktuelt rettslig grunnlag, nr.
+								value matches {
+									DV_COUNT matches {
+										magnitude matches {|>=0|; 0}
+									}
+								}
+							}
 							ELEMENT[at0021] occurrences matches {0..1} matches {	-- Helsetjenesteenhet
 								value matches {
 									DV_TEXT matches {*}
@@ -86,13 +93,15 @@ definition
 							}
 							ELEMENT[at0012] occurrences matches {0..1} matches {	-- Iverksatt tidspunkt
 								value matches {
-									DV_DATE_TIME matches {*}
+									DV_DATE_TIME matches {
+										value matches {yyyy-mm-ddTHH:MM:SS}
+									}
 								}
 							}
 							ELEMENT[at0030] occurrences matches {0..1} matches {	-- Iverksatt av (tjenesteyter)
 								value matches {
 									DV_CODED_TEXT matches {
-										defining_code matches {[ac0001]}		-- *New constraint(nb)
+										defining_code matches {[ac0001]}		-- New constraint
 									}
 								}
 							}
@@ -103,22 +112,33 @@ definition
 							}
 							ELEMENT[at0032] occurrences matches {0..1} matches {	-- Frist for å fatte formelt vedtak
 								value matches {
-									DV_DATE_TIME matches {*}
+									DV_DATE_TIME matches {
+										value matches {yyyy-mm-ddTHH:MM:SS}
+									}
 								}
 							}
-							ELEMENT[at0046] occurrences matches {0..1} matches {	-- Begrunnelse for skjermingsvedtak i journalnotat av
+							ELEMENT[at0046] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak i journalnotat datert:
 								value matches {
-									DV_DATE_TIME matches {*}
+									DV_DATE matches {*}
+								}
+							}
+							ELEMENT[at0047] occurrences matches {0..1} matches {	--  Nødvendige, detaljerte opplysninger om skjermingens innhold og begrunnelsen for skjermingen
+								value matches {
+									DV_TEXT matches {*}
 								}
 							}
 							ELEMENT[at0037] occurrences matches {0..1} matches {	-- Vedtaket skal avsluttes innen
 								value matches {
-									DV_DATE_TIME matches {*}
+									DV_DATE_TIME matches {
+										value matches {yyyy-mm-ddTHH:MM:SS}
+									}
 								}
 							}
 							ELEMENT[at0033] occurrences matches {0..1} matches {	-- Tidspunkt skjermingen ble avsluttet
 								value matches {
-									DV_DATE_TIME matches {*}
+									DV_DATE_TIME matches {
+										value matches {yyyy-mm-ddTHH:MM:SS}
+									}
 								}
 							}
 							ELEMENT[at0045] occurrences matches {0..1} matches {	-- Skjerming avsluttet innen fristen (12/24 timer)
@@ -128,12 +148,18 @@ definition
 									}
 								}
 							}
-							ELEMENT[at0035] occurrences matches {0..1} matches {	-- Dato vedtak fattet
+							ELEMENT[at0035] occurrences matches {0..1} matches {	-- Tidspunkt vedtaket ble fattet:
 								value matches {
-									DV_DATE_TIME matches {*}
+									DV_DATE_TIME matches {
+										value matches {yyyy-mm-ddTHH:MM:SS}
+									}
 								}
 							}
 							allow_archetype CLUSTER[at0036] occurrences matches {0..*} matches {	-- Vedtakstype
+								include
+									archetype_id/value matches {/.*/}
+							}
+							allow_archetype CLUSTER[at0048] occurrences matches {0..*} matches {	-- Vurdering av pasientinnsyn
 								include
 									archetype_id/value matches {/.*/}
 							}
@@ -175,7 +201,7 @@ ontology
 				>
 				["at0021"] = <
 					text = <"Helsetjenesteenhet">
-					description = <"Identifikasjon av den enhet pasienten behandles ved">
+					description = <"Identifikasjon av den enheten hvor vedtaket fattes.">
 				>
 				["at0030"] = <
 					text = <"Iverksatt av (tjenesteyter)">
@@ -194,8 +220,8 @@ ontology
 					description = <"Dersom skjermingen ikke opprettholdes ut over hhv. 12 eller 24 timer, skal det tidspunkt skjermingen ble avsluttet registreres">
 				>
 				["at0035"] = <
-					text = <"Dato vedtak fattet">
-					description = <"Det tidspunktet vedtaket ble fattet av den faglig ansvarlige">
+					text = <"Tidspunkt vedtaket ble fattet:">
+					description = <"Dato og klokkeslett vedtaket ble fattet.">
 				>
 				["at0036"] = <
 					text = <"Vedtakstype">
@@ -203,7 +229,7 @@ ontology
 				>
 				["at0037"] = <
 					text = <"Vedtaket skal avsluttes innen">
-					description = <"Det tidspunktet  vedtaket gjelder til">
+					description = <"Dato og klokkeslett vedtaket gjelder til.">
 				>
 				["at0038"] = <
 					text = <"Vedtakstype">
@@ -238,8 +264,20 @@ ontology
 					description = <"Angir om skjermingen ble avsluttet innen frist for formelt vedtak">
 				>
 				["at0046"] = <
-					text = <"Begrunnelse for skjermingsvedtak i journalnotat av">
-					description = <"Referanse til det dokument i pasienten journal som inneholder nødvendige, detaljerte opplysninger om skjermingens innhold og begrunnelsen for skjermingen">
+					text = <"Begrunnelse for vedtak i journalnotat datert:">
+					description = <"Referanse til journalnotat med nærmere begrunnelse for vedtaket.">
+				>
+				["at0047"] = <
+					text = <" Nødvendige, detaljerte opplysninger om skjermingens innhold og begrunnelsen for skjermingen">
+					description = <" Nødvendige, detaljerte opplysninger om skjermingens innhold og begrunnelsen for skjermingen.">
+				>
+				["at0048"] = <
+					text = <"Vurdering av pasientinnsyn">
+					description = <"*">
+				>
+				["at0049"] = <
+					text = <"Skjermingsvedtak innenfor aktuelt rettslig grunnlag, nr.">
+					description = <"Et løpenummer som unikt identifiserer tilfellet av skjerming innenfor det aktuelle rettslige grunnlag for behandlingen.">
 				>
 			>
 		>
@@ -270,8 +308,8 @@ ontology
 					description = <"Her registreres kode(r) som angir hva som var den utløsende årsak som gjorde det nødvendig å treffe vedtak om skjerming">
 				>
 				["at0021"] = <
-					text = <"Helsetjenesteenhet">
-					description = <"Identifikasjon av den enhet pasienten behandles ved">
+					text = <"*Helsetjenesteenhet(nb)">
+					description = <"*Identifikasjon av den enheten hvor vedtaket fattes.(nb)">
 				>
 				["at0030"] = <
 					text = <"Iverksatt av (tjenesteyter)">
@@ -290,16 +328,16 @@ ontology
 					description = <"Dersom skjermingen ikke opprettholdes ut over hhv. 12 eller 24 timer, skal det tidspunkt skjermingen ble avsluttet registreres">
 				>
 				["at0035"] = <
-					text = <"Dato vedtak fattet">
-					description = <"Det tidspunktet vedtaket ble fattet av den faglig ansvarlige">
+					text = <"*Tidspunkt vedtaket ble fattet:(nb)">
+					description = <"*Dato og klokkeslett vedtaket ble fattet.(nb)">
 				>
 				["at0036"] = <
 					text = <"Vedtakstype">
-					description = <"">
+					description = <"*">
 				>
 				["at0037"] = <
-					text = <"Vedtaket skal avsluttes innen">
-					description = <"Det tidspunktet  vedtaket gjelder til">
+					text = <"*Vedtaket skal avsluttes innen(nb)">
+					description = <"*Dato og klokkeslett vedtaket gjelder til.(nb)">
 				>
 				["at0038"] = <
 					text = <"Vedtakstype">
@@ -307,35 +345,47 @@ ontology
 				>
 				["at0039"] = <
 					text = <"Skjerming av mindre inngripende karakter, jf. psykisk helsevernloven § 4 3 annet ledd første punktum">
-					description = <"">
+					description = <"*">
 				>
 				["at0040"] = <
 					text = <"Pasienten overføres til skjermet enhet eller liknende som innebærer en betydelig endring av vedkommendes omgivelser eller bevegelsesfrihet, jf. psykisk helsevernloven § 4 3 annet ledd annet punktum">
-					description = <"">
+					description = <"*">
 				>
 				["at0041"] = <
 					text = <"Pasientens psykiske tilstand">
-					description = <"">
+					description = <"*">
 				>
 				["at0042"] = <
 					text = <"Pasientens utagerende atferd">
-					description = <"">
+					description = <"*">
 				>
 				["at0043"] = <
 					text = <"Av behandlingsmessige grunner">
-					description = <"">
+					description = <"*">
 				>
 				["at0044"] = <
 					text = <"Av hensyn til andre pasienter">
-					description = <"">
+					description = <"*">
 				>
 				["at0045"] = <
 					text = <"Skjerming avsluttet innen fristen (12/24 timer)">
 					description = <"Angir om skjermingen ble avsluttet innen frist for formelt vedtak">
 				>
 				["at0046"] = <
-					text = <"Begrunnelse for skjermingsvedtak i journalnotat av">
-					description = <"Referanse til det dokument i pasienten journal som inneholder nødvendige, detaljerte opplysninger om skjermingens innhold og begrunnelsen for skjermingen">
+					text = <"*Begrunnelse for vedtak i journalnotat datert:(nb)">
+					description = <"*Referanse til journalnotat med nærmere begrunnelse for vedtaket.(nb)">
+				>
+				["at0047"] = <
+					text = <"* Nødvendige, detaljerte opplysninger om skjermingens innhold og begrunnelsen for skjermingen(nb)">
+					description = <"* Nødvendige, detaljerte opplysninger om skjermingens innhold og begrunnelsen for skjermingen.(nb)">
+				>
+				["at0048"] = <
+					text = <"*Vurdering av pasientinnsyn(nb)">
+					description = <"**(nb)">
+				>
+				["at0049"] = <
+					text = <"*Skjermingsvedtak innenfor aktuelt rettslig grunnlag, nr.(nb)">
+					description = <"*Et løpenummer som unikt identifiserer tilfellet av skjerming innenfor det aktuelle rettslige grunnlag for behandlingen.(nb)">
 				>
 			>
 		>

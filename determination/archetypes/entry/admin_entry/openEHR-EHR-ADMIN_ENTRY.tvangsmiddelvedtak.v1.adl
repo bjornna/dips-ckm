@@ -36,7 +36,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"ACB62EC27F3967DBC8DF8709EC788EC5">
+		["MD5-CAM-1.0.1"] = <"88546197CF207F5896725CD26987633F">
 	>
 
 definition
@@ -56,9 +56,9 @@ definition
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0015] occurrences matches {0..*} matches {	-- Vurdering av lempeligere midler i dokument
+					ELEMENT[at0015] occurrences matches {0..*} matches {	-- Vurdering av lempeligere midler dokumentert i journalnotat datert:
 						value matches {
-							DV_DATE_TIME matches {*}
+							DV_DATE matches {*}
 						}
 					}
 					allow_archetype CLUSTER[at0037] occurrences matches {0..*} matches {	-- Vedtakstype
@@ -70,22 +70,27 @@ definition
 							DV_CODED_TEXT matches {
 								defining_code matches {
 									[local::
-									at0040, 	-- Hindre pasienten i å skade seg selv
-									at0041, 	-- Hindre pasienten i å skade andre
-									at0042]	-- Avverge betydelig skade på bygninger, klær, inventar eller andre ting
+									at0040, 	-- Bruk av tvangsmidler uomgjengelig nødvendig for å hindre pasienten i å skade seg selv
+									at0041, 	-- Bruk av tvangsmidler uomgjengelig nødvendig for å hindre pasienten i å skade andre
+									at0042]	-- Bruk av tvangsmidler uomgjengelig nødvendig for å avverge betydelig skade på bygninger, klær, inventar eller andre ting
 								}
 							}
 						}
 					}
-					ELEMENT[at0016] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak i dokument
+					ELEMENT[at0016] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak i journalnotat datert:
 						value matches {
-							DV_DATE_TIME matches {*}
+							DV_DATE matches {*}
+						}
+					}
+					ELEMENT[at0043] occurrences matches {0..1} matches {	-- Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette
+						value matches {
+							DV_TEXT matches {*}
 						}
 					}
 					ELEMENT[at0017] occurrences matches {0..1} matches {	-- Gyldig fra
 						value matches {
 							DV_DATE_TIME matches {
-								value matches {yyyy-mm-ddTHH:??:??}
+								value matches {yyyy-mm-ddTHH:MM:SS}
 							}
 						}
 					}
@@ -104,14 +109,14 @@ definition
 					ELEMENT[at0021] occurrences matches {0..1} matches {	-- Starttidspunkt
 						value matches {
 							DV_DATE_TIME matches {
-								value matches {yyyy-mm-ddTHH:??:??}
+								value matches {yyyy-mm-ddTHH:MM:SS}
 							}
 						}
 					}
 					ELEMENT[at0022] occurrences matches {0..1} matches {	-- Faglig ansvarlig informert
 						value matches {
 							DV_DATE_TIME matches {
-								value matches {yyyy-mm-ddTHH:??:??}
+								value matches {yyyy-mm-ddTHH:MM:SS}
 							}
 						}
 					}
@@ -129,10 +134,10 @@ definition
 							1|[local::at0032]  	-- Den faglig ansvarlige har besluttet å ikke opprettholde vedtaket
 						}
 					}
-					ELEMENT[at0034] occurrences matches {0..1} matches {	-- Vedtak fattet av faglig ansvarlig
+					ELEMENT[at0034] occurrences matches {0..1} matches {	-- Tidspunkt vedtaket ble fattet:
 						value matches {
 							DV_DATE_TIME matches {
-								value matches {yyyy-mm-ddTHH:??:??}
+								value matches {yyyy-mm-ddTHH:MM:SS}
 							}
 						}
 					}
@@ -140,6 +145,10 @@ definition
 						value matches {
 							DV_TEXT matches {*}
 						}
+					}
+					allow_archetype CLUSTER[at0044] occurrences matches {0..*} matches {	-- Vurdering av pasientinnsyn
+						include
+							archetype_id/value matches {/.*/}
 					}
 				}
 			}
@@ -160,20 +169,20 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0002"] = <
-					text = <"Tvangsmiddelvedtak innenfor aktuelt rettslig grunnlag, nr.">
-					description = <"Angir antall vedtak om bruk av tvangsmiddel innenfor aktuelt rettslig grunnlag. Oppdateres automatisk og er ikke redigerbart.">
+					text = <"*Tvangsmiddelvedtak innenfor aktuelt rettslig grunnlag, nr.(nb)">
+					description = <"*Et løpenummer som unikt identifiserer tilfellet av tvangsmiddelbruk innenfor det aktuelle rettslige grunnlag for behandlingen.(nb)">
 				>
 				["at0003"] = <
-					text = <"Helsetjenesteenhet">
-					description = <"Organisasjonskodeverk for spesialisthelsetjenesten ">
+					text = <"*Helsetjenesteenhet(nb)">
+					description = <"*Identifikasjon av den enheten hvor vedtaket fattes.(nb)">
 				>
 				["at0015"] = <
-					text = <"Vurdering av lempeligere midler i dokument">
-					description = <"Dato-referanse til dokument med vurdering av lempeligere midler.">
+					text = <"*Vurdering av lempeligere midler dokumentert i journalnotat datert:(nb)">
+					description = <"*Referanse til journalnotat der vurdering av lempeligere midler er dokumentert.(nb)">
 				>
 				["at0016"] = <
-					text = <"Begrunnelse for vedtak i dokument">
-					description = <"Dato-referanse til dokument som inneholder begrunnelse for at vedtaket fattes">
+					text = <"*Begrunnelse for vedtak i journalnotat datert:(nb)">
+					description = <"*Referanse til journalnotat med nærmere begrunnelse for vedtaket.(nb)">
 				>
 				["at0017"] = <
 					text = <"Gyldig fra">
@@ -224,8 +233,8 @@ ontology
 					description = <"*">
 				>
 				["at0034"] = <
-					text = <"Vedtak fattet ">
-					description = <"Tidspunktet vedtaket ble fattet av den faglig ansvarlige">
+					text = <"*Tidspunkt vedtaket ble fattet:(nb)">
+					description = <"*Dato og klokkeslett vedtaket ble fattet.(nb)">
 				>
 				["at0035"] = <
 					text = <"Merknad">
@@ -244,16 +253,24 @@ ontology
 					description = <"Begrunnelse for tvangsmiddelvedtak basert på kode, som angir hvorfor det har vært nødvendig å treffe vedtak om tvangsmidler">
 				>
 				["at0040"] = <
-					text = <"Hindre pasienten i å skade seg selv">
-					description = <"*">
+					text = <"*Bruk av tvangsmidler uomgjengelig nødvendig for å hindre pasienten i å skade seg selv(nb)">
+					description = <"**(nb)">
 				>
 				["at0041"] = <
-					text = <"Hindre pasienten i å skade andre">
-					description = <"*">
+					text = <"*Bruk av tvangsmidler uomgjengelig nødvendig for å hindre pasienten i å skade andre(nb)">
+					description = <"**(nb)">
 				>
 				["at0042"] = <
-					text = <"Avverge betydelig skade på bygninger, klær, inventar eller andre ting">
-					description = <"*">
+					text = <"*Bruk av tvangsmidler uomgjengelig nødvendig for å avverge betydelig skade på bygninger, klær, inventar eller andre ting(nb)">
+					description = <"**(nb)">
+				>
+				["at0043"] = <
+					text = <"*Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette(nb)">
+					description = <"*Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette.(nb)">
+				>
+				["at0044"] = <
+					text = <"*Vurdering av pasientinnsyn(nb)">
+					description = <"**(nb)">
 				>
 			>
 		>
@@ -269,19 +286,19 @@ ontology
 				>
 				["at0002"] = <
 					text = <"Tvangsmiddelvedtak innenfor aktuelt rettslig grunnlag, nr.">
-					description = <"Angir antall vedtak om bruk av tvangsmiddel innenfor aktuelt rettslig grunnlag. Oppdateres automatisk og er ikke redigerbart.">
+					description = <"Et løpenummer som unikt identifiserer tilfellet av tvangsmiddelbruk innenfor det aktuelle rettslige grunnlag for behandlingen.">
 				>
 				["at0003"] = <
 					text = <"Helsetjenesteenhet">
-					description = <"Organisasjonskodeverk for spesialisthelsetjenesten ">
+					description = <"Identifikasjon av den enheten hvor vedtaket fattes.">
 				>
 				["at0015"] = <
-					text = <"Vurdering av lempeligere midler i dokument">
-					description = <"Dato-referanse til dokument med vurdering av lempeligere midler.">
+					text = <"Vurdering av lempeligere midler dokumentert i journalnotat datert:">
+					description = <"Referanse til journalnotat der vurdering av lempeligere midler er dokumentert.">
 				>
 				["at0016"] = <
-					text = <"Begrunnelse for vedtak i dokument">
-					description = <"Dato-referanse til dokument som inneholder begrunnelse for at vedtaket fattes">
+					text = <"Begrunnelse for vedtak i journalnotat datert:">
+					description = <"Referanse til journalnotat med nærmere begrunnelse for vedtaket.">
 				>
 				["at0017"] = <
 					text = <"Gyldig fra">
@@ -332,8 +349,8 @@ ontology
 					description = <"*">
 				>
 				["at0034"] = <
-					text = <"Vedtak fattet av faglig ansvarlig">
-					description = <"Tidspunktet vedtaket ble fattet av faglig ansvarlig">
+					text = <"Tidspunkt vedtaket ble fattet:">
+					description = <"Dato og klokkeslett vedtaket ble fattet.">
 				>
 				["at0035"] = <
 					text = <"Merknad">
@@ -352,15 +369,23 @@ ontology
 					description = <"Begrunnelse for tvangsmiddelvedtak basert på kode, som angir hvorfor det har vært nødvendig å treffe vedtak om tvangsmidler">
 				>
 				["at0040"] = <
-					text = <"Hindre pasienten i å skade seg selv">
+					text = <"Bruk av tvangsmidler uomgjengelig nødvendig for å hindre pasienten i å skade seg selv">
 					description = <"*">
 				>
 				["at0041"] = <
-					text = <"Hindre pasienten i å skade andre">
+					text = <"Bruk av tvangsmidler uomgjengelig nødvendig for å hindre pasienten i å skade andre">
 					description = <"*">
 				>
 				["at0042"] = <
-					text = <"Avverge betydelig skade på bygninger, klær, inventar eller andre ting">
+					text = <"Bruk av tvangsmidler uomgjengelig nødvendig for å avverge betydelig skade på bygninger, klær, inventar eller andre ting">
+					description = <"*">
+				>
+				["at0043"] = <
+					text = <"Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette">
+					description = <"Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette.">
+				>
+				["at0044"] = <
+					text = <"Vurdering av pasientinnsyn">
 					description = <"*">
 				>
 			>

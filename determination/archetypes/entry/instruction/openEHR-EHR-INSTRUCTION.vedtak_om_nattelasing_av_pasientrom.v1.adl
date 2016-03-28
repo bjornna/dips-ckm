@@ -21,7 +21,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"809CA91A3BE68E2DC3A62C2A1E57A002">
+		["MD5-CAM-1.0.1"] = <"1C4CACEB2E1FAA8A428C1742159D7572">
 	>
 
 definition
@@ -40,16 +40,19 @@ definition
 							}
 							ELEMENT[at0004] occurrences matches {0..1} matches {	-- Dato tiltaket senest skal avsluttes
 								value matches {
-									DV_DATE matches {
-										value matches {yyyy-mm-dd}
+									DV_DATE_TIME matches {
+										value matches {yyyy-mm-ddTHH:MM:SS}
 									}
 								}
 							}
-							ELEMENT[at0005] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak er gitt i journalnotat av
+							ELEMENT[at0005] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak i journalnotat datert:
 								value matches {
-									DV_DATE matches {
-										value matches {yyyy-mm-dd}
-									}
+									DV_DATE matches {*}
+								}
+							}
+							ELEMENT[at0018] occurrences matches {0..1} matches {	-- Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette
+								value matches {
+									DV_TEXT matches {*}
 								}
 							}
 							ELEMENT[at0006] occurrences matches {0..1} matches {	-- Det er foretatt en individuell vurdering av pasientens tilstand
@@ -88,10 +91,10 @@ definition
 								include
 									archetype_id/value matches {/openEHR-EHR-CLUSTER\.vedtakstype(-[a-zA-Z0-9_]+)*\.v1/}
 							}
-							ELEMENT[at0015] occurrences matches {0..1} matches {	-- Dato vedtak fattet
+							ELEMENT[at0015] occurrences matches {0..1} matches {	-- Tidspunkt vedtaket ble fattet:
 								value matches {
-									DV_DATE matches {
-										value matches {yyyy-mm-dd}
+									DV_DATE_TIME matches {
+										value matches {yyyy-mm-ddTHH:MM:SS}
 									}
 								}
 							}
@@ -100,12 +103,14 @@ definition
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0017] occurrences matches {0..*} matches {	-- Vurdering av lempligere midler i dokument
+							ELEMENT[at0017] occurrences matches {0..*} matches {	-- Vurdering av lempeligere midler dokumentert i journalnotat datert:
 								value matches {
-									DV_DATE matches {
-										value matches {yyyy-mm-dd}
-									}
+									DV_DATE matches {*}
 								}
+							}
+							allow_archetype CLUSTER[at0019] occurrences matches {0..*} matches {	-- Vurdering av pasientinnsyn
+								include
+									archetype_id/value matches {/.*/}
 							}
 						}
 					}
@@ -139,8 +144,8 @@ ontology
 					description = <"Den dato tiltaket senest skal avsluttes">
 				>
 				["at0005"] = <
-					text = <"Begrunnelse for vedtak er gitt i journalnotat av">
-					description = <"Referanse til journalnotat som inneholder nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette">
+					text = <"Begrunnelse for vedtak i journalnotat datert:">
+					description = <"Referanse til journalnotat med nærmere begrunnelse for vedtaket.">
 				>
 				["at0006"] = <
 					text = <"Det er foretatt en individuell vurdering av pasientens tilstand">
@@ -171,16 +176,24 @@ ontology
 					description = <"*">
 				>
 				["at0015"] = <
-					text = <"Dato vedtak fattet">
-					description = <"Den dato vedtaket ble fattet">
+					text = <"Tidspunkt vedtaket ble fattet:">
+					description = <"Dato og klokkeslett vedtaket ble fattet.">
 				>
 				["at0016"] = <
 					text = <"Helsetjenesteenhet">
-					description = <"Identifikasjon av den enhet hvor vedtaket fattes">
+					description = <"Identifikasjon av den enheten hvor vedtaket fattes.">
 				>
 				["at0017"] = <
-					text = <"Vurdering av lempligere midler i dokument">
-					description = <"Datoreferanse til dokument(er) i pasientens journal som dokumenterer hvilke lempligere midler som har vist seg åpenbart forgjeves eller utilstrekkelige">
+					text = <"Vurdering av lempeligere midler dokumentert i journalnotat datert:">
+					description = <"Referanse til journalnotat der vurdering av lempeligere midler er dokumentert.">
+				>
+				["at0018"] = <
+					text = <"Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette">
+					description = <"Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette.">
+				>
+				["at0019"] = <
+					text = <"Vurdering av pasientinnsyn">
+					description = <"*">
 				>
 			>
 		>
