@@ -21,7 +21,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"62C70718809227FDD465FC86772EFE17">
+		["MD5-CAM-1.0.1"] = <"0D331BCF3DE2A9132EF0777DF8836C7C">
 	>
 
 definition
@@ -78,6 +78,20 @@ definition
 						value matches {
 							DV_DATE_TIME matches {
 								value matches {yyyy-mm-ddTHH:MM:SS}
+							}
+						}
+					}
+					ELEMENT[at0054] occurrences matches {0..1} matches {	-- Utskrivende lege
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {[ac0002]}		-- New constraint
+							}
+						}
+					}
+					ELEMENT[at0053] occurrences matches {0..1} matches {	-- Tidspunkt for utskriving
+						value matches {
+							DV_DATE matches {
+								value matches {yyyy-mm-dd}
 							}
 						}
 					}
@@ -170,12 +184,29 @@ definition
 							DV_TEXT matches {*}
 						}
 					}
+					allow_archetype CLUSTER[at0050] occurrences matches {0..*} matches {	-- Cluster
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0051] occurrences matches {0..1} matches {	-- Kontaktperson helsepersonell
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {[ac0001]}		-- New constraint
+							}
+						}
+					}
+					ELEMENT[at0052] occurrences matches {0..1} matches {	-- Telefonnummer
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
 				}
 			}
 		}
 	}
 
 ontology
+	terminologies_available = <"DIPS", ...>
 	term_definitions = <
 		["nb"] = <
 			items = <
@@ -287,6 +318,48 @@ ontology
 					text = <"Legemidler administrert av helsepersonell på utskrivelsesdagen - automatisk innhentet">
 					description = <"*">
 				>
+				["at0050"] = <
+					text = <"Cluster">
+					description = <"*">
+				>
+				["at0051"] = <
+					text = <"Kontaktperson helsepersonell">
+					description = <"*">
+				>
+				["at0052"] = <
+					text = <"Telefonnummer">
+					description = <"*">
+				>
+				["at0053"] = <
+					text = <"Tidspunkt for utskriving">
+					description = <"*">
+				>
+				["at0054"] = <
+					text = <"Utskrivende lege">
+					description = <"*">
+				>
+			>
+		>
+	>
+	constraint_definitions = <
+		["nb"] = <
+			items = <
+				["ac0001"] = <
+					text = <"New constraint">
+					description = <"*">
+				>
+				["ac0002"] = <
+					text = <"New constraint">
+					description = <"*">
+				>
+			>
+		>
+	>
+	constraint_bindings = <
+		["DIPS"] = <
+			items = <
+				["ac0001"] = <terminology:DIPS?subset=Healthcareparty>
+				["ac0002"] = <terminology:DIPS?subset=Healthcareparty>
 			>
 		>
 	>

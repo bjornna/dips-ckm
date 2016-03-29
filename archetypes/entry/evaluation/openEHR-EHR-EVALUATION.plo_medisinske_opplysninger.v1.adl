@@ -21,7 +21,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"B3EE5E94FBB8AD16BE0D054BD236E526">
+		["MD5-CAM-1.0.1"] = <"C89B66803B1F3A4B3939ED70D7C0DFA1">
 	>
 
 definition
@@ -39,9 +39,12 @@ definition
 							DV_TEXT matches {*}
 						}
 					}
-					allow_archetype CLUSTER[at0005] occurrences matches {0..*} matches {	-- Ansvalig for medisinske opplysninger
-						include
-							archetype_id/value matches {/.*/}
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Ansvarlig for medisinske opplysninger
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {[ac0001]}		-- New constraint
+							}
+						}
 					}
 				}
 			}
@@ -49,6 +52,7 @@ definition
 	}
 
 ontology
+	terminologies_available = <"DIPS", ...>
 	term_definitions = <
 		["nb"] = <
 			items = <
@@ -68,10 +72,27 @@ ontology
 					text = <"Planer for videre oppfølging">
 					description = <"*">
 				>
-				["at0005"] = <
-					text = <"Ansvalig for medisinske opplysninger">
+				["at0006"] = <
+					text = <"Ansvarlig for medisinske opplysninger">
 					description = <"*">
 				>
+			>
+		>
+	>
+	constraint_definitions = <
+		["nb"] = <
+			items = <
+				["ac0001"] = <
+					text = <"New constraint">
+					description = <"*">
+				>
+			>
+		>
+	>
+	constraint_bindings = <
+		["DIPS"] = <
+			items = <
+				["ac0001"] = <terminology:DIPS?subset=Healthcareparty>
 			>
 		>
 	>
