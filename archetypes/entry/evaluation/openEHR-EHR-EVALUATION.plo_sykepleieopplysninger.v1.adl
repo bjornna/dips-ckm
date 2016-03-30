@@ -21,7 +21,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"1C436C12D602623A3438FC1B64EA5C29">
+		["MD5-CAM-1.0.1"] = <"74F66F303F5050810E245A6C7DDDFB9E">
 	>
 
 definition
@@ -30,6 +30,11 @@ definition
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
 					ELEMENT[at0002] occurrences matches {0..*} matches {	-- Sykepleiesammenfatning
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0012] occurrences matches {0..1} matches {	-- Innkomststatus
 						value matches {
 							DV_TEXT matches {*}
 						}
@@ -64,12 +69,9 @@ definition
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0011] occurrences matches {0..1} matches {	-- Ansvarlig for sykepleieopplysninger
-						value matches {
-							DV_CODED_TEXT matches {
-								defining_code matches {[ac0001]}		-- New constraint
-							}
-						}
+					allow_archetype CLUSTER[at0013] occurrences matches {0..*} matches {	-- Ansvarlig for sykepleieopplysninger
+						include
+							archetype_id/value matches {/.*/}
 					}
 				}
 			}
@@ -77,7 +79,6 @@ definition
 	}
 
 ontology
-	terminologies_available = <"DIPS", ...>
 	term_definitions = <
 		["nb"] = <
 			items = <
@@ -117,27 +118,14 @@ ontology
 					text = <"Anbefalte videre tiltak">
 					description = <"*">
 				>
-				["at0011"] = <
+				["at0012"] = <
+					text = <"Innkomststatus">
+					description = <"*">
+				>
+				["at0013"] = <
 					text = <"Ansvarlig for sykepleieopplysninger">
 					description = <"*">
 				>
-			>
-		>
-	>
-	constraint_definitions = <
-		["nb"] = <
-			items = <
-				["ac0001"] = <
-					text = <"New constraint">
-					description = <"*">
-				>
-			>
-		>
-	>
-	constraint_bindings = <
-		["DIPS"] = <
-			items = <
-				["ac0001"] = <terminology:DIPS?subset=Healthcareparty>
 			>
 		>
 	>

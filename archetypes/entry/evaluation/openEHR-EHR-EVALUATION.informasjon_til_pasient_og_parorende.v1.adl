@@ -21,7 +21,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"D1E14280E7848837E4CEABB1C9ABD910">
+		["MD5-CAM-1.0.1"] = <"0BD00C9E1E4288102DB542E2DCA76895">
 	>
 
 definition
@@ -29,6 +29,13 @@ definition
 		data matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Informasjon gitt
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
 					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Beskrivelse av informasjonen som er gitt
 						value matches {
 							DV_TEXT matches {*}
@@ -51,7 +58,9 @@ definition
 					}
 					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Informasjon gitt av (helsepersonell)
 						value matches {
-							DV_TEXT matches {*}
+							DV_CODED_TEXT matches {
+								defining_code matches {[ac0001]}		-- New constraint
+							}
 						}
 					}
 					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Informasjon kun gitt muntlig?
@@ -60,6 +69,15 @@ definition
 								value matches {True, False}
 							}
 						}
+					}
+					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Type informasjon
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0010] occurrences matches {0..*} matches {	-- Informasjon gitt av (strukturert)
+						include
+							archetype_id/value matches {/.*/}
 					}
 				}
 			}
@@ -100,6 +118,28 @@ ontology
 				>
 				["at0007"] = <
 					text = <"Informasjon kun gitt muntlig?">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Informasjon gitt">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Type informasjon">
+					description = <"Hvilken type informasjon, f. eks. informasjon om kontrolltimer, informasjon om PLO, komplikasjoner ved inngrep etc. Bruk gjerne kodeverk">
+				>
+				["at0010"] = <
+					text = <"Informasjon gitt av (strukturert)">
+					description = <"">
+				>
+			>
+		>
+	>
+	constraint_definitions = <
+		["nb"] = <
+			items = <
+				["ac0001"] = <
+					text = <"New constraint">
 					description = <"*">
 				>
 			>
