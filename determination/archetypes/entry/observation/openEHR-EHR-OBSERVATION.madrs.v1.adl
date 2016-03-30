@@ -1,174 +1,174 @@
-archetype (adl_version=1.4)
+﻿archetype (adl_version=1.4; uid=4245921c-df05-4be1-9eef-ad1525595854)
 	openEHR-EHR-OBSERVATION.madrs.v1
 
 concept
-	[at0000]	-- Madrs
+	[at0000]	-- MADRS
 language
 	original_language = <[ISO_639-1::nb]>
 description
 	original_author = <
-		["name"] = <"Tomas Norheim Alme">
+		["name"] = <"Tomas Nordheim Alme">
 		["email"] = <"tna@dips.no">
-		["organisation"] = <"DIPS ASA">
+		["organisation"] = <"DIPS  ASA">
 	>
 	details = <
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"MADRS (Montgomery and Åsberg Depression Rating Scale), reliabelt instrument som kombinerer frekvens og intensitet av symptomene.
+			purpose = <"Vurdere omfanget og intensiteten av vanlige depresjonssymptomer, samt til å følge opp en behandling. Fokuserer på psykiske symptomer på depresjon, men den kan også brukes hos pasienter med somatiske grunnlidelse.">
+			use = <"Brukes for å vurdere omfanget og intensiteten av vanlige depresjonssymptomer, samt til å følge opp en behandling. Fokuserer på psykiske symptomer på depresjon, men den kan også brukes hos pasienter med somatiske grunnlidelse.
 
-Bruk av MADRS-skjemaet. 
-Skjemaet dekker 10 emner, hvorav legen spør om 9, mens ett observeres. For hvert emne er det en gradering av alvorlighet på en skala fra 0 til 6. Den innledende teksten for hvert emne beskriver kort hva det handler om. Annethvert skåringstall er i tillegg ledsaget av en forankringstekst. Sammenfaller pasientens symptomer med en av disse tekstene, brukes det ledsagende skåringstallet (0, 2, 4 eller 6).
+Skalaen dekker 10 emner, hvorav legen spør om 9, mens ett observeres. For hvert emne er det en gradering av alvorlighet på en skala fra 0 til 6. Den innledende teksten for hvert emne beskriver kort hva det handler om. Annethvert skåringstall er i tillegg ledsaget av en forankringstekst. Sammenfaller pasientens symptomer med en av disse tekstene, brukes det ledsagende skåringstallet (0, 2, 4 eller 6).
 
 Still det foreslåtte spørsmålet. Bruk deretter tekstene over og under det pasienten først sier, for å være sikker på at emnets intensitet blir korrekt vurdert. Passer de bedre, kan man velge tall mellom forankringspunktene (1, 3 og 5). Tilstanden den siste uken vektlegges. Er det klare døgnvariasjoner, vektlegges tilstanden på det tidspunktet på dagen hvor pasienten er mest deprimert.
 
-Alle spørsmålene må besvares, og de skal stilles i den rekkefølgen de forekommer i spørreskjemaet.
+Alle spørsmålene må besvares, og de skal stilles i den rekkefølgen de forekommer i skalaen.
 
-Skåring
 Mange med en totalskår på 20 eller høyere vil ha nytte av medikamentell antidepressiv behandling, såfremt depresjonen har vart i minst 2 uker og ikke skyldes sorg. Noen pasienter med skår mellom 12 og 20 kan også ha nytte av antidepressive midler i tillegg til samtaler. Ved skår over 35 bør innleggelse vurderes, eventuelt henvisning til DPS (distriktspsykiatrisk senter) eller spesialist. Innleggelse bør også vurderes ved lavere sumskår dersom skår på suicidalitet er 4 eller høyere.">
-			use = <"Brukes til å score depresjonsgrad av klinisk personell.">
 			keywords = <"MADRS", "psykiatri", "depresjon">
-			misuse = <"All annen">
-			copyright = <"">
+			misuse = <"The MADRS Score is Copyright: Royal College of Psychiatrist, UK and should not be used outside the terms of the copyright. http://www.rcpsych.ac.uk/usefulresources/publications/permissions.aspx.
+">
+			copyright = <"© Nasjonal IKT HF">
 		>
 	>
-	lifecycle_state = <"AuthorDraft">
-	other_contributors = <"Magne Rekdal, DIPS ASA.", "Nasrin Amele Jamedari, DIPS ASA">
+	lifecycle_state = <"NotSet">
+	other_contributors = <"Stein Inge Klippen", "Magne Rekdal", "Nasrin Amele Jamedari", "Lars Morgan Karlsen">
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"D91F513392BDE2CF62789056B927097A">
-		["custodian_organisation"] = <"DIPS ASA">
+		["revision"] = <"0.0.1-alpha">
+		["original_publisher"] = <"Nasjonal IKT">
+		["build_uid"] = <"694f2494-9a44-46af-aa7a-db30e2007942">
+		["original_namespace"] = <"no.nasjonalikt">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["references"] = <"SA Montgomery, M Aasberg. Br J Psychiatr 1979;134:382-89. 
+Oversatt og bearbeidet til norsk av professor dr. med. Ulrik Malt. Første publikasjon av oversettelsen: MH Kalfoss. Scand J Caring Sci 1992;6:23-28">
+		["MD5-CAM-1.0.1"] = <"02D73BDED47ECA2615EA75BCE7C7042E">
+		["custodian_namespace"] = <"no.nasjonalikt">
+		["custodian_organisation"] = <"Nasjonal IKT">
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- Madrs
+	OBSERVATION[at0000] matches {	-- MADRS
 		data matches {
 			HISTORY[at0001] matches {	-- Event Series
 				events cardinality matches {1..*; unordered} matches {
-					POINT_EVENT[at0002] occurrences matches {0..*} matches {	-- Any event
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Uspesifisert hendelse
 						data matches {
-							ITEM_LIST[at0003] matches {	-- List
-								items cardinality matches {11; ordered} matches {
-									ELEMENT[at0004] matches {	-- Synlig tristhet - legeobservert
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Synlig tristhet - legeobservert
 										value matches {
-											0|[local::at0016], 	-- 0 - Ingen tristhet
-											1|[local::at0017], 	-- 1 - mellom 0 og 2
-											2|[local::at0018], 	-- 2 - Ser trist og humørløs ut, men kan leilighetsvis lyse opp
-											3|[local::at0019], 	-- 3 - mellom 2 og 4
-											4|[local::at0020], 	-- 4 - Virker trist og ulykkelig hele tiden
-											5|[local::at0021], 	-- 5 - mellom 4 og 6
-											6|[local::at0022]  	-- 6 - Ekstrem og vedvarende tristhet og fortvilelse
+											0|[local::at0016], 	-- Ingen tristhet
+											1|[local::at0017], 	-- *
+											2|[local::at0018], 	-- Ser trist og humørløs ut, men kan leilighetsvis lyse opp
+											3|[local::at0019], 	-- *
+											4|[local::at0020], 	-- 	Virker trist og ulykkelig hele tiden
+											5|[local::at0021], 	-- *
+											6|[local::at0022]  	-- Ekstrem og vedvarende tristhet og fortvilelse
 										}
 									}
-									ELEMENT[at0005] matches {	-- Tristhet - Har du vært vedvarende deprimert eller nedfor mesteparten av dagen hver dag de siste tre døgn?
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Tristhet
 										value matches {
-											0|[local::at0014], 	-- 0 - Stort sett indifferent stemningsleie. Leilighetsvis tristhet når omstendighetene tilsier det
-											1|[local::at0015], 	-- 1 - mellom 0 og 2
-											2|[local::at0023], 	-- 2 - Overveiende følelse av nedstemthet, men lysere øyeblikk forekommer
-											3|[local::at0024], 	-- 3 - mellom 2 og 4
-											4|[local::at0025], 	-- 4 - Gjennomtrengende følelse av tristhet og dysterhet. Sinnsstemningen influeres knapt av ytre omstendigheter
-											5|[local::at0026], 	-- 5 - mellom 4 og 6
-											6|[local::at0027]  	-- 6 - Konstant opplevelse av sterk tristhet og fortvilelse
+											0|[local::at0014], 	-- 	Stort sett indifferent stemningsleie. Leilighetsvis tristhet når omstendighetene tilsier det
+											1|[local::at0015], 	-- *
+											2|[local::at0023], 	-- 	Overveiende følelse av nedstemthet, men lysere øyeblikk forekommer
+											3|[local::at0024], 	-- *
+											4|[local::at0025], 	-- Gjennomtrengende følelse av tristhet og dysterhet. Sinnsstemningen influeres knapt av ytre omstendigheter
+											5|[local::at0026], 	-- *
+											6|[local::at0027]  	-- Konstant opplevelse av sterk tristhet og fortvilelse
 										}
 									}
-									ELEMENT[at0006] matches {	-- Indre spenning - Har du merket noen uro, spenning eller angst siste tre døgn?
+									ELEMENT[at0006] occurrences matches {0..1} matches {	-- Indre spenning
 										value matches {
-											0|[local::at0028], 	-- 0 - Rolig, bare antydning til indre spenning
-											1|[local::at0029], 	-- 1 - mellom 0 og 2
-											2|[local::at0030], 	-- 2 - Leilighetsvis følelse av ubehagelig psykisk spenning og vag uro
-											3|[local::at0031], 	-- 3 - mellom 2 og 4
-											4|[local::at0032], 	-- 4 - Vedvarende følelse av indre spenning eller panikkepisoder som pasienten bare kan mestre med vanskelighet
-											5|[local::at0033], 	-- 5 - mellom 4 og 6
-											6|[local::at0034]  	-- 6 - Vedvarende frykt og angst. Overveldende panikkfølelse
+											0|[local::at0028], 	-- Rolig, bare antydning til indre spenning
+											1|[local::at0029], 	-- *
+											2|[local::at0030], 	-- Leilighetsvis følelse av ubehagelig psykisk spenning og vag uro
+											3|[local::at0031], 	-- *
+											4|[local::at0032], 	-- Vedvarende følelse av indre spenning eller panikkepisoder som pasienten bare kan mestre med vanskelighet
+											5|[local::at0033], 	-- *
+											6|[local::at0034]  	-- Vedvarende frykt og angst. Overveldende panikkfølelse
 										}
 									}
-									ELEMENT[at0007] matches {	-- Redusert nattesøvn - Har du hatt søvnproblemer nesten hver natt de siste tre døgn?
+									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Redusert nattesøvn
 										value matches {
-											0|[local::at0035], 	-- 0 - Sover som vanlig
-											1|[local::at0036], 	-- 1 - mellom 0 og 2
-											2|[local::at0037], 	-- 2 - Moderate innsovningsvansker eller moderat redusert, lett eller urolig søvn
-											3|[local::at0038], 	-- 3 - mellom 2 og 4
-											4|[local::at0039], 	-- 4 - Søvnen redusert eller avbrutt med minst to timer sammenlignet med vanlig
-											5|[local::at0040], 	-- 5 - mellom 4 og 6
-											6|[local::at0041]  	-- 6 - Mindre enn to til tre timers søvn om natten
+											0|[local::at0035], 	-- Sover som vanlig
+											1|[local::at0036], 	-- *
+											2|[local::at0037], 	-- Moderate innsovningsvansker eller moderat redusert, lett eller urolig søvn
+											3|[local::at0038], 	-- *
+											4|[local::at0039], 	-- Søvnen redusert eller avbrutt med minst to timer sammenlignet med vanlig
+											5|[local::at0040], 	-- *
+											6|[local::at0041]  	-- Mindre enn to til tre timers søvn om natten
 										}
 									}
-									ELEMENT[at0008] matches {	-- Svekket appetitt - Hvordan har det vært med matlysten de siste tre døgn?
+									ELEMENT[at0008] occurrences matches {0..1} matches {	-- Svekket appetitt
 										value matches {
-											0|[local::at0042], 	-- 0 - Normal eller økt appetitt
-											1|[local::at0043], 	-- 1 - mellom 0 og 2
-											2|[local::at0044], 	-- 2 - Moderat redusert appetitt
-											3|[local::at0045], 	-- 3 - mellom 2 og 4
-											4|[local::at0046], 	-- 4 - Nesten ingen appetitt, maten smaker ikke, må tvinge seg selv til å spise
-											5|[local::at0047], 	-- 5 - mellom 4 og 6
-											6|[local::at0048]  	-- 6 - Næringsvegrende. Må overtales av andre til å spise
+											0|[local::at0042], 	-- Normal eller økt appetitt
+											1|[local::at0043], 	-- *
+											2|[local::at0044], 	-- Moderat redusert appetitt
+											3|[local::at0045], 	-- *
+											4|[local::at0046], 	-- Nesten ingen appetitt, maten smaker ikke, må tvinge seg selv til å spise
+											5|[local::at0047], 	-- *
+											6|[local::at0048]  	-- Næringsvegrende. Må overtales av andre til å spise
 										}
 									}
-									ELEMENT[at0009] matches {	-- Konsentrasjonsvansker - Har du hatt vansker med å konsentrere deg de siste tre døgn?
+									ELEMENT[at0009] occurrences matches {0..1} matches {	-- Konsentrasjonsvansker
 										value matches {
-											0|[local::at0049], 	-- 0 - Ingen konsentrasjonsvansker
-											1|[local::at0050], 	-- 1 - mellom 0 og 2
-											2|[local::at0051], 	-- 2 - Leilighetsvis vansker med å samle tankene
-											3|[local::at0052], 	-- 3 - mellom 2 og 4
-											4|[local::at0053], 	-- 4 - Vansker med konsentrasjon og vedvarende oppmerksomhet, som forstyrrer lesing eller konversasjon
-											5|[local::at0054], 	-- 5 - mellom 4 og 6
-											6|[local::at0055]  	-- 6 - Invalidiserende mangel på konsentrasjonsevne
+											0|[local::at0049], 	-- Ingen konsentrasjonsvansker
+											1|[local::at0050], 	-- *
+											2|[local::at0051], 	-- Leilighetsvis vansker med å samle tankene
+											3|[local::at0052], 	-- *
+											4|[local::at0053], 	-- 	Vansker med konsentrasjon og vedvarende oppmerksomhet, som forstyrrer lesing eller konversasjon
+											5|[local::at0054], 	-- *
+											6|[local::at0055]  	-- Invalidiserende mangel på konsentrasjonsevne
 										}
 									}
-									ELEMENT[at0010] matches {	-- Initiativløshet - Har du hatt vansker med å komme i gang, ta initiativ eller utføre dagligdagse aktiviteter de siste tre døgn?
+									ELEMENT[at0010] occurrences matches {0..1} matches {	-- Initiativløshet
 										value matches {
-											0|[local::at0056], 	-- 0 - Ingen spesielle vanskeligheter med å komme i gang med ting, ingen treghet
-											1|[local::at0057], 	-- 1 - mellom 0 og 2
-											2|[local::at0058], 	-- 2 - Visse vansker med å komme i gang med aktiviteter
-											3|[local::at0059], 	-- 3 - mellom 2 og 4
-											4|[local::at0060], 	-- 4 - Vanskeligheter med å komme i gang med enkelte rutineaktiviteter, som kan utføres bare med betydelig anstrengelse
-											5|[local::at0061], 	-- 5 - mellom 4 og 6
-											6|[local::at0062]  	-- 6 - Helt manglende evne til å ta initiativ. Uten evne til å igangsette aktiviteter uten hjelp
+											0|[local::at0056], 	-- Ingen spesielle vanskeligheter med å komme i gang med ting, ingen treghet
+											1|[local::at0057], 	-- *
+											2|[local::at0058], 	-- Visse vansker med å komme i gang med aktiviteter
+											3|[local::at0059], 	-- *
+											4|[local::at0060], 	-- Vanskeligheter med å komme i gang med enkelte rutineaktiviteter, som kan utføres bare med betydelig anstrengelse
+											5|[local::at0061], 	-- *
+											6|[local::at0062]  	-- 	Helt manglende evne til å ta initiativ. Uten evne til å igangsette aktiviteter uten hjelp
 										}
 									}
-									ELEMENT[at0011] matches {	-- Svekkede følelsesmessige reaksjoner - Har du i de siste tre døgn vist mindre interesse for de fleste ting, eller vært mindre i stand til å glede deg over ting som pleide å gi deg glede?
+									ELEMENT[at0011] occurrences matches {0..1} matches {	-- Svekkede følelsesmessige reaksjoner
 										value matches {
-											0|[local::at0063], 	-- 0 - Normal interesse for omgivelsene og andre mennesker
-											1|[local::at0064], 	-- 1 - mellom 0 og 2
-											2|[local::at0065], 	-- 2 - Redusert evne til å glede seg over ting som vanligvis gleder. Redusert evne til å føle sinne
-											3|[local::at0066], 	-- 3 - mellom 2 og 4
-											4|[local::at0067], 	-- 4 - Tap av interesse for omverdenen. Tap av følelser for venner og kjente
-											5|[local::at0068], 	-- 5 - mellom 4 og 6
-											6|[local::at0069]  	-- 6 - Opplevelsen av å være følelsesmessig lammet, uten evne til å føle sinne eller sorg, og til dels smertefull opplevelse av ikke å kunne føle noe for nære slektninger eller venner
+											0|[local::at0063], 	-- 	Normal interesse for omgivelsene og andre mennesker
+											1|[local::at0064], 	-- *
+											2|[local::at0065], 	-- Redusert evne til å glede seg over ting som vanligvis gleder. Redusert evne til å føle sinne
+											3|[local::at0066], 	-- *
+											4|[local::at0067], 	-- Tap av interesse for omverdenen. Tap av følelser for venner og kjente
+											5|[local::at0068], 	-- *
+											6|[local::at0069]  	-- Opplevelsen av å være følelsesmessig lammet, uten evne til å føle sinne eller sorg, og til dels smertefull opplevelse av ikke å kunne føle noe for nære slektninger eller venner
 										}
 									}
-									ELEMENT[at0012] matches {	-- Depressivt tankeinnhold - Har du følt deg verdiløs eller skyldbetynget de siste tre døgn?
+									ELEMENT[at0012] occurrences matches {0..1} matches {	-- Depressivt tankeinnhold
 										value matches {
-											0|[local::at0070], 	-- 0 - Ingen depressive tanker
-											1|[local::at0071], 	-- 1 - mellom 0 og 2
-											2|[local::at0072], 	-- 2 - Fluktuerende tanker om ikke å strekke til, selvbebreidelser og mindreverdsfølelse
-											3|[local::at0073], 	-- 3 - mellom 2 og 4
-											4|[local::at0074], 	-- 4 - Vedvarende selvbebreidelser eller klare, men fortsatt rasjonelle tanker om skyld og synd Ser uttalt pessimistisk på fremtiden.
-											5|[local::at0075], 	-- 5 - mellom 4 og 6
-											6|[local::at0076]  	-- 6 - Vrangforestillinger om økonomisk ruin eller utilgivelige synder.
+											0|[local::at0070], 	-- 	Ingen depressive tanker
+											1|[local::at0071], 	-- *
+											2|[local::at0072], 	-- Fluktuerende tanker om ikke å strekke til, selvbebreidelser og mindreverdsfølelse
+											3|[local::at0073], 	-- *
+											4|[local::at0074], 	-- Vedvarende selvbebreidelser eller klare, men fortsatt rasjonelle tanker om skyld og synd Ser uttalt pessimistisk på fremtiden.
+											5|[local::at0075], 	-- *
+											6|[local::at0076]  	-- Vrangforestillinger om økonomisk ruin eller utilgivelige synder.
 										}
 									}
-									ELEMENT[at0013] matches {	-- Suicidaltanker - Har du selvmordstanker eller har du ønsket at du var død de siste tre døgn?
+									ELEMENT[at0013] occurrences matches {0..1} matches {	-- Suicidaltanker
 										value matches {
-											0|[local::at0077], 	-- 0 - Ordinær livslyst, tar det som det kommer
-											1|[local::at0078], 	-- 1 - mellom 0 og 2
-											2|[local::at0079], 	-- 2 - Lei av livet, men bare flyktige suicidaltanker
-											3|[local::at0080], 	-- 3 - mellom 2 og 4
-											4|[local::at0081], 	-- 4 - Ville helst være død, suicidaltanker opptrer hyppig, og suicid anses som en mulig løsning uten at det foreligger spesifikke planer eller intensjoner
-											5|[local::at0082], 	-- 5 - mellom 4 og 6
-											6|[local::at0083]  	-- 6 - Uttalte planer om suicid når anledningen gir seg. Aktive forberedelser for suicid
+											0|[local::at0077], 	-- Ordinær livslyst, tar det som det kommer
+											1|[local::at0078], 	-- *
+											2|[local::at0079], 	-- Lei av livet, men bare flyktige suicidaltanker
+											3|[local::at0080], 	-- *
+											4|[local::at0081], 	-- Ville helst være død, suicidaltanker opptrer hyppig, og suicid anses som en mulig løsning uten at det foreligger spesifikke planer eller intensjoner
+											5|[local::at0082], 	-- *
+											6|[local::at0083]  	-- Uttalte planer om suicid når anledningen gir seg. Aktive forberedelser for suicid
 										}
 									}
-									ELEMENT[at0084] matches {	-- MADRS Score
+									ELEMENT[at0084] occurrences matches {0..1} matches {	-- MADRS skår
 										value matches {
-											C_DV_QUANTITY <
-												property = <[openehr::380]>
-												list = <
-													["1"] = <
-														units = <"">
-														magnitude = <|0.0..60.0|>
-														precision = <|0|>
-													>
-												>
-											>
+											DV_COUNT matches {
+												magnitude matches {|0..60|}
+											}
 										}
 									}
 								}
@@ -185,19 +185,19 @@ ontology
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"Madrs">
-					description = <"Benyttes til å gjennomføre MADRS-scoring (vurdering av depresjon)">
+					text = <"MADRS">
+					description = <"MADRS (Montgomery and Åsberg Depression Rating Scale), reliabelt instrument som kombinerer frekvens og intensitet av depresjonssymptomene.">
 				>
 				["at0001"] = <
 					text = <"Event Series">
 					description = <"@ internal @">
 				>
 				["at0002"] = <
-					text = <"Any event">
-					description = <"*">
+					text = <"Uspesifisert hendelse">
+					description = <"Standard, uspesifisert tidspunkt eller tidsintervall som kan defineres mer eksplisitt i en template eller i en applikasjon.">
 				>
 				["at0003"] = <
-					text = <"List">
+					text = <"Tree">
 					description = <"@ internal @">
 				>
 				["at0004"] = <
@@ -205,324 +205,333 @@ ontology
 					description = <"Sikter på dysterhet, tungsinn, fortvilelse (mer enn bare vanlig forbigående dårlig humør) slik det avspeiler seg i tale, mimikk og holdning. Gradér på grunnlag av dybde og manglende evne til å lysne opp.">
 				>
 				["at0005"] = <
-					text = <"Tristhet - Har du vært vedvarende deprimert eller nedfor mesteparten av dagen hver dag de siste tre døgn?">
+					text = <"Tristhet">
 					description = <"Tar sikte på subjektivt opplevet sinnsstemning, uansett om stemningen gir seg ytre uttrykk eller ikke. Omfatter senket stemningsleie, tristhet, oppgitthet, tungsinn, håpløshet og hjelpeløshet. Gradér i henhold til intensitet, varighet og i hvilken grad sinnsstemningen påvirkes av ytre omstendigheter. Oppstemthet skåres som 0.">
+					comment = <"Spørsmål: Har du vært vedvarende deprimert eller nedfor mesteparten av dagen hver dag de siste tre døgn?">
 				>
 				["at0006"] = <
-					text = <"Indre spenning - Har du merket noen uro, spenning eller angst siste tre døgn?">
+					text = <"Indre spenning">
 					description = <"Sikter på følelse av vag ulystfølelse, ubehagelig indre spenning, uro og angst stigende til panikk. Gradér i henhold til intensitet, varighet og behov for hjelp og støtte. Skilles fra tristhet (2)">
+					comment = <"Spørsmål: Har du merket noen uro, spenning eller angst siste tre døgn?">
 				>
 				["at0007"] = <
-					text = <"Redusert nattesøvn - Har du hatt søvnproblemer nesten hver natt de siste tre døgn?">
+					text = <"Redusert nattesøvn">
 					description = <"Sikter på subjektiv opplevelse av kortvarig eller mindre dyp søvn sammenlignet med vanlig tilstand.">
+					comment = <"Spørsmål: Har du hatt søvnproblemer nesten hver natt de siste tre døgn?">
 				>
 				["at0008"] = <
-					text = <"Svekket appetitt - Hvordan har det vært med matlysten de siste tre døgn?">
+					text = <"Svekket appetitt">
 					description = <"Sikter på følelsen av at appetitten er svekket i forhold til tidligere.">
+					comment = <"Spørsmål: Hvordan har det vært med matlysten de siste tre døgn?">
 				>
 				["at0009"] = <
-					text = <"Konsentrasjonsvansker - Har du hatt vansker med å konsentrere deg de siste tre døgn?">
+					text = <"Konsentrasjonsvansker">
 					description = <"Sikter på vansker med å samle tankene, stigende til invalidiserende mangel på konsentrasjonsevne. Gradér i henhold til intensitet, frekvens og grad av invalidiserende effekt.">
+					comment = <"Spørsmål: Har du hatt vansker med å konsentrere deg de siste tre døgn?">
 				>
 				["at0010"] = <
-					text = <"Initiativløshet - Har du hatt vansker med å komme i gang, ta initiativ eller utføre dagligdagse aktiviteter de siste tre døgn?">
+					text = <"Initiativløshet">
 					description = <"Sikter på vanskelighet med å komme i gang, treghet med å ta initiativ og å utføre dagligdagse aktiviteter.">
+					comment = <"Spørsmål: Har du hatt vansker med å komme i gang, ta initiativ eller utføre dagligdagse aktiviteter de siste tre døgn?">
 				>
 				["at0011"] = <
-					text = <"Svekkede følelsesmessige reaksjoner - Har du i de siste tre døgn vist mindre interesse for de fleste ting, eller vært mindre i stand til å glede deg over ting som pleide å gi deg glede?">
+					text = <"Svekkede følelsesmessige reaksjoner">
 					description = <"Sikter på den subjektive opplevelse av svekkede interesser for omgivelsene, eller for aktiviteter som normalt gir glede. Evnen til å reagere med adekvate følelser på omstendighetene eller andre mennesker er redusert">
+					comment = <"Spørsmål: Har du i de siste tre døgn vist mindre interesse for de fleste ting, eller vært mindre i stand til å glede deg over ting som pleide å gi deg glede?">
 				>
 				["at0012"] = <
-					text = <"Depressivt tankeinnhold - Har du følt deg verdiløs eller skyldbetynget de siste tre døgn?">
+					text = <"Depressivt tankeinnhold">
 					description = <"Sikter på tanker om skyld, mindreverdighet, selvbebreidelser, anger og tanker om økonomisk ruin.">
+					comment = <"Spørsmål: Har du følt deg verdiløs eller skyldbetynget de siste tre døgn?">
 				>
 				["at0013"] = <
-					text = <"Suicidaltanker - Har du selvmordstanker eller har du ønsket at du var død de siste tre døgn?">
+					text = <"Suicidaltanker">
 					description = <"Tar sikte på følelsen av at livet ikke er verd å leve, at en naturlig død ville være velkommen, suicidale tanker og forberedelse til selvmord.">
+					comment = <"Spørsmål: Har du selvmordstanker eller har du ønsket at du var død de siste tre døgn?">
 				>
 				["at0014"] = <
-					text = <"0 - Stort sett indifferent stemningsleie. Leilighetsvis tristhet når omstendighetene tilsier det">
+					text = <"	Stort sett indifferent stemningsleie. Leilighetsvis tristhet når omstendighetene tilsier det">
 					description = <"*">
 				>
 				["at0015"] = <
-					text = <"1 - mellom 0 og 2">
+					text = <"*">
 					description = <"*">
 				>
 				["at0016"] = <
-					text = <"0 - Ingen tristhet">
+					text = <"Ingen tristhet">
 					description = <"*">
 				>
 				["at0017"] = <
-					text = <"1 - mellom 0 og 2">
+					text = <"*">
 					description = <"*">
 				>
 				["at0018"] = <
-					text = <"2 - Ser trist og humørløs ut, men kan leilighetsvis lyse opp">
+					text = <"Ser trist og humørløs ut, men kan leilighetsvis lyse opp">
 					description = <"*">
 				>
 				["at0019"] = <
-					text = <"3 - mellom 2 og 4">
+					text = <"*">
 					description = <"*">
 				>
 				["at0020"] = <
-					text = <"4 - Virker trist og ulykkelig hele tiden">
+					text = <"	Virker trist og ulykkelig hele tiden">
 					description = <"*">
 				>
 				["at0021"] = <
-					text = <"5 - mellom 4 og 6">
+					text = <"*">
 					description = <"*">
 				>
 				["at0022"] = <
-					text = <"6 - Ekstrem og vedvarende tristhet og fortvilelse">
+					text = <"Ekstrem og vedvarende tristhet og fortvilelse">
 					description = <"*">
 				>
 				["at0023"] = <
-					text = <"2 - Overveiende følelse av nedstemthet, men lysere øyeblikk forekommer">
+					text = <"	Overveiende følelse av nedstemthet, men lysere øyeblikk forekommer">
 					description = <"*">
 				>
 				["at0024"] = <
-					text = <"3 - mellom 2 og 4">
+					text = <"*">
 					description = <"*">
 				>
 				["at0025"] = <
-					text = <"4 - Gjennomtrengende følelse av tristhet og dysterhet. Sinnsstemningen influeres knapt av ytre omstendigheter">
+					text = <"Gjennomtrengende følelse av tristhet og dysterhet. Sinnsstemningen influeres knapt av ytre omstendigheter">
 					description = <"*">
 				>
 				["at0026"] = <
-					text = <"5 - mellom 4 og 6">
+					text = <"*">
 					description = <"*">
 				>
 				["at0027"] = <
-					text = <"6 - Konstant opplevelse av sterk tristhet og fortvilelse">
+					text = <"Konstant opplevelse av sterk tristhet og fortvilelse">
 					description = <"*">
 				>
 				["at0028"] = <
-					text = <"0 - Rolig, bare antydning til indre spenning">
+					text = <"Rolig, bare antydning til indre spenning">
 					description = <"*">
 				>
 				["at0029"] = <
-					text = <"1 - mellom 0 og 2">
+					text = <"*">
 					description = <"*">
 				>
 				["at0030"] = <
-					text = <"2 - Leilighetsvis følelse av ubehagelig psykisk spenning og vag uro">
+					text = <"Leilighetsvis følelse av ubehagelig psykisk spenning og vag uro">
 					description = <"*">
 				>
 				["at0031"] = <
-					text = <"3 - mellom 2 og 4">
+					text = <"*">
 					description = <"*">
 				>
 				["at0032"] = <
-					text = <"4 - Vedvarende følelse av indre spenning eller panikkepisoder som pasienten bare kan mestre med vanskelighet">
+					text = <"Vedvarende følelse av indre spenning eller panikkepisoder som pasienten bare kan mestre med vanskelighet">
 					description = <"*">
 				>
 				["at0033"] = <
-					text = <"5 - mellom 4 og 6">
+					text = <"*">
 					description = <"*">
 				>
 				["at0034"] = <
-					text = <"6 - Vedvarende frykt og angst. Overveldende panikkfølelse">
+					text = <"Vedvarende frykt og angst. Overveldende panikkfølelse">
 					description = <"*">
 				>
 				["at0035"] = <
-					text = <"0 - Sover som vanlig">
+					text = <"Sover som vanlig">
 					description = <"*">
 				>
 				["at0036"] = <
-					text = <"1 - mellom 0 og 2">
+					text = <"*">
 					description = <"*">
 				>
 				["at0037"] = <
-					text = <"2 - Moderate innsovningsvansker eller moderat redusert, lett eller urolig søvn">
+					text = <"Moderate innsovningsvansker eller moderat redusert, lett eller urolig søvn">
 					description = <"*">
 				>
 				["at0038"] = <
-					text = <"3 - mellom 2 og 4">
+					text = <"*">
 					description = <"*">
 				>
 				["at0039"] = <
-					text = <"4 - Søvnen redusert eller avbrutt med minst to timer sammenlignet med vanlig">
+					text = <"Søvnen redusert eller avbrutt med minst to timer sammenlignet med vanlig">
 					description = <"*">
 				>
 				["at0040"] = <
-					text = <"5 - mellom 4 og 6">
+					text = <"*">
 					description = <"*">
 				>
 				["at0041"] = <
-					text = <"6 - Mindre enn to til tre timers søvn om natten">
+					text = <"Mindre enn to til tre timers søvn om natten">
 					description = <"*">
 				>
 				["at0042"] = <
-					text = <"0 - Normal eller økt appetitt">
+					text = <"Normal eller økt appetitt">
 					description = <"*">
 				>
 				["at0043"] = <
-					text = <"1 - mellom 0 og 2">
+					text = <"*">
 					description = <"*">
 				>
 				["at0044"] = <
-					text = <"2 - Moderat redusert appetitt">
+					text = <"Moderat redusert appetitt">
 					description = <"*">
 				>
 				["at0045"] = <
-					text = <"3 - mellom 2 og 4">
+					text = <"*">
 					description = <"*">
 				>
 				["at0046"] = <
-					text = <"4 - Nesten ingen appetitt, maten smaker ikke, må tvinge seg selv til å spise">
+					text = <"Nesten ingen appetitt, maten smaker ikke, må tvinge seg selv til å spise">
 					description = <"*">
 				>
 				["at0047"] = <
-					text = <"5 - mellom 4 og 6">
+					text = <"*">
 					description = <"*">
 				>
 				["at0048"] = <
-					text = <"6 - Næringsvegrende. Må overtales av andre til å spise">
+					text = <"Næringsvegrende. Må overtales av andre til å spise">
 					description = <"*">
 				>
 				["at0049"] = <
-					text = <"0 - Ingen konsentrasjonsvansker">
+					text = <"Ingen konsentrasjonsvansker">
 					description = <"*">
 				>
 				["at0050"] = <
-					text = <"1 - mellom 0 og 2">
+					text = <"*">
 					description = <"*">
 				>
 				["at0051"] = <
-					text = <"2 - Leilighetsvis vansker med å samle tankene">
+					text = <"Leilighetsvis vansker med å samle tankene">
 					description = <"*">
 				>
 				["at0052"] = <
-					text = <"3 - mellom 2 og 4">
+					text = <"*">
 					description = <"*">
 				>
 				["at0053"] = <
-					text = <"4 - Vansker med konsentrasjon og vedvarende oppmerksomhet, som forstyrrer lesing eller konversasjon">
+					text = <"	Vansker med konsentrasjon og vedvarende oppmerksomhet, som forstyrrer lesing eller konversasjon">
 					description = <"*">
 				>
 				["at0054"] = <
-					text = <"5 - mellom 4 og 6">
+					text = <"*">
 					description = <"*">
 				>
 				["at0055"] = <
-					text = <"6 - Invalidiserende mangel på konsentrasjonsevne">
+					text = <"Invalidiserende mangel på konsentrasjonsevne">
 					description = <"*">
 				>
 				["at0056"] = <
-					text = <"0 - Ingen spesielle vanskeligheter med å komme i gang med ting, ingen treghet">
+					text = <"Ingen spesielle vanskeligheter med å komme i gang med ting, ingen treghet">
 					description = <"*">
 				>
 				["at0057"] = <
-					text = <"1 - mellom 0 og 2">
+					text = <"*">
 					description = <"*">
 				>
 				["at0058"] = <
-					text = <"2 - Visse vansker med å komme i gang med aktiviteter">
+					text = <"Visse vansker med å komme i gang med aktiviteter">
 					description = <"*">
 				>
 				["at0059"] = <
-					text = <"3 - mellom 2 og 4">
+					text = <"*">
 					description = <"*">
 				>
 				["at0060"] = <
-					text = <"4 - Vanskeligheter med å komme i gang med enkelte rutineaktiviteter, som kan utføres bare med betydelig anstrengelse">
+					text = <"Vanskeligheter med å komme i gang med enkelte rutineaktiviteter, som kan utføres bare med betydelig anstrengelse">
 					description = <"*">
 				>
 				["at0061"] = <
-					text = <"5 - mellom 4 og 6">
+					text = <"*">
 					description = <"*">
 				>
 				["at0062"] = <
-					text = <"6 - Helt manglende evne til å ta initiativ. Uten evne til å igangsette aktiviteter uten hjelp">
+					text = <"	Helt manglende evne til å ta initiativ. Uten evne til å igangsette aktiviteter uten hjelp">
 					description = <"*">
 				>
 				["at0063"] = <
-					text = <"0 - Normal interesse for omgivelsene og andre mennesker">
+					text = <"	Normal interesse for omgivelsene og andre mennesker">
 					description = <"*">
 				>
 				["at0064"] = <
-					text = <"1 - mellom 0 og 2">
+					text = <"*">
 					description = <"*">
 				>
 				["at0065"] = <
-					text = <"2 - Redusert evne til å glede seg over ting som vanligvis gleder. Redusert evne til å føle sinne">
+					text = <"Redusert evne til å glede seg over ting som vanligvis gleder. Redusert evne til å føle sinne">
 					description = <"*">
 				>
 				["at0066"] = <
-					text = <"3 - mellom 2 og 4">
+					text = <"*">
 					description = <"*">
 				>
 				["at0067"] = <
-					text = <"4 - Tap av interesse for omverdenen. Tap av følelser for venner og kjente">
+					text = <"Tap av interesse for omverdenen. Tap av følelser for venner og kjente">
 					description = <"*">
 				>
 				["at0068"] = <
-					text = <"5 - mellom 4 og 6">
+					text = <"*">
 					description = <"*">
 				>
 				["at0069"] = <
-					text = <"6 - Opplevelsen av å være følelsesmessig lammet, uten evne til å føle sinne eller sorg, og til dels smertefull opplevelse av ikke å kunne føle noe for nære slektninger eller venner">
+					text = <"Opplevelsen av å være følelsesmessig lammet, uten evne til å føle sinne eller sorg, og til dels smertefull opplevelse av ikke å kunne føle noe for nære slektninger eller venner">
 					description = <"*">
 				>
 				["at0070"] = <
-					text = <"0 - Ingen depressive tanker">
+					text = <"	Ingen depressive tanker">
 					description = <"*">
 				>
 				["at0071"] = <
-					text = <"1 - mellom 0 og 2">
+					text = <"*">
 					description = <"*">
 				>
 				["at0072"] = <
-					text = <"2 - Fluktuerende tanker om ikke å strekke til, selvbebreidelser og mindreverdsfølelse">
+					text = <"Fluktuerende tanker om ikke å strekke til, selvbebreidelser og mindreverdsfølelse">
 					description = <"*">
 				>
 				["at0073"] = <
-					text = <"3 - mellom 2 og 4">
+					text = <"*">
 					description = <"*">
 				>
 				["at0074"] = <
-					text = <"4 - Vedvarende selvbebreidelser eller klare, men fortsatt rasjonelle tanker om skyld og synd Ser uttalt pessimistisk på fremtiden.">
+					text = <"Vedvarende selvbebreidelser eller klare, men fortsatt rasjonelle tanker om skyld og synd Ser uttalt pessimistisk på fremtiden.">
 					description = <"*">
 				>
 				["at0075"] = <
-					text = <"5 - mellom 4 og 6">
+					text = <"*">
 					description = <"*">
 				>
 				["at0076"] = <
-					text = <"6 - Vrangforestillinger om økonomisk ruin eller utilgivelige synder.">
+					text = <"Vrangforestillinger om økonomisk ruin eller utilgivelige synder.">
 					description = <"*">
 				>
 				["at0077"] = <
-					text = <"0 - Ordinær livslyst, tar det som det kommer">
+					text = <"Ordinær livslyst, tar det som det kommer">
 					description = <"*">
 				>
 				["at0078"] = <
-					text = <"1 - mellom 0 og 2">
+					text = <"*">
 					description = <"*">
 				>
 				["at0079"] = <
-					text = <"2 - Lei av livet, men bare flyktige suicidaltanker">
+					text = <"Lei av livet, men bare flyktige suicidaltanker">
 					description = <"*">
 				>
 				["at0080"] = <
-					text = <"3 - mellom 2 og 4">
+					text = <"*">
 					description = <"*">
 				>
 				["at0081"] = <
-					text = <"4 - Ville helst være død, suicidaltanker opptrer hyppig, og suicid anses som en mulig løsning uten at det foreligger spesifikke planer eller intensjoner">
+					text = <"Ville helst være død, suicidaltanker opptrer hyppig, og suicid anses som en mulig løsning uten at det foreligger spesifikke planer eller intensjoner">
 					description = <"*">
 				>
 				["at0082"] = <
-					text = <"5 - mellom 4 og 6">
+					text = <"*">
 					description = <"*">
 				>
 				["at0083"] = <
-					text = <"6 - Uttalte planer om suicid når anledningen gir seg. Aktive forberedelser for suicid">
+					text = <"Uttalte planer om suicid når anledningen gir seg. Aktive forberedelser for suicid">
 					description = <"*">
 				>
 				["at0084"] = <
-					text = <"MADRS Score">
-					description = <"Sum av scoringer på de 10 spørsmålene">
+					text = <"MADRS skår">
+					description = <"Summen av skår til hvert enkelt MADRS-parameter.">
 				>
 			>
 		>
