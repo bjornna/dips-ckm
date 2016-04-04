@@ -21,7 +21,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"3A24E56B8A902BDDE82C41F39A7C84E2">
+		["MD5-CAM-1.0.1"] = <"74F66F303F5050810E245A6C7DDDFB9E">
 	>
 
 definition
@@ -30,6 +30,11 @@ definition
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
 					ELEMENT[at0002] occurrences matches {0..*} matches {	-- Sykepleiesammenfatning
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0012] occurrences matches {0..1} matches {	-- Innkomststatus
 						value matches {
 							DV_TEXT matches {*}
 						}
@@ -49,11 +54,6 @@ definition
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0006] occurrences matches {0..*} matches {	-- Status ved utskriving
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
 					ELEMENT[at0007] occurrences matches {0..*} matches {	-- Sykepleiediagnose
 						value matches {
 							DV_TEXT matches {*}
@@ -64,7 +64,12 @@ definition
 							DV_TEXT matches {*}
 						}
 					}
-					allow_archetype CLUSTER[at0010] occurrences matches {0..*} matches {	-- Ansvarlig for sykepleieopplysninger
+					ELEMENT[at0006] occurrences matches {0..*} matches {	-- Status ved utskriving
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0013] occurrences matches {0..*} matches {	-- Ansvarlig for sykepleieopplysninger
 						include
 							archetype_id/value matches {/.*/}
 					}
@@ -113,7 +118,11 @@ ontology
 					text = <"Anbefalte videre tiltak">
 					description = <"*">
 				>
-				["at0010"] = <
+				["at0012"] = <
+					text = <"Innkomststatus">
+					description = <"*">
+				>
+				["at0013"] = <
 					text = <"Ansvarlig for sykepleieopplysninger">
 					description = <"*">
 				>

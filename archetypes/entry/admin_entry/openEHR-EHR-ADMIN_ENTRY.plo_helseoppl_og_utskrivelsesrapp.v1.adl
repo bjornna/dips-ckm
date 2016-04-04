@@ -21,7 +21,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"62C70718809227FDD465FC86772EFE17">
+		["MD5-CAM-1.0.1"] = <"57C60F51187C8FC70434AB9AC9839492">
 	>
 
 definition
@@ -74,6 +74,11 @@ definition
 							}
 						}
 					}
+					ELEMENT[at0057] occurrences matches {0..1} matches {	-- Innleggende lege
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
 					ELEMENT[at0030] occurrences matches {0..1} matches {	-- Tidspunkt for innleggelse
 						value matches {
 							DV_DATE_TIME matches {
@@ -81,61 +86,17 @@ definition
 							}
 						}
 					}
-					ELEMENT[at0032] occurrences matches {0..1} matches {	-- Informasjon om kontrolltimer på sykehus
+					ELEMENT[at0054] occurrences matches {0..1} matches {	-- Utskrivende lege
 						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0033] occurrences matches {0..1} matches {	-- Pasient informert
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True, False}
+							DV_CODED_TEXT matches {
+								defining_code matches {[ac0002]}		-- New constraint
 							}
 						}
 					}
-					ELEMENT[at0034] occurrences matches {0..1} matches {	-- Pårørende informert
+					ELEMENT[at0053] occurrences matches {0..1} matches {	-- Tidspunkt for utskriving
 						value matches {
-							DV_BOOLEAN matches {
-								value matches {True, False}
-							}
-						}
-					}
-					ELEMENT[at0036] occurrences matches {0..*} matches {	-- Dato kontrolltime
-						value matches {
-							DV_DATE matches {*}
-						}
-					}
-					ELEMENT[at0037] occurrences matches {0..*} matches {	-- Avdeling kontrolltime
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0038] occurrences matches {0..*} matches {	-- Lokalisering kontrolltime
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0039] occurrences matches {0..*} matches {	-- Varighet kontrolltime
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0040] occurrences matches {0..1} matches {	-- Har pasient eller pårørende fått beskjed om å bestille time hos egen lege?
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0041] occurrences matches {0..1} matches {	-- Gitt beskjed til pasient
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True, False}
-							}
-						}
-					}
-					ELEMENT[at0042] occurrences matches {0..1} matches {	-- Gitt beskjed til pårørende
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True, False}
+							DV_DATE matches {
+								value matches {yyyy-mm-dd}
 							}
 						}
 					}
@@ -155,17 +116,11 @@ definition
 							DV_DATE matches {*}
 						}
 					}
-					ELEMENT[at0047] occurrences matches {0..*} matches {	-- Respter fra DIPS medikasjonsmodul
-						value matches {
-							DV_TEXT matches {*}
-						}
+					allow_archetype CLUSTER[at0055] occurrences matches {0..*} matches {	-- Kontaktperson helsepersonell
+						include
+							archetype_id/value matches {/.*/}
 					}
-					ELEMENT[at0048] occurrences matches {0..*} matches {	-- Legemidler administrert på utskrivelsesdagen - manuell utfylling
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0049] occurrences matches {0..1} matches {	-- Legemidler administrert av helsepersonell på utskrivelsesdagen - automatisk innhentet
+					ELEMENT[at0056] occurrences matches {0..1} matches {	-- Telefonnummer kontaktperson
 						value matches {
 							DV_TEXT matches {*}
 						}
@@ -176,6 +131,7 @@ definition
 	}
 
 ontology
+	terminologies_available = <"DIPS", ...>
 	term_definitions = <
 		["nb"] = <
 			items = <
@@ -219,46 +175,6 @@ ontology
 					text = <"Tidspunkt for innleggelse">
 					description = <"Dato og tidspunkt for innleggelse">
 				>
-				["at0032"] = <
-					text = <"Informasjon om kontrolltimer på sykehus">
-					description = <"*">
-				>
-				["at0033"] = <
-					text = <"Pasient informert">
-					description = <"*">
-				>
-				["at0034"] = <
-					text = <"Pårørende informert">
-					description = <"*">
-				>
-				["at0036"] = <
-					text = <"Dato kontrolltime">
-					description = <"Dato for kontrolltime">
-				>
-				["at0037"] = <
-					text = <"Avdeling kontrolltime">
-					description = <"Avdeling kontrolltime">
-				>
-				["at0038"] = <
-					text = <"Lokalisering kontrolltime">
-					description = <"Lokalisering kontrolltime">
-				>
-				["at0039"] = <
-					text = <"Varighet kontrolltime">
-					description = <"Varighet kontrolltime">
-				>
-				["at0040"] = <
-					text = <"Har pasient eller pårørende fått beskjed om å bestille time hos egen lege?">
-					description = <"*">
-				>
-				["at0041"] = <
-					text = <"Gitt beskjed til pasient">
-					description = <"*">
-				>
-				["at0042"] = <
-					text = <"Gitt beskjed til pårørende">
-					description = <"*">
-				>
 				["at0043"] = <
 					text = <"Type innhold i meldingen">
 					description = <"*">
@@ -275,18 +191,43 @@ ontology
 					text = <"Forventet utskrivingstidspunkt">
 					description = <"Dato for forventet utskriving (hentes automatisk inn fra sengepostrutiner)">
 				>
-				["at0047"] = <
-					text = <"Respter fra DIPS medikasjonsmodul">
+				["at0053"] = <
+					text = <"Tidspunkt for utskriving">
 					description = <"*">
 				>
-				["at0048"] = <
-					text = <"Legemidler administrert på utskrivelsesdagen - manuell utfylling">
+				["at0054"] = <
+					text = <"Utskrivende lege">
 					description = <"*">
 				>
-				["at0049"] = <
-					text = <"Legemidler administrert av helsepersonell på utskrivelsesdagen - automatisk innhentet">
+				["at0055"] = <
+					text = <"Kontaktperson helsepersonell">
 					description = <"*">
 				>
+				["at0056"] = <
+					text = <"Telefonnummer kontaktperson">
+					description = <"*">
+				>
+				["at0057"] = <
+					text = <"Innleggende lege">
+					description = <"*">
+				>
+			>
+		>
+	>
+	constraint_definitions = <
+		["nb"] = <
+			items = <
+				["ac0002"] = <
+					text = <"New constraint">
+					description = <"*">
+				>
+			>
+		>
+	>
+	constraint_bindings = <
+		["DIPS"] = <
+			items = <
+				["ac0002"] = <terminology:DIPS?subset=Healthcareparty>
 			>
 		>
 	>
