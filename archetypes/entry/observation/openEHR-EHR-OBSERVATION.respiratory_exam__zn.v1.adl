@@ -1,0 +1,940 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.respiratory_exam__zn.v1
+
+concept
+	[at0000]	-- Undersøkelse av respirasjon
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+		["sl"] = <
+			language = <[ISO_639-1::sl]>
+			author = <
+				["organisation"] = <"University of Maribor, Slovenia, Marand d.o.o.">
+				["name"] = <"Uroš Rajkovic, Biljana Prinčič">
+				["email"] = <"uros.rajkovic@fov.uni-mb.si, biljana.princic@marand.si">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Dr Ian McNicoll">
+		["organisation"] = <"Ocean Informatics">
+		["email"] = <"ian.mcnicoll@oceaninformatics .com">
+		["date"] = <"26/09/2010">
+	>
+	details = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"For vurdering av respirasjonsstatus gjort av sykepleier ">
+			use = <"*(en)">
+			keywords = <"*Respiratory assessment(en)", ...>
+			misuse = <"*(en)">
+			copyright = <"*(en)">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To assess the respiratory status of a patient by a nurse.">
+			use = <"">
+			keywords = <"Respiratory assessment", ...>
+			misuse = <"">
+			copyright = <"">
+		>
+		["sl"] = <
+			language = <[ISO_639-1::sl]>
+			purpose = <"Ocena dihalnega statusa pacienta za potrebe zdravstvene nege.">
+			use = <"">
+			keywords = <"Ocena dihanja", ...>
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"9DC0CC2B4E1188B4E3FDC63B90696AAD">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Undersøkelse av respirasjon
+		data matches {
+			HISTORY[at0001] matches {	-- *Event Series(en)
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- *Any event(en)
+						data matches {
+							ITEM_TREE[at0003] matches {	-- *Tree(en)
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Tegn på tretthet
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0039, 	-- Tilstede
+													at0040]	-- Fraværende
+												}
+											}
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {	-- Overfladisk pust
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0035, 	-- Tilstede
+													at0036]	-- Fraværende
+												}
+											}
+										}
+									}
+									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Spent mage
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0037, 	-- Tilstede
+													at0038]	-- Fraværende
+												}
+											}
+										}
+									}
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Vansker/innsats
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0046, 	-- 1 - Ingen
+													at0047, 	-- 1-2 Ingen => Moderat
+													at0048, 	-- 2-1 Moderat => Ingen
+													at0049, 	-- 2 - Moderat
+													at0050, 	-- 2-3  Moderat=> Alvorlig
+													at0051, 	-- 3-2 Alvorlig => Moderat
+													at0052]	-- 3- Alvorlig
+												}
+											}
+										}
+									}
+									ELEMENT[at0032] occurrences matches {0..1} matches {	-- Øvre luftveis obstruksjon
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0053, 	-- Ingen
+													at0054, 	-- Nasal fortetning
+													at0055, 	-- Fremmedlegeme
+													at0056]	-- Neseblod
+												}
+											}
+											DV_TEXT matches {*}
+										}
+									}
+									CLUSTER[at0009] occurrences matches {0..1} matches {	-- Pustelyder
+										items cardinality matches {1..*; unordered} matches {
+											CLUSTER[at0010] occurrences matches {0..1} matches {	-- Stridor
+												items cardinality matches {1..*; unordered} matches {
+													ELEMENT[at0012] occurrences matches {0..1} matches {	-- Inspiratorisk
+														value matches {
+															DV_CODED_TEXT matches {
+																defining_code matches {
+																	[local::
+																	at0013, 	-- Tilstede
+																	at0014]	-- Fraværende
+																}
+															}
+														}
+													}
+													ELEMENT[at0008] occurrences matches {0..1} matches {	-- Ekspiratorisk
+														value matches {
+															DV_CODED_TEXT matches {
+																defining_code matches {
+																	[local::
+																	at0020, 	-- Tilstede
+																	at0021]	-- Fraværende
+																}
+															}
+														}
+													}
+												}
+											}
+											CLUSTER[at0011] occurrences matches {0..1} matches {	-- Hvese
+												items cardinality matches {1..*; unordered} matches {
+													ELEMENT[at0015] occurrences matches {0..1} matches {	-- Inspiratorisk
+														value matches {
+															DV_CODED_TEXT matches {
+																defining_code matches {
+																	[local::
+																	at0022, 	-- Tilstede
+																	at0023]	-- Fraværende
+																}
+															}
+														}
+													}
+													ELEMENT[at0016] occurrences matches {0..1} matches {	-- Ekspiratorisk
+														value matches {
+															DV_CODED_TEXT matches {
+																defining_code matches {
+																	[local::
+																	at0024, 	-- Tilstede
+																	at0025]	-- Fraværende
+																}
+															}
+														}
+													}
+												}
+											}
+											ELEMENT[at0017] occurrences matches {0..1} matches {	-- Grunting
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0026, 	-- Tilstede
+															at0027]	-- Fraværende
+														}
+													}
+												}
+											}
+											ELEMENT[at0018] occurrences matches {0..1} matches {	-- Stønnende
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0028, 	-- Tilstede
+															at0029]	-- Fraværende
+														}
+													}
+												}
+											}
+											ELEMENT[at0019] occurrences matches {0..1} matches {	-- Snorkende
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0030, 	-- Tilstede
+															at0031]	-- Fraværende
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+						state matches {
+							ITEM_TREE[at0041] matches {	-- *Tree(en)
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0042] occurrences matches {0..1} matches {	-- Kroppsposisjon/aktrivitet
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0057, 	-- Ved anstrengelse
+													at0058, 	-- Hviler
+													at0059, 	-- Etter anstrengelse
+													at0060]	-- Ortopnoa
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"Undersøkelse av respirasjon">
+					description = <"Vurdering av respirasjon for sykepleiere">
+				>
+				["at0001"] = <
+					text = <"*Event Series(en)">
+					description = <"*@ internal @(en)">
+				>
+				["at0002"] = <
+					text = <"*Any event(en)">
+					description = <"**(en)">
+				>
+				["at0003"] = <
+					text = <"*Tree(en)">
+					description = <"*@ internal @(en)">
+				>
+				["at0004"] = <
+					text = <"Vansker/innsats">
+					description = <"Estimat av grande av puste problemer eller vansker">
+				>
+				["at0005"] = <
+					text = <"Tegn på tretthet">
+					description = <"*Evidence of signs of fatigue.(en)">
+				>
+				["at0006"] = <
+					text = <"Overfladisk pust">
+					description = <"*Evidence of mouth breathing.(en)">
+				>
+				["at0007"] = <
+					text = <"Spent mage">
+					description = <"*Evidence of a tense abdomen.(en)">
+				>
+				["at0008"] = <
+					text = <"Ekspiratorisk">
+					description = <"*Evidence of expiratory stridor.(en)">
+				>
+				["at0009"] = <
+					text = <"Pustelyder">
+					description = <"*Abnormal breathing sounds. From MZN-SIF-Dihanje-Zvoki(en)">
+				>
+				["at0010"] = <
+					text = <"Stridor">
+					description = <"*Evidence of stridor.(en)">
+				>
+				["at0011"] = <
+					text = <"Hvese">
+					description = <"*Evidence of wheeze.(en)">
+				>
+				["at0012"] = <
+					text = <"Inspiratorisk">
+					description = <"*Inspiratory stridor.(en)">
+				>
+				["at0013"] = <
+					text = <"Tilstede">
+					description = <"*Inspiratory stridor is present.(en)">
+				>
+				["at0014"] = <
+					text = <"Fraværende">
+					description = <"*Inspiratory stridor is absent.(en)">
+				>
+				["at0015"] = <
+					text = <"Inspiratorisk">
+					description = <"*Evidence of inspiratory wheeze.(en)">
+				>
+				["at0016"] = <
+					text = <"Ekspiratorisk">
+					description = <"*Evidence of expiratory wheeze.(en)">
+				>
+				["at0017"] = <
+					text = <"Grunting">
+					description = <"*Evidence of grunting.(en)">
+				>
+				["at0018"] = <
+					text = <"Stønnende">
+					description = <"*Evidence of moaning.(en)">
+				>
+				["at0019"] = <
+					text = <"Snorkende">
+					description = <"*Evidence of snoring.(en)">
+				>
+				["at0020"] = <
+					text = <"Tilstede">
+					description = <"*Expiratory stridor is present.(en)">
+				>
+				["at0021"] = <
+					text = <"Fraværende">
+					description = <"*Expiratory stridor is absent.(en)">
+				>
+				["at0022"] = <
+					text = <"Tilstede">
+					description = <"*Inspiratory wheeze is present.(en)">
+				>
+				["at0023"] = <
+					text = <"Fraværende">
+					description = <"*Inspiratory wheeze is absent.(en)">
+				>
+				["at0024"] = <
+					text = <"Tilstede">
+					description = <"*Expiratory wheeze is present.(en)">
+				>
+				["at0025"] = <
+					text = <"Fraværende">
+					description = <"*Expiratory wheeze is absent.(en)">
+				>
+				["at0026"] = <
+					text = <"Tilstede">
+					description = <"*Grunting is present.(en)">
+				>
+				["at0027"] = <
+					text = <"Fraværende">
+					description = <"*Grunting is absent.(en)">
+				>
+				["at0028"] = <
+					text = <"Tilstede">
+					description = <"*Moaning is present.(en)">
+				>
+				["at0029"] = <
+					text = <"Fraværende">
+					description = <"*Moaning is absent.(en)">
+				>
+				["at0030"] = <
+					text = <"Tilstede">
+					description = <"*Snoring is present.(en)">
+				>
+				["at0031"] = <
+					text = <"Fraværende">
+					description = <"*Snoring is absent.(en)">
+				>
+				["at0032"] = <
+					text = <"Øvre luftveis obstruksjon">
+					description = <"*Signs of upper airway obstruction.(en)">
+				>
+				["at0035"] = <
+					text = <"Tilstede">
+					description = <"Pasienten puster med munnen / overfladisk">
+				>
+				["at0036"] = <
+					text = <"Fraværende">
+					description = <"Pasienten puster ikke overfladisk. ">
+				>
+				["at0037"] = <
+					text = <"Tilstede">
+					description = <"Magen er spent">
+				>
+				["at0038"] = <
+					text = <"Fraværende">
+					description = <"Magen er ikke spent">
+				>
+				["at0039"] = <
+					text = <"Tilstede">
+					description = <"Tegn på tretthet er tilstede">
+				>
+				["at0040"] = <
+					text = <"Fraværende">
+					description = <"Tegn på tretthet er ikke tilstede">
+				>
+				["at0041"] = <
+					text = <"*Tree(en)">
+					description = <"*@ internal @(en)">
+				>
+				["at0042"] = <
+					text = <"Kroppsposisjon/aktrivitet">
+					description = <"*Body position and exercise level of the subject.(en)">
+				>
+				["at0046"] = <
+					text = <"1 - Ingen">
+					description = <"1 - None.   Retractions are not visible as indentations of the soft tissue covering the chest wall">
+				>
+				["at0047"] = <
+					text = <"1-2 Ingen => Moderat">
+					description = <"*1-2 None to Moderate.(en)">
+				>
+				["at0048"] = <
+					text = <"2-1 Moderat => Ingen">
+					description = <"*2-1 Moderate to None.(en)">
+				>
+				["at0049"] = <
+					text = <"2 - Moderat">
+					description = <"*2 - Moderate.  Retractions are visible as mild indentations of the soft tissue covering the chest wall.(en)">
+				>
+				["at0050"] = <
+					text = <"2-3  Moderat=> Alvorlig">
+					description = <"*2-3  Moderate to Severe.(en)">
+				>
+				["at0051"] = <
+					text = <"3-2 Alvorlig => Moderat">
+					description = <"*3-2 Severe to Moderate.(en)">
+				>
+				["at0052"] = <
+					text = <"3- Alvorlig">
+					description = <"*3 - Severe. Retractions are visible as severe indentations of the soft tissue covering the chest wall.(en)">
+				>
+				["at0053"] = <
+					text = <"Ingen">
+					description = <"*No signs of upper airway obstruction.(en)">
+				>
+				["at0054"] = <
+					text = <"Nasal fortetning">
+					description = <"*The upper airway is obstructed by nasal congestion.(en)">
+				>
+				["at0055"] = <
+					text = <"Fremmedlegeme">
+					description = <"*The upper airway is obstructed by a foreign body.(en)">
+				>
+				["at0056"] = <
+					text = <"Neseblod">
+					description = <"*The upper airway is obstructed by nose bleed.(en)">
+				>
+				["at0057"] = <
+					text = <"Ved anstrengelse">
+					description = <"*The state of patient on effort(en)">
+				>
+				["at0058"] = <
+					text = <"Hviler">
+					description = <"*The state of patient at resting(en)">
+				>
+				["at0059"] = <
+					text = <"Etter anstrengelse">
+					description = <"*The state of patient after effort(en)">
+				>
+				["at0060"] = <
+					text = <"Ortopnoa">
+					description = <"*The state of patient after effort is Ortopnoa(en)">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Respiratory examination">
+					description = <"Respiratory assessment for 
+Nursing care">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Difficulties/ effort">
+					description = <"Estimate of the level of breathing effort or difficulty.">
+				>
+				["at0005"] = <
+					text = <"Signs of fatigue">
+					description = <"Evidence of signs of fatigue.">
+				>
+				["at0006"] = <
+					text = <"Mouth breathing">
+					description = <"Evidence of mouth breathing.">
+				>
+				["at0007"] = <
+					text = <"Tense abdomen">
+					description = <"Evidence of a tense abdomen.">
+				>
+				["at0008"] = <
+					text = <"Expiratory">
+					description = <"Evidence of expiratory stridor.">
+				>
+				["at0009"] = <
+					text = <"Breathing sounds">
+					description = <"Abnormal breathing sounds. From MZN-SIF-Dihanje-Zvoki">
+				>
+				["at0010"] = <
+					text = <"Stridor">
+					description = <"Evidence of stridor.">
+				>
+				["at0011"] = <
+					text = <"Wheeze">
+					description = <"Evidence of wheeze.">
+				>
+				["at0012"] = <
+					text = <"Inspiratory">
+					description = <"Inspiratory stridor.">
+				>
+				["at0013"] = <
+					text = <"Present">
+					description = <"Inspiratory stridor is present.">
+				>
+				["at0014"] = <
+					text = <"Absent">
+					description = <"Inspiratory stridor is absent.">
+				>
+				["at0015"] = <
+					text = <"Inspiratory">
+					description = <"Evidence of inspiratory wheeze.">
+				>
+				["at0016"] = <
+					text = <"Expiratory">
+					description = <"Evidence of expiratory wheeze.">
+				>
+				["at0017"] = <
+					text = <"Grunting">
+					description = <"Evidence of grunting.">
+				>
+				["at0018"] = <
+					text = <"Moaning">
+					description = <"Evidence of moaning.">
+				>
+				["at0019"] = <
+					text = <"Snoring">
+					description = <"Evidence of snoring.">
+				>
+				["at0020"] = <
+					text = <"Present">
+					description = <"Expiratory stridor is present.">
+				>
+				["at0021"] = <
+					text = <"Absent">
+					description = <"Expiratory stridor is absent.">
+				>
+				["at0022"] = <
+					text = <"Present">
+					description = <"Inspiratory wheeze is present.">
+				>
+				["at0023"] = <
+					text = <"Absent">
+					description = <"Inspiratory wheeze is absent.">
+				>
+				["at0024"] = <
+					text = <"Present">
+					description = <"Expiratory wheeze is present.">
+				>
+				["at0025"] = <
+					text = <"Absent">
+					description = <"Expiratory wheeze is absent.">
+				>
+				["at0026"] = <
+					text = <"Present">
+					description = <"Grunting is present.">
+				>
+				["at0027"] = <
+					text = <"Absent">
+					description = <"Grunting is absent.">
+				>
+				["at0028"] = <
+					text = <"Present">
+					description = <"Moaning is present.">
+				>
+				["at0029"] = <
+					text = <"Absent">
+					description = <"Moaning is absent.">
+				>
+				["at0030"] = <
+					text = <"Present">
+					description = <"Snoring is present.">
+				>
+				["at0031"] = <
+					text = <"Absent">
+					description = <"Snoring is absent.">
+				>
+				["at0032"] = <
+					text = <"Upper airway obstruction">
+					description = <"Signs of upper airway obstruction.">
+				>
+				["at0035"] = <
+					text = <"Present">
+					description = <"Mouth breathing is present.">
+				>
+				["at0036"] = <
+					text = <"Absent">
+					description = <"Mouth breathing is absent.">
+				>
+				["at0037"] = <
+					text = <"Present">
+					description = <"The abdomen is tense.">
+				>
+				["at0038"] = <
+					text = <"Absent">
+					description = <"The abdoemen is not tense.">
+				>
+				["at0039"] = <
+					text = <"Present">
+					description = <"Signs of fatigue are present.">
+				>
+				["at0040"] = <
+					text = <"Absent">
+					description = <"Signs of fatigue are absent.">
+				>
+				["at0041"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0042"] = <
+					text = <"Body position/exercise">
+					description = <"Body position and exercise level of the subject.">
+				>
+				["at0046"] = <
+					text = <"1 - None">
+					description = <"1 - None.   Retractions are not visible as indentations of the soft tissue covering the chest wall.">
+				>
+				["at0047"] = <
+					text = <"1-2 None => Moderate">
+					description = <"1-2 None to Moderate.">
+				>
+				["at0048"] = <
+					text = <"2-1 Moderate => None">
+					description = <"2-1 Moderate to None.">
+				>
+				["at0049"] = <
+					text = <"2 - Moderate">
+					description = <"2 - Moderate.  Retractions are visible as mild indentations of the soft tissue covering the chest wall.">
+				>
+				["at0050"] = <
+					text = <"2-3  Moderate=> Severe">
+					description = <"2-3  Moderate to Severe.">
+				>
+				["at0051"] = <
+					text = <"3-2 Severe => Moderate">
+					description = <"3-2 Severe to Moderate.">
+				>
+				["at0052"] = <
+					text = <"3 - Severe">
+					description = <"3 - Severe. Retractions are visible as severe indentations of the soft tissue covering the chest wall.">
+				>
+				["at0053"] = <
+					text = <"None">
+					description = <"No signs of upper airway obstruction.">
+				>
+				["at0054"] = <
+					text = <"Nasal congestion">
+					description = <"The upper airway is obstructed by nasal congestion.">
+				>
+				["at0055"] = <
+					text = <"Foreign body">
+					description = <"The upper airway is obstructed by a foreign body.">
+				>
+				["at0056"] = <
+					text = <"Nose bleed">
+					description = <"The upper airway is obstructed by nose bleed.">
+				>
+				["at0057"] = <
+					text = <"On effort">
+					description = <"The state of patient on effort">
+				>
+				["at0058"] = <
+					text = <"Resting">
+					description = <"The state of patient at resting">
+				>
+				["at0059"] = <
+					text = <"After effort">
+					description = <"The state of patient after effort">
+				>
+				["at0060"] = <
+					text = <"Ortopnoa">
+					description = <"The state of patient after effort is Ortopnoa">
+				>
+			>
+		>
+		["sl"] = <
+			items = <
+				["at0000"] = <
+					text = <"Ocena dihalnega statusa pacienta ">
+					description = <"*Respiratory assessment for 
+Nursing care(en)">
+				>
+				["at0001"] = <
+					text = <"*Event Series(en) ">
+					description = <"*@ internal @(en)">
+				>
+				["at0002"] = <
+					text = <"*Any event(en)">
+					description = <"**(en)">
+				>
+				["at0003"] = <
+					text = <"*Tree(en)">
+					description = <"*@ internal @(en)">
+				>
+				["at0004"] = <
+					text = <"Oteženost po lestvici M.O.">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Utrujenost">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Usta">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Trebuh">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Ob izdihu">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Zvoki pri dihanju">
+					description = <"*Abnormal breathing sounds. From MZN-SIF-Dihanje-Zvoki(en)">
+				>
+				["at0010"] = <
+					text = <"Stridor">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Piskanje">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"ob vdihu">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Da">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Ne">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"ob vdihu">
+					description = <"*">
+				>
+				["at0016"] = <
+					text = <"od izdihu">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Hropenje">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Stokanje">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"Smrčanje">
+					description = <"*">
+				>
+				["at0020"] = <
+					text = <"Da">
+					description = <"*">
+				>
+				["at0021"] = <
+					text = <"Ne">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Da">
+					description = <"*">
+				>
+				["at0023"] = <
+					text = <"Ne">
+					description = <"*">
+				>
+				["at0024"] = <
+					text = <"Da">
+					description = <"*">
+				>
+				["at0025"] = <
+					text = <"Ne">
+					description = <"*">
+				>
+				["at0026"] = <
+					text = <"Da">
+					description = <"*">
+				>
+				["at0027"] = <
+					text = <"Ne">
+					description = <"*">
+				>
+				["at0028"] = <
+					text = <"Da">
+					description = <"*">
+				>
+				["at0029"] = <
+					text = <"Ne">
+					description = <"*">
+				>
+				["at0030"] = <
+					text = <"Da">
+					description = <"*">
+				>
+				["at0031"] = <
+					text = <"Ne">
+					description = <"*">
+				>
+				["at0032"] = <
+					text = <"Prehodnost zgornjih dihalnih poti">
+					description = <"Prehodnost zgornjih dihalnih poti">
+				>
+				["at0035"] = <
+					text = <"Odprta">
+					description = <"diha skozi usta">
+				>
+				["at0036"] = <
+					text = <"Zaprta">
+					description = <"ne diha skozi usta">
+				>
+				["at0037"] = <
+					text = <"Napet">
+					description = <"*">
+				>
+				["at0038"] = <
+					text = <"Mehak">
+					description = <"*">
+				>
+				["at0039"] = <
+					text = <"Da">
+					description = <"**(en)">
+				>
+				["at0040"] = <
+					text = <"Ne">
+					description = <"**(en)">
+				>
+				["at0041"] = <
+					text = <"*Tree(en)">
+					description = <"*@ internal @(en)">
+				>
+				["at0042"] = <
+					text = <"V stanju">
+					description = <"*Body position and exercise level of the subject.(en)">
+				>
+				["at0046"] = <
+					text = <"1 - Neoteženo">
+					description = <"Brez pomožnih dihalnih mišic">
+				>
+				["at0047"] = <
+					text = <"1 do 2">
+					description = <"*">
+				>
+				["at0048"] = <
+					text = <"2 do 1">
+					description = <"*">
+				>
+				["at0049"] = <
+					text = <"2 - zmerno oteženo">
+					description = <"Blago ugrezanje mehkih delov prsnega koša">
+				>
+				["at0050"] = <
+					text = <"2 do 3">
+					description = <"*">
+				>
+				["at0051"] = <
+					text = <"3 do 2">
+					description = <"*">
+				>
+				["at0052"] = <
+					text = <"3 - zelo oteženo">
+					description = <"Močno ugrezanje mehkih delov prsnega koša">
+				>
+				["at0053"] = <
+					text = <"Da">
+					description = <"Zgornje dihalne poti so prehodne">
+				>
+				["at0054"] = <
+					text = <"Zamašen nos">
+					description = <"Zamašen nos">
+				>
+				["at0055"] = <
+					text = <"Tujek">
+					description = <"Prisotnost tujka v zgornjih dihalnih poteh">
+				>
+				["at0056"] = <
+					text = <"Krvavitev iz nosu">
+					description = <"Krvavitev iz nosu">
+				>
+				["at0057"] = <
+					text = <"Ob naporu">
+					description = <"Stanje pacienta je ob naporu">
+				>
+				["at0058"] = <
+					text = <"V mirovanju">
+					description = <"Stanje pacienta je v  mirovanju">
+				>
+				["at0059"] = <
+					text = <"Po naporu">
+					description = <"Stanje pacienta je po naporu">
+				>
+				["at0060"] = <
+					text = <"Ortopnoa">
+					description = <"Stanje pacienta je ortopnoa">
+				>
+			>
+		>
+	>
