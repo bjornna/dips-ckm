@@ -1,0 +1,284 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.respiration.v8
+
+concept
+	[at0000]	-- Respiration
+language
+	original_language = <[ISO_639-1::en]>
+description
+	original_author = <
+		["organisation"] = <"NHS CFH">
+		["name"] = <"D B Hutchinson">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"Record respiratory rate, rhythm and character">
+			use = <"">
+			keywords = <"respirations", "breathing">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"AuthorDraft">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"B44626985711B771C24EE1D53CB73170">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Respiration
+		data matches {
+			HISTORY[at0001] matches {	-- history
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- List
+								items cardinality matches {0..*; ordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Rate
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::382]>
+												list = <
+													["1"] = <
+														units = <"/min">
+														magnitude = <|>=0.0|>
+														precision = <|0|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Rhythm
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0006, 	-- Regular
+													at0007, 	-- Irregular
+													at0008, 	-- Cheyne-Stokes
+													at0013]	-- Apnoeic episodes
+												}
+											}
+										}
+									}
+									ELEMENT[at0048] occurrences matches {0..1} matches {	-- Open airways
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0009] occurrences matches {0..1} matches {	-- Character
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0010, 	-- Gasping
+													at0011, 	-- Grunting
+													at0012, 	-- Kussmaul
+													at0014, 	-- Snoring
+													at0015, 	-- Inspiratory stridor
+													at0020, 	-- Paradoxical breathing
+													at0039, 	-- Recessing
+													at0040, 	-- Nasal flare
+													at0042, 	-- Apnoea
+													at0043, 	-- Breathlessness
+													at0044, 	-- Cough
+													at0045, 	-- Excessive Secretions
+													at0046, 	-- Wheeze
+													at0047]	-- Normal
+												}
+											}
+										}
+									}
+									ELEMENT[at0016] occurrences matches {0..1} matches {	-- Depth
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0017, 	-- Shallow
+													at0018, 	-- Normal
+													at0019]	-- Deep
+												}
+											}
+										}
+									}
+									ELEMENT[at0041] occurrences matches {0..1} matches {	-- Comments
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+						state matches {
+							ITEM_LIST[at0022] matches {	-- List
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0023] occurrences matches {0..1} matches {	-- FiO2
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::507]>
+												list = <
+													["1"] = <
+														units = <"%">
+														magnitude = <|0.0..100.0|>
+														precision = <|0|>
+													>
+												>
+												assumed_value = <
+													magnitude = <0.0>
+													units = <"%">
+													precision = <0>
+												>
+											>
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Respiration">
+					description = <"The rate and character of breathing">
+				>
+				["at0001"] = <
+					text = <"history">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"Generic event">
+				>
+				["at0003"] = <
+					text = <"List">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Rate">
+					description = <"The rate of respirations">
+				>
+				["at0005"] = <
+					text = <"Rhythm">
+					description = <"The character of the respiration">
+				>
+				["at0006"] = <
+					text = <"Regular">
+					description = <"regular respirations">
+				>
+				["at0007"] = <
+					text = <"Irregular">
+					description = <"irregular respirations">
+				>
+				["at0008"] = <
+					text = <"Cheyne-Stokes">
+					description = <"gradual waxing and waning of respiration followed by a central apnoea or hypopnoea">
+				>
+				["at0009"] = <
+					text = <"Character">
+					description = <"The character of the respirations">
+				>
+				["at0010"] = <
+					text = <"Gasping">
+					description = <"Wide open mouth and desperate">
+				>
+				["at0011"] = <
+					text = <"Grunting">
+					description = <"Making a grunting noise at the end of expiration">
+				>
+				["at0012"] = <
+					text = <"Kussmaul">
+					description = <"Deep chest breathing with or without gasp seen (for instance) in hyperglycaemia">
+				>
+				["at0013"] = <
+					text = <"Apnoeic episodes">
+					description = <"Periods of apnoea">
+				>
+				["at0014"] = <
+					text = <"Snoring">
+					description = <"Making inspiratory and expiratory noises due the palate and softtissues collapsing">
+				>
+				["at0015"] = <
+					text = <"Inspiratory stridor">
+					description = <"Involuntary laryngeal noise on inspiration">
+				>
+				["at0016"] = <
+					text = <"Depth">
+					description = <"Depth of respiration">
+				>
+				["at0017"] = <
+					text = <"Shallow">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Normal">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"Deep">
+					description = <"*">
+				>
+				["at0020"] = <
+					text = <"Paradoxical breathing">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"List">
+					description = <"@ internal @">
+				>
+				["at0023"] = <
+					text = <"FiO2">
+					description = <"Fraction of inspired oxygen">
+				>
+				["at0039"] = <
+					text = <"Recessing">
+					description = <"*">
+				>
+				["at0040"] = <
+					text = <"Nasal flare">
+					description = <"*">
+				>
+				["at0041"] = <
+					text = <"Comments">
+					description = <"Any comments about the respiration">
+				>
+				["at0042"] = <
+					text = <"Apnoea">
+					description = <"*">
+				>
+				["at0043"] = <
+					text = <"Breathlessness">
+					description = <"*">
+				>
+				["at0044"] = <
+					text = <"Cough">
+					description = <"*">
+				>
+				["at0045"] = <
+					text = <"Excessive Secretions">
+					description = <"*">
+				>
+				["at0046"] = <
+					text = <"Wheeze">
+					description = <"*">
+				>
+				["at0047"] = <
+					text = <"Normal">
+					description = <"*">
+				>
+				["at0048"] = <
+					text = <"Open airways">
+					description = <"Define if airways is free and open. The opposite would indicate some problems with respirations">
+				>
+			>
+		>
+	>

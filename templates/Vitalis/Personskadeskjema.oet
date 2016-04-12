@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>3531e590-9bce-469e-bfac-8f193f1415ee</id>
+  <name>Personskadeskjema</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose>Personskadeskjema som tilfredsstiller kravene som NPR stiller for registering </purpose>
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Personskadeskjema">
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.skaderegistrering_fmds.v1" concept_name="Skaderegistrering" max="1" min="1" path="/content">
+      <Rule path="/data[at0001]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0002]" annotation="SetValue=datetimenow;ValueConstraint=datetimepast;" />
+      <Rule path="/data[at0001]/items[at0102]" annotation="ShowAs=search;">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="Dips" terminologyLang="en-GB" queryName="FE-KOMMUNE" />
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.skadelegevakt_skaderegistrering.v1" concept_name="Lokal aktivitet (SKLV)" max="1" min="1" path="/data[at0001]/items[at0105]">
+        <Rule path="/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyLang="en-GB" queryName=" " />
+          </constraint>
+        </Rule>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.ais_scale.v1" concept_name="AIS Scala" max="1" min="1" path="/data[at0001]/items[at0106]" hide_on_form="true" />
+    </Content>
+    <Context />
+  </definition>
+</template>

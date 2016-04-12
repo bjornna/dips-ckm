@@ -1,0 +1,155 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.funn-nevro.v1
+specialize
+	openEHR-EHR-OBSERVATION.funn.v1
+
+concept
+	[at0000.1]	-- Orienterande nevrologisk undersökelse(nb)
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Bjørn Næss">
+		["organisation"] = <"DIPS ASA">
+		["email"] = <"bna@dips.no">
+		["date"] = <"2013-12-13">
+	>
+	details = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"Definererer funn i forbindelse med en undersøkelse">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Definererer funn i forbindelse med en undersøkelse">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"2408A81458F74160568C9E7DBC1CF6EB">
+	>
+
+definition
+	OBSERVATION[at0000.1] matches {	-- Orienterande nevrologisk undersökelse(nb)
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..1; unordered} matches {
+									allow_archetype CLUSTER[at0004.1] occurrences matches {0..1} matches {	-- Normal fynd
+										include
+											archetype_id/value matches {/openEHR-EHR-CLUSTER\.funn-normal(-[a-zA-Z0-9_]+)*\.v1/}
+									}
+									allow_archetype CLUSTER[at0005.1] occurrences matches {0..1} matches {	-- Avvik
+										include
+											archetype_id/value matches {/openEHR-EHR-CLUSTER\.funn-avvikende(-[a-zA-Z0-9_]+)*\.v1/}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"Orienterende nevrologisk undersøkelse">
+					description = <"Generell observasjon av funn ved undersøkelse av kroppsdel">
+				>
+				["at0000.1"] = <
+					text = <"Orienterande nevrologisk undersökelse(nb)">
+					description = <"Funn ved orienterande nevrologisk undersökelse">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Normal">
+					description = <"*">
+				>
+				["at0004.1"] = <
+					text = <"Normal fynd">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Avvik">
+					description = <"*">
+				>
+				["at0005.1"] = <
+					text = <"Avvik">
+					description = <"*">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Orienterende nevrologisk undersøkelse">
+					description = <"Generell observasjon av funn ved undersøkelse av kroppsdel">
+				>
+				["at0000.1"] = <
+					text = <"Orienterande nevrologisk undersökelse">
+					description = <"Funn ved orienterande nevrologisk undersökelse">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Normal">
+					description = <"*">
+				>
+				["at0004.1"] = <
+					text = <"Normal funn">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Avvik">
+					description = <"*">
+				>
+				["at0005.1"] = <
+					text = <"Avvik">
+					description = <"*">
+				>
+			>
+		>
+	>
