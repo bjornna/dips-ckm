@@ -61,12 +61,24 @@
     </other_details>
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt">
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.nir-grunnlagsdata.v0" concept_name="NIR grunnlagsdata" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.nir-grunnlagsdata.v0" concept_name="NIR grunnlagsdata" path="/content">
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0249]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="ICD10" terminologyLang="en-GB" queryName="ICD10" />
+        </constraint>
+      </Rule>
+    </Content>
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.saps_score.v0" concept_name="Saps score" path="/content" />
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.nems_score.v0" concept_name="Nems score" path="/content" />
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.pim3_score.v0" concept_name="Pim3 score" path="/content" />
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.sofa_score.v0" concept_name="Sofa score" path="/content" />
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.mekanisk_ventilasjon.v0" concept_name="Mekanisk ventilasjon" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.mekanisk_ventilasjon.v0" concept_name="Mekanisk ventilasjon" path="/content">
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0013]">
+        <constraint xsi:type="quantityConstraint">
+          <excludedUnits>mm[Hg]</excludedUnits>
+        </constraint>
+      </Rule>
+    </Content>
     <Context />
   </definition>
 </template>
