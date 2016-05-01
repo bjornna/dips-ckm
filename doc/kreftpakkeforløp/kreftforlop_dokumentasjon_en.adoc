@@ -1,0 +1,422 @@
+= DIPS Arena Pakkeforløp cancer
+:imagesdir: images
+:numbered:
+
+== Om et pakkeforløp
+The purpose of the "pakkeforløp" for cancer is to ensure that patients are offered appropriate treatment at the right time. The patway events should be coded so that the government can confirm that patients are followed up as intended.
+
+"Pakkeforløp" for cancer are well documented in the Directorate of Health's website: https://helsedirektoratet.no/kreft/pakkeforlop-for-kreft []
+
+This document contains a preliminary description of the Arena "Pakkeforløp" for cancer. The documentation is for information and dialogue on the development of the solution. Arena Cancer Packet Flow is a module that is largely configuration of existing functionality in DIPS Arena. The purpose of the solution is to *simplify* coding of "pakkeforløpene" and simultaneously be a starting point for process support when monitoring of these populations.
+
+Note that objective with the first version (released autumn 2015) is to make the coding of the "pakkeforløp" for cancer easier. Meanwhile, this is a solution developed to support all general patient care and treatment utilization links in patient courses.
+
+Patient progression, treatment line and packet stream are interrelated concepts.
+
+Patient trajectory :: A comprehensive, coherent description of one or more patients' contacts with various aspects of health care during a period of illness. (Regjeringen.no)
+
+Clinical pathway :: A documented description of an expected patient care for a defined group of diagnoses, rooted in evidence and coupled to efficient resource utilization and measurable results. (Health South-East)
+
+"Pakekforløp" for cancer :: is a processing line for selected diagnosis groups. "Pakkeforløp" is developed and managed by the Directorate of Health (Hdir) and the Hdir that has defined the measurable parameters they need.
+
+
+TIP: Arena Patient progression will be a later solution that accommodates all plans, activities and relevant information in patient care and across healthcare providers.
+
+=== Helsedirektoratets implementasjon av pakkeforløp
+* 1 January 2015
+** A01 :: Breast Cancer
+** A26 :: Lung Cancer
+** A12 :: Colorectal cancer
+** A16 :: Prostate
+
+* May 1 2015
+** A32 :: Cancer of esophagus and stomach
+** A18 :: Testicular Cancer
+** A14 :: Bladder Cancer
+** A15 :: Kidney Cancer
+** A22 :: Cervical cancer (cervix)
+** A20 :: Endometrial Cancer (endometrial)
+** A21 :: Ovarian cancer (ovarian)
+** A02 :: Head and neck cancer
+** A06 :: Lymphoma
+** C01 :: Diagnostic packet stream - serious illness
+
+* 1 September 2015
+** B01 :: metastases of unknown origin
+** A34 :: Primary liver cancer (HCC)
+** A40 :: Biliary Cancer
+** A37 :: Thyroid Cancer
+** A30 :: Childhood Cancer
+** A23 :: Brain Cancer
+** A39 :: neuroendocrine tumors
+** A38 :: Melanoma
+** A17 :: Penile Cancer
+** A07 :: Pancreatic Cancer
+** A04 :: Myeloma
+** A05 :: Acute leukemia and high-risk myelodysplasia
+** A03 :: Chronic lymphocytic leukemia (CLL)
+** A36 :: Sarcoma
+
+.Estimated deadlines for the various pakkeforløpene Phase 1 is time to first attendance, Phase 2 is the time to clinical decision and Phase 3 is time to first option for initial therapy
+[width="100%",cols="1,4,2,2,2",frame="topbot",options="header,footer"]
+|====
+
+| Code | Type | Phase 1 | Phase 2 | Phase 3 (min)
+| A01 | Breast cancer | 7 | 7 | 0
+
+| A02 | Head and neck cancer | 7 | 7 | 0
+
+| A03 | Chronic lymphocytic leukemia (CLL) | 14 | 10 | 0
+
+| A04 | Myeloma | 7 | 20 | 0
+
+| A05 | Acute leukemia and high-risk myelodysplasia | 2 | 5 | 0
+
+| A06 | Lymphoma | 4 | 14 | 0
+
+| A07 | Pancreatic Cancer | 8 | 14 | 0
+
+| A12 | Colorectal cancer | 9 | 12 | 0
+
+| A14 | Bladder | 7 | 25 | 0
+
+| A15 | Kidney Cancer | 7 | 25 | 0
+
+| A16 | Prostate | 10 | 24 | 0
+
+| A17 | Penile Cancer | 6 | 21 | 0
+
+| A18 | Testicular cancer | 5 | 12 | 0
+
+| A20 | Endometrial Cancer (endometrial) | 6 | 16 | 0
+
+| A21 | Ovarian cancer (ovarian) | 6 | 16 | 0
+
+| A22 | Cervical cancer (cervix) | 6 | 16 | 0
+
+| A23 | Brain Cancer | 6 | 8 | 0
+
+| A26 | Lung cancer | 7 | 21 | 0
+
+| A30 | Childhood Cancer | 3 | 10 | 0
+
+| A32 | Cancer of the esophagus and stomach | 8 | 21 | 0
+
+| A34 | Primary liver cancer (HCC) | 5 | 20 | 0
+
+| A36 | Sarcoma | 8 | 21 | 0
+
+| A37 | Thyroid Cancer | 10 | 10 | 0
+
+| A38 | Melanoma | 7 | 14 | 0
+
+| A39 | Neuroendocrine tumors | 14 | 21 | 0
+
+| A40 | Biliary Cancer | 6 | 21 | 0
+
+| B01 | metastases of unknown origin | 7 | 14 | 0
+
+| C01 | Diagnostic packet stream - serious illness | 7 | 15 | 0
+|====
+
+== Event registration in Arena "pakkeforløp" for cancer
+
+All "pakkeforløp" has a number of significant milestones or decisions. In this document we call this for events and documentation of these done as event registration Arena Cancer Packet Flow.
+
+The following events are defined:
+
+. Start packet stream
+. first show
+. clinical decision
+. biopsy
+. Exit codes
+.. Start initial treatment
+.. Transfer to other health / medical
+.. End packet stream
+
+The following archetypes are in use:
+
+openEHR-EHR-COMPOSITION.trajectory.v1.adl:: https://github.com/bjornna/dips-ckm/blob/master/archetypes/composition/openEHR-EHR-COMPOSITION.trajectory.v1.adl[openEHR-EHR-COMPOSITION.trajectory.v1.adl]
+
+openEHR-EHR-INSTRUCTION.trajectory.v1.adl:: https://github.com/bjornna/dips-ckm/blob/master/archetypes/entry/instruction/openEHR-EHR-INSTRUCTION.trajectory.v1.adl[openEHR-EHR-INSTRUCTION.trajectory.v1.adl]
+
+openEHR-EHR-ACTION.trajectory_follow_up.v1.adl :: https://github.com/bjornna/dips-ckm/blob/master/archetypes/entry/action/openEHR-EHR-ACTION.trajectory_follow_up.v1.adl[openEHR-EHR-ACTION.trajectory_follow_up.v1.adl]
+
+openEHR-EHR-CLUSTER.cancer_trajectory_details.v1.adl::
+https://github.com/bjornna/dips-ckm/blob/master/archetypes/cluster/openEHR-EHR-CLUSTER.cancer_trajectory_details.v1.adl[openEHR-EHR-CLUSTER.cancer_trajectory_details.v1.adl]
+
+=== Eksempel Breast cancer
+Breast cancer is an example of "pakkeforløp". The process is shown in the figure below: 
+
+image::Brystkreft_BPMN.png[]
+
+Directorate of Health lists the following times for breast cancer: https://helsedirektoratet.no/retningslinjer/pakkeforlop-for-brystkreft/forlopstider[process times]:
+
+|====
+| Flow Description | Forløpstid | type of treatment
+| From referral received the first attendance explanatory department | 7 calendar days |
+| From the first meeting in explanatory department to finished report (decision taken) | 7 calendar days |
+| From completed studies to start treatment | 13 calendar days | surgical treatment
+| From completed studies to start treatment | 10 calendar days | Drug Therapy |
+|====
+
+
+TIP: Many "pakkeforløp" does not go forward for treatment. It may, for example. be patients receiving decision _no cancer_.
+
+"Pakkeforløp" is often started in connection with evaluation of a referral. This group of patients will have been offered and completed the first show in the 7 days have passed. Thereafter health have reached an klnisk decision 21 days later. For many packet stream it will be necessary to have and considered biopsy area. Clinical decision can be both that there is no proven breast or detected breast cancer. If the existence of cancer patients should be offered one of two treatments. It is surgery or medication.
+
+When codes registered in Arena Packet sequence is done with a simplified code. The simplified codes are listed below. These simplistic tags put together by reporting to the NPR so that reporting occurs on the form that the Directorate of Health will have.
+
+An example of how the coding in Arena will be given in the table below:
+
+==== Start packet stream
+Physician evaluate the referral and decide that this realted to breast cancer and the patient should be followed up as a "pakkeforløp" with breast cancer. He will then create a document _Pakkeforløp start_ containing a _openEHR-EHR INSTRUCTION.trajectory_. In form he chooses "Pakkeforløp"  _Breast cancer_ encoded with code _A01_.
+
+DIPS Arena will understand that this entry marks the start of the packet stream breast cancer. Start packet stream is incident _A_. Here, assembling "pakkeforløp" Breast cancer _A01_ and Start "pakkeforløp" _A_ together provide NPR code * _A01A_ *.
+
+===== Start outside organization concerned
+In many cases, "pakkeforløp" is  started outside _my_ the Organizations. It must therefore be required to register both _when_ and _how_ the "pakkeforløp" was started.  If  the "pakkeforløp" has started outside the current  organization it must be possible to specify specific event registration for Start packet stream _A_.
+
+The solution to this is to provide fields to detect whether there is _en external hendelse_ and when this is gone and it shall be registered which remote health provider who started packing process.
+
+[source]
+----
+Given that a patient referred to OUS from Inland Hospital,
+and the patient started a packet stream for Breast Cancer 4 days ago.
+Then OUS register:
+
+  * Start package stream for 4 days ago
+  * "Pakkeforløp" A01 - Breast cancer
+  Are external event: Yes
+  * Responsible Inland Hospital
+
+In addition, it recorded the local event:
+
+* A - start "pakkeforløp" /referral received
+* Time set to the date when the reference was received at Oslo University Hospital
+* Responsible for the registration is online user
+----
+
+
+
+==== First meeting
+First attendance is an outpatient control. In connection with this consultation must be approved one _openEHR-EHR ACTION.trajectory_follow_up_. This entry will contain event code _S::Study start - first fremmøte_.
+
+Since this patient is in a "pakkeforløp" with Breast cancer _A01_ we derive that NPR code is * _A01S_ *.
+
+===== First meeting outside the current organization
+Some patients transferred to another health provider. Health provider who transmits patient records code * O - Transferred to another institution *. The receiving further referral records under Chapter above. In addition _kan_ receiving organization choose for logging events made in ceding institution.
+
+The solution supports other words, the health provider can receive a patient who is in a packet stream, and record your start in another organization and all other events that have occurred.
+
+TIP: In a future solution, information about events transferred structured between institutions. Then _etterregistrering_ automated. This is some years ahead because everyone must be on the same platform. Therefore ette registration be manually and used if you want this overview of the system.
+
+==== Clinical Decision
+At one point, taken on a clinical decision in this packet sequence. One of these decisions should be coded:
+
+* *CK* Clinical decision; Organ Specific cancer
+* *CM* Clinical decision; Suspicion of other cancers
+* *CU* Clinical decision; Proven metastases without known base
+* *CD* Clinical decision; Suspected cancer (re-evaluation)
+* *CA* Clinical decision; Proven disease other than cancer
+* *CI* Clinical decision; Absence disease
+
+In our fictional packet stream it here demonstrated an organ spec got cancer. It creates a document containing _openEHR-EHR ACTION.trajectory_follow_up_ and attach event _CK::Clinical decision; Organ Specific kreft_.
+
+Since this patient is in a packet stream for breast cancer, we can derive that NPR code is *_A01CK_*.
+
+==== Treatment start
+Patients who are diagnosed with organ-specific cancer should be offered treatment. In connection with the initiation of treatment should be coded when starting treatment and what treatment is implemented.
+
+One of these codes should be set on the first day of treatment:
+
+* FK :: Treatment start - Surgical
+* FM :: Treatment start - Drug
+* FS :: Treatment start - Radiotherapy
+* FL :: Treatment start - reliever
+* FO :: Treatment start - monitoring without treatment
+* FI :: Treatment start - No treatment
+
+In the example, the patient should be treated surgically _FK_ and patient standing in a packet stream for Breast Cancer. We can therefore derive the NPR code is *_A01FK_*.
+
+Registration starting treatment marks the end of this packet sequence.
+
+==== Summary of encoding Arena Packet Flow
+The table below shows an example of coding in Arena Packet Flow for Breast Cancer.
+
+|===
+| Packet Flow | event | NPR code
+| A01 :: Breast Cancer
+| A :: Start packet stream - referral received
+| A01A
+
+| A01 :: Breast Cancer
+| S :: Study start - First meeting
+| A01S
+
+| A01 :: Breast Cancer
+| B :: Biopsy - sampling performed
+| A01B
+
+| A01 :: Breast Cancer
+| CK :: Clinical decision; Organ Specific cancer
+| A01CK
+
+| A01 :: Breast Cancer
+| FK :: Treatment start - Surgical | A01FK
+
+
+|===
+
+=== Some examples of coding in Arena
+Below are examples of how the packet stream cancer should be coded at the Arena.
+
+==== Example 1: Packet Flow in an institution
+
+Patient A contacts primary doctor with a problem. Primary doctor considers that this is Prostatekreft. He sends referral to hospital on day T ~0~.
+The hospital receives referral the same day T ~0~. The reference evaluated following day (T ~1~) appraising physician determines that this packet stream for Prostate cancer. Start packet stream is set at the time of receiving referral (T ~0~), and the patient for the following deadlines:
+
+* First meeting within 10 days
+* Clinical decision within 24 days
+* Depending on the type of treatment the following times apply for initial therapy:
+** Operation within 32 days
+** Drug treatment within 3 days
+** Radiotherapy within 32 days
+
+The hospital set up patient to outpatient assessment about 5 days. There the stipulated period on day 5 (T ~5~). Meanwhile implemented various surveys for assessing the condition.
+
+At the clinic (Day 5) taken biopsy of the prostate gland. Along with a number of blood tests.
+
+On interdisciplinary meeting 2 weeks (day 20) taken clinical decision about the patient. It is then considered that the patient has prostate cancer and should be treated. For this patient, it is determined radiotherapy and recommended deadline for this treatment is 32 days. In other words, treatment should be started on day 52.
+
+What then registered on this patient?
+
+
+|===
+| Packet Flow | A16
+| Start packet stream | T ~0~ (same time as reference Received)
+| Reference received | T ~0~
+|===
+
+
+=== Event Codes for packet stream
+
+The following codes are defined for event registration. The codes apply to all cancer packet stream.
+
+.Listing of alle codes defining "pakkeforløp" kreft. 
+[source]
+----
+Kreftpakke :: A :: Start packet stream - referral received
+Kreftpakke :: S :: Study start - First meeting
+Kreftpakke :: B :: Biopsy - sampling performed
+Kreftpakke :: O :: Transferred to another health / hospital
+Kreftpakke :: CK :: Clinical decision; Organ Specific cancer
+Kreftpakke :: CM :: Clinical decision; Suspicion of other cancers
+Kreftpakke :: CU :: Clinical decision; Proven metastases without known base
+Kreftpakke :: CD :: Clinical decision; Suspected cancer (re-evaluation)
+Kreftpakke :: CA :: Clinical decision; Proven disease other than cancer
+Kreftpakke :: CI :: Clinical decision; Absence disease
+Kreftpakke :: FK :: Treatment start - Surgical
+Kreftpakke :: FM :: Treatment start - Drug
+Kreftpakke :: FS :: Treatment start - Radiotherapy
+Kreftpakke :: FL :: Treatment start - reliever
+Kreftpakke :: FO :: Treatment start - monitoring without treatment
+Kreftpakke :: FI :: Treatment start - No treatment
+Kreftpakke :: X :: Closing of the packet stream (for other reasons)
+Kreftpakke :: WW :: Other event
+
+----
+
+TIP: It is added a code for  other Event *WW*. This _may_ be used to record events in the course of which _ikke_ be reported to NPR. An example of this might be evidence by a telephone contact where patient reports that he wants to postpone the first meeting of private reasons.
+
+The codes are not complete in relation to that shall be forwarded to the Directorate of Health. The correct code for an event is to merge the event code along with packet stream code. An example of this are:
+
+ Given that a patient is in packet stream for Breast Cancer.
+ Then this sequence encoded with the code * A01 *.
+ If the detected event start packet stream in this process.
+ When the code * A01A * used.
+
+=== Codes packet stream
+Health Directorate has defined various packet stream. The codes for these are listed below. For some of these pakkeforløpene is the defined code and diagnosis supervisors. In addition, the written specific documentation of the patient. Patient documentation contains deadlines and information about what happens in the different phases.
+
+[source]
+----
+Kreftpakke :: C01 :: Diagnostic packet stream - serious illness
+Kreftpakke :: A01 :: Breast Cancer
+Kreftpakke :: A02 :: Head and neck cancer
+Kreftpakke :: A03 :: Chronic lymphocytic leukemia (CLL)
+Kreftpakke :: A04 :: Myeloma
+Kreftpakke :: A05 :: Acute leukemia and high-risk myelodysplasia
+Kreftpakke :: A06 :: Lymphoma
+Kreftpakke :: A07 :: Pancreatic Cancer
+Kreftpakke :: A12 :: Colorectal cancer
+Kreftpakke :: A14 :: Bladder Cancer
+Kreftpakke :: A15 :: Kidney Cancer
+Kreftpakke :: A16 :: Prostate
+Kreftpakke :: A17 :: Penile Cancer
+Kreftpakke :: A18 :: Testicular Cancer
+Kreftpakke :: A20 :: Uterine cancer (endometrial)
+Kreftpakke :: A21 :: Ovarian cancer (ovarian)
+Kreftpakke :: A22 :: Cervical cancer (cervix)
+Kreftpakke :: A23 :: Brain Cancer
+Kreftpakke :: A26 :: Lung Cancer
+Kreftpakke :: A30 :: Childhood Cancer
+Kreftpakke :: A32 :: Cancer of esophagus and stomach
+Kreftpakke :: A34 :: Primary liver cancer (HCC)
+Kreftpakke :: A36 :: Sarcoma
+Kreftpakke :: A37 :: Thyroid Cancer
+Kreftpakke :: A38 :: Melanoma
+Kreftpakke :: A39 :: neuroendocrine tumors
+Kreftpakke :: A40 :: Biliary Cancer
+----
+
+== Requirements (superior)
+
+It must be possible to record past events in the same package stream.
+
+It must be possible to encode packet stream and events so that the report to the Health Directorate is correct.
+
+It must be possible to find who is responsible / conducted various events.
+
+It must be possible to find out how long it is until the next event in any packet stream.
+
+=== Responsible
+Responsible for an event be structured in form. In most events will be liable same author. Therefore, it is desirable that the logged-on user (author) is proposed as being responsible for the incident.
+
+Since in many cases it will be registration on behalf of it must also be possible to set responsible.
+
+
+=== Solution for implementation
+
+Upon consideration of all referrals must be decided whether the current patient falls treat a defined patient care. In this context, we think only if there is reason to put patient into a cancer packet stream. If doctor determines that there are grounds for it SHALL patient set up a cancer packet stream.
+
+Technically listed this as an INSTRUCTION in the patient file. This includes information about which patient care terms and deadlines that apply to patient care pathways.
+
+TIP: The Directorate of Health indicative deadlines pakkeforløpene. Rate Ende doctor can set deadlines that are shorter than the indicative. Arena will only deal with the deadlines specified by appraising doctor.
+
+Approval of such INSTRUCTION means that the incident packet stream start is set.
+
+INSTRUCTION starting packet stream set up as document under the document type "course documents". For Arena means that if there are records of a "course documents" so the patient is a proceeding in this reference period.
+
+INSTRUCTION start packet stream contains an ACTIVITY which is packet sequence. Running Event registrations for this process is done as ACTION entries associated with the current ACTIVITY authority.
+
+ACTION archetype for monitoring cancer packet stream has the following "care flow step" defined:
+
+image::state_diagram_forlop.png[]
+
+
+Start packet stream (trajectory initiated) :: Used to document that the packet sequence is started.
+
+First meeting set up (scheduled first treament) :: Optional opportunity to prove that it is the appointed time for the first attendance.
+
+Start report (active event) :: Used for documenting the first meeting. Attaches only to document that the patient actually received your healthcare.
+
+Clinical decision (active event) :: Documents when the clinical decision is taken and through this registration as recorded this in the patient file.
+
+Biopsy (active event) :: There can be multiple biopsies as part of the assessment. This step proves that the biopsy sample is taken.
+
+Treatment (complete) :: This step proves that packet stream for cancer ends. When this entry is present in the patient record is initial treatment initiated. This milestone document conclusion of the assessment process and the start of behandlignsforløpet.
+
+Attempt packet stream (Cancel) :: This step is used to document the packet stream as terminated or canceled before it has begun. When this is used, it has thus not been any action in connection with the patient's problem.
+
+Attempt packet stream (Abortion) :: This step is used to document the completion of a packet stream where the report has been started. In other words made various assessment measures, but the patient / health still choose to end the packet sequence.
