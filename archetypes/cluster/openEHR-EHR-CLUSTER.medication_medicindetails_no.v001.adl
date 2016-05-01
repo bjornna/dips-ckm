@@ -1,0 +1,258 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.medication_medicindetails_no.v001
+
+concept
+	[at0000]	-- Medication medicindetails no
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Lagring av legemiddeldetaljer som må lagres bl.a. pga manglende historikk i FEST.
+Dette er en midlertidig arketype i påvente av avklaringer rundt INSTRUCTION.medication.order og tilhørende clustere. Brukes i samråd med team deUbestikkelige">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"ADD6D10A90ACC4A7CC29921C77EA43CE">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Medication medicindetails no
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Produsent
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0009] occurrences matches {0..1} matches {	-- Reseptgruppe
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::]}
+					}
+				}
+			}
+			CLUSTER[at0011] occurrences matches {0..1} matches {	-- Medikamenthåndtering
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0012] occurrences matches {0..1} matches {	-- Knuses?
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {[local::]}
+							}
+						}
+					}
+					ELEMENT[at0013] occurrences matches {0..1} matches {	-- Åpnes?
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {[local::]}
+							}
+						}
+					}
+					ELEMENT[at0014] occurrences matches {0..1} matches {	-- Deles
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {[local::]}
+							}
+						}
+					}
+					ELEMENT[at0015] occurrences matches {0..1} matches {	-- Bolus
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {[local::]}
+							}
+						}
+					}
+					ELEMENT[at0016] occurrences matches {0..1} matches {	-- Infusjonshastighet bolus
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {[local::]}
+							}
+						}
+					}
+					ELEMENT[at0017] occurrences matches {0..1} matches {	-- Konservering
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0018] occurrences matches {0..1} matches {	-- Oppevaring
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+			ELEMENT[at0019] occurrences matches {0..1} matches {	-- Smak
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			CLUSTER[at0021] occurrences matches {0..1} matches {	-- Markedsføringstillatelse
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0022] occurrences matches {0..1} matches {	-- Markedsføringstillatelse
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0023] occurrences matches {0..1} matches {	-- Begrunnelse
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0024] occurrences matches {0..1} matches {	-- Direktesøknad SLV
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0025] occurrences matches {0..1} matches {	-- Generell tillatelse på sykehus etter søknad
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+				}
+			}
+			ELEMENT[at0026] occurrences matches {0..1} matches {	-- Opoidsøknad
+				value matches {
+					DV_BOOLEAN matches {
+						value matches {True, False}
+					}
+				}
+			}
+			CLUSTER[at0027] occurrences matches {0..1} matches {	-- Varsel
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0028] occurrences matches {0..1} matches {	-- Svart trekant
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0029] occurrences matches {0..1} matches {	-- Rød trekant
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0030] occurrences matches {0..1} matches {	-- Varseldetaljer
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+			allow_archetype CLUSTER[at0032] occurrences matches {0..*} matches {	-- Ytterligere detaljer
+				include
+					archetype_id/value matches {/.*/}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Medication medicindetails no">
+					description = <"Legemiddeldetaljer fra FEST. Midlertidig arketype">
+				>
+				["at0001"] = <
+					text = <"Produsent">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Reseptgruppe">
+					description = <"draft">
+				>
+				["at0011"] = <
+					text = <"Medikamenthåndtering">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Knuses?">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Åpnes?">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Deles">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Bolus">
+					description = <"*">
+				>
+				["at0016"] = <
+					text = <"Infusjonshastighet bolus">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Konservering">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Oppevaring">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"Smak">
+					description = <"*">
+				>
+				["at0021"] = <
+					text = <"Markedsføringstillatelse">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Markedsføringstillatelse">
+					description = <"Skal ikke søkes, søknad vurderes apotek, må søkes">
+				>
+				["at0023"] = <
+					text = <"Begrunnelse">
+					description = <"*">
+				>
+				["at0024"] = <
+					text = <"Direktesøknad SLV">
+					description = <"*">
+				>
+				["at0025"] = <
+					text = <"Generell tillatelse på sykehus etter søknad">
+					description = <"*">
+				>
+				["at0026"] = <
+					text = <"Opoidsøknad">
+					description = <"*">
+				>
+				["at0027"] = <
+					text = <"Varsel">
+					description = <"*">
+				>
+				["at0028"] = <
+					text = <"Svart trekant">
+					description = <"*">
+				>
+				["at0029"] = <
+					text = <"Rød trekant">
+					description = <"*">
+				>
+				["at0030"] = <
+					text = <"Varseldetaljer">
+					description = <"*">
+				>
+				["at0032"] = <
+					text = <"Ytterligere detaljer">
+					description = <"*">
+				>
+			>
+		>
+	>

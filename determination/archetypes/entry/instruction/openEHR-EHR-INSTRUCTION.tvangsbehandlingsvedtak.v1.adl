@@ -36,13 +36,13 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"625F010034FEC254C363139B87C25394">
+		["MD5-CAM-1.0.1"] = <"06578564C77DB2EE81DE51855DE21D79">
 	>
 
 definition
 	INSTRUCTION[at0000] matches {	-- Tvangsbehandlingsvedtak
 		activities cardinality matches {0..*; unordered} matches {
-			ACTIVITY[at0001] occurrences matches {0..1} matches {	-- Current Activity
+			ACTIVITY[at0001] occurrences matches {0..*} matches {	-- Current Activity
 				description matches {
 					ITEM_TREE[at0002] matches {	-- Tree
 						items cardinality matches {1..*; unordered} matches {
@@ -101,19 +101,6 @@ definition
 											[local::
 											at0072, 	-- Det er åpenbart umulig å tilby andre frivillige tiltak som alternativ til undersøkelse og behandling uten eget samtykke
 											at0073]	-- Andre frivillige tiltak som alternativ til undersøkelse og behandling uten eget samtykke er blitt vurdert
-										}
-									}
-								}
-							}
-							ELEMENT[at0015] occurrences matches {0..1} matches {	-- Vedtakstype
-								value matches {
-									DV_CODED_TEXT matches {
-										defining_code matches {
-											[local::
-											at0016, 	-- Behandling med legemidler uten eget samtykke
-											at0017, 	-- Ernæring uten eget samtykke
-											at0018, 	-- Ernæring uten eget samtykke kombinert med annen behandlingsform
-											at0019]	-- Annen behandlingsform
 										}
 									}
 								}
@@ -189,34 +176,34 @@ definition
 									DV_DATE matches {*}
 								}
 							}
-							ELEMENT[at0056] occurrences matches {0..1} matches {	-- Forutsetning for oppstart av behandling
+							ELEMENT[at0056] occurrences matches {0..1} matches {	-- Forutsetning for oppstart av behandling med legemidler
 								value matches {
 									DV_CODED_TEXT matches {
 										defining_code matches {
 											[local::
 											at0057, 	-- Pasienten er informert. Med mindre pasienten inngir klage kan behandlingen starte etter 48 timer.
-											at0058, 	-- Pasienten er informert. Den falige ansvarlige har av tungtveiende behandlingsmessige grunner funnet at behandlingen ikke kan utsettes i 48 timer.
+											at0058, 	-- Pasienten er informert. Den faglig ansvarlige har av tungtveiende behandlingsmessige grunner funnet at behandlingen ikke kan utsettes i 48 timer.
 											at0059, 	-- Pasienten har inngitt klage med oppsettende virkning. Behandlingen utsettes inntil klagen er behandlet.
 											at0060]	-- Pasienten har inngitt klage, men den faglig ansvarlige vurderer det slik at pasienten ved utsettese vil lide alvorlig helseskade slik at behandlingen likevel må starte før klagen er avgjort.
 										}
 									}
 								}
 							}
-							ELEMENT[at0075] occurrences matches {0..1} matches {	-- Vedtaket er opphevet og erstattet av nytt vedtak
+							ELEMENT[at0088] occurrences matches {0..1} matches {	-- Begrunnelse for iverksetting av vedtak før klagefrist/behandling av klage
 								value matches {
-									DV_BOOLEAN matches {
-										value matches {True}
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0089] occurrences matches {0..1} matches {	-- Dokument med begrunnelse for tidlig iverksetting datert
+								value matches {
+									DV_DATE_TIME matches {*}
+								}
+							}
+							ELEMENT[at0061] occurrences matches {0..*} matches {	-- Legeundersøkelse er dokumentert i journalnotat av
+								value matches {
+									DV_DATE matches {
+										value matches {yyyy-mm-dd}
 									}
-								}
-							}
-							ELEMENT[at0074] occurrences matches {0..1} matches {	-- Dato for opphevet og erstattet av vedtak
-								value matches {
-									DV_DATE matches {*}
-								}
-							}
-							ELEMENT[at0061] occurrences matches {0..1} matches {	-- Legeundersøkelse er dokumentert i journalnotat av
-								value matches {
-									DV_DATE matches {*}
 								}
 							}
 							ELEMENT[at0041] occurrences matches {0..1} matches {	-- Legeundersøkelsen ble gjennomført av
@@ -301,26 +288,6 @@ ontology
 					text = <"Om andre frivillige tiltak">
 					description = <"Kode som angir hvorfor ikke andre frivillige tiltak kan gjennomføres.">
 				>
-				["at0015"] = <
-					text = <"Vedtakstype">
-					description = <"Kode som angir hvilken type vedtak registreringen gjelder.">
-				>
-				["at0016"] = <
-					text = <"Behandling med legemidler uten eget samtykke">
-					description = <"*">
-				>
-				["at0017"] = <
-					text = <"Ernæring uten eget samtykke">
-					description = <"*">
-				>
-				["at0018"] = <
-					text = <"Ernæring uten eget samtykke kombinert med annen behandlingsform">
-					description = <"*">
-				>
-				["at0019"] = <
-					text = <"Annen behandlingsform">
-					description = <"*">
-				>
 				["at0020"] = <
 					text = <"Betegnelse på den/de typer behandling det dreier seg om">
 					description = <"Dersom vedtaket omfatter former for behandling som ikke er dekket av de faste kategorier, skal det angis en betegnelse på den/de typer behandling det dreier seg om.">
@@ -331,11 +298,11 @@ ontology
 				>
 				["at0022"] = <
 					text = <"Planlagt oppstart dato behandling">
-					description = <"Dato for oppstart av tvangsbehandling.">
+					description = <"Behandlingen kan tidligst iverksettes 48 timer etter at pasienten er underrettet om vedtaket">
 				>
 				["at0023"] = <
 					text = <"Behandlingen skal være avsluttet">
-					description = <"Tvangsbehandlingen skal være avsluttet innen den dato som angis her.">
+					description = <"Den planlagte varigheten kan maksimalt settes til tre uker bortsett fra ved vedtak om behandling med legemidler hvor varigheten maksimalt settes til tre måneder">
 				>
 				["at0024"] = <
 					text = <"Tidspunkt pasienten ble informert">
@@ -343,7 +310,7 @@ ontology
 				>
 				["at0025"] = <
 					text = <"Dato og tidspunkt vedtak fattet:">
-					description = <"Dato og klokkeslett vedtaket ble fattet.">
+					description = <"Det tidspunkt (dato og klokkeslett) vedtaket ble fattet.">
 				>
 				["at0026"] = <
 					text = <"Observasjon før vedtak om tvangsbehandling">
@@ -398,7 +365,7 @@ ontology
 					description = <"Dato til dokumentasjon til forskrivningen(e) som tvangsbehandlingen omfatter.">
 				>
 				["at0056"] = <
-					text = <"Forutsetning for oppstart av behandling">
+					text = <"Forutsetning for oppstart av behandling med legemidler">
 					description = <"Kode som angir hvilken forutsetning som må være oppfylt før behandlingen kan starte.">
 				>
 				["at0057"] = <
@@ -406,8 +373,8 @@ ontology
 					description = <"Pasienten er informert. Med mindre pasienten inngir klage kan behandlingen starte etter 48 timer.">
 				>
 				["at0058"] = <
-					text = <"Pasienten er informert. Den falige ansvarlige har av tungtveiende behandlingsmessige grunner funnet at behandlingen ikke kan utsettes i 48 timer.">
-					description = <"Pasienten er informert. Den falige ansvarlige har av tungtveiende behandlingsmessige grunner funnet at behandlingen ikke kan utsettes i 48 timer.">
+					text = <"Pasienten er informert. Den faglig ansvarlige har av tungtveiende behandlingsmessige grunner funnet at behandlingen ikke kan utsettes i 48 timer.">
+					description = <"Pasienten er informert. Den faglig ansvarlige har av tungtveiende behandlingsmessige grunner funnet at behandlingen ikke kan utsettes i 48 timer.">
 				>
 				["at0059"] = <
 					text = <"Pasienten har inngitt klage med oppsettende virkning. Behandlingen utsettes inntil klagen er behandlet.">
@@ -441,14 +408,6 @@ ontology
 					text = <"Andre frivillige tiltak som alternativ til undersøkelse og behandling uten eget samtykke er blitt vurdert">
 					description = <"Andre frivillige tiltak som alternativ til undersøkelse og behandling uten eget samtykke er blitt vurdert">
 				>
-				["at0074"] = <
-					text = <"Dato for opphevet og erstattet av vedtak">
-					description = <"Dato til nytt vedtak som erstatter det opphevede vedtaket.">
-				>
-				["at0075"] = <
-					text = <"Vedtaket er opphevet og erstattet av nytt vedtak">
-					description = <"Marker i sjekkboksen dersom vedtaket er opphevet og erstattet av nytt vedtak.">
-				>
 				["at0076"] = <
 					text = <"Stilling">
 					description = <"Stilling til den legen som foretok legeundersøkelsen i direkte tilknytning til vedtaket om ernæring uten eget samtykke.">
@@ -479,11 +438,19 @@ ontology
 				>
 				["at0083"] = <
 					text = <"Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette">
-					description = <"Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette.">
+					description = <"Dersom pasienten på det tidspunktet vedtaket fattes nektes innsyn i hele eller deler av begrunnelsen for vedtaket etter bestemmelsen i pasient- og brukerrettighetsloven § 3 2 tredje ledd, skal ikke begrunnelsen for vedtaket registreres i tekstfeltet under, men i et eget journalnotat. Begrunnelsen for å nekte innsyn må også fremkomme i samme journalnotat.">
 				>
 				["at0085"] = <
 					text = <"Vurdering av pasientinnsyn">
 					description = <"*">
+				>
+				["at0088"] = <
+					text = <"Begrunnelse for iverksetting av vedtak før klagefrist/behandling av klage">
+					description = <"Fyll inn begrunnelse for at tvangsbehandling iverksettes før klagefristen utgår/klage behandles">
+				>
+				["at0089"] = <
+					text = <"Dokument med begrunnelse for tidlig iverksetting datert">
+					description = <"Referanse til dokument med begrunnelse for at tvangsbehandling iverksettes før klagefristen utgår/klage behandles">
 				>
 			>
 		>
@@ -521,26 +488,6 @@ ontology
 					text = <"Om andre frivillige tiltak">
 					description = <"Hvorfor ikke andre frivillige tiltak kan gjennomføres.">
 				>
-				["at0015"] = <
-					text = <"Vedtakstype undersøkelse og behandling uten eget samtykke">
-					description = <"Hvilken type vedtak registreringen gjelder.">
-				>
-				["at0016"] = <
-					text = <"Behandling med legemidler uten eget samtykke">
-					description = <"*">
-				>
-				["at0017"] = <
-					text = <"Ernæring uten eget samtykke">
-					description = <"*">
-				>
-				["at0018"] = <
-					text = <"Ernæring uten eget samtykke kombinert med annen behandlingsform">
-					description = <"*">
-				>
-				["at0019"] = <
-					text = <"Annen behandlingsform">
-					description = <"*">
-				>
 				["at0020"] = <
 					text = <"betegnelse på den/de typer behandling det dreier seg om">
 					description = <"Dersom vedtaket omfatter former for behandling som ikke er dekket av de kategorier som det er mulig å velge ved registrering av vedtakstype, skal det her angis (på stikkordsform) hvilke typer behandling det dreier seg om.">
@@ -550,12 +497,12 @@ ontology
 					description = <"*Referanse til journalnotat med nærmere begrunnelse for vedtaket.(nb)">
 				>
 				["at0022"] = <
-					text = <"Planlagt oppstart dato">
-					description = <"Dato for oppstart av tvangsbehandling.">
+					text = <"*Planlagt oppstart dato behandling(nb)">
+					description = <"*Behandlingen kan tidligst iverksettes 48 timer etter at pasienten er underrettet om vedtaket(nb)">
 				>
 				["at0023"] = <
-					text = <"Behandlingen skal være avsluttet">
-					description = <"Tvangsbehandlingen skal være avsluttet innen den dato som angis her.">
+					text = <"*Behandlingen skal være avsluttet(nb)">
+					description = <"*Den planlagte varigheten kan maksimalt settes til tre uker bortsett fra ved vedtak om behandling med legemidler hvor varigheten maksimalt settes til tre måneder(nb)">
 				>
 				["at0024"] = <
 					text = <"Tidspunkt pasienten ble informert">
@@ -563,7 +510,7 @@ ontology
 				>
 				["at0025"] = <
 					text = <"*Dato og tidspunkt vedtak fattet:(nb)">
-					description = <"*Dato og klokkeslett vedtaket ble fattet.(nb)">
+					description = <"*Det tidspunkt (dato og klokkeslett) vedtaket ble fattet.(nb)">
 				>
 				["at0026"] = <
 					text = <"Observasjon før vedtak om tvangsbehandling">
@@ -618,16 +565,16 @@ ontology
 					description = <"Dato til dokumentasjon av forskrivningen(e) som tvangsbehandlingen omfatter.">
 				>
 				["at0056"] = <
-					text = <"Forutsetning for oppstart av behandling">
-					description = <"Hvilken forutsetning som må være oppfylt før behandlingen kan starte.">
+					text = <"*Forutsetning for oppstart av behandling med legemidler(nb)">
+					description = <"*Kode som angir hvilken forutsetning som må være oppfylt før behandlingen kan starte.(nb)">
 				>
 				["at0057"] = <
 					text = <"Pasienten er informert. Med mindre pasienten inngir klage kan behandlingen starte etter 48 timer.">
 					description = <"*">
 				>
 				["at0058"] = <
-					text = <"Pasienten er informert. Den falige ansvarlige har av tungtveiende behandlingsmessige grunner funnet at behandlingen ikke kan utsettes i 48 timer.">
-					description = <"*">
+					text = <"*Pasienten er informert. Den faglig ansvarlige har av tungtveiende behandlingsmessige grunner funnet at behandlingen ikke kan utsettes i 48 timer.(nb)">
+					description = <"*Pasienten er informert. Den faglig ansvarlige har av tungtveiende behandlingsmessige grunner funnet at behandlingen ikke kan utsettes i 48 timer.(nb)">
 				>
 				["at0059"] = <
 					text = <"Pasienten har inngitt klage med oppsettende virkning. Behandlingen utsettes inntil klagen er behandlet.">
@@ -661,14 +608,6 @@ ontology
 					text = <"Andre frivillige tiltak som alternativ til undersøkelse og behandling uten eget samtykke er blitt vurdert">
 					description = <"*">
 				>
-				["at0074"] = <
-					text = <"Dato for nytt vedtak">
-					description = <"Dato for nytt vedtak som erstatter det opphevede vedtaket.">
-				>
-				["at0075"] = <
-					text = <"Vedtaket er opphevet og erstattet av nytt vedtak">
-					description = <"Marker i sjekkboksen dersom vedtaket er opphevet og erstattet av nytt vedtak.">
-				>
 				["at0076"] = <
 					text = <"Stilling">
 					description = <"Stilling til den legen som foretok legeundersøkelsen i direkte tilknytning til vedtaket om ernæring uten eget samtykke.">
@@ -698,12 +637,20 @@ ontology
 					description = <"Til utregning av varighet. Skal skjules">
 				>
 				["at0083"] = <
-					text = <"*Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette(nb)">
-					description = <"*Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette.(nb)">
+					text = <"Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette">
+					description = <"Dersom pasienten på det tidspunktet vedtaket fattes nektes innsyn i hele eller deler av begrunnelsen for vedtaket etter bestemmelsen i pasient- og brukerrettighetsloven § 3 2 tredje ledd, skal ikke begrunnelsen for vedtaket registreres i tekstfeltet under, men i et eget journalnotat. Begrunnelsen for å nekte innsyn må også fremkomme i samme journalnotat">
 				>
 				["at0085"] = <
-					text = <"*Vurdering av pasientinnsyn(nb)">
-					description = <"**(nb)">
+					text = <"Vurdering av pasientinnsyn">
+					description = <"*">
+				>
+				["at0088"] = <
+					text = <"*Begrunnelse for iverksetting av vedtak før klagefrist/behandling av klage(nb)">
+					description = <"*Fyll inn begrunnelse for at tvangsbehandling iverksettes før klagefristen utgår/klage behandles(nb)">
+				>
+				["at0089"] = <
+					text = <"*Dokument med begrunnelse for tidlig iverksetting datert(nb)">
+					description = <"*Referanse til dokument med begrunnelse for at tvangsbehandling iverksettes før klagefristen utgår/klage behandles(nb)">
 				>
 			>
 		>
