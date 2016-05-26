@@ -1,0 +1,208 @@
+﻿archetype (adl_version=1.4; uid=9426baaf-047c-45c0-99d5-505356158163)
+	openEHR-EHR-CLUSTER.nyha_heart_failure.v1
+
+concept
+	[at0000]	-- NYHA heart failure classification
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["name"] = <"Silje Ljosland Bakke">
+				["organisation"] = <"Nasjonal IKT HF">
+				["email"] = <"silje.ljosland.bakke@nasjonalikt.no">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Dr Ian McNicoll">
+		["organisation"] = <"Ocean Informatics, UK">
+		["email"] = <"ian.mcnicoll@oceaninformatics.com">
+		["date"] = <"2012-04-12">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record a functional and objective classification of heart failure related symptoms, as defined by the New York Heart Association.">
+			use = <"Use to record a functional and objective classification of heart failure related symptoms. 
+
+This archetype has been specifically designed to be used in the 'Specific details' SLOT within the  EVALUATION.problem_diagnosis archetype, in SLOTs within other clinically appropriate ENTRY or CLUSTER archetypes, or alternatively as a standalone assessment of heart failure in the 'Detail' SLOT within the generic EVALUATION.container archetype.">
+			keywords = <"heart", "failure", "cardiac", "breathlessness", "fatigue">
+			misuse = <"Should not be used to record a classification or assessment of symptoms outside the context of heart failure.">
+			copyright = <"© Nasjonal IKT HF">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"En funksjonell klassifisering av pasienter med hjertesvikt-relaterte symptomer. Definert av New York Heart Association.">
+			use = <"Brukes for å registrere en funksjonell og objektiv klassifisering av hjertesvikt-relaterte symptomer.
+
+Arketypen er spesifikt designet for bruk i \"Spesifikke detaljer\"-SLOTet i arketypen EVALUATION.problem_diagnosis, i SLOTer i andre klinisk passende ENTRY- eller CLUSTER-arketyper, eller som en frittstående vurdering av hjertesvikt i \"Detaljer\"-SLOTet den generiske EVALUATION.container-arketypen.">
+			keywords = <"hjertesvikt", "hjerte", "svikt", "pusteproblemer", "dysnpoe", "tretthet", "fatigue", "funksjonsnivå">
+			misuse = <"Brukes ikke for å registrere klassifisering eller vurdering av symptomer som ikke omhandler hjertesvikt.">
+			copyright = <"© Nasjonal IKT HF">
+		>
+	>
+	lifecycle_state = <"published">
+	other_contributors = <"Silje Ljosland Bakke, Helse Bergen HF, Norway (Nasjonal IKT redaktør)", "Kerrie Lee, Australia", "John Tore Valand, Haukeland Universitetssjukehus, Norway (Nasjonal IKT redaktør)">
+	other_details = <
+		["current_contact"] = <"ian McNicoll, freshEHR Informatics, UK, ian@freshehr.com">
+		["revision"] = <"1.0.0">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["references"] = <"American Heart Association (1994) AHA medical/scientific statement: 1994 revisions to classification of functional capacity and objective assessment of patients with diseases of the heart. Circulation 90:644–645.
+
+American Heart Association (2015, April 6) Classes of Heart Failure. Retrieved from: http://www.heart.org/HEARTORG/Conditions/HeartFailure/AboutHeartFailure/Classes-of-Heart-Failure_UCM_306328_Article.jsp">
+		["build_uid"] = <"70d5ecce-4582-491c-bd63-eb94d0e91050">
+		["original_publisher"] = <"openEHR Foundation">
+		["original_namespace"] = <"org.openehr">
+		["MD5-CAM-1.0.1"] = <"B78A1FC4DA5E22230C3CB67554BE2A2E">
+		["custodian_namespace"] = <"no.nasjonalikt">
+		["custodian_organisation"] = <"Nasjonal IKT">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- NYHA heart failure classification
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Function capacity
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0002, 	-- Class I
+							at0003, 	-- Class II
+							at0004, 	-- Class III
+							at0005]	-- Class IV
+						}
+					}
+				}
+			}
+			ELEMENT[at0006] occurrences matches {0..1} matches {	-- Objective assessment
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0007, 	-- Class A
+							at0008, 	-- Class B
+							at0009, 	-- Class C
+							at0010]	-- Class D
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	terminologies_available = <"Snomed", ...>
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"NYHA heart failure classification">
+					description = <"A classification of heart failure related symptoms defined by the New York Heart Association.">
+				>
+				["at0001"] = <
+					text = <"Function capacity">
+					description = <"The functional classification of heart failure based on patient symptoms.">
+				>
+				["at0002"] = <
+					text = <"Class I">
+					description = <"No limitation of physical activity. Ordinary physical activity does not cause undue fatigue, palpitation, dyspnea (shortness of breath).">
+				>
+				["at0003"] = <
+					text = <"Class II">
+					description = <"Slight limitation of physical activity. Comfortable at rest. Ordinary physical activity results in fatigue, palpitation, dyspnea (shortness of breath).">
+				>
+				["at0004"] = <
+					text = <"Class III">
+					description = <"Marked limitation of physical activity. Comfortable at rest. Less than ordinary activity causes fatigue, palpitation, or dyspnea.">
+				>
+				["at0005"] = <
+					text = <"Class IV">
+					description = <"Unable to carry on any physical activity without discomfort. Symptoms of heart failure at rest. If any physical activity is undertaken, discomfort increases.">
+				>
+				["at0006"] = <
+					text = <"Objective assessment">
+					description = <"The classification of heart failure based on an objective assessment.">
+				>
+				["at0007"] = <
+					text = <"Class A">
+					description = <"No objective evidence of cardiovascular disease. No symptoms and no limitation in ordinary physical activity.">
+				>
+				["at0008"] = <
+					text = <"Class B">
+					description = <"Objective evidence of minimal cardiovascular disease. Mild symptoms and slight limitation during ordinary activity. Comfortable at rest.">
+				>
+				["at0009"] = <
+					text = <"Class C">
+					description = <"Objective evidence of moderately severe cardiovascular disease. Marked limitation in activity due to symptoms, even during less-than-ordinary activity. Comfortable only at rest.">
+				>
+				["at0010"] = <
+					text = <"Class D">
+					description = <"Objective evidence of severe cardiovascular disease. Severe limitations. Experiences symptoms even while at rest.">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"NYHA klassifikasjon av hjertesvikt">
+					description = <"En klassifikasjon av symptomer relatert til hjertesvikt, definert av New York Heart Association.">
+				>
+				["at0001"] = <
+					text = <"Funksjonell kapasitet">
+					description = <"Den funksjonelle klassifiseringen av hjertesvikt, basert på pasientsymptomer.">
+				>
+				["at0002"] = <
+					text = <"Klasse I">
+					description = <"Ingen begrensninger i fysisk kapasitet. Vanlig fysisk aktivitet forårsaker ikke uvanlig tretthet, hjertebank eller pustebesvær.">
+				>
+				["at0003"] = <
+					text = <"Klasse II">
+					description = <"Liten begrensning i fysisk kapasitet. Har det bra i hvile. Vanlig fysisk aktivitet forårsaker tretthet, hjertebank eller pustebesvær.">
+				>
+				["at0004"] = <
+					text = <"Klasse III">
+					description = <"Merkbar begrensning i fysisk kapasitet. Har det bra i hvile. Mindre enn vanlig fysisk aktivitet forårsaker tretthet, hjertebank eller pustebesvær.">
+				>
+				["at0005"] = <
+					text = <"Klasse IV">
+					description = <"Ikke i stand til å utføre fysisk aktivitet uten ubehag. Symptomer på hjertesvikt i hvile. Hvis fysisk aktivitet utføres, øker ubehaget.">
+				>
+				["at0006"] = <
+					text = <"Objektiv vurdering">
+					description = <"Klassifiseringen av hjertesvikt basert på en objektiv vurdering.">
+				>
+				["at0007"] = <
+					text = <"Klasse A">
+					description = <"Ingen objektive tegn på kardiovaskulær sykdom. Ingen symptomer og ingen begrensninger i vanlig fysisk aktivitet.">
+				>
+				["at0008"] = <
+					text = <"Klasse B">
+					description = <"Objektive tegn på lett kardiovaskulær sykdom. Milde symptomer og liten begrensning ved vanlig fysisk aktivitet. Har det bra i hvile.">
+				>
+				["at0009"] = <
+					text = <"Klasse C">
+					description = <"Objektive tegn på moderat kardiovaskulær sykdom. Markert begrensning i fysisk kapasitet på grunn av symptomer, også ved mindre enn vanlig aktivitet. Har det bra kun i hvile.">
+				>
+				["at0010"] = <
+					text = <"Klasse D">
+					description = <"Objektive tegn på alvorlig kardiovaskulær sykdom. Store begrensninger. Opplever symptomer selv i hvile.">
+				>
+			>
+		>
+	>
+	term_bindings = <
+		["Snomed"] = <
+			items = <
+				["at0000"] = <[Snomed::420816009]>
+				["at0001"] = <[Snomed(1107Intl)::420816009]>
+				["at0002"] = <[Snomed::420300004]>
+				["at0003"] = <[Snomed::421704003]>
+				["at0004"] = <[Snomed::420913000]>
+				["at0005"] = <[Snomed::421704003]>
+			>
+		>
+	>

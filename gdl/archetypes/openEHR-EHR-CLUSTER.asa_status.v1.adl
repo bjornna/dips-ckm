@@ -1,0 +1,190 @@
+﻿archetype (adl_version=1.4; uid=871d2142-4e49-4316-ad2e-70d10337e624)
+	openEHR-EHR-CLUSTER.asa_status.v1
+
+concept
+	[at0000]	-- ASA-klassifikasjon
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["name"] = <"Lars Bitsch-Larsen; Einar Fosse">
+				["organisation"] = <"Helse Vest; Helse Nord">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Heather Leslie">
+		["email"] = <"heather.leslie@oceaninformatics.com">
+		["organisation"] = <"Ocean Informatics">
+		["date"] = <"2010-06-25">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record the degree of 'sickness' or 'physical state' prior to selecting the anaesthetic or prior to performing surgery.">
+			use = <"Used for recordkeeping, for communicating between colleagues, and to create a uniform system for statistical analysis.
+
+This archetype has been designed to be used within a variety of ENTRY archetypes - for example an EVALUATION for a pre-operative anaesthetic assessment or an infection control investigation.">
+			keywords = <"ASA", "pre-operative", "surgery">
+			misuse = <"Not intended for use as a measure to predict operative risk.">
+			copyright = <"© Nasjonal IKT HF">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For registrering av graden av sykelighet eller fysisk status før valg av anestesi eller oppstart av operasjon.">
+			use = <"Brukes for journaldokumentasjon, for kommunikasjon mellom kolleger og for å skape en enhetlig system for statistisk analyse.
+
+Denne arketypen er blitt designet for å brukes innen forskjellige ENTRY-arketyper f.eks. EVALUATION for preoperativ anestesivurdering eller vurdering for infeksjonskontroll.">
+			keywords = <"ASA", "preoperativ", "kirurgi", "infeksjonsrisiko", "anestesitype">
+			misuse = <"Brukes ikke som mål for å forutsi operasjonsrisiko.">
+			copyright = <"© Nasjonal IKT HF">
+		>
+	>
+	lifecycle_state = <"NotSet">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"6E5280BEAF42E860CF562BE9E64038AC">
+		["original_publisher"] = <"openEHR Foundation">
+		["current_contact"] = <"Heather Leslie, Ocean Informatics, heather.leslie@oceaninformatics.com">
+		["build_uid"] = <"4d26f1bf-4d29-40e0-a455-e1d448b26a3b">
+		["original_namespace"] = <"org.openehr">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["references"] = <"American Society for Anesthesiologists: http://www.asahq.org/resources/clinical-information/asa-physical-status-classification-system
+
+Cleveland Clinic (provided examples of each state): http://my.clevelandclinic.org/services/Anesthesia/hic_ASA_Physical_Classification_System.aspx
+
+Norsk anestesiologisk forening: ASA-klassifikasjonen. http://nafweb.no/standarder/asa-klassifikasjon/ [hentet 01.10.2015]">
+		["revision"] = <"0.0.1-alpha">
+		["custodian_namespace"] = <"no.nasjonalikt">
+		["custodian_organisation"] = <"Nasjonal IKT">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- ASA-klassifikasjon
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- ASA-status
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0003, 	-- ASA I
+							at0004, 	-- ASA II
+							at0005, 	-- ASA III
+							at0006, 	-- ASA IV
+							at0007, 	-- ASA V
+							at0008]	-- ASA VI
+						}
+					}
+				}
+			}
+			ELEMENT[at0015] occurrences matches {0..1} matches {	-- Akuttsituasjon
+				value matches {
+					DV_BOOLEAN matches {
+						value matches {True}
+					}
+				}
+			}
+			ELEMENT[at0014] occurrences matches {0..1} matches {	-- Kommentar
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"ASA Physical Status Classification">
+					description = <"Classification system adopted by the American Society of Anesthesiologists for assessing preoperative physical status.">
+				>
+				["at0001"] = <
+					text = <"ASA patient status">
+					description = <"Assessed pre-operative status of a patient.">
+				>
+				["at0003"] = <
+					text = <"ASA I">
+					description = <"A normal healthy patient. No organic, physiologic, or psychiatric disturbance; excludes the very young and very old; healthy with good exercise tolerance.">
+				>
+				["at0004"] = <
+					text = <"ASA II">
+					description = <"A patient with mild systemic disease. No functional limitations; has a well-controlled disease of one body system; controlled hypertension or diabetes without systemic effects, cigarette smoking without chronic obstructive pulmonary disease (COPD); mild obesity, pregnancy.">
+				>
+				["at0005"] = <
+					text = <"ASA III">
+					description = <"A patient with severe systemic disease. Some functional limitation; has a controlled disease of more than one body system or one major system; no immediate danger of death; controlled congestive heart failure (CHF), stable angina, old heart attack, poorly controlled hypertension, morbid obesity, chronic renal failure; bronchospastic disease with intermittent symptoms.">
+				>
+				["at0006"] = <
+					text = <"ASA IV">
+					description = <"A patient with severe systemic disease that is a constant threat to life. Has at least one severe disease that is poorly controlled or at end stage; possible risk of death; unstable angina, symptomatic COPD, symptomatic CHF, hepatorenal failure.">
+				>
+				["at0007"] = <
+					text = <"ASA V">
+					description = <"A moribund patient who is not expected to survive without the operation. Not expected to survive > 24 hours without surgery; imminent risk of death; multiorgan failure, sepsis syndrome with hemodynamic instability, hypothermia, poorly controlled coagulopathy.">
+				>
+				["at0008"] = <
+					text = <"ASA VI">
+					description = <"A declared brain-dead patient whose organs are being removed for donor purposes.">
+				>
+				["at0014"] = <
+					text = <"Comment">
+					description = <"Narrative comment about the ASA patient status assessment.">
+				>
+				["at0015"] = <
+					text = <"Emergency">
+					description = <"Emergency surgery.">
+					comment = <"An emergency is defined as existing when delay in treatment of the patient would lead to a significant increase in the threat to life or body part.">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"ASA-klassifikasjon">
+					description = <"Klassifikasjonssystem definert av American Society of Anesthesiologists for vurdering av preoperativ fysisk status.">
+				>
+				["at0001"] = <
+					text = <"ASA-status">
+					description = <"Et individs vurderte preoperative status.">
+				>
+				["at0003"] = <
+					text = <"ASA I">
+					description = <"Frisk pasient. Ingen organisk, fysiologisk, biokjemisk eller psykiatrisk forstyrrelse. Den aktuelle lidelsen er lokalisert og gir ikke generelle systemforstyrrelser. Mindre enn 5 sigaretters røyking per dag. Alder under 80 år. Eksempel: Frisk 50-åring, ikke-røyker, til åreknuteoperasjon.">
+				>
+				["at0004"] = <
+					text = <"ASA II">
+					description = <"Moderat organisk lidelse eller forstyrrelse som ikke forårsaker funksjonelle begrensninger, men som kan medføre spesielle forholdsregler eller anestesitekniske tiltak. Lidelsen(e) kan enten være forårsaket av den aktuelle sykdommen pasienten skal opereres for, eller av en annen patologisk prosess. Alder over 80 år og nyfødte under 3 måneder. Mer enn 5 sigaretters røyking per dag. Eksempler: Lett organisk hjertesykdom. Ukomplisert diabetes (type 1 og 2). Godartet, ukomplisert hypertensjon. Frisk 20-åring med kjeveleddsperre.">
+				>
+				["at0005"] = <
+					text = <"ASA III">
+					description = <"Alvorlig organisk sykdom eller forstyrrelse som gir definerte funksjonelle begrensninger. Eksempler: Diabetes med organkomplikasjoner. Invalidiserende hjertesykdom. Moderat til alvorlig lungesykdom. Angina pectoris. Gjennomgått hjerteinfarkt (mer enn 6 måneder siden).">
+				>
+				["at0006"] = <
+					text = <"ASA IV">
+					description = <"Livstruende organisk sykdom som ikke behøver å være relatert til den aktuelle kirurgiske lidelsen eller som ikke alltid bedres ved det kirurgiske inngrepet. Eksempler: Malign hypertensjon. Nylig gjennomgått hjerteinfarkt (mindre enn 6 måneder siden). Sterkt framskreden lever-, nyre-, lunge- eller endokrin dysfunksjon. Manifest hjertesvikt. Ustabil angina pectoris. Subaraknoidalblødning, pasienten våken eller somnolent.">
+				>
+				["at0007"] = <
+					text = <"ASA V">
+					description = <"Moribund pasient som ikke forventes å overleve 24 timer, med eller uten kirurgi. Eksempler: Pasient i sjokk med aortaaneurisme. Dypt komatøs pasient med intrakraniell blødning.">
+				>
+				["at0008"] = <
+					text = <"ASA VI">
+					description = <"Erklært hjernedød pasient som skal få organer fjernet for donasjon.">
+				>
+				["at0014"] = <
+					text = <"Kommentar">
+					description = <"Fritekstvurdering av individets ASA-status.">
+				>
+				["at0015"] = <
+					text = <"Akuttsituasjon">
+					description = <"Akutt kirurgi.">
+					comment = <"En akuttsituasjon defineres når en utsettelse av behandling av pasienten vil føre til en signifikant økning i risiko for død eller tap av kroppsdeler.">
+				>
+			>
+		>
+	>
