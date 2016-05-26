@@ -1,0 +1,93 @@
+(GUIDE) <
+	gdl_version = <"0.1">
+	id = <"DemoRiskPasientstatus">
+	concept = <"gt0001">
+	language = (LANGUAGE) <
+		original_language = <[ISO_639-1::en]>
+	>
+	description = (RESOURCE_DESCRIPTION) <
+		details = <
+			["en"] = (RESOURCE_DESCRIPTION_ITEM) <
+			>
+		>
+		original_author = <
+			["email"] = <"bna@dips.no">
+			["name"] = <"Bjørn Næss">
+			["organisation"] = <"DIPS ASA">
+		>
+	>
+	definition = (GUIDE_DEFINITION) <
+		archetype_bindings = <
+			["gt0003"] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-OBSERVATION.poor_outcome_and_or_complication_risk_assesement.v1">
+				domain = <"EHR">
+				elements = <
+					["gt0004"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0010]">
+					>
+				>
+				template_id = <"PasientstatusCoded">
+			>
+			["gt0005"] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-EVALUATION.cds_recommendation.v0">
+				domain = <"CDS">
+				elements = <
+					["gt0006"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/items[at0003]">
+					>
+				>
+			>
+		>
+		rules = <
+			["gt0007"] = (RULE) <
+				when = <"$gt0004==SYKDOM::KORONAR|Koronarsykdom|",...>
+				then = <"$gt0006=2|local::at0006|Significant|",...>
+				priority = <2>
+			>
+			["gt0008"] = (RULE) <
+				when = <"$gt0004==SYKDOM::DIABET|Diabetes|",...>
+				then = <"$gt0006=1|local::at0005|Minor significance|",...>
+				priority = <1>
+			>
+		>
+	>
+	ontology = (GUIDE_ONTOLOGY) <
+		term_bindings = <
+			["SYKDOM"] = (TERM_BINDING) <
+				bindings = <
+					["gt0002"] = (BINDING) <
+						codes = <[SYKDOM::ARRYTMI], [SYKDOM::HEMA], [SYKDOM::HJERTE], [SYKDOM::HYPERT]>
+						uri = <"">
+					>
+				>
+			>
+		>
+		term_definitions = <
+			["en"] = (TERM_DEFINITION) <
+				terms = <
+					["gt0001"] = (TERM) <
+						text = <"DemoPasientStatus">
+						description = <"Test">
+					>
+					["gt0002"] = (TERM) <
+						text = <"Sirkulasjon">
+					>
+					["gt0004"] = (TERM) <
+						text = <"Helsefaktor navn/egenskap">
+						description = <"Navn på helsefaktor som utgjør en rsiko for dårlig utfall. Når bruk av medisiner er helsefaktoren vil navnet helsefaktor navn være en substansgrupppe eller navn på medikamentene pasienten bruker. Når helsefaktor er pasientstatus kan det være en egneskap ved pasientens sirkulasjon f.eks. høyt blodtrykk. ">
+					>
+					["gt0006"] = (TERM) <
+						text = <"Strenght">
+						description = <"Defines the strength of the recommendation. ">
+					>
+					["gt0007"] = (TERM) <
+						text = <"Test">
+					>
+					["gt0008"] = (TERM) <
+						text = <"Not">
+					>
+				>
+			>
+		>
+	>
+>

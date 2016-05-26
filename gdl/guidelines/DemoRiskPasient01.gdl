@@ -1,0 +1,143 @@
+(GUIDE) <
+	gdl_version = <"0.1">
+	id = <"DemoRiskPasient01">
+	concept = <"gt0001">
+	language = (LANGUAGE) <
+		original_language = <[ISO_639-1::en]>
+	>
+	description = (RESOURCE_DESCRIPTION) <
+		details = <
+			["en"] = (RESOURCE_DESCRIPTION_ITEM) <
+			>
+		>
+		lifecycle_state = <"Author draft">
+		original_author = <
+			["email"] = <"bna@dips.no">
+			["name"] = <"Bjørn Næss">
+			["organisation"] = <"">
+		>
+	>
+	definition = (GUIDE_DEFINITION) <
+		archetype_bindings = <
+			["gt0006"] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-EVALUATION.cds_recommendation.v0">
+				domain = <"CDS">
+				elements = <
+					["gt0025"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/items[at0002]">
+					>
+				>
+			>
+			["gt0014"] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-OBSERVATION.poor_outcome_and_or_complication_risk_assesement.v1">
+				domain = <"EHR">
+				elements = <
+					["gt0028"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0010]">
+					>
+				>
+				predicates = <"/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0010] is_a local::gt0004|SIRKULASJON|",...>
+				template_id = <"pasientstatuscoded">
+			>
+			["gt0026"] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-OBSERVATION.poor_outcome_and_or_complication_risk_assesement.v1">
+				domain = <"EHR">
+				elements = <
+					["gt0029"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0010]">
+					>
+				>
+				predicates = <"/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0010] is_a local::gt0010|RESPIRASJONTERM|",...>
+			>
+		>
+		rules = <
+			["gt0027"] = (RULE) <
+				when = <"$gt0028!=null",...>
+				then = <"$gt0006.create($gt0025='Sirkulasjonstilstand')",...>
+				priority = <2>
+			>
+			["gt0030"] = (RULE) <
+				when = <"$gt0029!=null",...>
+				then = <"$gt0006.create($gt0025='Respirasjonstilstand detektert')",...>
+				priority = <1>
+			>
+		>
+	>
+	ontology = (GUIDE_ONTOLOGY) <
+		term_bindings = <
+			["SYKDOM"] = (TERM_BINDING) <
+				bindings = <
+					["gt0004"] = (BINDING) <
+						codes = <[SYKDOM::HEMA], [SYKDOM::HYPERT], [SYKDOM::ARRYTMI], [SYKDOM::KORONAR], [SYKDOM::HJERTE]>
+						uri = <"">
+					>
+					["gt0010"] = (BINDING) <
+						codes = <[SYKDOM::ASTMA], [SYKDOM::KOLS], [SYKDOM::RESTL]>
+						uri = <"">
+					>
+				>
+			>
+		>
+		term_definitions = <
+			["en"] = (TERM_DEFINITION) <
+				terms = <
+					["gt0001"] = (TERM) <
+						text = <"DemoRiskPasient01">
+						description = <"Demo/test on how to find rules with specific patients">
+					>
+					["gt0003"] = (TERM) <
+						text = <"Helsefaktor navn/egenskap">
+						description = <"Navn på helsefaktor som utgjør en rsiko for dårlig utfall. Når bruk av medisiner er helsefaktoren vil navnet helsefaktor navn være en substansgrupppe eller navn på medikamentene pasienten bruker. Når helsefaktor er pasientstatus kan det være en egneskap ved pasientens sirkulasjon f.eks. høyt blodtrykk. ">
+					>
+					["gt0004"] = (TERM) <
+						text = <"SIRKULASJON">
+					>
+					["gt0005"] = (TERM) <
+						text = <"Test">
+					>
+					["gt0010"] = (TERM) <
+						text = <"RESPIRASJONTERM">
+					>
+					["gt0011"] = (TERM) <
+						text = <"RESPIRASJON">
+					>
+					["gt0013"] = (TERM) <
+						text = <"Helsefaktor navn/egenskap">
+						description = <"Navn på helsefaktor som utgjør en rsiko for dårlig utfall. Når bruk av medisiner er helsefaktoren vil navnet helsefaktor navn være en substansgrupppe eller navn på medikamentene pasienten bruker. Når helsefaktor er pasientstatus kan det være en egneskap ved pasientens sirkulasjon f.eks. høyt blodtrykk. ">
+					>
+					["gt0017"] = (TERM) <
+						text = <"RespirasjonsSykdom">
+						description = <"Navn på helsefaktor som utgjør en rsiko for dårlig utfall. Når bruk av medisiner er helsefaktoren vil navnet helsefaktor navn være en substansgrupppe eller navn på medikamentene pasienten bruker. Når helsefaktor er pasientstatus kan det være en egneskap ved pasientens sirkulasjon f.eks. høyt blodtrykk. ">
+					>
+					["gt0018"] = (TERM) <
+						text = <"Sirkulasjon">
+					>
+					["gt0019"] = (TERM) <
+						text = <"Respirasjon">
+					>
+					["gt0021"] = (TERM) <
+						text = <"Sirkulasjon">
+						description = <"Helsetilstand er sirkulasjon">
+					>
+					["gt0025"] = (TERM) <
+						text = <"CDSSummary">
+					>
+					["gt0027"] = (TERM) <
+						text = <"SirkulasjonsRule">
+					>
+					["gt0028"] = (TERM) <
+						text = <"SirkulasjonsTilstand">
+						description = <"Navn på helsefaktor som utgjør en rsiko for dårlig utfall. Når bruk av medisiner er helsefaktoren vil navnet helsefaktor navn være en substansgrupppe eller navn på medikamentene pasienten bruker. Når helsefaktor er pasientstatus kan det være en egneskap ved pasientens sirkulasjon f.eks. høyt blodtrykk. ">
+					>
+					["gt0029"] = (TERM) <
+						text = <"RespirasjonsTilstand">
+						description = <"Navn på helsefaktor som utgjør en rsiko for dårlig utfall. Når bruk av medisiner er helsefaktoren vil navnet helsefaktor navn være en substansgrupppe eller navn på medikamentene pasienten bruker. Når helsefaktor er pasientstatus kan det være en egneskap ved pasientens sirkulasjon f.eks. høyt blodtrykk. ">
+					>
+					["gt0030"] = (TERM) <
+						text = <"RespirationRule">
+					>
+				>
+			>
+		>
+	>
+>

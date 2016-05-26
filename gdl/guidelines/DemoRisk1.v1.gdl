@@ -56,12 +56,17 @@
 		rules = <
 			["gt0009"] = (RULE) <
 				when = <"$gt0008<30,kg/m2", "$gt0003==local::at0003|Current Smoker|", "$gt0008>=25,kg/m2">
-				then = <"$gt0006=3|local::at0007|Very significant|", "$gt0005='Pasienten kalles inn til poliklinisk kontroll '">
-				priority = <2>
+				then = <"$gt0006=3|local::at0007|Very significant|", "$gt0005='Pasienten kalles inn til poliklinisk kontroll'">
+				priority = <3>
 			>
 			["gt0010"] = (RULE) <
-				when = <"$gt0003==local::at0003|Current Smoker|", "$gt0008>=30,kg/m2">
+				when = <"$gt0008<40,kg/m2", "$gt0003==local::at0003|Current Smoker|", "$gt0008>=30,kg/m2">
 				then = <"$gt0006=4|local::at0008|Important|", "$gt0005='Pasienten er sterkt overvektig (BMI > 30) og røyker. Kallers inn for utredning innen 14 dager.'">
+				priority = <2>
+			>
+			["gt0011"] = (RULE) <
+				when = <"$gt0008>=40,kg/m2",...>
+				then = <"$gt0006=5|local::at0009|Critical|", "$gt0005='Ekstrem fedme. Følg opp umiddelbart.'">
 				priority = <1>
 			>
 		>
@@ -95,6 +100,9 @@
 					>
 					["gt0010"] = (TERM) <
 						text = <"RiskFedme">
+					>
+					["gt0011"] = (TERM) <
+						text = <"RiskEkstrem">
 					>
 				>
 			>
