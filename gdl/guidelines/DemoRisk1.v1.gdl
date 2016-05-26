@@ -1,0 +1,103 @@
+(GUIDE) <
+	gdl_version = <"0.1">
+	id = <"DemoRisk1.v1">
+	concept = <"gt0001">
+	language = (LANGUAGE) <
+		original_language = <[ISO_639-1::en]>
+	>
+	description = (RESOURCE_DESCRIPTION) <
+		details = <
+			["en"] = (RESOURCE_DESCRIPTION_ITEM) <
+				misuse = <"Not for production">
+				purpose = <"For å teste og demonstrere GDL funksjonalitet. ">
+				use = <"Test og demo">
+			>
+		>
+		original_author = <
+			["date"] = <"">
+			["email"] = <"bna@dips.no">
+			["name"] = <"Bjørn Næss">
+			["organisation"] = <"DIPS ASA">
+		>
+	>
+	definition = (GUIDE_DEFINITION) <
+		archetype_bindings = <
+			["gt0002"] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-EVALUATION.tobacco_smoking_summary.v0">
+				domain = <"EHR">
+				elements = <
+					["gt0003"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/items[at0002]">
+					>
+				>
+			>
+			["gt0004"] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-EVALUATION.cds_recommendation.v0">
+				domain = <"CDS">
+				elements = <
+					["gt0005"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/items[at0002]">
+					>
+					["gt0006"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/items[at0003]">
+					>
+				>
+			>
+			["gt0007"] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-OBSERVATION.body_mass_index.v1">
+				domain = <"EHR">
+				elements = <
+					["gt0008"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+					>
+				>
+			>
+		>
+		rules = <
+			["gt0009"] = (RULE) <
+				when = <"$gt0008<30,kg/m2", "$gt0003==local::at0003|Current Smoker|", "$gt0008>=25,kg/m2">
+				then = <"$gt0006=3|local::at0007|Very significant|", "$gt0005='Pasienten kalles inn til poliklinisk kontroll '">
+				priority = <2>
+			>
+			["gt0010"] = (RULE) <
+				when = <"$gt0003==local::at0003|Current Smoker|", "$gt0008>=30,kg/m2">
+				then = <"$gt0006=4|local::at0008|Important|", "$gt0005='Pasienten er sterkt overvektig (BMI > 30) og røyker. Kallers inn for utredning innen 14 dager.'">
+				priority = <1>
+			>
+		>
+	>
+	ontology = (GUIDE_ONTOLOGY) <
+		term_definitions = <
+			["en"] = (TERM_DEFINITION) <
+				terms = <
+					["gt0001"] = (TERM) <
+						text = <"RiskPatient 1">
+						description = <"Test av CDS recommendation		">
+					>
+					["gt0003"] = (TERM) <
+						text = <"Smoking Status">
+						description = <"Statement about the individual's current tobacco smoking activity.">
+					>
+					["gt0005"] = (TERM) <
+						text = <"Summary">
+						description = <"The summary of this recommendation as a narrative description to the clinician">
+					>
+					["gt0006"] = (TERM) <
+						text = <"Strenght">
+						description = <"Defines the strength of the recommendation. ">
+					>
+					["gt0008"] = (TERM) <
+						text = <"Body Mass Index">
+						description = <"Index describing ratio of weight to height.">
+					>
+					["gt0009"] = (TERM) <
+						text = <"Risk1">
+					>
+					["gt0010"] = (TERM) <
+						text = <"RiskFedme">
+					>
+				>
+			>
+		>
+	>
+>
