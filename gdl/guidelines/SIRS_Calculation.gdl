@@ -1,0 +1,286 @@
+(GUIDE) <
+	gdl_version = <"0.1">
+	id = <"SIRS_Calculation">
+	concept = <"gt0001">
+	language = (LANGUAGE) <
+		original_language = <[ISO_639-1::en]>
+	>
+	description = (RESOURCE_DESCRIPTION) <
+		details = <
+			["en"] = (RESOURCE_DESCRIPTION_ITEM) <
+				keywords = <"SIRS",...>
+			>
+		>
+		lifecycle_state = <"Author draft">
+		original_author = <
+			["name"] = <"Tomas Nordheim Alme">
+		>
+	>
+	definition = (GUIDE_DEFINITION) <
+		archetype_bindings = <
+			[1] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-OBSERVATION.heart_rate.v1">
+				domain = <"EHR">
+			>
+			
+			[2] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-OBSERVATION.heart_rate.v1">
+				domain = <"EHR">
+				elements = <
+					["gt0003"] = (ELEMENT_BINDING) <
+						path = <"/data[at0002]/events[at0003]/data[at0001]/items[at0004]">
+					>
+				>
+			>
+			
+			[3] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-EVALUATION.sirs.v1">
+				domain = <"CDS">
+				elements = <
+					["gt0004"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/items[at0011]">
+					>
+				>
+			>
+			
+			[4] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-EVALUATION.sirs.v1">
+				domain = <"CDS">
+				elements = <
+					["gt0006"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/items[at0006]">
+					>
+				>
+			>
+			
+			[5] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-OBSERVATION.respiration.v1">
+				domain = <"EHR">
+				elements = <
+					["gt0008"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+					>
+				>
+			>
+			
+			[6] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-EVALUATION.sirs.v1">
+				domain = <"CDS">
+				elements = <
+					["gt0009"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/items[at0010]">
+					>
+				>
+			>
+			
+			[7] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-OBSERVATION.temperature.v1">
+				domain = <"EHR">
+				elements = <
+					["gt0011"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+					>
+				>
+			>
+			
+			[8] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-EVALUATION.sirs.v1">
+				domain = <"CDS">
+				elements = <
+					["gt0012"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/items[at0009]">
+					>
+				>
+			>
+			
+			[9] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-OBSERVATION.lab_test-full_blood_count.v1">
+				domain = <"EHR">
+				elements = <
+					["gt0014"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/events[at0002]/data[at0003]/items[at0078.13]">
+					>
+					["gt0021"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/events[at0002]/data[at0003]/items[at0078.13]">
+					>
+				>
+			>
+			
+			[10] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-OBSERVATION.lab_test-full_blood_count.v1">
+				domain = <"CDS">
+			>
+			
+			[11] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-EVALUATION.sirs.v1">
+				domain = <"CDS">
+				elements = <
+					["gt0016"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/items[at0008]">
+					>
+				>
+			>
+			
+			[12] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-OBSERVATION.lab_test-blood_gases.v1">
+				domain = <"EHR">
+				elements = <
+					["gt0022"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/events[at0002]/data[at0003]/items[at0078.12]">
+					>
+				>
+			>
+			
+			[13] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-EVALUATION.recommendation.v1">
+				domain = <"CDS">
+				elements = <
+					["gt0024"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/items[at0002]">
+					>
+				>
+			>
+		>
+		rules = <
+			["gt0002"] = (RULE) <
+				when = <"$gt0003>90,/min",...>
+				then = <"$gt0004=1|local::at0019|>90|",...>
+				priority = <9>
+			>
+			["gt0005"] = (RULE) <
+				then = <"$gt0006.magnitude=((($gt0004.value+$gt0009.value)+$gt0016.value)+$gt0012.value)",...>
+				priority = <8>
+			>
+			["gt0007"] = (RULE) <
+				when = <"($gt0008>20,/min)||($gt0022<4.3,kPa)",...>
+				then = <"$gt0009=1|local::at0017|>20|",...>
+				priority = <7>
+			>
+			["gt0010"] = (RULE) <
+				when = <"($gt0011>38,°C)||($gt0011<36,°C)",...>
+				then = <"$gt0012=1|local::at0015|>38 or <36|",...>
+				priority = <6>
+			>
+			["gt0013"] = (RULE) <
+				when = <"($gt0014>12,10*9/l)||($gt0014<4,10*9/l)",...>
+				then = <"$gt0016=1|local::at0013|<4 or >12|",...>
+				priority = <5>
+			>
+			["gt0017"] = (RULE) <
+				when = <"$gt0003<=90,/min",...>
+				then = <"$gt0004=0|local::at0018|<=90|",...>
+				priority = <4>
+			>
+			["gt0018"] = (RULE) <
+				when = <"($gt0022>=4.3,kPa)||($gt0022==null)", "$gt0008<=20,/min">
+				then = <"$gt0009=0|local::at0016|<20|",...>
+				priority = <3>
+			>
+			["gt0019"] = (RULE) <
+				when = <"$gt0011<=38,°C", "$gt0011>=36,°C">
+				then = <"$gt0012=0|local::at0014|36-38oC|",...>
+				priority = <2>
+			>
+			["gt0020"] = (RULE) <
+				when = <"$gt0014>=4,10*9/l", "$gt0021<=12,10*9/l">
+				then = <"$gt0016=0|local::at0012|4-12|",...>
+				priority = <1>
+			>
+		>
+	>
+	ontology = (GUIDE_ONTOLOGY) <
+		term_definitions = <
+			["en"] = (TERM_DEFINITION) <
+				terms = <
+					["gt0001"] = (TERM) <
+						text = <"SIRS_Calculation">
+						description = <"Simple SIRS calculation using WBC, Temp, Respiratory rate and heart rate, as well as PaCO2. Max score is 4">
+					>
+					["gt0002"] = (TERM) <
+						text = <"Heartrate>90">
+					>
+					["gt0003"] = (TERM) <
+						text = <"Heart rate">
+						description = <"The rate of the heart in beats per minute.">
+					>
+					["gt0004"] = (TERM) <
+						text = <"Heart rate">
+						description = <"*">
+					>
+					["gt0005"] = (TERM) <
+						text = <"SIRS Calculation">
+					>
+					["gt0006"] = (TERM) <
+						text = <"SIRS Score">
+						description = <"*">
+					>
+					["gt0007"] = (TERM) <
+						text = <"Respiratory rate>20">
+					>
+					["gt0008"] = (TERM) <
+						text = <"Respiration rate">
+						description = <"Rate of respiration.">
+					>
+					["gt0009"] = (TERM) <
+						text = <"Respiratory Rate">
+						description = <"*">
+					>
+					["gt0010"] = (TERM) <
+						text = <"Temperature>38OR<36">
+					>
+					["gt0011"] = (TERM) <
+						text = <"Temperature">
+						description = <"The measured temperature of the object">
+					>
+					["gt0012"] = (TERM) <
+						text = <"Temperature">
+						description = <"*">
+					>
+					["gt0013"] = (TERM) <
+						text = <"WBC>12 OR <4">
+					>
+					["gt0014"] = (TERM) <
+						text = <"White cell count">
+						description = <"The number of white cells per litre">
+					>
+					["gt0015"] = (TERM) <
+					>
+					["gt0016"] = (TERM) <
+						text = <"WBC">
+						description = <"*">
+					>
+					["gt0017"] = (TERM) <
+						text = <"Heartrate<90">
+					>
+					["gt0018"] = (TERM) <
+						text = <"Repiratory rate<20">
+					>
+					["gt0019"] = (TERM) <
+						text = <"Temperature<36-38>">
+					>
+					["gt0020"] = (TERM) <
+						text = <"WBC <4-12>">
+					>
+					["gt0021"] = (TERM) <
+						text = <"White cell count">
+						description = <"The number of white cells per litre">
+					>
+					["gt0022"] = (TERM) <
+						text = <"PaCO2">
+						description = <"The carbon dioxide pressure in the arterial blood.">
+					>
+					["gt0023"] = (TERM) <
+						text = <"Advise">
+					>
+					["gt0024"] = (TERM) <
+						text = <"Recommendation">
+						description = <"Narrative description of the recommendation.">
+					>
+					["gt0025"] = (TERM) <
+						text = <"Advice">
+					>
+				>
+			>
+		>
+	>
+>
