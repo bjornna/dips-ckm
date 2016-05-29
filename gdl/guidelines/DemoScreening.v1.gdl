@@ -1,0 +1,145 @@
+(GUIDE) <
+	gdl_version = <"0.1">
+	id = <"DemoScreening.v1">
+	concept = <"gt0001">
+	language = (LANGUAGE) <
+		original_language = <[ISO_639-1::en]>
+	>
+	description = (RESOURCE_DESCRIPTION) <
+		details = <
+			["en"] = (RESOURCE_DESCRIPTION_ITEM) <
+			>
+		>
+		lifecycle_state = <"Author draft">
+		original_author = <
+			["date"] = <"">
+			["email"] = <"bna@dips.no">
+			["name"] = <"Bjørn Næss">
+			["organisation"] = <"DIPS ASA">
+		>
+	>
+	definition = (GUIDE_DEFINITION) <
+		archetype_bindings = <
+			["gt0002"] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-OBSERVATION.basic_demographic.v1">
+				domain = <"EHR">
+				elements = <
+					["gt0003"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+					>
+					["gt0004"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/events[at0002]/data[at0003]/items[at0008]">
+					>
+				>
+			>
+			["gt0005"] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-EVALUATION.cds_recommendation.v0">
+				domain = <"CDS">
+				elements = <
+					["gt0006"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/items[at0002]">
+					>
+					["gt0007"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/items[at0003]">
+					>
+				>
+			>
+			["gt0008"] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-OBSERVATION.body_weight.v1">
+				domain = <"EHR">
+				elements = <
+					["gt0009"] = (ELEMENT_BINDING) <
+						path = <"/data[at0002]/events[at0003]/data[at0001]/items[at0004]">
+					>
+				>
+			>
+			["gt0011"] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-OBSERVATION.height.v1">
+				domain = <"EHR">
+				elements = <
+					["gt0012"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+					>
+				>
+			>
+			["gt0014"] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-OBSERVATION.body_mass_index.v1">
+				domain = <"CDS">
+				elements = <
+					["gt0015"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+					>
+				>
+			>
+		>
+		rules = <
+			["gt0013"] = (RULE) <
+				when = <"$gt0004.year<($currentDateTime.year-70)", "($gt0009==null)||($gt0012==null)">
+				then = <"$gt0007=3|local::at0007|Very significant|", "$gt0006='Vekt og høyde skal måles på pasienter over 70 år for risikovurdering '">
+				priority = <3>
+			>
+			["gt0016"] = (RULE) <
+				when = <"$gt0009!=null", "$gt0012!=null">
+				then = <"$gt0015.units='kg/m2'", "$gt0015.magnitude=($gt0009.magnitude/(($gt0012.magnitude/100)*($gt0012.magnitude/100)))">
+				priority = <2>
+			>
+			["gt0017"] = (RULE) <
+				when = <"$gt0004.year<($currentDateTime.year-70)", "$gt0015<=22,kg/m2">
+				then = <"$gt0007=1|local::at0005|Minor significance|", "$gt0006='Pasient over 70 med lav BMI -> utfør screening av fall og ernæring '">
+				priority = <1>
+			>
+		>
+	>
+	ontology = (GUIDE_ONTOLOGY) <
+		term_definitions = <
+			["en"] = (TERM_DEFINITION) <
+				terms = <
+					["gt0001"] = (TERM) <
+						text = <"Screening Risk ">
+						description = <"Screening av pasienter med tanke på risikovurdering. ">
+					>
+					["gt0003"] = (TERM) <
+						text = <"Gender">
+						description = <"*">
+					>
+					["gt0004"] = (TERM) <
+						text = <"Birthdate">
+						description = <"*">
+					>
+					["gt0006"] = (TERM) <
+						text = <"Summary">
+						description = <"The summary of this recommendation as a narrative description to the clinician">
+					>
+					["gt0007"] = (TERM) <
+						text = <"Strenght">
+						description = <"Defines the strength of the recommendation. ">
+					>
+					["gt0009"] = (TERM) <
+						text = <"Weight">
+						description = <"An individual's total body mass.">
+					>
+					["gt0010"] = (TERM) <
+						text = <"Patient > 70">
+					>
+					["gt0012"] = (TERM) <
+						text = <"Height/Length">
+						description = <"The length of the body from crown of head to sole of foot.">
+					>
+					["gt0013"] = (TERM) <
+						text = <"Sjekk høyde og vekt">
+					>
+					["gt0015"] = (TERM) <
+						text = <"Body Mass Index">
+						description = <"Index describing ratio of weight to height.">
+					>
+					["gt0016"] = (TERM) <
+						text = <"Sjekk BMI">
+					>
+					["gt0017"] = (TERM) <
+						text = <"Over 70 og lav BMI">
+					>
+				>
+			>
+		>
+	>
+>
