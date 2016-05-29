@@ -45,9 +45,27 @@
 			>
 			["gt0007"] = (ARCHETYPE_BINDING) <
 				archetype_id = <"openEHR-EHR-OBSERVATION.body_mass_index.v1">
-				domain = <"EHR">
+				domain = <"CDS">
 				elements = <
 					["gt0008"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+					>
+				>
+			>
+			["gt0012"] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-OBSERVATION.body_weight.v1">
+				domain = <"EHR">
+				elements = <
+					["gt0013"] = (ELEMENT_BINDING) <
+						path = <"/data[at0002]/events[at0003]/data[at0001]/items[at0004]">
+					>
+				>
+			>
+			["gt0014"] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-OBSERVATION.height.v1">
+				domain = <"EHR">
+				elements = <
+					["gt0015"] = (ELEMENT_BINDING) <
 						path = <"/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
 					>
 				>
@@ -68,6 +86,11 @@
 				when = <"$gt0008>=40,kg/m2",...>
 				then = <"$gt0006=5|local::at0009|Critical|", "$gt0005='Ekstrem fedme. Følg opp umiddelbart.'">
 				priority = <1>
+			>
+			["gt0016"] = (RULE) <
+				when = <"$gt0015!=null", "$gt0013!=null">
+				then = <"$gt0008.units='kg/m2'", "$gt0008.magnitude=($gt0013.magnitude/(($gt0015.magnitude/100)^2))">
+				priority = <4>
 			>
 		>
 	>
@@ -103,6 +126,17 @@
 					>
 					["gt0011"] = (TERM) <
 						text = <"RiskEkstrem">
+					>
+					["gt0013"] = (TERM) <
+						text = <"Weight">
+						description = <"An individual's total body mass.">
+					>
+					["gt0015"] = (TERM) <
+						text = <"Height/Length">
+						description = <"The length of the body from crown of head to sole of foot.">
+					>
+					["gt0016"] = (TERM) <
+						text = <"CalcBMI">
 					>
 				>
 			>
