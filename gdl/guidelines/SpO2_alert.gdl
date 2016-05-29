@@ -1,0 +1,90 @@
+(GUIDE) <
+	gdl_version = <"0.1">
+	id = <"SpO2_alert">
+	concept = <"gt0001">
+	language = (LANGUAGE) <
+		original_language = <[ISO_639-1::en]>
+	>
+	description = (RESOURCE_DESCRIPTION) <
+		details = <
+			["en"] = (RESOURCE_DESCRIPTION_ITEM) <
+			>
+		>
+		lifecycle_state = <"Author draft">
+		original_author = <
+			["date"] = <"">
+			["email"] = <"bna@dips.no">
+			["name"] = <"Bjørn Næss">
+			["organisation"] = <"DIPS ASA">
+		>
+		other_details = <
+			["references"] = <"https://www.nsf.no/Content/1312284/Bruk%20av%20kliniske%20observasjoner-%20MEWS%20til%20%C3%A5%20styrke%20pasientsikkerheten.%20Anne%20Kristin%20Ihle%20Melby.pdf">
+		>
+	>
+	definition = (GUIDE_DEFINITION) <
+		archetype_bindings = <
+			["gt0002"] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-OBSERVATION.indirect_oximetry.v1">
+				domain = <"EHR">
+				elements = <
+					["gt0003"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/events[at0002]/data[at0003]/items[at0006]">
+					>
+					["gt0004"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/events[at0002]/state[at0014]/items[at0057]">
+					>
+				>
+			>
+			["gt0005"] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-EVALUATION.cds_recommendation.v0">
+				domain = <"CDS">
+				elements = <
+					["gt0006"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/items[at0002]">
+					>
+					["gt0007"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/items[at0003]">
+					>
+				>
+			>
+		>
+		rules = <
+			["gt0008"] = (RULE) <
+				when = <"$gt0003<=90,100,2", "$gt0003!=null">
+				then = <"$gt0007=2|local::at0006|Significant|", "$gt0006='Lav SpO2 - kontakt seksjonens lege'">
+				priority = <1>
+			>
+		>
+	>
+	ontology = (GUIDE_ONTOLOGY) <
+		term_definitions = <
+			["en"] = (TERM_DEFINITION) <
+				terms = <
+					["gt0001"] = (TERM) <
+						text = <"LOW SpO2">
+						description = <"Used to generate alert (recommendation) for low SPo2">
+					>
+					["gt0003"] = (TERM) <
+						text = <"spO2">
+						description = <"Measured via pulse oximetry, the saturation of oxygen in the peripheral blood.">
+					>
+					["gt0004"] = (TERM) <
+						text = <"Method of Oxygen Delivery">
+						description = <"Method of oxygen delivery device used to supply supplemental oxygen.">
+					>
+					["gt0006"] = (TERM) <
+						text = <"Summary">
+						description = <"The summary of this recommendation as a narrative description to the clinician">
+					>
+					["gt0007"] = (TERM) <
+						text = <"Strenght">
+						description = <"Defines the strength of the recommendation. ">
+					>
+					["gt0008"] = (TERM) <
+						text = <"Below 90%">
+					>
+				>
+			>
+		>
+	>
+>
