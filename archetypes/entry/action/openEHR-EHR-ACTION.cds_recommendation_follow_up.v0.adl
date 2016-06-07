@@ -1,0 +1,237 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ACTION.cds_recommendation_follow_up.v0
+
+concept
+	[at0000]	-- CDS Recommendation follow up
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["name"] = <"Bjørn Næss">
+				["email"] = <"bna@dips.no">
+				["organisation"] = <"DIPS ASA">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Bjørn Næss">
+		["email"] = <"bna@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2016-06-06">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record information about the follow up of a clinical recommendation. ">
+			use = <"Use to record information about the follow up of a CDS recommendations. ">
+			misuse = <"Not to be used for direct clinical treatment activities. ">
+			copyright = <"*">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"To record information about the follow up of a clinical recommendation. ">
+			use = <"Use to record information about the follow up of a CDS recommendations. ">
+			misuse = <"Not to be used for direct clinical treatment activities. ">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"82069F4579D0C5F6576821E18414FD3F">
+	>
+
+definition
+	ACTION[at0000] matches {	-- CDS Recommendation follow up
+		ism_transition matches {
+			ISM_TRANSITION[at0006] matches {	-- Reject recommendation
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::528]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0006]}		-- Reject recommendation
+					}
+				}
+			}
+			ISM_TRANSITION[at0003] matches {	-- Schedule recommendation
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::529]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0003]}		-- Schedule recommendation
+					}
+				}
+			}
+			ISM_TRANSITION[at0004] matches {	-- Start activitiy
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0004]}		-- Start activitiy
+					}
+				}
+			}
+			ISM_TRANSITION[at0002] matches {	-- Recommendation aborted 
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::531]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0002]}		-- Recommendation aborted 
+					}
+				}
+			}
+			ISM_TRANSITION[at0005] matches {	-- Accept and finish
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0005]}		-- Accept and finish
+					}
+				}
+			}
+		}
+		description matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Navn
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Beskrivelse
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Begrunnelse
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0010] occurrences matches {0..*} matches {	-- Referert oppføring
+						value matches {
+							DV_EHR_URI matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"CDS Recommendation follow up">
+					description = <"To follow up actions related to a CDS recommendation. ">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Recommendation aborted ">
+					description = <"The recommendation is aborted. There is no need to follow up the recommendation any further. ">
+				>
+				["at0003"] = <
+					text = <"Schedule recommendation">
+					description = <"The recommendation is planned and there is set a date and resources for the follow up of the recommendation. ">
+				>
+				["at0004"] = <
+					text = <"Start activitiy">
+					description = <"The recommendation is accepted and the recommendation is followed up. ">
+				>
+				["at0005"] = <
+					text = <"Accept and finish">
+					description = <"The recommendation is accepted and actions are taken to follow up the recommendations. ">
+				>
+				["at0006"] = <
+					text = <"Reject recommendation">
+					description = <"The recommendation will not be followed. ">
+				>
+				["at0007"] = <
+					text = <"Navn">
+					description = <"Navnet på oppgaven som ble utført">
+				>
+				["at0008"] = <
+					text = <"Beskrivelse">
+					description = <"Fritekstbeskrivelse av oppgaven som ble utført.">
+				>
+				["at0009"] = <
+					text = <"Begrunnelse">
+					description = <"Begrunnelse for at gjeldende oppgave ble utført i den tilstanden som ble satt. ">
+				>
+				["at0010"] = <
+					text = <"Referert oppføring">
+					description = <"Et sett med refererte oppføringer. F.eks. andre INSTRUCTION som ble opprettet som følge av at oppgaven ble utført ">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"CDS Recommendation follow up">
+					description = <"To follow up actions related to a CDS recommendation. ">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Recommendation aborted ">
+					description = <"The recommendation is aborted. There is no need to follow up the recommendation any further. ">
+				>
+				["at0003"] = <
+					text = <"Schedule recommendation">
+					description = <"The recommendation is planned and there is set a date and resources for the follow up of the recommendation. ">
+				>
+				["at0004"] = <
+					text = <"Start activitiy">
+					description = <"The recommendation is accepted and the recommendation is followed up. ">
+				>
+				["at0005"] = <
+					text = <"Accept and finish">
+					description = <"The recommendation is accepted and actions are taken to follow up the recommendations. ">
+				>
+				["at0006"] = <
+					text = <"Reject recommendation">
+					description = <"The recommendation will not be followed. ">
+				>
+			["at0007"] = <
+					text = <"Name">
+					description = <"The name of the task performed. ">
+				>
+				["at0008"] = <
+					text = <"Description">
+					description = <"Narrative description of the task that was performed.">
+				>
+				["at0009"] = <
+					text = <"Reason">
+					description = <"Reason that the activity or care pathway step for the identified task was carried out.">
+				>
+				["at0010"] = <
+					text = <"Refered element">
+					description = <"A set of refered entries to the follow up of this recommendation. I.e. other INSTRUCION ">
+				>
+			>
+		>
+	>
