@@ -21,7 +21,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"020CBF9760DA4070F30096F0BC20E605">
+		["MD5-CAM-1.0.1"] = <"FC81D969C3A29F7D5C8BDDF581F64B2D">
 	>
 
 definition
@@ -41,7 +41,7 @@ definition
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0003] occurrences matches {0..*} matches {	-- Informasjon gitt til
+					ELEMENT[at0003] occurrences matches {0..*} matches {	-- Informasjon gitt til (fritekst)
 						value matches {
 							DV_TEXT matches {*}
 						}
@@ -75,6 +75,31 @@ definition
 							DV_TEXT matches {*}
 						}
 					}
+					ELEMENT[at0011] occurrences matches {0..*} matches {	-- Informasjon gitt til (kodeverk)
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0012, 	-- Pasient
+									at0013]	-- Pårørende
+								}
+							}
+						}
+					}
+					ELEMENT[at0014] occurrences matches {0..1} matches {	-- Informasjon gitt til pasient
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0015] occurrences matches {0..1} matches {	-- Informasjon gitt til pårørende
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
 					allow_archetype CLUSTER[at0010] occurrences matches {0..*} matches {	-- Informasjon gitt av (strukturert)
 						include
 							archetype_id/value matches {/.*/}
@@ -101,7 +126,7 @@ ontology
 					description = <"Beskrivelse av informasjonen gitt til ulike aktører">
 				>
 				["at0003"] = <
-					text = <"Informasjon gitt til">
+					text = <"Informasjon gitt til (fritekst)">
 					description = <"Hvem er informasjonen gitt til. Her kan man legge inn en kodeliste over mottakere i templaten.">
 				>
 				["at0004"] = <
@@ -130,6 +155,26 @@ ontology
 				>
 				["at0010"] = <
 					text = <"Informasjon gitt av (strukturert)">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Informasjon gitt til (kodeverk)">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Pasient">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Pårørende">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Informasjon gitt til pasient">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Informasjon gitt til pårørende">
 					description = <"*">
 				>
 			>
