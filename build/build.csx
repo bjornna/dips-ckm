@@ -25,12 +25,9 @@ const string ArenaServerHostName = "vt-healthang02.dips.local";
 readonly string[] availableCommands = new []
 {
 	"clean        - cleans the solution(s)",
-	"cleancache   - cleans the NuGet and chocolatey package caches",
 	"init         - init paket",
 	"package      - creates nuget package(s)",
 	"publishnuget - publishes nuget packages",
-	"cleanarena   - cleans the Arene installation folder",
-	"arena        - installs a repository-local Arena client",
 	"motivation   - cheers you up",
 	"help/usage   - shows this help message"
 };
@@ -80,18 +77,12 @@ public void HandleSingleArgument(string argument)
 		case "clean":
 			FileUtil.DeleteDirectory(DeployDirectory, true, true);
 			break;
-		case "cleancache":
-			var packagesToClear = new [] { "*arena*", "*dips*", "*server*", "*client*" };
-			Chocolatey.ClearLocalCache(packagesToClear);
-			Nuget.ClearLocalCache();
-			break;
 		case "init":
-			Paket.GetVersionRangesFromNugetPackage();
 			Paket.Update();
-			Paket.Restore();
 			break;
 		case "package":
 			FileUtil.CreateCleanDirectory(DeployDirectory);
+			
 			// NuGet packages without build number
 			Paket.Pack(DeployDirectory, CurrentVersion, "minimum-from-lock-file include-referenced-projects buildplatform x86");
 			break;
