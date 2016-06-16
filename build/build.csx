@@ -24,15 +24,15 @@ const string ArenaServerHostName = "vt-healthang02.dips.local";
 
 readonly string[] availableCommands = new []
 {
-	"clean       - cleans the solution(s)",
-	"cleancache  - cleans the NuGet and chocolatey package caches",
-	"init        - init paket",
-	"package     - creates nuget package(s)",
-	"publish     - publishes nuget packages",
-	"cleanarena  - cleans the Arene installation folder",
-	"arena       - installs a repository-local Arena client",
-	"motivation  - cheers you up",
-	"help/usage  - shows this help message"
+	"clean        - cleans the solution(s)",
+	"cleancache   - cleans the NuGet and chocolatey package caches",
+	"init         - init paket",
+	"package      - creates nuget package(s)",
+	"publishnuget - publishes nuget packages",
+	"cleanarena   - cleans the Arene installation folder",
+	"arena        - installs a repository-local Arena client",
+	"motivation   - cheers you up",
+	"help/usage   - shows this help message"
 };
 
 Display.DipsLogo("DIPS Behandlingsplan");
@@ -95,7 +95,7 @@ public void HandleSingleArgument(string argument)
 			// NuGet packages without build number
 			Paket.Pack(DeployDirectory, CurrentVersion, "minimum-from-lock-file include-referenced-projects buildplatform x86");
 			break;
-	    case "publish":
+	    case "publishnuget":
 			if (!BuildServer.IsBuildServer)
 			{
 				Write.Error("Publishing to NuGet should only be done by the build server!");
@@ -103,15 +103,15 @@ public void HandleSingleArgument(string argument)
 			}
 
 			// NuGet
-			// foreach (string file in Directory.GetFiles(DeployDirectory, "*.nupkg"))
-			// {
-			//    	Nuget.PublishPackage(Feeds.DIPSNuget, file);
-			// }
-
 			foreach (string file in Directory.GetFiles(DeployDirectory, "*.nupkg"))
 			{
-				//Chocolatey.PublishPackage(Feeds.DIPSConfiguredProductsDev, file);
+			   	Nuget.PublishPackage(Feeds.DIPSNuget, file);
 			}
+
+			// foreach (string file in Directory.GetFiles(DeployDirectory, "*.nupkg"))
+			// {
+			//		Chocolatey.PublishPackage(Feeds.DIPSConfiguredProductsDev, file);
+			// }
 	        break;
 
 		case "motivation":
