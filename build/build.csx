@@ -1,6 +1,6 @@
 #load "common.csx"
 
-const string CurrentVersion = "1.0.0";
+const string CurrentVersion = "1.0.1";
 
 readonly string RootDir = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), ".."));
 readonly string DeployDirectory = Path.Combine(RootDir, "Deploy");
