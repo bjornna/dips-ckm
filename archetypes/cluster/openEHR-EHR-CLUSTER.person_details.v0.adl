@@ -1,0 +1,83 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.person_details.v0
+
+concept
+	[at0000]	-- Person detaljer
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"A4CD6ED4904A545B8904DCC41B939D41">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Person detaljer
+		items cardinality matches {1..*; unordered} matches {
+			CLUSTER[at0002] occurrences matches {0..1} matches {	-- Fødsselsdata
+				items cardinality matches {1..*; unordered} matches {
+					allow_archetype CLUSTER[at0001] occurrences matches {0..*} matches {	-- Landspesifikke fødselsdata
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+			CLUSTER[at0003] occurrences matches {0..1} matches {*}
+			CLUSTER[at0004] occurrences matches {0..1} matches {*}
+			ELEMENT[at0006] occurrences matches {0..1} matches {*}
+			ELEMENT[at0007] occurrences matches {0..1} matches {	-- Statsborgerskap
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Person detaljer">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Landspesifikke fødselsdata">
+					description = <"*">
+				>
+				["at0002"] = <
+					text = <"Fødsselsdata">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Dødsdata">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Biometriske data">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Kjønn">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Statsborgerskap">
+					description = <"*">
+				>
+			>
+		>
+	>
