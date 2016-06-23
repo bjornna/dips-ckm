@@ -28,6 +28,7 @@ readonly string[] availableCommands = new []
 	"init         - init paket",
 	"package      - creates nuget package(s)",
 	"publishnuget - publishes nuget packages",
+	"ci           - clean + init + package + publishNuget",
 	"motivation   - cheers you up",
 	"help/usage   - shows this help message"
 };
@@ -108,6 +109,13 @@ public void HandleSingleArgument(string argument)
 			//		Chocolatey.PublishPackage(Feeds.DIPSConfiguredProductsDev, file);
 			// }
 	        break;
+			
+		case "ci":
+			HandleSingleArgument("clean");
+			HandleSingleArgument("init");
+			HandleSingleArgument("package");
+			HandleSingleArgument("publishnuget");
+			break;
 
 		case "motivation":
 			Display.Motivation();
