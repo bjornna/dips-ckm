@@ -84,7 +84,11 @@ public void HandleSingleArgument(string argument)
 			FileUtil.CreateCleanDirectory(DeployDirectory);
 			
 			// NuGet packages without build number
-			Paket.Pack(DeployDirectory, CurrentVersion, "minimum-from-lock-file include-referenced-projects buildplatform x86");
+			//Paket.Pack(DeployDirectory, AppendBuildNumber(CurrentVersion), "minimum-from-lock-file include-referenced-projects buildplatform x86");
+			Nuget.CreatePackage("../package.nuspec",
+				version: AppendBuildNumber(CurrentVersion),
+				outputDirectory: DeployDirectory,
+				additionalProperties: "RootDir=..");
 			break;
 	    case "publishnuget":
 			if (!BuildServer.IsBuildServer)
