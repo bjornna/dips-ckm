@@ -21,7 +21,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"A4CD6ED4904A545B8904DCC41B939D41">
+		["MD5-CAM-1.0.1"] = <"F58A5641627027FC162E96F7ED3F0A37">
 	>
 
 definition
@@ -33,15 +33,95 @@ definition
 						include
 							archetype_id/value matches {/.*/}
 					}
+					ELEMENT[at0012] occurrences matches {0..1} matches {	-- Fødeby
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0011] occurrences matches {0..1} matches {	-- Fødeland
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Usikker fødselsdato
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Fødselsdato
+						value matches {
+							DV_DATE matches {
+								value matches {yyyy-mm-dd}
+							}
+						}
+					}
+					ELEMENT[at0014] occurrences matches {0..1} matches {*}
+					ELEMENT[at0015] occurrences matches {0..1} matches {	-- Fødselsrekkefølge
+						value matches {*}
+					}
+					ELEMENT[at0016] occurrences matches {0..1} matches {	-- Kjønn ved fødsel
+						value matches {*}
+					}
 				}
 			}
-			CLUSTER[at0003] occurrences matches {0..1} matches {*}
-			CLUSTER[at0004] occurrences matches {0..1} matches {*}
-			ELEMENT[at0006] occurrences matches {0..1} matches {*}
+			CLUSTER[at0003] occurrences matches {0..1} matches {	-- Dødsdata
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0020] occurrences matches {0..1} matches {	-- By
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0019] occurrences matches {0..1} matches {	-- Land
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0017] occurrences matches {0..1} matches {	-- Dødsdato
+						value matches {
+							DV_DATE matches {*}
+						}
+					}
+					ELEMENT[at0018] occurrences matches {0..1} matches {	-- Kilde for opplysning om død
+						value matches {*}
+					}
+				}
+			}
+			CLUSTER[at0004] occurrences matches {0..1} matches {	-- Biometriske data
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0021] occurrences matches {0..1} matches {	-- Biometrisk identifikator
+						value matches {*}
+					}
+				}
+			}
 			ELEMENT[at0007] occurrences matches {0..1} matches {	-- Statsborgerskap
 				value matches {
 					DV_TEXT matches {*}
 				}
+			}
+			ELEMENT[at0022] occurrences matches {0..1} matches {	-- Kjønn
+				value matches {*}
+			}
+			ELEMENT[at0023] occurrences matches {0..1} matches {	-- Mors pikenavn
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0024] occurrences matches {0..1} matches {	-- Sivilstatus
+				value matches {*}
+			}
+			ELEMENT[at0025] occurrences matches {0..1} matches {	-- Etninsk bakgrunn
+				value matches {*}
+			}
+			ELEMENT[at0026] occurrences matches {0..1} matches {	-- Kommentar
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			allow_archetype CLUSTER[at0027] occurrences matches {0..*} matches {	-- Andre identifikasjonstegn
+				include
+					archetype_id/value matches {/.*/}
 			}
 		}
 	}
@@ -70,12 +150,80 @@ ontology
 					text = <"Biometriske data">
 					description = <"*">
 				>
-				["at0006"] = <
+				["at0007"] = <
+					text = <"Statsborgerskap">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Fødselsdato">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Usikker fødselsdato">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Fødeland">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Fødeby">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Fødselspluralitet">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Fødselsrekkefølge">
+					description = <"*">
+				>
+				["at0016"] = <
+					text = <"Kjønn ved fødsel">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Dødsdato">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Kilde for opplysning om død">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"Land">
+					description = <"*">
+				>
+				["at0020"] = <
+					text = <"By">
+					description = <"*">
+				>
+				["at0021"] = <
+					text = <"Biometrisk identifikator">
+					description = <"*">
+				>
+				["at0022"] = <
 					text = <"Kjønn">
 					description = <"*">
 				>
-				["at0007"] = <
-					text = <"Statsborgerskap">
+				["at0023"] = <
+					text = <"Mors pikenavn">
+					description = <"*">
+				>
+				["at0024"] = <
+					text = <"Sivilstatus">
+					description = <"*">
+				>
+				["at0025"] = <
+					text = <"Etninsk bakgrunn">
+					description = <"*">
+				>
+				["at0026"] = <
+					text = <"Kommentar">
+					description = <"* Generell kommentar om den demografiske informasjonen.">
+				>
+				["at0027"] = <
+					text = <"Andre identifikasjonstegn">
 					description = <"*">
 				>
 			>
