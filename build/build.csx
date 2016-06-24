@@ -1,6 +1,6 @@
 #load "common.csx"
 
-const string CurrentVersion = "1.0.1";
+const string CurrentVersion = "1.0.3";
 
 readonly string RootDir = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), ".."));
 readonly string DeployDirectory = Path.Combine(RootDir, "Deploy");
@@ -28,6 +28,7 @@ readonly string[] availableCommands = new []
 	"init         - init paket",
 	"package      - creates nuget package(s)",
 	"publishnuget - publishes nuget packages",
+	"ci           - clean + init + package + publishNuget",
 	"motivation   - cheers you up",
 	"help/usage   - shows this help message"
 };
@@ -84,7 +85,11 @@ public void HandleSingleArgument(string argument)
 			FileUtil.CreateCleanDirectory(DeployDirectory);
 			
 			// NuGet packages without build number
-			Paket.Pack(DeployDirectory, CurrentVersion, "minimum-from-lock-file include-referenced-projects buildplatform x86");
+			//Paket.Pack(DeployDirectory, AppendBuildNumber(CurrentVersion), "minimum-from-lock-file include-referenced-projects buildplatform x86");
+			Nuget.CreatePackage("../package.nuspec",
+				version: AppendBuildNumber(CurrentVersion),
+				outputDirectory: DeployDirectory,
+				additionalProperties: "RootDir=..");
 			break;
 	    case "publishnuget":
 			if (!BuildServer.IsBuildServer)
@@ -104,6 +109,13 @@ public void HandleSingleArgument(string argument)
 			//		Chocolatey.PublishPackage(Feeds.DIPSConfiguredProductsDev, file);
 			// }
 	        break;
+			
+		case "ci":
+			HandleSingleArgument("clean");
+			HandleSingleArgument("init");
+			HandleSingleArgument("package");
+			HandleSingleArgument("publishnuget");
+			break;
 
 		case "motivation":
 			Display.Motivation();
