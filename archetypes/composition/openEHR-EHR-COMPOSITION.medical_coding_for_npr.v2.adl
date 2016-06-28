@@ -21,7 +21,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"C647AB1D6C38D4F2D8F5760DC50DC2A9">
+		["MD5-CAM-1.0.1"] = <"8392B34FCB5C8E93B17C1400C55F2445">
 	>
 
 definition
@@ -31,8 +31,15 @@ definition
 				defining_code matches {[openehr::433]}
 			}
 		}
+		context matches {
+			EVENT_CONTEXT matches {
+				other_context matches {
+					ITEM_TREE[at0003] matches {*}
+				}
+			}
+		}
 		content cardinality matches {1..*; unordered} matches {
-			allow_archetype SECTION[at0002] occurrences matches {0..*} matches {	-- ICD10
+			allow_archetype ADMIN_ENTRY[at0004] occurrences matches {0..*} matches {	-- Code
 				include
 					archetype_id/value matches {/.*/}
 			}
@@ -47,8 +54,12 @@ ontology
 					text = <"Medical coding for npr">
 					description = <"unknown">
 				>
-				["at0002"] = <
-					text = <"ICD10">
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Code">
 					description = <"*">
 				>
 			>
