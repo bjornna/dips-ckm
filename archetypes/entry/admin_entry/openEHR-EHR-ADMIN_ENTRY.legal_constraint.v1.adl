@@ -2,17 +2,35 @@
 	openEHR-EHR-ADMIN_ENTRY.legal_constraint.v1
 
 concept
-	[at0000]	-- Legal Constraint
+	[at0000]	-- Vedtak
 language
 	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["name"] = <"Ingrid Skard">
+				["email"] = <"ins@dips.no">
+				["organisation"] = <"DIPS ASA">
+			>
+		>
+	>
 description
 	original_author = <
 		["name"] = <"Heather Leslie">
-		["organisation"] = <"Ocean Informatics">
 		["email"] = <"heather.leslie@oceaninformatics.com">
+		["organisation"] = <"Ocean Informatics">
 		["date"] = <"17/12/2010">
 	>
 	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Registrering av opplysninger om vedtak eller andre lovpålagte begrensninger på personen.">
+			use = <"Brukes til registrering av vedtak eller andre lovpålagte begrensninger på personen.">
+			keywords = <"juridisk", "verge", "begrensninger", "vedtak", "lovpålagt", "hjemlet">
+			misuse = <"Brukes ikke til registrering av planlagt videre behandling eller pasientens ønsker for videre behandling.">
+			copyright = <"© 2016 DIPS ASA">
+		>
 		["en"] = <
 			language = <[ISO_639-1::en]>
 			purpose = <"To record details of any legal constraint or order in effect about the individual.">
@@ -25,40 +43,40 @@ description
 	lifecycle_state = <"CommitteeDraft">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"293B2E0A3CF64A2206EDA5B6AEDC9B00">
+		["MD5-CAM-1.0.1"] = <"185FADB9275CC4895EFDCE492377EF59">
 	>
 
 definition
-	ADMIN_ENTRY[at0000] matches {	-- Legal Constraint
+	ADMIN_ENTRY[at0000] matches {	-- Vedtak
 		data matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {1..*; unordered} matches {
-					ELEMENT[at0002] matches {	-- Type of constraint/order
+					ELEMENT[at0002] matches {	-- Type vedtak
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Description
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Beskrivelse
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Start Date
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Starttidspunkt
 						value matches {
 							DV_DATE_TIME matches {*}
 						}
 					}
-					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Expiry Date
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Utløpstidspunkt
 						value matches {
 							DV_DATE_TIME matches {*}
 						}
 					}
-					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Nominated party
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Myndighet
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					allow_archetype CLUSTER[at0007] occurrences matches {0..*} matches {	-- Nominated party details
+					allow_archetype CLUSTER[at0007] occurrences matches {0..*} matches {	-- Myndighet detaljer
 						include
 							archetype_id/value matches {/.*/}
 					}
@@ -66,8 +84,6 @@ definition
 			}
 		}
 	}
-
-
 
 ontology
 	term_definitions = <
@@ -104,6 +120,42 @@ ontology
 				["at0007"] = <
 					text = <"Nominated party details">
 					description = <"Further details, including contact details for the nominated person or organisation.">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Vedtak">
+					description = <"Opplysninger om vedtak eller andre lovpålagte begrensninger på personen, for eksempel psykiatrisk tvangsvedtak eller besøksforbud.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Type vedtak">
+					description = <"Identifikasjon av type vedtak eller pålegg, for eksempel psykiatrisk tvangsvedtak eller besøksforbud.">
+				>
+				["at0003"] = <
+					text = <"Starttidspunkt">
+					description = <"Dato og tidspunkt for iverksetting/gyldighet av vedtaket.">
+				>
+				["at0004"] = <
+					text = <"Utløpstidspunkt">
+					description = <"Dato og tidspunkt for utløp av vedtakets gyldighet.">
+				>
+				["at0005"] = <
+					text = <"Beskrivelse">
+					description = <"Beskrivelse av vedtaket.">
+				>
+				["at0006"] = <
+					text = <"Myndighet">
+					description = <"Navn på utnevnt eller ansvarlig person eller myndighet.">
+				>
+				["at0007"] = <
+					text = <"Myndighet detaljer">
+					description = <"Utfyllende opplysninger, inkl. kontaktinformasjon for utnevnt person eller myndighet.">
 				>
 			>
 		>
