@@ -18,13 +18,6 @@ description
 		["name"] = <"">
 	>
 	details = <
-		["nb"] = <
-			language = <[ISO_639-1::nb]>
-			purpose = <"Registreres for hvert enkelt vedtak om undersøkelse/behandling uten eget samtykke som blir fattet">
-			use = <"">
-			misuse = <"">
-			copyright = <"">
-		>
 		["no"] = <
 			language = <[ISO_639-1::no]>
 			purpose = <"Registreres for hvert enkelt vedtak om undersøkelse/behandling uten eget samtykke som blir fattet">
@@ -32,11 +25,18 @@ description
 			misuse = <"*(nb)">
 			copyright = <"*(nb)">
 		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Registreres for hvert enkelt vedtak om undersøkelse/behandling uten eget samtykke som blir fattet">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
 	>
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"79A08BAD7A4846A01C916C31C04043EC">
+		["MD5-CAM-1.0.1"] = <"E21CC107679CE20DC60804558A3E0DE5">
 	>
 
 definition
@@ -44,10 +44,10 @@ definition
 		data matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0009] occurrences matches {0..1} matches {	-- *Begrunnelse for vedtak om tvangsbehandling gitt i journalnotat av(nb)
+					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Gjelder tvangsbehandlingsvedtak av
 						value matches {
-							DV_DATE matches {
-								value matches {yyyy-mm-dd}
+							DV_DATE_TIME matches {
+								value matches {yyyy-mm-ddTHH:??:??}
 							}
 						}
 					}
@@ -68,13 +68,23 @@ definition
 					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Gjennomført av
 						value matches {
 							DV_CODED_TEXT matches {
-								defining_code matches {[ac0001]}		-- New constraint
+								defining_code matches {[ac0001]}		-- *New constraint(no)
 							}
 						}
 					}
 					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Merknad
 						value matches {
 							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0011] occurrences matches {0..1} matches {	-- Forrige gjennomføring nr.
+						value matches {
+							DV_COUNT matches {*}
+						}
+					}
+					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Registrering av gjennomføring nr.
+						value matches {
+							DV_COUNT matches {*}
 						}
 					}
 				}
@@ -112,8 +122,16 @@ ontology
 					description = <"Her kan eventuelt registreres en kort merknad om gjennomføringen">
 				>
 				["at0009"] = <
-					text = <"Begrunnelse for vedtak om tvangsbehandling gitt i journalnotat av">
-					description = <"">
+					text = <"Gjelder tvangsbehandlingsvedtak av">
+					description = <"Referanse til det vedtaket som ligger til grunn for gjennomføring av tvangsbehandlingen">
+				>
+				["at0010"] = <
+					text = <"Registrering av gjennomføring nr.">
+					description = <"Løpenummer for hver enkelt registrering av gjennomføring som er knyttet til tvangsbehandlingsvedtaket.">
+				>
+				["at0011"] = <
+					text = <"Forrige gjennomføring nr.">
+					description = <"Løpenummer for hver enkelt registrering av gjennomføring som er knyttet til">
 				>
 			>
 		>
@@ -144,8 +162,16 @@ ontology
 					description = <"Her kan eventuelt registreres en kort merknad om gjennomføringen">
 				>
 				["at0009"] = <
-					text = <"*Begrunnelse for vedtak om tvangsbehandling gitt i journalnotat av(nb)">
-					description = <"*(nb)">
+					text = <"*Gjelder tvangsbehandlingsvedtak av(nb)">
+					description = <"*Referanse til det vedtaket som ligger til grunn for gjennomføring av tvangsbehandlingen(nb)">
+				>
+				["at0010"] = <
+					text = <"*Registrering av gjennomføring nr.(nb)">
+					description = <"*Løpenummer for hver enkelt registrering av gjennomføring som er knyttet til tvangsbehandlingsvedtaket.(nb)">
+				>
+				["at0011"] = <
+					text = <"*Forrige gjennomføring nr.(nb)">
+					description = <"*Løpenummer for hver enkelt registrering av gjennomføring som er knyttet til(nb)">
 				>
 			>
 		>

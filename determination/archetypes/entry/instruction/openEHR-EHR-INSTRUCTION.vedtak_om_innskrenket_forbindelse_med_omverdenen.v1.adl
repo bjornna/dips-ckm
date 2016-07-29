@@ -36,7 +36,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"38202727C44322BA64DC89C0B860395B">
+		["MD5-CAM-1.0.1"] = <"4BA1E81AA2945C451E03FD4510112DFF">
 	>
 
 definition
@@ -46,22 +46,25 @@ definition
 				description matches {
 					ITEM_TREE[at0002] matches {	-- Tree
 						items cardinality matches {0..*; unordered} matches {
-							ELEMENT[at0004] occurrences matches {0..1} matches {	-- Besluttet ved enhet
+							ELEMENT[at0004] occurrences matches {0..1} matches {	-- Helsetjenesteenhet
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0024] occurrences matches {0..1} matches {	-- Begrunnelse for vedtaket er gitt i journalnotat av
+							ELEMENT[at0024] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak i journalnotat datert:
 								value matches {
-									DV_DATE matches {
-										value matches {yyyy-mm-dd}
-									}
+									DV_DATE matches {*}
 								}
 							}
-							ELEMENT[at0005] occurrences matches {0..1} matches {	-- Vedtatt tidspunkt
+							ELEMENT[at0025] occurrences matches {0..1} matches {	-- Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0005] occurrences matches {0..1} matches {	-- Dato og tidspunkt vedtak fattet:
 								value matches {
 									DV_DATE_TIME matches {
-										value matches {yyyy-mm-ddTHH:??:??}
+										value matches {yyyy-mm-ddTHH:MM:SS}
 									}
 								}
 							}
@@ -93,14 +96,14 @@ definition
 							ELEMENT[at0019] occurrences matches {0..1} matches {	-- Vedtak gjelder fra og med
 								value matches {
 									DV_DATE_TIME matches {
-										value matches {yyyy-mm-ddTHH:??:??}
+										value matches {yyyy-mm-ddTHH:MM:SS}
 									}
 								}
 							}
 							ELEMENT[at0021] occurrences matches {0..1} matches {	-- Vedtak gjelder til og med
 								value matches {
 									DV_DATE_TIME matches {
-										value matches {yyyy-mm-ddTHH:??:??}
+										value matches {yyyy-mm-ddTHH:MM:SS}
 									}
 								}
 							}
@@ -114,6 +117,10 @@ definition
 							allow_archetype CLUSTER[at0022] occurrences matches {0..*} matches {	-- Vedtakstype
 								include
 									archetype_id/value matches {/openEHR-EHR-CLUSTER\.vedtakstype(-[a-zA-Z0-9_]+)*\.v1/}
+							}
+							allow_archetype CLUSTER[at0026] occurrences matches {0..*} matches {	-- Vurdering av pasientinnsyn
+								include
+									archetype_id/value matches {/.*/}
 							}
 						}
 					}
@@ -139,12 +146,12 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0004"] = <
-					text = <"Besluttet ved enhet">
-					description = <"Identifikasjon av den enhet hvor vedtaket fattes">
+					text = <"Helsetjenesteenhet">
+					description = <"Identifikasjon av den enheten hvor vedtaket fattes.">
 				>
 				["at0005"] = <
-					text = <"Vedtatt tidspunkt">
-					description = <"Det tidspunkt (dato og klokkeslett) vedtaket ble fattet">
+					text = <"Dato og tidspunkt vedtak fattet:">
+					description = <"Det tidspunkt (dato og klokkeslett) vedtaket ble fattet.">
 				>
 				["at0007"] = <
 					text = <"Begrunnelse for innskrenket forbindelse">
@@ -201,7 +208,15 @@ Standard kodeverk: 9283 Innskrenket forbindelse med omverdenen
 					description = <"*">
 				>
 				["at0024"] = <
-					text = <"Begrunnelse for vedtaket er gitt i journalnotat av">
+					text = <"Begrunnelse for vedtak i journalnotat datert:">
+					description = <"Referanse til journalnotat med nærmere begrunnelse for vedtaket.">
+				>
+				["at0025"] = <
+					text = <"Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette">
+					description = <"Dersom pasienten på det tidspunktet vedtaket fattes nektes innsyn i hele eller deler av begrunnelsen for vedtaket etter bestemmelsen i pasient- og brukerrettighetsloven § 3 2 tredje ledd, skal ikke begrunnelsen for vedtaket registreres i tekstfeltet under, men i et eget journalnotat. Begrunnelsen for å nekte innsyn må også fremkomme i samme journalnotat.">
+				>
+				["at0026"] = <
+					text = <"Vurdering av pasientinnsyn">
 					description = <"*">
 				>
 			>
@@ -221,12 +236,12 @@ Standard kodeverk: 9283 Innskrenket forbindelse med omverdenen
 					description = <"@ internal @">
 				>
 				["at0004"] = <
-					text = <"*Besluttet ved enhet(nb)">
-					description = <"*Identifikasjon av den enhet hvor vedtaket fattes(nb)">
+					text = <"*Helsetjenesteenhet(nb)">
+					description = <"*Identifikasjon av den enheten hvor vedtaket fattes.(nb)">
 				>
 				["at0005"] = <
-					text = <"*Vedtatt tidspunkt(nb)">
-					description = <"*Det tidspunkt (dato og klokkeslett) vedtaket ble fattet(nb)">
+					text = <"*Dato og tidspunkt vedtak fattet:(nb)">
+					description = <"*Det tidspunkt (dato og klokkeslett) vedtaket ble fattet.(nb)">
 				>
 				["at0007"] = <
 					text = <"*Begrunnelse for innskrenket forbindelse(nb)">
@@ -283,7 +298,15 @@ Standard kodeverk: 9283 Innskrenket forbindelse med omverdenen
 					description = <"**(nb)">
 				>
 				["at0024"] = <
-					text = <"*Begrunnelse for vedtaket er gitt i journalnotat av(nb)">
+					text = <"*Begrunnelse for vedtak i journalnotat datert:(nb)">
+					description = <"*Referanse til journalnotat med nærmere begrunnelse for vedtaket.(nb)">
+				>
+				["at0025"] = <
+					text = <"*Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette(nb)">
+					description = <"*Dersom pasienten på det tidspunktet vedtaket fattes nektes innsyn i hele eller deler av begrunnelsen for vedtaket etter bestemmelsen i pasient- og brukerrettighetsloven § 3 2 tredje ledd, skal ikke begrunnelsen for vedtaket registreres i tekstfeltet under, men i et eget journalnotat. Begrunnelsen for å nekte innsyn må også fremkomme i samme journalnotat.(nb)">
+				>
+				["at0026"] = <
+					text = <"*Vurdering av pasientinnsyn(nb)">
 					description = <"**(nb)">
 				>
 			>

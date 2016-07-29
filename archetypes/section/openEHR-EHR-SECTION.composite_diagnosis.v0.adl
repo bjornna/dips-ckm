@@ -1,0 +1,55 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-SECTION.composite_diagnosis.v0
+
+concept
+	[at0000]	-- Composite diagnosis
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"64258870CFE582249AFCCB2A9401AC3A">
+	>
+
+definition
+	SECTION[at0000] matches {	-- Composite diagnosis
+		items cardinality matches {1..*; unordered} matches {
+			allow_archetype EVALUATION occurrences matches {1..*} matches {
+				include
+					archetype_id/value matches {/openEHR-EHR-EVALUATION\.problem_diagnosis(-[a-zA-Z0-9_]+)*\.v1/}
+			}
+			allow_archetype SECTION occurrences matches {0..5} matches {
+				include
+					archetype_id/value matches {/openEHR-EHR-SECTION\.diagnosis_list(-[a-zA-Z0-9_]+)*\.v0/}
+			}
+			allow_archetype OBSERVATION occurrences matches {0..*} matches {
+				include
+					archetype_id/value matches {/openEHR-EHR-OBSERVATION\.cgas(-[a-zA-Z0-9_]+)*\.v0/}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Composite diagnosis">
+					description = <"unknown">
+				>
+			>
+		>
+	>

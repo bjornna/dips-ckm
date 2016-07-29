@@ -1,0 +1,115 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.medication_dispensing_and_shipment_no.v0
+
+concept
+	[at0000]	-- Medication dispensing and shipment no
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"CF2226CBB14B29C772FE99937C612DF1">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Medication dispensing and shipment no
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0009] occurrences matches {0..1} matches {	-- Type ekspederingsanmodning
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0018] occurrences matches {0..1} matches {	-- Utleverer
+				value matches {
+					DV_IDENTIFIER matches {*}
+				}
+			}
+			allow_archetype CLUSTER[at0011] occurrences matches {0..*} matches {	-- Utleverer detaljer
+				include
+					archetype_id/value matches {/.*/}
+			}
+			CLUSTER[at0013] occurrences matches {0..1} matches {	-- Utleveringsdetaljer
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0014] occurrences matches {0..1} matches {	-- Mottaker ved forsendelse
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0012] occurrences matches {0..1} matches {	-- Adresse...detaljer, ved forsendelse
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0017] occurrences matches {0..1} matches {	-- Vilkår for utleveringsanmodning oppfyllt?
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0015] occurrences matches {0..1} matches {	-- Merknad
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Medication dispensing and shipment no">
+					description = <"draft">
+				>
+				["at0009"] = <
+					text = <"Type ekspederingsanmodning">
+					description = <"Forsendelse, Utlevering, LAR">
+				>
+				["at0011"] = <
+					text = <"Utleverer detaljer">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Adresse...detaljer, ved forsendelse">
+					description = <"SLOT for Cluster?">
+				>
+				["at0013"] = <
+					text = <"Utleveringsdetaljer">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Mottaker ved forsendelse">
+					description = <"Pasienten, verge eller annen person som forsendelsen skal sendes til.. Txt eller ID?">
+				>
+				["at0015"] = <
+					text = <"Merknad">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Vilkår for utleveringsanmodning oppfyllt?">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Utleverer">
+					description = <"*">
+				>
+			>
+		>
+	>

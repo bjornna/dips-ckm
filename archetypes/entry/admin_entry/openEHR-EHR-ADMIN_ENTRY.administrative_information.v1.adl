@@ -1,0 +1,83 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ADMIN_ENTRY.administrative_information.v1
+
+concept
+	[at0000]	-- Administrative information
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"3A0476CF1A3DD0525AB3192D3055E6C5">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {	-- Administrative information
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {2..*; unordered} matches {
+					allow_archetype CLUSTER[at0005] occurrences matches {0..*} matches {	-- Andre detaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+					allow_archetype CLUSTER[at0003] matches {	-- Hovedmottaker
+						include
+							archetype_id/value matches {/.*/}
+					}
+					allow_archetype CLUSTER[at0002] matches {	-- Avsender
+						include
+							archetype_id/value matches {/.*/}
+					}
+					allow_archetype CLUSTER[at0004] occurrences matches {0..*} matches {	-- Kopimottaker
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Administrative information">
+					description = <"Brukes som plassholder for administrative clustere">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Avsender">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Hovedmottaker">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Kopimottaker">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Andre detaljer">
+					description = <"*">
+				>
+			>
+		>
+	>
