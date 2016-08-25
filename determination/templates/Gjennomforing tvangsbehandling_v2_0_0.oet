@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
-  <id>e19a79e9-27a5-4a07-b989-f07b2d0c089e</id>
-  <name>Organisation</name>
+  <id>2eef79a3-98af-4ee9-a5e3-631b193e4567</id>
+  <name>Gjennomforing tvangsbehandling</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
@@ -60,15 +60,12 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.organisation.v1" concept_name="Organisasjon">
-    <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.address.v1" concept_name="Adresse" path="/items[at0008]" />
-    <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.telecom_details.v1" concept_name="Telekommunikasjonsdetaljer" path="/items[at0009]" />
-    <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.person_name.v1" concept_name="Person navn" path="/items[at0005]/items[at0010]">
-      <Rule path="/items[at0001]">
-        <constraint xsi:type="textConstraint">
-          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="HEALTHCAREPARTY" />
-        </constraint>
-      </Rule>
-    </Items>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.gjennomforing_tvangsbehandling.v1" concept_name="Gjennomforing tvangsbehandling">
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.vedtak_status.v1" concept_name="Vedtak status" path="/content" />
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.info_fra_sak.v1" concept_name="Info fra sak" path="/content">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.vedtakstype.v1" concept_name="Vedtakstype" path="/data[at0001]/items[at0003]" />
+    </Content>
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.gjennomforing_tvangsbehandling.v1" concept_name="Gjennomforing tvangsbehandling" path="/content" />
+    <Context />
   </definition>
 </template>
