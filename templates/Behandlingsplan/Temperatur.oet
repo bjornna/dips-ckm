@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
-  <id>902da86c-5625-4393-962d-f933d8d0c25f</id>
-  <name>Kontrollundersøkelse</name>
+  <id>317af6a1-9e74-4569-a00c-041672a9f8f6</id>
+  <name>Temperatur</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
@@ -60,16 +60,22 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.kontrollundersokelse.v1" concept_name="Kontrollundersokelse">
-    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.kontrollundersokelse.v1" concept_name="Kontrollundersokelse" path="/content">
-      <Rule path="/data[at0001]/items[at0002]">
-        <constraint xsi:type="ordinalConstraint">
-          <excludedValues>3|*</excludedValues>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Encounter">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_temperature.v1" concept_name="Kroppstemperatur" path="/content">
+      <Rule path="/data[at0002]/events[at0003]/state[at0029]/items[at0030]" max="0" />
+      <Rule path="/data[at0002]/events[at0003]/state[at0029]/items[at0041]" max="0" />
+      <Rule path="/protocol[at0020]/items[at0021]">
+        <constraint xsi:type="textConstraint">
+          <excludedValues>local::at0026</excludedValues>
+          <excludedValues>local::at0027</excludedValues>
+          <excludedValues>local::at0028</excludedValues>
+          <excludedValues>local::at0051</excludedValues>
+          <excludedValues>local::at0054</excludedValues>
+          <excludedValues>local::at0055</excludedValues>
+          <excludedValues>local::at0060</excludedValues>
         </constraint>
       </Rule>
     </Content>
-    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.ny_faglig_ansvarlig.v1" concept_name="Ny faglig ansvarlig" path="/content" />
-    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.neste_kontrollundersokelse.v1" concept_name="Neste Kontrollundersokelse" path="/content" />
     <Context />
   </definition>
 </template>
