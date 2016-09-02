@@ -128,50 +128,67 @@
 					>
 				>
 			>
+			["gt0042"] = (ARCHETYPE_BINDING) <
+				archetype_id = <"openEHR-EHR-EVALUATION.cds_recommendation.v0">
+				domain = <"CDS">
+				elements = <
+					["gt0043"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/items[at0002]">
+					>
+					["gt0044"] = (ELEMENT_BINDING) <
+						path = <"/data[at0001]/items[at0003]">
+					>
+				>
+			>
 		>
 		rules = <
 			["gt0002"] = (RULE) <
 				when = <"$gt0003>90,/min",...>
 				then = <"$gt0004=1|local::at0019|>90|",...>
-				priority = <9>
+				priority = <10>
 			>
 			["gt0005"] = (RULE) <
 				then = <"$gt0006.magnitude=((($gt0004.value+$gt0009.value)+$gt0016.value)+$gt0012.value)",...>
-				priority = <8>
+				priority = <2>
 			>
 			["gt0007"] = (RULE) <
 				when = <"($gt0008>20,/min)||($gt0022<4.3,kPa)",...>
 				then = <"$gt0009=1|local::at0017|RR >20 eller PcO2 < 4.3 kPa|",...>
-				priority = <7>
+				priority = <9>
 			>
 			["gt0010"] = (RULE) <
 				when = <"($gt0040.magnitude>38)||($gt0040.magnitude<36)",...>
 				then = <"$gt0012=1|local::at0015|>38 or <36|",...>
-				priority = <6>
+				priority = <8>
 			>
 			["gt0013"] = (RULE) <
 				when = <"($gt0014>12,10*9/l)||($gt0014<4,10*9/l)",...>
 				then = <"$gt0016=1|local::at0013|<4 or >12|",...>
-				priority = <5>
+				priority = <7>
 			>
 			["gt0017"] = (RULE) <
 				when = <"$gt0003<=90,/min",...>
 				then = <"$gt0004=0|local::at0018|<=90|",...>
-				priority = <4>
+				priority = <6>
 			>
 			["gt0018"] = (RULE) <
 				when = <"($gt0022>=4.3,kPa)||($gt0022==null)", "$gt0008<=20,/min">
 				then = <"$gt0009=0|local::at0016|RR <= 20 eller Pc02 >= 4.3 kPa|",...>
-				priority = <3>
+				priority = <5>
 			>
 			["gt0019"] = (RULE) <
 				when = <"$gt0040.magnitude<=38", "$gt0040.magnitude>=36">
 				then = <"$gt0012=0|local::at0014|36-38oC|",...>
-				priority = <2>
+				priority = <4>
 			>
 			["gt0020"] = (RULE) <
 				when = <"$gt0014>=4,10*9/l", "$gt0021<=12,10*9/l">
 				then = <"$gt0016=0|local::at0012|4-12|",...>
+				priority = <3>
+			>
+			["gt0041"] = (RULE) <
+				when = <"$gt0006>1", "$gt0006!=null">
+				then = <"$gt0044=2|local::at0006|Significant|", "$gt0043='SIRS > 1 - pasient i risikogruppe. Følg med.'">
 				priority = <1>
 			>
 		>
@@ -270,6 +287,17 @@
 					["gt0040"] = (TERM) <
 						text = <"BodyTemp">
 						description = <"The measured body temperature (as a surrogate for the whole body).">
+					>
+					["gt0041"] = (TERM) <
+						text = <"SIRS Recommendation">
+					>
+					["gt0043"] = (TERM) <
+						text = <"Summary">
+						description = <"The summary of this recommendation as a narrative description to the clinician">
+					>
+					["gt0044"] = (TERM) <
+						text = <"Strenght">
+						description = <"Defines the strength of the recommendation. ">
 					>
 				>
 			>
