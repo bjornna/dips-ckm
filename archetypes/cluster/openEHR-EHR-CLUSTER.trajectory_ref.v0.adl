@@ -1,0 +1,138 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.trajectory_ref.v0
+
+concept
+	[at0000]	-- Forløpsreferanse
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			author = <
+				["name"] = <"Bjørn Næss">
+				["email"] = <"bna@dips.no">
+				["organisation"] = <"DIPS  ASA">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Bjørn Næss">
+		["email"] = <"bna@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2016-07-05">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Bruker for å referere forløpet som prosessen er i. Nyttig registrering for brukeren når det gjøres hendelsesregistrering. ">
+			use = <"Bruker for å referere forløpet som prosessen er i. Nyttig registrering for brukeren når det gjøres hendelsesregistrering. ">
+			keywords = <"pasientforløp", "pakkeforløp kreft">
+			misuse = <"Skal ikke brukes for å iverksette/starte et forløp. ">
+			copyright = <"">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"Used to reference the current trajectory. To collect information when doing event registrations. ">
+			use = <"Used to reference the current trajectory. To collect information when doing event registrations. ">
+			misuse = <"Not be used for the real trajectory. ">
+			copyright = <"DIPS ASA">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"725F3591C07C0B5D89883F0AC79A2535">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Forløpsreferanse
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Forløp
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Spesifikt forløp
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Start
+				value matches {
+					DV_DATE matches {
+						value matches {yyyy-mm-dd}
+					}
+				}
+			}
+			ELEMENT[at0004] occurrences matches {0..1} matches {	-- Beskrivelse
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			allow_archetype CLUSTER[at0005] occurrences matches {0..*} matches {	-- Detaljer
+				include
+					archetype_id/value matches {/.*/}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Forløpsreferanse">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Forløp">
+					description = <"Angir hvilket forløp prosessen er i">
+				>
+				["at0002"] = <
+					text = <"Spesifikt forløp">
+					description = <"Angir et mer spesifikt forløp. F.eks. kan forløp \"tykk-/endetarmskreft\" gjøes mer spesifikk gjennom behandlingslinjen Ca. Recti">
+				>
+				["at0003"] = <
+					text = <"Start">
+					description = <"Definerer når dette forløpet faktisk startet - siden noen forløp har startet før bestilling registreres">
+				>
+				["at0004"] = <
+					text = <"Beskrivelse">
+					description = <"Nærmere beskrivelse av og om forløpet">
+				>
+				["at0005"] = <
+					text = <"Detaljer">
+					description = <"*">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"*Forløpsreferanse(nb)">
+					description = <"*unknown(nb)">
+				>
+				["at0001"] = <
+					text = <"*Forløp(nb)">
+					description = <"*Angir hvilket forløp prosessen er i(nb)">
+				>
+				["at0002"] = <
+					text = <"*Spesifikt forløp(nb)">
+					description = <"*Angir et mer spesifikt forløp. F.eks. kan forløp \"tykk-/endetarmskreft\" gjøes mer spesifikk gjennom behandlingslinjen Ca. Recti(nb)">
+				>
+				["at0003"] = <
+					text = <"*Start(nb)">
+					description = <"*Definerer når dette forløpet faktisk startet - siden noen forløp har startet før bestilling registreres(nb)">
+				>
+				["at0004"] = <
+					text = <"*Beskrivelse(nb)">
+					description = <"*Nærmere beskrivelse av og om forløpet(nb)">
+				>
+				["at0005"] = <
+					text = <"*Detaljer(nb)">
+					description = <"**(nb)">
+				>
+			>
+		>
+	>
