@@ -24,7 +24,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"61DD351E66ABE0284B9B5E88C50F4F18">
+		["MD5-CAM-1.0.1"] = <"8FD99B77F6AF511D02F77DDB6302A128">
 	>
 
 definition
@@ -32,6 +32,20 @@ definition
 		category matches {
 			DV_CODED_TEXT matches {
 				defining_code matches {[openehr::433]}
+			}
+		}
+		context matches {
+			EVENT_CONTEXT matches {
+				other_context matches {
+					ITEM_TREE[at0001] matches {	-- Tree
+						items cardinality matches {0..*; unordered} matches {
+							allow_archetype CLUSTER[at0002] occurrences matches {0..*} matches {	-- Details
+								include
+									archetype_id/value matches {/.*/}
+							}
+						}
+					}
+				}
 			}
 		}
 	}
@@ -43,6 +57,14 @@ ontology
 				["at0000"] = <
 					text = <"Trajectory">
 					description = <"Composition to be used when initiating and following up a trajectory">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Details">
+					description = <"*">
 				>
 			>
 		>

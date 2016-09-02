@@ -1,0 +1,100 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ADMIN_ENTRY.npr_medical_procedure.v0
+
+concept
+	[at0000]	-- Npr medical procedure
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For å spesifisiere hvilke prosedyrer som skal rapporteres til NPR.">
+			use = <"Brukes til å spesifisiere hvilke prosedyrer som skal rapporteres til NPR.
+">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"1197420BFB2378781B1123E808021EA0">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {	-- Npr medical procedure
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {4..*; unordered} matches {
+					ELEMENT[at0002] matches {	-- Rekkefølge
+						value matches {
+							DV_COUNT matches {
+								magnitude matches {|>=0|}
+							}
+						}
+					}
+					allow_archetype CLUSTER[at0003] occurrences matches {1..*} matches {	-- Kode
+						include
+							archetype_id/value matches {/openEHR-EHR-CLUSTER\.code(-[a-zA-Z0-9_]+)*\.v0/}
+					}
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Tilstandsnummer
+						value matches {
+							DV_COUNT matches {
+								magnitude matches {|>=0|}
+							}
+						}
+					}
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Start tid
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Slutt tid
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Npr medical procedure">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Rekkefølge">
+					description = <"Spesifiserer rekkefølgen denne prosedyren har blant alle prosedyrer på episoden">
+				>
+				["at0003"] = <
+					text = <"Kode">
+					description = <"En eller flere koder som beskriver prosedyren. Intern rekkefølge på disse kodene.">
+				>
+				["at0004"] = <
+					text = <"Tilstandsnummer">
+					description = <"Nummer som henviser til den tilstanden som denne prosedyren er ment å endre.">
+				>
+				["at0005"] = <
+					text = <"Start tid">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Slutt tid">
+					description = <"*">
+				>
+			>
+		>
+	>

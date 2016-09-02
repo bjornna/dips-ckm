@@ -12,7 +12,7 @@ description
 	details = <
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"">
+			purpose = <"Brukes for administrative felter i PLO Helseopplysninger v. 1.5 og 1.6 og PLO Utskrivingsrapport">
 			use = <"">
 			misuse = <"">
 			copyright = <"">
@@ -21,7 +21,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"57C60F51187C8FC70434AB9AC9839492">
+		["MD5-CAM-1.0.1"] = <"5C2FD9A9B3B182834FC03B30733746B4">
 	>
 
 definition
@@ -29,16 +29,6 @@ definition
 		data matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Foretrukket språk
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Trenger tolk
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
 					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Bor alene
 						value matches {
 							DV_BOOLEAN matches {
@@ -74,32 +64,6 @@ definition
 							}
 						}
 					}
-					ELEMENT[at0057] occurrences matches {0..1} matches {	-- Innleggende lege
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0030] occurrences matches {0..1} matches {	-- Tidspunkt for innleggelse
-						value matches {
-							DV_DATE_TIME matches {
-								value matches {yyyy-mm-ddTHH:MM:SS}
-							}
-						}
-					}
-					ELEMENT[at0054] occurrences matches {0..1} matches {	-- Utskrivende lege
-						value matches {
-							DV_CODED_TEXT matches {
-								defining_code matches {[ac0002]}		-- New constraint
-							}
-						}
-					}
-					ELEMENT[at0053] occurrences matches {0..1} matches {	-- Tidspunkt for utskriving
-						value matches {
-							DV_DATE matches {
-								value matches {yyyy-mm-dd}
-							}
-						}
-					}
 					ELEMENT[at0043] occurrences matches {0..*} matches {	-- Type innhold i meldingen
 						value matches {
 							DV_CODED_TEXT matches {
@@ -111,27 +75,12 @@ definition
 							}
 						}
 					}
-					ELEMENT[at0046] occurrences matches {0..1} matches {	-- Forventet utskrivingstidspunkt
-						value matches {
-							DV_DATE matches {*}
-						}
-					}
-					allow_archetype CLUSTER[at0055] occurrences matches {0..*} matches {	-- Kontaktperson helsepersonell
-						include
-							archetype_id/value matches {/.*/}
-					}
-					ELEMENT[at0056] occurrences matches {0..1} matches {	-- Telefonnummer kontaktperson
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
 				}
 			}
 		}
 	}
 
 ontology
-	terminologies_available = <"DIPS", ...>
 	term_definitions = <
 		["nb"] = <
 			items = <
@@ -143,14 +92,6 @@ ontology
 					text = <"Tree">
 					description = <"@ internal @">
 				>
-				["at0008"] = <
-					text = <"Foretrukket språk">
-					description = <"Foretrukket språk som er registrert i pasientopplysninger">
-				>
-				["at0009"] = <
-					text = <"Trenger tolk">
-					description = <"Verdi hentes fra pasientinformasjon">
-				>
 				["at0010"] = <
 					text = <"Bor alene">
 					description = <"Ja/Nei om pasienten bor alene">
@@ -161,7 +102,7 @@ ontology
 				>
 				["at0025"] = <
 					text = <"Er nødvendig bandasjemateriell og engangsutstyr som rekker til neste hverdag sendt med pasienten? (gjelder hvis pasienten skal hjem)">
-					description = <"*">
+					description = <"Sjekkliste om pasienten har fått med seg nødvendig utstyr.">
 				>
 				["at0026"] = <
 					text = <"Er pasientens egensøknad sendt?">
@@ -171,13 +112,9 @@ ontology
 					text = <"Dato for egensøknad">
 					description = <"Dato for egensøknad">
 				>
-				["at0030"] = <
-					text = <"Tidspunkt for innleggelse">
-					description = <"Dato og tidspunkt for innleggelse">
-				>
 				["at0043"] = <
 					text = <"Type innhold i meldingen">
-					description = <"*">
+					description = <"Om det gjelder varsel om innlagt pasient eller oppdatering opplysning om innlagt pasient.">
 				>
 				["at0044"] = <
 					text = <"Varsel om innlagt pasient">
@@ -187,47 +124,6 @@ ontology
 					text = <"Oppdatering opplysning om innlagt pasient">
 					description = <"*">
 				>
-				["at0046"] = <
-					text = <"Forventet utskrivingstidspunkt">
-					description = <"Dato for forventet utskriving (hentes automatisk inn fra sengepostrutiner)">
-				>
-				["at0053"] = <
-					text = <"Tidspunkt for utskriving">
-					description = <"*">
-				>
-				["at0054"] = <
-					text = <"Utskrivende lege">
-					description = <"*">
-				>
-				["at0055"] = <
-					text = <"Kontaktperson helsepersonell">
-					description = <"*">
-				>
-				["at0056"] = <
-					text = <"Telefonnummer kontaktperson">
-					description = <"*">
-				>
-				["at0057"] = <
-					text = <"Innleggende lege">
-					description = <"*">
-				>
-			>
-		>
-	>
-	constraint_definitions = <
-		["nb"] = <
-			items = <
-				["ac0002"] = <
-					text = <"New constraint">
-					description = <"*">
-				>
-			>
-		>
-	>
-	constraint_bindings = <
-		["DIPS"] = <
-			items = <
-				["ac0002"] = <terminology:DIPS?subset=Healthcareparty>
 			>
 		>
 	>
