@@ -21,7 +21,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"E9242225896B6EA585B408B964F7893C">
+		["MD5-CAM-1.0.1"] = <"3BC662C67B6D875FBD63111EB1A22696">
 	>
 
 definition
@@ -35,53 +35,57 @@ definition
 								include
 									archetype_id/value matches {/openEHR-EHR-CLUSTER\.vedtakstype(-[a-zA-Z0-9_]+)*\.v1/}
 							}
-							ELEMENT[at0007] occurrences matches {0..*} matches {	-- Hvordan informasjonen er gitt
-								value matches {
-									DV_CODED_TEXT matches {
-										defining_code matches {
-											[local::
-											at0012, 	-- Muntlig, uten skriftlig kopi
-											at0013, 	-- Muntlig, med skriftlig kopi i tillegg
-											at0014, 	-- Skriftlig, personlig overlevert
-											at0015, 	-- Skriftlig med vanlig post
-											at0016]	-- Elektronisk (sikker ePost eller lignende)
-										}
-									}
-								}
-							}
-							ELEMENT[at0008] occurrences matches {0..*} matches {	-- Hvem er informert om vedtaket
-								value matches {
-									DV_CODED_TEXT matches {
-										defining_code matches {
-											[local::
-											at0017, 	-- Pasienten selv
-											at0018, 	-- Nærmeste pårørende
-											at0019, 	-- Den offentlige myndighet som har fremsatt begjæring om TPH
-											at0020]	-- Andre
-										}
-									}
-								}
-							}
-							ELEMENT[at0010] occurrences matches {0..1} matches {	-- Navn/rolle til den som informasjonen er gitt til
-								value matches {
-									DV_TEXT matches {*}
-								}
-							}
-							ELEMENT[at0009] occurrences matches {0..1} matches {	-- Tidspunkt informasjonen ble gitt
-								value matches {
-									DV_DATE_TIME matches {
-										value matches {yyyy-mm-ddTHH:??:??}
-									}
-								}
-							}
-							ELEMENT[at0011] occurrences matches {0..1} matches {	-- Merknad
-								value matches {
-									DV_TEXT matches {*}
-								}
-							}
 							ELEMENT[at0021] occurrences matches {0..1} matches {	-- Begrunnelse for vedtaket er gitt i journalnotat av
 								value matches {
 									DV_DATE matches {*}
+								}
+							}
+							CLUSTER[at0022] occurrences matches {0..*} matches {	-- Mottaker av informasjon
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0008] occurrences matches {0..1} matches {	-- Hvem er informert om vedtaket
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0017, 	-- Pasienten selv
+													at0018, 	-- Nærmeste pårørende
+													at0019, 	-- Den offentlige myndighet som har fremsatt begjæring om TPH
+													at0020]	-- Andre
+												}
+											}
+										}
+									}
+									ELEMENT[at0010] occurrences matches {0..1} matches {	-- Navn/rolle til den som informasjonen er gitt til
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Hvordan informasjonen er gitt
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0012, 	-- Muntlig, uten skriftlig kopi
+													at0013, 	-- Muntlig, med skriftlig kopi i tillegg
+													at0014, 	-- Skriftlig, personlig overlevert
+													at0015, 	-- Skriftlig med vanlig post
+													at0016]	-- Elektronisk (sikker ePost eller lignende)
+												}
+											}
+										}
+									}
+									ELEMENT[at0009] occurrences matches {0..1} matches {	-- Tidspunkt informasjonen ble gitt
+										value matches {
+											DV_DATE_TIME matches {
+												value matches {yyyy-mm-ddTHH:??:??}
+											}
+										}
+									}
+									ELEMENT[at0011] occurrences matches {0..1} matches {	-- Merknad
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
 								}
 							}
 						}
@@ -169,6 +173,10 @@ ontology
 				>
 				["at0021"] = <
 					text = <"Begrunnelse for vedtaket er gitt i journalnotat av">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Mottaker av informasjon">
 					description = <"*">
 				>
 			>
