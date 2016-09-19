@@ -1,0 +1,28 @@
+=== Versjonsdokumentasjon Arena Operasjonsplanlegging
+
+==== Kommende versjon (Arena 16.1)
+
+Den største endringen er at composition som ligger til grunn for skjemaene er gjort persistent (kode 434).
+
+
+==== Gjeldende versjon (Arena 15.3)
+
+* Surgery_UNN_pilot_Beslutningsnotat.v7 (1.0.32)
+* Surgery_UNN_pilot_Operatørvurdering.v4 (1.0.29)
+* Surgery_UNN_pilot_Anestesivurdering.v6 (1.0.40)
+* Surgery_UNN_pilot_Sammendrag (1.1.11)
+
+
+==== Tidligere versjoner (Arena 15.2 -- pilot UNN)
+
+* Surgery_UNN_pilot_Beslutningsnotat.v6 (1.0.127)
+* Surgery_UNN_pilot_Anestesivurdering.v5 (1.0.142)
+* Surgery_UNN_pilot_Operatørvurdering v3 (1.0.146)
+* Surgery_UNN_pilot_Sammendrag (1.0.79)
+
+
+==== Andre versjoner
+
+* Surgery_UNN_pilot_Operatørvurdering.v4 (1.1.6)
+
+Versjon som ble laget for å teste "selectreadonly" annotasjon
