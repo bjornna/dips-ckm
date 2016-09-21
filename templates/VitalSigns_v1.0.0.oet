@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
   <id>99a3dd5d-80cf-4ba2-97a1-97c766176ba6</id>
-  <name>Vital Signs</name>
+  <name>Vitale Opplysninger</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
-      <purpose>Noen enkle observasjoner</purpose>
+      <purpose>Basis template for vitale opplysninger</purpose>
       <use />
       <misuse />
     </details>
@@ -60,7 +60,7 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Vital Signs">
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Vitale Opplysninger">
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_temperature.v1" concept_name="Kroppstemperatur" path="/content">
       <Rule path="/data[at0002]" hide_on_form="true" />
       <Rule path="/data[at0002]/events[at0003]" hide_on_form="true" />
@@ -69,6 +69,34 @@
       <Rule path="/data[at0002]/events[at0003]/state[at0029]/items[at0030]" max="0" />
       <Rule path="/data[at0002]/events[at0003]/state[at0029]/items[at0041]" max="0" />
       <Rule path="/protocol[at0020]" hide_on_form="true" />
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.indirect_oximetry.v1" concept_name="Indirect Oximetry" path="/content">
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0045]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0046]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0039]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0040]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0019]" max="0" />
+      <Rule path="/protocol[at0007]/items[at0037]" max="0" />
+      <Rule path="/protocol[at0007]/items[at0038]" max="0" />
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.pulse.v1" concept_name="Puls/Hjertefrekvens" path="/content">
+      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at1005]">
+        <nameConstraint>
+          <excludedValues>local::at1046</excludedValues>
+        </nameConstraint>
+      </Rule>
+      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0004]">
+        <nameConstraint>
+          <excludedValues>local::at1027</excludedValues>
+        </nameConstraint>
+      </Rule>
+      <Rule path="/data[at0002]/events[at1036]" max="0" />
+      <Rule path="/protocol[at0010]/items[at1037]">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Coded_text</includedTypes>
+        </constraint>
+      </Rule>
     </Content>
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_weight.v1" concept_name="Kroppsvekt" path="/content">
       <Rule path="/data[at0002]/events[at0003]" max="1" />
