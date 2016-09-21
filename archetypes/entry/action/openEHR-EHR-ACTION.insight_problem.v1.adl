@@ -18,15 +18,15 @@ description
 		["name"] = <"">
 	>
 	details = <
-		["en"] = <
-			language = <[ISO_639-1::en]>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
 			purpose = <"">
 			use = <"">
 			misuse = <"">
 			copyright = <"">
 		>
-		["nb"] = <
-			language = <[ISO_639-1::nb]>
+		["en"] = <
+			language = <[ISO_639-1::en]>
 			purpose = <"">
 			use = <"">
 			misuse = <"">
@@ -36,13 +36,13 @@ description
 	lifecycle_state = <"Initial">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"2B066196D6018ED5FA68321EC14F825D">
+		["MD5-CAM-1.0.1"] = <"DE5F641B6C4C3B7E7057C3F206A1011A">
 	>
 
 definition
 	ACTION[at0000] matches {	-- Register problem action
 		ism_transition matches {
-			ISM_TRANSITION[at0002] matches {	-- Propose
+			ISM_TRANSITION[at0002] matches {	-- Foreslå
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::526]}
@@ -50,11 +50,23 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0002]}		-- Propose
+						defining_code matches {[local::at0002]}		-- Foreslå
 					}
 				}
 			}
-			ISM_TRANSITION[at0003] matches {	-- Evaluate
+			ISM_TRANSITION[at0008] matches {	-- Annullér
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::528]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0008]}		-- Annullér
+					}
+				}
+			}
+			ISM_TRANSITION[at0003] matches {	-- Vurder
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::245]}
@@ -62,11 +74,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0003]}		-- Evaluate
+						defining_code matches {[local::at0003]}		-- Vurder
 					}
 				}
 			}
-			ISM_TRANSITION[at0004] matches {	-- Activate
+			ISM_TRANSITION[at0004] matches {	-- Aktivér
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::245]}
@@ -74,11 +86,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0004]}		-- Activate
+						defining_code matches {[local::at0004]}		-- Aktivér
 					}
 				}
 			}
-			ISM_TRANSITION[at0005] matches {	-- Complete
+			ISM_TRANSITION[at0005] matches {	-- Avslutt
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::532]}
@@ -86,7 +98,7 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0005]}		-- Complete
+						defining_code matches {[local::at0005]}		-- Avslutt
 					}
 				}
 			}
@@ -106,7 +118,7 @@ definition
 		description matches {
 			ITEM_TREE[at0001] matches {	-- *
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Remark
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Notat
 						value matches {
 							DV_TEXT matches {*}
 						}
@@ -129,28 +141,32 @@ ontology
 					description = <"*@ internal @(nb)">
 				>
 				["at0002"] = <
-					text = <"*Foreslått(nb)">
+					text = <"*Foreslå(nb)">
 					description = <"**(nb)">
 				>
 				["at0003"] = <
-					text = <"*Vurdert(nb)">
+					text = <"*Vurder(nb)">
 					description = <"**(nb)">
 				>
 				["at0004"] = <
-					text = <"*Aktivert(nb)">
+					text = <"*Aktivér(nb)">
 					description = <"**(nb)">
 				>
 				["at0005"] = <
-					text = <"*Completed(nb)">
+					text = <"*Avslutt(nb)">
 					description = <"**(nb)">
 				>
 				["at0006"] = <
-					text = <"*Remark(nb)">
+					text = <"*Notat(nb)">
 					description = <"*En vurdering/notat tilknyttet aktiviteten(nb)">
 				>
 				["at0007"] = <
 					text = <"*DIPS.ARENA.SYSTEM.NEWVERSION(nb)">
 					description = <"*Tilstand for å sette når kommentar endres(nb)">
+				>
+				["at0008"] = <
+					text = <"*Annullér(nb)">
+					description = <"**(nb)">
 				>
 			>
 		>
@@ -165,28 +181,32 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0002"] = <
-					text = <"Foreslått">
+					text = <"Foreslå">
 					description = <"*">
 				>
 				["at0003"] = <
-					text = <"Vurdert">
+					text = <"Vurder">
 					description = <"*">
 				>
 				["at0004"] = <
-					text = <"Aktivert">
+					text = <"Aktivér">
 					description = <"*">
 				>
 				["at0005"] = <
-					text = <"Fullført">
+					text = <"Avslutt">
 					description = <"*">
 				>
 				["at0006"] = <
-					text = <"Remark">
+					text = <"Notat">
 					description = <"En vurdering/notat tilknyttet aktiviteten">
 				>
 				["at0007"] = <
 					text = <"DIPS.ARENA.SYSTEM.NEWVERSION">
 					description = <"Tilstand for å sette når kommentar endres">
+				>
+				["at0008"] = <
+					text = <"Annullér">
+					description = <"*">
 				>
 			>
 		>
@@ -201,28 +221,32 @@ ontology
 					description = <"*">
 				>
 				["at0002"] = <
-					text = <"Propose">
+					text = <"Foreslå">
 					description = <"Transition for setting problem as proposed">
 				>
 				["at0003"] = <
-					text = <"Evaluate">
+					text = <"Vurder">
 					description = <"Transition for evaluating problem">
 				>
 				["at0004"] = <
-					text = <"Activate">
+					text = <"Aktivér">
 					description = <"Transition for activating problem">
 				>
 				["at0005"] = <
-					text = <"Complete">
+					text = <"Avslutt">
 					description = <"Transition for completing problem">
 				>
 				["at0006"] = <
-					text = <"Remark">
+					text = <"Notat">
 					description = <"Evalution related to problem">
 				>
 				["at0007"] = <
 					text = <"DIPS.ARENA.SYSTEM.NEWVERSION(nb)">
 					description = <"State for specifying changes">
+				>
+				["at0008"] = <
+					text = <"Annullér">
+					description = <"**(nb)">
 				>
 			>
 		>
