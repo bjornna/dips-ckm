@@ -1,0 +1,119 @@
+﻿<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>3FE40ED7-C2EC-43F8-9E9C-9F938BE17525</id>
+  <name>Referral.v1</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose />
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.referral.v1" concept_name="Henvisning">
+    <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.request-referral.v1" concept_name="Henvisning" path="/content">
+      <Rule path="/activities[at0001]/description[at0009]/items[at0121]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>ReferralFwd.Service::112045::Barnekirurgi</includedValues>
+          <includedValues>ReferralFwd.Service::112062::Fordøyelsessykdommer</includedValues>
+          <includedValues>ReferralFwd.Service::112049::Gastroenterologisk kirurgi</includedValues>
+          <includedValues>ReferralFwd.Service::112076::Gynekologisk onkologi</includedValues>
+          <includedValues>ReferralFwd.Service::112053::Nevrokirurgi</includedValues>
+          <includedValues>ReferralFwd.Service::113112::Onkologi</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/activities[at0001]/description[at0009]/items[at0135]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0062]" min="1" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0065]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0068.1]" min="1">
+        <constraint xsi:type="textConstraint">
+          <includedValues>anzic::3::Haster</includedValues>
+          <includedValues>anzic::PK::Pakkeforløp kreft</includedValues>
+          <includedValues>anzic::N::Elektiv</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/activities[at0001]/description[at0009]/items[at0040]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0144]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0076]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0078]" max="0" />
+      <Rule path="/protocol[at0008]/items[at0010]" min="1">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="healthcareparty" />
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.registrering_av_legemidler.v1" concept_name="Registrering av legemidler" path="/protocol[at0008]/items[at0112]" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/diagnose" path="/content">
+      <Rule path="/data[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="ICD10" terminologyLang="en-GB" queryName="ICD10" />
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0009]" max="0" />
+      <Rule path="/data[at0001]/items[at0012]" max="0" />
+      <Rule path="/data[at0001]/items[at0077]" max="0" />
+      <Rule path="/data[at0001]/items[at0003]" max="0" />
+      <Rule path="/data[at0001]/items[at0005]" max="0" />
+      <Rule path="/data[at0001]/items[at0072]" max="0" />
+      <Rule path="/data[at0001]/items[at0030]" max="0" />
+      <Rule path="/data[at0001]/items[at0073]" max="0" />
+      <Rule path="/data[at0001]/items[at0069]" max="0" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.clinical_synopsis.v1" concept_name="Klinisk Sammendrag" max="1" path="/content" name="Tidligere sykdommer" />
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.family_history.v1" concept_name="Familieanamnese" path="/content">
+      <Rule path="/data[at0001]/items[at0003]" max="0" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.social_summary.v1" concept_name="Sosialanamnese" path="/content" />
+    <Context />
+  </definition>
+</template>
