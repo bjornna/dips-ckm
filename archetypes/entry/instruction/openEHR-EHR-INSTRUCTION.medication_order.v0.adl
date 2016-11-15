@@ -2,7 +2,7 @@
 	openEHR-EHR-INSTRUCTION.medication_order.v0
 
 concept
-	[at0000]	-- Legemiddelordinering
+	[at0000]	-- Medication order
 language
 	original_language = <[ISO_639-1::en]>
 	translations = <
@@ -17,8 +17,8 @@ language
 description
 	original_author = <
 		["name"] = <"Sam Heard">
-		["email"] = <"sam.heard@oceaninformatics.com">
 		["organisation"] = <"NEHTA">
+		["email"] = <"sam.heard@oceaninformatics.com">
 		["date"] = <"2015-10-21">
 	>
 	details = <
@@ -100,16 +100,12 @@ CLUSTER-arketyper brukes for å representere deler av innholdet av to årsaker:
 Skal ikke brukes for å registrere ordinering av blodkomponenter. Bruk arketypen INSTRUCTION.transfusion for dette formålet.
 
 Skal ikke brukes for å registrere ordinering av innlegging av implantater og medisinsk utstyr som pacemakere og defibrillatorer. Bruk arketypen INSTRUCTION.procedure for dette formålet.">
-			copyright = <"">
 		>
 	>
-	lifecycle_state = <"NotSet">
+	lifecycle_state = <"in_development">
 	other_contributors = <"Morten Aas, Oslo Universitetssykehus, Norway", "Vebjørn Arntzen, Oslo universitetssykehus HF, Norway", "Koray Atalag, University of Auckland, New Zealand", "Silje Ljosland Bakke, Nasjonal IKT HF, Norway (Nasjonal IKT redaktør)", "John Bennett, NEHTA, Australia", "SBhusan Bhattacharyya, Sudisa Consultancy Services, India", "Sharmila Biswas, Australia", "Lars Bitsch-Larsen, Haukeland University Hospital, Bergen, Norway", "Laila Bruun, Oslo universitetssykehus HF, Norway", "B Christensen, HUS, Norway", "Stephen Chu, NEHTA, Australia (Editor)", "Matthew Cordell, NEHTA, Australia", "Gail Easterbrook, Flinders Medical Centre, Australia", "David Evans, Queensland Health, Australia", "Hildegard Franke, freshEHR Clinical Informatics Ltd., United Kingdom", "Sarah Gaunt, NEHTA, Australia", "Heather Grain, Llewelyn Grain Informatics, Australia", "Trina Gregory, cpc, Australia", "Bjørn Grøva, Diretoratet for e-helse, Norway", "Sam Heard, Ocean Informatics, Australia (Editor)", "Kristian Heldal, Telemark Hospital Trust, Norway", "Evelyn Hovenga, EJSH Consulting, Australia", "Øygunn Leite Kallevik, Helse Bergen, Norway", "Mary Kelaher, NEHTA, Australia", "Robert L'egan, NEHTA, Australia", "Russell Leftwich, Russell B Leftwich MD, United States", "Fest Legemiddelverket, Statens Legemiddelverk, Norway", "Heather Leslie, Ocean Informatics, Australia (openEHR Editor)", "Susan McIndoe, Royal District Nursing Service, Australia", "David McKillop, NEHTA, Australia", "Ian McNicoll, freshEHR Clinical Informatics, United Kingdom (openEHR Editor)", "Chris Mitchell, RACGP, Australia", "Stewart Morrison, NEHTA, Australia", "Andrej Orel, Marand d.o.o., Slovenia", "Chris Pearce, Melbourne East GP Network, Australia", "Vladimir Pizzo, Hospital Sírio Libanês, Brazil", "Camilla Preeston, Royal Australian College of General Practitioners, Australia", "Margaret Prichard, NEHTA, Australia", "Norwegian Review Summary, National ICT Norway, Norway", "Cathy Richardson, NEHTA, Australia", "Robyn Richards, NEHTA - Clinical Terminology, Australia", "Tanja Riise, Nasjonal IKT HF, Norway", "Anoop Shah, University College London, United Kingdom", "Iztok Stotl, UKCLJ, Slovenia", "John Taylor, NEHTA, Australia", "John Tore Valand, Helse Bergen, Norway (openEHR Editor)", "Richard Townley-O'Neill, NEHTA, Australia (Editor)", "Ines Vaz, UFN, Portugal", "Kylie Young, The Royal Australian College of General Practitioners, Australia">
 	other_details = <
 		["revision"] = <"0.0.1-alpha">
-		["original_publisher"] = <"openEHR Foundation">
-		["build_uid"] = <"4097ce26-474c-4551-b72a-92437dbd639a">
-		["original_namespace"] = <"org.openehr">
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
 		["references"] = <"Medication instruction, Draft Archetype [Internet]. nehta, Australia, nehta Clinical Knowledge Manager [cited: 2015-12-15]. Available from: http://dcm.nehta.org.au/ckm/#showArchetype_1013.1.838
 
@@ -120,73 +116,76 @@ Royal Australian College of General Practitioners. Fact Sheet: Medicines List. 2
 NHS HSCIC Messaging Implementation Manual (GP2GP messages) http://www.uktcregistration.nss.cfh.nhs.uk/trud3
 
 Standards for medication and medical device records – technical annex [Internet]. RCP London. [cited 2015 Dec 15]. Available from: https://www.rcplondon.ac.uk/projects/outputs/standards-medication-and-medical-device-records-technical-annex">
+		["build_uid"] = <"4097ce26-474c-4551-b72a-92437dbd639a">
+		["original_publisher"] = <"openEHR Foundation">
+		["original_namespace"] = <"org.openehr">
 		["MD5-CAM-1.0.1"] = <"A521F5396E72431691016C3169BE7FD9">
 		["custodian_namespace"] = <"org.openehr">
 		["custodian_organisation"] = <"openEHR Foundation">
 	>
 
 definition
-	INSTRUCTION[at0000] matches {	-- Legemiddelordinering
+	INSTRUCTION[at0000] matches {	-- Medication order
 		activities cardinality matches {0..*; unordered} matches {
-			ACTIVITY[at0001] occurrences matches {0..*} matches {	-- Ordinering
+			ACTIVITY[at0001] occurrences matches {0..*} matches {	-- Order
 				description matches {
 					ITEM_TREE[at0002] matches {	-- Tree
 						items cardinality matches {1..*; ordered} matches {
-							ELEMENT[at0070] matches {	-- Legemiddel
+							ELEMENT[at0070] matches {	-- Medication item
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							allow_archetype CLUSTER[at0143] occurrences matches {0..1} matches {	-- Legemiddeldetaljer
+							allow_archetype CLUSTER[at0143] occurrences matches {0..1} matches {	-- Preparation details
 								include
 									archetype_id/value matches {/openEHR-EHR-CLUSTER\.medication_substance(-[a-zA-Z0-9_]+)*\.v0/}
 							}
-							ELEMENT[at0091] occurrences matches {0..*} matches {	-- Administrasjonsvei
+							ELEMENT[at0091] occurrences matches {0..*} matches {	-- Route
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0009] occurrences matches {0..1} matches {	-- Beskrivelse av doseringsanvisninger
+							ELEMENT[at0009] occurrences matches {0..1} matches {	-- Dose directions description
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0047] occurrences matches {0..1} matches {	-- Maskinlesbare doseringsanvisninger
+							ELEMENT[at0047] occurrences matches {0..1} matches {	-- Parsable dose directions
 								value matches {
 									DV_PARSABLE matches {
 										formalism matches {"text/html", "text/plain", "text/xml", "text/rtf"}
 									}
 								}
 							}
-							ELEMENT[at0109] occurrences matches {0..1} matches {	-- Beskrivelse av doseringsmengde
+							ELEMENT[at0109] occurrences matches {0..1} matches {	-- Dose amount description
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0055] occurrences matches {0..1} matches {	-- Beskrivelse av doseringstidspunkt
+							ELEMENT[at0055] occurrences matches {0..1} matches {	-- Dose timing description
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							CLUSTER[at0056] occurrences matches {0..*} matches {	-- Doseringsanvisning
+							CLUSTER[at0056] occurrences matches {0..*} matches {	-- Dose direction
 								items cardinality matches {1..*; unordered} matches {
-									ELEMENT[at0057] occurrences matches {0..1} matches {	-- Anvisningsrekkefølge
+									ELEMENT[at0057] occurrences matches {0..1} matches {	-- Direction sequence
 										value matches {
 											DV_COUNT matches {
 												magnitude matches {|>=1|}
 											}
 										}
 									}
-									CLUSTER[at0058] occurrences matches {0..*} matches {	-- Doseringsmønster
+									CLUSTER[at0058] occurrences matches {0..*} matches {	-- Dose pattern
 										items cardinality matches {1..*; unordered} matches {
-											ELEMENT[at0164] occurrences matches {0..1} matches {	-- Mønsterrekkefølge
+											ELEMENT[at0164] occurrences matches {0..1} matches {	-- Pattern sequence
 												value matches {
 													DV_COUNT matches {
 														magnitude matches {|>=1|}
 													}
 												}
 											}
-											ELEMENT[at0144] occurrences matches {0..1} matches {	-- Dosemengde
+											ELEMENT[at0144] occurrences matches {0..1} matches {	-- Dose amount
 												value matches {
 													C_DV_QUANTITY <
 														property = <[openehr::380]>
@@ -223,16 +222,16 @@ definition
 													}
 												}
 											}
-											ELEMENT[at0145] occurrences matches {0..1} matches {	-- Doseenhet
+											ELEMENT[at0145] occurrences matches {0..1} matches {	-- Dose unit
 												value matches {
 													DV_TEXT matches {*}
 												}
 											}
-											allow_archetype CLUSTER[at0037] occurrences matches {0..1} matches {	-- Doseringstidspunkt
+											allow_archetype CLUSTER[at0037] occurrences matches {0..1} matches {	-- Dose timing
 												include
 													archetype_id/value matches {/openEHR-EHR-CLUSTER\.timing_daily(-[a-zA-Z0-9_]+)*\.v0/}
 											}
-											ELEMENT[at0134] occurrences matches {0..1} matches {	-- Infusjonshastighet
+											ELEMENT[at0134] occurrences matches {0..1} matches {	-- Infusion administration rate
 												value matches {
 													C_DV_QUANTITY <
 														property = <[openehr::126]>
@@ -258,26 +257,26 @@ definition
 													DV_TEXT matches {*}
 												}
 											}
-											ELEMENT[at0102] occurrences matches {0..1} matches {	-- Varighet av administrering
+											ELEMENT[at0102] occurrences matches {0..1} matches {	-- Dose administration duration
 												value matches {
 													DV_DURATION matches {
 														value matches {PDTHMS/|>=PT0H|}
 													}
 												}
 											}
-											allow_archetype CLUSTER[at0156] occurrences matches {0..1} matches {	-- Betinget administrering
+											allow_archetype CLUSTER[at0156] occurrences matches {0..1} matches {	-- Conditional administration
 												include
 													archetype_id/value matches {/openEHR-EHR-CLUSTER\.conditional_medication_rules(-[a-zA-Z0-9_]+)*\.v0/}
 											}
 										}
 									}
-									ELEMENT[at0066] occurrences matches {0..1} matches {	-- Anvisningsvarighet
+									ELEMENT[at0066] occurrences matches {0..1} matches {	-- Direction duration
 										value matches {
 											DV_CODED_TEXT matches {
 												defining_code matches {
 													[local::
-													at0067, 	-- Ubestemt
-													at0068]	-- Ubestemt - ikke seponer
+													at0067, 	-- Indefinite
+													at0068]	-- Indefinite - Do not discontinue
 												}
 											}
 											DV_DURATION matches {
@@ -285,17 +284,17 @@ definition
 											}
 										}
 									}
-									allow_archetype CLUSTER[at0090] occurrences matches {0..1} matches {	-- Repetering av anvisning
+									allow_archetype CLUSTER[at0090] occurrences matches {0..1} matches {	-- Direction repetition
 										include
 											archetype_id/value matches {/openEHR-EHR-CLUSTER\.timing_repetition(-[a-zA-Z0-9_]+)*\.v0/}
 									}
 								}
 							}
-							CLUSTER[at0062] occurrences matches {0..1} matches {	-- Legemiddelsikkerhet
+							CLUSTER[at0062] occurrences matches {0..1} matches {	-- Medication safety
 								items cardinality matches {1..*; unordered} matches {
-									CLUSTER[at0051] occurrences matches {0..*} matches {	-- Maksimumsdose
+									CLUSTER[at0051] occurrences matches {0..*} matches {	-- Maximum dose
 										items cardinality matches {1..*; unordered} matches {
-											ELEMENT[at0130] occurrences matches {0..1} matches {	-- Maksimum legemiddelmengde
+											ELEMENT[at0130] occurrences matches {0..1} matches {	-- Maximum amount
 												value matches {
 													C_DV_QUANTITY <
 														property = <[openehr::380]>
@@ -308,12 +307,12 @@ definition
 													>
 												}
 											}
-											ELEMENT[at0146] occurrences matches {0..1} matches {	-- Enhet for maksimum legemiddelmengde
+											ELEMENT[at0146] occurrences matches {0..1} matches {	-- Maximum amount dose unit
 												value matches {
 													DV_TEXT matches {*}
 												}
 											}
-											ELEMENT[at0053] occurrences matches {0..1} matches {	-- Tidsperiode
+											ELEMENT[at0053] occurrences matches {0..1} matches {	-- Allowed period
 												value matches {
 													DV_DURATION matches {
 														value matches {|>=PT0S|}
@@ -322,26 +321,26 @@ definition
 											}
 										}
 									}
-									ELEMENT[at0064] occurrences matches {0..1} matches {	-- Overstyring ved stor dose?
+									ELEMENT[at0064] occurrences matches {0..1} matches {	-- Exceptional dose override?
 										value matches {
 											DV_BOOLEAN matches {
 												value matches {True, False}
 											}
 										}
 									}
-									ELEMENT[at0162] occurrences matches {0..1} matches {	-- Årsak til overstyring
+									ELEMENT[at0162] occurrences matches {0..1} matches {	-- Override reason
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									CLUSTER[at0150] occurrences matches {0..1} matches {	-- Doseringsmål
+									CLUSTER[at0150] occurrences matches {0..1} matches {	-- Dose goal
 										items cardinality matches {1..*; unordered} matches {
-											ELEMENT[at0165] occurrences matches {0..1} matches {	-- Mål
+											ELEMENT[at0165] occurrences matches {0..1} matches {	-- Goal
 												value matches {
 													DV_TEXT matches {*}
 												}
 											}
-											ELEMENT[at0151] occurrences matches {0..1} matches {	-- Total daglig dosemengde
+											ELEMENT[at0151] occurrences matches {0..1} matches {	-- Total daily dose amount
 												value matches {
 													C_DV_QUANTITY <
 														property = <[openehr::380]>
@@ -354,7 +353,7 @@ definition
 													>
 												}
 											}
-											ELEMENT[at0152] occurrences matches {0..1} matches {	-- Enhet til total daglig dosemengde
+											ELEMENT[at0152] occurrences matches {0..1} matches {	-- Total daily dose unit
 												value matches {
 													DV_TEXT matches {*}
 												}
@@ -363,167 +362,167 @@ definition
 									}
 								}
 							}
-							ELEMENT[at0044] occurrences matches {0..*} matches {	-- Tilleggsinstruksjon
+							ELEMENT[at0044] occurrences matches {0..*} matches {	-- Additional instruction
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0105] occurrences matches {0..*} matches {	-- Bruksområde
+							ELEMENT[at0105] occurrences matches {0..*} matches {	-- Patient guidance
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0107] occurrences matches {0..*} matches {	-- Overvåkningsinstruksjon
+							ELEMENT[at0107] occurrences matches {0..*} matches {	-- Monitoring instruction
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0018] occurrences matches {0..*} matches {	-- Klinisk indikasjon
+							ELEMENT[at0018] occurrences matches {0..*} matches {	-- Clinical indication
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0148] occurrences matches {0..*} matches {	-- Terapeutisk hensikt
+							ELEMENT[at0148] occurrences matches {0..*} matches {	-- Therapeutic intent
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							CLUSTER[at0113] occurrences matches {0..1} matches {	-- Detaljer knyttet til ordinering
+							CLUSTER[at0113] occurrences matches {0..1} matches {	-- Order details
 								items cardinality matches {1..*; unordered} matches {
-									ELEMENT[at0012] occurrences matches {0..1} matches {	-- Startdato/tid for ordineringen
+									ELEMENT[at0012] occurrences matches {0..1} matches {	-- Order start date/time
 										value matches {
 											DV_DATE_TIME matches {*}
 										}
 									}
-									ELEMENT[at0013] occurrences matches {0..1} matches {	-- Dato/tid for seponering
+									ELEMENT[at0013] occurrences matches {0..1} matches {	-- Order stop date/time
 										value matches {
 											DV_DATE_TIME matches {*}
 										}
 									}
-									ELEMENT[at0011] occurrences matches {0..*} matches {	-- Startkriterium
+									ELEMENT[at0011] occurrences matches {0..*} matches {	-- Order start criterion
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0016] occurrences matches {0..*} matches {	-- Seponeringskriterium
+									ELEMENT[at0016] occurrences matches {0..*} matches {	-- Order stop criterion
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0060] occurrences matches {0..1} matches {	-- Antall administreringer utført
+									ELEMENT[at0060] occurrences matches {0..1} matches {	-- Administrations already complete
 										value matches {
 											DV_COUNT matches {*}
 										}
 									}
-									ELEMENT[at0050] occurrences matches {0..1} matches {	-- Del av ordinering allerede administrert
+									ELEMENT[at0050] occurrences matches {0..1} matches {	-- Duration of course already complete
 										value matches {
 											DV_DURATION matches {
 												value matches {PWDTH/|>=PT0H|}
 											}
 										}
 									}
-									allow_archetype CLUSTER[at0112] occurrences matches {0..*} matches {	-- Sammendrag av ordineringsinformasjon
+									allow_archetype CLUSTER[at0112] occurrences matches {0..*} matches {	-- Course summary
 										include
 											archetype_id/value matches {/openEHR-EHR-CLUSTER\.medication_course_summary(-[a-zA-Z0-9_]+)*\.v0/}
 									}
 								}
 							}
-							allow_archetype CLUSTER[at0069] occurrences matches {0..*} matches {	-- Autoriseringsveiledning
+							allow_archetype CLUSTER[at0069] occurrences matches {0..*} matches {	-- Authorisation directions
 								include
 									archetype_id/value matches {/openEHR-EHR-CLUSTER\.medication_authorisation(-[a-zA-Z0-9_]+)*\.v0/}
 							}
-							CLUSTER[at0129] occurrences matches {0..1} matches {	-- Utdelingsanvisning
+							CLUSTER[at0129] occurrences matches {0..1} matches {	-- Dispense directions
 								items cardinality matches {1..*; unordered} matches {
-									ELEMENT[at0106] occurrences matches {0..*} matches {	-- Utdelingsinstruksjon
+									ELEMENT[at0106] occurrences matches {0..*} matches {	-- Dispense instruction
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									allow_archetype CLUSTER[at0065] occurrences matches {0..*} matches {	-- Utdelingsmengde
+									allow_archetype CLUSTER[at0065] occurrences matches {0..*} matches {	-- Dispense amount
 										include
 											archetype_id/value matches {/openEHR-EHR-CLUSTER\.medication_supply_amount(-[a-zA-Z0-9_]+)*\.v0/}
 									}
-									ELEMENT[at0132] occurrences matches {0..1} matches {	-- Generisk bytte
+									ELEMENT[at0132] occurrences matches {0..1} matches {	-- Substitution direction
 										value matches {
 											DV_CODED_TEXT matches {
 												defining_code matches {
 													[local::
-													at0168, 	-- Tillatt
-													at0169]	-- Ikke tillatt
+													at0168, 	-- Permitted
+													at0169]	-- Not permitted
 												}
 											}
 										}
 									}
-									ELEMENT[at0154] occurrences matches {0..1} matches {	-- Begrunnelse for at generisk bytte ikke tillates
+									ELEMENT[at0154] occurrences matches {0..1} matches {	-- Non-substitution reason
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0139] occurrences matches {0..1} matches {	-- Prioritet
+									ELEMENT[at0139] occurrences matches {0..1} matches {	-- Priority
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0155] occurrences matches {0..1} matches {	-- Startdato
+									ELEMENT[at0155] occurrences matches {0..1} matches {	-- Start date
 										value matches {
 											DV_DATE_TIME matches {*}
 										}
 									}
-									ELEMENT[at0161] occurrences matches {0..1} matches {	-- Utløpsdato
+									ELEMENT[at0161] occurrences matches {0..1} matches {	-- Expiry date
 										value matches {
 											DV_DATE_TIME matches {*}
 										}
 									}
-									allow_archetype CLUSTER[at0170] occurrences matches {0..*} matches {	-- Utdelingsdetaljer
+									allow_archetype CLUSTER[at0170] occurrences matches {0..*} matches {	-- Dispense details
 										include
 											archetype_id/value matches {/.*/}
 									}
 								}
 							}
-							CLUSTER[at0133] occurrences matches {0..1} matches {	-- Administrasjonsveiledning
+							CLUSTER[at0133] occurrences matches {0..1} matches {	-- Administration directions
 								items cardinality matches {1..*; unordered} matches {
-									ELEMENT[at0108] occurrences matches {0..*} matches {	-- Administrasjonsinstruksjon
+									ELEMENT[at0108] occurrences matches {0..*} matches {	-- Administration instruction
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0136] occurrences matches {0..1} matches {	-- Formål med infusjon
+									ELEMENT[at0136] occurrences matches {0..1} matches {	-- Infusion purpose
 										value matches {
 											DV_CODED_TEXT matches {
 												defining_code matches {
 													[local::
-													at0137, 	-- Væske/elektrolyttilførsel
-													at0138, 	-- Legemiddelinfusjon
-													at0163]	-- Ernæringsinfusjon
+													at0137, 	-- Baseline electrolyte infusion
+													at0138, 	-- Active medication infusion
+													at0163]	-- Nutritional infusion
 												}
 											}
 										}
 									}
-									ELEMENT[at0092] occurrences matches {0..1} matches {	-- Kroppssted
+									ELEMENT[at0092] occurrences matches {0..1} matches {	-- Body site
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									allow_archetype CLUSTER[at0093] occurrences matches {0..1} matches {	-- Strukturert anatomisk lokalisering
+									allow_archetype CLUSTER[at0093] occurrences matches {0..1} matches {	-- Structured body site
 										include
 											archetype_id/value matches {/openEHR-EHR-CLUSTER\.anatomical_location(-[a-zA-Z0-9_]+)*\.v1|openEHR-EHR-CLUSTER\.anatomical_location_clock(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.anatomical_location_relative(-[a-zA-Z0-9_]+)*\.v1/}
 									}
-									ELEMENT[at0094] occurrences matches {0..*} matches {	-- Administrasjonsmåte
+									ELEMENT[at0094] occurrences matches {0..*} matches {	-- Delivery method
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									allow_archetype CLUSTER[at0095] occurrences matches {0..*} matches {	-- Detaljer om administrasjonsutstyr
+									allow_archetype CLUSTER[at0095] occurrences matches {0..*} matches {	-- Delivery device details
 										include
 											archetype_id/value matches {/openEHR-EHR-CLUSTER\.device(-[a-zA-Z0-9_]+)*\.v1/}
 									}
 								}
 							}
-							allow_archetype CLUSTER[at0166] occurrences matches {0..*} matches {	-- Tilleggsinformasjon
+							allow_archetype CLUSTER[at0166] occurrences matches {0..*} matches {	-- Additional details
 								include
 									archetype_id/value matches {/.*/}
 							}
-							ELEMENT[at0167] occurrences matches {0..1} matches {	-- Kommentar
+							ELEMENT[at0167] occurrences matches {0..1} matches {	-- Comment
 								value matches {
 									DV_TEXT matches {*}
 								}
@@ -534,19 +533,19 @@ definition
 			}
 		}
 		protocol matches {
-			ITEM_TREE[at0005] matches {	-- Tree
+			ITEM_TREE[at0005] matches {	-- Dose amount description
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0004] occurrences matches {0..*} matches {	-- Ordineringsidentifikator
+					ELEMENT[at0004] occurrences matches {0..*} matches {	-- Order identifier
 						value matches {
 							DV_IDENTIFIER matches {*}
 						}
 					}
-					ELEMENT[at0135] occurrences matches {0..*} matches {	-- Doseringsformel
+					ELEMENT[at0135] occurrences matches {0..*} matches {	-- Dosage formula
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					allow_archetype CLUSTER[at0008] occurrences matches {0..*} matches {	-- Tilleggsinformasjon
+					allow_archetype CLUSTER[at0008] occurrences matches {0..*} matches {	-- Extension
 						include
 							archetype_id/value matches {/.*/}
 					}
@@ -554,6 +553,8 @@ definition
 			}
 		}
 	}
+
+
 
 ontology
 	term_definitions = <
