@@ -1,0 +1,143 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.das28.v0
+
+concept
+	[at0000]	-- DAS 28 Rheumatology Assessment
+language
+	original_language = <[ISO_639-1::en]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"7640968A5BE80590AA208833BA95A9FD">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- DAS 28 Rheumatology Assessment
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Tender joints
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|0..28|}
+											}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Swollen joints
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|0..28|}
+											}
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {	-- ESR
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::338]>
+												list = <
+													["1"] = <
+														units = <"mm/h">
+														magnitude = <|0.0..300.0|>
+														precision = <|0|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Patient global health
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::380]>
+												list = <
+													["1"] = <
+														units = <"1">
+														magnitude = <|0.0..100.0|>
+														precision = <|0|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0008] occurrences matches {0..1} matches {	-- Total score
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::380]>
+												list = <
+													["1"] = <
+														units = <"1">
+														magnitude = <|0.0..10.0|>
+														precision = <|2|>
+													>
+												>
+											>
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"DAS 28 Rheumatology Assessment">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Tender joints">
+					description = <"Count of tender joints.">
+				>
+				["at0005"] = <
+					text = <"Swollen joints">
+					description = <"Count of swollen joints.">
+				>
+				["at0006"] = <
+					text = <"ESR">
+					description = <"Erythrocyte sedimentation rate.">
+				>
+				["at0007"] = <
+					text = <"Patient global health">
+					description = <"Patient global health visual analogue scale.">
+				>
+				["at0008"] = <
+					text = <"Total score">
+					description = <"Total DAS 28 score.">
+				>
+			>
+		>
+	>
