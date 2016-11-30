@@ -1,8 +1,8 @@
-archetype (adl_version=1.4)
-	openEHR-EHR-ADMIN_ENTRY.cancertrajectory_utskrift.v1
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-ADMIN_ENTRY.cancertrajectory_koderforutskrift.v1
 
 concept
-	[at0000]	-- Cancertrajectory utskrift
+	[at0000]	-- cancertrajectory koderforutskrift
 language
 	original_language = <[ISO_639-1::nb]>
 description
@@ -21,11 +21,11 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"1E39C45BC5C821F50ADC4CAD91D28D03">
+		["MD5-CAM-1.0.1"] = <"D68C7396DAEADAA46B6DB98BA490C1F0">
 	>
 
 definition
-	ADMIN_ENTRY[at0000] matches {	-- Cancertrajectory utskrift
+	ADMIN_ENTRY[at0000] matches {	-- cancertrajectory koderforutskrift
 		data matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
@@ -36,46 +36,54 @@ definition
 					}
 					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Start første HF
 						value matches {
-							DV_DATE matches {
-								value matches {yyyy-mm-dd}
-							}
+							DV_DATE matches {*}
 						}
 					}
-					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Første HF
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Start eget HF
 						value matches {
-							DV_TEXT matches {*}
+							DV_DATE matches {*}
 						}
 					}
-					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Start ved eget HF
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Dato for klinisk beslutning
 						value matches {
 							DV_DATE matches {
-								value matches {yyyy-mm-dd}
+								value matches {yyyy-??-XX}
 							}
 						}
 					}
 					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Klinisk beslutning
 						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Dato for behandling start
+						value matches {
 							DV_DATE_TIME matches {*}
 						}
 					}
-					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Klinisk beslutning
+					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Behandling start
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Start behanding
+					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Dato for overføring
 						value matches {
 							DV_DATE_TIME matches {*}
 						}
 					}
-					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Overført anet HF
+					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Dato for avslutning andre årsaker
 						value matches {
 							DV_DATE_TIME matches {*}
 						}
 					}
-					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Avslutning andre årsaker
+					ELEMENT[at0011] occurrences matches {0..1} matches {	-- Dato for utskrift
 						value matches {
-							DV_DATE_TIME matches {*}
+							DV_DATE matches {*}
+						}
+					}
+					ELEMENT[at0012] occurrences matches {0..1} matches {	-- Første HF
+						value matches {
+							DV_TEXT matches {*}
 						}
 					}
 				}
@@ -88,7 +96,7 @@ ontology
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"Cancertrajectory utskrift">
+					text = <"cancertrajectory koderforutskrift">
 					description = <"unknown">
 				>
 				["at0001"] = <
@@ -97,18 +105,18 @@ ontology
 				>
 				["at0002"] = <
 					text = <"Type forløp">
-					description = <"*">
+					description = <"Angir hvilket forløp som igangsettes">
 				>
 				["at0003"] = <
 					text = <"Start første HF">
-					description = <"*">
+					description = <"Definerer når dette forløpet faktisk startet">
 				>
 				["at0004"] = <
-					text = <"Første HF">
-					description = <"*">
+					text = <"Start eget HF">
+					description = <"Datoen som henvisningen ble mottatt ved gjeldende helseforetak">
 				>
 				["at0005"] = <
-					text = <"Start ved eget HF">
+					text = <"Dato for klinisk beslutning">
 					description = <"*">
 				>
 				["at0006"] = <
@@ -116,19 +124,27 @@ ontology
 					description = <"*">
 				>
 				["at0007"] = <
-					text = <"Klinisk beslutning">
+					text = <"Dato for behandling start">
 					description = <"*">
 				>
 				["at0008"] = <
-					text = <"Start behanding">
+					text = <"Behandling start">
 					description = <"*">
 				>
 				["at0009"] = <
-					text = <"Overført anet HF">
+					text = <"Dato for overføring">
 					description = <"*">
 				>
 				["at0010"] = <
-					text = <"Avslutning andre årsaker">
+					text = <"Dato for avslutning andre årsaker">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Dato for utskrift">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Første HF">
 					description = <"*">
 				>
 			>
