@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
-  <id>a9045e38-7cbe-4510-9e18-b5572b3bb5e1</id>
-  <name>GAF</name>
+  <id>a2cb18f1-8ff0-45f1-a595-ce17be6e0a29</id>
+  <name>Barthel ADL Indeks</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
-      <purpose />
+      <purpose>Template for å registrere Barthel ADL score </purpose>
       <use />
       <misuse />
     </details>
@@ -60,28 +60,9 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="S-GAF">
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.s_gaf.v1" concept_name="S-GAF" path="/content">
-      <Rule path="/data[at0001]/events[at0002]" max="1" name="GAF annet" />
-      <Rule path="/data[at0001]/events[at0002]" max="1" clone="true" name="GAF inn" />
-      <Rule path="/data[at0001]/events[at0002]" max="1" clone="true" name="GAF ut" />
-    </Content>
-    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.hjelpefelter.v0" concept_name="Hjelpefelter" path="/content">
-      <Rule path="/data[at0001]/items[at0002]" name="Type">
-        <constraint xsi:type="textConstraint">
-          <includedValues>Inn</includedValues>
-          <includedValues>Ut</includedValues>
-          <includedValues>Annet</includedValues>
-        </constraint>
-      </Rule>
-    </Content>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Barthel ADL Score">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.barthel_no.v1" concept_name="Barthel ADL-indeks" path="/content" />
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.clinical_synopsis.v1" concept_name="Klinisk sammendrag" path="/content" />
     <Context />
   </definition>
-  <view>
-    <constraints path="[openEHR-EHR-COMPOSITION.encounter.v1]/content[openEHR-EHR-OBSERVATION.gaf.v0]/data[at0001]/events[at0002]/time">
-      <items id="VisibleInView">
-        <value>time</value>
-      </items>
-    </constraints>
-  </view>
 </template>

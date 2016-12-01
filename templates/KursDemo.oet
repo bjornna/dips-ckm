@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
-  <id>a9045e38-7cbe-4510-9e18-b5572b3bb5e1</id>
-  <name>GAF</name>
+  <id>3ea199e8-57c3-4356-a1ac-5e33c5edb60c</id>
+  <name>KursDemo</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
-      <purpose />
+      <purpose>Til kurs</purpose>
       <use />
       <misuse />
     </details>
@@ -60,28 +60,26 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="S-GAF">
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.s_gaf.v1" concept_name="S-GAF" path="/content">
-      <Rule path="/data[at0001]/events[at0002]" max="1" name="GAF annet" />
-      <Rule path="/data[at0001]/events[at0002]" max="1" clone="true" name="GAF inn" />
-      <Rule path="/data[at0001]/events[at0002]" max="1" clone="true" name="GAF ut" />
-    </Content>
-    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.hjelpefelter.v0" concept_name="Hjelpefelter" path="/content">
-      <Rule path="/data[at0001]/items[at0002]" name="Type">
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="KursDemo">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_weight.v1" concept_name="Kroppsvekt" path="/content">
+      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0038]" max="0" />
+      <Rule path="/data[at0002]/events[at0003]/state[at0008]/items[at0009]">
         <constraint xsi:type="textConstraint">
-          <includedValues>Inn</includedValues>
-          <includedValues>Ut</includedValues>
-          <includedValues>Annet</includedValues>
+          <excludedValues>local::at0013</excludedValues>
+          <excludedValues>local::at0017</excludedValues>
         </constraint>
       </Rule>
+      <Rule path="/data[at0002]/events[at0026]" max="0" />
+      <Rule path="/protocol[at0015]/items[at0037]" max="0" />
+      <Rule path="/protocol[at0015]/items[at0041]" max="0" />
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.height.v1" concept_name="Høyde/Lengde" path="/content">
+      <Rule path="/data[at0001]/events[at0021]" max="0" />
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_mass_index.v1" concept_name="Kroppsmasseindeks" path="/content">
+      <Rule path="/protocol[at0005]/items[at0006]" max="0" />
+      <Rule path="/protocol[at0005]/items[at0010]" max="0" />
     </Content>
     <Context />
   </definition>
-  <view>
-    <constraints path="[openEHR-EHR-COMPOSITION.encounter.v1]/content[openEHR-EHR-OBSERVATION.gaf.v0]/data[at0001]/events[at0002]/time">
-      <items id="VisibleInView">
-        <value>time</value>
-      </items>
-    </constraints>
-  </view>
 </template>
