@@ -1,0 +1,352 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.prosentvis_endring_av_vekt_og_matinntak.v1
+
+concept
+	[at0000]	-- Prosentvis endring av vekt og matinntak
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"Hensikten er å kunne registerer prosentvis endring av vekt og matinntak på en pasient, som en utvidelse til NRS 2002 registreringen gjort i arketypen screening for ernæringsmessig risiko">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Hensikten er å kunne registerer prosentvis endring av vekt og matinntak på en pasient, som en utvidelse til NRS 2002 registreringen gjort i arketypen screening for ernæringsmessig risiko">
+			use = <"Brukes bare til NRS utvidet screening">
+			misuse = <"All annen bruk">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"E679C3F24D5B4FED0ACCAAE12EC90E7A">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Prosentvis endring av vekt og matinntak
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									CLUSTER[at0006] occurrences matches {0..1} matches {	-- Vekttap
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0015] occurrences matches {0..1} matches {	-- Forrige vekt
+												value matches {
+													C_DV_QUANTITY <
+														property = <[openehr::124]>
+														list = <
+															["1"] = <
+																units = <"kg">
+																magnitude = <|0.0..1000.0|>
+																precision = <|2|>
+															>
+															["2"] = <
+																units = <"gm">
+																magnitude = <|0.0..10000.0|>
+																precision = <|4|>
+															>
+														>
+													>
+												}
+											}
+											ELEMENT[at0016] occurrences matches {0..1} matches {	-- Vekt nå
+												value matches {
+													C_DV_QUANTITY <
+														property = <[openehr::124]>
+														list = <
+															["1"] = <
+																units = <"kg">
+																magnitude = <|0.0..1000.0|>
+																precision = <|2|>
+															>
+															["2"] = <
+																units = <"gm">
+																magnitude = <|0.0..10000.0|>
+																precision = <|4|>
+															>
+														>
+													>
+												}
+											}
+											allow_archetype CLUSTER[at0013] occurrences matches {0..*} matches {	-- Vektmåling for utgangspunkt
+												include
+													archetype_id/value matches {/.*/}
+											}
+											ELEMENT[at0004] occurrences matches {0..1} matches {	-- Vekttap i prosent
+												value matches {
+													C_DV_QUANTITY <
+														property = <[openehr::380]>
+														list = <
+															["1"] = <
+																units = <"%">
+															>
+														>
+													>
+												}
+											}
+											ELEMENT[at0010] occurrences matches {0..1} matches {	-- Tidsrom for måling vektendring
+												value matches {
+													DV_INTERVAL<DV_DATE> matches {
+														upper matches {
+															DV_DATE matches {
+																value matches {yyyy-mm-dd}
+															}
+														}
+														lower matches {
+															DV_DATE matches {
+																value matches {yyyy-mm-dd}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+									CLUSTER[at0007] occurrences matches {0..1} matches {	-- Matinntak endring
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0005] occurrences matches {0..1} matches {	-- Matinntak i prosent
+												value matches {
+													1|[local::at0018], 	-- 0-25 prosent
+													2|[local::at0019], 	-- 25-50 prosent
+													3|[local::at0020], 	-- 50-75 prosent
+													4|[local::at0021]  	-- 75-100 prosent
+												}
+											}
+											ELEMENT[at0012] occurrences matches {0..1} matches {	-- Tidsrom for måling matinntak
+												value matches {
+													DV_INTERVAL<DV_DATE> matches {
+														upper matches {
+															DV_DATE matches {
+																value matches {yyyy-mm-dd}
+															}
+														}
+														lower matches {
+															DV_DATE matches {
+																value matches {yyyy-mm-dd}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+									ELEMENT[at0028] occurrences matches {0..1} matches {	-- Tidspunkt for screening
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0029, 	-- Ved innkomst
+													at0030, 	-- Under opphold
+													at0031]	-- Poliklinisk time
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"Prosentvis endring av vekt og matinntak">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"*Vekttap i prosent(nb)">
+					description = <"*Benyttes for angi prosentvis endring av kroppsvekt over tid.(nb)">
+				>
+				["at0005"] = <
+					text = <"*Matinntak i prosent(nb)">
+					description = <"*På en skala fra 0-10, hvor mye mindre spiser pasienten nå mot normalt? 4=40%(nb)">
+				>
+				["at0006"] = <
+					text = <"*Vekttap(nb)">
+					description = <"*Registrering av prosentvis vektendring(nb)">
+				>
+				["at0007"] = <
+					text = <"Matinntak endring">
+					description = <"Registrering av prosentvis endring av matinntak">
+				>
+				["at0010"] = <
+					text = <"Tidsrom for måling vektendring">
+					description = <"Angi tidsrommet for måling av vektendring">
+				>
+				["at0012"] = <
+					text = <"Tidsrom for måling matinntak">
+					description = <"Angi tidsrom for måling av matinntak">
+				>
+				["at0013"] = <
+					text = <"*Vektmåling for utgangspunkt(nb)">
+					description = <"**(nb)">
+				>
+				["at0015"] = <
+					text = <"*Forrige vekt(nb)">
+					description = <"*Vektmåling utgangspunkt(nb)">
+				>
+				["at0016"] = <
+					text = <"*Vekt nå(nb)">
+					description = <"**(nb)">
+				>
+				["at0018"] = <
+					text = <"*0-25 prosent(nb)">
+					description = <"*0-25 prosent av normalt matinntak(nb)">
+				>
+				["at0019"] = <
+					text = <"*25-50 prosent(nb)">
+					description = <"*25-50 prosent av normalt matinntak(nb)">
+				>
+				["at0020"] = <
+					text = <"*50-75 prosent(nb)">
+					description = <"*50-75 prosent av normalt matinntak(nb)">
+				>
+				["at0021"] = <
+					text = <"*75-100 prosent(nb)">
+					description = <"*75-100 prosent av normalt matinntak(nb)">
+				>
+				["at0028"] = <
+					text = <"*Tidspunkt for screening(nb)">
+					description = <"**(nb)">
+				>
+				["at0029"] = <
+					text = <"*Ved innkomst(nb)">
+					description = <"**(nb)">
+				>
+				["at0030"] = <
+					text = <"*Under opphold(nb)">
+					description = <"**(nb)">
+				>
+				["at0031"] = <
+					text = <"*Poliklinisk time(nb)">
+					description = <"**(nb)">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Prosentvis endring av vekt og matinntak">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Vekttap i prosent">
+					description = <"Benyttes for angi prosentvis endring av kroppsvekt over tid.">
+				>
+				["at0005"] = <
+					text = <"Matinntak i prosent">
+					description = <"På en skala fra 0-10, hvor mye mindre spiser pasienten nå mot normalt? 4=40%">
+				>
+				["at0006"] = <
+					text = <"Vekttap">
+					description = <"Registrering av prosentvis vektendring">
+				>
+				["at0007"] = <
+					text = <"Matinntak endring">
+					description = <"Registrering av prosentvis endring av matinntak">
+				>
+				["at0010"] = <
+					text = <"Tidsrom for måling vektendring">
+					description = <"Angi tidsrommet for måling av vektendring">
+				>
+				["at0012"] = <
+					text = <"Tidsrom for måling matinntak">
+					description = <"Angi tidsrom for måling av matinntak">
+				>
+				["at0013"] = <
+					text = <"Vektmåling for utgangspunkt">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Forrige vekt">
+					description = <"Vektmåling utgangspunkt">
+				>
+				["at0016"] = <
+					text = <"Vekt nå">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"0-25 prosent">
+					description = <"0-25 prosent av normalt matinntak">
+				>
+				["at0019"] = <
+					text = <"25-50 prosent">
+					description = <"25-50 prosent av normalt matinntak">
+				>
+				["at0020"] = <
+					text = <"50-75 prosent">
+					description = <"50-75 prosent av normalt matinntak">
+				>
+				["at0021"] = <
+					text = <"75-100 prosent">
+					description = <"75-100 prosent av normalt matinntak">
+				>
+				["at0028"] = <
+					text = <"Tidspunkt for screening">
+					description = <"*">
+				>
+				["at0029"] = <
+					text = <"Ved innkomst">
+					description = <"*">
+				>
+				["at0030"] = <
+					text = <"Under opphold">
+					description = <"*">
+				>
+				["at0031"] = <
+					text = <"Poliklinisk time">
+					description = <"*">
+				>
+			>
+		>
+	>
