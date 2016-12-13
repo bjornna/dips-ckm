@@ -1,0 +1,144 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.kat_status.v1
+
+concept
+	[at0000]	-- KAT Status
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"KAT Status brukes i påvente av evt. action eller device med mulighet for benevning av careflowsteps
+">
+			use = <"Tavlemøte og pasientliste i Helse Vest">
+			misuse = <"All annen bruk">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"42C445970F6CDDC374F590BB6F0D4C72">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- KAT Status
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Status KAT
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0006, 	-- Lagt inn
+													at0007, 	-- Stelt
+													at0008]	-- Fjernet
+												}
+											}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- KAT Lagt inn dato
+										value matches {
+											DV_DATE matches {*}
+										}
+									}
+									ELEMENT[at0009] occurrences matches {0..1} matches {	-- Indikasjon
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True}
+											}
+										}
+									}
+									ELEMENT[at0010] occurrences matches {0..1} matches {	-- Indikasjon
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0011, 	-- Ja
+													at0012, 	-- Nei
+													at0013]	-- Ikke avklart
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"KAT Status">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Status KAT">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"KAT Lagt inn dato">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Lagt inn">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Stelt">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Fjernet">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Indikasjon">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Indikasjon">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Ja">
+					description = <"Det er indikasjon for urinveiskateter">
+				>
+				["at0012"] = <
+					text = <"Nei">
+					description = <"Det er ikke indikasjon for urinveiskateter">
+				>
+				["at0013"] = <
+					text = <"Ikke avklart">
+					description = <"Indikasjon er uavklart">
+				>
+			>
+		>
+	>
