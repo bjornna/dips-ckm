@@ -1,0 +1,169 @@
+﻿archetype (adl_version=1.4; uid=fb31f967-1321-4b69-9614-4b886923046b)
+	openEHR-EHR-EVALUATION.precaution.v0
+
+concept
+	[at0000]	-- Precaution
+language
+	original_language = <[ISO_639-1::en]>
+description
+	original_author = <
+		["name"] = <"Silje Ljosland Bakke / John Tore Valand">
+		["email"] = <"silje.ljosland.bakke@nasjonalikt.no/ john.tore.valand@helse-bergen.no">
+		["organisation"] = <"Nasjonal IKT HF / Helse Bergen HF">
+		["date"] = <"2016-02-29">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record conditions or states of the patient that are clinically significant and unique or idiosyncratic for this patient, and which are considered vital information when selecting therapeutic interventions for other conditions or states.">
+			use = <"Use to record conditions or states of the patient that are clinically significant and unique or idiosyncratic for this patient, and which are considered vital information when selecting therapeutic interventions for other conditions or states.
+
+Precautions are evaluative/summary statements; not a diagnosis or a test result. Each precaution can be optionally linked to a diagnosis, test result or medication order that is evidence/rationale for the precaution. 
+
+Examples of precautions:
+- Immunosuppressed/on immunosuppressive therapy – linked to medication order for chemo or steroids; or diagnosis of leukaemia.
+- Dialysis – linked to renal function tests and/or diagnosis of renal failure.
+- Family member is immunosuppressed – so might reconsider administration of a live vaccine to the subject.
+- Is waiting for organ transplant.
+- Ongoing investigation or follow up of suspected or verified malignant disease.
+- Participation in pharmacological trials.
+- Anticoagulant treatment.
+- Known serious psyciatric disorder.
+">
+			misuse = <"Not to be used to record the occurrence of an adverse reaction to a substance or agent - use EVALUATION.adverse_reaction_risk for this purpose. 
+
+Not to be used to record specific contraindications to treatments, tests or procedures. Use EVALUATION.contraindication for this purpose.">
+			copyright = <"© Nasjonal IKT HF">
+		>
+	>
+	lifecycle_state = <"NotSet">
+	other_contributors = <"Heather Leslie", ...>
+	other_details = <
+		["revision"] = <"0.0.1-alpha">
+		["original_publisher"] = <"Nasjonal IKT">
+		["build_uid"] = <"b8d4bea4-dcd3-4668-a73e-19473105b92a">
+		["original_namespace"] = <"no.nasjonalikt">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["MD5-CAM-1.0.1"] = <"597643D96B8D9A966C5EFA3673CEEAD3">
+		["custodian_namespace"] = <"no.nasjonalikt">
+		["custodian_organisation"] = <"Nasjonal IKT">
+	>
+
+definition
+	EVALUATION[at0000] matches {	-- Precaution
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Precaution name
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Precaution details
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Rationale
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0012] occurrences matches {0..1} matches {	-- Start date
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0011] occurrences matches {0..1} matches {	-- End date
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Comment
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0005] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Last updated
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Review date
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0010] occurrences matches {0..*} matches {	-- Extension
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Precaution">
+					description = <"Conditions or states of the patient that are clinically significant and unique or idiosyncratic for this patient, and which are considered vital information when selecting therapeutic interventions for other conditions or states.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Precaution name">
+					description = <"Identification of a condition or state.">
+					comment = <"Coding of the identified 'Precaution' with a terminology is desirable, where possible.">
+				>
+				["at0003"] = <
+					text = <"Rationale">
+					description = <"Description of evidence or rationale for the precaution.">
+					comment = <"Please note: an optional URI link to evidence within the health record is also permitted using Reference Model attributes. As this URI link may not be accessible from a message or by receiving clinical system it is desirable that a narrative description of the rationale should be explicitly stated.">
+				>
+				["at0004"] = <
+					text = <"Comment">
+					description = <"Additional narrative about the precaution, not captured in other fields.">
+				>
+				["at0005"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0006"] = <
+					text = <"Last updated">
+					description = <"The date this precaution was last updated.">
+				>
+				["at0007"] = <
+					text = <"Review date">
+					description = <"Date when due for review by a clinician.">
+					comment = <"In some circumstances, precautions are not intended to be indefinite or lifelong, and this precaution should be reconsidered in the context of changing clinical circumstances. For example: if a family member is no longer taking immunosuppressive therapy, then live vaccines could safely be administered to the subject of care again and the precaution is effectively obsolete.">
+				>
+				["at0008"] = <
+					text = <"Precaution details">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Extension">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"End date">
+					description = <"Date from when the precaution is no longer valid or relevant.">
+				>
+				["at0012"] = <
+					text = <"Start date">
+					description = <"Date when the precaution was first clinically recognized.">
+				>
+			>
+		>
+	>

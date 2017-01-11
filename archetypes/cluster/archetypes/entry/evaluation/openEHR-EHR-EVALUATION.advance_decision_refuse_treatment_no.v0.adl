@@ -1,0 +1,145 @@
+﻿archetype (adl_version=1.4; uid=264c00c0-3976-404a-996b-5e43bc7c4ffa)
+	openEHR-EHR-EVALUATION.advance_decision_refuse_treatment_no.v0
+
+concept
+	[at0000]	-- Avtalt avgrensning av livsforlengende behandling
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"John Tore Valand">
+		["organisation"] = <"Helse Bergen HF">
+		["email"] = <"john.tore.valand@helse-bergen.no">
+		["date"] = <"2016-09-26">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For å nedtegne i en pasients journal at en pasient vil motsette seg livsforlengende behandling etter pasient- og brukerrettighetsloven § 4-9.">
+			use = <"Brukes for å registre en pasients beslutning om å nekte å motta livsforlengende behandling. 
+
+Dersom en pasient vil motsette seg livsforlengende behandling etter pasient- og brukerrettighetsloven § 4-9, skal det nedtegnes i pasientens journal. Pasientens beslutning kan også føres i kjernejournal for å orientere annet helsepersonell. 
+
+Med livsforlengende behandling menes i denne sammenheng all behandling og alle tiltak som kan utsette en pasients død. Eksempel på dette er hjerte-lungeredning, annen pustehjelp og hjertestimulerende legemidler, ernærings- og væskebehandling (intravenøst eller gjennom svelg- eller magesonde PEG), dialyse, antibiotika og kjemoterapi.">
+			misuse = <"">
+			copyright = <"© Nasjonal IKT HF">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <"Vebjørn Arntzen, Oslo universitetssykehus HF, Norway (Nasjonal IKT redaktør)", "Silje Ljosland Bakke, Nasjonal IKT HF, Norway (Nasjonal IKT redaktør)", "Ivar Berge, Oslo Universitetssykehus, Norway", "Kristian Berg, Universitetssykehuset Nord Norge, Norway", "Kjell Ingar Bjørnstad, Sykehuset Østfold, Norway", "Anca Heyd, DIPS ASA, Norway", "Erling Are Hole, Helse Bergen, Norway", "Hilde Hollås, DIPS ASA, Norway", "Tom Jarl Jakobsen, Helse Bergen, Norway", "Lars Morgan Karlsen, DIPS ASA, Norway", "Siv Marie Lien, DIPS ASA, Norway", "Tanja Riise, Nasjonal IKT HF, Norway", "Tor Oddbjørn Tveit, Sørlandet sykehus HF, Norway", "John Tore Valand, Haukeland Universitetssjukehus, Norway (Nasjonal IKT redaktør)", "Kristian Berg, UNN HF, Norway (Nasjonal IKT redaktør)">
+	other_details = <
+		["revision"] = <"0.0.1-alpha">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["references"] = <"Kritisk og viktig informasjon i kjernejournal Versjon 3.0 (november 2015) Klinisk beskrivelse og kodeverk. [Internet]. Helsedirektoratet; 2015. Available from: https://ehelse.no/Documents/Kjernejournal/IS-2405%20Kritisk%20og%20viktig%20helseinformasjon%20i%20kjernejournal_Versjon%203%200.pdf.">
+		["build_uid"] = <"4a8ebad4-672d-4b30-b16c-79738e784726">
+		["original_publisher"] = <"Nasjonal IKT">
+		["original_namespace"] = <"no.nasjonalikt">
+		["MD5-CAM-1.0.1"] = <"9A0C916B68C18E078824819BA7928711">
+		["custodian_namespace"] = <"no.nasjonalikt">
+		["custodian_organisation"] = <"Nasjonal IKT">
+	>
+
+definition
+	EVALUATION[at0000] matches {	-- Avtalt avgrensning av livsforlengende behandling
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Type behandling
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Besluttet dato
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Gyldig til dato
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Beskrivelse
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0011] occurrences matches {0..1} matches {	-- Kommentar
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0006] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0007] occurrences matches {0..*} matches {	-- Tilleggsinformasjon
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0012] occurrences matches {0..1} matches {	-- Sist oppdatert
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Avtalt avgrensning av livsforlengende behandling">
+					description = <"En døende pasient har på visse vilkår rett til å nekte å motta livsforlengende behandling. Rettigheten medfører at pasienten kan nekte å ta imot behandling der det ikke er utsikt til helbredelse eller bedring, men bare til en viss livsforlengelse som i realiteten er en forlengelse av en pågående dødsprosess.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Type behandling">
+					description = <"Type behandling pasienten motsetter seg.">
+					comment = <"For eksempel: Pasienten ønsker ikke hjerte/lungeredning.
+Type behandling kodes med en terminology om ønskelig.">
+				>
+				["at0003"] = <
+					text = <"Besluttet dato">
+					description = <"Dato da avgrensing av livsforlengede behandling ble bekreftet.">
+				>
+				["at0004"] = <
+					text = <"Gyldig til dato">
+					description = <"Varigheten av avgrensing av livsforlengende behandling.">
+					comment = <"I kjernejournal er avgrensing av livsforlengende behandling gyldig inntil ett år fram i tid.">
+				>
+				["at0005"] = <
+					text = <"Beskrivelse">
+					description = <"Dokumentasjon av pasientens beslutning om motsetting av livsforlengende behandling.">
+					comment = <"Fra kjernejournal: 
+Ved å føre denne opplysningen i kjernejournal bekrefter du at etter samtale med pasient/pårørende er dette pasientens ønske: \"Jeg ønsker ikke livsforlengende behandling dersom jeg er døende, dvs er i en pågående dødsprosess og vil dø i løpet av kort tid, og jeg er ute av stand til selv å formidle et behandlingsønske. Situasjonen omfatter både akutte tilstander/hendelser og planlagte/forutsigbare tilstander/hendelser\".">
+				>
+				["at0006"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0007"] = <
+					text = <"Tilleggsinformasjon">
+					description = <"Ytterligere informasjon som trengs for å kunne registrere lokalt definert innhold eller for å tilpasse til andre referansemodeller/formalismer.">
+					comment = <"For eksempel lokale informasjonsbehov eller ytterligere metadata for å kunne tilpasse til tilsvarende konsepter i FHIR eller CIMI.">
+				>
+				["at0011"] = <
+					text = <"Kommentar">
+					description = <"Andre kommentarer som ikke er registrert i andre felt.">
+				>
+				["at0012"] = <
+					text = <"Sist oppdatert">
+					description = <"Datoen da avgrensningen av livsforlengende behandling sist ble oppdatert.">
+				>
+			>
+		>
+	>
