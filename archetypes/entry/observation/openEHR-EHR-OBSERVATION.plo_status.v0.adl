@@ -1,0 +1,141 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.plo_status.v0
+
+concept
+	[at0000]	-- PLO status
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Gir mulighet for registrering av status for PLO melding samt kolonne i Pasientlistevisning">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"659529431EF979B9980D045BA839F361">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- PLO status
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Helseopplysninger sendt
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0008, 	-- Ja
+													at0009, 	-- Nei
+													at0010]	-- Vet ikke
+												}
+											}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- HO Dato
+										value matches {
+											DV_DATE_TIME matches {*}
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {	-- Utskrivingsklar pasient sendt
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0011, 	-- Ja
+													at0012, 	-- Nei
+													at0013]	-- Vet ikke
+												}
+											}
+										}
+									}
+									ELEMENT[at0007] occurrences matches {0..1} matches {	-- UK Dato
+										value matches {
+											DV_DATE_TIME matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"PLO status">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Helseopplysninger sendt">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"HO Dato">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Utskrivingsklar pasient sendt">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"UK Dato">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Vet ikke">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Vet ikke">
+					description = <"*">
+				>
+			>
+		>
+	>
