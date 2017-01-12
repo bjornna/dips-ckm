@@ -1,0 +1,145 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ACTION.neste_kontrollundersokelse.v1
+
+concept
+	[at0000]	-- Neste Kontrollundersokelse
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"CD4E45CEC3344C3DB947DEFBC15B91FF">
+	>
+
+definition
+	ACTION[at0000] matches {	-- Neste Kontrollundersokelse
+		ism_transition matches {
+			ISM_TRANSITION[at0003] matches {	-- Planlagt
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::526]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0003]}		-- Planlagt
+					}
+				}
+			}
+			ISM_TRANSITION[at0004] matches {	-- kansellert
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::528]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0004]}		-- kansellert
+					}
+				}
+			}
+			ISM_TRANSITION[at0011] matches {	-- Ingen aktuelle
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::528]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0011]}		-- Ingen aktuelle
+					}
+				}
+			}
+		}
+		description matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Neste kontrollundersøkelse
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0007, 	-- 3 mnd
+									at0008, 	-- 6 mnd
+									at0009, 	-- 9 mnd
+									at0010]	-- Ingen aktuell
+								}
+							}
+						}
+					}
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Frist neste kontrollundersøkelse
+						value matches {
+							DV_DATE matches {
+								value matches {yyyy-mm-dd}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Neste Kontrollundersokelse">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Frist neste kontrollundersøkelse">
+					description = <"Frist for når neste kontrollundersøkelse skal være utført ">
+				>
+				["at0003"] = <
+					text = <"Planlagt">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"kansellert">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Neste kontrollundersøkelse">
+					description = <"Angir hvilken kontrollundersøkelse som er den neste">
+				>
+				["at0007"] = <
+					text = <"3 mnd">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"6 mnd">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"9 mnd">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Ingen aktuell">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Ingen aktuelle">
+					description = <"*">
+				>
+			>
+		>
+	>

@@ -1,0 +1,132 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ADMIN_ENTRY.ny_faglig_ansvarlig.v1
+
+concept
+	[at0000]	-- Ny faglig ansvarlig
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"*(nb)">
+			use = <"*(nb)">
+			misuse = <"*(nb)">
+			copyright = <"*(nb)">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"B9FA6C263D5ABB3F274AD1AF6DC8C986">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {	-- Ny faglig ansvarlig
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Faglig ansvarlig
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {[ac0001]}		-- New constraint
+							}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Stilling
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	terminologies_available = <"DIPS", ...>
+	term_definitions = <
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"Ny faglig ansvarlig">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Faglig ansvarlig">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Stilling">
+					description = <"*">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Ny faglig ansvarlig">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Faglig ansvarlig">
+					description = <"Den tjenesteyter som er ansvarlig for vedtaket">
+				>
+				["at0003"] = <
+					text = <"Stilling">
+					description = <"Tjenesteyters stilling">
+				>
+			>
+		>
+	>
+	constraint_definitions = <
+		["no"] = <
+			items = <
+				["ac0001"] = <
+					text = <"*New constraint(nb)">
+					description = <"**(nb)">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["ac0001"] = <
+					text = <"New constraint">
+					description = <"*">
+				>
+			>
+		>
+	>
+	constraint_bindings = <
+		["DIPS"] = <
+			items = <
+				["ac0001"] = <terminology:DIPS?subset=healthcareparty>
+			>
+		>
+	>

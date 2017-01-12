@@ -1,0 +1,200 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-INSTRUCTION.vedtak_om_kroppslig_undersokelse_4a.v1
+
+concept
+	[at0000]	-- Vedtak om kroppslig undersokelse 4a
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Denne typen EPJ dokument benyttes for å registrere et vedtak om kroppslig undersøkelse, jf. psykisk helsevernloven § 4A-4 tredje ledd. Dokumenttypen inneholder kun overordnede opplysninger som skal bidra til å sikre at det klart framgår av dokumentasjonen at vedtak fattes i tråd med de aktuelle bestemmelser i psykisk helsevernloven med forskrift. ">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"ADFBC598D7A12200B6B93FB970363CD8">
+	>
+
+definition
+	INSTRUCTION[at0000] matches {	-- Vedtak om kroppslig undersokelse 4a
+		activities cardinality matches {0..*; unordered} matches {
+			ACTIVITY[at0001] occurrences matches {0..1} matches {	-- Current Activity
+				description matches {
+					ITEM_TREE[at0002] matches {	-- Tree
+						items cardinality matches {0..*; unordered} matches {
+							ELEMENT[at0003] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak i journalnotat datert:
+								value matches {
+									DV_DATE matches {*}
+								}
+							}
+							ELEMENT[at0017] occurrences matches {0..1} matches {	-- Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0019] occurrences matches {0..1} matches {	-- Begrunnelse for vedtaket er dokumentert i eget journalnotat
+								value matches {
+									DV_BOOLEAN matches {
+										value matches {True, False}
+									}
+								}
+							}
+							ELEMENT[at0004] occurrences matches {0..1} matches {	-- Dato og tidspunkt vedtak fattet:
+								value matches {
+									DV_DATE_TIME matches {
+										value matches {yyyy-mm-ddTHH:MM:SS}
+									}
+								}
+							}
+							ELEMENT[at0005] occurrences matches {0..*} matches {	-- Hvordan undersøkelsen skal gjennomføres
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0006, 	-- Kroppslig undersøkelse foretatt av helsepersonell
+											at0007]	-- Annet tiltak for å bringe gjenstanden eller stoffet frem
+										}
+									}
+								}
+							}
+							ELEMENT[at0008] occurrences matches {0..1} matches {	-- Beskrivelse av tiltak
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0009] occurrences matches {0..*} matches {	-- Hva vedtaket er begrunnet i
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0010, 	-- Begrunnet og sterk mistanke om innføring av farlig gjenstand
+											at0011, 	-- Begrunnet og sterk mistanke om innføring av medikamenter
+											at0012, 	-- Begrunnet og sterk mistanke om innføring av rusmidler
+											at0013]	-- Begrunnet og sterk mistanke om innføring av rømningshjelpemiddel, herunder mobiltelefon eller andre kommunikasjonsmidler
+										}
+									}
+								}
+							}
+							ELEMENT[at0014] occurrences matches {0..1} matches {	-- Pasienten har opphold i en regional sikkerhetsavdeling eller i enhet med særlig høyt sikkerhetsnivå
+								value matches {
+									DV_BOOLEAN matches {
+										value matches {True}
+									}
+								}
+							}
+							allow_archetype CLUSTER[at0015] occurrences matches {0..*} matches {	-- Vedtakstype
+								include
+									archetype_id/value matches {/openEHR-EHR-CLUSTER\.vedtakstype(-[a-zA-Z0-9_]+)*\.v1/}
+							}
+							ELEMENT[at0016] occurrences matches {0..1} matches {	-- Helsetjenesteenhet
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0018] occurrences matches {0..*} matches {	-- Vurdering av pasientinnsyn
+								include
+									archetype_id/value matches {/.*/}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Vedtak om kroppslig undersokelse 4a">
+					description = <"Denne typen EPJ dokument benyttes for å registrere et vedtak om kroppslig undersøkelse, jf. psykisk helsevernloven § 4A-4 tredje ledd. Dokumenttypen inneholder kun overordnede opplysninger som skal bidra til å sikre at det klart framgår av dokumentasjonen at vedtak fattes i tråd med de aktuelle bestemmelser i psykisk helsevernloven med forskrift. ">
+				>
+				["at0001"] = <
+					text = <"Current Activity">
+					description = <"Current Activity">
+				>
+				["at0002"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Begrunnelse for vedtak i journalnotat datert:">
+					description = <"Referanse til journalnotat med nærmere begrunnelse for vedtaket.">
+				>
+				["at0004"] = <
+					text = <"Dato og tidspunkt vedtak fattet:">
+					description = <"Det tidspunkt (dato og klokkeslett) vedtaket ble fattet.">
+				>
+				["at0005"] = <
+					text = <"Hvordan undersøkelsen skal gjennomføres">
+					description = <"Hvordan undersøkelsen skal gjennomføres. Ett eller flere alternativ kan velges.">
+				>
+				["at0006"] = <
+					text = <"Kroppslig undersøkelse foretatt av helsepersonell">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Annet tiltak for å bringe gjenstanden eller stoffet frem">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Beskrivelse av tiltak">
+					description = <"Dersom vedtaket innebærer at det kan benyttes et annet tiltak enn kroppslig undersøkelse for å bringe gjenstanden eller stoffet frem, skal dette tiltaket beskrives.">
+				>
+				["at0009"] = <
+					text = <"Hva vedtaket er begrunnet i">
+					description = <"Hva vedtaket er begrunnet i. Ett eller flere alternativ kan velges. ">
+				>
+				["at0010"] = <
+					text = <"Begrunnet og sterk mistanke om innføring av farlig gjenstand">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Begrunnet og sterk mistanke om innføring av medikamenter">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Begrunnet og sterk mistanke om innføring av rusmidler">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Begrunnet og sterk mistanke om innføring av rømningshjelpemiddel, herunder mobiltelefon eller andre kommunikasjonsmidler">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Pasienten har opphold i en regional sikkerhetsavdeling eller i enhet med særlig høyt sikkerhetsnivå">
+					description = <"•	Markering for å angi at pasienten har opphold i en regional sikkerhetsavdeling eller i enhet med særlig høyt sikkerhetsnivå">
+				>
+				["at0015"] = <
+					text = <"Vedtakstype">
+					description = <"*">
+				>
+				["at0016"] = <
+					text = <"Helsetjenesteenhet">
+					description = <"Identifikasjon av den enheten hvor vedtaket fattes.">
+				>
+				["at0017"] = <
+					text = <"Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette">
+					description = <"Dersom pasienten på det tidspunktet vedtaket fattes nektes innsyn i hele eller deler av begrunnelsen for vedtaket etter bestemmelsen i pasient- og brukerrettighetsloven § 3 2 tredje ledd, skal ikke begrunnelsen for vedtaket registreres i tekstfeltet under, men i et eget journalnotat. Begrunnelsen for å nekte innsyn må også fremkomme i samme journalnotat.">
+				>
+				["at0018"] = <
+					text = <"Vurdering av pasientinnsyn">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"Begrunnelse for vedtaket er dokumentert i eget journalnotat">
+					description = <"*">
+				>
+			>
+		>
+	>

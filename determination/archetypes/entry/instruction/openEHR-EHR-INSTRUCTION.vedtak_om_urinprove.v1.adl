@@ -1,0 +1,228 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-INSTRUCTION.vedtak_om_urinprove.v1
+
+concept
+	[at0000]	-- Vedtak om urinprove
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"*(nb)">
+			use = <"*(nb)">
+			misuse = <"*(nb)">
+			copyright = <"*(nb)">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for vedtak om urinprøve">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"074838F1D95DEDEA40B03CC64A0A5E8A">
+	>
+
+definition
+	INSTRUCTION[at0000] matches {	-- Vedtak om urinprove
+		activities cardinality matches {0..*; unordered} matches {
+			ACTIVITY[at0001] occurrences matches {0..1} matches {	-- Current Activity
+				description matches {
+					ITEM_TREE[at0002] matches {	-- Tree
+						items cardinality matches {0..*; unordered} matches {
+							ELEMENT[at0003] occurrences matches {0..*} matches {	-- Begrunnelse for vedtak i journalnotat datert:
+								value matches {
+									DV_DATE matches {*}
+								}
+							}
+							ELEMENT[at0011] occurrences matches {0..1} matches {	-- Det foreligger mistanke om rusmiddelbruk i forbindelse med behandlingsforløpet 
+								value matches {
+									DV_BOOLEAN matches {
+										value matches {True, False}
+									}
+								}
+							}
+							ELEMENT[at0012] occurrences matches {0..1} matches {	-- Det fremstår som strengt nødvendig å ta urinprøve av hensyn til helsehjelpen 
+								value matches {
+									DV_BOOLEAN matches {
+										value matches {True, False}
+									}
+								}
+							}
+							ELEMENT[at0013] occurrences matches {0..1} matches {	-- Pasienten er under tvungen observasjon eller tvungent psykisk helsevern
+								value matches {
+									DV_BOOLEAN matches {
+										value matches {True, False}
+									}
+								}
+							}
+							ELEMENT[at0004] occurrences matches {0..1} matches {	-- Helsetjenesteenhet
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0005] occurrences matches {0..1} matches {	-- Dato og tidspunkt vedtak fattet:
+								value matches {
+									DV_DATE_TIME matches {
+										value matches {yyyy-mm-ddTHH:MM:SS}
+									}
+								}
+							}
+							ELEMENT[at0015] occurrences matches {0..1} matches {	-- Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0017] occurrences matches {0..1} matches {	-- Begrunnelse for vedtaket er dokumentert i eget journalnotat
+								value matches {
+									DV_BOOLEAN matches {
+										value matches {True, False}
+									}
+								}
+							}
+							allow_archetype CLUSTER[at0014] occurrences matches {0..*} matches {	-- Vedtakstype
+								include
+									archetype_id/value matches {/.*/}
+							}
+							allow_archetype CLUSTER[at0016] occurrences matches {0..*} matches {	-- Vurdering av pasientinnsyn
+								include
+									archetype_id/value matches {/.*/}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Vedtak om urinprove">
+					description = <"*">
+				>
+				["at0001"] = <
+					text = <"Current Activity">
+					description = <"Current Activity">
+				>
+				["at0002"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Begrunnelse for vedtak i journalnotat datert:">
+					description = <"Referanse til journalnotat med nærmere begrunnelse for vedtaket.">
+				>
+				["at0004"] = <
+					text = <"Helsetjenesteenhet">
+					description = <"Identifikasjon av den enheten hvor vedtaket fattes.">
+				>
+				["at0005"] = <
+					text = <"Dato og tidspunkt vedtak fattet:">
+					description = <"Det tidspunkt (dato og klokkeslett) vedtaket ble fattet.">
+				>
+				["at0011"] = <
+					text = <"Det foreligger mistanke om rusmiddelbruk i forbindelse med behandlingsforløpet ">
+					description = <"ANgir om det er mistanke om rusmiddelbruk">
+				>
+				["at0012"] = <
+					text = <"Det fremstår som strengt nødvendig å ta urinprøve av hensyn til helsehjelpen ">
+					description = <"Angir om urinprøve er strengt nødvendig">
+				>
+				["at0013"] = <
+					text = <"Pasienten er under tvungen observasjon eller tvungent psykisk helsevern">
+					description = <"Angir om pasienten er på tvungen observasjon eller TPH">
+				>
+				["at0014"] = <
+					text = <"Vedtakstype">
+					description = <"**(nb)">
+				>
+				["at0015"] = <
+					text = <"Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette">
+					description = <"Dersom pasienten på det tidspunktet vedtaket fattes nektes innsyn i hele eller deler av begrunnelsen for vedtaket etter bestemmelsen i pasient- og brukerrettighetsloven § 3 2 tredje ledd, skal ikke begrunnelsen for vedtaket registreres i tekstfeltet under, men i et eget journalnotat. Begrunnelsen for å nekte innsyn må også fremkomme i samme journalnotat.">
+				>
+				["at0016"] = <
+					text = <"Vurdering av pasientinnsyn">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Begrunnelse for vedtaket er dokumentert i eget journalnotat">
+					description = <"*">
+				>
+			>
+		>
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"Vedtak om apning og kontroll av post">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Current Activity">
+					description = <"Current Activity">
+				>
+				["at0002"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"*Begrunnelse for vedtak i journalnotat datert:(nb)">
+					description = <"*Referanse til journalnotat med nærmere begrunnelse for vedtaket.(nb)">
+				>
+				["at0004"] = <
+					text = <"*Helsetjenesteenhet(nb)">
+					description = <"*Identifikasjon av den enheten hvor vedtaket fattes.(nb)">
+				>
+				["at0005"] = <
+					text = <"*Dato og tidspunkt vedtak fattet:(nb)">
+					description = <"*Det tidspunkt (dato og klokkeslett) vedtaket ble fattet.(nb)">
+				>
+				["at0011"] = <
+					text = <"Det foreligger mistanke om rusmiddelbruk i forbindelse med behandlingsforløpet ">
+					description = <"ANgir om det er mistanke om rusmiddelbruk">
+				>
+				["at0012"] = <
+					text = <"Det fremstår som strengt nødvendig å ta urinprøve av hensyn til helsehjelpen ">
+					description = <"Angir om urinprøve er strengt nødvendig">
+				>
+				["at0013"] = <
+					text = <"Pasienten er under tvungen observasjon ellet tvungent psykisk helsevern">
+					description = <"Angir om pasienten er på tvungen observasjon eller TPH">
+				>
+				["at0014"] = <
+					text = <"Vedtakstype">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"*Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette(nb)">
+					description = <"*Dersom pasienten på det tidspunktet vedtaket fattes nektes innsyn i hele eller deler av begrunnelsen for vedtaket etter bestemmelsen i pasient- og brukerrettighetsloven § 3 2 tredje ledd, skal ikke begrunnelsen for vedtaket registreres i tekstfeltet under, men i et eget journalnotat. Begrunnelsen for å nekte innsyn må også fremkomme i samme journalnotat.(nb)">
+				>
+				["at0016"] = <
+					text = <"*Vurdering av pasientinnsyn(nb)">
+					description = <"**(nb)">
+				>
+				["at0017"] = <
+					text = <"*Begrunnelse for vedtaket er dokumentert i eget journalnotat(nb)">
+					description = <"**(nb)">
+				>
+			>
+		>
+	>

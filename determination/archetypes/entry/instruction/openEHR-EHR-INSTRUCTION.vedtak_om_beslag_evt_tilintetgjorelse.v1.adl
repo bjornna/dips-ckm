@@ -1,0 +1,271 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-INSTRUCTION.vedtak_om_beslag_evt_tilintetgjorelse.v1
+
+concept
+	[at0000]	-- Vedtak om beslag evt tilintetgjorelse
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"*(nb)">
+			use = <"*(nb)">
+			misuse = <"*(nb)">
+			copyright = <"*(nb)">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"E61003FB2D97354EFC6EF505C184F74C">
+	>
+
+definition
+	INSTRUCTION[at0000] matches {	-- Vedtak om beslag evt tilintetgjorelse
+		activities cardinality matches {0..*; unordered} matches {
+			ACTIVITY[at0001] occurrences matches {0..1} matches {	-- Current Activity
+				description matches {
+					ITEM_TREE[at0002] matches {	-- Tree
+						items cardinality matches {0..*; unordered} matches {
+							ELEMENT[at0003] occurrences matches {0..*} matches {	-- Begrunnelse for vedtak i journalnotat datert:
+								value matches {
+									DV_DATE matches {*}
+								}
+							}
+							ELEMENT[at0016] occurrences matches {0..1} matches {	-- Nødvendige, detaljerte opplysninger om vedtaket, herunder konkret hva som er beslaglagt og eventuelt vedtatt tilintetgjort, samt begrunnelsen for dette
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0018] occurrences matches {0..1} matches {	-- Begrunnelse for vedtaket er dokumentert i eget journalnotat
+								value matches {
+									DV_BOOLEAN matches {
+										value matches {True, False}
+									}
+								}
+							}
+							ELEMENT[at0004] occurrences matches {0..1} matches {	-- Helsetjenesteenhet
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0005] occurrences matches {0..1} matches {	-- Dato og tidspunkt vedtak fattet:
+								value matches {
+									DV_DATE_TIME matches {
+										value matches {yyyy-mm-ddTHH:MM:SS}
+									}
+								}
+							}
+							ELEMENT[at0007] occurrences matches {0..4} matches {	-- Type beslaglagt gjenstand 
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0008, 	-- Medikamenter
+											at0009, 	-- Rusmidler
+											at0010, 	-- Rømningshjelpemiddel
+											at0011]	-- Farlig gjenstand
+										}
+									}
+								}
+							}
+							ELEMENT[at0012] occurrences matches {0..1} matches {	-- Behandling av beslag
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0013, 	-- De beslaglagte gjenstandene vil bli tilbakelevert ved utskrivning
+											at0014]	-- De beslaglagte gjenstandene kan pasienten ikke rettmessig inneha og de vil bli tilintetgjort etter at en eventuell klagesak er avgjort
+										}
+									}
+								}
+							}
+							allow_archetype CLUSTER[at0015] occurrences matches {0..*} matches {	-- Vedtakstype
+								include
+									archetype_id/value matches {/.*/}
+							}
+							allow_archetype CLUSTER[at0017] occurrences matches {0..*} matches {	-- Vurdering av pasientinnsyn
+								include
+									archetype_id/value matches {/.*/}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Vedtak om beslag evt tilintetgjorelse">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Current Activity">
+					description = <"Current Activity">
+				>
+				["at0002"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Begrunnelse for vedtak i journalnotat datert:">
+					description = <"Referanse til journalnotat med nærmere begrunnelse for vedtaket.">
+				>
+				["at0004"] = <
+					text = <"Helsetjenesteenhet">
+					description = <"Identifikasjon av den enheten hvor vedtaket fattes.">
+				>
+				["at0005"] = <
+					text = <"Dato og tidspunkt vedtak fattet:">
+					description = <"Det tidspunkt (dato og klokkeslett) vedtaket ble fattet.">
+				>
+				["at0007"] = <
+					text = <"Type beslaglagt gjenstand ">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Medikamenter">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Rusmidler">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Rømningshjelpemiddel">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Farlig gjenstand">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Behandling av beslag">
+					description = <"Hva vil skje med de beslaglagte gjenstandene">
+				>
+				["at0013"] = <
+					text = <"De beslaglagte gjenstandene vil bli tilbakelevert ved utskrivning">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"De beslaglagte gjenstandene kan pasienten ikke rettmessig inneha og de vil bli tilintetgjort etter at en eventuell klagesak er avgjort">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Vedtakstype">
+					description = <"*">
+				>
+				["at0016"] = <
+					text = <"Nødvendige, detaljerte opplysninger om vedtaket, herunder konkret hva som er beslaglagt og eventuelt vedtatt tilintetgjort, samt begrunnelsen for dette">
+					description = <"Dersom pasienten på det tidspunktet vedtaket fattes nektes innsyn i hele eller deler av begrunnelsen for vedtaket etter bestemmelsen i pasient- og brukerrettighetsloven § 3 2 tredje ledd, skal ikke begrunnelsen for vedtaket registreres i tekstfeltet under, men i et eget journalnotat. Begrunnelsen for å nekte innsyn må også fremkomme i samme journalnotat.">
+				>
+				["at0017"] = <
+					text = <"Vurdering av pasientinnsyn">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Begrunnelse for vedtaket er dokumentert i eget journalnotat">
+					description = <"*">
+				>
+			>
+		>
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"Vedtak om beslag evt tilintetgjorelse">
+					description = <"*">
+				>
+				["at0001"] = <
+					text = <"Current Activity">
+					description = <"Current Activity">
+				>
+				["at0002"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"*Begrunnelse for vedtak i journalnotat datert:(nb)">
+					description = <"*Referanse til journalnotat med nærmere begrunnelse for vedtaket.(nb)">
+				>
+				["at0004"] = <
+					text = <"*Helsetjenesteenhet(nb)">
+					description = <"*Identifikasjon av den enheten hvor vedtaket fattes.(nb)">
+				>
+				["at0005"] = <
+					text = <"*Dato og tidspunkt vedtak fattet:(nb)">
+					description = <"*Det tidspunkt (dato og klokkeslett) vedtaket ble fattet.(nb)">
+				>
+				["at0007"] = <
+					text = <"Type beslaglagt gjenstand">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Medikamenter">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Rusmidler">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Rømningshjelpemiddel">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Farlig gjenstand">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Behandling av beslag">
+					description = <"Hva vil skje med de beslaglagte gjenstandene. ">
+				>
+				["at0013"] = <
+					text = <"De beslaglagte gjenstandene vil bli tilbakelevert ved utskrivning">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"De beslaglagte gjenstandene kan pasienten ikke rettmessig inneha og de vil bli tilintetgjort etter at en eventuell klagesak er avgjort">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Vedtakstype">
+					description = <"*">
+				>
+				["at0016"] = <
+					text = <"*Nødvendige, detaljerte opplysninger om vedtaket, herunder konkret hva som er beslaglagt og eventuelt vedtatt tilintetgjort, samt begrunnelsen for dette(nb)">
+					description = <"*Dersom pasienten på det tidspunktet vedtaket fattes nektes innsyn i hele eller deler av begrunnelsen for vedtaket etter bestemmelsen i pasient- og brukerrettighetsloven § 3 2 tredje ledd, skal ikke begrunnelsen for vedtaket registreres i tekstfeltet under, men i et eget journalnotat. Begrunnelsen for å nekte innsyn må også fremkomme i samme journalnotat.(nb)">
+				>
+				["at0017"] = <
+					text = <"*Vurdering av pasientinnsyn(nb)">
+					description = <"**(nb)">
+				>
+				["at0018"] = <
+					text = <"*Begrunnelse for vedtaket er dokumentert i eget journalnotat(nb)">
+					description = <"**(nb)">
+				>
+			>
+		>
+	>
