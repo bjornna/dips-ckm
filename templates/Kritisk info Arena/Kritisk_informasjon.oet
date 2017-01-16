@@ -84,7 +84,7 @@
       </item>
     </items>
   </annotations>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.health_summary.v1" concept_name="Health summary" name="Kritisk  informasjon i Kjernejournal">
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.health_summary.v1" concept_name="Health summary" name="Kritisk  informasjon">
     <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Adhoc heading" max="1" path="/content" name="Overfølsomhetsreaksjoner">
       <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Adhoc heading" max="1" path="/items" name="Legemiddelreaksjon">
         <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.adverse_reaction_risk.v1" concept_name="Risiko for overfølsomhetsreaksjon" path="/items">
@@ -205,80 +205,84 @@
       </Item>
     </Content>
     <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Adhoc heading" max="1" path="/content" name="Komplikasjoner ved anestesi">
-      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.precaution.v1" concept_name="Forholdsregel" max="1" path="/items" name="Intubasjonsproblem">
-        <Rule path="/data[at0001]" hide_on_form="true" />
-        <Rule path="/data[at0001]/items[at0002]" name="Intubasjonsproblem">
-          <constraint xsi:type="textConstraint" limitToList="false">
-            <includedValues>Intubasjonsproblem</includedValues>
-          </constraint>
-        </Rule>
-        <Rule path="/data[at0001]/items[at0014]">
-          <constraint xsi:type="textConstraint">
-            <excludedValues>local::at0019</excludedValues>
-          </constraint>
-        </Rule>
-        <Rule path="/data[at0001]/items[at0003]" max="0" />
-        <Rule path="/data[at0001]/items[at0013]" hide_on_form="true">
-          <constraint xsi:type="textConstraint">
-            <includedValues>Komplikasjoner ved anestesi</includedValues>
-          </constraint>
-        </Rule>
-        <Rule path="/data[at0001]/items[at0008]" name="Kommentar/Hvordan problemet ble løst" />
-        <Rule path="/protocol[at0006]" hide_on_form="true" />
-        <Rule path="/protocol[at0006]/items[at0022]" min="1" name="Tidspunkt for hendelse">
-          <nullFlavourConstraint>
-            <excludedValues>openehr::253</excludedValues>
-            <excludedValues>openehr::272</excludedValues>
-            <excludedValues>openehr::273</excludedValues>
-          </nullFlavourConstraint>
-        </Rule>
-        <Rule path="/protocol[at0006]/items[at0024]" max="0" />
-        <Rule path="/protocol[at0006]/items[at0009]" max="0" />
-        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.cormack_lehane.v1" concept_name="Cormack/Lehane-klassifikasjon" path="/protocol[at0006]/items[at0020]" hide_on_form="true">
-          <Rule path="/items[at0001]" min="1" name="Gradering av anatomisk tilgjengelighet ved intubasjon (Cormack &amp; Lehane)">
+      <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Adhoc heading" max="1" path="/items" name="Intubasjonsproblem">
+        <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.precaution.v1" concept_name="Forholdsregel" path="/items">
+          <Rule path="/data[at0001]" hide_on_form="true" />
+          <Rule path="/data[at0001]/items[at0002]" name="Intubasjonsproblem">
+            <constraint xsi:type="textConstraint" limitToList="false">
+              <includedValues>Intubasjonsproblem</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/data[at0001]/items[at0014]">
+            <constraint xsi:type="textConstraint">
+              <excludedValues>local::at0019</excludedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/data[at0001]/items[at0003]" max="0" />
+          <Rule path="/data[at0001]/items[at0013]" hide_on_form="true">
+            <constraint xsi:type="textConstraint">
+              <includedValues>Komplikasjoner ved anestesi</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/data[at0001]/items[at0008]" name="Kommentar/Hvordan problemet ble løst" />
+          <Rule path="/protocol[at0006]" hide_on_form="true" />
+          <Rule path="/protocol[at0006]/items[at0022]" min="1" name="Tidspunkt for hendelse">
             <nullFlavourConstraint>
               <excludedValues>openehr::253</excludedValues>
               <excludedValues>openehr::272</excludedValues>
               <excludedValues>openehr::273</excludedValues>
             </nullFlavourConstraint>
           </Rule>
-          <Rule path="/items[at0006]" max="0" />
-        </Items>
-        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.maskeventilasjon_kj_no.v0" concept_name="Maskeventilasjon" path="/protocol[at0006]/items[at0020]" hide_on_form="true">
-          <Rule path="/items[at0001]">
-            <nullFlavourConstraint>
-              <excludedValues>openehr::253</excludedValues>
-              <excludedValues>openehr::272</excludedValues>
-              <excludedValues>openehr::273</excludedValues>
-            </nullFlavourConstraint>
-          </Rule>
-        </Items>
+          <Rule path="/protocol[at0006]/items[at0024]" max="0" />
+          <Rule path="/protocol[at0006]/items[at0009]" max="0" />
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.cormack_lehane.v1" concept_name="Cormack/Lehane-klassifikasjon" path="/protocol[at0006]/items[at0020]" hide_on_form="true">
+            <Rule path="/items[at0001]" min="1" name="Gradering av anatomisk tilgjengelighet ved intubasjon (Cormack &amp; Lehane)">
+              <nullFlavourConstraint>
+                <excludedValues>openehr::253</excludedValues>
+                <excludedValues>openehr::272</excludedValues>
+                <excludedValues>openehr::273</excludedValues>
+              </nullFlavourConstraint>
+            </Rule>
+            <Rule path="/items[at0006]" max="0" />
+          </Items>
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.maskeventilasjon_kj_no.v0" concept_name="Maskeventilasjon" path="/protocol[at0006]/items[at0020]" hide_on_form="true">
+            <Rule path="/items[at0001]">
+              <nullFlavourConstraint>
+                <excludedValues>openehr::253</excludedValues>
+                <excludedValues>openehr::272</excludedValues>
+                <excludedValues>openehr::273</excludedValues>
+              </nullFlavourConstraint>
+            </Rule>
+          </Items>
+        </Item>
       </Item>
-      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.precaution.v1" concept_name="Forholdsregel" max="1" path="/items" name="Annet problem ved anestesi">
-        <Rule path="/data[at0001]" hide_on_form="true" />
-        <Rule path="/data[at0001]/items[at0002]" name="Spesifiser problem" />
-        <Rule path="/data[at0001]/items[at0014]">
-          <constraint xsi:type="textConstraint">
-            <excludedValues>local::at0019</excludedValues>
-          </constraint>
-        </Rule>
-        <Rule path="/data[at0001]/items[at0003]" max="0" />
-        <Rule path="/data[at0001]/items[at0013]" hide_on_form="true">
-          <constraint xsi:type="textConstraint">
-            <includedValues>Komplikasjoner ved anestesi</includedValues>
-          </constraint>
-        </Rule>
-        <Rule path="/data[at0001]/items[at0008]" name="Kommentar/Hvordan problemet ble løst" />
-        <Rule path="/protocol[at0006]" hide_on_form="true" />
-        <Rule path="/protocol[at0006]/items[at0022]" min="1" name="Tidspunkt for hendelse">
-          <nullFlavourConstraint>
-            <excludedValues>openehr::253</excludedValues>
-            <excludedValues>openehr::272</excludedValues>
-            <excludedValues>openehr::273</excludedValues>
-          </nullFlavourConstraint>
-        </Rule>
-        <Rule path="/protocol[at0006]/items[at0024]" max="0" />
-        <Rule path="/protocol[at0006]/items[at0009]" max="0" />
+      <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Adhoc heading" max="1" path="/items" name="Annet problem ved anestesi">
+        <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.precaution.v1" concept_name="Forholdsregel" path="/items">
+          <Rule path="/data[at0001]" hide_on_form="true" />
+          <Rule path="/data[at0001]/items[at0002]" name="Spesifiser problem" />
+          <Rule path="/data[at0001]/items[at0014]">
+            <constraint xsi:type="textConstraint">
+              <excludedValues>local::at0019</excludedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/data[at0001]/items[at0003]" max="0" />
+          <Rule path="/data[at0001]/items[at0013]" hide_on_form="true">
+            <constraint xsi:type="textConstraint">
+              <includedValues>Komplikasjoner ved anestesi</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/data[at0001]/items[at0008]" name="Kommentar/Hvordan problemet ble løst" />
+          <Rule path="/protocol[at0006]" hide_on_form="true" />
+          <Rule path="/protocol[at0006]/items[at0022]" min="1" name="Tidspunkt for hendelse">
+            <nullFlavourConstraint>
+              <excludedValues>openehr::253</excludedValues>
+              <excludedValues>openehr::272</excludedValues>
+              <excludedValues>openehr::273</excludedValues>
+            </nullFlavourConstraint>
+          </Rule>
+          <Rule path="/protocol[at0006]/items[at0024]" max="0" />
+          <Rule path="/protocol[at0006]/items[at0009]" max="0" />
+        </Item>
       </Item>
       <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.exclusion.v1" concept_name="Eksklusjonsutsagn" max="1" path="/items" name="VerifisertIngenKjente">
         <Rule path="/data[at0001]" hide_on_form="true" />
@@ -293,7 +297,7 @@
       </Item>
     </Content>
     <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Adhoc heading" max="1" path="/content" name="Kritiske medisinske tilstander">
-      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/diagnose" max="1" path="/items" name="Kritisk medisinsk tilstand">
+      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/diagnose" path="/items">
         <Rule path="/data[at0001]" hide_on_form="true" />
         <Rule path="/data[at0001]/items[at0002]" name="Diagnose">
           <constraint xsi:type="textConstraint">
@@ -335,47 +339,51 @@
       </Item>
     </Content>
     <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Adhoc heading" max="1" path="/content" name="Pågående behandling og implantater">
-      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.precaution.v1" concept_name="Forholdsregel" max="1" path="/items" name="Pågående behandling">
-        <Rule path="/data[at0001]" hide_on_form="true" />
-        <Rule path="/data[at0001]/items[at0002]" default="Kodeverk 7517 Pågående behandling" name="Pågående behandling" />
-        <Rule path="/data[at0001]/items[at0014]">
-          <constraint xsi:type="textConstraint">
-            <excludedValues>local::at0019</excludedValues>
-          </constraint>
-        </Rule>
-        <Rule path="/data[at0001]/items[at0003]" max="0" />
-        <Rule path="/data[at0001]/items[at0013]" max="0" />
-        <Rule path="/protocol[at0006]" hide_on_form="true" />
-        <Rule path="/protocol[at0006]/items[at0022]" min="1" name="Behandlingsstart">
-          <nullFlavourConstraint>
-            <excludedValues>openehr::253</excludedValues>
-            <excludedValues>openehr::272</excludedValues>
-            <excludedValues>openehr::273</excludedValues>
-          </nullFlavourConstraint>
-        </Rule>
-        <Rule path="/protocol[at0006]/items[at0024]" name="Avslutningsdato" />
-        <Rule path="/protocol[at0006]/items[at0009]" max="0" />
+      <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Adhoc heading" max="1" path="/items" name="Pågående behandling">
+        <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.precaution.v1" concept_name="Forholdsregel" path="/items">
+          <Rule path="/data[at0001]" hide_on_form="true" />
+          <Rule path="/data[at0001]/items[at0002]" default="Kodeverk 7517 Pågående behandling" name="Pågående behandling" />
+          <Rule path="/data[at0001]/items[at0014]">
+            <constraint xsi:type="textConstraint">
+              <excludedValues>local::at0019</excludedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/data[at0001]/items[at0003]" max="0" />
+          <Rule path="/data[at0001]/items[at0013]" max="0" />
+          <Rule path="/protocol[at0006]" hide_on_form="true" />
+          <Rule path="/protocol[at0006]/items[at0022]" min="1" name="Behandlingsstart">
+            <nullFlavourConstraint>
+              <excludedValues>openehr::253</excludedValues>
+              <excludedValues>openehr::272</excludedValues>
+              <excludedValues>openehr::273</excludedValues>
+            </nullFlavourConstraint>
+          </Rule>
+          <Rule path="/protocol[at0006]/items[at0024]" name="Avslutningsdato" />
+          <Rule path="/protocol[at0006]/items[at0009]" max="0" />
+        </Item>
       </Item>
-      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.precaution.v1" concept_name="Forholdsregel" max="1" path="/items" name="Implantater">
-        <Rule path="/data[at0001]" hide_on_form="true" />
-        <Rule path="/data[at0001]/items[at0002]" default="Kodeverk: 7518 Implantat" name="Implantat" />
-        <Rule path="/data[at0001]/items[at0014]">
-          <constraint xsi:type="textConstraint">
-            <excludedValues>local::at0019</excludedValues>
-          </constraint>
-        </Rule>
-        <Rule path="/data[at0001]/items[at0003]" max="0" />
-        <Rule path="/data[at0001]/items[at0013]" max="0" />
-        <Rule path="/protocol[at0006]" hide_on_form="true" />
-        <Rule path="/protocol[at0006]/items[at0022]" min="1" name="Implantert">
-          <nullFlavourConstraint>
-            <excludedValues>openehr::253</excludedValues>
-            <excludedValues>openehr::272</excludedValues>
-            <excludedValues>openehr::273</excludedValues>
-          </nullFlavourConstraint>
-        </Rule>
-        <Rule path="/protocol[at0006]/items[at0024]" name="Avslutningsdato" />
-        <Rule path="/protocol[at0006]/items[at0009]" max="0" />
+      <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Adhoc heading" max="1" path="/items" name="Implantater">
+        <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.precaution.v1" concept_name="Forholdsregel" path="/items">
+          <Rule path="/data[at0001]" hide_on_form="true" />
+          <Rule path="/data[at0001]/items[at0002]" default="Kodeverk: 7518 Implantat" name="Implantat" />
+          <Rule path="/data[at0001]/items[at0014]">
+            <constraint xsi:type="textConstraint">
+              <excludedValues>local::at0019</excludedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/data[at0001]/items[at0003]" max="0" />
+          <Rule path="/data[at0001]/items[at0013]" max="0" />
+          <Rule path="/protocol[at0006]" hide_on_form="true" />
+          <Rule path="/protocol[at0006]/items[at0022]" min="1" name="Implantert">
+            <nullFlavourConstraint>
+              <excludedValues>openehr::253</excludedValues>
+              <excludedValues>openehr::272</excludedValues>
+              <excludedValues>openehr::273</excludedValues>
+            </nullFlavourConstraint>
+          </Rule>
+          <Rule path="/protocol[at0006]/items[at0024]" name="Avslutningsdato" />
+          <Rule path="/protocol[at0006]/items[at0009]" max="0" />
+        </Item>
       </Item>
       <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.exclusion.v1" concept_name="Eksklusjonsutsagn" max="1" path="/items" name="VerifisertIngenKjente">
         <Rule path="/data[at0001]" hide_on_form="true" />
@@ -402,20 +410,22 @@
         </Rule>
         <Rule path="/protocol[at0006]" hide_on_form="true" />
       </Item>
-      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.precaution.v1" concept_name="Forholdsregel" max="1" path="/items" name="Annen prosedyreendring">
-        <Rule path="/data[at0001]" hide_on_form="true" />
-        <Rule path="/data[at0001]/items[at0002]" default="Kodeverk: 7522 Prosedyreendringer" name="Type prosedyreendring" />
-        <Rule path="/data[at0001]/items[at0014]">
-          <constraint xsi:type="textConstraint">
-            <excludedValues>local::at0019</excludedValues>
-          </constraint>
-        </Rule>
-        <Rule path="/data[at0001]/items[at0003]" max="0" />
-        <Rule path="/data[at0001]/items[at0013]" max="0" />
-        <Rule path="/protocol[at0006]" hide_on_form="true" />
-        <Rule path="/protocol[at0006]/items[at0022]" max="0" />
-        <Rule path="/protocol[at0006]/items[at0024]" max="0" />
-        <Rule path="/protocol[at0006]/items[at0009]" name="Gyldig til" />
+      <Item xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Adhoc heading" max="1" path="/items" name="Annen prosedyreendring">
+        <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.precaution.v1" concept_name="Forholdsregel" path="/items">
+          <Rule path="/data[at0001]" hide_on_form="true" />
+          <Rule path="/data[at0001]/items[at0002]" default="Kodeverk: 7522 Prosedyreendringer" name="Type prosedyreendring" />
+          <Rule path="/data[at0001]/items[at0014]">
+            <constraint xsi:type="textConstraint">
+              <excludedValues>local::at0019</excludedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/data[at0001]/items[at0003]" max="0" />
+          <Rule path="/data[at0001]/items[at0013]" max="0" />
+          <Rule path="/protocol[at0006]" hide_on_form="true" />
+          <Rule path="/protocol[at0006]/items[at0022]" max="0" />
+          <Rule path="/protocol[at0006]/items[at0024]" max="0" />
+          <Rule path="/protocol[at0006]/items[at0009]" name="Gyldig til" />
+        </Item>
       </Item>
       <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.exclusion.v1" concept_name="Eksklusjonsutsagn" max="1" path="/items" name="VerifisertIngenKjente">
         <Rule path="/data[at0001]" hide_on_form="true" />
@@ -430,7 +440,7 @@
       </Item>
     </Content>
     <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Adhoc heading" max="1" path="/content" name="Smitte">
-      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.precaution.v1" concept_name="Forholdsregel" max="1" path="/items" name="Smitte">
+      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.precaution.v1" concept_name="Forholdsregel" path="/items">
         <Rule path="/data[at0001]" hide_on_form="true" />
         <Rule path="/data[at0001]/items[at0002]" default="Kodeverk: 7519 Meldepliktige infeksjonssykdommer" name="Smittefarlig sykdom med konsekvens for behandling av pasienten">
           <constraint xsi:type="textConstraint">
