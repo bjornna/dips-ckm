@@ -1,0 +1,183 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.plo_status.v1
+
+concept
+	[at0000]	-- PLO status
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Gir mulighet for registrering av status for PLO melding samt kolonne i Pasientlistevisning">
+			use = <"Registrer status på PLO dokumentene
+
+Tidligmelding
+Helseopplysninger
+Utskrivingsklar
+">
+			misuse = <"all annen bruk">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"159043B1AC3B9E6C3F61174A393ED9F6">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- PLO status
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0014] occurrences matches {0..1} matches {	-- Tidligmelding sendt
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0016, 	-- Ja
+													at0017, 	-- Nei
+													at0018]	-- Vet ikke
+												}
+											}
+										}
+									}
+									ELEMENT[at0015] occurrences matches {0..1} matches {	-- TM Dato
+										value matches {
+											DV_DATE matches {*}
+										}
+									}
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Helseopplysninger sendt
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0008, 	-- Ja
+													at0009, 	-- Nei
+													at0010]	-- Vet ikke
+												}
+											}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- HO Dato
+										value matches {
+											DV_DATE matches {*}
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {	-- Utskrivingsklar pasient sendt
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0011, 	-- Ja
+													at0012, 	-- Nei
+													at0013]	-- Vet ikke
+												}
+											}
+										}
+									}
+									ELEMENT[at0007] occurrences matches {0..1} matches {	-- UK Dato
+										value matches {
+											DV_DATE matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"PLO status">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Helseopplysninger sendt">
+					description = <"Er melding om helseopplysninger sendt?">
+				>
+				["at0005"] = <
+					text = <"HO Dato">
+					description = <"Dato for helseopplysninger sendt">
+				>
+				["at0006"] = <
+					text = <"Utskrivingsklar pasient sendt">
+					description = <"Er melding om utskrivingsklar pasient sendt?">
+				>
+				["at0007"] = <
+					text = <"UK Dato">
+					description = <"Dato for melding om utskskrivingsklar pasient sendt">
+				>
+				["at0008"] = <
+					text = <"Ja">
+					description = <"Melding sendt">
+				>
+				["at0009"] = <
+					text = <"Nei">
+					description = <"Melding er ikke sendt">
+				>
+				["at0010"] = <
+					text = <"Vet ikke">
+					description = <"Uavklart om melding er sendt">
+				>
+				["at0011"] = <
+					text = <"Ja">
+					description = <"Melding sendt">
+				>
+				["at0012"] = <
+					text = <"Nei">
+					description = <"Melding er ikke sendt">
+				>
+				["at0013"] = <
+					text = <"Vet ikke">
+					description = <"Uavklart om melding er sendt">
+				>
+				["at0014"] = <
+					text = <"Tidligmelding sendt">
+					description = <"Er tidligmelding sendt?">
+				>
+				["at0015"] = <
+					text = <"TM Dato">
+					description = <"Dato for tidligmelding sendt">
+				>
+				["at0016"] = <
+					text = <"Ja">
+					description = <"Melding sendt">
+				>
+				["at0017"] = <
+					text = <"Nei">
+					description = <"Melding er ikke sendt">
+				>
+				["at0018"] = <
+					text = <"Vet ikke">
+					description = <"Uavklart om melding er sendt">
+				>
+			>
+		>
+	>
