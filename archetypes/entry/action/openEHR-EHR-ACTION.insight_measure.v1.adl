@@ -2,7 +2,7 @@ archetype (adl_version=1.4)
 	openEHR-EHR-ACTION.insight_measure.v1
 
 concept
-	[at0000]	-- Registrer forordningshandling
+	[at0000]	-- Registrer a ordination action
 language
 	original_language = <[ISO_639-1::nb]>
 	translations = <
@@ -49,13 +49,13 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"EAB2C471A490DD100CDE28939F7680C3">
+		["MD5-CAM-1.0.1"] = <"1909DD6A53A302647D58ACF2349A958F">
 	>
 
 definition
-	ACTION[at0000] matches {	-- Registrer forordningshandling
+	ACTION[at0000] matches {	-- Registrer a ordination action
 		ism_transition matches {
-			ISM_TRANSITION[at0002] matches {	-- Planlegg
+			ISM_TRANSITION[at0002] matches {	-- Foreslå
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::526]}
@@ -63,11 +63,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0002]}		-- Planlegg
+						defining_code matches {[local::at0002]}		-- Foreslå
 					}
 				}
 			}
-			ISM_TRANSITION[at0011] matches {	-- Annullér
+			ISM_TRANSITION[at0011] matches {	-- Annuller
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::528]}
@@ -75,7 +75,7 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0011]}		-- Annullér
+						defining_code matches {[local::at0011]}		-- Annuller
 					}
 				}
 			}
@@ -115,7 +115,7 @@ definition
 					}
 				}
 			}
-			ISM_TRANSITION[at0012] matches {	-- DIPS.ARENA.SYSTEM
+			ISM_TRANSITION[at0012] matches {	-- DIPS.ARENA.SYSTEM.NEWVERSION(nb)
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::532]}
@@ -123,24 +123,29 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0012]}		-- DIPS.ARENA.SYSTEM
+						defining_code matches {[local::at0012]}		-- DIPS.ARENA.SYSTEM.NEWVERSION(nb)
 					}
 				}
 			}
 		}
 		description matches {
-			ITEM_TREE[at0001] matches {	-- Tree
+			ITEM_TREE[at0001] matches {	-- *
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Remark
+					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Notat
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Skipped
+					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Registrer som ikke utført
 						value matches {
 							DV_BOOLEAN matches {
 								value matches {True}
 							}
+						}
+					}
+					ELEMENT[at0013] occurrences matches {0..1} matches {	-- TimeOriginalActivityCreated
+						value matches {
+							DV_DATE_TIME matches {*}
 						}
 					}
 				}
@@ -153,43 +158,47 @@ ontology
 		["no"] = <
 			items = <
 				["at0000"] = <
-					text = <"*Registrer forordningshandling(nb)">
+					text = <"Registrer forordningshandling">
 					description = <"*Detaljer på et tiltaks forordningers tilstand(nb)">
 				>
 				["at0001"] = <
-					text = <"*Tree(nb)">
+					text = <"Tree">
 					description = <"*@ internal @(nb)">
 				>
 				["at0002"] = <
-					text = <"Planlegg">
-					description = <"Setter forordning til planlagt">
+					text = <"Foreslå">
+					description = <"*Setter forordning som foreslått(nb)">
 				>
 				["at0003"] = <
 					text = <"Aktiver">
-					description = <"Setter forordning til aktiv">
+					description = <"*Setter forordning til aktiv(nb)">
 				>
 				["at0004"] = <
-					text = <"*Fullfør(nb)">
+					text = <"Fullfør">
 					description = <"*Setter en forordning til fullført(nb)">
 				>
 				["at0006"] = <
-					text = <"*Registrer(nb)">
+					text = <"Registrer">
 					description = <"*Registrer angitt handling(nb)">
 				>
 				["at0008"] = <
-					text = <"*Remark(nb)">
-					description = <"**(nb)">
+					text = <"Notat">
+					description = <"*En vurdering/notat tilknyttet aktiviteten(nb)">
 				>
 				["at0010"] = <
-					text = <"*Skipped(nb)">
+					text = <"Registrer som ikke utført">
 					description = <"**(nb)">
 				>
 				["at0011"] = <
-					text = <"*Annullér(nb)">
+					text = <"Annuller">
 					description = <"**(nb)">
 				>
 				["at0012"] = <
-					text = <"*DIPS.ARENA.SYSTEM(nb)">
+					text = <"DIPS.ARENA.SYSTEM.NEWVERSION(nb)">
+					description = <"*Brukes når situasjon og frekvens endres(nb)">
+				>
+				["at0013"] = <
+					text = <"*TimeOriginalActivityCreated(nb)">
 					description = <"**(nb)">
 				>
 			>
@@ -205,8 +214,8 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0002"] = <
-					text = <"Planlegg">
-					description = <"Setter forordning til planlagt">
+					text = <"Foreslå">
+					description = <"Setter forordning som foreslått">
 				>
 				["at0003"] = <
 					text = <"Aktiver">
@@ -221,19 +230,23 @@ ontology
 					description = <"Registrer angitt handling">
 				>
 				["at0008"] = <
-					text = <"Remark">
-					description = <"*">
+					text = <"Notat">
+					description = <"En vurdering/notat tilknyttet aktiviteten">
 				>
 				["at0010"] = <
-					text = <"Skipped">
+					text = <"Registrer som ikke utført">
 					description = <"*">
 				>
 				["at0011"] = <
-					text = <"Annullér">
+					text = <"Annuller">
 					description = <"*">
 				>
 				["at0012"] = <
-					text = <"DIPS.ARENA.SYSTEM">
+					text = <"DIPS.ARENA.SYSTEM.NEWVERSION">
+					description = <"Brukes når situasjon og frekvens endres">
+				>
+				["at0013"] = <
+					text = <"TimeOriginalActivityCreated">
 					description = <"*">
 				>
 			>
@@ -241,44 +254,48 @@ ontology
 		["en"] = <
 			items = <
 				["at0000"] = <
-					text = <"*Registrer forordningshandling(nb)">
-					description = <"*Detaljer på et tiltaks forordningers tilstand(nb)">
+					text = <"Registrer a ordination action">
+					description = <"*">
 				>
 				["at0001"] = <
-					text = <"*Tree(nb)">
-					description = <"*@ internal @(nb)">
+					text = <"*">
+					description = <"*">
 				>
 				["at0002"] = <
-					text = <"Plan">
-					description = <"Ordination set to planned">
+					text = <"Foreslå">
+					description = <"Transition to set ordination as proposed">
 				>
 				["at0003"] = <
-					text = <"Activate">
-					description = <"Ordination set to active">
+					text = <"Aktiver">
+					description = <"*Setter forordning til aktiv(nb)">
 				>
 				["at0004"] = <
-					text = <"*Fullfør(nb)">
-					description = <"*Setter en forordning til fullført(nb)">
+					text = <"Fullfør">
+					description = <"Transition for completing ordination">
 				>
 				["at0006"] = <
-					text = <"*Registrer(nb)">
-					description = <"*Registrer angitt handling(nb)">
+					text = <"Registrer">
+					description = <"Transition for register an ordination action">
 				>
 				["at0008"] = <
-					text = <"*Remark(nb)">
-					description = <"**(nb)">
+					text = <"Notat">
+					description = <"*En vurdering/notat tilknyttet aktiviteten(nb)">
 				>
 				["at0010"] = <
-					text = <"*Skipped(nb)">
+					text = <"Registrer som ikke utført">
 					description = <"**(nb)">
 				>
 				["at0011"] = <
-					text = <"*Annullér(nb)">
+					text = <"Annuller">
 					description = <"**(nb)">
 				>
 				["at0012"] = <
-					text = <"*DIPS.ARENA.SYSTEM(nb)">
-					description = <"**(nb)">
+					text = <"DIPS.ARENA.SYSTEM.NEWVERSION(nb)">
+					description = <"Used when timing is changed">
+				>
+				["at0013"] = <
+					text = <"TimeOriginalActivityCreated">
+					description = <"">
 				>
 			>
 		>

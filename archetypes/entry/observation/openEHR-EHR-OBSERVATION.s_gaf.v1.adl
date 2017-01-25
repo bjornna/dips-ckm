@@ -1,0 +1,116 @@
+﻿archetype (adl_version=1.4; uid=eb01bdd9-0f8b-480c-878a-5695d4f15984)
+	openEHR-EHR-OBSERVATION.s_gaf.v1
+
+concept
+	[at0000]	-- S-GAF
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Stein Inge Klippen">
+		["email"] = <"sik@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2016-02-22">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Global Assessment of Functioning (GAF) er en numerisk skala fra 0 til 100 som benyttes som en subjektiv rangering av den sosiale, yrkesmessige og psykologiske funksjonsdyktigheten til voksne mennesker. I Norge har man siden 1998 etter en utredning fra Statens Helsetilsyn benyttet en splittet GAF (S-GAF) som skiller mellom symptomer og sosial funksjonsevne. S-GAF inngår i rapportering til Norsk Pasientregister (NPR).">
+			use = <"Brukes for å registrere GAF symptomskår og GAF funksjonsskår i forbindelse med pasientkontakt. 
+
+Benyttes ved innkomst, under opphold og ved utskrivning.">
+			keywords = <"gaf-f", "gaf-s", "psykiatri", "funksjon", "symptom">
+			misuse = <"">
+			copyright = <"© Nasjonal IKT HF">
+		>
+	>
+	lifecycle_state = <"published">
+	other_contributors = <"Morten Aas, Oslo Universitetssykehus, Norway", "Nasrin Amele Jamedari, DIPS ASA, Norway", "Vebjørn Arntzen, Oslo universitetssykehus HF, Norway (Nasjonal IKT redaktør)", "Silje Ljosland Bakke, Nasjonal IKT HF, Norway (Nasjonal IKT redaktør)", "Kristian Berg, Universitetssykehuset Nord Norge, Norway", "Ole Andreas Bjordal, Webmed, Norway", "Bjørn Christensen, Helse Bergen HF, Norway", "Cecilie Graver, Oslo universitetssykehus HF, Norway", "Stein Inge Klippen (opprinnelig opprettet av)", "Lars Morgan Karlsen, DIPS ASA, Norway", "Nils Kolstrup, Skansen Legekontor og Nasjonalt Senter for samhandling og telemedisin, Norway", "Lars Morgan Karlsen", "Bengt Nilssen, Sykehuset Innlandet HFq, Norway", "Bjørn Næss, DIPS ASA, Norway", "Anne-Berit Norman Paulsen, Universitetssykehuset Nord-Norge, Norway", "Rune Pedersen, Universitetssykehuset i Nord Norge, Norway", "Tanja Riise, Nasjonal IKT HF, Norway", "Line Silsand, Universitetssykehuset i Nord-Norge, Norway", "Ingrid Skard, DIPS ASA, Norway", "Helene Trønnes, Betanien, Norway", "Jon Tysdahl, Furst medlab AS, Norway", "John Tore Valand, Haukeland Universitetssjukehus, Norway (Nasjonal IKT redaktør)">
+	other_details = <
+		["revision"] = <"1.0.1">
+		["original_publisher"] = <"Nasjonal IKT">
+		["build_uid"] = <"727bf0ae-6a23-4fa2-83b7-7e4197b08824">
+		["original_namespace"] = <"no.nasjonalikt">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["references"] = <"Veileder for registrering av aktivitetsdata i psykisk helsevern - Innrapportering til Norsk pasientregister (NPR) - Oktober 2013 (https://helsedirektoratet.no/Lists/Publikasjoner/Attachments/179/Veileder-for-registrering-av-aktivitetsdata-i-psykisk-helsevern-IS-1541.pdf).
+
+GAF - Global Assesment of Functioning - Skåringsveiledning http://www.helsebiblioteket.no/psykisk-helse/skaringsverktoy/gaf-global-assessment-of-functioning-skaringsveiledning.">
+		["MD5-CAM-1.0.1"] = <"E3B36D264AA22B916000FA04CB37BB0F">
+		["custodian_namespace"] = <"no.nasjonalikt">
+		["custodian_organisation"] = <"Nasjonal IKT">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- S-GAF
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {	-- Uspesifisert hendelse
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- GAF symptomskår
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|1..100|}
+											}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- GAF funksjonsskår
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|1..100|}
+											}
+										}
+									}
+									ELEMENT[at0023] occurrences matches {0..1} matches {	-- Kommentar
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"S-GAF">
+					description = <"Global Assessment of Functioning (GAF) er en numerisk skala fra 0 til 100 som benyttes som en subjektiv rangering av den sosiale, yrkesmessige og psykologiske funksjonsdyktigheten til voksne mennesker.
+
+Den opprinnelige GAF-skalaen var en samlet skår for symptomer og funksjonsnivå. I forbindelse med ”minste basis datasett” som Statens Helsetilsyn anbefaler alle psykiatriske institusjoner å bruke fra 1998, har man i Norge innført GAF i en splittet versjon. Dette innebærer at den opprinnelige GAF-skalaen splittes til én skala for symptomer og én for sosialt funksjonsnivå, og at de skåres hver for seg. Splittet GAF forkortes som S-GAF.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Uspesifisert hendelse">
+					description = <"Standard, uspesifisert tidspunkt eller tidsintervall som kan defineres mer eksplisitt i en template eller i en applikasjon.">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"GAF symptomskår">
+					description = <"GAF-S skår for individets psykiske symptombelastning.">
+				>
+				["at0005"] = <
+					text = <"GAF funksjonsskår">
+					description = <"GAF-F skår for individets sosiale, skole og yrkesmessige fungering.">
+				>
+				["at0023"] = <
+					text = <"Kommentar">
+					description = <"Ytterligere kommentar til skåringen som ikke er fanget opp i andre felt.">
+				>
+			>
+		>
+	>

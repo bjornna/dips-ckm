@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<VaqmConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Id="cc218d0c-9cbe-4055-91f3-25a93955c7a5" Oid="vaqm.tavlemøte.fallrisiko" Name="Fallrisikovurdering" Version="4.0.0" Approved="true" CreatedByAuthor="DIPS-LMK" Created="2016-10-17T13:35:17" Imported="false" VersionComment="siste versjon" BasedOnVersion="3.0.0" xmlns="http://www.dips.no/vaqmconfig">
+  <AqlBindings>
+    <AqlBinding Id="47b7c589-1e40-4f6c-89ac-d1b450568bc0" Oid="openEHR-EHR-OBSERVATION.fr_kalk_dips.v" Name="fallrisiko" DefaultArchetypeId="[openEHR-EHR-OBSERVATION.fr_kalk_dips.v0]">
+      <BaseAql>select c, a from COMPOSITION a contains OBSERVATION c[openEHR-EHR-OBSERVATION.fr_kalk_dips.v0]</BaseAql>
+      <Paths>
+        <Path Id="sticontextst" IdentifierRef="a" Value="/context/start_time/value" AdminDescription="" DataType="String" />
+        <Path Id="risikograd" IdentifierRef="c" Value="/data[at0001]/events[at0002]/data[at0003]/items[at0020]/value" AdminDescription="" DataType="DV_CODED_TEXT" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="risikograd" Value="$risikograd" Ascending="false" AdminDescription="" />
+        <OrderByExpression Id="sortcontextst" Value="$sticontextst" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="predcontextst" WhereRef="" OrderByRef="$sortcontextst" AdminDescription="" />
+        <Predicate Id="risikograd" WhereRef="" OrderByRef="$risikograd" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+  </AqlBindings>
+  <DataElements>
+    <DataElement Id="703cddd1-55b5-4a2a-88ce-94b865231e95" Oid="Fallrisikovurderingsdato" Name="Fall" AdminName="Fallrisikovurderingsdato" Description="Test" Categories="Tavlemøte" DisplayFormat="{if(isnull($predcontextst.sticontextst), &quot;Mangler screening&quot;, FORMATDATETIME(datevalue($predcontextst.sticontextst), &quot;dd.MM.yyyy HH:mm&quot;, &quot;nb-no&quot;))}" SortFormat="$predcontextst.sticontextst" IsEditable="true" AdminDescription="">
+      <FormatExpressions>
+        <FormatExpression Id="e56a825b-8819-4a52-b147-5154013ab9bd">
+          <WhenExpression Value="if(isnull($predcontextst.sticontextst), false, if($predcontextst.sticontextst &lt; datetime(nowticks() - dayticks(7)), true, false))" AdminDescription="" />
+          <AlertType>WARNING</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#FFCB8200</AlertTypeBackgroundColor>
+          <Symbol>Symbol</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#000000</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Ny screening påkrevd</Description>
+        </FormatExpression>
+        <FormatExpression Id="15ca4d17-0f17-4e47-a96d-b8149c45b834">
+          <WhenExpression Value="if(isnull($predcontextst.sticontextst), true, false)" AdminDescription="" />
+          <AlertType>EXCEPTION</AlertType>
+          <AlertTypeForegroundColor>#FFFFFFFF</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#FF7C2929</AlertTypeBackgroundColor>
+          <Symbol>F1 M 58.5832,55.4172L 17.4169,55.4171C 15.5619,53.5621 15.5619,50.5546 17.4168,48.6996L 35.201,15.8402C 37.056,13.9852 40.0635,13.9852 41.9185,15.8402L 58.5832,48.6997C 60.4382,50.5546 60.4382,53.5622 58.5832,55.4172 Z M 34.0417,25.7292L 36.0208,41.9584L 39.9791,41.9583L 41.9583,25.7292L 34.0417,25.7292 Z M 38,44.3333C 36.2511,44.3333 34.8333,45.7511 34.8333,47.5C 34.8333,49.2489 36.2511,50.6667 38,50.6667C 39.7489,50.6667 41.1666,49.2489 41.1666,47.5C 41.1666,45.7511 39.7489,44.3333 38,44.3333 Z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FFFFFFFF</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Mangler screening</Description>
+        </FormatExpression>
+      </FormatExpressions>
+      <KeyValues>
+        <KeyValue Key="DocumentTemplateId" Value="2558569" AdminDescription="" />
+        <KeyValue Key="DocumentTypeId" Value="8035804" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+  </DataElements>
+  <KeyValues />
+</VaqmConfiguration>

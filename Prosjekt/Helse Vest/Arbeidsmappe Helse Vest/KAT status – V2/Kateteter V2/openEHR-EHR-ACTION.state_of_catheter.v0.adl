@@ -1,0 +1,118 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ACTION.state_of_catheter.v0
+
+concept
+	[at0000]	-- State of catheter
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"To register the state of a catheter">
+			use = <"To register the state of a catheter">
+			misuse = <"All other use">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"1DC2B1A4AFD3B4E2905D98BD9A18B09F">
+	>
+
+definition
+	ACTION[at0000] matches {	-- State of catheter
+		ism_transition matches {
+			ISM_TRANSITION[at0004] matches {	-- Active
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0004]}		-- Active
+					}
+				}
+			}
+			ISM_TRANSITION[at0005] matches {	-- Completed
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0005]}		-- Completed
+					}
+				}
+			}
+		}
+		description matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Current indication present
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Daily maintenance performed
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Periodic observation performed
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"State of catheter">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Current indication present">
+					description = <"Current indication present">
+				>
+				["at0003"] = <
+					text = <"Daily maintenance performed">
+					description = <"Daily maintenance performed">
+				>
+				["at0004"] = <
+					text = <"Active">
+					description = <"The catheter is in situ">
+				>
+				["at0005"] = <
+					text = <"Completed">
+					description = <"The catheter is removed">
+				>
+				["at0006"] = <
+					text = <"Periodic observation performed">
+					description = <"Periodic observation performed">
+				>
+			>
+		>
+	>
