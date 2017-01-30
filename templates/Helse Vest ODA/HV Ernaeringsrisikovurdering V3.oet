@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>010f1189-63a1-4614-a1e2-2998f8e0c5b8</id>
+  <name>HV Ernaeringsrisikovurdering V3</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose />
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.hv_ernaeringrisikovurdering.v1" concept_name="Hv ernaeringrisikovurdering">
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.hv_ps_er.v0" concept_name="Hv ps er" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_mass_index.v1" concept_name="Kroppsmasseindeks" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.overarmsomkrets_til_bmi.v3" concept_name="Overarmsomkrets til bmi" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_segment.v0" concept_name="Måling av et kroppssegment" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_weight.v1" concept_name="Kroppsvekt" path="/content">
+      <Rule path="/data[at0002]/events[at0003]" max="1" name="Aktuell vekt" />
+      <Rule path="/data[at0002]/events[at0003 and name/value='Aktuell vekt']/data[at0001]/items[at0004]">
+        <constraint xsi:type="quantityConstraint">
+          <excludedUnits>g</excludedUnits>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0002]/events[at0003]" max="1" clone="true" name="Vekt for en måned siden">
+        <eventConstraint>
+          <allowedType>Interval</allowedType>
+        </eventConstraint>
+      </Rule>
+      <Rule path="/data[at0002]/events[at0003 and name/value='Vekt for en måned siden']/data[at0001]/items[at0004]">
+        <constraint xsi:type="quantityConstraint">
+          <excludedUnits>g</excludedUnits>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0002]/events[at0003]" max="1" clone="true" name="Vekt for to måneder siden">
+        <eventConstraint>
+          <allowedType>Interval</allowedType>
+        </eventConstraint>
+      </Rule>
+      <Rule path="/data[at0002]/events[at0003 and name/value='Vekt for to måneder siden']/data[at0001]/items[at0004]">
+        <constraint xsi:type="quantityConstraint">
+          <excludedUnits>g</excludedUnits>
+        </constraint>
+        <nullFlavourConstraint>
+          <excludedValues>openehr::271</excludedValues>
+        </nullFlavourConstraint>
+      </Rule>
+      <Rule path="/data[at0002]/events[at0003]" max="1" clone="true" name="Vekt for tre måneder siden">
+        <eventConstraint>
+          <allowedType>Interval</allowedType>
+        </eventConstraint>
+      </Rule>
+      <Rule path="/data[at0002]/events[at0003 and name/value='Vekt for tre måneder siden']/data[at0001]/items[at0004]">
+        <constraint xsi:type="quantityConstraint">
+          <excludedUnits>g</excludedUnits>
+        </constraint>
+      </Rule>
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.height.v1" concept_name="Høyde/Lengde" path="/content" />
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.hv_ernaeringsscreening_allmenntilstand.v0" concept_name="Hv ernaeringsscreening allmenntilstand" path="/content" />
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.hv_ernaeringsscreening_behandling.v0" concept_name="Hv ernaeringsscreening behandling" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.prosentvis_endring_av_vekt_og_matinntak.v3" concept_name="Prosentvis endring av vekt og matinntak" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.nutritional_risk_screening.v1" concept_name="Screening for ernæringsmessig risiko" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.er_kalk_dips.v0" concept_name="Er kalk dips" path="/content" />
+    <Context />
+  </definition>
+</template>

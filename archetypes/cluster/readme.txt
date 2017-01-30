@@ -1,0 +1,2 @@
+This is the template file set for template Kritisk informasjon i Kjernejournal( bde143da-8379-405e-a4ac-b438f28ec6e2, revision 5), exported from the Clinical Knowledge Manager.
+Export time: Mon Jan 02 07:19:25 CET 2017
