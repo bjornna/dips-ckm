@@ -1,0 +1,141 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.rusdata_npr.v0
+
+concept
+	[at0000]	-- Rusdata NPR
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"DF6F9F5C8FBACA20DBF4F8DDCFCBE199">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Rusdata NPR
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									allow_archetype CLUSTER[at0004] occurrences matches {0..*} matches {	-- Boforhold
+										include
+											archetype_id/value matches {/.*/}
+									}
+									ELEMENT[at0014] occurrences matches {0..1} matches {	-- Antall egne barn
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|0|}
+											}
+										}
+									}
+									allow_archetype CLUSTER[at0005] occurrences matches {0..*} matches {	-- Antall barn under 18 i samme boenhet
+										include
+											archetype_id/value matches {/.*/}
+									}
+									allow_archetype CLUSTER[at0006] occurrences matches {0..*} matches {	-- Graviditet
+										include
+											archetype_id/value matches {/.*/}
+									}
+									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Vedvarende sykdom eller skader
+										value matches {
+											1|[local::at0008], 	-- Ja
+											2|[local::at0009], 	-- Nei
+											9|[local::at0010]  	-- Ukjent
+										}
+									}
+									allow_archetype CLUSTER[at0011] occurrences matches {0..*} matches {	-- Psykisk tilstand
+										include
+											archetype_id/value matches {/.*/}
+									}
+									allow_archetype CLUSTER[at0012] occurrences matches {0..*} matches {	-- Russituasjon
+										include
+											archetype_id/value matches {/.*/}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Rusdata NPR">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Boforhold">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Antall barn under 18 i samme boenhet">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Graviditet">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Vedvarende sykdom eller skader">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Ukjent">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Psykisk tilstand">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Russituasjon">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Antall egne barn">
+					description = <"Antall egne barn, uavhengig av hvor barna befinner seg og uansett alder">
+				>
+			>
+		>
+	>
