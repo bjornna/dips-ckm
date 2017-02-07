@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
-  <id>1a7eaff4-1545-45b9-acab-e102290b2ccc</id>
-  <name>screening for ernærningsmessig risiko</name>
+  <id>24d9d6b8-456a-4f62-a3f1-5d098c42570c</id>
+  <name>Infeksjonsregisrtrering</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
@@ -60,11 +60,16 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Encounter" name="Screening for ernæringsmessig risiko">
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_weight.v1" concept_name="Body weight" max="1" path="/content" />
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.height.v1" concept_name="Height/Length" max="1" path="/content" />
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_mass_index.v1" concept_name="Body mass index" max="1" path="/content" />
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.nutritional_risk_screening.v1" concept_name="Nutritional Risk Screening" path="/content" />
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.infeksjonsregistrering.v0" concept_name="Infeksjonsregistrering">
+    <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.request-procedure.v1" concept_name="Prosedyrerekvirering" path="/content">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA-klassifikasjon" path="/activities[at0001]/description[at0009]/items[at0116]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.medicine_surgery.v1" concept_name="Medikamenter ved kirurgi" path="/activities[at0001]/description[at0009]/items[at0116]" />
+    </Content>
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.kontakt.v0" concept_name="Kontakt" path="/content">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.oppholdsdata.v0" concept_name="Oppholdsdata" path="/data[at0001]/items[at0011]" />
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.infeksjon.v0" concept_name="Infeksjon" path="/content" />
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Adhoc heading" path="/content" />
     <Context />
   </definition>
 </template>
