@@ -1,8 +1,8 @@
 archetype (adl_version=1.4)
-	openEHR-EHR-OBSERVATION.mekanisk_ventilasjon.v0
+	openEHR-EHR-OBSERVATION.ahs_mekanisk_ventilasjon.v0
 
 concept
-	[at0000]	-- Mekanisk ventilasjon
+	[at0000]	-- AHS_Mekanisk ventilasjon
 language
 	original_language = <[ISO_639-1::nb]>
 description
@@ -21,11 +21,11 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"13482D620C7EB605C28A71DD85D3210E">
+		["MD5-CAM-1.0.1"] = <"5F4A647257387C3020F4D98CDF301701">
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- Mekanisk ventilasjon
+	OBSERVATION[at0000] matches {	-- AHS_Mekanisk ventilasjon
 		data matches {
 			HISTORY[at0001] matches {	-- Event Series
 				events cardinality matches {1..*; unordered} matches {
@@ -40,6 +40,10 @@ definition
 											}
 										}
 									}
+									allow_archetype CLUSTER[at0019] occurrences matches {0..*} matches {	-- Type non-invasiv respirasjonsstøtte
+										include
+											archetype_id/value matches {/.*/}
+									}
 									ELEMENT[at0018] occurrences matches {0..1} matches {	-- Invasiv ventilasjon
 										value matches {
 											DV_DURATION matches {
@@ -47,61 +51,9 @@ definition
 											}
 										}
 									}
-									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Tube/kontrollert
-										value matches {
-											DV_DURATION matches {
-												value matches {PTHM/|PT0H..PT24H|}
-											}
-										}
-									}
-									ELEMENT[at0006] occurrences matches {0..1} matches {	-- Tube/støttet
-										value matches {
-											DV_DURATION matches {
-												value matches {PTHM/|PT0H..PT24H|}
-											}
-										}
-									}
-									ELEMENT[at0007] occurrences matches {0..1} matches {	-- CPAP
-										value matches {
-											DV_DURATION matches {
-												value matches {PTHM/|PT0H..PT24H|}
-											}
-										}
-									}
-									ELEMENT[at0016] occurrences matches {0..1} matches {	-- NIV
-										value matches {
-											DV_DURATION matches {
-												value matches {PTHM/|PT0H..PT24H|}
-											}
-										}
-									}
-									ELEMENT[at0008] occurrences matches {0..1} matches {	-- HFOV
-										value matches {
-											DV_DURATION matches {
-												value matches {PTHM/|PT0H..PT24H|}
-											}
-										}
-									}
-									ELEMENT[at0009] occurrences matches {0..1} matches {	-- HFOV + inh.gass
-										value matches {
-											DV_DURATION matches {
-												value matches {PTHM/|PT0H..PT24H|}
-											}
-										}
-									}
-									ELEMENT[at0010] occurrences matches {0..1} matches {	-- Respirator + inh.gass
-										value matches {
-											DV_DURATION matches {
-												value matches {PTHM/|PT0H..PT24H|}
-											}
-										}
-									}
-									ELEMENT[at0011] occurrences matches {0..1} matches {	-- HF-CPAP
-										value matches {
-											DV_DURATION matches {
-												value matches {PTHM/|PT0H..PT24H|}
-											}
-										}
+									allow_archetype CLUSTER[at0020] occurrences matches {0..*} matches {	-- Type invasiv respirasjonsstøtte
+										include
+											archetype_id/value matches {/.*/}
 									}
 									ELEMENT[at0013] occurrences matches {0..1} matches {	-- PaO2
 										value matches {
@@ -162,7 +114,7 @@ ontology
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"Mekanisk ventilasjon">
+					text = <"AHS_Mekanisk ventilasjon">
 					description = <"Benyttes til å registrere ulike typer mekansik ventilasjon i fbm intensivregistrering">
 				>
 				["at0001"] = <
@@ -177,34 +129,6 @@ ontology
 					text = <"Tree">
 					description = <"@ internal @">
 				>
-				["at0005"] = <
-					text = <"Tube/kontrollert">
-					description = <"*">
-				>
-				["at0006"] = <
-					text = <"Tube/støttet">
-					description = <"*">
-				>
-				["at0007"] = <
-					text = <"CPAP">
-					description = <"*">
-				>
-				["at0008"] = <
-					text = <"HFOV">
-					description = <"*">
-				>
-				["at0009"] = <
-					text = <"HFOV + inh.gass">
-					description = <"*">
-				>
-				["at0010"] = <
-					text = <"Respirator + inh.gass">
-					description = <"*">
-				>
-				["at0011"] = <
-					text = <"HF-CPAP">
-					description = <"*">
-				>
 				["at0013"] = <
 					text = <"PaO2">
 					description = <"*">
@@ -217,10 +141,6 @@ ontology
 					text = <"PaO2/FiO2 ratio">
 					description = <"*">
 				>
-				["at0016"] = <
-					text = <"NIV">
-					description = <"*">
-				>
 				["at0017"] = <
 					text = <"Non-Iinvasiv ventilasjon/maske">
 					description = <"Den tiden pasienten har fått respirasjonsstøtte i form av et lukket maskesystem, med eller uten inspirasjonsstøtte (maske-CPAP, non-invasiv overtrykksventilasjon/NIV-maske). Tiden registreres i timer og minutter. Ved pause/avbrudd i respirasjonsstøtten summerer man tidene.">
@@ -228,6 +148,14 @@ ontology
 				["at0018"] = <
 					text = <"Invasiv ventilasjon">
 					description = <"Den tiden pasienten har fått respirasjonsstøtte via tube eller trakeostomi (CPAP på tube/trakeostom, og/eller invasiv overtrykksventilasjon). Tiden registreres i timer og minutter. Ved pause/avbrudd i respirasjonsstøtten summerer man tidene.">
+				>
+				["at0019"] = <
+					text = <"Type non-invasiv respirasjonsstøtte">
+					description = <"*">
+				>
+				["at0020"] = <
+					text = <"Type invasiv respirasjonsstøtte">
+					description = <"*">
 				>
 			>
 		>
