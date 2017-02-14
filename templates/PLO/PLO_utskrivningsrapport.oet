@@ -79,10 +79,6 @@
         <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.person_name.v1" concept_name="Person navn" path="/items[at0015]" />
         <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.professional_role.v1" concept_name="Profesjonsrolle" path="/items[at0003]/items[at0016]" />
       </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.individual_professional.v1" concept_name="*Professional demographics detail(en)" max="1" path="/data[at0001]/items[at0008]" name="Innleggende lege">
-        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.person_name.v1" concept_name="Person navn" path="/items[at0015]" />
-        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.professional_role.v1" concept_name="Profesjonsrolle" path="/items[at0003]/items[at0016]" />
-      </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.individual_professional.v1" concept_name="*Professional demographics detail(en)" max="1" path="/data[at0001]/items[at0008]" name="Utskrivende lege">
         <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.person_name.v1" concept_name="Person navn" path="/items[at0015]" />
         <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.professional_role.v1" concept_name="Profesjonsrolle" path="/items[at0003]/items[at0016]" />
@@ -317,27 +313,15 @@
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.plo_status.v0" concept_name="Plo status" path="/content" />
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.plo_helseoppl_og_utskrivelsesrapp.v1" concept_name="Plo helseopplysninger og utskrivingsrapport" path="/content">
       <Items xsi:type="ELEMENT" archetype_id="openEHR-EHR-ELEMENT.uttilstand.v0" concept_name="Uttilstand" path="/data[at0001]/items[at0046]" />
-      <Items xsi:type="ELEMENT" archetype_id="openEHR-EHR-ELEMENT.meldinger_plo.v0" concept_name="Meldinger plo" path="/data[at0001]/items[at0047]">
-        <datavalueConstraint xsi:type="textConstraint">
-          <includedValues>Melding om innlagt pasient</includedValues>
-          <includedValues>Melding om utskrivningsklar pasient</includedValues>
-          <includedValues>Avmelding om utskrivningsklar pasient</includedValues>
-          <includedValues>Melding om utskrevet pasient</includedValues>
-          <includedValues>Melding om innlagt pasient</includedValues>
-          <includedValues>Melding om utskrivningsklar pasient</includedValues>
-          <includedValues>Avmelding om utskrivningsklar pasient</includedValues>
-          <includedValues>Melding om utskrevet pasient</includedValues>
-          <includedValues>Melding om innlagt pasient</includedValues>
-          <includedValues>Melding om utskrivningsklar pasient</includedValues>
-          <includedValues>Avmelding om utskrivningsklar pasient</includedValues>
-          <includedValues>Melding om utskrevet pasient</includedValues>
-          <includedValues>Melding om innlagt pasient</includedValues>
-          <includedValues>Melding om utskrivningsklar pasient</includedValues>
-          <includedValues>Avmelding om utskrivningsklar pasient</includedValues>
-          <includedValues>Melding om utskrevet pasient</includedValues>
-        </datavalueConstraint>
-      </Items>
     </Content>
-    <Context />
+    <Context>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.meldingstype.v0" concept_name="Meldingstype" path="/context/other_context[at0001]/items[at0003]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Utskrivningsrapport</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+    </Context>
   </definition>
 </template>
