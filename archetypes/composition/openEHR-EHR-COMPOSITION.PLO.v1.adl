@@ -21,7 +21,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"8D12C3C6D9C2CF4838F33BB54407E321">
+		["MD5-CAM-1.0.1"] = <"245AFA4AE8D3E4112DF31A38EB016678">
 	>
 
 definition
@@ -29,6 +29,20 @@ definition
 		category matches {
 			DV_CODED_TEXT matches {
 				defining_code matches {[openehr::433]}
+			}
+		}
+		context matches {
+			EVENT_CONTEXT matches {
+				other_context matches {
+					ITEM_TREE[at0001] matches {	-- Tree
+						items cardinality matches {0..*; unordered} matches {
+							allow_archetype CLUSTER[at0003] occurrences matches {0..*} matches {	-- Tilleggsinformasjon
+								include
+									archetype_id/value matches {/.*/}
+							}
+						}
+					}
+				}
 			}
 		}
 	}
@@ -40,6 +54,14 @@ ontology
 				["at0000"] = <
 					text = <"PLO">
 					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Tilleggsinformasjon">
+					description = <"*">
 				>
 			>
 		>
