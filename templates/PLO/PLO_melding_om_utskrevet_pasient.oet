@@ -61,6 +61,7 @@
     </other_details>
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.plo_helseopplysninger1_5.v1" concept_name="PLO">
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.plo_status.v0" concept_name="Plo status" path="/content" />
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.kontakt.v0" concept_name="Kontakt" path="/content">
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.oppholdsdata.v0" concept_name="Oppholdsdata" path="/data[at0001]/items[at0011]" />
     </Content>
@@ -69,7 +70,13 @@
     </Content>
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.utskrivelsesinformasjon.v1" concept_name="Utskrivelsesinformasjon" path="/content" />
     <Context>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.meldingstype.v0" concept_name="Meldingstype" path="/context/other_context[at0001]/items[at0003]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.meldingstype.v0" concept_name="Meldingstype" path="/context/other_context[at0001]/items[at0003]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Melding om utskrevet pasient</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
     </Context>
   </definition>
 </template>
