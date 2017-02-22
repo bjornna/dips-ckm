@@ -2,7 +2,7 @@ archetype (adl_version=1.4)
 	openEHR-EHR-OBSERVATION.tilleggsdata_nems.v0
 
 concept
-	[at0000]	-- Tilleggsdata nems
+	[at0000]	-- Tilleggsdata nems dips
 language
 	original_language = <[ISO_639-1::nb]>
 description
@@ -21,11 +21,11 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"6FBD7E99A765F34E7B486EE98E88F822">
+		["MD5-CAM-1.0.1"] = <"D92351474E1C231E94335B9422A4FF31">
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- Tilleggsdata nems
+	OBSERVATION[at0000] matches {	-- Tilleggsdata nems dips
 		data matches {
 			HISTORY[at0001] matches {	-- Event Series
 				events cardinality matches {1..*; unordered} matches {
@@ -44,16 +44,11 @@ definition
 											}
 										}
 									}
-									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Kontinuerlig (hemofiltrasjon)
+									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Kontinuerlig (hemo-/diafiltrasjon)
 										value matches {
 											DV_BOOLEAN matches {
 												value matches {True, False}
 											}
-										}
-									}
-									ELEMENT[at0008] occurrences matches {0..1} matches {	-- Antall døgn
-										value matches {
-											DV_COUNT matches {*}
 										}
 									}
 									ELEMENT[at0009] occurrences matches {0..1} matches {	-- Intermitterende (hemodialyse)
@@ -63,11 +58,6 @@ definition
 											}
 										}
 									}
-									ELEMENT[at0010] occurrences matches {0..1} matches {	-- Antall døgn
-										value matches {
-											DV_COUNT matches {*}
-										}
-									}
 									ELEMENT[at0011] occurrences matches {0..1} matches {	-- Peritonealdialyse
 										value matches {
 											DV_BOOLEAN matches {
@@ -75,9 +65,33 @@ definition
 											}
 										}
 									}
-									ELEMENT[at0012] occurrences matches {0..1} matches {	-- Antall døgn
+									ELEMENT[at0014] occurrences matches {0..1} matches {	-- Antall ganger bukleie
 										value matches {
 											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0015] occurrences matches {0..1} matches {	-- Isolering
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0016, 	-- Ingen
+													at0017, 	-- Kontaktsmitte
+													at0018]	-- Luftsmitte
+												}
+											}
+										}
+									}
+									ELEMENT[at0019] occurrences matches {0..1} matches {	-- Har pasienten fått trakeostomi i løpet av de siste 24 timer?
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0020, 	-- Nei
+													at0021, 	-- Ja - perkutan teknikk på intensiv/oppvåkning
+													at0022]	-- Ja - åpne teknikk (operativ)
+												}
+											}
 										}
 									}
 								}
@@ -94,7 +108,7 @@ ontology
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"Tilleggsdata nems">
+					text = <"Tilleggsdata nems dips">
 					description = <"Benyttes til å registrere tilleggsinformasjon i NEMS-skjema">
 				>
 				["at0001"] = <
@@ -122,27 +136,51 @@ ontology
 					description = <"*">
 				>
 				["at0007"] = <
-					text = <"Kontinuerlig (hemofiltrasjon)">
+					text = <"Kontinuerlig (hemo-/diafiltrasjon)">
 					description = <"*">
-				>
-				["at0008"] = <
-					text = <"Antall døgn">
-					description = <"Antall døgn der det er gitt nyreerstattende behandling i heltall, dvs. skåre 0 eller 1 per 24 t liggetid intensiv.">
 				>
 				["at0009"] = <
 					text = <"Intermitterende (hemodialyse)">
-					description = <"*">
-				>
-				["at0010"] = <
-					text = <"Antall døgn">
-					description = <"*">
+					description = <"Har pasienten fått intermitterende ldialyse i løpet av de siste 24 timer?">
 				>
 				["at0011"] = <
 					text = <"Peritonealdialyse">
+					description = <"Har pasienten fått peritonealdialyse i løpet av de siste 24 timer?">
+				>
+				["at0014"] = <
+					text = <"Antall ganger bukleie">
+					description = <"Antall ganger pasienten har lagt i bukleie siste 24 timer">
+				>
+				["at0015"] = <
+					text = <"Isolering">
+					description = <"Isolering av intensivpasienten med eget personale på eget rom.">
+				>
+				["at0016"] = <
+					text = <"Ingen">
 					description = <"*">
 				>
-				["at0012"] = <
-					text = <"Antall døgn">
+				["at0017"] = <
+					text = <"Kontaktsmitte">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Luftsmitte">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"Har pasienten fått trakeostomi i løpet av de siste 24 timer?">
+					description = <"Har pasienten fått tracheostomi i løpet av de siste 24 timer?">
+				>
+				["at0020"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0021"] = <
+					text = <"Ja - perkutan teknikk på intensiv/oppvåkning">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Ja - åpne teknikk (operativ)">
 					description = <"*">
 				>
 			>
