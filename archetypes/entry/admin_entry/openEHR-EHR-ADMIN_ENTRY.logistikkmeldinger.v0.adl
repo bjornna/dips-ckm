@@ -1,0 +1,105 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ADMIN_ENTRY.logistikkmeldinger.v0
+
+concept
+	[at0000]	-- Logistikkmeldinger
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"2B15DE27C3DE75CED47CAEA1E20B6C73">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {	-- Logistikkmeldinger
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0002] occurrences matches {0..*} matches {	-- Ansvarlig behandler
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Merknadsfelt
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Avmeldt utskrivningsklar
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0007] occurrences matches {0..*} matches {	-- Person detaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Emne
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Dato
+						value matches {
+							DV_DATE_TIME matches {
+								value matches {yyyy-mm-ddTHH:MM:SS}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Logistikkmeldinger">
+					description = <"Brukes for å definere innhold i logistikkmeldinger og dialogmeldinger PLO.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Ansvarlig behandler">
+					description = <"ansvarlig behandler, beslutningsansvarlig lege for opplysningene">
+				>
+				["at0005"] = <
+					text = <"Merknadsfelt">
+					description = <"Brukes til merknader i fritekst på logistikk og dialogmeldinger for mer uttypende opplysninger og beskjeder.">
+				>
+				["at0006"] = <
+					text = <"Avmeldt utskrivningsklar">
+					description = <"Brukes for å registrere dato for når pasienten ikke lenger er utskrivningsklar ">
+				>
+				["at0007"] = <
+					text = <"Person detaljer">
+					description = <"Brukes for å kunne registrere f.eks dato for død.">
+				>
+				["at0008"] = <
+					text = <"Emne">
+					description = <"Brukes for å skrive emnefelt i dialogmelding. ">
+				>
+				["at0009"] = <
+					text = <"Dato">
+					description = <"Viser nåtids dato og klokkeslett.">
+				>
+			>
+		>
+	>

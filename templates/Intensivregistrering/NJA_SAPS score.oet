@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>51a97c2d-c54a-4022-8a9e-394384d1b5ea</id>
+  <name>SAPS score</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose />
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.saps_score.v1" concept_name="SAPS score">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.saps-grunnlagsdata.v0" concept_name="Saps grunnlagsdata" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.saps_score.v0" concept_name="Saps score" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.mekanisk_ventilasjon.v0" concept_name="Mekanisk ventilasjon" path="/content">
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0016]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0008]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0010]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0011]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0013]">
+        <constraint xsi:type="quantityConstraint">
+          <excludedUnits>mm[Hg]</excludedUnits>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0015]" min="1" />
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.glasgow_coma_scale.v0" concept_name="Glasgow Coma Scale" path="/content">
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0030]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0037]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/state[at0040]/items[at0041]" max="0" />
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_temperature.v1" concept_name="Kroppstemperatur" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.blood_pressure.v1" concept_name="Blodtrykk" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.pulse.v1" concept_name="Puls/Hjertefrekvens" path="/content">
+      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0004]">
+        <nameConstraint>
+          <excludedValues>local::at1027</excludedValues>
+        </nameConstraint>
+      </Rule>
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.fluid_output.v0" concept_name="Fluid Output" path="/content">
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0035]">
+        <constraint xsi:type="quantityConstraint">
+          <excludedUnits>fl oz</excludedUnits>
+          <excludedUnits>cc</excludedUnits>
+          <excludedUnits>l</excludedUnits>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0039]">
+        <eventConstraint>
+          <widthOrOffset>P0Y0M0W0DT24H0M0S</widthOrOffset>
+        </eventConstraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0039]/data[at0003]/items[at0035]">
+        <constraint xsi:type="quantityConstraint">
+          <excludedUnits>fl oz</excludedUnits>
+          <excludedUnits>cc</excludedUnits>
+          <excludedUnits>l</excludedUnits>
+        </constraint>
+      </Rule>
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test.v0" concept_name="Laboratoriesvar" path="/content">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_panel.v0" concept_name="Laboratoriesvargruppe" path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]">
+        <Rule path="/items[at0002]" max="1" name="PaO2" />
+        <Rule path="/items[at0002]/items[at0001]">
+          <constraint xsi:type="quantityConstraint">
+            <includedUnits>kg/m2</includedUnits>
+            <unitMagnitude>
+              <unit>kg/m2</unit>
+              <maxMagnitude>0</maxMagnitude>
+              <minMagnitude>0</minMagnitude>
+              <includesMaximum>true</includesMaximum>
+              <includesMinimum>true</includesMinimum>
+            </unitMagnitude>
+          </constraint>
+        </Rule>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.ambient_oxygen.v1" concept_name="Ambient oxygen" path="/data[at0001]/events[at0002]/state[at0112]/items[at0114]" />
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test.v0" concept_name="Laboratoriesvar" max="1" path="/content" name="Laboratoriesvar #1">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_panel.v0" concept_name="Laboratoriesvargruppe" path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]">
+        <Rule path="/items[at0002]" max="1" name="S-Karbamid - finn koden her" />
+        <Rule path="/items[at0002]/items[at0001]">
+          <constraint xsi:type="quantityConstraint">
+            <includedUnits>kg/m2</includedUnits>
+            <unitMagnitude>
+              <unit>kg/m2</unit>
+              <maxMagnitude>0</maxMagnitude>
+              <minMagnitude>0</minMagnitude>
+              <includesMaximum>true</includesMaximum>
+              <includesMinimum>true</includesMinimum>
+            </unitMagnitude>
+          </constraint>
+        </Rule>
+      </Items>
+    </Content>
+    <Context />
+  </definition>
+</template>
