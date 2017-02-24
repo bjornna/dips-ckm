@@ -1,0 +1,115 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-EVALUATION.informasjon_gitt.v0
+
+concept
+	[at0000]	-- Informasjon gitt
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Til å kunne registrere at man har gitt informasjon, til hvem, hvilken form, hvilket innhold, hvilken type, av hvem mm">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"7DF610B408F79D41D6FD158DE24325AE">
+	>
+
+definition
+	EVALUATION[at0000] matches {	-- Informasjon gitt
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Informasjon gitt
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					CLUSTER[at0004] occurrences matches {0..*} matches {	-- Informasjon detaljer
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0010] occurrences matches {0..1} matches {	-- Type informasjon
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0006] occurrences matches {0..*} matches {	-- Informasjonsform
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0007] occurrences matches {0..1} matches {	-- Informasjon gitt
+								value matches {
+									DV_DATE matches {*}
+								}
+							}
+							ELEMENT[at0005] occurrences matches {0..*} matches {	-- Infomasjon gitt til
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+						}
+					}
+					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Informasjon gitt av
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Informasjon gitt">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Informasjon detaljer">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Infomasjon gitt til">
+					description = <"Pasient, pårørende, andre">
+				>
+				["at0006"] = <
+					text = <"Informasjonsform">
+					description = <"Muntlig, skriftlig">
+				>
+				["at0007"] = <
+					text = <"Informasjon gitt">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Informasjon gitt av">
+					description = <"Navngitt helsepersonell">
+				>
+				["at0009"] = <
+					text = <"Informasjon gitt">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Type informasjon">
+					description = <"Beskrivelse av hva slags informsjon som er gitt">
+				>
+			>
+		>
+	>

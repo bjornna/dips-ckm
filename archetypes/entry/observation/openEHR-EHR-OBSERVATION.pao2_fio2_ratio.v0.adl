@@ -1,0 +1,109 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.pao2_fio2_ratio.v0
+
+concept
+	[at0000]	-- Pao2 fio2 ratio
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"9FD726B4828C73BEF40716B995A2705E">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Pao2 fio2 ratio
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- PaO2 FiO2
+										value matches {
+											DV_PROPORTION matches {
+												numerator matches {|>0.0|}
+												denominator matches {|>0.0|}
+												is_integral matches {False}
+												type matches {0, 2}
+											}
+										}
+									}
+									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Kommentar
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0005] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Formel
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Pao2 fio2 ratio">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"PaO2 FiO2">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0006"] = <
+					text = <"Formel">
+					description = <"Skriv formelen her">
+				>
+				["at0007"] = <
+					text = <"Kommentar">
+					description = <"*">
+				>
+			>
+		>
+	>

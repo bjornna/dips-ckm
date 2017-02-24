@@ -2,7 +2,7 @@ archetype (adl_version=1.4)
 	openEHR-EHR-OBSERVATION.infeksjon.v0
 
 concept
-	[at0000]	-- Infeksjon
+	[at0000]	-- Melding til infeksjonsregister
 language
 	original_language = <[ISO_639-1::nb]>
 description
@@ -21,11 +21,11 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"EEC2F236FDE1F0B9A74ABD837569EBAE">
+		["MD5-CAM-1.0.1"] = <"721CB48E070C104BEC438ECAE614C76D">
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- Infeksjon
+	OBSERVATION[at0000] matches {	-- Melding til infeksjonsregister
 		data matches {
 			HISTORY[at0001] matches {	-- Event Series
 				events cardinality matches {1..*; unordered} matches {
@@ -52,30 +52,6 @@ definition
 											DV_DATE matches {*}
 										}
 									}
-									ELEMENT[at0012] occurrences matches {0..1} matches {	-- Infeksjonstype høstested
-										value matches {
-											DV_TEXT matches {*}
-										}
-									}
-									ELEMENT[at0013] occurrences matches {0..1} matches {	-- Reoperert pga infeksjon
-										value matches {
-											DV_BOOLEAN matches {
-												value matches {True, False}
-											}
-										}
-									}
-									ELEMENT[at0016] occurrences matches {0..1} matches {	-- Reinnleggelse pga infeksjon
-										value matches {
-											DV_BOOLEAN matches {
-												value matches {True, False}
-											}
-										}
-									}
-									ELEMENT[at0017] occurrences matches {0..1} matches {	-- Infeksjonsdato høstested
-										value matches {
-											DV_DATE matches {*}
-										}
-									}
 									ELEMENT[at0019] occurrences matches {0..1} matches {	-- Sårets renhetsgrad
 										value matches {
 											DV_CODED_TEXT matches {
@@ -85,6 +61,36 @@ definition
 													at0020, 	-- Rene -  kontaminerte sår
 													at0021, 	-- Kontaminerte sår
 													at0022]	-- Urene og infisert sår
+												}
+											}
+										}
+									}
+									ELEMENT[at0030] occurrences matches {0..1} matches {	-- Reoperert grunnet infeksjon
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									CLUSTER[at0029] occurrences matches {0..*} matches {	-- Høstested
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0012] occurrences matches {0..1} matches {	-- Infeksjonstype høstested
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0024, 	-- IN
+															at0025, 	-- PS
+															at0026, 	-- SI
+															at0027, 	-- DI
+															at0028]	-- OS
+														}
+													}
+												}
+											}
+											ELEMENT[at0017] occurrences matches {0..1} matches {	-- Infeksjonsdato høstested
+												value matches {
+													DV_DATE matches {*}
 												}
 											}
 										}
@@ -103,7 +109,7 @@ ontology
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"Infeksjon">
+					text = <"Melding til infeksjonsregister">
 					description = <"Brukes i forbindelse med infeksjonsregistrering.">
 				>
 				["at0001"] = <
@@ -152,19 +158,11 @@ OS: Postoperativ sårinfeksjon i organ eller hulrom (må diagnostiseres av lege)
 				>
 				["at0012"] = <
 					text = <"Infeksjonstype høstested">
-					description = <"*">
-				>
-				["at0013"] = <
-					text = <"Reoperert pga infeksjon">
-					description = <"*">
-				>
-				["at0016"] = <
-					text = <"Reinnleggelse pga infeksjon">
-					description = <"*">
+					description = <"Infeksjonstype høstested. Kun brukes der man transplanterer vev fra et sted til et annet.">
 				>
 				["at0017"] = <
 					text = <"Infeksjonsdato høstested">
-					description = <"Dato for tatt prøve høstested">
+					description = <"Dato for vevshøsting. Kun brukes der man transplanterer vev fra et sted til et annet.">
 				>
 				["at0019"] = <
 					text = <"Sårets renhetsgrad">
@@ -187,6 +185,34 @@ Urene og infisert sår">
 				>
 				["at0023"] = <
 					text = <"Rene sår">
+					description = <"*">
+				>
+				["at0024"] = <
+					text = <"IN">
+					description = <"Ingen infeksjon">
+				>
+				["at0025"] = <
+					text = <"PS">
+					description = <"Overflatisk postoperativ sårinfeksjon diagnosisert av pasient">
+				>
+				["at0026"] = <
+					text = <"SI">
+					description = <"Overflatisk postoperativ sårinfeksjon diagnosisert av lege">
+				>
+				["at0027"] = <
+					text = <"DI">
+					description = <"Dyp postooperativ sårinfeksjon, må diagnostiseres av lege">
+				>
+				["at0028"] = <
+					text = <"OS">
+					description = <"Postoperativ sårinfeksjon i organ eller hulrom, må diagnosiseres av lege">
+				>
+				["at0029"] = <
+					text = <"Høstested">
+					description = <"*">
+				>
+				["at0030"] = <
+					text = <"Reoperert grunnet infeksjon">
 					description = <"*">
 				>
 			>
