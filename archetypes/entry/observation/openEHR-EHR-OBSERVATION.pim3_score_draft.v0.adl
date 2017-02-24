@@ -1,0 +1,278 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.pim3_score_draft.v0
+
+concept
+	[at0000]	-- Pim3 score draft
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"91D4A87CD03D498291E46A960FFF4379">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Pim3 score draft
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Systolic blood pressure (SBP)
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::125]>
+												list = <
+													["1"] = <
+														units = <"mm[Hg]">
+														magnitude = <|20.0..250.0|>
+														precision = <|0|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Pupillary reactions to bright light
+										value matches {
+											0|[local::at0007], 	-- Other or unknown
+											1|[local::at0006]  	-- > 3 mm and both fixed
+										}
+									}
+									ELEMENT[at0009] occurrences matches {0..1} matches {	-- FiO2 [%]
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::507]>
+												list = <
+													["1"] = <
+														units = <"%">
+														magnitude = <|0.21..1.0|>
+														precision = <|2|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0010] occurrences matches {0..1} matches {	-- PaO2 [kPa]
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::125]>
+												list = <
+													["1"] = <
+														units = <"kPa">
+														magnitude = <|>0.0..101.0|>
+														precision = <|0|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0011] occurrences matches {0..1} matches {	-- Base excess in arterial or capillary blood [mmol/l]
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::119]>
+												list = <
+													["1"] = <
+														units = <"">
+													>
+													["2"] = <
+														units = <"mmol/l">
+														magnitude = <|-30.0..30.0|>
+														precision = <|0|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0012] occurrences matches {0..1} matches {	-- Mechanical ventilation at any time during the first hour in ICU
+										value matches {
+											0|[local::at0013], 	-- No
+											1|[local::at0014]  	-- Yes
+										}
+									}
+									ELEMENT[at0015] occurrences matches {0..1} matches {	-- Elective admission to ICU
+										value matches {
+											0|[local::at0016], 	-- No
+											1|[local::at0017]  	-- Yes
+										}
+									}
+									ELEMENT[at0018] occurrences matches {0..1} matches {	-- Recovery from surgery or a procedure is the main reason for ICU admission
+										value matches {
+											0|[local::at0019], 	-- No
+											1|[local::at0020], 	-- Yes, recovery from a bypass cardiac procedure
+											2|[local::at0021], 	-- Yes, recovery from a non-bypass cardiac procedure
+											3|[local::at0022]  	-- Yes, recovery from a noncardiac procedure
+										}
+									}
+									ELEMENT[at0023] occurrences matches {0..1} matches {	-- Low-risk diagnosis
+										value matches {
+											0|[local::at0024], 	-- No or in doubt
+											1|[local::at0025]  	-- Yes
+										}
+									}
+									ELEMENT[at0026] occurrences matches {0..1} matches {	-- High-risk diagnosis
+										value matches {
+											0|[local::at0027], 	-- No or in doubt
+											1|[local::at0028]  	-- Yes
+										}
+									}
+									ELEMENT[at0029] occurrences matches {0..1} matches {	-- Very high-risk diagnosis
+										value matches {
+											0|[local::at0030], 	-- No or in doubt
+											1|[local::at0031]  	-- Yes
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Pim3 score draft">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Systolic blood pressure (SBP)">
+					description = <"SBP unknown = 120. ">
+				>
+				["at0005"] = <
+					text = <"Pupillary reactions to bright light">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"> 3 mm and both fixed">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Other or unknown">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"FiO2 [%]">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"PaO2 [kPa]">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Base excess in arterial or capillary blood [mmol/l]">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Mechanical ventilation at any time during the first hour in ICU">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"No">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Yes">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Elective admission to ICU">
+					description = <"*">
+				>
+				["at0016"] = <
+					text = <"No">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Yes">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Recovery from surgery or a procedure is the main reason for ICU admission">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"No">
+					description = <"*">
+				>
+				["at0020"] = <
+					text = <"Yes, recovery from a bypass cardiac procedure">
+					description = <"*">
+				>
+				["at0021"] = <
+					text = <"Yes, recovery from a non-bypass cardiac procedure">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Yes, recovery from a noncardiac procedure">
+					description = <"*">
+				>
+				["at0023"] = <
+					text = <"Low-risk diagnosis">
+					description = <"*">
+				>
+				["at0024"] = <
+					text = <"No or in doubt">
+					description = <"*">
+				>
+				["at0025"] = <
+					text = <"Yes">
+					description = <"*">
+				>
+				["at0026"] = <
+					text = <"High-risk diagnosis">
+					description = <"*">
+				>
+				["at0027"] = <
+					text = <"No or in doubt">
+					description = <"*">
+				>
+				["at0028"] = <
+					text = <"Yes">
+					description = <"*">
+				>
+				["at0029"] = <
+					text = <"Very high-risk diagnosis">
+					description = <"*">
+				>
+				["at0030"] = <
+					text = <"No or in doubt">
+					description = <"*">
+				>
+				["at0031"] = <
+					text = <"Yes">
+					description = <"*">
+				>
+			>
+		>
+	>
