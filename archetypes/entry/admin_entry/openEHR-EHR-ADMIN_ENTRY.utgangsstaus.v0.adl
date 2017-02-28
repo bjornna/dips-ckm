@@ -1,0 +1,136 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ADMIN_ENTRY.utgangsstaus.v0
+
+concept
+	[at0000]	-- Utgangsstaus
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for å registrere utgang, dersom det er restriksjoner på dette">
+			use = <"Brukes for å registrere utgang, dersom det er restriksjoner på dette">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"0D4B4ED456B58C09F7E47EC9D1313A2C">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {	-- Utgangsstaus
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..*} matches {	-- Utgangsstatus
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..*} matches {	-- Merknad
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0004] occurrences matches {0..*} matches {	-- Begrunnelse
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0005] occurrences matches {0..*} matches {	-- Fra tidspunkt
+						value matches {
+							DV_DATE_TIME matches {
+								value matches {yyyy-mm-ddTHH:??:??}
+							}
+						}
+					}
+					ELEMENT[at0006] occurrences matches {0..*} matches {	-- Til tidspunkt
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0007] occurrences matches {0..*} matches {	-- Besluttet av
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {[ac0001]}		-- New constraint
+							}
+						}
+					}
+					ELEMENT[at0008] occurrences matches {0..*} matches {	-- Tittel
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	terminologies_available = <"DIPS", ...>
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Utgangsstaus">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Utgangsstatus">
+					description = <"Beskrivelse av utgang/restriksjoner på utgang">
+				>
+				["at0003"] = <
+					text = <"Merknad">
+					description = <"Øvrig informasjon relatert til utgangsstatus">
+				>
+				["at0004"] = <
+					text = <"Begrunnelse">
+					description = <"Beskriver grunnlaget for status">
+				>
+				["at0005"] = <
+					text = <"Fra tidspunkt">
+					description = <"Starttidspunkt for aktuell utgangsstatus">
+				>
+				["at0006"] = <
+					text = <"Til tidspunkt">
+					description = <"Tidspunkt for opphør/endring av utgangsstatus">
+				>
+				["at0007"] = <
+					text = <"Besluttet av">
+					description = <"Vedkommende som besluttet aktuell utgangsstatus">
+				>
+				["at0008"] = <
+					text = <"Tittel">
+					description = <"Arbeidstittel til den som besluttet tilsyn">
+				>
+			>
+		>
+	>
+	constraint_definitions = <
+		["nb"] = <
+			items = <
+				["ac0001"] = <
+					text = <"New constraint">
+					description = <"*">
+				>
+			>
+		>
+	>
+	constraint_bindings = <
+		["DIPS"] = <
+			items = <
+				["ac0001"] = <terminology:DIPS?subset=healthcareparty>
+			>
+		>
+	>
