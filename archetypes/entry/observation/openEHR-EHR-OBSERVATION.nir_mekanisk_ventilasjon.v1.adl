@@ -1,8 +1,8 @@
 archetype (adl_version=1.4)
-	openEHR-EHR-OBSERVATION.ahs_mekanisk_ventilasjon.v0
+	openEHR-EHR-OBSERVATION.nir_mekanisk_ventilasjon.v1
 
 concept
-	[at0000]	-- AHS_Mekanisk ventilasjon
+	[at0000]	-- Mekanisk ventilasjon
 language
 	original_language = <[ISO_639-1::nb]>
 description
@@ -12,7 +12,7 @@ description
 	details = <
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"Benyttes til å registrere mekansik ventilasjon i fbm intensivregistrering">
+			purpose = <"">
 			use = <"">
 			misuse = <"">
 			copyright = <"">
@@ -21,11 +21,11 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"823A7550EF4B13BDDCAB4D04F8852644">
+		["MD5-CAM-1.0.1"] = <"C9162234880D58CDBE00D52EB4F5EF6C">
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- AHS_Mekanisk ventilasjon
+	OBSERVATION[at0000] matches {	-- Mekanisk ventilasjon
 		data matches {
 			HISTORY[at0001] matches {	-- Event Series
 				events cardinality matches {1..*; unordered} matches {
@@ -36,24 +36,26 @@ definition
 									ELEMENT[at0017] occurrences matches {0..1} matches {	-- Non-invasiv ventilasjon/maske
 										value matches {
 											DV_DURATION matches {
-												value matches {PTHM/|PT0H..PT24H|}
+												value matches {PDTHM/|PT0H..PT24H|}
 											}
 										}
 									}
-									allow_archetype CLUSTER[at0019] occurrences matches {0..*} matches {	-- Type non-invasiv ventilasjonssjonsstøtte
-										include
-											archetype_id/value matches {/.*/}
+									ELEMENT[at0021] occurrences matches {0..1} matches {	-- Type non-invasiv respirasjonsstøtte
+										value matches {
+											DV_TEXT matches {*}
+										}
 									}
-									ELEMENT[at0018] occurrences matches {0..1} matches {	-- Invasiv ventilasjon (tube/tracheostomi)
+									ELEMENT[at0018] occurrences matches {0..1} matches {	-- Invasiv ventilasjon
 										value matches {
 											DV_DURATION matches {
-												value matches {PTHM/|PT0H..PT24H|}
+												value matches {PDTHM/|PT0H..PT24H|}
 											}
 										}
 									}
-									allow_archetype CLUSTER[at0020] occurrences matches {0..*} matches {	-- Type invasiv ventilasjonsstøtte
-										include
-											archetype_id/value matches {/.*/}
+									ELEMENT[at0022] occurrences matches {0..1} matches {	-- Type invasiv respirasjonsstøtte
+										value matches {
+											DV_TEXT matches {*}
+										}
 									}
 									ELEMENT[at0013] occurrences matches {0..1} matches {	-- PaO2
 										value matches {
@@ -100,7 +102,7 @@ definition
 											>
 										}
 									}
-									ELEMENT[at0022] occurrences matches {0..1} matches {	-- Totaltid ventilasjonsstøtte
+									ELEMENT[at0023] occurrences matches {0..1} matches {	-- Respirasjonsstøtte
 										value matches {
 											DV_DURATION matches {*}
 										}
@@ -119,8 +121,8 @@ ontology
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"AHS_Mekanisk ventilasjon">
-					description = <"Benyttes til å registrere mekansik ventilasjon i fbm intensivregistrering">
+					text = <"Mekanisk ventilasjon">
+					description = <"Benyttes til å registrere ulike typer mekansik ventilasjon i fbm intensivregistrering">
 				>
 				["at0001"] = <
 					text = <"Event Series">
@@ -151,20 +153,20 @@ ontology
 					description = <"Den tiden pasienten har fått respirasjonsstøtte i form av et lukket maskesystem, med eller uten inspirasjonsstøtte (maske-CPAP, non-invasiv overtrykksventilasjon/NIV-maske). Tiden registreres i timer og minutter. Ved pause/avbrudd i respirasjonsstøtten summerer man tidene.">
 				>
 				["at0018"] = <
-					text = <"Invasiv ventilasjon (tube/tracheostomi)">
+					text = <"Invasiv ventilasjon">
 					description = <"Den tiden pasienten har fått respirasjonsstøtte via tube eller trakeostomi (CPAP på tube/trakeostom, og/eller invasiv overtrykksventilasjon). Tiden registreres i timer og minutter. Ved pause/avbrudd i respirasjonsstøtten summerer man tidene.">
 				>
-				["at0019"] = <
-					text = <"Type non-invasiv ventilasjonssjonsstøtte">
-					description = <"*">
-				>
-				["at0020"] = <
-					text = <"Type invasiv ventilasjonsstøtte">
+				["at0021"] = <
+					text = <"Type non-invasiv respirasjonsstøtte">
 					description = <"*">
 				>
 				["at0022"] = <
-					text = <"Totaltid ventilasjonsstøtte">
-					description = <"Sammenlagt tid pasienten har fått non-invasiv og invasiv ventilasjonsstøtte.">
+					text = <"Type invasiv respirasjonsstøtte">
+					description = <"*">
+				>
+				["at0023"] = <
+					text = <"Respirasjonsstøtte">
+					description = <"Sum antall timer respirasjonsstøtte per døgn (invasiv + non-invasiv).">
 				>
 			>
 		>
