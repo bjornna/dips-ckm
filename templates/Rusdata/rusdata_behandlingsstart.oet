@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
   <id>b4eabad5-4a77-4cec-9933-7211a54c3663</id>
-  <name>rusdataskjema</name>
+  <name>rusdata_behandlingsstart</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
@@ -60,14 +60,31 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Rusdata">
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.rusdata_npr.v0" concept_name="Rusdata NPR" path="/content">
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.housing.v0" concept_name="Bolig" path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
-        <Rule path="/items[at0012]" max="0" />
-        <Rule path="/items[at0008]" max="0" />
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Rusdata behandlingsstart NPR">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.rusdata_npr.v0" concept_name="Rusdata NPR" max="1" path="/content" name="Rusdata behandlingsstart NPR">
+      <Rule path="/data[at0001]/events[at0002]">
+        <eventConstraint>
+          <allowedType>Interval</allowedType>
+        </eventConstraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0019]" max="1" name="Alvorlige depresjoner" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0019]" max="1" clone="true" name="Alvorlig angst" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0019]" max="1" clone="true" name="Vrangforestillinger/hallusinasjoner" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0019]" max="1" clone="true" name="Vært foreskrevet psykofarmaka" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0019]" max="1" clone="true" name="Suicidalitet" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.menstruation_pregnancy_and_contraception.v1" concept_name="Menstruasjon svangerskap og prevensjon" path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
+        <Rule path="/items[at0001]" max="0" />
+        <Rule path="/items[at0002]" max="0" />
         <Rule path="/items[at0003]" max="0" />
-        <Rule path="/items[at0005]" max="0" />
-        <Rule path="/items[at0004]" max="0" />
+        <Rule path="/items[at0009]">
+          <constraint xsi:type="durationConstraint">
+            <pattern>PW</pattern>
+            <includesMaximum>false</includesMaximum>
+            <includesMinimum>false</includesMinimum>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0010]" max="0" />
+        <Rule path="/items[at0014]" max="0" />
       </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.kategori.v0" concept_name="Kategori" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]" name="Egne barn 0-6 år">
         <Rule path="/items[at0008]">
@@ -111,133 +128,143 @@
           </constraint>
         </Rule>
       </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.menstruation_pregnancy_and_contraception.v1" concept_name="Menstruasjon svangerskap og prevensjon" path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]">
-        <Rule path="/items[at0001]" max="0" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.social_summary.v1" concept_name="Sosialanamnese" path="/content">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.kategori.v0" concept_name="Kategori" max="1" path="/data[at0001]/items[at0003]" name="Egne barn">
+        <Rule path="/items[at0008]" max="0" />
+        <Rule path="/items[at0005]" max="1" name="Antall egne barn" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.household.v1" concept_name="Household" path="/data[at0001]/items[at0003]">
         <Rule path="/items[at0002]" max="0" />
         <Rule path="/items[at0003]" max="0" />
-        <Rule path="/items[at0004]">
-          <constraint xsi:type="textConstraint">
-            <excludedValues>local::at0007</excludedValues>
-          </constraint>
-        </Rule>
-        <Rule path="/items[at0009]" name="Antall uker">
-          <constraint xsi:type="durationConstraint">
-            <pattern>PW</pattern>
-            <includesMaximum>false</includesMaximum>
-            <includesMinimum>false</includesMinimum>
-          </constraint>
-        </Rule>
-        <Rule path="/items[at0010]" max="0" />
-        <Rule path="/items[at0014]" max="0" />
+        <Rule path="/items[at0004]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
       </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.rusdata_psykisk_tilstand_npr.v0" concept_name="Rusdata psykisk tilstand NPR" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0011]" name="Psykisk tilstand depresjoner">
-        <Rule path="/items[at0001]">
-          <constraint xsi:type="ordinalConstraint">
-            <excludedValues>2|Hatt alvorlig angst</excludedValues>
-            <excludedValues>3|Hatt vrangforestillinger/hallusinasjoner</excludedValues>
-            <excludedValues>4|Blitt foreskrevet medisiner for et eller annet psykisk/følelsesmessig problem</excludedValues>
-            <excludedValues>5|Hatt alvorlige tanker om å ta livet av seg</excludedValues>
-          </constraint>
-        </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.housing.v0" concept_name="Bolig" path="/data[at0001]/items[at0003]">
+        <Rule path="/items[at0012]" max="0" />
+        <Rule path="/items[at0008]" max="0" />
+        <Rule path="/items[at0003]" max="0" />
+        <Rule path="/items[at0005]" max="0" />
+        <Rule path="/items[at0004]" max="0" />
       </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.rusdata_psykisk_tilstand_npr.v0" concept_name="Rusdata psykisk tilstand NPR" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0011]" name="Psykisk tilstand angst">
-        <Rule path="/items[at0001]">
-          <constraint xsi:type="ordinalConstraint">
-            <excludedValues>1|Hatt alvorlige depresjoner</excludedValues>
-            <excludedValues>3|Hatt vrangforestillinger/hallusinasjoner</excludedValues>
-            <excludedValues>4|Blitt foreskrevet medisiner for et eller annet psykisk/følelsesmessig problem</excludedValues>
-            <excludedValues>5|Hatt alvorlige tanker om å ta livet av seg</excludedValues>
-          </constraint>
-        </Rule>
-      </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.rusdata_psykisk_tilstand_npr.v0" concept_name="Rusdata psykisk tilstand NPR" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0011]" name="Psykisk tilstand vrangforestillinger">
-        <Rule path="/items[at0001]">
-          <constraint xsi:type="ordinalConstraint">
-            <excludedValues>1|Hatt alvorlige depresjoner</excludedValues>
-            <excludedValues>2|Hatt alvorlig angst</excludedValues>
-            <excludedValues>4|Blitt foreskrevet medisiner for et eller annet psykisk/følelsesmessig problem</excludedValues>
-            <excludedValues>5|Hatt alvorlige tanker om å ta livet av seg</excludedValues>
-          </constraint>
-        </Rule>
-      </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.rusdata_psykisk_tilstand_npr.v0" concept_name="Rusdata psykisk tilstand NPR" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0011]" name="Psykisk tilstand annet">
-        <Rule path="/items[at0001]">
-          <constraint xsi:type="ordinalConstraint">
-            <excludedValues>1|Hatt alvorlige depresjoner</excludedValues>
-            <excludedValues>2|Hatt alvorlig angst</excludedValues>
-            <excludedValues>3|Hatt vrangforestillinger/hallusinasjoner</excludedValues>
-            <excludedValues>5|Hatt alvorlige tanker om å ta livet av seg</excludedValues>
-          </constraint>
-        </Rule>
-      </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.rusdata_psykisk_tilstand_npr.v0" concept_name="Rusdata psykisk tilstand NPR" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0011]" name="Psykisk tilstand suicidalitet">
-        <Rule path="/items[at0001]">
-          <constraint xsi:type="ordinalConstraint">
-            <excludedValues>1|Hatt alvorlige depresjoner</excludedValues>
-            <excludedValues>2|Hatt alvorlig angst</excludedValues>
-            <excludedValues>3|Hatt vrangforestillinger/hallusinasjoner</excludedValues>
-            <excludedValues>4|Blitt foreskrevet medisiner for et eller annet psykisk/følelsesmessig problem</excludedValues>
-          </constraint>
-        </Rule>
-      </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.rusdata_russituasjon_npr.v0" concept_name="Rusdata russituasjon NPR" path="/data[at0001]/events[at0002]/data[at0003]/items[at0012]">
-        <Rule path="/items[at0032]" max="1" name="Rusmiddel mest brukte" />
-        <Rule path="/items[at0032 and name/value='Rusmiddel mest brukte']/items[at0033]">
-          <constraint xsi:type="ordinalConstraint">
-            <excludedValues>2|2. mest brukte</excludedValues>
-            <excludedValues>3|3. mest brukte</excludedValues>
-            <excludedValues>4|4. mest brukte</excludedValues>
-            <excludedValues>5|5. mest brukte</excludedValues>
-            <excludedValues>6|6. mest brukte</excludedValues>
-            <excludedValues>7|7. mest brukte</excludedValues>
-            <excludedValues>8|8. mest brukte</excludedValues>
-            <excludedValues>9|9. mest brukte</excludedValues>
-            <excludedValues>10|10. mest brukte</excludedValues>
-          </constraint>
-        </Rule>
-        <Rule path="/items[at0032]" max="1" clone="true" name="Rusmiddel andre mest brukte" />
-        <Rule path="/items[at0032 and name/value='Rusmiddel andre mest brukte']/items[at0033]">
-          <constraint xsi:type="ordinalConstraint">
-            <excludedValues>1|Mest brukte</excludedValues>
-            <excludedValues>3|3. mest brukte</excludedValues>
-            <excludedValues>4|4. mest brukte</excludedValues>
-            <excludedValues>5|5. mest brukte</excludedValues>
-            <excludedValues>6|6. mest brukte</excludedValues>
-            <excludedValues>7|7. mest brukte</excludedValues>
-            <excludedValues>8|8. mest brukte</excludedValues>
-            <excludedValues>9|9. mest brukte</excludedValues>
-            <excludedValues>10|10. mest brukte</excludedValues>
-          </constraint>
-        </Rule>
-        <Rule path="/items[at0032]" max="1" clone="true" name="Rusmiddel tredje mest brukte" />
-        <Rule path="/items[at0032 and name/value='Rusmiddel tredje mest brukte']/items[at0033]">
-          <constraint xsi:type="ordinalConstraint">
-            <excludedValues>1|Mest brukte</excludedValues>
-            <excludedValues>2|2. mest brukte</excludedValues>
-            <excludedValues>4|4. mest brukte</excludedValues>
-            <excludedValues>5|5. mest brukte</excludedValues>
-            <excludedValues>6|6. mest brukte</excludedValues>
-            <excludedValues>7|7. mest brukte</excludedValues>
-            <excludedValues>8|8. mest brukte</excludedValues>
-            <excludedValues>9|9. mest brukte</excludedValues>
-            <excludedValues>10|10. mest brukte</excludedValues>
-          </constraint>
-        </Rule>
-        <Rule path="/items[at0032]" max="1" clone="true" name="Rusmiddel fjerde mest brukte" />
-        <Rule path="/items[at0032 and name/value='Rusmiddel fjerde mest brukte']/items[at0033]">
-          <constraint xsi:type="ordinalConstraint">
-            <excludedValues>1|Mest brukte</excludedValues>
-            <excludedValues>2|2. mest brukte</excludedValues>
-            <excludedValues>3|3. mest brukte</excludedValues>
-            <excludedValues>5|5. mest brukte</excludedValues>
-            <excludedValues>6|6. mest brukte</excludedValues>
-            <excludedValues>7|7. mest brukte</excludedValues>
-            <excludedValues>8|8. mest brukte</excludedValues>
-            <excludedValues>9|9. mest brukte</excludedValues>
-            <excludedValues>10|10. mest brukte</excludedValues>
-          </constraint>
-        </Rule>
-      </Items>
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.substance_use.v1" concept_name="Substance Use" max="1" path="/content" name="Russituasjon fire siste uker, mest brukte">
+      <Rule path="/data[at0001]/events[at0002]">
+        <eventConstraint>
+          <allowedType>Interval</allowedType>
+          <widthOrOffset>P0Y0M4W0DT0H0M0S</widthOrOffset>
+        </eventConstraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]" name="Rusmiddeltype mest brukte" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0010]/items[at0011]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0010]/items[at0018]" name="Inntaksmåte" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0010]/items[at0005]" name="Hvor ofte brukt" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0010]/items[at0012]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0013]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0016]" max="0" />
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.substance_use.v1" concept_name="Substance Use" max="1" path="/content" name="Russituasjon fire siste uker, nest mest brukte">
+      <Rule path="/data[at0001]/events[at0002]">
+        <eventConstraint>
+          <allowedType>Interval</allowedType>
+          <widthOrOffset>P0Y0M4W0DT0H0M0S</widthOrOffset>
+        </eventConstraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]" name="Rusmiddeltype nest mest brukte" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0010]/items[at0011]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0010]/items[at0018]" name="Inntaksmåte" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0010]/items[at0005]" name="Hvor ofte brukt" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0010]/items[at0012]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0013]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0016]" max="0" />
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.substance_use.v1" concept_name="Substance Use" max="1" path="/content" name="Russituasjon fire siste uker, tredje mest brukte">
+      <Rule path="/data[at0001]/events[at0002]">
+        <eventConstraint>
+          <allowedType>Interval</allowedType>
+          <widthOrOffset>P0Y0M4W0DT0H0M0S</widthOrOffset>
+        </eventConstraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]" name="Rusmiddeltype tredje mest brukte" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0010]/items[at0011]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0010]/items[at0018]" name="Inntaksmåte" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0010]/items[at0005]" name="Hvor ofte brukt" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0010]/items[at0012]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0013]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0016]" max="0" />
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.substance_use.v1" concept_name="Substance Use" max="1" path="/content" name="Russituasjon fire siste uker, fjerde mest brukte">
+      <Rule path="/data[at0001]/events[at0002]">
+        <eventConstraint>
+          <allowedType>Interval</allowedType>
+          <widthOrOffset>P0Y0M4W0DT0H0M0S</widthOrOffset>
+        </eventConstraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]" name="Rusmiddeltype fjerde mest brukte" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0010]/items[at0011]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0010]/items[at0018]" name="Inntaksmåte" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0010]/items[at0005]" name="Hvor ofte brukt" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0010]/items[at0012]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0013]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0016]" max="0" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.substance_use_summary.v0" concept_name="Substance use summary" max="1" path="/content" name="Russituasjon generelt">
+      <Rule path="/data[at0001]/items[at0002]" max="0" />
+      <Rule path="/data[at0001]/items[at0003]" name="Sprøytebruk generelt" />
+      <Rule path="/data[at0001]/items[at0028]" name="Alder ved første sprøytebruk" />
+      <Rule path="/data[at0001]/items[at0004]" max="0" />
+      <Rule path="/data[at0001]/items[at0005]" max="1" name="Rusmiddel mest brukte" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel mest brukte']/items[at0006]" name="Rusmiddeltype" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel mest brukte']/items[at0007]" max="0" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel mest brukte']/items[at0008]" max="0" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel mest brukte']/items[at0009]" name="Alder brukt første gang" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel mest brukte']/items[at0010]" max="0" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel mest brukte']/items[at0011]" max="0" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel mest brukte']/items[at0012]" max="0" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel mest brukte']/items[at0013]" max="0" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel mest brukte']/items[at0015]" max="0" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel mest brukte']/items[at0014]" max="0" />
+      <Rule path="/data[at0001]/items[at0005]" max="1" clone="true" name="Rusmiddel fjerde mest brukte" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel fjerde mest brukte']/items[at0006]" name="Rusmiddeltype" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel fjerde mest brukte']/items[at0007]" max="0" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel fjerde mest brukte']/items[at0008]" max="0" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel fjerde mest brukte']/items[at0009]" name="Alder brukt første gang" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel fjerde mest brukte']/items[at0010]" max="0" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel fjerde mest brukte']/items[at0011]" max="0" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel fjerde mest brukte']/items[at0012]" max="0" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel fjerde mest brukte']/items[at0013]" max="0" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel fjerde mest brukte']/items[at0015]" max="0" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel fjerde mest brukte']/items[at0014]" max="0" />
+      <Rule path="/data[at0001]/items[at0005]" max="1" clone="true" name="Rusmiddel nest mest brukte" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel nest mest brukte']/items[at0006]" name="Rusmiddeltype" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel nest mest brukte']/items[at0007]" max="0" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel nest mest brukte']/items[at0008]" max="0" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel nest mest brukte']/items[at0009]" name="Alder brukt første gang" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel nest mest brukte']/items[at0010]" max="0" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel nest mest brukte']/items[at0011]" max="0" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel nest mest brukte']/items[at0012]" max="0" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel nest mest brukte']/items[at0013]" max="0" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel nest mest brukte']/items[at0015]" max="0" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel nest mest brukte']/items[at0014]" max="0" />
+      <Rule path="/data[at0001]/items[at0005]" max="1" clone="true" name="Rusmiddel tredje mest brukte" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel tredje mest brukte']/items[at0006]" name="Rusmiddeltype" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel tredje mest brukte']/items[at0007]" max="0" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel tredje mest brukte']/items[at0008]" max="0" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel tredje mest brukte']/items[at0009]" name="Alder brukt første gang" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel tredje mest brukte']/items[at0010]" max="0" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel tredje mest brukte']/items[at0011]" max="0" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel tredje mest brukte']/items[at0012]" max="0" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel tredje mest brukte']/items[at0013]" max="0" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel tredje mest brukte']/items[at0015]" max="0" />
+      <Rule path="/data[at0001]/items[at0005 and name/value='Rusmiddel tredje mest brukte']/items[at0014]" max="0" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.substance_use_treatment_summary.v0" concept_name="Substance use treatment summary" path="/content">
+      <Rule path="/data[at0001]/items[at0002]" name="Tidspunkt for første rusbehandling" />
+      <Rule path="/data[at0001]/items[at0003]" name="Mottatt rusbehandling tidligere" />
+      <Rule path="/data[at0001]/items[at0004]" max="1" name="Opioider" />
+      <Rule path="/data[at0001]/items[at0004]/items[at0007]" max="0" />
+      <Rule path="/data[at0001]/items[at0004]/items[at0006]" name="Mottatt opioidbehandling tidligere" />
+      <Rule path="/data[at0001]/items[at0004]/items[at0008]" name="Tidspunkt for første opioidbehandling" />
     </Content>
     <Context />
   </definition>
