@@ -1,0 +1,270 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.nir_tilleggsdata_barn.v1
+
+concept
+	[at0000]	-- NIR tilleggsdata barn
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Tillegg til den internasjonale skåringen">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"329F5E87C7C6E180C3563AE5CDD2BCE0">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- NIR tilleggsdata barn
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					POINT_EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						offset matches {
+							DV_DURATION matches {
+								value matches {|PT1H|}
+							}
+						}
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Lav risiko diagnose
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0005, 	-- Ingen
+													at0006, 	-- Astma er hovedgrunn for innleggelse i intensivenheten
+													at0007, 	-- Bronkiolitt er hovedgrunn for innleggelse i intensivenheten
+													at0008, 	-- Falsk krupp er hovedgrunn for innleggelse i intensivenheten
+													at0009, 	-- Obstruktiv søvnapné er hovedgrunn for innleggelse i intensivenheten
+													at0010, 	-- Diabetisk ketoacidose er hovedgrunn for innleggelse i intensivenheten
+													at0011]	-- Epileptiforme krampeanfall er hovedgrunn for innleggelse i intensivenheten
+												}
+											}
+										}
+									}
+									ELEMENT[at0012] occurrences matches {0..1} matches {	-- Høy risiko diagnose
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0013, 	-- Ingen
+													at0014, 	-- Spontan cerebral blødning
+													at0015, 	-- Kardiomyopati eller myokarditt
+													at0016, 	-- Hypoplastisk venstre hjerte syndom
+													at0017, 	-- Nevrodegenerativ sykdom
+													at0018]	-- Nekrotiserende enterokolitt er hovedgrunn for innleggelse i intensivenheten
+												}
+											}
+										}
+									}
+									ELEMENT[at0019] occurrences matches {0..1} matches {	-- Svært høy risiko diagnose
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0020, 	-- Ingen
+													at0021, 	-- Hjertestans forut for innleggelse i intensivenheten
+													at0022, 	-- Alvorlig kombinert immunsvikt (SCID)
+													at0023, 	-- Leukemi eller lymfom etter første induksjonskur
+													at0024, 	-- Benmargstransplantert
+													at0025]	-- Leversvikt som hovedgrunn for innleggelse i intensivenheten
+												}
+											}
+										}
+									}
+									ELEMENT[at0026] occurrences matches {0..1} matches {	-- Perifer oksygenmetning
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::507]>
+												list = <
+													["1"] = <
+														units = <"%">
+														magnitude = <|0.0..100.0|>
+														precision = <|0|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0027] occurrences matches {0..1} matches {	-- Laktat [mmol/l]
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::119]>
+												list = <
+													["1"] = <
+														units = <"mmol/l">
+														magnitude = <|0.0..30.0|>
+														precision = <|0|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0028] occurrences matches {0..1} matches {	-- Type innleggelse
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0029, 	-- Etter planlagt operasjon
+													at0030, 	-- Akutt non-operativ 
+													at0031]	-- Etter akutt operasjon
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"NIR tilleggsdata barn">
+					description = <"Data som NIR ønsker som ikke ligger i PIM3 skåring">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Lav risiko diagnose">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Ingen">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Astma er hovedgrunn for innleggelse i intensivenheten">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Bronkiolitt er hovedgrunn for innleggelse i intensivenheten">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Falsk krupp er hovedgrunn for innleggelse i intensivenheten">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Obstruktiv søvnapné er hovedgrunn for innleggelse i intensivenheten">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Diabetisk ketoacidose er hovedgrunn for innleggelse i intensivenheten">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Epileptiforme krampeanfall er hovedgrunn for innleggelse i intensivenheten">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Høy risiko diagnose">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Ingen">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Spontan cerebral blødning">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Kardiomyopati eller myokarditt">
+					description = <"*">
+				>
+				["at0016"] = <
+					text = <"Hypoplastisk venstre hjerte syndom">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Nevrodegenerativ sykdom">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Nekrotiserende enterokolitt er hovedgrunn for innleggelse i intensivenheten">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"Svært høy risiko diagnose">
+					description = <"*">
+				>
+				["at0020"] = <
+					text = <"Ingen">
+					description = <"*">
+				>
+				["at0021"] = <
+					text = <"Hjertestans forut for innleggelse i intensivenheten">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Alvorlig kombinert immunsvikt (SCID)">
+					description = <"*">
+				>
+				["at0023"] = <
+					text = <"Leukemi eller lymfom etter første induksjonskur">
+					description = <"*">
+				>
+				["at0024"] = <
+					text = <"Benmargstransplantert">
+					description = <"*">
+				>
+				["at0025"] = <
+					text = <"Leversvikt som hovedgrunn for innleggelse i intensivenheten">
+					description = <"*">
+				>
+				["at0026"] = <
+					text = <"Perifer oksygenmetning">
+					description = <"*">
+				>
+				["at0027"] = <
+					text = <"Laktat [mmol/l]">
+					description = <"*">
+				>
+				["at0028"] = <
+					text = <"Type innleggelse">
+					description = <"*">
+				>
+				["at0029"] = <
+					text = <"Etter planlagt operasjon">
+					description = <"*">
+				>
+				["at0030"] = <
+					text = <"Akutt non-operativ ">
+					description = <"*">
+				>
+				["at0031"] = <
+					text = <"Etter akutt operasjon">
+					description = <"*">
+				>
+			>
+		>
+	>
