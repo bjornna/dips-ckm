@@ -1,8 +1,8 @@
 archetype (adl_version=1.4)
-	openEHR-EHR-ADMIN_ENTRY.tilsynsstatus.v0
+	openEHR-EHR-ADMIN_ENTRY.utgangsstaus.v0
 
 concept
-	[at0000]	-- Tilsynsstatus
+	[at0000]	-- Utgangsstaus
 language
 	original_language = <[ISO_639-1::nb]>
 description
@@ -12,8 +12,8 @@ description
 	details = <
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"Dokumentere tilsynsstatus">
-			use = <"Dokumentere tilsynsstatus">
+			purpose = <"Brukes for å registrere utgang, dersom det er restriksjoner på dette">
+			use = <"Brukes for å registrere utgang, dersom det er restriksjoner på dette">
 			misuse = <"">
 			copyright = <"">
 		>
@@ -21,25 +21,25 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"354900A8F61A91CF543185229F5BEFBD">
+		["MD5-CAM-1.0.1"] = <"0D4B4ED456B58C09F7E47EC9D1313A2C">
 	>
 
 definition
-	ADMIN_ENTRY[at0000] matches {	-- Tilsynsstatus
+	ADMIN_ENTRY[at0000] matches {	-- Utgangsstaus
 		data matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0002] occurrences matches {0..*} matches {	-- Tilsyn
+					ELEMENT[at0002] occurrences matches {0..*} matches {	-- Utgangsstatus
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0004] occurrences matches {0..*} matches {	-- Merknad
+					ELEMENT[at0003] occurrences matches {0..*} matches {	-- Merknad
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0003] occurrences matches {0..*} matches {	-- Begrunnelse
+					ELEMENT[at0004] occurrences matches {0..*} matches {	-- Begrunnelse
 						value matches {
 							DV_TEXT matches {*}
 						}
@@ -56,10 +56,10 @@ definition
 							DV_DATE_TIME matches {*}
 						}
 					}
-					ELEMENT[at0007] occurrences matches {0..*} matches {	-- Besluttet av 
+					ELEMENT[at0007] occurrences matches {0..*} matches {	-- Besluttet av
 						value matches {
 							DV_CODED_TEXT matches {
-								defining_code matches {[ac0002]}		-- New constraint
+								defining_code matches {[ac0001]}		-- New constraint
 							}
 						}
 					}
@@ -79,7 +79,7 @@ ontology
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"Tilsynsstatus">
+					text = <"Utgangsstaus">
 					description = <"unknown">
 				>
 				["at0001"] = <
@@ -87,28 +87,28 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0002"] = <
-					text = <"Tilsyn">
-					description = <"Beskrivelse av tilsynet">
+					text = <"Utgangsstatus">
+					description = <"Beskrivelse av utgang/restriksjoner på utgang">
 				>
 				["at0003"] = <
-					text = <"Begrunnelse">
-					description = <"Beskriver grunnlaget for tilsynet">
+					text = <"Merknad">
+					description = <"Øvrig informasjon relatert til utgangsstatus">
 				>
 				["at0004"] = <
-					text = <"Merknad">
-					description = <"Øvrig informasjon realtert til tilsynet">
+					text = <"Begrunnelse">
+					description = <"Beskriver grunnlaget for status">
 				>
 				["at0005"] = <
 					text = <"Fra tidspunkt">
-					description = <"Tidspunktet tilsynet gjelder fra">
+					description = <"Starttidspunkt for aktuell utgangsstatus">
 				>
 				["at0006"] = <
 					text = <"Til tidspunkt">
-					description = <"Tidspunkt for opphør/endring av tilsynet">
+					description = <"Tidspunkt for opphør/endring av utgangsstatus">
 				>
 				["at0007"] = <
-					text = <"Besluttet av ">
-					description = <"Vedkommende som besluttet tilsynet">
+					text = <"Besluttet av">
+					description = <"Vedkommende som besluttet aktuell utgangsstatus">
 				>
 				["at0008"] = <
 					text = <"Tittel">
@@ -120,7 +120,7 @@ ontology
 	constraint_definitions = <
 		["nb"] = <
 			items = <
-				["ac0002"] = <
+				["ac0001"] = <
 					text = <"New constraint">
 					description = <"*">
 				>
@@ -130,7 +130,7 @@ ontology
 	constraint_bindings = <
 		["DIPS"] = <
 			items = <
-				["ac0002"] = <terminology:DIPS?subset=healthcareparty>
+				["ac0001"] = <terminology:DIPS?subset=healthcareparty>
 			>
 		>
 	>

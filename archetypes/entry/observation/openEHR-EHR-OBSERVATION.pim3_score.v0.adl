@@ -2,7 +2,7 @@ archetype (adl_version=1.4)
 	openEHR-EHR-OBSERVATION.pim3_score.v0
 
 concept
-	[at0000]	-- Pim3 score
+	[at0000]	-- PIM3 score
 language
 	original_language = <[ISO_639-1::nb]>
 description
@@ -21,11 +21,11 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"949511F99D837C04A76641ACE648B34F">
+		["MD5-CAM-1.0.1"] = <"2212334D7B0B3DEDADCDEF6C509A64D9">
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- Pim3 score
+	OBSERVATION[at0000] matches {	-- PIM3 score
 		data matches {
 			HISTORY[at0001] matches {	-- Event Series
 				events cardinality matches {1..*; unordered} matches {
@@ -33,170 +33,122 @@ definition
 						data matches {
 							ITEM_TREE[at0003] matches {	-- Tree
 								items cardinality matches {0..*; unordered} matches {
-									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Systolisk BT
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Systolisk blodtrykk (SBT)
 										value matches {
 											C_DV_QUANTITY <
 												property = <[openehr::125]>
 												list = <
 													["1"] = <
 														units = <"mm[Hg]">
-														magnitude = <|20.0..250.0|>
+														magnitude = <|>=0.0|>
 														precision = <|0|>
 													>
 												>
 											>
 										}
 									}
-									ELEMENT[at0060] occurrences matches {0..1} matches {	-- PaO2/FiO2 ratio
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Pupillereaksjon på skarpt lys
 										value matches {
-											C_DV_QUANTITY <
-												property = <[openehr::507]>
-												list = <
-													["1"] = <
-														units = <"">
-														magnitude = <|>=0.0|>
-													>
-												>
-											>
+											0|[local::at0006], 	-- Annen reaksjon eller ukjent
+											1|[local::at0007]  	-- ≥ 3 mm og begge fikserte
 										}
 									}
-									ELEMENT[at0011] occurrences matches {0..1} matches {	-- Pupillerekasjon på skarpt lys
-										value matches {
-											0|[local::at0013], 	-- Annen rekasjon eller ukjent
-											1|[local::at0012]  	-- > eller = 3 mm og begge fikserte
-										}
-									}
-									ELEMENT[at0014] occurrences matches {0..1} matches {	-- Fikk pasienten tilført oksygen via endotrakealtube eller tett hodeboks?
+									ELEMENT[at0032] occurrences matches {0..1} matches {	-- Fikk pasienten tilført oksygen via endotrakealtube eller tett hodeboks?
 										value matches {
 											DV_BOOLEAN matches {
 												value matches {True, False}
 											}
 										}
 									}
-									ELEMENT[at0016] occurrences matches {0..1} matches {	-- Base excess i arterielt eller kapillært blod
+									ELEMENT[at0009] occurrences matches {0..1} matches {	-- PaO2
 										value matches {
 											C_DV_QUANTITY <
-												property = <[openehr::119]>
+												property = <[openehr::125]>
 												list = <
 													["1"] = <
-														units = <"mmol/l">
-														magnitude = <|-30.0..30.0|>
-														precision = <|1|>
-													>
-												>
-											>
-										}
-									}
-									ELEMENT[at0018] occurrences matches {0..1} matches {	-- Mekanisk ventilasjon på noe tidspunkt ila første timen på intensivenheten?
-										value matches {
-											0|[local::at0019], 	-- Nei
-											1|[local::at0020]  	-- Ja
-										}
-									}
-									ELEMENT[at0021] occurrences matches {0..1} matches {	-- Elektiv innleggelse i intensivenheten?
-										value matches {
-											0|[local::at0022], 	-- Nei
-											1|[local::at0023]  	-- Ja
-										}
-									}
-									ELEMENT[at0024] occurrences matches {0..1} matches {	-- Overvåkning / oppvåkning etter kirurgi eller en prosedyre er hovedgrunn for innleggelse i intensivenheten
-										value matches {
-											0|[local::at0025], 	-- Nei
-											1|[local::at0026], 	--  Ja, overvåkning / oppvåkning etter en ikke hjerterelatert prosedyre
-											2|[local::at0027], 	-- Ja, overvåkning / oppvåkning etter en hjerteprosedyre uten hjerte-lungemaskin
-											3|[local::at0028]  	-- Ja, overvåkning / oppvåkning etter en hjerteprosedyre med hjerte-lungemaskin
-										}
-									}
-									ELEMENT[at0029] occurrences matches {0..1} matches {	-- Vektet diagnose
-										value matches {
-											0|[local::at0030], 	-- Nei
-											1|[local::at0031], 	-- Lav risiko
-											2|[local::at0032], 	-- Høy risiko
-											3|[local::at0033]; 	-- Svært høy risiko
-											0  	-- assumed value
-										}
-									}
-									ELEMENT[at0034] occurrences matches {0..1} matches {	-- Lav risiko diagnose
-										value matches {
-											0|[local::at0035], 	-- Ingen
-											1|[local::at0036], 	-- Astma er hovedgrunn for innleggelse i intensivenheten
-											2|[local::at0037], 	-- Bronkiolitt er hovedgrunn for innleggelse i intensivenheten
-											3|[local::at0038], 	-- Falsk krupp er hovedgrunn for innleggelse i intensivenheten
-											4|[local::at0039], 	-- Obstruktiv søvnapné er hovedgrunn for innleggelse i intensivenheten
-											5|[local::at0040], 	-- Diabetisk ketoacidose er hovedgrunn for innleggelse i intensivenheten
-											6|[local::at0041]  	-- Epileptiforme krampeanfall er hovedgrunn for innleggelse i intensivenheten
-										}
-									}
-									ELEMENT[at0042] occurrences matches {0..1} matches {	-- Høy risiko diagnose
-										value matches {
-											0|[local::at0043], 	-- Ingen
-											1|[local::at0044], 	-- Spontan cerebral blødning
-											2|[local::at0045], 	-- Kardiomyopati eller myokarditt
-											3|[local::at0046], 	-- Hypoplastisk venstre hjerte syndrom
-											4|[local::at0047], 	-- Nevrodegenerativ sykdom
-											5|[local::at0048]  	-- Nekrotiserende enterokolitt er hovedgrunn for innleggelse i intensivenheten
-										}
-									}
-									ELEMENT[at0049] occurrences matches {0..1} matches {	-- Svært høyrisiko diagnose
-										value matches {
-											0|[local::at0050], 	-- Ingen
-											1|[local::at0051], 	-- Hjertestans forut for innleggelse i intensivenheten
-											2|[local::at0052], 	-- Alvorlig kombinert immunsvikt (SCID)
-											3|[local::at0053], 	-- Leukemi eller lymfom etter første induksjonskur
-											4|[local::at0054], 	-- Benmargstransplantert
-											5|[local::at0055]  	--  Leversvikt som hovedgrunn for innleggelse i intensivenheten
-										}
-									}
-									ELEMENT[at0059] occurrences matches {0..1} matches {	-- Perifer oksygenmetning
-										value matches {
-											C_DV_QUANTITY <
-												property = <[openehr::380]>
-												list = <
-													["1"] = <
-														units = <"%">
-														magnitude = <|0.0..100.0|>
+														units = <"kPa">
+														magnitude = <|0.0|>
 														precision = <|0|>
 													>
 												>
 											>
 										}
 									}
-									ELEMENT[at0058] occurrences matches {0..1} matches {	-- Laktat
+									ELEMENT[at0008] occurrences matches {0..1} matches {	-- FiO2
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::507]>
+												list = <
+													["1"] = <
+														units = <"%">
+														magnitude = <|>=0.0|>
+														precision = <|2|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0010] occurrences matches {0..1} matches {	-- Base excess i arterielt eller kapillært blod
 										value matches {
 											C_DV_QUANTITY <
 												property = <[openehr::119]>
 												list = <
 													["1"] = <
 														units = <"mmol/l">
-														magnitude = <|0.0..30.0|>
 														precision = <|1|>
 													>
 												>
 											>
 										}
 									}
-									ELEMENT[at0056] occurrences matches {0..1} matches {	-- PIM3 skåre
+									ELEMENT[at0011] occurrences matches {0..1} matches {	-- Mekanisk ventilasjon på noe tidspunkt ila første timen på intensivenheten?
+										value matches {
+											0|[local::at0012], 	-- Nei
+											1|[local::at0013]  	-- Ja
+										}
+									}
+									ELEMENT[at0014] occurrences matches {0..1} matches {	-- Elektiv innleggelse i intensivenheten?
+										value matches {
+											0|[local::at0015], 	-- Nei
+											1|[local::at0016]  	-- Ja
+										}
+									}
+									ELEMENT[at0017] occurrences matches {0..1} matches {	-- Overvåkning / oppvåkning etter kirurgi eller en prosedyre er hovedgrunn for innleggelse i intensivenheten
+										value matches {
+											0|[local::at0021], 	-- Nei
+											1|[local::at0022], 	-- Ja, overvåkning / oppvåkning etter en ikke hjerterelatert prosedyre
+											2|[local::at0023], 	-- Ja, overvåkning / oppvåkning etter en hjerteprosedyre uten hjerte-lungemaskin
+											3|[local::at0024]  	-- Ja, overvåkning / oppvåkning etter en hjerteprosedyre med hjerte-lungemaskin
+										}
+									}
+									ELEMENT[at0025] occurrences matches {0..1} matches {	-- Vektet diagnose
+										value matches {
+											0|[local::at0026], 	-- Nei
+											1|[local::at0027], 	-- Lav risiko
+											2|[local::at0028], 	-- Høy risiko
+											3|[local::at0029]  	-- Svært høy risiko
+										}
+									}
+									ELEMENT[at0030] occurrences matches {0..1} matches {	-- PIM3 score
 										value matches {
 											C_DV_QUANTITY <
 												property = <[openehr::507]>
 												list = <
 													["1"] = <
 														units = <"">
-														magnitude = <|>=0.0|>
 														precision = <|3|>
 													>
 												>
 											>
 										}
 									}
-									ELEMENT[at0057] occurrences matches {0..1} matches {	-- Sannsynlighet for død
+									ELEMENT[at0031] occurrences matches {0..1} matches {	-- Sannsynlighet for død
 										value matches {
 											C_DV_QUANTITY <
 												property = <[openehr::507]>
 												list = <
 													["1"] = <
 														units = <"">
-														magnitude = <|>=0.0|>
 														precision = <|3|>
 													>
 												>
@@ -217,7 +169,7 @@ ontology
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"Pim3 score">
+					text = <"PIM3 score">
 					description = <"PIM3 regnes ut på grunnlag av informasjonen som blir samlet inn ved det tidspunkt et barn legges inn i din intensivenhet. 
 • Registrer observasjonene som blir gjort ved eller omkring tidspunktet for første møte ansikt til ansikt (ikke telefonisk) mellom pasienten 
 og en lege fra din intensivenhet (eller en lege 
@@ -236,212 +188,110 @@ fra et spesialisert barnetransportteam).
 					text = <"Tree">
 					description = <"@ internal @">
 				>
+				["at0004"] = <
+					text = <"Systolisk blodtrykk (SBT)">
+					description = <"SBT = 0 hvis pasienten har hjertestans. SBT = 30 hvis pasienten er sjokkert og blodtrykket er så lavt at det ikke kan måles
+. SBT = 120 hvis blodtrykk ikke er målt
+.">
+				>
 				["at0005"] = <
-					text = <"Systolisk BT">
-					description = <"1. Registrér SBT som 0 hvis pasienten har hjertestans
-2. Registrér 30 hvis pasienten er sjokkert og blodtrykket er så lavt at det ikke kan måles
-3. Registrér 120 hvis blodtrykk ikke er målt
-4. Registrér reell verdi">
+					text = <"Pupillereaksjon på skarpt lys">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Annen reaksjon eller ukjent">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"≥ 3 mm og begge fikserte">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"FiO2">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"PaO2">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Base excess i arterielt eller kapillært blod">
+					description = <"*">
 				>
 				["at0011"] = <
-					text = <"Pupillerekasjon på skarpt lys">
+					text = <"Mekanisk ventilasjon på noe tidspunkt ila første timen på intensivenheten?">
 					description = <"*">
 				>
 				["at0012"] = <
-					text = <"> eller = 3 mm og begge fikserte">
+					text = <"Nei">
 					description = <"*">
 				>
 				["at0013"] = <
-					text = <"Annen rekasjon eller ukjent">
+					text = <"Ja">
 					description = <"*">
 				>
 				["at0014"] = <
-					text = <"Fikk pasienten tilført oksygen via endotrakealtube eller tett hodeboks?">
+					text = <"Elektiv innleggelse i intensivenheten?">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Nei">
 					description = <"*">
 				>
 				["at0016"] = <
-					text = <"Base excess i arterielt eller kapillært blod">
-					description = <"Ukjent=0">
-				>
-				["at0018"] = <
-					text = <"Mekanisk ventilasjon på noe tidspunkt ila første timen på intensivenheten?">
-					description = <"Mekanisk ventilasjon inkluderer invasiv ventilasjon, maske-/nese-CPAP, BiPAP eller undertrykksventilasjon (skjoldrespirator)">
-				>
-				["at0019"] = <
-					text = <"Nei">
-					description = <"*">
-				>
-				["at0020"] = <
 					text = <"Ja">
 					description = <"*">
 				>
-				["at0021"] = <
-					text = <"Elektiv innleggelse i intensivenheten?">
-					description = <"Inkludér innleggelse (planlagt eller forutsigbar) etter elektiv kirurgi eller innleggelse for en elektiv prosedyre (f.eks. innleggelse av CVK), samt elektiv overvåkning eller gjennomgang av hjemmeventilasjon. En innleggelse i intensivenhet eller en operasjon anses for elektiv hvis den kunne vært utsatt mer enn 6 timer uten ugunstige effekter.">
-				>
-				["at0022"] = <
-					text = <"Nei">
-					description = <"*">
-				>
-				["at0023"] = <
-					text = <"Ja">
-					description = <"*">
-				>
-				["at0024"] = <
+				["at0017"] = <
 					text = <"Overvåkning / oppvåkning etter kirurgi eller en prosedyre er hovedgrunn for innleggelse i intensivenheten">
 					description = <"*">
 				>
-				["at0025"] = <
+				["at0021"] = <
 					text = <"Nei">
 					description = <"*">
 				>
-				["at0026"] = <
-					text = <" Ja, overvåkning / oppvåkning etter en ikke hjerterelatert prosedyre">
+				["at0022"] = <
+					text = <"Ja, overvåkning / oppvåkning etter en ikke hjerterelatert prosedyre">
 					description = <"*">
 				>
-				["at0027"] = <
+				["at0023"] = <
 					text = <"Ja, overvåkning / oppvåkning etter en hjerteprosedyre uten hjerte-lungemaskin">
 					description = <"*">
 				>
-				["at0028"] = <
+				["at0024"] = <
 					text = <"Ja, overvåkning / oppvåkning etter en hjerteprosedyre med hjerte-lungemaskin">
 					description = <"*">
 				>
-				["at0029"] = <
+				["at0025"] = <
 					text = <"Vektet diagnose">
 					description = <"*">
 				>
-				["at0030"] = <
+				["at0026"] = <
 					text = <"Nei">
 					description = <"*">
 				>
-				["at0031"] = <
+				["at0027"] = <
 					text = <"Lav risiko">
 					description = <"*">
 				>
-				["at0032"] = <
+				["at0028"] = <
 					text = <"Høy risiko">
 					description = <"*">
 				>
-				["at0033"] = <
+				["at0029"] = <
 					text = <"Svært høy risiko">
 					description = <"*">
 				>
-				["at0034"] = <
-					text = <"Lav risiko diagnose">
-					description = <"Hvis i tvil, registrér 0
-Bronkiolitt. Inkludér barn som presenterer seg enten med respirasjonsbesvær eller sentral apne hvor den kliniske diagnosen er bronkiolitt.
-Obstruktiv søvnapne. Inkludér pasienter innlagt etter adenotomi og/eller tonsillektomi der obstruktiv søvnapne er hovedgrunnen for innleggelsen i intensivenheten (kodes som overvåkning etter kirurgi)
-Epileptiforme krampeanfall. Inkludér pasienter som innlegges primært pga status epileptikus, epilepsi, feberkramper eller annet epileptisk syndrom hvor innleggelse er nødvendig enten for å få kontroll med krampene eller for å komme seg fra effektene av krampene eller behandlingen">
-				>
-				["at0035"] = <
-					text = <"Ingen">
+				["at0030"] = <
+					text = <"PIM3 score">
 					description = <"*">
 				>
-				["at0036"] = <
-					text = <"Astma er hovedgrunn for innleggelse i intensivenheten">
-					description = <"*">
-				>
-				["at0037"] = <
-					text = <"Bronkiolitt er hovedgrunn for innleggelse i intensivenheten">
-					description = <"*">
-				>
-				["at0038"] = <
-					text = <"Falsk krupp er hovedgrunn for innleggelse i intensivenheten">
-					description = <"*">
-				>
-				["at0039"] = <
-					text = <"Obstruktiv søvnapné er hovedgrunn for innleggelse i intensivenheten">
-					description = <"*">
-				>
-				["at0040"] = <
-					text = <"Diabetisk ketoacidose er hovedgrunn for innleggelse i intensivenheten">
-					description = <"*">
-				>
-				["at0041"] = <
-					text = <"Epileptiforme krampeanfall er hovedgrunn for innleggelse i intensivenheten">
-					description = <"*">
-				>
-				["at0042"] = <
-					text = <"Høy risiko diagnose">
-					description = <"Hvis i tvil, registrér 0
-Spontan cerebral blødningi. Hjerneblødningen må være spontan (f.eks. fra aneurysme eller AV-malformasjon). Ikke inkluder traumatisk hjerneblødning eller intrakranial blødning som ikke er intracerebral (f.eks. subdural blødning).
-Hypoplastisk venstre hjerte syndrom. Alle aldre, men inkluder kun de tilfellene hvor en Norwood-prosedyre eller lignende er eller var nødvendig for overlevelse i nyfødtperioden.
-Nevrodegenerativ sykdom. Krever en historikk på progressivt tap av milepæler (selv om ingen spesifikk tilstand har blitt diagnostisert) eller en diagnose hvor dette uunngåelig vil skje.">
-				>
-				["at0043"] = <
-					text = <"Ingen">
-					description = <"*">
-				>
-				["at0044"] = <
-					text = <"Spontan cerebral blødning">
-					description = <"*">
-				>
-				["at0045"] = <
-					text = <"Kardiomyopati eller myokarditt">
-					description = <"*">
-				>
-				["at0046"] = <
-					text = <"Hypoplastisk venstre hjerte syndrom">
-					description = <"*">
-				>
-				["at0047"] = <
-					text = <"Nevrodegenerativ sykdom">
-					description = <"*">
-				>
-				["at0048"] = <
-					text = <"Nekrotiserende enterokolitt er hovedgrunn for innleggelse i intensivenheten">
-					description = <"*">
-				>
-				["at0049"] = <
-					text = <"Svært høyrisiko diagnose">
-					description = <"Hvis i tvil, registrér 0
-Hjertestans forut for innleggelse i intensivenheten inkluderer både stans i sykehus og utenfor sykehus. Det kreves enten dokumentert pulsløshet eller behov for ekstern hjertekompresjon. Ikke inkludér tidligere historikk på hjertestans. 
-Leukemi eller lymfom. Inkludér bare tilfeller der innleggelsen er relatert til leukemi eller lymfom eller terapien for disse tilstandene.
-Leversvikt, akutt eller kronisk. Må være hovedgrunnen for innleggelse i intensivenheten. Ikke inkludér pasienter innlagt etter elektiv levertransplantasjon.">
-				>
-				["at0050"] = <
-					text = <"Ingen">
-					description = <"*">
-				>
-				["at0051"] = <
-					text = <"Hjertestans forut for innleggelse i intensivenheten">
-					description = <"*">
-				>
-				["at0052"] = <
-					text = <"Alvorlig kombinert immunsvikt (SCID)">
-					description = <"*">
-				>
-				["at0053"] = <
-					text = <"Leukemi eller lymfom etter første induksjonskur">
-					description = <"*">
-				>
-				["at0054"] = <
-					text = <"Benmargstransplantert">
-					description = <"*">
-				>
-				["at0055"] = <
-					text = <" Leversvikt som hovedgrunn for innleggelse i intensivenheten">
-					description = <"*">
-				>
-				["at0056"] = <
-					text = <"PIM3 skåre">
-					description = <"*">
-				>
-				["at0057"] = <
+				["at0031"] = <
 					text = <"Sannsynlighet for død">
 					description = <"*">
 				>
-				["at0058"] = <
-					text = <"Laktat">
-					description = <"*">
-				>
-				["at0059"] = <
-					text = <"Perifer oksygenmetning">
-					description = <"*">
-				>
-				["at0060"] = <
-					text = <"PaO2/FiO2 ratio">
+				["at0032"] = <
+					text = <"Fikk pasienten tilført oksygen via endotrakealtube eller tett hodeboks?">
 					description = <"*">
 				>
 			>
