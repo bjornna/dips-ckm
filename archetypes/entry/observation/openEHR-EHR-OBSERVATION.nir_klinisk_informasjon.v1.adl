@@ -21,7 +21,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"A4349B393468EBA30272DA7F171E139D">
+		["MD5-CAM-1.0.1"] = <"652C079ED23E1E6AD2AF487EADA0D96C">
 	>
 
 definition
@@ -35,8 +35,12 @@ definition
 								items cardinality matches {0..*; unordered} matches {
 									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Nyreerstattende behandling under dette oppholdet
 										value matches {
-											DV_BOOLEAN matches {
-												value matches {True, False}
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0025, 	-- Ja
+													at0026]	-- Nei
+												}
 											}
 										}
 									}
@@ -112,13 +116,23 @@ definition
 											>
 										}
 									}
+									ELEMENT[at0027] occurrences matches {0..1} matches {	-- Hjelpefelt for å konvertere non-invasiv ventilasjon/maske for hele oppholdet som duration til desimaltall
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
 									ELEMENT[at0022] occurrences matches {0..1} matches {	-- Døgn invasiv ventilasjon (tube/tracheostomi)
 										value matches {
 											C_DV_QUANTITY <
 											>
 										}
 									}
-									ELEMENT[at0024] occurrences matches {0..1} matches {	-- Totalt antall døgn repsirasjonsstøtte
+									ELEMENT[at0028] occurrences matches {0..1} matches {	-- Hjelpefelt for å konvertere invasiv ventilasjon for hele oppholdet som duration til desimaltall
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0024] occurrences matches {0..1} matches {	-- Totalt antall døgn respirasjonsstøtte
 										value matches {
 											C_DV_QUANTITY <
 											>
@@ -139,7 +153,7 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Nir klinisk informasjon">
-					description = <"Brukes til å registrere ulike kliniske data i fbm rapportering til Norsk intensivregister.">
+					description = <"Brukes til å registrere ulike kliniske data i forbindelse med rapportering til Norsk intensivregister, og som ikke inngår i ulike skåringssystem.">
 				>
 				["at0001"] = <
 					text = <"Event Series">
@@ -214,7 +228,23 @@ ontology
 					description = <"*">
 				>
 				["at0024"] = <
-					text = <"Totalt antall døgn repsirasjonsstøtte">
+					text = <"Totalt antall døgn respirasjonsstøtte">
+					description = <"*">
+				>
+				["at0025"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0026"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0027"] = <
+					text = <"Hjelpefelt for å konvertere non-invasiv ventilasjon/maske for hele oppholdet som duration til desimaltall">
+					description = <"*">
+				>
+				["at0028"] = <
+					text = <"Hjelpefelt for å konvertere invasiv ventilasjon for hele oppholdet som duration til desimaltall">
 					description = <"*">
 				>
 			>
