@@ -2,7 +2,7 @@ archetype (adl_version=1.4)
 	openEHR-EHR-OBSERVATION.pim3_score.v0
 
 concept
-	[at0000]	-- PIM3 score
+	[at0000]	-- Pim3 score
 language
 	original_language = <[ISO_639-1::nb]>
 description
@@ -21,11 +21,11 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"2212334D7B0B3DEDADCDEF6C509A64D9">
+		["MD5-CAM-1.0.1"] = <"D9511ED885E1DDC33B9ACAD693928278">
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- PIM3 score
+	OBSERVATION[at0000] matches {	-- Pim3 score
 		data matches {
 			HISTORY[at0001] matches {	-- Event Series
 				events cardinality matches {1..*; unordered} matches {
@@ -67,7 +67,7 @@ definition
 												list = <
 													["1"] = <
 														units = <"kPa">
-														magnitude = <|0.0|>
+														magnitude = <|>0.0..100.0|>
 														precision = <|0|>
 													>
 												>
@@ -101,7 +101,7 @@ definition
 											>
 										}
 									}
-									ELEMENT[at0011] occurrences matches {0..1} matches {	-- Mekanisk ventilasjon på noe tidspunkt ila første timen på intensivenheten?
+									ELEMENT[at0011] occurrences matches {0..1} matches {	-- Mekanisk ventilasjon på noe tidspunkt i løpe av første timen på intensivenheten?
 										value matches {
 											0|[local::at0012], 	-- Nei
 											1|[local::at0013]  	-- Ja
@@ -113,20 +113,34 @@ definition
 											1|[local::at0016]  	-- Ja
 										}
 									}
-									ELEMENT[at0017] occurrences matches {0..1} matches {	-- Overvåkning / oppvåkning etter kirurgi eller en prosedyre er hovedgrunn for innleggelse i intensivenheten
+									ELEMENT[at0017] occurrences matches {0..1} matches {	-- Overvåkning/oppvåkning etter kirurgi eller en prosedyre er hovedgrunn for innleggelse i intensivenheten
 										value matches {
 											0|[local::at0021], 	-- Nei
-											1|[local::at0022], 	-- Ja, overvåkning / oppvåkning etter en ikke hjerterelatert prosedyre
-											2|[local::at0023], 	-- Ja, overvåkning / oppvåkning etter en hjerteprosedyre uten hjerte-lungemaskin
-											3|[local::at0024]  	-- Ja, overvåkning / oppvåkning etter en hjerteprosedyre med hjerte-lungemaskin
+											1|[local::at0022], 	-- Ja, overvåkning/oppvåkning etter en ikke hjerterelatert prosedyre
+											2|[local::at0023], 	-- Ja, overvåkning/oppvåkning etter en hjerteprosedyre uten hjerte-lungemaskin
+											3|[local::at0024]  	-- Ja, overvåkning/oppvåkning etter en hjerteprosedyre med hjerte-lungemaskin
 										}
 									}
-									ELEMENT[at0025] occurrences matches {0..1} matches {	-- Vektet diagnose
-										value matches {
-											0|[local::at0026], 	-- Nei
-											1|[local::at0027], 	-- Lav risiko
-											2|[local::at0028], 	-- Høy risiko
-											3|[local::at0029]  	-- Svært høy risiko
+									CLUSTER[at0043] occurrences matches {0..1} matches {	-- Vektet diagnose
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0034] occurrences matches {0..1} matches {	-- Lav risiko
+												value matches {
+													0|[local::at0035], 	-- Nei eller usikker
+													1|[local::at0036]  	-- Ja
+												}
+											}
+											ELEMENT[at0037] occurrences matches {0..1} matches {	-- Høy risiko
+												value matches {
+													0|[local::at0038], 	-- Nei eller usikker
+													1|[local::at0039]  	-- Ja
+												}
+											}
+											ELEMENT[at0040] occurrences matches {0..1} matches {	-- Svært høy risiko
+												value matches {
+													0|[local::at0041], 	-- Nei eller usikker
+													1|[local::at0042]  	-- Ja
+												}
+											}
 										}
 									}
 									ELEMENT[at0030] occurrences matches {0..1} matches {	-- PIM3 score
@@ -169,7 +183,7 @@ ontology
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"PIM3 score">
+					text = <"Pim3 score">
 					description = <"PIM3 regnes ut på grunnlag av informasjonen som blir samlet inn ved det tidspunkt et barn legges inn i din intensivenhet. 
 • Registrer observasjonene som blir gjort ved eller omkring tidspunktet for første møte ansikt til ansikt (ikke telefonisk) mellom pasienten 
 og en lege fra din intensivenhet (eller en lege 
@@ -219,7 +233,7 @@ fra et spesialisert barnetransportteam).
 					description = <"*">
 				>
 				["at0011"] = <
-					text = <"Mekanisk ventilasjon på noe tidspunkt ila første timen på intensivenheten?">
+					text = <"Mekanisk ventilasjon på noe tidspunkt i løpe av første timen på intensivenheten?">
 					description = <"*">
 				>
 				["at0012"] = <
@@ -243,7 +257,7 @@ fra et spesialisert barnetransportteam).
 					description = <"*">
 				>
 				["at0017"] = <
-					text = <"Overvåkning / oppvåkning etter kirurgi eller en prosedyre er hovedgrunn for innleggelse i intensivenheten">
+					text = <"Overvåkning/oppvåkning etter kirurgi eller en prosedyre er hovedgrunn for innleggelse i intensivenheten">
 					description = <"*">
 				>
 				["at0021"] = <
@@ -251,35 +265,15 @@ fra et spesialisert barnetransportteam).
 					description = <"*">
 				>
 				["at0022"] = <
-					text = <"Ja, overvåkning / oppvåkning etter en ikke hjerterelatert prosedyre">
+					text = <"Ja, overvåkning/oppvåkning etter en ikke hjerterelatert prosedyre">
 					description = <"*">
 				>
 				["at0023"] = <
-					text = <"Ja, overvåkning / oppvåkning etter en hjerteprosedyre uten hjerte-lungemaskin">
+					text = <"Ja, overvåkning/oppvåkning etter en hjerteprosedyre uten hjerte-lungemaskin">
 					description = <"*">
 				>
 				["at0024"] = <
-					text = <"Ja, overvåkning / oppvåkning etter en hjerteprosedyre med hjerte-lungemaskin">
-					description = <"*">
-				>
-				["at0025"] = <
-					text = <"Vektet diagnose">
-					description = <"*">
-				>
-				["at0026"] = <
-					text = <"Nei">
-					description = <"*">
-				>
-				["at0027"] = <
-					text = <"Lav risiko">
-					description = <"*">
-				>
-				["at0028"] = <
-					text = <"Høy risiko">
-					description = <"*">
-				>
-				["at0029"] = <
-					text = <"Svært høy risiko">
+					text = <"Ja, overvåkning/oppvåkning etter en hjerteprosedyre med hjerte-lungemaskin">
 					description = <"*">
 				>
 				["at0030"] = <
@@ -292,6 +286,46 @@ fra et spesialisert barnetransportteam).
 				>
 				["at0032"] = <
 					text = <"Fikk pasienten tilført oksygen via endotrakealtube eller tett hodeboks?">
+					description = <"*">
+				>
+				["at0034"] = <
+					text = <"Lav risiko">
+					description = <"*">
+				>
+				["at0035"] = <
+					text = <"Nei eller usikker">
+					description = <"*">
+				>
+				["at0036"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0037"] = <
+					text = <"Høy risiko">
+					description = <"*">
+				>
+				["at0038"] = <
+					text = <"Nei eller usikker">
+					description = <"*">
+				>
+				["at0039"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0040"] = <
+					text = <"Svært høy risiko">
+					description = <"*">
+				>
+				["at0041"] = <
+					text = <"Nei eller usikker">
+					description = <"*">
+				>
+				["at0042"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0043"] = <
+					text = <"Vektet diagnose">
 					description = <"*">
 				>
 			>
