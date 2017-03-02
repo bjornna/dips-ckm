@@ -2,55 +2,99 @@ archetype (adl_version=1.4)
 	openEHR-EHR-OBSERVATION.saps_score.v0
 
 concept
-	[at0000]	-- Saps score
+	[at0000]	-- Saps score 
 language
 	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
 description
 	original_author = <
-		["name"] = <"">
+		["name"] = <"Annette Hole Sjøborg">
+		["email"] = <"ahs@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2017-03-02">
 	>
 	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"Simplified acute physiology score II (SAPS II) is used for measuring severity of illness and to predict ICU mortality.
+The score provides an estimate of the risk of death without having to specify a primary diagnosis.">
+			use = <"The SAPS II includes17 variables: 12 physiology variables, age, type of admission (scheduled surgical, unscheduled surgical, or medical), and three underlying disease variables (acquired immunodeficiency syndrome, metastatic cancer, and hematologic malignancy). 
+
+The score uses the worst value (the one that gives the most points) in the last 24 hours.
+">
+			misuse = <"SAPS II can not be used for individual prognosis determination. A patient with a certain score is allocated to a group that has a certain probability of death during hospitalization. The score results say nothing about if the individual patient will survive or not.">
+			copyright = <"*(nb)">
+		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"">
-			use = <"">
-			misuse = <"">
+			purpose = <"Skåringssystemet  SAPS II (Simplified Acute Physiology Score II) benytter for fastsettelse av alvorlighetsgrad for pasienter i intensiv- og postoperativavdelinger.">
+			use = <"SAPS II benytter seg av 17 variabler –  alder, type innleggelse (planlagt kirurgisk, øyeblikkelig hjelp-kirurgi og ikke-operativ), 12 fysiologiske eller biokjemiske variabler, samt tre variabler for underliggende kronisk sykdom (AIDS, cancer med metastaser, hematologisk malign sykdom).
+
+Selve skåringen gjøres kun én gang for hver pasient på basis av registrerte observasjoner i de første 24 timene av oppholdet i intensivavdelingen. De mest avvikende resultatene i løpet av denne perioden registreres. Til hver variabel tillegges angitte poeng, og den samlede poengsum utgjør en skåre som igjen kan konverteres til en sannsynlighet for død under sykehusoppholdet ">
+			misuse = <"SAPS II kan ikke brukes for individuell prognosefastsettelse. En pasient med en viss skåre allokeres til en gruppe som har en bestemt sannsynlighet for død under sykehusoppholdet. Selve skåringsresultatet sier intet om den enkelte pasient vil overleve eller ikke.">
 			copyright = <"">
 		>
 	>
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"95521EA362F576E280FFE22E7A1ABC60">
+		["MD5-CAM-1.0.1"] = <"5F7BA2963925BDF40C2A1EA245F0F205">
+		["references"] = <"Haagensen, R., Jamtli. B, Moen H., Stokland O.: Erfaringer med bruk av skåringssystemene SAPS II og NEMS i virksomhetsregistrering i en intensivavdeling, Tidsskr Nor Legeforen 2001; 121:687-90, Nr. 06, 28. februar 2001 
+http://tidsskriftet.no/2001/02/klinikk-og-forskning/erfaringer-med-bruk-av-skaringssystemene-saps-ii-og-nems-i
+
+Haagensen, R., Jamtli. B, Moen H., Stokland O.: Virksomhetsregistrering ved intensivavdelinger, Tidsskr Nor Legeforen 2001;121: 682-685
+file:///C:/Git/Intensive/backgroundinfo/NEMS/Virksomhetsresistrering%20ved%20int.avdelinger.pdf2001--682-5.pdf
+
+
+Jérôme Allyn , Cyril Ferdynus, Michel Bohrer, Cécile Dalban, Dorothée Valance, Nicolas Allou: Simplified Acute Physiology Score II as Predictor of Mortality in Intensive Care Units: A Decision Curve Analysis
+Jérôme Allyn , Cyril Ferdynus, Michel Bohrer, Cécile Dalban, Dorothée Valance, Nicolas Allou 
+Published: October 14, 2016, http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0164828
+
+Le Gall JR1, Lemeshow S, Saulnier : A new Simplified Acute Physiology Score (SAPS II) based on a European/North American multicenter study. AMA. 1993 Dec 22-29;270(24):2957-63.
+
+Jones &Barlett Learning:  Scores and Definitions Used in respiratory and Critical Care Research. http://samples.jbpub.com/9780763784096/84096_CH01_Chatburn.pdf
+
+
+
+
+">
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- Saps score
+	OBSERVATION[at0000] matches {	-- Saps score 
 		data matches {
-			HISTORY[at0001] matches {	-- Event Series
+			HISTORY[at0001] matches {	-- *Event Series(nb)
 				events cardinality matches {1..*; unordered} matches {
-					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+					EVENT[at0002] occurrences matches {0..1} matches {	-- *Any event(nb)
 						data matches {
-							ITEM_TREE[at0003] matches {	-- Tree
+							ITEM_TREE[at0003] matches {	-- *Tree(nb)
 								items cardinality matches {11..*; unordered} matches {
-									ELEMENT[at0052] occurrences matches {0..1} matches {	-- Alder
+									ELEMENT[at0052] occurrences matches {0..1} matches {	-- Age
 										value matches {
 											0|[local::at0054], 	-- < 40
 											7|[local::at0055], 	-- 40 - 59
 											12|[local::at0056], 	-- 60 - 69
-											15|[local::at0057], 	-- 70 - 75
+											15|[local::at0057], 	-- 70 - 74
 											16|[local::at0058], 	-- 75 - 79
 											18|[local::at0059]  	-- > eller = 80
 										}
 									}
-									ELEMENT[at0030] occurrences matches {0..1} matches {	-- PaO2/FiO2-ratio i fbm mekanisk ventilasjon
+									ELEMENT[at0030] occurrences matches {0..1} matches {	-- PaO2/FiO2-ratio
 										value matches {
+											0|[local::at0107], 	-- Patient is not on mechanical ventilation
 											6|[local::at0060], 	-- > 26,66
 											9|[local::at0061], 	-- 13,33 - 26,66
 											11|[local::at0062]  	-- < 13,33
 										}
 									}
-									ELEMENT[at0031] occurrences matches {0..1} matches {	-- Hjertefrekvens
+									ELEMENT[at0031] occurrences matches {0..1} matches {	-- Heartrate
 										value matches {
 											0|[local::at0063], 	-- 70 - 119
 											2|[local::at0064], 	-- 40 - 69
@@ -59,7 +103,7 @@ definition
 											11|[local::at0067]  	-- < 40
 										}
 									}
-									ELEMENT[at0032] occurrences matches {0..1} matches {	-- Systolisk blodtrykk
+									ELEMENT[at0032] occurrences matches {0..1} matches {	-- Systolic bloodpressure
 										value matches {
 											0|[local::at0068], 	-- 100 - 199
 											2|[local::at0069], 	-- > eller = 200
@@ -67,27 +111,27 @@ definition
 											13|[local::at0071]  	-- < 70
 										}
 									}
-									ELEMENT[at0033] occurrences matches {0..1} matches {	-- Temperatur
+									ELEMENT[at0033] occurrences matches {0..1} matches {	-- Body temperature
 										value matches {
 											0|[local::at0072], 	-- < 39
 											3|[local::at0073]  	-- > eller = 39
 										}
 									}
-									ELEMENT[at0034] occurrences matches {0..1} matches {	-- Døgnurin
+									ELEMENT[at0034] occurrences matches {0..1} matches {	-- Urinary output
 										value matches {
 											0|[local::at0074], 	-- > eller = 1000 ml
 											4|[local::at0075], 	-- 500 - 999 ml
 											11|[local::at0076]  	-- < 500 ml
 										}
 									}
-									ELEMENT[at0035] occurrences matches {0..1} matches {	-- P-Karbamid
+									ELEMENT[at0035] occurrences matches {0..1} matches {	-- Serum Urea level
 										value matches {
 											0|[local::at0077], 	-- < 10
 											6|[local::at0078], 	-- 10 - 29,9
 											10|[local::at0079]  	-- > eller = 30
 										}
 									}
-									ELEMENT[at0036] occurrences matches {0..1} matches {	-- B-Leukocytter
+									ELEMENT[at0036] occurrences matches {0..1} matches {	-- White Bloodcell Count
 										value matches {
 											0|[local::at0080], 	-- 1 - 19.9
 											3|[local::at0081], 	-- > eller = 20
@@ -95,34 +139,34 @@ definition
 											0  	-- assumed value
 										}
 									}
-									ELEMENT[at0037] occurrences matches {0..1} matches {	-- S-Kalium
+									ELEMENT[at0037] occurrences matches {0..1} matches {	-- Potassium
 										value matches {
 											0|[local::at0083], 	-- 3 - 4.9
 											3|[local::at0084]  	-- < 3 eller >/= 5
 										}
 									}
-									ELEMENT[at0038] occurrences matches {0..1} matches {	-- S-Natrium
+									ELEMENT[at0038] occurrences matches {0..1} matches {	-- Sodium
 										value matches {
 											0|[local::at0085], 	-- 125 - 144
 											1|[local::at0086], 	-- > eller = 145
 											5|[local::at0087]  	-- < 125
 										}
 									}
-									ELEMENT[at0039] occurrences matches {0..1} matches {	-- P-HCO3-
+									ELEMENT[at0039] occurrences matches {0..1} matches {	-- Bicarbonate
 										value matches {
 											0|[local::at0088], 	-- > eller = 20
-											3|[local::at0089], 	-- > eller = 15-19
+											3|[local::at0089], 	-- 15-19
 											6|[local::at0090]  	-- < 15
 										}
 									}
-									ELEMENT[at0040] occurrences matches {0..1} matches {	-- P-Bilirubin
+									ELEMENT[at0040] occurrences matches {0..1} matches {	-- Bilirubin
 										value matches {
 											0|[local::at0091], 	-- < 68.4
 											4|[local::at0092], 	-- 68,4 - 102,5
 											9|[local::at0093]  	-- > eller = 102,6
 										}
 									}
-									ELEMENT[at0053] occurrences matches {0..1} matches {	-- Glasgow Coma Scale
+									ELEMENT[at0053] occurrences matches {0..1} matches {	-- Glasgow Coma Score
 										value matches {
 											0|[local::at0094], 	-- 14-15
 											5|[local::at0095], 	-- 11-13
@@ -131,29 +175,29 @@ definition
 											26|[local::at0098]  	-- < 6
 										}
 									}
-									ELEMENT[at0041] occurrences matches {0..1} matches {	-- Innleggelse
+									ELEMENT[at0041] occurrences matches {0..1} matches {	-- Type of admission
 										value matches {
-											0|[local::at0101], 	-- Etter planlagt operasjon
-											6|[local::at0102], 	-- Akutt non-operativ
-											8|[local::at0103]  	-- Etter akutt operasjon
+											0|[local::at0101], 	-- Scheduled surgical
+											6|[local::at0102], 	-- Medical
+											8|[local::at0103]  	-- Unscheduled surgical
 										}
 									}
-									ELEMENT[at0042] occurrences matches {0..1} matches {	-- Kronisk sykdom
+									ELEMENT[at0042] occurrences matches {0..1} matches {	-- Chronic disease
 										value matches {
-											0|[local::at0099], 	-- Ingen poenggivende sykdom 
-											9|[local::at0104], 	-- Cancer med metastaser 
-											10|[local::at0105], 	-- Hematologisk malignitet 
-											17|[local::at0100]  	-- AIDS 
+											0|[local::at0099], 	-- Non of the underlying disease variables
+											9|[local::at0104], 	-- Metastatic cancer
+											10|[local::at0105], 	-- Hematologic malignancy
+											17|[local::at0100]  	-- AIDS (acquired immunodeficiency syndrome)
 										}
 									}
-									ELEMENT[at0025] occurrences matches {0..1} matches {	-- SAPS score
+									ELEMENT[at0025] occurrences matches {0..1} matches {	-- SAPS II score
 										value matches {
 											DV_COUNT matches {
 												magnitude matches {|>=0|}
 											}
 										}
 									}
-									ELEMENT[at0026] occurrences matches {0..1} matches {	-- Mortalitet score
+									ELEMENT[at0026] occurrences matches {0..1} matches {	-- Mortality score
 										value matches {
 											DV_PROPORTION matches {*}
 										}
@@ -173,7 +217,7 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Saps score">
-					description = <"unknown">
+					description = <"Simplified Acute Physiology Score II (SAPS II) er et skåringssystem for fastsettelse av alvorlighetsgrad ved sykdom.">
 				>
 				["at0001"] = <
 					text = <"Event Series">
@@ -196,8 +240,8 @@ ontology
 					description = <"*">
 				>
 				["at0030"] = <
-					text = <"PaO2/FiO2-ratio i fbm mekanisk ventilasjon">
-					description = <"*">
+					text = <"PaO2/FiO2-ratio">
+					description = <"PaO2/FiO2-ratio skal bare registreres dersom pasienten ligger på mekanisk ventilasjon, inkludert CPAP.">
 				>
 				["at0031"] = <
 					text = <"Hjertefrekvens">
@@ -205,39 +249,39 @@ ontology
 				>
 				["at0032"] = <
 					text = <"Systolisk blodtrykk">
-					description = <"*">
+					description = <"Systolisk blodtrykk, mmHg.">
 				>
 				["at0033"] = <
 					text = <"Temperatur">
-					description = <"*">
+					description = <"Kroppstemperatur, °C.">
 				>
 				["at0034"] = <
 					text = <"Døgnurin">
-					description = <"*">
+					description = <"Totalt antall ml diruse i løpet av 24 timer.">
 				>
 				["at0035"] = <
 					text = <"P-Karbamid">
-					description = <"*">
+					description = <"Karbamid, mmol/L.">
 				>
 				["at0036"] = <
 					text = <"B-Leukocytter">
-					description = <"*">
+					description = <"Hvite blodceller, 10⁹/L.">
 				>
 				["at0037"] = <
 					text = <"S-Kalium">
-					description = <"*">
+					description = <"Kalium, mmol/L.">
 				>
 				["at0038"] = <
 					text = <"S-Natrium">
-					description = <"*">
+					description = <"Natirum, mmol/L.">
 				>
 				["at0039"] = <
 					text = <"P-HCO3-">
-					description = <"*">
+					description = <"Bikarbonat, mmol/L.">
 				>
 				["at0040"] = <
 					text = <"P-Bilirubin">
-					description = <"*">
+					description = <"Bilirubin, µmol/L (mikromol/L).">
 				>
 				["at0041"] = <
 					text = <"Innleggelse">
@@ -396,7 +440,7 @@ ontology
 					description = <"*">
 				>
 				["at0089"] = <
-					text = <"> eller = 15-19">
+					text = <"15-19">
 					description = <"*">
 				>
 				["at0090"] = <
@@ -462,6 +506,311 @@ ontology
 				["at0105"] = <
 					text = <"Hematologisk malignitet ">
 					description = <"*">
+				>
+				["at0107"] = <
+					text = <"Pasienten har ikke mekanisk ventilasjon">
+					description = <"">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Saps score ">
+					description = <"Simplified acute physiology score II (SAPS II) is used for measuring severity of illness and to predict ICU mortality.">
+				>
+				["at0001"] = <
+					text = <"*Event Series(nb)">
+					description = <"*@ internal @(nb)">
+				>
+				["at0002"] = <
+					text = <"*Any event(nb)">
+					description = <"**(nb)">
+				>
+				["at0003"] = <
+					text = <"*Tree(nb)">
+					description = <"*@ internal @(nb)">
+				>
+				["at0025"] = <
+					text = <"SAPS II score">
+					description = <"Total SAPS II score.">
+				>
+				["at0026"] = <
+					text = <"Mortality score">
+					description = <"Calculated mortality score">
+				>
+				["at0030"] = <
+					text = <"PaO2/FiO2-ratio">
+					description = <"PaO2/FiO2-ratio. Only register if the patient is on mechanical ventilation. Mechanical ventilation includes the use of continuous positive airway pressure (CPAP).">
+				>
+				["at0031"] = <
+					text = <"Heartrate">
+					description = <"Heartrate, beats per min.">
+				>
+				["at0032"] = <
+					text = <"Systolic bloodpressure">
+					description = <"**(nb)">
+				>
+				["at0033"] = <
+					text = <"Body temperature">
+					description = <"Body temperature, °C.">
+				>
+				["at0034"] = <
+					text = <"Urinary output">
+					description = <"Urinary output, m/day">
+				>
+				["at0035"] = <
+					text = <"Serum Urea level">
+					description = <"Serum urea level, mmol/L.">
+				>
+				["at0036"] = <
+					text = <"White Bloodcell Count">
+					description = <"White Bloodcell Count, mm³.">
+				>
+				["at0037"] = <
+					text = <"Potassium">
+					description = <"Potassium, mEq/L">
+				>
+				["at0038"] = <
+					text = <"Sodium">
+					description = <"Sodium, mEq/L">
+				>
+				["at0039"] = <
+					text = <"Bicarbonate">
+					description = <"Bicarbonate, mEq/L">
+				>
+				["at0040"] = <
+					text = <"Bilirubin">
+					description = <"Bilirubin,µmol/L.">
+				>
+				["at0041"] = <
+					text = <"Type of admission">
+					description = <"Type of admission">
+				>
+				["at0042"] = <
+					text = <"Chronic disease">
+					description = <"For registration of three underlying disease variables (acquired immunodeficiency syndrome, metastatic cancer, and hematologic malignancy). 
+">
+				>
+				["at0052"] = <
+					text = <"Age">
+					description = <"The patient's age on permisiondate.">
+				>
+				["at0053"] = <
+					text = <"Glasgow Coma Score">
+					description = <"Glasgow Coma Score">
+				>
+				["at0054"] = <
+					text = <"< 40">
+					description = <"">
+				>
+				["at0055"] = <
+					text = <"40 - 59">
+					description = <"">
+				>
+				["at0056"] = <
+					text = <"60 - 69">
+					description = <"">
+				>
+				["at0057"] = <
+					text = <"70 - 74">
+					description = <"">
+				>
+				["at0058"] = <
+					text = <"75 - 79">
+					description = <"">
+				>
+				["at0059"] = <
+					text = <"> eller = 80">
+					description = <"">
+				>
+				["at0060"] = <
+					text = <"> 26,66">
+					description = <"">
+				>
+				["at0061"] = <
+					text = <"13,33 - 26,66">
+					description = <"">
+				>
+				["at0062"] = <
+					text = <"< 13,33">
+					description = <"">
+				>
+				["at0063"] = <
+					text = <"70 - 119">
+					description = <"">
+				>
+				["at0064"] = <
+					text = <"40 - 69">
+					description = <"">
+				>
+				["at0065"] = <
+					text = <"120 - 159">
+					description = <"">
+				>
+				["at0066"] = <
+					text = <"> eller = 160">
+					description = <"">
+				>
+				["at0067"] = <
+					text = <"< 40">
+					description = <"">
+				>
+				["at0068"] = <
+					text = <"100 - 199">
+					description = <"">
+				>
+				["at0069"] = <
+					text = <"> eller = 200">
+					description = <"">
+				>
+				["at0070"] = <
+					text = <"70 - 99">
+					description = <"">
+				>
+				["at0071"] = <
+					text = <"< 70">
+					description = <"">
+				>
+				["at0072"] = <
+					text = <"< 39">
+					description = <"">
+				>
+				["at0073"] = <
+					text = <"> eller = 39">
+					description = <"">
+				>
+				["at0074"] = <
+					text = <"> eller = 1000 ml">
+					description = <"">
+				>
+				["at0075"] = <
+					text = <"500 - 999 ml">
+					description = <"">
+				>
+				["at0076"] = <
+					text = <"< 500 ml">
+					description = <"">
+				>
+				["at0077"] = <
+					text = <"< 10">
+					description = <"">
+				>
+				["at0078"] = <
+					text = <"10 - 29,9">
+					description = <"">
+				>
+				["at0079"] = <
+					text = <"> eller = 30">
+					description = <"">
+				>
+				["at0080"] = <
+					text = <"1 - 19.9">
+					description = <"">
+				>
+				["at0081"] = <
+					text = <"> eller = 20">
+					description = <"">
+				>
+				["at0082"] = <
+					text = <"< 1">
+					description = <"">
+				>
+				["at0083"] = <
+					text = <"3 - 4.9">
+					description = <"">
+				>
+				["at0084"] = <
+					text = <"< 3 eller >/= 5">
+					description = <"">
+				>
+				["at0085"] = <
+					text = <"125 - 144">
+					description = <"">
+				>
+				["at0086"] = <
+					text = <"> eller = 145">
+					description = <"">
+				>
+				["at0087"] = <
+					text = <"< 125">
+					description = <"">
+				>
+				["at0088"] = <
+					text = <"> eller = 20">
+					description = <"">
+				>
+				["at0089"] = <
+					text = <"15-19">
+					description = <"">
+				>
+				["at0090"] = <
+					text = <"< 15">
+					description = <"">
+				>
+				["at0091"] = <
+					text = <"< 68.4">
+					description = <"">
+				>
+				["at0092"] = <
+					text = <"68,4 - 102,5">
+					description = <"">
+				>
+				["at0093"] = <
+					text = <"> eller = 102,6">
+					description = <"">
+				>
+				["at0094"] = <
+					text = <"14-15">
+					description = <"">
+				>
+				["at0095"] = <
+					text = <"11-13">
+					description = <"">
+				>
+				["at0096"] = <
+					text = <"9-10">
+					description = <"">
+				>
+				["at0097"] = <
+					text = <"6-8">
+					description = <"">
+				>
+				["at0098"] = <
+					text = <"< 6">
+					description = <"">
+				>
+				["at0099"] = <
+					text = <"Non of the underlying disease variables">
+					description = <"">
+				>
+				["at0100"] = <
+					text = <"AIDS (acquired immunodeficiency syndrome)">
+					description = <"">
+				>
+				["at0101"] = <
+					text = <"Scheduled surgical">
+					description = <"">
+				>
+				["at0102"] = <
+					text = <"Medical">
+					description = <"">
+				>
+				["at0103"] = <
+					text = <"Unscheduled surgical">
+					description = <"">
+				>
+				["at0104"] = <
+					text = <"Metastatic cancer">
+					description = <"">
+				>
+				["at0105"] = <
+					text = <"Hematologic malignancy">
+					description = <"">
+				>
+				["at0107"] = <
+					text = <"Patient is not on mechanical ventilation">
+					description = <"">
 				>
 			>
 		>
