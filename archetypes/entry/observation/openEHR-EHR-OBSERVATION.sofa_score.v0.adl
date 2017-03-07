@@ -20,16 +20,16 @@ description
 		["name"] = <"">
 	>
 	details = <
-		["en"] = <
-			language = <[ISO_639-1::en]>
-			purpose = <"Sepsis parameter score">
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Sepsis som sykdomskonsept forstås som en infeksjon som fører til livstruende organdysfunksjon. Scoringssystemet brukes for å kategorisere organdysfunksjon.">
 			use = <"Sequential (sepsis related) organ failure assessment (SOFA).  Grensen for organsvikt defineres som økning i SOFA-score på to poeng eller mer">
 			misuse = <"">
 			copyright = <"">
 		>
-		["nb"] = <
-			language = <[ISO_639-1::nb]>
-			purpose = <"Sepsis som sykdomskonsept forstås som en infeksjon som fører til livstruende organdysfunksjon. Scoringssystemet brukes for å kategorisere organdysfunksjon.">
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"Sepsis parameter score">
 			use = <"Sequential (sepsis related) organ failure assessment (SOFA).  Grensen for organsvikt defineres som økning i SOFA-score på to poeng eller mer">
 			misuse = <"">
 			copyright = <"">
@@ -38,11 +38,11 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"8A04FF88466C57332CBCA8EB259187BA">
 		["references"] = <"https://wikem.org/wiki/Sequential_(Sepsis_Related)_Organ_Failure_Assessment_Score_(SOFA)   
 
 Indremedisineren 2016, Nye internasjonale sepsisdefinisjoner vil påvirke hverdagen vår
 ">
+		["MD5-CAM-1.0.1"] = <"54F2E94342AED984DB496148DF1008DE">
 	>
 
 definition
@@ -59,7 +59,7 @@ definition
 						data matches {
 							ITEM_TREE[at0003] matches {	-- Tree
 								items cardinality matches {0..*; unordered} matches {
-									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Respiratory System
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Respirasjon
 										value matches {
 											0|[local::at0005], 	-- PaO2/FiO2 > 53 kPa
 											1|[local::at0006], 	-- PaO2/FiO2 40-53 kPa
@@ -68,7 +68,7 @@ definition
 											4|[local::at0009]  	-- PaO2/FiO2 < 13,3 kPa
 										}
 									}
-									ELEMENT[at0010] occurrences matches {0..1} matches {	-- Cardio Vascular System
+									ELEMENT[at0010] occurrences matches {0..1} matches {	-- Sirkulasjon
 										value matches {
 											0|[local::at0011], 	-- MAP ≥ 70
 											1|[local::at0012], 	-- MAP < 70
@@ -77,7 +77,7 @@ definition
 											4|[local::at0015]  	-- NA/A ≥ 0,1 µg/kg/m; VP
 										}
 									}
-									ELEMENT[at0016] occurrences matches {0..1} matches {	-- Nervous System
+									ELEMENT[at0016] occurrences matches {0..1} matches {	-- SNS (sentralnervesystemet) 
 										value matches {
 											0|[local::at0017], 	-- GCS 14-15
 											1|[local::at0018], 	-- GCS 12-13
@@ -86,16 +86,16 @@ definition
 											4|[local::at0021]  	-- GCS 3-5
 										}
 									}
-									ELEMENT[at0022] occurrences matches {0..1} matches {	-- Renal System
+									ELEMENT[at0022] occurrences matches {0..1} matches {	-- Nyre
 										value matches {
-											0|[local::at0023], 	-- Creatinine < 110 µmol/l
-											1|[local::at0024], 	-- Creatinine ≥ 110 µmol/l
-											2|[local::at0025], 	-- Creatinine ≥ 171 µmol/l
-											3|[local::at0026], 	-- Creatinine ≥ 300 or DU < 500
-											4|[local::at0027]  	-- Creatinine ≥ 440 or DU < 200 or renal replacement treatment: HD, HF, PD
+											0|[local::at0023], 	-- Kreatinin < 110 µmol/l
+											1|[local::at0024], 	-- Kreatinin ≥ 110 µmol/l
+											2|[local::at0025], 	-- Kreatinin ≥ 171 µmol/l
+											3|[local::at0026], 	-- Kreatinin ≥ 300 eller DU < 500
+											4|[local::at0027]  	-- Kreatinin ≥ 440 eller DU < 200 eller nyreerstattende behandling: HD, HF, PD
 										}
 									}
-									ELEMENT[at0028] occurrences matches {0..1} matches {	-- Liver
+									ELEMENT[at0028] occurrences matches {0..1} matches {	-- Lever
 										value matches {
 											0|[local::at0029], 	-- Bilirubin < 20 µmol/l
 											1|[local::at0030], 	-- Bilirubin 20-32 µmol/l
@@ -104,7 +104,7 @@ definition
 											4|[local::at0033]  	-- Bilirubin > 204 µmol/l
 										}
 									}
-									ELEMENT[at0034] occurrences matches {0..1} matches {	-- Coagulation
+									ELEMENT[at0034] occurrences matches {0..1} matches {	-- Koagulasjon
 										value matches {
 											0|[local::at0035], 	-- TPK ≥ 150
 											1|[local::at0036], 	-- TPK < 150
@@ -129,6 +129,26 @@ definition
 									}
 								}
 							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0042] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0043] occurrences matches {0..1} matches {	-- SOFA score
+						value matches {
+							C_DV_QUANTITY <
+								property = <[openehr::507]>
+								list = <
+									["1"] = <
+										units = <"">
+										magnitude = <|0.0..24.0|>
+										precision = <|0|>
+									>
+								>
+							>
 						}
 					}
 				}
@@ -304,6 +324,14 @@ ontology
 					text = <"SOFA score">
 					description = <"Summering av scoring">
 				>
+				["at0042"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0043"] = <
+					text = <"SOFA score">
+					description = <"SOFA score er summen av skåringsverdiene for hver enkell parameter som inngår i SOFA score.">
+				>
 			>
 		>
 		["en"] = <
@@ -318,7 +346,7 @@ ontology
 				>
 				["at0002"] = <
 					text = <"Any event">
-					description = <"">
+					description = <"*">
 				>
 				["at0003"] = <
 					text = <"Tree">
@@ -330,23 +358,23 @@ ontology
 				>
 				["at0005"] = <
 					text = <"PaO2/FiO2 > 53 kPa">
-					description = <"">
+					description = <"*">
 				>
 				["at0006"] = <
 					text = <"PaO2/FiO2 40-53 kPa">
-					description = <"">
+					description = <"*">
 				>
 				["at0007"] = <
 					text = <"PaO2/FiO2 < 40 kPa">
-					description = <"">
+					description = <"*">
 				>
 				["at0008"] = <
 					text = <"PaO2/FiO2 13,3-26,6 kPa">
-					description = <"">
+					description = <"*">
 				>
 				["at0009"] = <
 					text = <"PaO2/FiO2 < 13,3 kPa">
-					description = <"">
+					description = <"*">
 				>
 				["at0010"] = <
 					text = <"Cardio Vascular System">
@@ -354,23 +382,23 @@ ontology
 				>
 				["at0011"] = <
 					text = <"MAP ≥ 70">
-					description = <"">
+					description = <"*">
 				>
 				["at0012"] = <
 					text = <"MAP < 70">
-					description = <"">
+					description = <"*">
 				>
 				["at0013"] = <
 					text = <"DA < 5 µg/kg/m; Dobutamin">
-					description = <"">
+					description = <"*">
 				>
 				["at0014"] = <
 					text = <"DA ≥ 5 µg/kg/m; NA/A < 0,1 µg/kg/m Dobutamin ">
-					description = <"">
+					description = <"*">
 				>
 				["at0015"] = <
 					text = <"NA/A ≥ 0,1 µg/kg/m; VP">
-					description = <"">
+					description = <"*">
 				>
 				["at0016"] = <
 					text = <"Nervous System">
@@ -378,23 +406,23 @@ ontology
 				>
 				["at0017"] = <
 					text = <"GCS 14-15">
-					description = <"">
+					description = <"*">
 				>
 				["at0018"] = <
 					text = <"GCS 12-13">
-					description = <"">
+					description = <"*">
 				>
 				["at0019"] = <
 					text = <"GCS 9-11">
-					description = <"">
+					description = <"*">
 				>
 				["at0020"] = <
 					text = <"GCS 6-8">
-					description = <"">
+					description = <"*">
 				>
 				["at0021"] = <
 					text = <"GCS 3-5">
-					description = <"">
+					description = <"*">
 				>
 				["at0022"] = <
 					text = <"Renal System">
@@ -402,23 +430,23 @@ ontology
 				>
 				["at0023"] = <
 					text = <"Creatinine < 110 µmol/l">
-					description = <"">
+					description = <"*">
 				>
 				["at0024"] = <
 					text = <"Creatinine ≥ 110 µmol/l">
-					description = <"">
+					description = <"*">
 				>
 				["at0025"] = <
 					text = <"Creatinine ≥ 171 µmol/l">
-					description = <"">
+					description = <"*">
 				>
 				["at0026"] = <
 					text = <"Creatinine ≥ 300 or DU < 500">
-					description = <"">
+					description = <"*">
 				>
 				["at0027"] = <
 					text = <"Creatinine ≥ 440 or DU < 200 or renal replacement treatment: HD, HF, PD">
-					description = <"">
+					description = <"*">
 				>
 				["at0028"] = <
 					text = <"Liver">
@@ -426,23 +454,23 @@ ontology
 				>
 				["at0029"] = <
 					text = <"Bilirubin < 20 µmol/l">
-					description = <"">
+					description = <"*">
 				>
 				["at0030"] = <
 					text = <"Bilirubin 20-32 µmol/l">
-					description = <"">
+					description = <"*">
 				>
 				["at0031"] = <
 					text = <"Bilirubin 33-101 µmol/l">
-					description = <"">
+					description = <"*">
 				>
 				["at0032"] = <
 					text = <"Bilirubin 102-203 µmol/l">
-					description = <"">
+					description = <"*">
 				>
 				["at0033"] = <
 					text = <"Bilirubin > 204 µmol/l">
-					description = <"">
+					description = <"*">
 				>
 				["at0034"] = <
 					text = <"Coagulation">
@@ -450,27 +478,35 @@ ontology
 				>
 				["at0035"] = <
 					text = <"TPK ≥ 150">
-					description = <"">
+					description = <"*">
 				>
 				["at0036"] = <
 					text = <"TPK < 150">
-					description = <"">
+					description = <"*">
 				>
 				["at0037"] = <
 					text = <"TPK < 100">
-					description = <"">
+					description = <"*">
 				>
 				["at0038"] = <
 					text = <"TPK < 50">
-					description = <"">
+					description = <"*">
 				>
 				["at0039"] = <
 					text = <"TPK < 20">
-					description = <"">
+					description = <"*">
 				>
 				["at0041"] = <
 					text = <"SOFA score">
 					description = <"Score summary">
+				>
+				["at0042"] = <
+					text = <"*Tree(nb)">
+					description = <"*@ internal @(nb)">
+				>
+				["at0043"] = <
+					text = <"SOFA score">
+					description = <"SOFA score er summen av skåringsverdiene for hver enkelt parameter som inngår i SOFA score.">
 				>
 			>
 		>

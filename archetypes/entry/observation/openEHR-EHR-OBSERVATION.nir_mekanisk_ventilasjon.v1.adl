@@ -7,12 +7,14 @@ language
 	original_language = <[ISO_639-1::nb]>
 description
 	original_author = <
-		["name"] = <"">
+		["name"] = <"Annette Hole Sjøborg">
+		["email"] = <"ahs@dips.no">
+		["date"] = <"2017-03-05">
 	>
 	details = <
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"">
+			purpose = <"hensikten er å registrere mekanisk ventilasjon, type mekansik ventilasjon og tid pasienten har lagt på mekanisk ventilasjon.">
 			use = <"">
 			misuse = <"">
 			copyright = <"">
@@ -21,7 +23,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"2BE855C662EF02F1939D6F34359BC8A8">
+		["MD5-CAM-1.0.1"] = <"7DBB5E57DD1E3B4B7DADEFF0C9E92680">
 	>
 
 definition
@@ -33,16 +35,11 @@ definition
 						data matches {
 							ITEM_TREE[at0003] matches {	-- Tree
 								items cardinality matches {0..*; unordered} matches {
-									ELEMENT[at0017] occurrences matches {0..1} matches {	-- Non-invasiv ventilasjon/maske
+									ELEMENT[at0025] occurrences matches {0..1} matches {	-- Mekanisk ventilasjon
 										value matches {
-											DV_DURATION matches {
-												value matches {PDTHM/|PT0H..PT24H|}
+											DV_BOOLEAN matches {
+												value matches {True, False}
 											}
-										}
-									}
-									ELEMENT[at0021] occurrences matches {0..1} matches {	-- Type non-invasiv respirasjonsstøtte
-										value matches {
-											DV_TEXT matches {*}
 										}
 									}
 									ELEMENT[at0018] occurrences matches {0..1} matches {	-- Invasiv ventilasjon
@@ -57,35 +54,16 @@ definition
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0013] occurrences matches {0..1} matches {	-- PaO2
+									ELEMENT[at0017] occurrences matches {0..1} matches {	-- Non-invasiv ventilasjon/maske
 										value matches {
-											C_DV_QUANTITY <
-												property = <[openehr::125]>
-												list = <
-													["1"] = <
-														units = <"mm[Hg]">
-													>
-													["2"] = <
-														units = <"kPa">
-														magnitude = <|0.0..101.0|>
-														precision = <|1|>
-													>
-												>
-											>
+											DV_DURATION matches {
+												value matches {PDTHM/|PT0H..PT24H|}
+											}
 										}
 									}
-									ELEMENT[at0015] occurrences matches {0..1} matches {	-- PaO2/FiO2 ratio
+									ELEMENT[at0021] occurrences matches {0..1} matches {	-- Type non-invasiv respirasjonsstøtte
 										value matches {
-											C_DV_QUANTITY <
-												property = <[openehr::507]>
-												list = <
-													["1"] = <
-														units = <"">
-														magnitude = <|>=0.0|>
-														precision = <|2|>
-													>
-												>
-											>
+											DV_TEXT matches {*}
 										}
 									}
 									ELEMENT[at0023] occurrences matches {0..1} matches {	-- Respirasjonsstøtte
@@ -126,14 +104,6 @@ ontology
 					text = <"Tree">
 					description = <"@ internal @">
 				>
-				["at0013"] = <
-					text = <"PaO2">
-					description = <"*">
-				>
-				["at0015"] = <
-					text = <"PaO2/FiO2 ratio">
-					description = <"*">
-				>
 				["at0017"] = <
 					text = <"Non-invasiv ventilasjon/maske">
 					description = <"Den tiden pasienten har fått respirasjonsstøtte i form av et lukket maskesystem, med eller uten inspirasjonsstøtte (maske-CPAP, non-invasiv overtrykksventilasjon/NIV-maske). Tiden registreres i timer og minutter. Ved pause/avbrudd i respirasjonsstøtten summerer man tidene.">
@@ -148,7 +118,7 @@ ontology
 				>
 				["at0022"] = <
 					text = <"Type invasiv respirasjonsstøtte">
-					description = <"*">
+					description = <"">
 				>
 				["at0023"] = <
 					text = <"Respirasjonsstøtte">
@@ -157,6 +127,10 @@ ontology
 				["at0024"] = <
 					text = <"Ytterligere detaljer">
 					description = <"Kan benyttes til for eksempel clusteret Ambient oxygen for å få inn FiO2.">
+				>
+				["at0025"] = <
+					text = <"Mekanisk ventilasjon">
+					description = <"Får pasienten mekansik ventilasjon?">
 				>
 			>
 		>

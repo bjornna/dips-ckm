@@ -61,7 +61,22 @@
     </other_details>
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.rapportering_eksternt.v1" concept_name="Rapportering eksternt">
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.nir_adm_pas.v1" concept_name="Nir adm pas" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.nir_adm_pas.v1" concept_name="Nir adm pas" path="/content">
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0036]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Medisinsk</includedValues>
+          <includedValues>Plassmangel/kapasitetsmangel</includedValues>
+          <includedValues>Tilbakeføring eller overføring til "hjemstedssykehus" etter behandling</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0037]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Medisinsk</includedValues>
+          <includedValues>Plassmangel/kapasitetsmangel</includedValues>
+          <includedValues>Tilbakeføring eller overføring til "hjemstedssykehus" etter behandling</includedValues>
+        </constraint>
+      </Rule>
+    </Content>
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.nir_arsak_innleggelse.v1" concept_name="NIR årsak til innleggelse" path="/content">
       <Rule path="/data[at0001]/items[at0002]" max="1" name="Primærårsak til innleggelse (vurdert av lege)">
         <constraint xsi:type="textConstraint">
@@ -322,14 +337,7 @@
         </constraint>
       </Rule>
     </Content>
-    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.kontakt.v0" concept_name="Kontakt" path="/content">
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.organisasjonsstruktur_dips.v0" concept_name="Organisasjonsstruktur dips" path="/data[at0001]/items[at0006]" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.oppholdsdata.v0" concept_name="Oppholdsdata" path="/data[at0001]/items[at0011]">
-        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.organisasjonsstruktur_dips.v0" concept_name="Organisasjonsstruktur dips" path="/items[at0005]" />
-        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.reinnleggelse.v0" concept_name="Reinnleggelse" path="/items[at0009]" />
-      </Items>
-    </Content>
-    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.utskrivelsesinformasjon.v1" concept_name="Utskrivelsesinformasjon" path="/content" />
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.kontakt.v0" concept_name="Kontakt" path="/content" />
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.nir_klinisk_informasjon.v1" concept_name="Nir klinisk informasjon" path="/content">
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0013]">
         <constraint xsi:type="textConstraint">
@@ -364,158 +372,6 @@
           <includedValues>Ingen</includedValues>
           <includedValues>Kontaktsmitte</includedValues>
           <includedValues>Luftsmitte</includedValues>
-        </constraint>
-      </Rule>
-    </Content>
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.nir_arsak_overforing.v1" concept_name="Nir årsak til overføring" path="/content">
-      <Rule path="/data[at0001]/items[at0002]" name="Pasienten er overført til denne intensivenheten fra hvilken enhet/sykehus">
-        <constraint xsi:type="textConstraint">
-          <includedValues>Sykehuset Østfold-Fredrikstad</includedValues>
-          <includedValues>Sykehuset Østfold-Moss</includedValues>
-          <includedValues>Akershus universitetssykehus AHUS</includedValues>
-          <includedValues>Sykehuset Asker og Bærum HF</includedValues>
-          <includedValues>Diakonhjemmet sykehus</includedValues>
-          <includedValues>Oslo universitetssykehus HF – Ullevål Kir. int. (2)</includedValues>
-          <includedValues>Oslo universitetssykehus HF – Ullevål Nevroint. (3)</includedValues>
-          <includedValues>Oslo universitetssykehus HF – Ullevål Oppvåkning</includedValues>
-          <includedValues>Oslo universitetssykehus HF - Radiumhospitalet</includedValues>
-          <includedValues>Oslo universitetssykehus HF – Rikshospitalet</includedValues>
-          <includedValues>Oslo universitetssykehus HF - Aker</includedValues>
-          <includedValues>Sykehuset Innlandet – Hamar</includedValues>
-          <includedValues>Sykehuset Innlandet – Lillehammer</includedValues>
-          <includedValues>Sykehuset Innlandet – Gjøvik</includedValues>
-          <includedValues>Sykehuset Buskerud HF</includedValues>
-          <includedValues>Sykehuset i Vestfold – Tønsberg</includedValues>
-          <includedValues>Sykehuset Telemark HF – Skien</includedValues>
-          <includedValues>Sørlandet sykehus HF - Kristiansand</includedValues>
-          <includedValues>Sørlandet sykehus HF – Arendal</includedValues>
-          <includedValues>Stavanger universitetssjukehus</includedValues>
-          <includedValues>Haugesund sjukehus Helse Fonna</includedValues>
-          <includedValues>Haukeland universitetssykehus Kir. intensiv</includedValues>
-          <includedValues>Haraldsplass Diakonale Sykehus AS</includedValues>
-          <includedValues>Førde sentralsjukehus</includedValues>
-          <includedValues>Ålesund sjukehus - medisinsk</includedValues>
-          <includedValues>Ålesund sjukehus – kirurgisk</includedValues>
-          <includedValues>Molde sjukehus</includedValues>
-          <includedValues>Kristiansund sjukehus</includedValues>
-          <includedValues>ST Olavs Hospital HF</includedValues>
-          <includedValues>Helse Nord-Trøndelag HF – Levanger</includedValues>
-          <includedValues>Helse Nord-Trøndelag HF – Namsos</includedValues>
-          <includedValues>Helgelandssykehuset – Mosjøen</includedValues>
-          <includedValues>Helgelandssykehuset – Sandnessjøen</includedValues>
-          <includedValues>Helgelandssykehuset – Mo i Rana</includedValues>
-          <includedValues>Nordlandssykehuset HF - Bodø</includedValues>
-          <includedValues>Nordlandssykehuset HF – Vesterålen (Stokmarknes)</includedValues>
-          <includedValues>Universitetssykehuset Nord-Norge - Harstad</includedValues>
-          <includedValues>Universitetssykehuset Nord-Norge - Tromsø Kir. Int.</includedValues>
-          <includedValues>Universitetssykehuset Nord-Norge – Narvik</includedValues>
-          <includedValues>Helse Finnmark HF – Hammerfest</includedValues>
-          <includedValues>Helse Finnmark HF – Kirkenes</includedValues>
-          <includedValues>Utlandet</includedValues>
-          <includedValues>Annet sykehus i Norge</includedValues>
-          <includedValues>Oslo universitetssykehus HF - Ullevål Medisinsk intensiv</includedValues>
-          <includedValues>Oslo universitetssykehus HF - Ullevål Thoraxkir. intensiv</includedValues>
-          <includedValues>Haukeland universitetssykehus Medisinsk intensiv MIO</includedValues>
-          <includedValues>Haukeland universitetssykehus  Respiratorisk overvåkingsenhet ROE</includedValues>
-          <includedValues>Universitetssykehuset Nord-Norge - Tromsø Medisinsk intensiv</includedValues>
-          <includedValues>Sykehuset Innlandet – Elverum</includedValues>
-          <includedValues>Oslo universitetssykehus HF - Barneintensiv, Ullevål</includedValues>
-          <includedValues>Haukeland universitetssykehus - KSK Postoperativ seksjon</includedValues>
-          <includedValues>Haukeland universitetssykehus - Thoraxkirurgisk intensiv og oppvåkningsseksjon TIO</includedValues>
-          <includedValues>Haukeland universitetssykehus - Seksjon for brannskade</includedValues>
-          <includedValues>Oslo universitetssykehus HF – Barneintensiv RH</includedValues>
-          <includedValues>Oslo universitetssykehus HF – Generell intensiv 2 RH</includedValues>
-          <includedValues>Oslo universitetssykehus HF - Generell intensiv 1 RH</includedValues>
-          <includedValues>Oslo universitetssykehus HF - Postoperativ avdeling RH</includedValues>
-          <includedValues>Oslo universitetssykehus HF - Torax 1 RH</includedValues>
-          <includedValues>Oslo universitetssykehus HF - Torax 2 RH</includedValues>
-          <includedValues>St- Olavs Hospital HF - Barneintensiv</includedValues>
-          <includedValues>St- Olavs Hospital HF - Hjertemedisin overvåkning</includedValues>
-          <includedValues>St- Olavs Hospital HF - Thoraxanestesi og intensiv</includedValues>
-          <includedValues>Universitetssykehuset Nord-Norge - Oppvåkning Tromsø</includedValues>
-        </constraint>
-      </Rule>
-      <Rule path="/data[at0001]/items[at0003]" name="Årsak til overføring fra">
-        <constraint xsi:type="textConstraint">
-          <includedValues>Medisinsk</includedValues>
-          <includedValues>Plassmangel/kapasitetsmangel</includedValues>
-          <includedValues>Tilbakeføring eller overføring til "hjemstedssykehus" etter behandling</includedValues>
-        </constraint>
-      </Rule>
-    </Content>
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.nir_arsak_overforing.v1" concept_name="Nir årsak til overføring" max="1" path="/content" name="Nir årsak til overføring #1">
-      <Rule path="/data[at0001]/items[at0002]" name="Pasienten er overført fra denne intensivenheten til hvilken enhet/sykehus">
-        <constraint xsi:type="textConstraint">
-          <includedValues>Sykehuset Østfold-Fredrikstad</includedValues>
-          <includedValues>Sykehuset Østfold-Moss</includedValues>
-          <includedValues>Akershus universitetssykehus AHUS</includedValues>
-          <includedValues>Sykehuset Asker og Bærum HF</includedValues>
-          <includedValues>Diakonhjemmet sykehus</includedValues>
-          <includedValues>Oslo universitetssykehus HF – Ullevål Kir. int. (2)</includedValues>
-          <includedValues>Oslo universitetssykehus HF – Ullevål Nevroint. (3)</includedValues>
-          <includedValues>Oslo universitetssykehus HF – Ullevål Oppvåkning</includedValues>
-          <includedValues>Oslo universitetssykehus HF - Radiumhospitalet</includedValues>
-          <includedValues>Oslo universitetssykehus HF – Rikshospitalet</includedValues>
-          <includedValues>Oslo universitetssykehus HF - Aker</includedValues>
-          <includedValues>Sykehuset Innlandet – Hamar</includedValues>
-          <includedValues>Sykehuset Innlandet – Lillehammer</includedValues>
-          <includedValues>Sykehuset Innlandet – Gjøvik</includedValues>
-          <includedValues>Sykehuset Buskerud HF</includedValues>
-          <includedValues>Sykehuset i Vestfold – Tønsberg</includedValues>
-          <includedValues>Sykehuset Telemark HF – Skien</includedValues>
-          <includedValues>Sørlandet sykehus HF - Kristiansand</includedValues>
-          <includedValues>Sørlandet sykehus HF – Arendal</includedValues>
-          <includedValues>Stavanger universitetssjukehus</includedValues>
-          <includedValues>Haugesund sjukehus Helse Fonna</includedValues>
-          <includedValues>Haukeland universitetssykehus Kir. intensiv</includedValues>
-          <includedValues>Haraldsplass Diakonale Sykehus AS</includedValues>
-          <includedValues>Førde sentralsjukehus</includedValues>
-          <includedValues>Ålesund sjukehus - medisinsk</includedValues>
-          <includedValues>Ålesund sjukehus – kirurgisk</includedValues>
-          <includedValues>Molde sjukehus</includedValues>
-          <includedValues>Kristiansund sjukehus</includedValues>
-          <includedValues>ST Olavs Hospital HF</includedValues>
-          <includedValues>Helse Nord-Trøndelag HF – Levanger</includedValues>
-          <includedValues>Helse Nord-Trøndelag HF – Namsos</includedValues>
-          <includedValues>Helgelandssykehuset – Mosjøen</includedValues>
-          <includedValues>Helgelandssykehuset – Sandnessjøen</includedValues>
-          <includedValues>Helgelandssykehuset – Mo i Rana</includedValues>
-          <includedValues>Nordlandssykehuset HF - Bodø</includedValues>
-          <includedValues>Nordlandssykehuset HF – Vesterålen (Stokmarknes)</includedValues>
-          <includedValues>Universitetssykehuset Nord-Norge - Harstad</includedValues>
-          <includedValues>Universitetssykehuset Nord-Norge - Tromsø Kir. Int.</includedValues>
-          <includedValues>Universitetssykehuset Nord-Norge – Narvik</includedValues>
-          <includedValues>Helse Finnmark HF – Hammerfest</includedValues>
-          <includedValues>Helse Finnmark HF – Kirkenes</includedValues>
-          <includedValues>Utlandet</includedValues>
-          <includedValues>Annet sykehus i Norge</includedValues>
-          <includedValues>Oslo universitetssykehus HF - Ullevål Medisinsk intensiv</includedValues>
-          <includedValues>Oslo universitetssykehus HF - Ullevål Thoraxkir. intensiv</includedValues>
-          <includedValues>Haukeland universitetssykehus Medisinsk intensiv MIO</includedValues>
-          <includedValues>Haukeland universitetssykehus  Respiratorisk overvåkingsenhet ROE</includedValues>
-          <includedValues>Universitetssykehuset Nord-Norge - Tromsø Medisinsk intensiv</includedValues>
-          <includedValues>Sykehuset Innlandet – Elverum</includedValues>
-          <includedValues>Oslo universitetssykehus HF - Barneintensiv, Ullevål</includedValues>
-          <includedValues>Haukeland universitetssykehus - KSK Postoperativ seksjon</includedValues>
-          <includedValues>Haukeland universitetssykehus - Thoraxkirurgisk intensiv og oppvåkningsseksjon TIO</includedValues>
-          <includedValues>Haukeland universitetssykehus - Seksjon for brannskade</includedValues>
-          <includedValues>Oslo universitetssykehus HF – Barneintensiv RH</includedValues>
-          <includedValues>Oslo universitetssykehus HF – Generell intensiv 2 RH</includedValues>
-          <includedValues>Oslo universitetssykehus HF - Generell intensiv 1 RH</includedValues>
-          <includedValues>Oslo universitetssykehus HF - Postoperativ avdeling RH</includedValues>
-          <includedValues>Oslo universitetssykehus HF - Torax 1 RH</includedValues>
-          <includedValues>Oslo universitetssykehus HF - Torax 2 RH</includedValues>
-          <includedValues>St- Olavs Hospital HF - Barneintensiv</includedValues>
-          <includedValues>St- Olavs Hospital HF - Hjertemedisin overvåkning</includedValues>
-          <includedValues>St- Olavs Hospital HF - Thoraxanestesi og intensiv</includedValues>
-          <includedValues>Universitetssykehuset Nord-Norge - Oppvåkning Tromsø</includedValues>
-        </constraint>
-      </Rule>
-      <Rule path="/data[at0001]/items[at0003]" name="Årsak til overføring til">
-        <constraint xsi:type="textConstraint">
-          <includedValues>Medisinsk</includedValues>
-          <includedValues>Plassmangel/kapasitetsmangel</includedValues>
-          <includedValues>Tilbakeføring eller overføring til "hjemstedssykehus" etter behandling</includedValues>
         </constraint>
       </Rule>
     </Content>
@@ -585,9 +441,6 @@
           <includedValues>Plutselig død/hjertestans</includedValues>
         </constraint>
       </Rule>
-    </Content>
-    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.patient_information.v0" concept_name="Pasientopplysninger" path="/content">
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.person_details.v0" concept_name="Person detaljer" path="/data[at0001]/items[at0004]" />
     </Content>
     <Context />
   </definition>
