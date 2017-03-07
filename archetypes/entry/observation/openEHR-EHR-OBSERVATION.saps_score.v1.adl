@@ -1,5 +1,5 @@
 ﻿archetype (adl_version=1.4)
-	openEHR-EHR-OBSERVATION.saps_score.v0
+	openEHR-EHR-OBSERVATION.saps_score.v1
 
 concept
 	[at0000]	-- Saps score
@@ -26,15 +26,15 @@ description
 			purpose = <"Skåringssystemet  SAPS II (Simplified Acute Physiology Score II) benyttes for fastsettelse av alvorlighetsgrad og sannsynlighet for død ved sykehusopphold. ">
 			use = <"SAPS II benytter seg av 17 variabler –  alder, type innleggelse (planlagt kirurgisk, øyeblikkelig hjelp-kirurgi og ikke-operativ), 12 fysiologiske eller biokjemiske variabler, samt tre variabler for underliggende kronisk sykdom (AIDS, cancer med metastaser, hematologisk malign sykdom).
 
-Selve skåringen gjøres kun én gang for hver pasient på basis av registrerte observasjoner i de første 24 timene av oppholdet i intensivavdelingen. De mest avvikende resultatene i løpet av denne perioden registreres. Til hver variabel tillegges angitte poeng, og den samlede poengsum utgjør en skåre som igjen kan konverteres til en sannsynlighet for død under sykehusoppholdet ">
-			misuse = <"SAPS II kan ikke brukes for individuell prognosefastsettelse. En pasient med en viss skåre allokeres til en gruppe som har en bestemt sannsynlighet for død under sykehusoppholdet. Selve skåringsresultatet sier intet om den enkelte pasient vil overleve eller ikke.">
+Selve skåringen gjøres kun én gang for hver pasient på basis av registrerte observasjoner i de første 24 timene av oppholdet i intensivavdelingen. De mest avvikende resultatene i løpet av denne perioden registreres. Til hver variabel tillegges angitte poeng, og den samlede poengsum utgjør en score som igjen konverteres til en sannsynlighet for død under sykehusoppholdet. ">
+			misuse = <"SAPS II kan ikke brukes for individuell prognosefastsettelse. En pasient med en viss score allokeres til en gruppe som har en bestemt sannsynlighet for død under sykehusoppholdet. Selve skåringsresultatet sier ikke noe om den enkelte pasient vil overleve eller ikke.">
 			copyright = <"">
 		>
 		["en"] = <
 			language = <[ISO_639-1::en]>
 			purpose = <"Simplified acute physiology score II (SAPS II) is used for measuring severity of illness and to predict ICU mortality.
 The score provides an estimate of the risk of death without having to specify a primary diagnosis.">
-			use = <"The SAPS II includes17 variables: 12 physiology variables, age, type of admission (scheduled surgical, unscheduled surgical, or medical), and three underlying disease variables (acquired immunodeficiency syndrome, metastatic cancer, and hematologic malignancy). 
+			use = <"The SAPS II includes 17 variables: 12 physiology variables, age, type of admission (scheduled surgical, unscheduled surgical, or medical), and three underlying disease variables (acquired immunodeficiency syndrome, metastatic cancer, and hematologic malignancy). 
 
 The score uses the worst value (the one that gives the most points) in the last 24 hours.
 ">
@@ -49,7 +49,7 @@ The score uses the worst value (the one that gives the most points) in the last 
 http://tidsskriftet.no/2001/02/klinikk-og-forskning/erfaringer-med-bruk-av-skaringssystemene-saps-ii-og-nems-i
 
 Haagensen, R., Jamtli. B, Moen H., Stokland O.: Virksomhetsregistrering ved intensivavdelinger, Tidsskr Nor Legeforen 2001;121: 682-685
-file:///C:/Git/Intensive/backgroundinfo/NEMS/Virksomhetsresistrering%20ved%20int.avdelinger.pdf2001--682-5.pdf
+http://tidsskriftet.no/2001/02/klinikk-og-forskning/virksomhetsregistrering-ved-intensivavdelinger
 
 
 Jérôme Allyn , Cyril Ferdynus, Michel Bohrer, Cécile Dalban, Dorothée Valance, Nicolas Allou: Simplified Acute Physiology Score II as Predictor of Mortality in Intensive Care Units: A Decision Curve Analysis
@@ -60,11 +60,8 @@ Le Gall JR1, Lemeshow S, Saulnier : A new Simplified Acute Physiology Score (SAP
 
 Jones &Barlett Learning:  Scores and Definitions Used in respiratory and Critical Care Research. http://samples.jbpub.com/9780763784096/84096_CH01_Chatburn.pdf
 
-
-
-
-">
-		["MD5-CAM-1.0.1"] = <"28F493502FD4F3E3B32662C63577F59D">
+http://www.helsebiblioteket.no/fagprosedyrer/ferdige/_attachment/247503?_ts=152cb6645f3&download=true">
+		["MD5-CAM-1.0.1"] = <"8B5705CB9E34B91D4ED99D71DB5A9ACC">
 	>
 
 definition
@@ -75,103 +72,103 @@ definition
 					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
 						data matches {
 							ITEM_TREE[at0003] matches {	-- Tree
-								items cardinality matches {11..*; unordered} matches {
+								items cardinality matches {0..*; unordered} matches {
 									ELEMENT[at0052] occurrences matches {0..1} matches {	-- Alder
 										value matches {
-											0|[local::at0054], 	-- < 40
-											7|[local::at0055], 	-- 40 - 59
-											12|[local::at0056], 	-- 60 - 69
-											15|[local::at0057], 	-- 70 - 75
-											16|[local::at0058], 	-- 75 - 79
-											18|[local::at0059]  	-- > eller = 80
+											0|[local::at0054], 	-- < 40 år
+											7|[local::at0055], 	-- 40 - 59 år
+											12|[local::at0056], 	-- 60 - 69 år
+											15|[local::at0057], 	-- 70 - 75 år
+											16|[local::at0058], 	-- 75 - 79 år
+											18|[local::at0059]  	-- ≥ 80 år
 										}
 									}
 									ELEMENT[at0030] occurrences matches {0..1} matches {	-- PaO2/FiO2
 										value matches {
-											6|[local::at0060], 	-- > 26,66
-											9|[local::at0061], 	-- 13,33 - 26,66
-											11|[local::at0062]  	-- < 13,33
+											6|[local::at0060], 	-- > 26,66 kPa
+											9|[local::at0061], 	-- 13,33 - 26,66 kPa
+											11|[local::at0062]  	-- < 13,33 kPa
 										}
 									}
 									ELEMENT[at0031] occurrences matches {0..1} matches {	-- Hjertefrekvens
 										value matches {
-											0|[local::at0063], 	-- 70 - 119
-											2|[local::at0064], 	-- 40 - 69
-											4|[local::at0065], 	-- 120 - 159
-											7|[local::at0066], 	-- ≥ 160
-											11|[local::at0067]  	-- < 40
+											0|[local::at0063], 	-- 70 - 119 /min
+											2|[local::at0064], 	-- 40 - 69 /min
+											4|[local::at0065], 	-- 120 - 159 /min
+											7|[local::at0066], 	-- ≥ 160 /min
+											11|[local::at0067]  	-- < 40 /min
 										}
 									}
 									ELEMENT[at0032] occurrences matches {0..1} matches {	-- Systolisk blodtrykk
 										value matches {
-											0|[local::at0068], 	-- 100 - 199
-											2|[local::at0069], 	-- ≥ 200
-											5|[local::at0070], 	-- 70 - 99
-											13|[local::at0071]  	-- < 70
+											0|[local::at0068], 	-- 100 - 199 mmHg
+											2|[local::at0069], 	-- ≥ 200 mmHg
+											5|[local::at0070], 	-- 70 - 99 mmHg
+											13|[local::at0071]  	-- < 70 mmHg
 										}
 									}
 									ELEMENT[at0033] occurrences matches {0..1} matches {	-- Temperatur
 										value matches {
-											0|[local::at0072], 	-- < 39
-											3|[local::at0073]  	-- ≥ 39
+											0|[local::at0072], 	-- < 39 °C
+											3|[local::at0073]  	-- ≥ 39 °C
 										}
 									}
 									ELEMENT[at0034] occurrences matches {0..1} matches {	-- Døgnurin
 										value matches {
-											0|[local::at0074], 	-- ≥ 1000 
-											4|[local::at0075], 	-- 500 - 999 
-											11|[local::at0076]  	-- < 500 
+											0|[local::at0074], 	-- ≥ 1000 ml/døgn
+											4|[local::at0075], 	-- 500 - 999 ml/døgn
+											11|[local::at0076]  	-- < 500 ml/døgn
 										}
 									}
 									ELEMENT[at0035] occurrences matches {0..1} matches {	-- P-Karbamid
 										value matches {
-											0|[local::at0077], 	-- < 10
-											6|[local::at0078], 	-- 10 - 29,9
-											10|[local::at0079]  	-- ≥ 30
+											0|[local::at0077], 	-- < 10 mmol/L
+											6|[local::at0078], 	-- 10 - 29,9 mmol/L
+											10|[local::at0079]  	-- ≥ 30 mmol/L
 										}
 									}
 									ELEMENT[at0036] occurrences matches {0..1} matches {	-- B-Leukocytter
 										value matches {
-											0|[local::at0080], 	-- 1 - 19.9
-											3|[local::at0081], 	-- ≥ 20
-											12|[local::at0082]; 	-- < 1
+											0|[local::at0080], 	-- 1 - 19,9, 10⁹/L
+											3|[local::at0081], 	-- ≥ 20, 10⁹/L
+											12|[local::at0082]; 	-- < 1, 10⁹/L
 											0  	-- assumed value
 										}
 									}
 									ELEMENT[at0037] occurrences matches {0..1} matches {	-- S-Kalium
 										value matches {
-											0|[local::at0083], 	-- 3 - 4.9
-											3|[local::at0084]  	-- < 3 eller ≥ 5
+											0|[local::at0083], 	-- 3 - 4,9 mmol/L
+											3|[local::at0084]  	-- < 3 eller ≥ 5 mmol/L
 										}
 									}
 									ELEMENT[at0038] occurrences matches {0..1} matches {	-- S-Natrium
 										value matches {
-											0|[local::at0085], 	-- 125 - 144
-											1|[local::at0086], 	-- ≥ 145
-											5|[local::at0087]  	-- < 125
+											0|[local::at0085], 	-- 125 - 144 mmol/L
+											1|[local::at0086], 	-- ≥ 145 mmol/L
+											5|[local::at0087]  	-- < 125 mmol/L
 										}
 									}
 									ELEMENT[at0039] occurrences matches {0..1} matches {	-- P-Bikarbonat
 										value matches {
-											0|[local::at0088], 	-- ≥ 20
-											3|[local::at0089], 	-- 15-19
-											6|[local::at0090]  	-- < 15
+											0|[local::at0088], 	-- ≥ 20 mmol/L
+											3|[local::at0089], 	-- 15-19 mmol/L
+											6|[local::at0090]  	-- < 15 mmol/L
 										}
 									}
 									ELEMENT[at0040] occurrences matches {0..1} matches {	-- P-Bilirubin
 										value matches {
-											0|[local::at0091], 	-- < 68.4
-											4|[local::at0092], 	-- 68,4 - 102,5
-											9|[local::at0093]  	-- ≥ 102,6
+											0|[local::at0091], 	-- < 68.4 µmol/L
+											4|[local::at0092], 	-- 68,4 - 102,5 µmol/L
+											9|[local::at0093]  	-- ≥ 102,6 µmol/L
 										}
 									}
 									ELEMENT[at0053] occurrences matches {0..1} matches {	-- Glasgow Coma Scale
 										value matches {
-											0|[local::at0094], 	-- 14-15
-											5|[local::at0095], 	-- 11-13
-											7|[local::at0096], 	-- 9-10
-											13|[local::at0097], 	-- 6-8
-											26|[local::at0098]  	-- < 6
+											0|[local::at0094], 	-- GCS 14-15
+											5|[local::at0095], 	-- GCS 11-13
+											7|[local::at0096], 	-- GCS 9-10
+											13|[local::at0097], 	-- GCS 6-8
+											26|[local::at0098]  	-- GCS < 6
 										}
 									}
 									ELEMENT[at0041] occurrences matches {0..1} matches {	-- Type innleggelse
@@ -183,7 +180,6 @@ definition
 									}
 									ELEMENT[at0042] occurrences matches {0..1} matches {	-- Kronisk sykdom
 										value matches {
-											0|[local::at0099], 	-- Ingen poenggivende sykdom 
 											9|[local::at0104], 	-- Cancer med metastaser 
 											10|[local::at0105], 	-- Hematologisk malignitet 
 											17|[local::at0100]  	-- AIDS 
@@ -192,7 +188,7 @@ definition
 									ELEMENT[at0025] occurrences matches {0..1} matches {	-- SAPS score
 										value matches {
 											DV_COUNT matches {
-												magnitude matches {|0|}
+												magnitude matches {|0..163|}
 											}
 										}
 									}
@@ -207,6 +203,17 @@ definition
 									}
 								}
 							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0106] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0107] occurrences matches {0..1} matches {	-- Mortalitet score
+						value matches {
+							DV_PROPORTION matches {*}
 						}
 					}
 				}
@@ -303,187 +310,183 @@ ontology
 					description = <"Totalscore fra Glasgow coma scale.">
 				>
 				["at0054"] = <
-					text = <"< 40">
+					text = <"< 40 år">
 					description = <"*">
 				>
 				["at0055"] = <
-					text = <"40 - 59">
+					text = <"40 - 59 år">
 					description = <"*">
 				>
 				["at0056"] = <
-					text = <"60 - 69">
+					text = <"60 - 69 år">
 					description = <"*">
 				>
 				["at0057"] = <
-					text = <"70 - 75">
+					text = <"70 - 75 år">
 					description = <"*">
 				>
 				["at0058"] = <
-					text = <"75 - 79">
+					text = <"75 - 79 år">
 					description = <"*">
 				>
 				["at0059"] = <
-					text = <"> eller = 80">
+					text = <"≥ 80 år">
 					description = <"*">
 				>
 				["at0060"] = <
-					text = <"> 26,66">
+					text = <"> 26,66 kPa">
 					description = <"*">
 				>
 				["at0061"] = <
-					text = <"13,33 - 26,66">
+					text = <"13,33 - 26,66 kPa">
 					description = <"*">
 				>
 				["at0062"] = <
-					text = <"< 13,33">
+					text = <"< 13,33 kPa">
 					description = <"*">
 				>
 				["at0063"] = <
-					text = <"70 - 119">
+					text = <"70 - 119 /min">
 					description = <"*">
 				>
 				["at0064"] = <
-					text = <"40 - 69">
+					text = <"40 - 69 /min">
 					description = <"*">
 				>
 				["at0065"] = <
-					text = <"120 - 159">
+					text = <"120 - 159 /min">
 					description = <"*">
 				>
 				["at0066"] = <
-					text = <"≥ 160">
+					text = <"≥ 160 /min">
 					description = <"*">
 				>
 				["at0067"] = <
-					text = <"< 40">
+					text = <"< 40 /min">
 					description = <"*">
 				>
 				["at0068"] = <
-					text = <"100 - 199">
+					text = <"100 - 199 mmHg">
 					description = <"*">
 				>
 				["at0069"] = <
-					text = <"≥ 200">
+					text = <"≥ 200 mmHg">
 					description = <"*">
 				>
 				["at0070"] = <
-					text = <"70 - 99">
+					text = <"70 - 99 mmHg">
 					description = <"*">
 				>
 				["at0071"] = <
-					text = <"< 70">
+					text = <"< 70 mmHg">
 					description = <"*">
 				>
 				["at0072"] = <
-					text = <"< 39">
+					text = <"< 39 °C">
 					description = <"*">
 				>
 				["at0073"] = <
-					text = <"≥ 39">
+					text = <"≥ 39 °C">
 					description = <"*">
 				>
 				["at0074"] = <
-					text = <"≥ 1000 ">
+					text = <"≥ 1000 ml/døgn">
 					description = <"*">
 				>
 				["at0075"] = <
-					text = <"500 - 999 ">
+					text = <"500 - 999 ml/døgn">
 					description = <"*">
 				>
 				["at0076"] = <
-					text = <"< 500 ">
+					text = <"< 500 ml/døgn">
 					description = <"*">
 				>
 				["at0077"] = <
-					text = <"< 10">
+					text = <"< 10 mmol/L">
 					description = <"*">
 				>
 				["at0078"] = <
-					text = <"10 - 29,9">
+					text = <"10 - 29,9 mmol/L">
 					description = <"*">
 				>
 				["at0079"] = <
-					text = <"≥ 30">
+					text = <"≥ 30 mmol/L">
 					description = <"*">
 				>
 				["at0080"] = <
-					text = <"1 - 19.9">
+					text = <"1 - 19,9, 10⁹/L">
 					description = <"*">
 				>
 				["at0081"] = <
-					text = <"≥ 20">
+					text = <"≥ 20, 10⁹/L">
 					description = <"*">
 				>
 				["at0082"] = <
-					text = <"< 1">
+					text = <"< 1, 10⁹/L">
 					description = <"*">
 				>
 				["at0083"] = <
-					text = <"3 - 4.9">
+					text = <"3 - 4,9 mmol/L">
 					description = <"*">
 				>
 				["at0084"] = <
-					text = <"< 3 eller ≥ 5">
+					text = <"< 3 eller ≥ 5 mmol/L">
 					description = <"*">
 				>
 				["at0085"] = <
-					text = <"125 - 144">
+					text = <"125 - 144 mmol/L">
 					description = <"*">
 				>
 				["at0086"] = <
-					text = <"≥ 145">
+					text = <"≥ 145 mmol/L">
 					description = <"*">
 				>
 				["at0087"] = <
-					text = <"< 125">
+					text = <"< 125 mmol/L">
 					description = <"*">
 				>
 				["at0088"] = <
-					text = <"≥ 20">
+					text = <"≥ 20 mmol/L">
 					description = <"*">
 				>
 				["at0089"] = <
-					text = <"15-19">
+					text = <"15-19 mmol/L">
 					description = <"*">
 				>
 				["at0090"] = <
-					text = <"< 15">
+					text = <"< 15 mmol/L">
 					description = <"*">
 				>
 				["at0091"] = <
-					text = <"< 68.4">
+					text = <"< 68.4 µmol/L">
 					description = <"*">
 				>
 				["at0092"] = <
-					text = <"68,4 - 102,5">
+					text = <"68,4 - 102,5 µmol/L">
 					description = <"*">
 				>
 				["at0093"] = <
-					text = <"≥ 102,6">
+					text = <"≥ 102,6 µmol/L">
 					description = <"*">
 				>
 				["at0094"] = <
-					text = <"14-15">
+					text = <"GCS 14-15">
 					description = <"*">
 				>
 				["at0095"] = <
-					text = <"11-13">
+					text = <"GCS 11-13">
 					description = <"*">
 				>
 				["at0096"] = <
-					text = <"9-10">
+					text = <"GCS 9-10">
 					description = <"*">
 				>
 				["at0097"] = <
-					text = <"6-8">
+					text = <"GCS 6-8">
 					description = <"*">
 				>
 				["at0098"] = <
-					text = <"< 6">
-					description = <"*">
-				>
-				["at0099"] = <
-					text = <"Ingen poenggivende sykdom ">
+					text = <"GCS < 6">
 					description = <"*">
 				>
 				["at0100"] = <
@@ -492,15 +495,15 @@ ontology
 				>
 				["at0101"] = <
 					text = <"Elektiv operasjon">
-					description = <"*">
+					description = <"Etter planlagt operasjon.">
 				>
 				["at0102"] = <
 					text = <"Non-operativ">
-					description = <"*">
+					description = <"Akutt/elektiv non-operativ/medisinsk">
 				>
 				["at0103"] = <
 					text = <"Akutt operasjon">
-					description = <"*">
+					description = <"Etter akutt operasjon">
 				>
 				["at0104"] = <
 					text = <"Cancer med metastaser ">
@@ -509,6 +512,14 @@ ontology
 				["at0105"] = <
 					text = <"Hematologisk malignitet ">
 					description = <"*">
+				>
+				["at0106"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0107"] = <
+					text = <"Mortalitet score">
+					description = <"Mortalitetsscore = 100*exp(-7.7631+0.0737*s_saps+0.9971*ln(s_saps+1))/(1+exp(-7.7631+0.0737*s_saps+0.9971*ln(s_saps+1))).">
 				>
 			>
 		>
@@ -536,11 +547,11 @@ ontology
 				>
 				["at0026"] = <
 					text = <"Mortality score">
-					description = <"Calculated mortality score">
+					description = <"Calculated mortality score.">
 				>
 				["at0030"] = <
-					text = <"PaO2/FiO2-ratio">
-					description = <"PaO2/FiO2-ratio. Only register if the patient is on mechanical ventilation. Mechanical ventilation includes the use of continuous positive airway pressure (CPAP).">
+					text = <"PaO2/FiO2">
+					description = <"Only register if the patient is on mechanical ventilation. Mechanical ventilation includes the use of continuous positive airway pressure (CPAP).">
 				>
 				["at0031"] = <
 					text = <"Heartrate">
@@ -556,7 +567,7 @@ ontology
 				>
 				["at0034"] = <
 					text = <"Urinary output">
-					description = <"Urinary output, m/day">
+					description = <"Urinary output, ml/day">
 				>
 				["at0035"] = <
 					text = <"Serum Urea level">
@@ -564,19 +575,19 @@ ontology
 				>
 				["at0036"] = <
 					text = <"White Bloodcell Count">
-					description = <"White Bloodcell Count, mm³.">
+					description = <"White Bloodcell Count, 10⁹/L.">
 				>
 				["at0037"] = <
 					text = <"Potassium">
-					description = <"Potassium, mEq/L">
+					description = <"Potassium, mmol/L.">
 				>
 				["at0038"] = <
 					text = <"Sodium">
-					description = <"Sodium, mEq/L">
+					description = <"Sodium, mmol/L.">
 				>
 				["at0039"] = <
 					text = <"Bicarbonate">
-					description = <"Bicarbonate, mEq/L">
+					description = <"Bicarbonate, mmol/L.">
 				>
 				["at0040"] = <
 					text = <"Bilirubin">
@@ -600,59 +611,59 @@ ontology
 					description = <"Glasgow Coma Score">
 				>
 				["at0054"] = <
-					text = <"< 40">
+					text = <"< 40 years">
 					description = <"*">
 				>
 				["at0055"] = <
-					text = <"40 - 59">
+					text = <"40 - 59 years">
 					description = <"*">
 				>
 				["at0056"] = <
-					text = <"60 - 69">
+					text = <"60 - 69 years">
 					description = <"*">
 				>
 				["at0057"] = <
-					text = <"70 - 74">
+					text = <"70 - 74 years">
 					description = <"*">
 				>
 				["at0058"] = <
-					text = <"75 - 79">
+					text = <"75 - 79 years">
 					description = <"*">
 				>
 				["at0059"] = <
-					text = <"> eller = 80">
+					text = <"≥ 80 years">
 					description = <"*">
 				>
 				["at0060"] = <
-					text = <"> 26,66">
+					text = <"> 26,66 kPa">
 					description = <"*">
 				>
 				["at0061"] = <
-					text = <"13,33 - 26,66">
+					text = <"13,33 - 26,66 kPa">
 					description = <"*">
 				>
 				["at0062"] = <
-					text = <"< 13,33">
+					text = <"< 13,33 kPa ">
 					description = <"*">
 				>
 				["at0063"] = <
-					text = <"70 - 119">
+					text = <"70 - 119 bpm">
 					description = <"*">
 				>
 				["at0064"] = <
-					text = <"40 - 69">
+					text = <"40 - 69 bpm">
 					description = <"*">
 				>
 				["at0065"] = <
-					text = <"120 - 159">
+					text = <" 120-159 bpm">
 					description = <"*">
 				>
 				["at0066"] = <
-					text = <"≥ 160">
+					text = <"≥ 160 bpm">
 					description = <"*">
 				>
 				["at0067"] = <
-					text = <"< 40">
+					text = <"< 40 bpm">
 					description = <"*">
 				>
 				["at0068"] = <
@@ -672,115 +683,111 @@ ontology
 					description = <"*">
 				>
 				["at0072"] = <
-					text = <"< 39">
+					text = <"< 39 °C">
 					description = <"*">
 				>
 				["at0073"] = <
-					text = <"> eller = 39">
+					text = <"≥ 39 °C">
 					description = <"*">
 				>
 				["at0074"] = <
-					text = <"> eller = 1000 ml">
+					text = <"≥ 1000 ml/day">
 					description = <"*">
 				>
 				["at0075"] = <
-					text = <"500 - 999 ml">
+					text = <"500 - 999 ml/day">
 					description = <"*">
 				>
 				["at0076"] = <
-					text = <"< 500 ml">
+					text = <"< 500 ml/day">
 					description = <"*">
 				>
 				["at0077"] = <
-					text = <"< 10">
+					text = <"< 10 mmol/L">
 					description = <"*">
 				>
 				["at0078"] = <
-					text = <"10 - 29,9">
+					text = <"10 - 29,9 mmol/L">
 					description = <"*">
 				>
 				["at0079"] = <
-					text = <"≥ 30">
+					text = <"≥ 30 mmol/L">
 					description = <"*">
 				>
 				["at0080"] = <
-					text = <"1 - 19.9">
+					text = <"1 - 19.9, 10⁹/L">
 					description = <"*">
 				>
 				["at0081"] = <
-					text = <"> eller = 20">
+					text = <"≥ 20, 10⁹/L">
 					description = <"*">
 				>
 				["at0082"] = <
-					text = <"< 1">
+					text = <"< 1, 10⁹/L">
 					description = <"*">
 				>
 				["at0083"] = <
-					text = <"3 - 4.9">
+					text = <"3 - 4.9 mmol/L">
 					description = <"*">
 				>
 				["at0084"] = <
-					text = <"< 3 eller >/= 5">
+					text = <"< 3 eller ≥ 5 mmol/L">
 					description = <"*">
 				>
 				["at0085"] = <
-					text = <"125 - 144">
+					text = <"125 - 144 mmol/L">
 					description = <"*">
 				>
 				["at0086"] = <
-					text = <"> eller = 145">
+					text = <"≥ 145 mmol/L">
 					description = <"*">
 				>
 				["at0087"] = <
-					text = <"< 125">
+					text = <"< 125 mmol/L.">
 					description = <"*">
 				>
 				["at0088"] = <
-					text = <"> eller = 20">
+					text = <"≥ 20 mmol/L">
 					description = <"*">
 				>
 				["at0089"] = <
-					text = <"15-19">
+					text = <"15-19 mmol/L">
 					description = <"*">
 				>
 				["at0090"] = <
-					text = <"< 15">
+					text = <"< 15 mmol/L">
 					description = <"*">
 				>
 				["at0091"] = <
-					text = <"< 68.4">
+					text = <"< 68.4 µmol/L">
 					description = <"*">
 				>
 				["at0092"] = <
-					text = <"68,4 - 102,5">
+					text = <"68,4 - 102,5 µmol/L">
 					description = <"*">
 				>
 				["at0093"] = <
-					text = <"> eller = 102,6">
+					text = <"≥ 102,6 µmol/L">
 					description = <"*">
 				>
 				["at0094"] = <
-					text = <"14-15">
+					text = <"GCS 14-15">
 					description = <"*">
 				>
 				["at0095"] = <
-					text = <"11-13">
+					text = <"GCS 11-13">
 					description = <"*">
 				>
 				["at0096"] = <
-					text = <"9-10">
+					text = <"GCS 9-10">
 					description = <"*">
 				>
 				["at0097"] = <
-					text = <"6-8">
+					text = <"GCS 6-8">
 					description = <"*">
 				>
 				["at0098"] = <
-					text = <"< 6">
-					description = <"*">
-				>
-				["at0099"] = <
-					text = <"Non of the underlying disease variables">
+					text = <"GCS < 6">
 					description = <"*">
 				>
 				["at0100"] = <
@@ -806,6 +813,14 @@ ontology
 				["at0105"] = <
 					text = <"Hematologic malignancy">
 					description = <"*">
+				>
+				["at0106"] = <
+					text = <"*Tree(nb)">
+					description = <"*@ internal @(nb)">
+				>
+				["at0107"] = <
+					text = <"*Mortalitet score(nb)">
+					description = <"*Mortalitetsscore = 100*exp(-7.7631+0.0737*s_saps+0.9971*ln(s_saps+1))/(1+exp(-7.7631+0.0737*s_saps+0.9971*ln(s_saps+1))).(nb)">
 				>
 			>
 		>
