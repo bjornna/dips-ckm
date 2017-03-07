@@ -48,67 +48,72 @@ http://intensivregister.no/LinkClick.aspx?fileticket=O7WSzt%2fNev0%3d&tabid=103&
 
 
 ">
-		["MD5-CAM-1.0.1"] = <"33EDFA8E1AC75AAFDD2587A136855D4A">
+		["MD5-CAM-1.0.1"] = <"AE15FB30A4302A95A0EFBCC3A39B0026">
 	>
 
 definition
 	OBSERVATION[at0000] matches {	-- Nems score
 		data matches {
-			HISTORY[at0001] matches {	-- *Event Series(nb)
+			HISTORY[at0001] matches {	-- Event Series
 				events cardinality matches {1..*; unordered} matches {
-					EVENT[at0002] occurrences matches {0..1} matches {	-- *Any event(nb)
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
 						data matches {
-							ITEM_TREE[at0003] matches {	-- *Tree(nb)
+							ITEM_TREE[at0003] matches {	-- Tree
 								items cardinality matches {0..*; unordered} matches {
-									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Basci monitoring
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Basismonitorering
 										value matches {
-											0|[local::at0017], 	-- no
-											9|[local::at0018]  	-- Yes
+											0|[local::at0017], 	-- Nei
+											9|[local::at0018]  	-- Ja
 										}
 									}
-									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Intravenous medication
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Intravenøs medikasjon
 										value matches {
-											0|[local::at0019], 	-- No
-											6|[local::at0020]  	-- Yes
+											0|[local::at0019], 	-- Nei
+											6|[local::at0020]  	-- Ja
 										}
 									}
-									ELEMENT[at0021] occurrences matches {0..1} matches {	-- Mechanical ventilation
+									ELEMENT[at0021] occurrences matches {0..1} matches {	-- Mekanisk ventilasjonsstøtte
 										value matches {
-											0|[local::at0022], 	-- No mechanical ventilatory support
-											3|[local::at0024], 	-- Supplementary ventilatory care
-											12|[local::at0023]  	-- Mechanical ventilatory support
+											0|[local::at0022], 	-- Ingen ventilasjonsstøtte
+											3|[local::at0024], 	-- Annen ventilasjonshjelp
+											12|[local::at0023]  	-- Mekanisk ventilasjonsstøtte
 										}
 									}
-									ELEMENT[at0025] occurrences matches {0..1} matches {	-- Vasoactive medication
+									ELEMENT[at0025] occurrences matches {0..1} matches {	-- Vasoaktiv medikamentinfusjon
 										value matches {
-											0|[local::at0026], 	--  No vasoactive medication
-											7|[local::at0027], 	-- Single vasoactive medication
-											12|[local::at0028]  	-- Multiple vasoactive medication
+											0|[local::at0026], 	-- Ingen vasoaktiv medikamentinfusjon
+											7|[local::at0027], 	-- Enkel vasoaktiv medikamentinfusjon
+											12|[local::at0028]  	-- Flere vasoaktive medikamentinfusjoner
 										}
 									}
-									ELEMENT[at0012] occurrences matches {0..1} matches {	-- Dialysis techniques
+									ELEMENT[at0012] occurrences matches {0..1} matches {	-- Dialyse
 										value matches {
-											0|[local::at0030], 	-- Yes
-											6|[local::at0029]  	-- No
+											0|[local::at0030], 	-- Nei
+											6|[local::at0029]  	-- Ja
 										}
 									}
-									ELEMENT[at0013] occurrences matches {0..1} matches {	-- Spesific interventions in the ICU
+									ELEMENT[at0013] occurrences matches {0..1} matches {	-- Spesifikke intervensjoner på intensiv
 										value matches {
-											0|[local::at0031], 	-- No
-											5|[local::at0032]  	-- Yes
+											0|[local::at0031], 	-- Nei
+											5|[local::at0032]  	-- Ja
 										}
 									}
-									ELEMENT[at0014] occurrences matches {0..1} matches {	-- Spesific interventions outside the ICU
+									ELEMENT[at0014] occurrences matches {0..1} matches {	-- Spesifikke intervensjoner utenfor intensiv
 										value matches {
-											0|[local::at0033], 	-- No
-											6|[local::at0034]  	-- Yes
+											0|[local::at0033], 	-- Nei
+											6|[local::at0034]  	-- Ja
 										}
 									}
-									ELEMENT[at0015] occurrences matches {0..1} matches {	-- NEMS Score
+									ELEMENT[at0015] occurrences matches {0..1} matches {	-- Nems Score
 										value matches {
 											DV_COUNT matches {
 												magnitude matches {|>=0|}
 											}
+										}
+									}
+									ELEMENT[at0035] occurrences matches {0..1} matches {	-- Kommentar
+										value matches {
+											DV_TEXT matches {*}
 										}
 									}
 								}
@@ -141,7 +146,7 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0004"] = <
-					text = <"Basis-monitorering">
+					text = <"Basismonitorering">
 					description = <"Monitorering av vitale funksjoner, væskeregnskap x 1/time. ">
 				>
 				["at0005"] = <
@@ -156,10 +161,11 @@ ontology
 					text = <"Spesifikke intervensjoner på intensiv">
 					description = <"Eksempler: intubering, pleuratapping, bronkoskopi, gastroskopi, elektrokonvertering, endoskopier, vending i bukleie, forberedelse til organdonasjon, dilatasjonstracheostomi, rescusitering, operative inngrep utført på intensiv, terapeutisk hypotermi/TTM, isolasjon av pasient, mobilisering som krever mer enn en sykepleier, omfattende sårskift og omfattende pårørendeoppfølging. 
 Røntgen thorax, ECCO, EKG, fysioterapi, ordinære sårskift, suging, stell av kanyler, innleggelse av arteriekateter og sentralt venekateter inkluderes ikke.">
+					comment = <"Eksempler: intubering, pleuratapping, bronkoskopi, gastroskopi, elektrokonvertering, endoskopier, vending i bukleie, forberedelse til organdonasjon, dilatasjonstracheostomi, rescusitering, operative inngrep utført på intensiv, terapeutisk hypotermi/TTM, isolasjon av pasient, mobilisering som krever mer enn en sykepleier, omfattende sårskift og omfattende pårørendeoppfølging.">
 				>
 				["at0014"] = <
 					text = <"Spesifikke intervensjoner utenfor intensiv">
-					description = <"Alle prosedyrer som medfører flytting av pasienten untenfor intensivavsnittet.">
+					description = <"Alle prosedyrer som medfører flytting av pasienten utenfor intensivavsnittet.">
 				>
 				["at0015"] = <
 					text = <"Nems Score">
@@ -187,7 +193,7 @@ Røntgen thorax, ECCO, EKG, fysioterapi, ordinære sårskift, suging, stell av k
 				>
 				["at0022"] = <
 					text = <"Ingen ventilasjonsstøtte">
-					description = <"*">
+					description = <"Ingen ventilasjonsstøtte">
 				>
 				["at0023"] = <
 					text = <"Mekanisk ventilasjonsstøtte">
@@ -195,15 +201,15 @@ Røntgen thorax, ECCO, EKG, fysioterapi, ordinære sårskift, suging, stell av k
 				>
 				["at0024"] = <
 					text = <"Annen ventilasjonshjelp">
-					description = <"Oksygentilskudd uansestt metode (brillekateter, maske). Optiflow. Spontanventilasjon via oral, nasal eller tracheostomitube, med eller uten oksygen. ">
+					description = <"Oksygentilskudd uansett metode (brillekateter, maske). Optiflow. Spontanventilasjon via oral, nasal eller tracheostomitube, med eller uten oksygen. ">
 				>
 				["at0025"] = <
 					text = <"Vasoaktiv medikamentinfusjon">
-					description = <"Behov for vasokativ medikamentinfusjon.">
+					description = <"Behov for vasoaktiv medikamentinfusjon.">
 				>
 				["at0026"] = <
 					text = <"Ingen vasoaktiv medikamentinfusjon">
-					description = <"*">
+					description = <"Ingen vasoaktiv medikamentinfusjon.">
 				>
 				["at0027"] = <
 					text = <"Enkel vasoaktiv medikamentinfusjon">
@@ -211,15 +217,15 @@ Røntgen thorax, ECCO, EKG, fysioterapi, ordinære sårskift, suging, stell av k
 				>
 				["at0028"] = <
 					text = <"Flere vasoaktive medikamentinfusjoner">
-					description = <"To eller flere vasoaktive medikamentinfusjoner. Det skal ikke skåres for clonidin som vasoaktivt medikament hvis indikasjonen er abstinens.">
+					description = <"To eller flere vasoaktive medikamentinfusjoner. Det skal ikke skåres for clonidin som vasoaktivt. medikament hvis indikasjonen er abstinens.">
 				>
 				["at0029"] = <
 					text = <"Ja">
-					description = <"*">
+					description = <"Pasienten får dialyse.">
 				>
 				["at0030"] = <
 					text = <"Nei">
-					description = <"*">
+					description = <"Pasienten får ikke dialyse.">
 				>
 				["at0031"] = <
 					text = <"Nei">
@@ -236,6 +242,10 @@ Røntgen thorax, ECCO, EKG, fysioterapi, ordinære sårskift, suging, stell av k
 				["at0034"] = <
 					text = <"Ja">
 					description = <"*">
+				>
+				["at0035"] = <
+					text = <"Kommentar">
+					description = <"Ytterligere kommentar til NEMS-score som ikke er fanget opp i andre felt.">
 				>
 			>
 		>
@@ -284,11 +294,11 @@ routine interventions such as X-rays, echocardiography, electrocardiography, dre
 				>
 				["at0017"] = <
 					text = <"no">
-					description = <"">
+					description = <"*">
 				>
 				["at0018"] = <
 					text = <"Yes">
-					description = <"">
+					description = <"*">
 				>
 				["at0019"] = <
 					text = <"No">
@@ -353,6 +363,10 @@ routine interventions such as X-rays, echocardiography, electrocardiography, dre
 				["at0034"] = <
 					text = <"Yes">
 					description = <"*">
+				>
+				["at0035"] = <
+					text = <"*New element(nb)">
+					description = <"**(nb)">
 				>
 			>
 		>
