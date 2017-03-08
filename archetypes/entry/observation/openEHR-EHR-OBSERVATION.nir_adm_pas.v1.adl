@@ -7,13 +7,15 @@ language
 	original_language = <[ISO_639-1::nb]>
 description
 	original_author = <
-		["name"] = <"">
+		["name"] = <"Siv Fauchald">
+		["email"] = <"sfa@dips.no">
+		["date"] = <"2017-03-08">
 	>
 	details = <
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"">
-			use = <"">
+			purpose = <"Brukes til registrering av pasient- og pasientadministrativ informasjon som skal rapporteres til Norsk intensivregister (NIR).">
+			use = <"Rappportering til Norsk intensivregister gjennomføres av intensivavdelinger i Norge. Arektypen benyttes til å registrere NIR-spesifikk informasjon.">
 			misuse = <"">
 			copyright = <"">
 		>
@@ -21,7 +23,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"F972BE8C657A776A44BAA04C5D0130AB">
+		["MD5-CAM-1.0.1"] = <"62ABFF1F3C18F6881D97554475DDD5D0">
 	>
 
 definition
@@ -33,53 +35,9 @@ definition
 						data matches {
 							ITEM_TREE[at0003] matches {	-- Tree
 								items cardinality matches {0..*; unordered} matches {
-									ELEMENT[at0008] occurrences matches {0..1} matches {	-- Liggetid (døgn)
-										value matches {
-											C_DV_QUANTITY <
-												property = <[openehr::709]>
-												list = <
-													["1"] = <
-														units = <"">
-														magnitude = <|>=0.0|>
-														precision = <|1|>
-													>
-												>
-											>
-										}
-									}
-									ELEMENT[at0031] occurrences matches {0..1} matches {	-- Hjelpefelt for å konvertere liggetid som duration til desimaltall
+									ELEMENT[at0038] occurrences matches {0..1} matches {	-- Overført under pågående intensivbehandling
 										value matches {
 											DV_TEXT matches {*}
-										}
-									}
-									ELEMENT[at0009] occurrences matches {0..1} matches {	-- Alder ved innleggelse
-										value matches {
-											C_DV_QUANTITY <
-												property = <[openehr::128]>
-												list = <
-													["1"] = <
-														units = <"a">
-														magnitude = <|>=0.0|>
-														precision = <|1|>
-													>
-												>
-											>
-										}
-									}
-									ELEMENT[at0030] occurrences matches {0..1} matches {	-- Hjelpefelt for å konvertere alder ved innleggelse som duration til desimaltall
-										value matches {
-											DV_TEXT matches {*}
-										}
-									}
-									ELEMENT[at0011] occurrences matches {0..1} matches {	-- Overført under pågående intensivbehandling
-										value matches {
-											DV_CODED_TEXT matches {
-												defining_code matches {
-													[local::
-													at0012, 	-- Pasienten er ikke overført
-													at0013]	-- Pasienten er overført
-												}
-											}
 										}
 									}
 									ELEMENT[at0036] occurrences matches {0..1} matches {	-- Årsak overføring til
@@ -95,15 +53,10 @@ definition
 									ELEMENT[at0018] occurrences matches {0..1} matches {	-- NEMS (totalt antall NEMS-poeng under oppholdet)
 										value matches {
 											C_DV_QUANTITY <
-												property = <[openehr::507]>
+												property = <[openehr::380]>
 												list = <
 													["1"] = <
-														units = <"">
-													>
-													["2"] = <
-														units = <"%">
-														magnitude = <|>=0.0|>
-														precision = <|0|>
+														units = <"1">
 													>
 												>
 											>
@@ -123,7 +76,7 @@ definition
 											>
 										}
 									}
-									ELEMENT[at0020] occurrences matches {0..1} matches {	-- Vil du registrere SOFA skåre på dette oppholdet?
+									ELEMENT[at0020] occurrences matches {0..1} matches {	-- Vil du registrere SOFA score på dette oppholdet?
 										value matches {
 											DV_BOOLEAN matches {
 												value matches {True, False}
@@ -145,7 +98,7 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Nir adm pas">
-					description = <"Pasient- og pasientadministrativ informasjon som skal rapporteres til Norsk intensivregister.">
+					description = <"Brukes til registrering av pasient- og pasientadministrativ informasjon som skal rapporteres til Norsk intensivregister.">
 				>
 				["at0001"] = <
 					text = <"Event Series">
@@ -159,53 +112,29 @@ ontology
 					text = <"Tree">
 					description = <"@ internal @">
 				>
-				["at0008"] = <
-					text = <"Liggetid (døgn)">
-					description = <"Antall liggedøgn på intensivenheten.">
-				>
-				["at0009"] = <
-					text = <"Alder ved innleggelse">
-					description = <"Pasientens alder ved innleggelse på intensivenheten.">
-				>
-				["at0011"] = <
-					text = <"Overført under pågående intensivbehandling">
-					description = <"Overføring mellom intensiv- eller overvåingenheter i NIR, eller fra/til intensiv- eller overvåkingsenheter ved andre sykehus i Norge eller utlandet.">
-				>
-				["at0012"] = <
-					text = <"Pasienten er ikke overført">
-					description = <"*">
-				>
-				["at0013"] = <
-					text = <"Pasienten er overført">
-					description = <"*">
-				>
 				["at0018"] = <
 					text = <"NEMS (totalt antall NEMS-poeng under oppholdet)">
-					description = <"NEMS skåres på alle opphold som kvalifiserer for registrering i NIR, også opphold under 8 timer.">
+					description = <"Samlet NEMS-score for oppholdet. NEMS skåres daglig på alle opphold som kvalifiserer for registrering i NIR, også opphold under 8 timer.">
 				>
 				["at0019"] = <
 					text = <"NAS (%) Nursing Activity Score">
 					description = <"*">
 				>
 				["at0020"] = <
-					text = <"Vil du registrere SOFA skåre på dette oppholdet?">
-					description = <"*">
-				>
-				["at0030"] = <
-					text = <"Hjelpefelt for å konvertere alder ved innleggelse som duration til desimaltall">
-					description = <"*">
-				>
-				["at0031"] = <
-					text = <"Hjelpefelt for å konvertere liggetid som duration til desimaltall">
-					description = <"*">
+					text = <"Vil du registrere SOFA score på dette oppholdet?">
+					description = <"Mulighet for registrering av SOFA-score på dette oppholdet.">
 				>
 				["at0036"] = <
 					text = <"Årsak overføring til">
-					description = <"*">
+					description = <"Årsak for overføring til enhet.">
 				>
 				["at0037"] = <
 					text = <"Årsak overføring fra">
-					description = <"*">
+					description = <"Årsak for overføring fra enhet.">
+				>
+				["at0038"] = <
+					text = <"Overført under pågående intensivbehandling">
+					description = <"Overføring mellom intensiv- eller overvåkningsenheter registrert i NIR, eller fra/til intensiv- eller overvåkningsenheter ved andre sykehus i Norge eller utlandet.">
 				>
 			>
 		>
