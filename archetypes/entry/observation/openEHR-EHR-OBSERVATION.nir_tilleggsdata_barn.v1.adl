@@ -7,13 +7,15 @@ language
 	original_language = <[ISO_639-1::nb]>
 description
 	original_author = <
-		["name"] = <"">
+		["name"] = <"Siv Fauchald">
+		["email"] = <"sfa@dips.no">
+		["date"] = <"2017-03-08">
 	>
 	details = <
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"">
-			use = <"">
+			purpose = <"Brukes til å registrere data som Norsk Intensivregister (NIR) ønsker rapportert for pasienter yngre enn 16 år ved innleggelse og som ikke rapporteres som en del av PIM3-scoringen.">
+			use = <"Rappportering til Norsk intensivregister gjennomføres av intensivavdelinger i Norge. Arektypen benyttes til å registrere NIR-spesifikk informasjon.">
 			misuse = <"">
 			copyright = <"">
 		>
@@ -21,7 +23,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"F165245B1BE53B5D83444C3E95F94FBD">
+		["MD5-CAM-1.0.1"] = <"B7FDA253F13B635589D62C77E2F1F72F">
 	>
 
 definition
@@ -33,6 +35,13 @@ definition
 						data matches {
 							ITEM_TREE[at0003] matches {	-- Tree
 								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0010] occurrences matches {0..1} matches {	-- Fikk pasienten tilført oksygen via endotrakealtube eller tett hodeboks?
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
 									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Lav risiko diagnose
 										value matches {
 											DV_TEXT matches {*}
@@ -96,7 +105,7 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Nir tilleggsdata barn">
-					description = <"Data som NIR ønsker rapportert for pasienter som er yngre enn 16 år ved innleggelse og som ikke rapporteres som en del av PIM3-scoringen.">
+					description = <"Registrering av data som Norsk Intensivregister (NIR) ønsker rapportert for pasienter yngre enn 16 år ved innleggelse.">
 				>
 				["at0001"] = <
 					text = <"Event Series">
@@ -124,7 +133,7 @@ ontology
 				>
 				["at0007"] = <
 					text = <"Perifer oksygenmetning">
-					description = <"*">
+					description = <"Dårligste verdi i løpet av første time.">
 				>
 				["at0008"] = <
 					text = <"Laktat">
@@ -132,7 +141,11 @@ ontology
 				>
 				["at0009"] = <
 					text = <"Type innleggelse">
-					description = <"*">
+					description = <"Type innelggelse dette intensivoppholdet. ">
+				>
+				["at0010"] = <
+					text = <"Fikk pasienten tilført oksygen via endotrakealtube eller tett hodeboks?">
+					description = <"Brukes til å registrere om pasienten fikk tilført oksygen via endotrakealtube eller tett hodeboks.">
 				>
 			>
 		>
