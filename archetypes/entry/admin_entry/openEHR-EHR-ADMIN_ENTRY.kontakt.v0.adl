@@ -2,7 +2,7 @@ archetype (adl_version=1.4)
 	openEHR-EHR-ADMIN_ENTRY.kontakt.v0
 
 concept
-	[at0000]	-- Kontakt
+	[at0000]	-- contact summery
 language
 	original_language = <[ISO_639-1::nb]>
 description
@@ -22,11 +22,11 @@ Ansvarlig behandler og andre oppholdsdata.">
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"3346702C3CC41165E84C989CDCB6B067">
+		["MD5-CAM-1.0.1"] = <"3DFA084EC0C72D0437E018C23D02086B">
 	>
 
 definition
-	ADMIN_ENTRY[at0000] matches {	-- Kontakt
+	ADMIN_ENTRY[at0000] matches {	-- contact summery
 		data matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
@@ -56,10 +56,6 @@ definition
 						include
 							archetype_id/value matches {/.*/}
 					}
-					allow_archetype CLUSTER[at0015] occurrences matches {0..*} matches {	-- Detaljerte opplysninger
-						include
-							archetype_id/value matches {/.*/}
-					}
 					ELEMENT[at0016] occurrences matches {0..1} matches {	-- Innlagt fra
 						value matches {
 							DV_TEXT matches {*}
@@ -69,6 +65,28 @@ definition
 						value matches {
 							DV_TEXT matches {*}
 						}
+					}
+					allow_archetype CLUSTER[at0015] occurrences matches {0..*} matches {	-- Detaljerte opplysninger
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0019] occurrences matches {0..1} matches {	-- Kontakttype
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0020] occurrences matches {0..1} matches {	-- Kontaktstatus
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0021] occurrences matches {0..*} matches {	-- Utskrivelsesinformasjon
+						include
+							archetype_id/value matches {/.*/}
+					}
+					allow_archetype CLUSTER[at0022] occurrences matches {0..*} matches {	-- Innleggelsesinformasjon
+						include
+							archetype_id/value matches {/.*/}
 					}
 				}
 			}
@@ -80,7 +98,7 @@ ontology
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"Kontakt">
+					text = <"contact summery">
 					description = <"Gjelder administrative opplysninger både for innlagte pasienter og polikliniske pasienter.">
 				>
 				["at0001"] = <
@@ -118,6 +136,22 @@ ontology
 				["at0017"] = <
 					text = <"Navn institusjon innlagt fra">
 					description = <"Brukes for å registrere fra hvilken institusjon/sykehus pasienten kommer fra.">
+				>
+				["at0019"] = <
+					text = <"Kontakttype">
+					description = <"Brukes for å definere f.eks sykehusopphold, avdelingsopphold, postopphold og poliklinikk.">
+				>
+				["at0020"] = <
+					text = <"Kontaktstatus">
+					description = <"Brukes for å definere status på kontakten, planlagt, møtt, avsluttet.">
+				>
+				["at0021"] = <
+					text = <"Utskrivelsesinformasjon">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Innleggelsesinformasjon">
+					description = <"*">
 				>
 			>
 		>
