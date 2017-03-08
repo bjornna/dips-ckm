@@ -23,7 +23,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"96BDC068C4A8F0C3AD937C689B5DA835">
+		["MD5-CAM-1.0.1"] = <"93C49066A8F26DF2B17023EEBA633BF0">
 	>
 
 definition
@@ -49,11 +49,6 @@ definition
 											}
 										}
 									}
-									ELEMENT[at0022] occurrences matches {0..1} matches {	-- Type invasiv respirasjonsstøtte
-										value matches {
-											DV_TEXT matches {*}
-										}
-									}
 									ELEMENT[at0017] occurrences matches {0..1} matches {	-- Non-invasiv ventilasjon/maske
 										value matches {
 											DV_DURATION matches {
@@ -61,14 +56,48 @@ definition
 											}
 										}
 									}
-									ELEMENT[at0021] occurrences matches {0..1} matches {	-- Type non-invasiv respirasjonsstøtte
-										value matches {
-											DV_TEXT matches {*}
-										}
-									}
 									allow_archetype CLUSTER[at0024] occurrences matches {0..*} matches {	-- Ytterligere detaljer
 										include
 											archetype_id/value matches {/.*/}
+									}
+									CLUSTER[at0027] occurrences matches {0..*} matches {	-- Invasiv ventilasjon 
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0022] occurrences matches {0..1} matches {	-- Type invasiv respirasjonsstøtte
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0028] occurrences matches {0..1} matches {	-- Varighet 
+												value matches {
+													DV_DURATION matches {
+														value matches {PTHM}
+													}
+												}
+											}
+										}
+									}
+									CLUSTER[at0029] occurrences matches {0..*} matches {	-- Non-invasiv ventilasjon/maske
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0021] occurrences matches {0..1} matches {	-- Type non-invasiv respirasjonsstøtte
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0030] occurrences matches {0..1} matches {	-- Varighet
+												value matches {
+													DV_DURATION matches {
+														value matches {PTHM}
+													}
+												}
+											}
+										}
+									}
+									ELEMENT[at0035] occurrences matches {0..1} matches {	-- Varighet invasiv og non-invasiv ventilasjon
+										value matches {
+											DV_DURATION matches {
+												value matches {|PT0H..PT24H|}
+											}
+										}
 									}
 								}
 							}
@@ -122,6 +151,26 @@ ontology
 				["at0025"] = <
 					text = <"Mekanisk ventilasjon">
 					description = <"Får pasienten mekanisk ventilasjon?">
+				>
+				["at0027"] = <
+					text = <"Invasiv ventilasjon ">
+					description = <"*">
+				>
+				["at0028"] = <
+					text = <"Varighet ">
+					description = <"*">
+				>
+				["at0029"] = <
+					text = <"Non-invasiv ventilasjon/maske">
+					description = <"*">
+				>
+				["at0030"] = <
+					text = <"Varighet">
+					description = <"*">
+				>
+				["at0035"] = <
+					text = <"Varighet invasiv og non-invasiv ventilasjon">
+					description = <"Totalt tid per døgn av invasiv og non-invasiv vnetilasjonsstøtte.">
 				>
 			>
 		>
