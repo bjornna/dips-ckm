@@ -1,5 +1,5 @@
 ﻿archetype (adl_version=1.4)
-	openEHR-EHR-OBSERVATION.saps_score.v1
+	openEHR-EHR-OBSERVATION.saps_score_dips.v1
 
 concept
 	[at0000]	-- Saps score dips
@@ -61,7 +61,7 @@ Le Gall JR1, Lemeshow S, Saulnier : A new Simplified Acute Physiology Score (SAP
 Jones &Barlett Learning:  Scores and Definitions Used in respiratory and Critical Care Research. http://samples.jbpub.com/9780763784096/84096_CH01_Chatburn.pdf
 
 http://www.helsebiblioteket.no/fagprosedyrer/ferdige/_attachment/247503?_ts=152cb6645f3&download=true">
-		["MD5-CAM-1.0.1"] = <"8C7B00C9C7AC8B756B6065510CF2EA48">
+		["MD5-CAM-1.0.1"] = <"7652B6AA4A58492F88F8C0FC86789AB6">
 	>
 
 definition
@@ -173,14 +173,15 @@ definition
 									}
 									ELEMENT[at0041] occurrences matches {0..1} matches {	-- Type innleggelse
 										value matches {
-											0|[local::at0101], 	-- Elektiv operasjon
-											6|[local::at0102], 	-- Non-operativ
-											8|[local::at0103]  	-- Akutt operasjon
+											0|[local::at0101], 	-- Etter planlagt operasjon.
+											6|[local::at0102], 	-- Akutt nonoperativ
+											8|[local::at0103]  	-- Etter akutt operasjon
 										}
 									}
 									ELEMENT[at0042] occurrences matches {0..1} matches {	-- Kronisk sykdom
 										value matches {
-											9|[local::at0104], 	-- Cancer med metastaser 
+											0|[local::at0108], 	-- Ingen
+											9|[local::at0104], 	-- Metastatisk cancer
 											10|[local::at0105], 	-- Hematologisk malignitet 
 											17|[local::at0100]  	-- AIDS 
 										}
@@ -494,19 +495,19 @@ ontology
 					description = <"*">
 				>
 				["at0101"] = <
-					text = <"Elektiv operasjon">
-					description = <"Etter planlagt operasjon.">
+					text = <"Etter planlagt operasjon.">
+					description = <"Til intensiv etter elektiv operasjon i løpet av de siste 7 døgn.">
 				>
 				["at0102"] = <
-					text = <"Non-operativ">
-					description = <"Akutt/elektiv non-operativ/medisinsk">
+					text = <"Akutt nonoperativ">
+					description = <"Til intensiv uten forutgående operasjon de siste 7 døgn.">
 				>
 				["at0103"] = <
-					text = <"Akutt operasjon">
-					description = <"Etter akutt operasjon">
+					text = <"Etter akutt operasjon">
+					description = <"Til intensiv etter akutt operasjon i løpet av de siste 7 døgn.">
 				>
 				["at0104"] = <
-					text = <"Cancer med metastaser ">
+					text = <"Metastatisk cancer">
 					description = <"*">
 				>
 				["at0105"] = <
@@ -521,12 +522,16 @@ ontology
 					text = <"Mortalitet score">
 					description = <"Mortalitetsscore = 100*exp(-7.7631+0.0737*s_saps+0.9971*ln(s_saps+1))/(1+exp(-7.7631+0.0737*s_saps+0.9971*ln(s_saps+1))).">
 				>
+				["at0108"] = <
+					text = <"Ingen">
+					description = <"*">
+				>
 			>
 		>
 		["en"] = <
 			items = <
 				["at0000"] = <
-					text = <"Saps score ">
+					text = <"Saps score dips">
 					description = <"Simplified acute physiology score II (SAPS II) is used for measuring severity of illness and to predict ICU mortality.">
 				>
 				["at0001"] = <
@@ -795,20 +800,20 @@ ontology
 					description = <"*">
 				>
 				["at0101"] = <
-					text = <"Scheduled surgical">
-					description = <"*">
+					text = <"*Etter planlagt operasjon.(nb)">
+					description = <"*Til intensiv etter elektiv operasjon i løpet av de siste 7 døgn.(nb)">
 				>
 				["at0102"] = <
-					text = <"Medical">
-					description = <"*">
+					text = <"*Akutt nonoperativ(nb)">
+					description = <"*Til intensiv uten forutgående operasjon de siste 7 døgn.(nb)">
 				>
 				["at0103"] = <
-					text = <"Unscheduled surgical">
-					description = <"*">
+					text = <"*Etter akutt operasjon(nb)">
+					description = <"*Til intensiv etter akutt operasjon i løpet av de siste 7 døgn.(nb)">
 				>
 				["at0104"] = <
-					text = <"Metastatic cancer">
-					description = <"*">
+					text = <"*Metastatisk cancer(nb)">
+					description = <"**(nb)">
 				>
 				["at0105"] = <
 					text = <"Hematologic malignancy">
@@ -821,6 +826,10 @@ ontology
 				["at0107"] = <
 					text = <"*Mortalitet score(nb)">
 					description = <"*Mortalitetsscore = 100*exp(-7.7631+0.0737*s_saps+0.9971*ln(s_saps+1))/(1+exp(-7.7631+0.0737*s_saps+0.9971*ln(s_saps+1))).(nb)">
+				>
+				["at0108"] = <
+					text = <"*Ingen(nb)">
+					description = <"**(nb)">
 				>
 			>
 		>
