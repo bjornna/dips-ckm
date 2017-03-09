@@ -23,7 +23,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"64F0E9654843947AA87CEAA4F94AA215">
+		["MD5-CAM-1.0.1"] = <"6CDD7129228A73414BDCE129C0E4D8DE">
 	>
 
 definition
@@ -34,16 +34,11 @@ definition
 					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
 						data matches {
 							ITEM_TREE[at0003] matches {	-- Tree
-								items cardinality matches {0..*; unordered} matches {
+								items cardinality matches {0..*; ordered} matches {
 									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Nyreerstattende behandling under dette oppholdet
 										value matches {
-											DV_CODED_TEXT matches {
-												defining_code matches {
-													[local::
-													at0025, 	-- Ja
-													at0026]	-- Nei
-												}
-											}
+											1|[local::at0029], 	-- Ja
+											2|[local::at0030]  	-- Nei
 										}
 									}
 									ELEMENT[at0008] occurrences matches {0..1} matches {	-- Kontinuerlig (hemo/diafiltrasjon)
@@ -84,7 +79,9 @@ definition
 									}
 									ELEMENT[at0013] occurrences matches {0..1} matches {	-- Har pasienten fått trakeostomi under dette intensivoppholdet
 										value matches {
-											DV_TEXT matches {*}
+											1|[local::at0031], 	-- Nei
+											2|[local::at0032], 	-- Ja – perkutan teknikk på intensiv/oppv
+											3|[local::at0033]  	-- Ja – åpen teknikk (operativ)
 										}
 									}
 									ELEMENT[at0014] occurrences matches {0..1} matches {	-- Bukleie
@@ -94,19 +91,93 @@ definition
 									}
 									ELEMENT[at0015] occurrences matches {0..1} matches {	-- Utvidet hemodynamisk monitorering
 										value matches {
-											DV_CODED_TEXT matches {
-												defining_code matches {[local::]}
-											}
+											1|[local::at0034], 	-- Nei
+											2|[local::at0035], 	-- Måling av hjerteminuttvolum med termodilusjon (Picco-kateter og lignende)
+											3|[local::at0036]  	-- Pulmonaliskateter (PA-kateter)
 										}
 									}
 									ELEMENT[at0016] occurrences matches {0..1} matches {	-- Spesielle tiltak/intervensjoner
 										value matches {
-											DV_TEXT matches {*}
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0037] occurrences matches {0..1} matches {	-- Terapeutisk hypotermi
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0038] occurrences matches {0..1} matches {	-- ECMO/ECLA (ekstrakorporal sirkulasjon)
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0039] occurrences matches {0..1} matches {	-- IABP Aortaballongpumpe
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0040] occurrences matches {0..1} matches {	-- Impella/VV-assist
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0041] occurrences matches {0..1} matches {	-- ICP-måling av intrakranielt trykk
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0042] occurrences matches {0..1} matches {	-- Oscillatorbehandling
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0043] occurrences matches {0..1} matches {	-- NO-behandling (nitrogenmonoksid)
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0044] occurrences matches {0..1} matches {	-- Leverdialyse
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0045] occurrences matches {0..1} matches {	-- Hyperbar oksygenbehandling
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0046] occurrences matches {0..1} matches {	-- Kontinuerlig EEG
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
 										}
 									}
 									ELEMENT[at0017] occurrences matches {0..1} matches {	-- Isolering av intensivpasient (eget personale på eget rom)
 										value matches {
-											DV_TEXT matches {*}
+											1|[local::at0047], 	-- Ingen
+											2|[local::at0048], 	-- Kontaktsmitte
+											3|[local::at0049]  	-- Luftsmitte
 										}
 									}
 									ELEMENT[at0018] occurrences matches {0..1} matches {	-- Døgn totalt (luftsmitte)
@@ -219,7 +290,7 @@ ontology
 				>
 				["at0013"] = <
 					text = <"Har pasienten fått trakeostomi under dette intensivoppholdet">
-					description = <"Har pasienten fått trakeostomi under dette intensivoppholdet?">
+					description = <"Gjelder bare dersom pasienten fikk trakeostomi under oppholdet, ikke dersom pasienten hadde trakeostomi ved innleggelse på intensiv.">
 				>
 				["at0014"] = <
 					text = <"Bukleie">
@@ -253,14 +324,6 @@ ontology
 					text = <"Respirasjonsstøtte (timer/24 = døgn)">
 					description = <"Totalt antall døgn med respirasjonsstøtte (invasiv + non-invasiv) under dete intensivoppholdet.">
 				>
-				["at0025"] = <
-					text = <"Ja">
-					description = <"*">
-				>
-				["at0026"] = <
-					text = <"Nei">
-					description = <"*">
-				>
 				["at0027"] = <
 					text = <"Hjelpefelt for å konvertere non-invasiv ventilasjon/maske for hele oppholdet som duration til desimaltall">
 					description = <"*">
@@ -268,6 +331,90 @@ ontology
 				["at0028"] = <
 					text = <"Hjelpefelt for å konvertere invasiv ventilasjon for hele oppholdet som duration til desimaltall">
 					description = <"*">
+				>
+				["at0029"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0030"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0031"] = <
+					text = <"Nei">
+					description = <"">
+				>
+				["at0032"] = <
+					text = <"Ja – perkutan teknikk på intensiv/oppv">
+					description = <"">
+				>
+				["at0033"] = <
+					text = <"Ja – åpen teknikk (operativ)">
+					description = <"">
+				>
+				["at0034"] = <
+					text = <"Nei">
+					description = <"">
+				>
+				["at0035"] = <
+					text = <"Måling av hjerteminuttvolum med termodilusjon (Picco-kateter og lignende)">
+					description = <"">
+				>
+				["at0036"] = <
+					text = <"Pulmonaliskateter (PA-kateter)">
+					description = <"">
+				>
+				["at0037"] = <
+					text = <"Terapeutisk hypotermi">
+					description = <"*">
+				>
+				["at0038"] = <
+					text = <"ECMO/ECLA (ekstrakorporal sirkulasjon)">
+					description = <"*">
+				>
+				["at0039"] = <
+					text = <"IABP Aortaballongpumpe">
+					description = <"*">
+				>
+				["at0040"] = <
+					text = <"Impella/VV-assist">
+					description = <"*">
+				>
+				["at0041"] = <
+					text = <"ICP-måling av intrakranielt trykk">
+					description = <"*">
+				>
+				["at0042"] = <
+					text = <"Oscillatorbehandling">
+					description = <"*">
+				>
+				["at0043"] = <
+					text = <"NO-behandling (nitrogenmonoksid)">
+					description = <"*">
+				>
+				["at0044"] = <
+					text = <"Leverdialyse">
+					description = <"*">
+				>
+				["at0045"] = <
+					text = <"Hyperbar oksygenbehandling">
+					description = <"*">
+				>
+				["at0046"] = <
+					text = <"Kontinuerlig EEG">
+					description = <"*">
+				>
+				["at0047"] = <
+					text = <"Ingen">
+					description = <"">
+				>
+				["at0048"] = <
+					text = <"Kontaktsmitte">
+					description = <"">
+				>
+				["at0049"] = <
+					text = <"Luftsmitte">
+					description = <"">
 				>
 			>
 		>
