@@ -1,8 +1,8 @@
 archetype (adl_version=1.4)
-	openEHR-EHR-OBSERVATION.pao2_fio2_ratio.v0
+	openEHR-EHR-OBSERVATION.pao2_fio2_ratioer_dips.v1
 
 concept
-	[at0000]	-- PaO2-FiO2 ratio
+	[at0000]	-- Kalkulasjoner med PaO2 og FiO2
 language
 	original_language = <[ISO_639-1::nb]>
 description
@@ -12,20 +12,20 @@ description
 	details = <
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"Arketype for registrering av forholdet mellom PaO2 og FiO2.">
-			use = <"Arketypen kan brukes for å registrere inn forholdstallet mellom PaO2 og FiO2. Arketypen legger ingen begresning med tanke på om PaO2 eller FiO2 er ihv. teller eller nevner. Arketypen har heller ingen begrensing med tanke på målenheten for PaO2 og om FiO2 er uttrykt som desimaltall eller prosent.">
-			misuse = <"">
+			purpose = <"Arketype for å angi resultatet av kalkulasjoner som omfatter målte/observerte verdier for PaO2 og FiO2.">
+			use = <"Arketypen brukes når det er ønske om å angi resultatet av kalkulasjoner som omfatter målte/observerte verdier for PaO2 og FiO2.">
+			misuse = <"Arketypen skal ikke brukes for å registrere inn observerte verdier av PaO2 og FiO2, dvs. rådata.">
 			copyright = <"">
 		>
 	>
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"3921EC5CD2C784AA6D2C381B5CFFFDD0">
+		["MD5-CAM-1.0.1"] = <"62735577600B3156614019F54B40D4F1">
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- PaO2-FiO2 ratio
+	OBSERVATION[at0000] matches {	-- Kalkulasjoner med PaO2 og FiO2
 		data matches {
 			HISTORY[at0001] matches {	-- Event Series
 				events cardinality matches {1..*; unordered} matches {
@@ -33,7 +33,7 @@ definition
 						data matches {
 							ITEM_TREE[at0003] matches {	-- Tree
 								items cardinality matches {0..*; unordered} matches {
-									ELEMENT[at0004] occurrences matches {0..1} matches {	-- PaO2 FiO2
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- PaO2/FiO2
 										value matches {
 											DV_PROPORTION matches {
 												numerator matches {|>0.0|}
@@ -41,6 +41,16 @@ definition
 												is_integral matches {False}
 												type matches {0, 2}
 											}
+										}
+									}
+									ELEMENT[at0008] occurrences matches {0..1} matches {	-- (FiO2*100)/PaO2
+										value matches {
+											DV_PROPORTION matches {*}
+										}
+									}
+									ELEMENT[at0009] occurrences matches {0..1} matches {	-- FiO2/PaO2
+										value matches {
+											DV_PROPORTION matches {*}
 										}
 									}
 									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Kommentar
@@ -73,8 +83,8 @@ ontology
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"PaO2-FiO2 ratio">
-					description = <"Arketype for registrering av forholdet mellom PaO2 og FiO2.">
+					text = <"Kalkulasjoner med PaO2 og FiO2">
+					description = <"Arketype for å vise resultat av kalkulasjoner som omfatter målte/observerte verdier for PaO2 og FiO2.">
 				>
 				["at0001"] = <
 					text = <"Event Series">
@@ -89,8 +99,8 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0004"] = <
-					text = <"PaO2 FiO2">
-					description = <"Forholdet mellom PaO2 og FiO2.">
+					text = <"PaO2/FiO2">
+					description = <"PaO2/FiO2 er lik partialtrykket av oksygen dividert med fraksjonen av innåndet oksygen.">
 				>
 				["at0005"] = <
 					text = <"Tree">
@@ -102,7 +112,15 @@ ontology
 				>
 				["at0007"] = <
 					text = <"Kommentar">
-					description = <"Kommentar for nærmere info knyttet til PaO2 og/eller FiO2.">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"(FiO2*100)/PaO2">
+					description = <"(FiO2*100)/PaO2 er lik fraksjonen av innåndet oksygen multiplisert med 100 dividert på partialtrykket til oksygen.">
+				>
+				["at0009"] = <
+					text = <"FiO2/PaO2">
+					description = <"FiO2/PaO2 er lik fraksjonen av innåndet oksygen dividert med partialtrykket av oksygen.">
 				>
 			>
 		>
