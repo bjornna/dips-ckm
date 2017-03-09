@@ -7,13 +7,15 @@ language
 	original_language = <[ISO_639-1::nb]>
 description
 	original_author = <
-		["name"] = <"">
+		["name"] = <"Siv Fauchald">
+		["email"] = <"sfa@dips.no">
+		["date"] = <"2017-03-08">
 	>
 	details = <
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"Brukes til å registrere ulike kliniske data i fbm rapportering til Norsk intensivregister.">
-			use = <"">
+			purpose = <"Brukes til å registrere ulike kliniske data i forbindelse med rapportering til Norsk intensivregister.">
+			use = <"Rappportering til Norsk intensivregister gjennomføres av intensivavdelinger i Norge. Arektypen benyttes til å registrere NIR-spesifikk informasjon.">
 			misuse = <"">
 			copyright = <"">
 		>
@@ -21,7 +23,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"B4979351FF6D996A8E214C7EE1F779DC">
+		["MD5-CAM-1.0.1"] = <"64F0E9654843947AA87CEAA4F94AA215">
 	>
 
 definition
@@ -44,14 +46,14 @@ definition
 											}
 										}
 									}
-									ELEMENT[at0008] occurrences matches {0..1} matches {	-- Kontinuerlig (hemo/diafilterasjon)
+									ELEMENT[at0008] occurrences matches {0..1} matches {	-- Kontinuerlig (hemo/diafiltrasjon)
 										value matches {
 											DV_BOOLEAN matches {
 												value matches {True, False}
 											}
 										}
 									}
-									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Antall døgn hemo/daifiltrasjon
+									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Antall døgn (hemo/diafiltrasjon)
 										value matches {
 											DV_COUNT matches {*}
 										}
@@ -63,7 +65,7 @@ definition
 											}
 										}
 									}
-									ELEMENT[at0010] occurrences matches {0..1} matches {	-- Antall døgn intermitterende
+									ELEMENT[at0010] occurrences matches {0..1} matches {	-- Antall døgn (intermitterende)
 										value matches {
 											DV_COUNT matches {*}
 										}
@@ -75,12 +77,12 @@ definition
 											}
 										}
 									}
-									ELEMENT[at0012] occurrences matches {0..1} matches {	-- Antall døgn peritonealdialyse
+									ELEMENT[at0012] occurrences matches {0..1} matches {	-- Antall døgn (peritonealdialyse)
 										value matches {
 											DV_COUNT matches {*}
 										}
 									}
-									ELEMENT[at0013] occurrences matches {0..1} matches {	-- Har pasienten fått tracheostomi under dette intensivoppholdet
+									ELEMENT[at0013] occurrences matches {0..1} matches {	-- Har pasienten fått trakeostomi under dette intensivoppholdet
 										value matches {
 											DV_TEXT matches {*}
 										}
@@ -92,7 +94,9 @@ definition
 									}
 									ELEMENT[at0015] occurrences matches {0..1} matches {	-- Utvidet hemodynamisk monitorering
 										value matches {
-											DV_TEXT matches {*}
+											DV_CODED_TEXT matches {
+												defining_code matches {[local::]}
+											}
 										}
 									}
 									ELEMENT[at0016] occurrences matches {0..1} matches {	-- Spesielle tiltak/intervensjoner
@@ -100,7 +104,7 @@ definition
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0017] occurrences matches {0..1} matches {	-- Isolering av intensivpasient
+									ELEMENT[at0017] occurrences matches {0..1} matches {	-- Isolering av intensivpasient (eget personale på eget rom)
 										value matches {
 											DV_TEXT matches {*}
 										}
@@ -113,7 +117,12 @@ definition
 									ELEMENT[at0021] occurrences matches {0..1} matches {	-- Døgn non-invasiv ventilasjon/maske
 										value matches {
 											C_DV_QUANTITY <
-												property = <[openehr::507]>
+												property = <[openehr::128]>
+												list = <
+													["1"] = <
+														units = <"d">
+													>
+												>
 											>
 										}
 									}
@@ -125,6 +134,12 @@ definition
 									ELEMENT[at0022] occurrences matches {0..1} matches {	-- Døgn invasiv ventilasjon (tube/tracheostomi)
 										value matches {
 											C_DV_QUANTITY <
+												property = <[openehr::128]>
+												list = <
+													["1"] = <
+														units = <"d">
+													>
+												>
 											>
 										}
 									}
@@ -133,10 +148,15 @@ definition
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0024] occurrences matches {0..1} matches {	-- Totalt antall døgn respirasjonsstøtte
+									ELEMENT[at0024] occurrences matches {0..1} matches {	-- Respirasjonsstøtte (timer/24 = døgn)
 										value matches {
 											C_DV_QUANTITY <
-												property = <[openehr::118]>
+												property = <[openehr::128]>
+												list = <
+													["1"] = <
+														units = <"d">
+													>
+												>
 											>
 										}
 									}
@@ -155,7 +175,7 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Nir klinisk informasjon">
-					description = <"Brukes til å registrere ulike kliniske data i forbindelse med rapportering til Norsk intensivregister, og som ikke inngår i skåreingene som det også skal rapporteres på. ">
+					description = <"Brukes til å registrere ulike kliniske data i forbindelse med rapportering til Norsk intensivregister (NIR), og som ikke inngår i ulike skåringssystem.">
 				>
 				["at0001"] = <
 					text = <"Event Series">
@@ -174,32 +194,32 @@ ontology
 					description = <"Har pasienten fått nyreerstattende behandling under dette oppholdet?">
 				>
 				["at0007"] = <
-					text = <"Antall døgn hemo/daifiltrasjon">
-					description = <"">
+					text = <"Antall døgn (hemo/diafiltrasjon)">
+					description = <"Totalt antall døgn under dette intensivoppholdet pasienten har fått kontinuerlig nyreerstattende behandling.">
 				>
 				["at0008"] = <
-					text = <"Kontinuerlig (hemo/diafilterasjon)">
-					description = <"*">
+					text = <"Kontinuerlig (hemo/diafiltrasjon)">
+					description = <"Kontinuerlig nyreerstattende behandling.">
 				>
 				["at0009"] = <
 					text = <"Intermitterende (hemodialyse)">
-					description = <"*">
+					description = <"Intermitterende nyreerstattende behandling.">
 				>
 				["at0010"] = <
-					text = <"Antall døgn intermitterende">
-					description = <"*">
+					text = <"Antall døgn (intermitterende)">
+					description = <"Totalt antall døgn under dette intensivoppholdet pasienten har fått intermitterende nyreerstattende behandling.">
 				>
 				["at0011"] = <
 					text = <"Peritonealdialyse">
-					description = <"*">
+					description = <"Peritonealdialyse.">
 				>
 				["at0012"] = <
-					text = <"Antall døgn peritonealdialyse">
-					description = <"*">
+					text = <"Antall døgn (peritonealdialyse)">
+					description = <"Totalt antall døgn under dette intensivoppholdet pasienten har fått peritonealdialyse.">
 				>
 				["at0013"] = <
-					text = <"Har pasienten fått tracheostomi under dette intensivoppholdet">
-					description = <"Har pasienten fått tracheostomi under dette intensivoppholdet?">
+					text = <"Har pasienten fått trakeostomi under dette intensivoppholdet">
+					description = <"Har pasienten fått trakeostomi under dette intensivoppholdet?">
 				>
 				["at0014"] = <
 					text = <"Bukleie">
@@ -207,31 +227,31 @@ ontology
 				>
 				["at0015"] = <
 					text = <"Utvidet hemodynamisk monitorering">
-					description = <"*">
+					description = <"Utvidet hemodynamisk monitorering under dette intensivoppholdet.">
 				>
 				["at0016"] = <
 					text = <"Spesielle tiltak/intervensjoner">
-					description = <"*">
+					description = <"Spesielle tiltak/intervensjoner under dette intensivoppholdet.">
 				>
 				["at0017"] = <
-					text = <"Isolering av intensivpasient">
+					text = <"Isolering av intensivpasient (eget personale på eget rom)">
 					description = <"Isolering av intensivpasient (eget personale på eget rom).">
 				>
 				["at0018"] = <
 					text = <"Døgn totalt (luftsmitte)">
-					description = <"Antall døgn pasienten har vært isolert pga luftsmitte.">
+					description = <"Totalt antall døgn pasienten var luftsmitteisolert under dette intensivoppholdet.">
 				>
 				["at0021"] = <
 					text = <"Døgn non-invasiv ventilasjon/maske">
-					description = <"Den tiden pasienten har fått respirasjonsstøtte i form av et lukket maskesystem med eller uten inspiratorisk støtte: maske-CPAP, eller non-invasiv overtrykksventilasjon/NIV-maske. Ved svbrudd/pause i behandlingen summeres tidene.">
+					description = <"Den tiden pasienten har fått respirasjonsstøtte i form av et lukket maskesystem med eller uten inspiratorisk støtte: maske-CPAP, eller non-invasiv overtrykksventilasjon/NIV-maske. ">
 				>
 				["at0022"] = <
 					text = <"Døgn invasiv ventilasjon (tube/tracheostomi)">
-					description = <"Den tiden pasienten har fått respirasjonsstøtte i form av CPAP på tube eller trakeostomi, og/eller invasiv overtrykksventilasjon). Ved pause/avbrudd i respirasjonsstøtten summeres tidene. ">
+					description = <"Den tiden pasienten har fått respirasjonsstøtte i form av CPAP på tube eller trakeostomi, og/eller invasiv overtrykksventilasjon. ">
 				>
 				["at0024"] = <
-					text = <"Totalt antall døgn respirasjonsstøtte">
-					description = <"Totalt antall døgn pasienten har fått respirasjonsstøtte (invasiv og non-invasiv).">
+					text = <"Respirasjonsstøtte (timer/24 = døgn)">
+					description = <"Totalt antall døgn med respirasjonsstøtte (invasiv + non-invasiv) under dete intensivoppholdet.">
 				>
 				["at0025"] = <
 					text = <"Ja">
