@@ -1,0 +1,240 @@
+﻿archetype (adl_version=1.4; uid=3c3171bd-c764-426f-8767-08711c25701c)
+	openEHR-EHR-CLUSTER.housing_dips.v1
+
+concept
+	[at0000]	-- Bolig DIPS
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["name"] = <"Silje Ljosland Bakke / John Tore Valand">
+				["organisation"] = <"Nasjonal IKT HF / Helse Bergen HF">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Heather Leslie">
+		["email"] = <"heather.leslie@oceaninformatics.com">
+		["organisation"] = <"Ocean Informatics">
+		["date"] = <"2013-03-01">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record a description of the housing or accomodation in which the subject resides to support decision-making for clinical management and provision of additional health services.">
+			use = <"Use to record a description of the housing or accomodation in which the subject resides to support decision-making for clinical management and provision of additional health services.
+
+Specifically designed to be used within the EVALUATION.social_summary archetype, but may be used within any clinically appropriate ENTRY or CLUSTER archetype related to recording social context.">
+			keywords = <"housing", "accommodation", "residential care", "home", "house", "apartment", "homeless", "rent", "owner">
+			misuse = <"">
+			copyright = <"© National E-Health Transition Authority">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For å beskrive individets boligforhold for å støtte kliniske beslutningsprosesser og tildeling av helsetjenester.">
+			use = <"Brukes for å beskrive individets boligforhold for å støtte kliniske beslutningsprosesser og tildeling av helsetjenester.
+
+Arketypen er spesifikt utviklet for bruk i arketypen EVALUATION.social_summary, men kan brukes i alle klinisk relevante ENTRY- eller CLUSTER-arketyper for å registrere sosial kontekst.
+">
+			keywords = <"bolig", "aldersbolig", "hjem", "hjemmesituasjon", "sykehjem", "hjemmesykepleie", "omsorgsbolig", "etasje", "tilrettelegging", "husleie">
+			misuse = <"">
+			copyright = <"*© National E-Health Transition Authority(en)">
+		>
+	>
+	lifecycle_state = <"NotSet">
+	other_contributors = <>
+	other_details = <
+		["revision"] = <"0.0.1-alpha">
+		["references"] = <"METeOR (Metadata Online Registry) [Internet]. Australia: Australian Institute of Health and Welfare. Person—accommodation type (usual). Available from: http://meteor.aihw.gov.au/content/index.phtml/itemId/270088 (accessed 2013 Mar 01).">
+		["current_contact"] = <"Heather Leslie, Ocean Informatics, heather.leslie@oceaninformatics.com">
+		["MD5-CAM-1.0.1"] = <"F1B7704D62CD86002827D91B949EA453">
+		["build_uid"] = <"db49acd4-94f0-4ea1-898a-be9cea66d456">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Bolig DIPS
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0012] occurrences matches {0..1} matches {	-- Status
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0013, 	-- Uten fast bopel
+							at0014, 	-- Skifter ofte bopel
+							at0015]	-- Fast bolig
+						}
+					}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..*} matches {	-- Boligtype
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0008] occurrences matches {0..1} matches {	-- Etasjer
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0009, 	-- Ett plan
+							at0010, 	-- Flere etasjer med heis
+							at0011]	-- Flere etasjer uten heis
+						}
+					}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Eierskap
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0005] occurrences matches {0..1} matches {	-- Støttetjenester
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0004] occurrences matches {0..1} matches {	-- Beskrivelse
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			allow_archetype CLUSTER[at0006] occurrences matches {0..*} matches {	-- Detaljer
+				include
+					archetype_id/value matches {/.*/}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Housing">
+					description = <"Description of the housing or accomodation in which the subject resides.">
+				>
+				["at0002"] = <
+					text = <"Housing category">
+					description = <"Type of accommodation where the subject usually resides.">
+					comment = <"Coding with a terminology is desirable, where possible. For example: a flat or apartment; caravan; or nursing home or homeless.">
+				>
+				["at0003"] = <
+					text = <"Tenure">
+					description = <"The type of legal right to occupy a dwelling, for example, owner or renter.">
+				>
+				["at0004"] = <
+					text = <"Description">
+					description = <"Description of the housing or accommodation.">
+				>
+				["at0005"] = <
+					text = <"Support Provided">
+					description = <"Description of additional support provided as part of the housing/accommodation arrangement.">
+					comment = <"For example: nursing staff on-site overnight.">
+				>
+				["at0006"] = <
+					text = <"Detail">
+					description = <"Additional details about housing.">
+					comment = <"For example: disability aids installed; number of stairs; or availability of refrigerator in which to store medications.">
+				>
+				["at0008"] = <
+					text = <"Floor configuration">
+					description = <"The floor configuration.">
+				>
+				["at0009"] = <
+					text = <"Single floor">
+					description = <"Includes apartment on ground floor.">
+				>
+				["at0010"] = <
+					text = <"Multiple floors with elevator">
+					description = <"Including apartment above ground floor with elevator.">
+				>
+				["at0011"] = <
+					text = <"Multiple floors without elevator">
+					description = <"Including apartment above ground floor without elevator.">
+				>
+				["at0012"] = <
+					text = <"Status">
+					description = <"The subjects status relating to permanent residence.">
+				>
+				["at0013"] = <
+					text = <"Homeless">
+					description = <"The subject is homeless.">
+				>
+				["at0014"] = <
+					text = <"Transient">
+					description = <"The subject is moving between multiple home environments.">
+				>
+				["at0015"] = <
+					text = <"Inhabitancy">
+					description = <"The subject is living permanetly in a place.">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Bolig DIPS">
+					description = <"Beskrivelse av individets boligforhold.">
+				>
+				["at0002"] = <
+					text = <"Boligtype">
+					description = <"Type bolig der individet ordinært bor.">
+					comment = <"Boligtype bør kodes med en terminologi om mulig. For eksempel: enebolig, leilighet, institusjon, hospits eller hybelhus.">
+				>
+				["at0003"] = <
+					text = <"Eierskap">
+					description = <"Individets juridiske rett til å benytte boligen, f. eks. selveier eller leier.">
+					comment = <"For eksempel: Leietager eller boligeier.">
+				>
+				["at0004"] = <
+					text = <"Beskrivelse">
+					description = <"Ytterligere beskrivelse av bolig eller boligforhold.">
+				>
+				["at0005"] = <
+					text = <"Støttetjenester">
+					description = <"Beskrivelse av tjenester som ytes som en del av boligtilbudet.">
+					comment = <"For eksempel: Døgnkontinuerlig pleietjeneste.">
+				>
+				["at0006"] = <
+					text = <"Detaljer">
+					description = <"Ytterligere detaljer om boligen.">
+					comment = <"For eksempel: Installerte bevegelseshjelpemidler, antall trapper, eller om det er kjøleskap tilgjengelig for å lagre legemidler.">
+				>
+				["at0008"] = <
+					text = <"Etasjer">
+					description = <"Beskrivelse av boligens etasjer.">
+				>
+				["at0009"] = <
+					text = <"Ett plan">
+					description = <"Inkludert leilighet på bakkenivå.">
+				>
+				["at0010"] = <
+					text = <"Flere etasjer med heis">
+					description = <"Inkludert leilighet over bakkenivå med heis.">
+				>
+				["at0011"] = <
+					text = <"Flere etasjer uten heis">
+					description = <"Inkludert leilighet over bakkenivå uten heis.">
+				>
+				["at0012"] = <
+					text = <"Status">
+					description = <"Individets status med tanke på fast bopel.">
+				>
+				["at0013"] = <
+					text = <"Uten fast bopel">
+					description = <"Individet er uten fast bopel.">
+				>
+				["at0014"] = <
+					text = <"Skifter ofte bopel">
+					description = <"Individet flytter mellom flere boliger eller boligomgivelser.">
+				>
+				["at0015"] = <
+					text = <"Fast bolig">
+					description = <"Individet har fast bolig.">
+				>
+			>
+		>
+	>
