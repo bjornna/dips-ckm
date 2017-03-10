@@ -29,7 +29,9 @@ description
 		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"">
+			purpose = <"PIM3 er et skåringsverktøy for beregning av sannynlighet for død for barn innlagt innlagt en intensivenhet.
+
+Verdiene for de ulike paramterene er iht. Norsk Intensivregisters (NIRs) spesifikasjon for XML-melding til NIR av 09.11.2016.">
 			use = <"">
 			misuse = <"">
 			copyright = <"">
@@ -39,7 +41,7 @@ description
 	other_contributors = <>
 	other_details = <
 		["references"] = <"Lee OJ, Jung M, Kim M, Yang H-K, Cho J. Validation of the Pediatric Index of Mortality 3 in a Single Pediatric Intensive Care Unit in Korea. Journal of Korean Medical Science. 2017;32(2):365-370. doi:10.3346/jkms.2017.32.2.365.">
-		["MD5-CAM-1.0.1"] = <"BA106291AD04E5D69D3A36D25B5270E1">
+		["MD5-CAM-1.0.1"] = <"DC2F9783A8EAD65C309C827F289DDFF5">
 	>
 
 definition
@@ -51,7 +53,7 @@ definition
 						data matches {
 							ITEM_TREE[at0003] matches {	-- Tree
 								items cardinality matches {0..*; unordered} matches {
-									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Systolisk blodtrykk
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Systolisk blodtrykk (SBT)
 										value matches {
 											C_DV_QUANTITY <
 												property = <[openehr::125]>
@@ -68,10 +70,10 @@ definition
 									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Pupillereaksjon på skarpt lys
 										value matches {
 											0|[local::at0006], 	-- Annen reaksjon eller ukjent
-											1|[local::at0007]  	-- >3 mm og begge fikserte
+											1|[local::at0007]  	-- ≥ 3 mm og begge fikserte
 										}
 									}
-									ELEMENT[at0009] occurrences matches {0..1} matches {	-- PaO2 
+									ELEMENT[at0009] occurrences matches {0..1} matches {	-- PaO2 (kPa)
 										value matches {
 											C_DV_QUANTITY <
 												property = <[openehr::125]>
@@ -134,26 +136,12 @@ definition
 											3|[local::at0024]  	-- Ja, overvåkning/oppvåkning etter en hjerteprosedyre med hjerte-lungemaskin
 										}
 									}
-									CLUSTER[at0043] occurrences matches {0..1} matches {	-- Vektet diagnose
-										items cardinality matches {1..*; unordered} matches {
-											ELEMENT[at0034] occurrences matches {0..1} matches {	-- Lav risiko
-												value matches {
-													0|[local::at0035], 	-- Nei
-													1|[local::at0036]  	-- Ja
-												}
-											}
-											ELEMENT[at0037] occurrences matches {0..1} matches {	-- Høy risiko
-												value matches {
-													0|[local::at0038], 	-- Nei
-													2|[local::at0039]  	-- Ja
-												}
-											}
-											ELEMENT[at0040] occurrences matches {0..1} matches {	-- Svært høy risiko
-												value matches {
-													0|[local::at0041], 	-- Nei
-													3|[local::at0042]  	-- Ja
-												}
-											}
+									ELEMENT[at0044] occurrences matches {0..1} matches {	-- Vektet diagnose
+										value matches {
+											0|[local::at0045], 	-- Nei
+											1|[local::at0046], 	-- Lav risiko
+											2|[local::at0047], 	-- Høy risiko
+											3|[local::at0048]  	-- Svært høy risiko
 										}
 									}
 									ELEMENT[at0030] occurrences matches {0..1} matches {	-- PIM3 score
@@ -209,8 +197,8 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0004"] = <
-					text = <"Systolisk blodtrykk">
-					description = <"Systolisk blodtrykk (SBT) målt i mmHg. Registrer SBT som 0 hvis pasienten har hjertestans. Registrer SBT 30 hvis pasienten er sjokkert og blodtrykket er så lavt at det ikke kan måles. Registrer STB 120 hvis blodtrykk ikke er målt. Registrer reell verdi for andre verdier av SBT.">
+					text = <"Systolisk blodtrykk (SBT)">
+					description = <"Systolisk blodtrykk målt i mmHg. Registrer SBT som 0 hvis pasienten har hjertestans. Registrer SBT 30 hvis pasienten er sjokkert og blodtrykket er så lavt at det ikke kan måles. Registrer STB 120 hvis blodtrykk ikke er målt. Registrer reell verdi for andre verdier av SBT.">
 					comment = <"SBT = 0 hvis pasienten har hjertestans. SBT = 30 hvis pasienten er sjokkert og blodtrykket er så lavt at det ikke kan måles
 . SBT = 120 hvis blodtrykk ikke er målt
 .">
@@ -224,7 +212,7 @@ ontology
 					description = <"*">
 				>
 				["at0007"] = <
-					text = <">3 mm og begge fikserte">
+					text = <"≥ 3 mm og begge fikserte">
 					description = <"*">
 				>
 				["at0008"] = <
@@ -232,8 +220,8 @@ ontology
 					description = <"*">
 				>
 				["at0009"] = <
-					text = <"PaO2 ">
-					description = <"Målt i kPa">
+					text = <"PaO2 (kPa)">
+					description = <"*">
 				>
 				["at0010"] = <
 					text = <"Base excess i arterielt eller kapillært blod">
@@ -241,7 +229,7 @@ ontology
 				>
 				["at0011"] = <
 					text = <"Mekanisk ventilasjon på noe tidspunkt i løpet av første timen på intensivenheten?">
-					description = <"Mekanisk ventilasjon inkluderer invasiv ventilasjon, maske-/nese-CPAP, BiPAP eller undertrykksventilasjon (skjoldrespirator).">
+					description = <"Mekanisk ventilasjon inkluderer invasiv ventilasjon, maske-/nese-CPAP, BiPAP eller undertrykksventilasjon (skjoldrespirator)">
 				>
 				["at0012"] = <
 					text = <"Nei">
@@ -265,7 +253,7 @@ ontology
 				>
 				["at0017"] = <
 					text = <"Overvåkning/oppvåkning etter kirurgi eller en prosedyre er hovedgrunn for innleggelse i intensivenheten">
-					description = <"Overvåkning / oppvåkning etter kirurgi eller prosedyre (inkluderer en radiologisk prosedyre eller hjertekateterisering). Ikke inkluder pasienter innlagt fra operasjonsstua når oppvåkning etter kirurgi ikke er hovegrunn for innleggelse i intensivenheten (f.eks. en pasient med en hodeskade som innlegges fra operasjonsstua etter innleggelse av en ICP-måler; for denne pasienten er hovedgrunnen for innleggelse i intensivenheten hodeskaden).">
+					description = <"Overvåkning/oppvåkning etter kirurgi eller prosedyre (inkluderer en radiologisk prosedyre eller hjertekateterisering). Ikke inkluder pasienter innlagt fra operasjonsstua når oppvåkning etter kirurgi ikke er hovegrunn for innleggelse i intensivenheten (f.eks. en pasient med en hodeskade som innlegges fra operasjonsstua etter innleggelse av en ICP-måler; for denne pasienten er hovedgrunnen for innleggelse i intensivenheten hodeskaden).">
 				>
 				["at0021"] = <
 					text = <"Nei">
@@ -285,50 +273,30 @@ ontology
 				>
 				["at0030"] = <
 					text = <"PIM3 score">
-					description = <"">
+					description = <"*">
 				>
 				["at0031"] = <
 					text = <"Sannsynlighet for død">
-					description = <"Utregnet verdi.">
+					description = <"*">
 				>
-				["at0034"] = <
+				["at0044"] = <
+					text = <"Vektet diagnose">
+					description = <"*">
+				>
+				["at0045"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0046"] = <
 					text = <"Lav risiko">
 					description = <"*">
 				>
-				["at0035"] = <
-					text = <"Nei">
-					description = <"*">
-				>
-				["at0036"] = <
-					text = <"Ja">
-					description = <"*">
-				>
-				["at0037"] = <
+				["at0047"] = <
 					text = <"Høy risiko">
 					description = <"*">
 				>
-				["at0038"] = <
-					text = <"Nei">
-					description = <"*">
-				>
-				["at0039"] = <
-					text = <"Ja">
-					description = <"*">
-				>
-				["at0040"] = <
+				["at0048"] = <
 					text = <"Svært høy risiko">
-					description = <"*">
-				>
-				["at0041"] = <
-					text = <"Nei">
-					description = <"*">
-				>
-				["at0042"] = <
-					text = <"Ja">
-					description = <"*">
-				>
-				["at0043"] = <
-					text = <"Vektet diagnose">
 					description = <"*">
 				>
 			>
@@ -439,45 +407,25 @@ fra et spesialisert barnetransportteam).
 					text = <"Probability of death">
 					description = <"Probability of death = exp (PIM3 score)/[1 + exp (PIM3 score)].">
 				>
-				["at0034"] = <
-					text = <"Low-risk diagnosis">
-					description = <"*">
+				["at0044"] = <
+					text = <"*New element(nb)">
+					description = <"**(nb)">
 				>
-				["at0035"] = <
-					text = <"No or in doubt">
-					description = <"*">
+				["at0045"] = <
+					text = <"*new ordinal(nb)">
+					description = <"**(nb)">
 				>
-				["at0036"] = <
-					text = <"Yes">
-					description = <"*">
+				["at0046"] = <
+					text = <"*new ordinal(nb)">
+					description = <"**(nb)">
 				>
-				["at0037"] = <
-					text = <"High-risk diagnosis">
-					description = <"*">
+				["at0047"] = <
+					text = <"*new ordinal(nb)">
+					description = <"**(nb)">
 				>
-				["at0038"] = <
-					text = <"No or in doubt">
-					description = <"*">
-				>
-				["at0039"] = <
-					text = <"Yes">
-					description = <"*">
-				>
-				["at0040"] = <
-					text = <"Very high-risk diagnosis">
-					description = <"*">
-				>
-				["at0041"] = <
-					text = <"No or in doubt">
-					description = <"*">
-				>
-				["at0042"] = <
-					text = <"Yes">
-					description = <"*">
-				>
-				["at0043"] = <
-					text = <"Weighted diagnosis">
-					description = <"*">
+				["at0048"] = <
+					text = <"*new ordinal(nb)">
+					description = <"**(nb)">
 				>
 			>
 		>
