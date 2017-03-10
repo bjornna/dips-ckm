@@ -1,0 +1,260 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ADMIN_ENTRY.nir_sofa_uttrekk.v1
+
+concept
+	[at0000]	-- Nir sofa uttrekk
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"FCE8EC9A385A759A83095DD4BFA98067">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {	-- Nir sofa uttrekk
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Respirasjon
+						value matches {
+							0|[local::at0003], 	-- > 53,3 kPa
+							1|[local::at0004], 	-- < 53,3 kPa
+							2|[local::at0005], 	-- < 40 kPa
+							3|[local::at0006], 	-- < 26,7 kPa
+							4|[local::at0007]  	-- < 13,3 kPa
+						}
+					}
+					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Sirkulasjon
+						value matches {
+							0|[local::at0009], 	-- MAP > 70 mmHg
+							1|[local::at0010], 	-- MAP < 70 mmHg
+							2|[local::at0011], 	-- DA < 5; DB
+							3|[local::at0012], 	-- DA 5,1-15; A ≤ 0,10; N ≥ 0,10
+							4|[local::at0013]  	-- DA > 15; A > 0,10; N > 0,10
+						}
+					}
+					ELEMENT[at0014] occurrences matches {0..1} matches {	-- SNS (sentralnervesystemet)
+						value matches {
+							0|[local::at0015], 	-- GCS 14-15
+							1|[local::at0016], 	-- GCS 12-13
+							2|[local::at0017], 	-- GCS 9-11
+							3|[local::at0018], 	-- GCS 6-8
+							4|[local::at0019]  	-- GCS 3-5
+						}
+					}
+					ELEMENT[at0020] occurrences matches {0..1} matches {	-- Nyre
+						value matches {
+							0|[local::at0021], 	-- Kreatinin < 110 umol/l
+							1|[local::at0022], 	-- Kreatinin≥ 110 umol/l
+							2|[local::at0023], 	-- Kreatinin ≥ 171 umol/
+							3|[local::at0024], 	-- Kreatinin ≥ 300 eller DU < 500
+							4|[local::at0025]  	-- Kreatinin ≥ 440 eller DU<200 eller nyreerstattende behandling: HD, HF, PD
+						}
+					}
+					ELEMENT[at0026] occurrences matches {0..1} matches {	-- Lever
+						value matches {
+							0|[local::at0027], 	-- < 20 µmol/l
+							1|[local::at0028], 	-- 20-32 µmol/l
+							2|[local::at0029], 	-- 33-101 µmol/l
+							3|[local::at0030], 	-- 102-204 µmol/l
+							4|[local::at0031]  	-- > 204 µmol/l
+						}
+					}
+					ELEMENT[at0032] occurrences matches {0..1} matches {	-- Koagulasjon
+						value matches {
+							0|[local::at0033], 	-- TPK ≥ 150 (x10³/µl)
+							1|[local::at0034], 	-- TPK < 150 (x10³/µl)
+							2|[local::at0035], 	-- TPK < 100 (x10³/µl)
+							3|[local::at0036], 	-- TPK < 50 (x10³/µl)
+							4|[local::at0037]  	-- TPK < 20 (x10³/µl)
+						}
+					}
+					ELEMENT[at0038] occurrences matches {0..1} matches {	-- SOFA score
+						value matches {
+							DV_COUNT matches {
+								magnitude matches {|>=0|}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Nir sofa uttrekk">
+					description = <"Arketype for å rapportere til Norsk intensivregister (NIR) den av de daglig registrerte verdiene for hver enkelt parameter som gir høyest total SOFA-skåre for hele oppholdet.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Respirasjon">
+					description = <"Ingen respiratorbehandling: kun 0, 1 eller2. Ved åpent system: se egen tabell for FiO2. 3 &amp; 4: Bare ved IPPV (overtrykksventilasjon).">
+				>
+				["at0003"] = <
+					text = <"> 53,3 kPa">
+					description = <"">
+				>
+				["at0004"] = <
+					text = <"< 53,3 kPa">
+					description = <"">
+				>
+				["at0005"] = <
+					text = <"< 40 kPa">
+					description = <"">
+				>
+				["at0006"] = <
+					text = <"< 26,7 kPa">
+					description = <"">
+				>
+				["at0007"] = <
+					text = <"< 13,3 kPa">
+					description = <"">
+				>
+				["at0008"] = <
+					text = <"Sirkulasjon">
+					description = <"MAP=middelarterietrykk. Score 2 er ved dopamin <5 µg/kg/m og/eller alle doser dobutamin.">
+				>
+				["at0009"] = <
+					text = <"MAP > 70 mmHg">
+					description = <"">
+				>
+				["at0010"] = <
+					text = <"MAP < 70 mmHg">
+					description = <"">
+				>
+				["at0011"] = <
+					text = <"DA < 5; DB">
+					description = <"">
+				>
+				["at0012"] = <
+					text = <"DA 5,1-15; A ≤ 0,10; N ≥ 0,10">
+					description = <"">
+				>
+				["at0013"] = <
+					text = <"DA > 15; A > 0,10; N > 0,10">
+					description = <"">
+				>
+				["at0014"] = <
+					text = <"SNS (sentralnervesystemet)">
+					description = <"Ved intubert/sedert pasient: bruk GCS før sedasjon inntil ny vurd. er mulig. Var for eksempel GCS 13 før sedasjon, skal denne verdien brukes så lenge pasienten er sedert.">
+				>
+				["at0015"] = <
+					text = <"GCS 14-15">
+					description = <"*">
+				>
+				["at0016"] = <
+					text = <"GCS 12-13">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"GCS 9-11">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"GCS 6-8">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"GCS 3-5">
+					description = <"*">
+				>
+				["at0020"] = <
+					text = <"Nyre">
+					description = <"DU = døgnurin. HD =hemodialyse , HF = hemofiltrasjon, PD = peritoneal.">
+				>
+				["at0021"] = <
+					text = <"Kreatinin < 110 umol/l">
+					description = <"">
+				>
+				["at0022"] = <
+					text = <"Kreatinin≥ 110 umol/l">
+					description = <"">
+				>
+				["at0023"] = <
+					text = <"Kreatinin ≥ 171 umol/">
+					description = <"">
+				>
+				["at0024"] = <
+					text = <"Kreatinin ≥ 300 eller DU < 500">
+					description = <"">
+				>
+				["at0025"] = <
+					text = <"Kreatinin ≥ 440 eller DU<200 eller nyreerstattende behandling: HD, HF, PD">
+					description = <"">
+				>
+				["at0026"] = <
+					text = <"Lever">
+					description = <"">
+				>
+				["at0027"] = <
+					text = <"< 20 µmol/l">
+					description = <"">
+				>
+				["at0028"] = <
+					text = <"20-32 µmol/l">
+					description = <"">
+				>
+				["at0029"] = <
+					text = <"33-101 µmol/l">
+					description = <"">
+				>
+				["at0030"] = <
+					text = <"102-204 µmol/l">
+					description = <"">
+				>
+				["at0031"] = <
+					text = <"> 204 µmol/l">
+					description = <"">
+				>
+				["at0032"] = <
+					text = <"Koagulasjon">
+					description = <"TPK = trombocyttkonsentrasjon">
+				>
+				["at0033"] = <
+					text = <"TPK ≥ 150 (x10³/µl)">
+					description = <"*">
+				>
+				["at0034"] = <
+					text = <"TPK < 150 (x10³/µl)">
+					description = <"*">
+				>
+				["at0035"] = <
+					text = <"TPK < 100 (x10³/µl)">
+					description = <"*">
+				>
+				["at0036"] = <
+					text = <"TPK < 50 (x10³/µl)">
+					description = <"*">
+				>
+				["at0037"] = <
+					text = <"TPK < 20 (x10³/µl)">
+					description = <"*">
+				>
+				["at0038"] = <
+					text = <"SOFA score">
+					description = <"Summen av skåringsverdien for de ulike parameterne som inngår i SOFA-skåringen.">
+				>
+			>
+		>
+	>
