@@ -23,7 +23,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"6CDD7129228A73414BDCE129C0E4D8DE">
+		["MD5-CAM-1.0.1"] = <"7F22451404945EF8F37AD28AEE967BF0">
 	>
 
 definition
@@ -79,9 +79,7 @@ definition
 									}
 									ELEMENT[at0013] occurrences matches {0..1} matches {	-- Har pasienten fått trakeostomi under dette intensivoppholdet
 										value matches {
-											1|[local::at0031], 	-- Nei
-											2|[local::at0032], 	-- Ja – perkutan teknikk på intensiv/oppv
-											3|[local::at0033]  	-- Ja – åpen teknikk (operativ)
+											DV_TEXT matches {*}
 										}
 									}
 									ELEMENT[at0014] occurrences matches {0..1} matches {	-- Bukleie
@@ -91,9 +89,7 @@ definition
 									}
 									ELEMENT[at0015] occurrences matches {0..1} matches {	-- Utvidet hemodynamisk monitorering
 										value matches {
-											1|[local::at0034], 	-- Nei
-											2|[local::at0035], 	-- Måling av hjerteminuttvolum med termodilusjon (Picco-kateter og lignende)
-											3|[local::at0036]  	-- Pulmonaliskateter (PA-kateter)
+											DV_TEXT matches {*}
 										}
 									}
 									ELEMENT[at0016] occurrences matches {0..1} matches {	-- Spesielle tiltak/intervensjoner
@@ -175,9 +171,7 @@ definition
 									}
 									ELEMENT[at0017] occurrences matches {0..1} matches {	-- Isolering av intensivpasient (eget personale på eget rom)
 										value matches {
-											1|[local::at0047], 	-- Ingen
-											2|[local::at0048], 	-- Kontaktsmitte
-											3|[local::at0049]  	-- Luftsmitte
+											DV_TEXT matches {*}
 										}
 									}
 									ELEMENT[at0018] occurrences matches {0..1} matches {	-- Døgn totalt (luftsmitte)
@@ -192,29 +186,33 @@ definition
 												list = <
 													["1"] = <
 														units = <"d">
+														magnitude = <|>=0.0|>
+														precision = <|1|>
 													>
 												>
 											>
 										}
 									}
-									ELEMENT[at0027] occurrences matches {0..1} matches {	-- Hjelpefelt for å konvertere non-invasiv ventilasjon/maske for hele oppholdet som duration til desimaltall
+									ELEMENT[at0027] occurrences matches {0..1} matches {	-- Hjelpefelt for å konvertere non-invasiv ventilasjon/maske for hele oppholdet fra duration til desimaltall
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0022] occurrences matches {0..1} matches {	-- Døgn invasiv ventilasjon (tube/tracheostomi)
+									ELEMENT[at0022] occurrences matches {0..1} matches {	-- Døgn invasiv ventilasjon (tube/trakeostomi)
 										value matches {
 											C_DV_QUANTITY <
 												property = <[openehr::128]>
 												list = <
 													["1"] = <
 														units = <"d">
+														magnitude = <|>=0.0|>
+														precision = <|1|>
 													>
 												>
 											>
 										}
 									}
-									ELEMENT[at0028] occurrences matches {0..1} matches {	-- Hjelpefelt for å konvertere invasiv ventilasjon for hele oppholdet som duration til desimaltall
+									ELEMENT[at0028] occurrences matches {0..1} matches {	-- Hjelpefelt for å konvertere invasiv ventilasjon for hele oppholdet fra duration til desimaltall
 										value matches {
 											DV_TEXT matches {*}
 										}
@@ -226,6 +224,8 @@ definition
 												list = <
 													["1"] = <
 														units = <"d">
+														magnitude = <|>=0.0|>
+														precision = <|1|>
 													>
 												>
 											>
@@ -317,7 +317,7 @@ ontology
 					description = <"Den tiden pasienten har fått respirasjonsstøtte i form av et lukket maskesystem med eller uten inspiratorisk støtte: maske-CPAP, eller non-invasiv overtrykksventilasjon/NIV-maske. ">
 				>
 				["at0022"] = <
-					text = <"Døgn invasiv ventilasjon (tube/tracheostomi)">
+					text = <"Døgn invasiv ventilasjon (tube/trakeostomi)">
 					description = <"Den tiden pasienten har fått respirasjonsstøtte i form av CPAP på tube eller trakeostomi, og/eller invasiv overtrykksventilasjon. ">
 				>
 				["at0024"] = <
@@ -325,11 +325,11 @@ ontology
 					description = <"Totalt antall døgn med respirasjonsstøtte (invasiv + non-invasiv) under dete intensivoppholdet.">
 				>
 				["at0027"] = <
-					text = <"Hjelpefelt for å konvertere non-invasiv ventilasjon/maske for hele oppholdet som duration til desimaltall">
+					text = <"Hjelpefelt for å konvertere non-invasiv ventilasjon/maske for hele oppholdet fra duration til desimaltall">
 					description = <"*">
 				>
 				["at0028"] = <
-					text = <"Hjelpefelt for å konvertere invasiv ventilasjon for hele oppholdet som duration til desimaltall">
+					text = <"Hjelpefelt for å konvertere invasiv ventilasjon for hele oppholdet fra duration til desimaltall">
 					description = <"*">
 				>
 				["at0029"] = <
@@ -339,30 +339,6 @@ ontology
 				["at0030"] = <
 					text = <"Nei">
 					description = <"*">
-				>
-				["at0031"] = <
-					text = <"Nei">
-					description = <"">
-				>
-				["at0032"] = <
-					text = <"Ja – perkutan teknikk på intensiv/oppv">
-					description = <"">
-				>
-				["at0033"] = <
-					text = <"Ja – åpen teknikk (operativ)">
-					description = <"">
-				>
-				["at0034"] = <
-					text = <"Nei">
-					description = <"">
-				>
-				["at0035"] = <
-					text = <"Måling av hjerteminuttvolum med termodilusjon (Picco-kateter og lignende)">
-					description = <"">
-				>
-				["at0036"] = <
-					text = <"Pulmonaliskateter (PA-kateter)">
-					description = <"">
 				>
 				["at0037"] = <
 					text = <"Terapeutisk hypotermi">
@@ -403,18 +379,6 @@ ontology
 				["at0046"] = <
 					text = <"Kontinuerlig EEG">
 					description = <"*">
-				>
-				["at0047"] = <
-					text = <"Ingen">
-					description = <"">
-				>
-				["at0048"] = <
-					text = <"Kontaktsmitte">
-					description = <"">
-				>
-				["at0049"] = <
-					text = <"Luftsmitte">
-					description = <"">
 				>
 			>
 		>
