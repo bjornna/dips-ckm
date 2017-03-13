@@ -1,5 +1,5 @@
 ﻿archetype (adl_version=1.4)
-	openEHR-EHR-CLUSTER.household.v1
+	openEHR-EHR-CLUSTER.household_dips.v1
 
 concept
 	[at0000]	-- Household
@@ -33,12 +33,24 @@ METeOR (Metadata Online Registry) [Internet]. Australia: Australian Institute of
 
 METeOR (Metadata Online Registry) [Internet]. Australia: Australian Institute of Health and Welfare. Household—household type. Available from: http://meteor.aihw.gov.au/content/index.phtml/itemId/351188 (accessed 2013 Mar 01).">
 		["current_contact"] = <"Heather Leslie, Ocean Informatics, heather.leslie@oceaninformatics.com">
-		["MD5-CAM-1.0.1"] = <"1A081DF1D4B79FF66EAF9F5CD689BC1F">
+		["MD5-CAM-1.0.1"] = <"8FD3C6028B964452A10B0FCC27C2E5A5">
 	>
 
 definition
 	CLUSTER[at0000] matches {	-- Household
 		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0008] occurrences matches {0..1} matches {	-- Bor alene
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0009, 	-- Ja
+							at0010, 	-- Nei
+							at0011]	-- Ukjent
+						}
+					}
+				}
+			}
 			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Category
 				value matches {
 					DV_TEXT matches {*}
@@ -62,13 +74,6 @@ definition
 			ELEMENT[at0006] occurrences matches {0..1} matches {	-- Children Under 5 years
 				value matches {
 					DV_COUNT matches {*}
-				}
-			}
-			ELEMENT[at0007] occurrences matches {0..1} matches {	-- Bor alene
-				value matches {
-					DV_BOOLEAN matches {
-						value matches {True, False}
-					}
 				}
 			}
 		}
@@ -104,9 +109,21 @@ ontology
 					text = <"Children Under 5 years">
 					description = <"Number of children under the age of 5 years in the household.">
 				>
-				["at0007"] = <
+				["at0008"] = <
 					text = <"Bor alene">
 					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Ja">
+					description = <"Pasienten bor alene">
+				>
+				["at0010"] = <
+					text = <"Nei">
+					description = <"Pasienten bor ikke alene">
+				>
+				["at0011"] = <
+					text = <"Ukjent">
+					description = <"Vet ikke om pasienten bor alene">
 				>
 			>
 		>

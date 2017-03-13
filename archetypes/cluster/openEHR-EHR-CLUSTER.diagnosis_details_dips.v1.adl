@@ -1,5 +1,5 @@
 archetype (adl_version=1.4)
-	openEHR-EHR-CLUSTER.diagnose_details.v1
+	openEHR-EHR-CLUSTER.diagnosis_details_dips.v1
 
 concept
 	[at0000]	-- Diagnose details
@@ -21,7 +21,10 @@ language
 	>
 description
 	original_author = <
-		["name"] = <"">
+		["name"] = <"Anine Ramberg">
+		["email"] = <"ara@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2017-03-13">
 	>
 	details = <
 		["no"] = <
@@ -49,20 +52,20 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"C8955C4CF91EFEE3AC07FC1406975331">
+		["MD5-CAM-1.0.1"] = <"77BCEA579515739DAB30537E475D75C2">
 	>
 
 definition
 	CLUSTER[at0000] matches {	-- Diagnose details
 		items cardinality matches {2..*; unordered} matches {
-			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Hovedtilstand
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Is Primary diagnose
 				value matches {
 					DV_BOOLEAN matches {
 						value matches {True, False}
 					}
 				}
 			}
-			ELEMENT[at0004] occurrences matches {0..1} matches {	-- Barn
+			ELEMENT[at0004] occurrences matches {0..1} matches {	-- Child
 				value matches {
 					DV_TEXT matches {*}
 				}
@@ -80,38 +83,45 @@ definition
 					DV_CODED_TEXT matches {
 						defining_code matches {
 							[local::
-							at0007, 	-- 0
+							at0007, 	-- *0(nb)
 							at0008, 	-- 1
 							at0009]	-- 2
 						}
 					}
 				}
 			}
-			ELEMENT[at0010] occurrences matches {0..1} matches {	-- Forfatter
+			ELEMENT[at0010] occurrences matches {0..1} matches {	-- *Forfatter(nb)
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0011] occurrences matches {0..1} matches {	-- Tilleggsdiagnose
+			ELEMENT[at0011] occurrences matches {0..1} matches {	-- *Tilleggsdiagnose(nb)
 				value matches {
 					DV_BOOLEAN matches {
 						value matches {True, False}
 					}
 				}
 			}
-			ELEMENT[at0015] occurrences matches {0..1} matches {	-- Kodegrunnlag
+			ELEMENT[at0015] occurrences matches {0..1} matches {	-- *Kodegrunnlag(nb)
 				value matches {
 					DV_BOOLEAN matches {
 						value matches {True, False}
 					}
 				}
 			}
-			ELEMENT[at0016] occurrences matches {0..1} matches {	-- Legens beskrivelse
+			ELEMENT[at0016] occurrences matches {0..1} matches {	-- *Legens beskrivelse(nb)
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0017] occurrences matches {0..1} matches {	-- Tentativ diagnose
+			ELEMENT[at0017] occurrences matches {0..1} matches {	-- *Tentativ diagnose(nb)
+				value matches {
+					DV_BOOLEAN matches {
+						value matches {True, False}
+					}
+				}
+			}
+			ELEMENT[at0018] occurrences matches {0..1} matches {	-- Send
 				value matches {
 					DV_BOOLEAN matches {
 						value matches {True, False}
@@ -173,6 +183,10 @@ ontology
 					text = <"*Tentativ diagnose(nb)">
 					description = <"**(nb)">
 				>
+				["at0018"] = <
+					text = <"*Sendes(nb)">
+					description = <"*Angir om diagnose skal sendes.(nb)">
+				>
 			>
 		>
 		["nb"] = <
@@ -225,6 +239,10 @@ ontology
 					text = <"Tentativ diagnose">
 					description = <"*">
 				>
+				["at0018"] = <
+					text = <"Sendes">
+					description = <"Angir om diagnose skal sendes.">
+				>
 			>
 		>
 		["en"] = <
@@ -276,6 +294,10 @@ ontology
 				["at0017"] = <
 					text = <"*Tentativ diagnose(nb)">
 					description = <"**(nb)">
+				>
+				["at0018"] = <
+					text = <"Send">
+					description = <"Describes if the information should be send to collaboration partners.">
 				>
 			>
 		>
