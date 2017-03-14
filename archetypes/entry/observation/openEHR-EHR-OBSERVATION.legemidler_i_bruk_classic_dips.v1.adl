@@ -2,12 +2,15 @@ archetype (adl_version=1.4)
 	openEHR-EHR-OBSERVATION.legemidler_i_bruk_classic_dips.v1
 
 concept
-	[at0000]	-- Legemidler i bruk classic
+	[at0000]	-- Legemidler i bruk classic dips
 language
 	original_language = <[ISO_639-1::nb]>
 description
 	original_author = <
-		["name"] = <"">
+		["name"] = <"Hilde Hollås">
+		["email"] = <"hho@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2017-03-09">
 	>
 	details = <
 		["nb"] = <
@@ -21,11 +24,11 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"841F316A62D7C2567E4B802D99ED0DD4">
+		["MD5-CAM-1.0.1"] = <"30FA3489E595E098AA48F91BC8196E72">
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- Legemidler i bruk classic
+	OBSERVATION[at0000] matches {	-- Legemidler i bruk classic dips
 		data matches {
 			HISTORY[at0001] matches {	-- Event Series
 				events cardinality matches {1..*; unordered} matches {
@@ -34,6 +37,16 @@ definition
 							ITEM_TREE[at0003] matches {	-- Tree
 								items cardinality matches {0..*; unordered} matches {
 									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Legemiddel
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0025] occurrences matches {0..1} matches {	-- Navn/form/styrke
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0021] occurrences matches {0..1} matches {	-- Produsent
 										value matches {
 											DV_TEXT matches {*}
 										}
@@ -74,6 +87,16 @@ definition
 											DV_TEXT matches {*}
 										}
 									}
+									ELEMENT[at0018] occurrences matches {0..1} matches {	-- Kort dose
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0019] occurrences matches {0..*} matches {	-- Forholdsregel
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
 									ELEMENT[at0012] occurrences matches {0..1} matches {	-- Bruk
 										value matches {
 											DV_TEXT matches {*}
@@ -84,9 +107,34 @@ definition
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0014] occurrences matches {0..1} matches {	-- Merknad
+									ELEMENT[at0026] occurrences matches {0..1} matches {	-- Årsak til reservasjon mot generisk bytte
 										value matches {
 											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0014] occurrences matches {0..1} matches {	-- Forskriver (inkl. HPR-nummer)
+										value matches {
+											DV_IDENTIFIER matches {*}
+										}
+									}
+									ELEMENT[at0022] occurrences matches {0..1} matches {	-- Instituert av
+										value matches {
+											DV_IDENTIFIER matches {*}
+										}
+									}
+									ELEMENT[at0020] occurrences matches {0..1} matches {	-- e-reseptID
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0023] occurrences matches {0..1} matches {	-- Oppføringstype
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0024] occurrences matches {0..1} matches {	-- Seponeringsdato
+										value matches {
+											DV_DATE_TIME matches {*}
 										}
 									}
 								}
@@ -103,7 +151,7 @@ ontology
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"Legemidler i bruk classic">
+					text = <"Legemidler i bruk classic dips">
 					description = <"Midlertidig arketype for uthenting av Legemidler i Bruk (LiB). Arketypen baserer seg på legemiddeldata registrert i Classic. Arketypen er tenkt brukt i skjema som epikrise, PLO-skjema etc.">
 				>
 				["at0001"] = <
@@ -159,8 +207,44 @@ ontology
 					description = <"Tilleggsinformasjon primært rettet mot pasient og pårørende, om hvorfor legemidlet brukes">
 				>
 				["at0014"] = <
-					text = <"Merknad">
-					description = <"*">
+					text = <"Forskriver (inkl. HPR-nummer)">
+					description = <"Angir rekvirent som har forskrevet legemidlet/resepten">
+				>
+				["at0018"] = <
+					text = <"Kort dose">
+					description = <"Kortdoseangivelse av dosering, f.eks 1+1+1">
+				>
+				["at0019"] = <
+					text = <"Forholdsregel">
+					description = <"Angir forholdsregler fra FEST">
+				>
+				["at0020"] = <
+					text = <"e-reseptID">
+					description = <"Reseptens ID i Reseptformidleren">
+				>
+				["at0021"] = <
+					text = <"Produsent">
+					description = <"Legemidlets produsent, angis fra FEST">
+				>
+				["at0022"] = <
+					text = <"Instituert av">
+					description = <"Angir det helsepersonell som satte pasienten på legemidlet">
+				>
+				["at0023"] = <
+					text = <"Oppføringstype">
+					description = <"Angir hvilken type oppføring legemidlet har i \"Legemidler i bruk\", f.eks e-resept, utskrift, manuell, telefon, oppføring">
+				>
+				["at0024"] = <
+					text = <"Seponeringsdato">
+					description = <"Seponeringsdato angitt i \"Legemidler i bruk\"">
+				>
+				["at0025"] = <
+					text = <"Navn/form/styrke">
+					description = <"Navn/form/styrke fra FEST">
+				>
+				["at0026"] = <
+					text = <"Årsak til reservasjon mot generisk bytte">
+					description = <"Angir årsak hvis reservasjon mot generisk bytte er angitt">
 				>
 			>
 		>
