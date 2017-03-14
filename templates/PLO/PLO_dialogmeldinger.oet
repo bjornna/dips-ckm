@@ -69,7 +69,6 @@
     </items>
   </annotations>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Rapport">
-    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.plo_status_dips.v1" concept_name="Plo status" path="/content" />
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.dialogmelding_dips.v1" concept_name="Dialogmelding" path="/content">
       <Rule path="/data[at0001]/items[at0002]/items[at0003]">
         <constraint xsi:type="textConstraint">
@@ -81,7 +80,16 @@
       </Rule>
     </Content>
     <Context>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.meldingstype_dips.v1" concept_name="Meldingstype" path="/context/other_context[at0001]/items[at0006]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.meldingstype_dips.v1" concept_name="Meldingstype" path="/context/other_context[at0001]/items[at0006]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>2.16.578.1.12.4.1.1-8279::DIALOG_FORESPORSEL::Forespørsel</includedValues>
+            <includedValues>2.16.578.1.12.4.1.1-8279::DIALOG_AVVIK::Avviksmelding</includedValues>
+            <includedValues>2.16.578.1.12.4.1.1-8279::DIALOG_NOTAT::Notat</includedValues>
+            <includedValues>2.16.578.1.12.4.1.1-8279::DIALOG_SVAR::Svar på forespørsel</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
     </Context>
   </definition>
 </template>
