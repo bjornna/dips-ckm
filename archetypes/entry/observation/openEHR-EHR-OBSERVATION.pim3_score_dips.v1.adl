@@ -31,7 +31,7 @@ Sannsynlighet for død = exp(PIM3 score)/[1 + exp (PIM3 score)]. ">
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"8A025AC1D1DA3CF468E169DDBBA986B3">
+		["MD5-CAM-1.0.1"] = <"14AB45ECDDDAE2477D17FBDCC7C3E160">
 	>
 
 definition
@@ -59,8 +59,8 @@ definition
 									}
 									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Pupillereaksjon på skarpt lys
 										value matches {
-											0|[local::at0006], 	-- Annen reaksjon eller ukjent
-											1|[local::at0007]  	-- ≥ 3 mm og begge fikserte
+											0|[local::at0006], 	-- Annen reaksjon eller ukjent (= 0 poeng)
+											1|[local::at0007]  	-- ≥ 3 mm og begge fikserte (= 1 poeng)
 										}
 									}
 									ELEMENT[at0008] occurrences matches {0..1} matches {	-- PaO2
@@ -106,30 +106,30 @@ definition
 									}
 									ELEMENT[at0011] occurrences matches {0..1} matches {	-- Mekanisk ventilasjon på noe tidspunkt i løpe av første timen på intensivenheten?
 										value matches {
-											0|[local::at0012], 	-- Nei
-											1|[local::at0013]  	-- Ja
+											0|[local::at0012], 	-- Nei (= 0 poeng)
+											1|[local::at0013]  	-- Ja (= 1 poeng)
 										}
 									}
 									ELEMENT[at0014] occurrences matches {0..1} matches {	-- Elektiv innleggelse i intensivenheten
 										value matches {
-											0|[local::at0015], 	-- Nei
-											1|[local::at0016]  	-- Ja
+											0|[local::at0015], 	-- Nei (= 0 poeng)
+											1|[local::at0016]  	-- Ja (= 1 poeng)
 										}
 									}
 									ELEMENT[at0017] occurrences matches {0..1} matches {	-- Overvåkning/oppvåkning etter kirurgi eller en prosedyre er hovedgrunn for innleggelse i intensivenheten
 										value matches {
-											0|[local::at0018], 	-- Nei
-											1|[local::at0019], 	-- Ja, overvåkning/oppvåkning etter en ikke hjerterelatert prosedyre
-											2|[local::at0020], 	-- Ja, overvåkning/oppvåkning etter en hjerteprosedyre uten hjerte-lungemaskin
-											3|[local::at0021]  	-- Ja, overvåkning/oppvåkning etter en hjerteprosedyre med hjerte-lungemaskin
+											0|[local::at0018], 	-- Nei (= 0 poeng)
+											1|[local::at0019], 	-- Ja, overvåkning/oppvåkning etter en ikke hjerterelatert prosedyre (= 1 poeng)
+											2|[local::at0020], 	-- Ja, overvåkning/oppvåkning etter en hjerteprosedyre uten hjerte-lungemaskin (= 2 poeng)
+											3|[local::at0021]  	-- Ja, overvåkning/oppvåkning etter en hjerteprosedyre med hjerte-lungemaskin (= 3 poeng)
 										}
 									}
 									ELEMENT[at0022] occurrences matches {0..1} matches {	-- Vektet diagnose
 										value matches {
-											0|[local::at0023], 	-- Nei
-											1|[local::at0024], 	-- Lav risiko
-											2|[local::at0025], 	-- Høy risiko
-											3|[local::at0026]  	-- Svært høy risiko
+											0|[local::at0023], 	-- Nei (= 0 poeng)
+											1|[local::at0024], 	-- Lav risiko (= 1 poeng)
+											2|[local::at0025], 	-- Høy risiko (= 2 poeng)
+											3|[local::at0026]  	-- Svært høy risiko (= 3 poeng)
 										}
 									}
 									ELEMENT[at0027] occurrences matches {0..1} matches {	-- PIM3 score
@@ -147,9 +147,21 @@ definition
 									}
 									ELEMENT[at0028] occurrences matches {0..1} matches {	-- Sannsynlighet for død
 										value matches {
-											DV_PROPORTION matches {
-												denominator matches {|>0.0|}
-											}
+											C_DV_QUANTITY <
+												property = <[openehr::380]>
+												list = <
+													["1"] = <
+														units = <"1">
+														magnitude = <|>=0.0|>
+														precision = <|3|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0033] occurrences matches {0..1} matches {	-- Kommentar
+										value matches {
+											DV_TEXT matches {*}
 										}
 									}
 								}
@@ -211,11 +223,11 @@ ontology
 					description = <"Pupillereaksjon ved stimulering med skarpt lys blir brukt som indikasjon på hjernefunksjon.">
 				>
 				["at0006"] = <
-					text = <"Annen reaksjon eller ukjent">
+					text = <"Annen reaksjon eller ukjent (= 0 poeng)">
 					description = <"Pupilleraksjonen på skarpt lys er ukjent eller annen enn 3 mm eller mer og begge pupillene er fikserte.">
 				>
 				["at0007"] = <
-					text = <"≥ 3 mm og begge fikserte">
+					text = <"≥ 3 mm og begge fikserte (= 1 poeng)">
 					description = <"Pupilleraksjonen på skarpt lys er 3 mm eller mer og begge pupillene er fikserte.">
 				>
 				["at0008"] = <
@@ -235,11 +247,11 @@ ontology
 					description = <"Mekanisk ventilasjon inkluderer invasiv ventilasjon, maske-/nese-CPAP, BiPAP eller undertrykksventilasjon (skjoldrespirator).">
 				>
 				["at0012"] = <
-					text = <"Nei">
+					text = <"Nei (= 0 poeng)">
 					description = <"Pasienten fikk ikke mekanisk ventilasjonsstøtte i løpet av første timen på intensivenheten.">
 				>
 				["at0013"] = <
-					text = <"Ja">
+					text = <"Ja (= 1 poeng)">
 					description = <"Pasienten fikk mekanisk ventilasjonsstøtte i løpet av første timen på intensivenheten.">
 				>
 				["at0014"] = <
@@ -247,11 +259,11 @@ ontology
 					description = <"Elektiv innleggelse inkluderer planlagt eller forutsigbar innleggelse etter elektiv kirurgi eller innleggelse for en elektiv prosedyre, f.eks. innleggelse av CVK, samt elektiv overvåkning eller gjennomgang av hjemmeventilasjon. En innleggelse i intensivenhet eller en operasjon anses for elektiv hvis den kunne vært utsatt mer enn seks timer uten ugunstige effekter.">
 				>
 				["at0015"] = <
-					text = <"Nei">
+					text = <"Nei (= 0 poeng)">
 					description = <"Innleggelsen i intensivenheten var ikke elektiv.">
 				>
 				["at0016"] = <
-					text = <"Ja">
+					text = <"Ja (= 1 poeng)">
 					description = <"Innleggelsen i intensivenheten var elektiv.">
 				>
 				["at0017"] = <
@@ -259,19 +271,19 @@ ontology
 					description = <"Overvåkning/oppvåkning etter kirurgi eller prosedyre inkluderer en radiologisk prosedyre eller hjertekateterisering. Overvåkning/oppvåkning etter kirurgi eller prosedyre inkluderer ikke pasienter innlagt fra operasjonsstua når oppvåkning etter kirurgi ikke er hovedgrunn for innleggelse i intensivenheten, f.eks. en pasient med en hodeskade som innlegges fra operasjonsstua etter innleggelse av en ICP-måler. Da hovedgrunnen for innleggelse i intensivenheten er hodeskaden.">
 				>
 				["at0018"] = <
-					text = <"Nei">
+					text = <"Nei (= 0 poeng)">
 					description = <"Hovedgrunn for innleggelsen er ikke overvåkning/oppvåkning etter kirurgi eller en prosedyre.">
 				>
 				["at0019"] = <
-					text = <"Ja, overvåkning/oppvåkning etter en ikke hjerterelatert prosedyre">
+					text = <"Ja, overvåkning/oppvåkning etter en ikke hjerterelatert prosedyre (= 1 poeng)">
 					description = <"Hovedgrunn for innleggelsen er overvåkning/oppvåkning etter en ikke hjerterelatert prosedyre.">
 				>
 				["at0020"] = <
-					text = <"Ja, overvåkning/oppvåkning etter en hjerteprosedyre uten hjerte-lungemaskin">
+					text = <"Ja, overvåkning/oppvåkning etter en hjerteprosedyre uten hjerte-lungemaskin (= 2 poeng)">
 					description = <"Hovedgrunn for innleggelsen er overvåkning/oppvåkning etter en hjerteprosedyre uten hjerte-lungemaskin.">
 				>
 				["at0021"] = <
-					text = <"Ja, overvåkning/oppvåkning etter en hjerteprosedyre med hjerte-lungemaskin">
+					text = <"Ja, overvåkning/oppvåkning etter en hjerteprosedyre med hjerte-lungemaskin (= 3 poeng)">
 					description = <"Hovedgrunn for innleggelsen er overvåkning/oppvåkning etter en hjerteprosedyre med hjerte-lungemaskin.">
 				>
 				["at0022"] = <
@@ -279,19 +291,19 @@ ontology
 					description = <"Vektet diagnose ved innleggelsen i intensivenheten.">
 				>
 				["at0023"] = <
-					text = <"Nei">
+					text = <"Nei (= 0 poeng)">
 					description = <"Ingen vektet diagnose.">
 				>
 				["at0024"] = <
-					text = <"Lav risiko">
+					text = <"Lav risiko (= 1 poeng)">
 					description = <"Vektet diagnose er en lav risiko diagnose.">
 				>
 				["at0025"] = <
-					text = <"Høy risiko">
+					text = <"Høy risiko (= 2 poeng)">
 					description = <"Vektet diagnose er en høy risiko diagnose.">
 				>
 				["at0026"] = <
-					text = <"Svært høy risiko">
+					text = <"Svært høy risiko (= 3 poeng)">
 					description = <"Vektet diagnose er en svært høy risiko diagnose.">
 				>
 				["at0027"] = <
@@ -317,6 +329,10 @@ ontology
 				["at0032"] = <
 					text = <"Kommentar">
 					description = <"*">
+				>
+				["at0033"] = <
+					text = <"Kommentar">
+					description = <"Kommentar til PIM3 score.">
 				>
 			>
 		>
