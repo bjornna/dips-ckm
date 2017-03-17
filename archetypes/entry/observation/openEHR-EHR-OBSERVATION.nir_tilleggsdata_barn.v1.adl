@@ -23,7 +23,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"E91AA8B25979EE00F25DF96F3849D18D">
+		["MD5-CAM-1.0.1"] = <"223EE02E90C4F4CFB76411F32C3F05A2">
 	>
 
 definition
@@ -44,15 +44,10 @@ definition
 									}
 									ELEMENT[at0041] occurrences matches {0..1} matches {	-- Systolisk blodtrykk (SBT)
 										value matches {
-											DV_CODED_TEXT matches {
-												defining_code matches {
-													[local::
-													at0044, 	-- Pasienten har hjertestans (STB=0 mmHg)
-													at0045, 	-- Pasienten er sjokket, kan ikke måles (STB=30 mmHg)
-													at0046, 	-- Blodtrykk er ikke målt (STB=120 mmHg)
-													at0047]	-- Registrer reell verdi
-												}
-											}
+											0|[local::at0048], 	-- Pasienten har hjertestans
+											1|[local::at0051], 	-- Registrer verdi
+											30|[local::at0049], 	-- Pasienten er sjokkert
+											120|[local::at0050]  	-- Blodtrykket er ikke målt
 										}
 									}
 									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Lav risiko diagnose
@@ -100,7 +95,22 @@ definition
 												list = <
 													["1"] = <
 														units = <"%">
-														magnitude = <|0.0..100.0|>
+														magnitude = <|0.0..101.0|>
+														precision = <|2|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0052] occurrences matches {0..1} matches {	-- Laktat
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::119]>
+												list = <
+													["1"] = <
+														units = <"mmol/l">
+														magnitude = <|0.0..30.0|>
+														precision = <|2|>
 													>
 												>
 											>
@@ -153,7 +163,7 @@ ontology
 				>
 				["at0017"] = <
 					text = <"Type innleggelse">
-					description = <"Type innleggelse dette oppholdet.">
+					description = <"Type innleggelse dette intensivoppholdet.">
 				>
 				["at0018"] = <
 					text = <"Etter planlagt operasjon">
@@ -246,26 +256,30 @@ Leversvikt, akutt eller kronisk. Må være hovedgrunnen for innleggelse i intens
 				>
 				["at0040"] = <
 					text = <"Perifer oksygenmetning">
-					description = <"Perifer oksygenmetning målt med sensor, angis i prosent.">
+					description = <"*">
 				>
 				["at0041"] = <
 					text = <"Systolisk blodtrykk (SBT)">
 					description = <"Hurtigvalg for systolisk blodtrykk dersom pasienten har hjertestans, er sjokkert eller blodtrykket ikke er målt.">
 				>
-				["at0044"] = <
-					text = <"Pasienten har hjertestans (STB=0 mmHg)">
-					description = <"*">
+				["at0048"] = <
+					text = <"Pasienten har hjertestans">
+					description = <"Pasienten har hjertestans (SBT=0)">
 				>
-				["at0045"] = <
-					text = <"Pasienten er sjokket, kan ikke måles (STB=30 mmHg)">
-					description = <"*">
+				["at0049"] = <
+					text = <"Pasienten er sjokkert">
+					description = <"Pasienten er sjokkert (SBT=30)">
 				>
-				["at0046"] = <
-					text = <"Blodtrykk er ikke målt (STB=120 mmHg)">
-					description = <"*">
+				["at0050"] = <
+					text = <"Blodtrykket er ikke målt">
+					description = <"Blodtrykket er ikke målt (SBT=120)">
 				>
-				["at0047"] = <
-					text = <"Registrer reell verdi">
+				["at0051"] = <
+					text = <"Registrer verdi">
+					description = <"Registrer målt verdi">
+				>
+				["at0052"] = <
+					text = <"Laktat">
 					description = <"*">
 				>
 			>
