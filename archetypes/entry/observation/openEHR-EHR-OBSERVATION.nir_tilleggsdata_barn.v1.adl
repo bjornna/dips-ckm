@@ -23,7 +23,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"5F49EFB1F882B6938D45FE8F3780471E">
+		["MD5-CAM-1.0.1"] = <"223EE02E90C4F4CFB76411F32C3F05A2">
 	>
 
 definition
@@ -40,6 +40,14 @@ definition
 											DV_BOOLEAN matches {
 												value matches {True, False}
 											}
+										}
+									}
+									ELEMENT[at0041] occurrences matches {0..1} matches {	-- Systolisk blodtrykk (SBT)
+										value matches {
+											0|[local::at0048], 	-- Pasienten har hjertestans
+											1|[local::at0051], 	-- Registrer verdi
+											30|[local::at0049], 	-- Pasienten er sjokkert
+											120|[local::at0050]  	-- Blodtrykket er ikke målt
 										}
 									}
 									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Lav risiko diagnose
@@ -87,7 +95,22 @@ definition
 												list = <
 													["1"] = <
 														units = <"%">
-														magnitude = <|0.0..100.0|>
+														magnitude = <|0.0..101.0|>
+														precision = <|2|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0052] occurrences matches {0..1} matches {	-- Laktat
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::119]>
+												list = <
+													["1"] = <
+														units = <"mmol/l">
+														magnitude = <|0.0..30.0|>
+														precision = <|2|>
 													>
 												>
 											>
@@ -140,7 +163,7 @@ ontology
 				>
 				["at0017"] = <
 					text = <"Type innleggelse">
-					description = <"Type innleggelse dette oppholdet.">
+					description = <"Type innleggelse dette intensivoppholdet.">
 				>
 				["at0018"] = <
 					text = <"Etter planlagt operasjon">
@@ -233,7 +256,31 @@ Leversvikt, akutt eller kronisk. Må være hovedgrunnen for innleggelse i intens
 				>
 				["at0040"] = <
 					text = <"Perifer oksygenmetning">
-					description = <"Perifer oksygenmetning målt med sensor, angis i prosent.">
+					description = <"*">
+				>
+				["at0041"] = <
+					text = <"Systolisk blodtrykk (SBT)">
+					description = <"Hurtigvalg for systolisk blodtrykk dersom pasienten har hjertestans, er sjokkert eller blodtrykket ikke er målt.">
+				>
+				["at0048"] = <
+					text = <"Pasienten har hjertestans">
+					description = <"Pasienten har hjertestans (SBT=0)">
+				>
+				["at0049"] = <
+					text = <"Pasienten er sjokkert">
+					description = <"Pasienten er sjokkert (SBT=30)">
+				>
+				["at0050"] = <
+					text = <"Blodtrykket er ikke målt">
+					description = <"Blodtrykket er ikke målt (SBT=120)">
+				>
+				["at0051"] = <
+					text = <"Registrer verdi">
+					description = <"Registrer målt verdi">
+				>
+				["at0052"] = <
+					text = <"Laktat">
+					description = <"*">
 				>
 			>
 		>
