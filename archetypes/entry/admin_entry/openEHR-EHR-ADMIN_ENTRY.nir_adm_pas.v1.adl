@@ -1,0 +1,292 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ADMIN_ENTRY.nir_adm_pas.v1
+
+concept
+	[at0000]	-- Nir adm pas
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"8A8F31A0E89350F61BA138B3AE5B036B">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {	-- Nir adm pas
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0019] occurrences matches {0..*} matches {	-- Årsak innleggelse
+						value matches {
+							1|[local::at0021], 	-- Respiratorisk svikt
+							2|[local::at0023], 	-- Sirkulatorisk/kardiovaskulær svikt
+							3|[local::at0024], 	-- Gastroenterologisk svikt
+							4|[local::at0025], 	-- Nevrologisk svikt
+							5|[local::at0026], 	-- Sepsis
+							6|[local::at0027], 	-- Skade/traume
+							7|[local::at0028], 	-- Metabolsk/intoksikasjon
+							8|[local::at0029], 	-- Hematologisk svikt
+							9|[local::at0030], 	-- Nyresvikt
+							10|[local::at0031], 	-- Postoperativt
+							11|[local::at0032]  	-- Annet
+						}
+					}
+					ELEMENT[at0020] occurrences matches {0..2} matches {	-- Nærmere beskrivelse respiratorisk svikt
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0040] occurrences matches {0..2} matches {	-- Nærmere beskrivelse sirkulatorisk/kardiovaskulær svikt
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0041] occurrences matches {0..2} matches {	-- Nærmere beskrivelse gastroenterologisk svikt
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0042] occurrences matches {0..2} matches {	-- Nærmere beskrivelse nevrologisk svikt
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0043] occurrences matches {0..2} matches {	-- Nærmere beskrivelse sepsis
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0044] occurrences matches {0..2} matches {	-- Nærmere beskrivelse skade/traume
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0045] occurrences matches {0..2} matches {	-- Nærmere beskrivelse metabolsk/intoksikasjon
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0046] occurrences matches {0..2} matches {	-- Nærmere beskrivelse hematologisk svikt
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0047] occurrences matches {0..2} matches {	-- Nærmere beskrivelse nyresvikt
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0048] occurrences matches {0..2} matches {	-- Nærmere beskrivelse postoperativt
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Overført under pågående intensivbehandling
+						value matches {
+							1|[local::at0003], 	-- Pasienten er ikke overført
+							2|[local::at0004]  	-- Pasienten er overført
+						}
+					}
+					ELEMENT[at0005] occurrences matches {0..*} matches {	-- Årsak overføring
+						value matches {
+							1|[local::at0034], 	-- Medisinsk
+							2|[local::at0035], 	-- Plassmangel/kapasitetsmangel
+							3|[local::at0036]  	-- Tilbakeføring eller overføring til «hjemstedssykehus» etter behandling
+						}
+					}
+					ELEMENT[at0037] occurrences matches {0..1} matches {	-- Status ut av denne intensivenheten
+						value matches {
+							0|[local::at0038], 	-- I live
+							1|[local::at0039]  	-- Død intensiv
+						}
+					}
+					ELEMENT[at0017] occurrences matches {0..1} matches {	-- NEMS (totalt antall NEMS-poeng under oppholdet)
+						value matches {
+							DV_COUNT matches {*}
+						}
+					}
+					ELEMENT[at0018] occurrences matches {0..1} matches {	-- NAS (%) Nursing Activity Score
+						value matches {
+							DV_COUNT matches {*}
+						}
+					}
+					ELEMENT[at0033] occurrences matches {0..1} matches {	-- Vil du registrere SOFA score på dette oppholdet?
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Nir adm pas">
+					description = <"Brukes til registrering av pasient- og pasientadministrativ informasjon som skal rapporteres til Norsk Intensivregister (NIR).">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Overført under pågående intensivbehandling">
+					description = <"Overført mellom intensivenhet/sykehus under pågående intensivbehandling.">
+				>
+				["at0003"] = <
+					text = <"Pasienten er ikke overført">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Pasienten er overført">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Årsak overføring">
+					description = <"Årsak til overføring til/fra denne intensivenhet fra/til hvilken enhet/sykehus.">
+				>
+				["at0017"] = <
+					text = <"NEMS (totalt antall NEMS-poeng under oppholdet)">
+					description = <"Totalt antall NEMS-poeng for dette intensivoppholdet. ">
+				>
+				["at0018"] = <
+					text = <"NAS (%) Nursing Activity Score">
+					description = <"Samlet NAS-poeng for oppholdet. ">
+				>
+				["at0019"] = <
+					text = <"Årsak innleggelse">
+					description = <"Primærårsak og evt. sekundærårsak skal registreres slik det ble vurdert ved innleggelsestidspunktet. Dette samsvarer ikke nødvendigvis med hovedproblemet under selve intensivoppholdet.">
+				>
+				["at0020"] = <
+					text = <"Nærmere beskrivelse respiratorisk svikt">
+					description = <"">
+				>
+				["at0021"] = <
+					text = <"Respiratorisk svikt">
+					description = <"*">
+				>
+				["at0023"] = <
+					text = <"Sirkulatorisk/kardiovaskulær svikt">
+					description = <"*">
+				>
+				["at0024"] = <
+					text = <"Gastroenterologisk svikt">
+					description = <"*">
+				>
+				["at0025"] = <
+					text = <"Nevrologisk svikt">
+					description = <"*">
+				>
+				["at0026"] = <
+					text = <"Sepsis">
+					description = <"*">
+				>
+				["at0027"] = <
+					text = <"Skade/traume">
+					description = <"*">
+				>
+				["at0028"] = <
+					text = <"Metabolsk/intoksikasjon">
+					description = <"*">
+				>
+				["at0029"] = <
+					text = <"Hematologisk svikt">
+					description = <"*">
+				>
+				["at0030"] = <
+					text = <"Nyresvikt">
+					description = <"*">
+				>
+				["at0031"] = <
+					text = <"Postoperativt">
+					description = <"*">
+				>
+				["at0032"] = <
+					text = <"Annet">
+					description = <"*">
+				>
+				["at0033"] = <
+					text = <"Vil du registrere SOFA score på dette oppholdet?">
+					description = <"SOFA skåres kun for pasienter som er 16 år eller eldre ved innleggelse i intensivenheten.">
+				>
+				["at0034"] = <
+					text = <"Medisinsk">
+					description = <"*">
+				>
+				["at0035"] = <
+					text = <"Plassmangel/kapasitetsmangel">
+					description = <"*">
+				>
+				["at0036"] = <
+					text = <"Tilbakeføring eller overføring til «hjemstedssykehus» etter behandling">
+					description = <"*">
+				>
+				["at0037"] = <
+					text = <"Status ut av denne intensivenheten">
+					description = <"*">
+				>
+				["at0038"] = <
+					text = <"I live">
+					description = <"*">
+				>
+				["at0039"] = <
+					text = <"Død intensiv">
+					description = <"*">
+				>
+				["at0040"] = <
+					text = <"Nærmere beskrivelse sirkulatorisk/kardiovaskulær svikt">
+					description = <"*">
+				>
+				["at0041"] = <
+					text = <"Nærmere beskrivelse gastroenterologisk svikt">
+					description = <"*">
+				>
+				["at0042"] = <
+					text = <"Nærmere beskrivelse nevrologisk svikt">
+					description = <"*">
+				>
+				["at0043"] = <
+					text = <"Nærmere beskrivelse sepsis">
+					description = <"*">
+				>
+				["at0044"] = <
+					text = <"Nærmere beskrivelse skade/traume">
+					description = <"*">
+				>
+				["at0045"] = <
+					text = <"Nærmere beskrivelse metabolsk/intoksikasjon">
+					description = <"*">
+				>
+				["at0046"] = <
+					text = <"Nærmere beskrivelse hematologisk svikt">
+					description = <"*">
+				>
+				["at0047"] = <
+					text = <"Nærmere beskrivelse nyresvikt">
+					description = <"*">
+				>
+				["at0048"] = <
+					text = <"Nærmere beskrivelse postoperativt">
+					description = <"*">
+				>
+			>
+		>
+	>

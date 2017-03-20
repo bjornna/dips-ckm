@@ -1,0 +1,164 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.rusdata_sbs.v1
+
+concept
+	[at0000]	-- Rusdata SBS
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Ingrid Skard">
+		["email"] = <"ins@dips.no">
+		["organisation"] = <"DIPS AS">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Spesialisert arketype for registrering av situasjon ved behandlingsstart for TSB-pasienter.">
+			use = <"Arketypen brukes til å registrere NPR-data tilknyttet situasjon ved behandlingsstart for TSB-pasienter. Alle nodene rapporteres i NPR-meldingen.">
+			misuse = <"Arketypen skal ikke brukes til annet enn registrering av situasjon ved behandlingsstart for TSB-pasienter.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"9E5DEE37F662BA080108D18E0544F7C7">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Rusdata SBS
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									allow_archetype CLUSTER[at0017] occurrences matches {0..*} matches {	-- Antall egne barn
+										include
+											archetype_id/value matches {/.*/}
+									}
+									CLUSTER[at0018] occurrences matches {0..*} matches {	-- Bosituasjon for barn under 18 år
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0019] occurrences matches {0..1} matches {	-- Bosituasjon for barn under 18 år
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0020] occurrences matches {0..1} matches {	-- Barns alder
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0025] occurrences matches {0..1} matches {	-- Antall barn
+												value matches {
+													DV_COUNT matches {*}
+												}
+											}
+										}
+									}
+									allow_archetype CLUSTER[at0006] occurrences matches {0..*} matches {	-- Graviditet
+										include
+											archetype_id/value matches {/.*/}
+									}
+									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Vedvarende sykdom eller skader
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									CLUSTER[at0021] occurrences matches {0..*} matches {	-- Psykisk tilstand
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0022] occurrences matches {0..1} matches {	-- Psykiske vansker/lidelser
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0023] occurrences matches {0..1} matches {	-- Psykisk helsetilstand siste fire uker
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0024] occurrences matches {0..1} matches {	-- Psykisk helsetilstand tidligere
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Rusdata SBS">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0006"] = <
+					text = <"Graviditet">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Vedvarende sykdom eller skader">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Antall egne barn">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Bosituasjon for barn under 18 år">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"Bosituasjon for barn under 18 år">
+					description = <"Angir om det enkelte barn under 18 år bor i samme boenhet som pasienten. Både barn som er pasientens egne og andres barn som bor sammen med pasienten skal rapporteres. Det er aldersgruppe og antall for hver av de to gruppene barn nevnt her som skal rapporteres. Kun barn som bor i samme boenhet som pasienten skal rapporteres. Også barn som bor deltid i boenheten skal rapporteres.">
+				>
+				["at0020"] = <
+					text = <"Barns alder">
+					description = <"Klassifisering av barnet etter dets alder. Angir alder for barn under 18 år som bor i samme boenhet som pasienten. Det er antall barn i hver aldersgruppe som rapporteres.">
+				>
+				["at0021"] = <
+					text = <"Psykisk tilstand">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Psykiske vansker/lidelser">
+					description = <"Angir om pasienten har hatt psykiske vansker eller lidelser med en varighet på minst syv dager de siste fire uker, og/eller minst én måned tidigere i livet. For hver av disse psykiske lidelsene er det forekomst siste fire uker og tidligere i livet som skal rapporteres. Merk at dette er pasientens vurdering av egne psykiske vansker.">
+				>
+				["at0023"] = <
+					text = <"Psykisk helsetilstand siste fire uker">
+					description = <"Angir om pasienten har hatt den enkelte registrerte psykiske vansken/lidelsen i en periode med varighet på minst 7 dager de siste fire uker.">
+				>
+				["at0024"] = <
+					text = <"Psykisk helsetilstand tidligere">
+					description = <"Angir om pasienten har hatt den enkelte registrerte psykiske vansken/lidelsen i en periode med varighet på minst én måned tidligere i livet.">
+				>
+				["at0025"] = <
+					text = <"Antall barn">
+					description = <"*">
+				>
+			>
+		>
+	>

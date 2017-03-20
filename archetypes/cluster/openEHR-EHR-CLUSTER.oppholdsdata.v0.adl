@@ -21,7 +21,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"2DAF51D813AD5F8DACEF15735F08C0FE">
+		["MD5-CAM-1.0.1"] = <"A08874F80E7488F2B6BA7F0C7AB50F16">
 	>
 
 definition
@@ -50,10 +50,14 @@ definition
 					}
 				}
 			}
-			ELEMENT[at0008] occurrences matches {0..1} matches {	-- Utskrivingsklar dato
+			ELEMENT[at0008] occurrences matches {0..1} matches {	-- Overflytningsklar dato og klokkeslett
 				value matches {
 					DV_DATE_TIME matches {*}
 				}
+			}
+			allow_archetype CLUSTER[at0009] occurrences matches {0..*} matches {	-- Detaljerte opplysninger
+				include
+					archetype_id/value matches {/.*/}
 			}
 		}
 	}
@@ -83,8 +87,12 @@ ontology
 					description = <"Dato og klokkeslett for når person skrives ut.">
 				>
 				["at0008"] = <
-					text = <"Utskrivingsklar dato">
+					text = <"Overflytningsklar dato og klokkeslett">
 					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Detaljerte opplysninger">
+					description = <"Brukes til å legge inn mer detaljerte opplysninger.">
 				>
 			>
 		>
