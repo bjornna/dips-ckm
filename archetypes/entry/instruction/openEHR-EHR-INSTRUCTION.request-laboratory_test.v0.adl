@@ -1,18 +1,20 @@
-﻿archetype (adl_version=1.4)
-	openEHR-EHR-INSTRUCTION.request-lab_test.v1
-specialize
+﻿archetype (adl_version=1.4; uid=2c656241-eda2-4cae-aad5-2d14d77be1fa)
+	openEHR-EHR-INSTRUCTION.request-laboratory_test.v0
+specialise
 	openEHR-EHR-INSTRUCTION.request.v1
 
 concept
-	[at0000.1]	-- Laboratory Test request (IKKE BRUK DENNE)
+	[at0000.1]	-- Laboratory Test request
 language
 	original_language = <[ISO_639-1::en]>
 	translations = <
-		["ar-sy"] = <
-			language = <[ISO_639-1::ar-sy]>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
 			author = <
-				["name"] = <"Mona Saleh">
+				["name"] = <"Lars Bitsch-Larsen">
+				["organisation"] = <"Haukeland University Hospital Bergen Norway.">
 			>
+			accreditation = <"MD DEAA MBA spec in anesthesia and intensive care, spec in tropical med">
 		>
 		["es-ar"] = <
 			language = <[ISO_639-1::es-ar]>
@@ -23,12 +25,18 @@ language
 			>
 			accreditation = <"MD">
 		>
+		["ar-sy"] = <
+			language = <[ISO_639-1::ar-sy]>
+			author = <
+				["name"] = <"Mona Saleh">
+			>
+		>
 	>
 description
 	original_author = <
 		["name"] = <"Ian McNicoll">
-		["email"] = <"ian.mcnicoll@oceaninformatics.com">
 		["organisation"] = <"Ocean Informatics, United Kingdom">
+		["email"] = <"ian.mcnicoll@oceaninformatics.com">
 		["date"] = <"2009-12-08">
 	>
 	details = <
@@ -39,7 +47,7 @@ description
 إذا كان هناك المزيد من التفاصيل الخاصة بالاختبار و/أو العينة, فينبغي أن يتم تضمين ذلك في عنقود أكثر تفصيلا في نموذج مناسب لهذا الغرض.">
 			keywords = <"الطلب", "يُحيل", "الأمر", "الخدمة", "المُزَوِّد", "المعمل/المختبر", "الباثولوجيا/المَرَضية", "الميكروبيولوجيا", "الدمويات", "تشخيصي">
 			misuse = <"">
-			copyright = <"© openEHR Foundation">
+			copyright = <"© Nasjonal IKT HF">
 		>
 		["en"] = <
 			language = <[ISO_639-1::en]>
@@ -48,7 +56,7 @@ description
 If there are more specific details about the test and/or specimen include this information in more detailed CLUSTER archetypes appropriate for the purpose.">
 			keywords = <"request", "refer", "order", "service", "provide", "laboratory", "pathology", "microbiology", "haematology", "diagnostic">
 			misuse = <"">
-			copyright = <"© openEHR Foundation">
+			copyright = <"© Nasjonal IKT HF">
 		>
 		["es-ar"] = <
 			language = <[ISO_639-1::es-ar]>
@@ -57,17 +65,33 @@ If there are more specific details about the test and/or specimen include this i
 Si existen detalles mas específicos acerca de la prueba o de la muestra, incluir esta información en un arquetipo CLUSTER de mayor detalle, apropiado al propósito.">
 			keywords = <"solicitud", "derivar", "referir", "orden", "servicio", "proveer", "laboratorio", "patología", "microbiología", "hematología", "diagnóstico">
 			misuse = <"">
-			copyright = <"© openEHR Foundation">
+			copyright = <"© Nasjonal IKT HF">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for rekvisisjon av laboratorie tester og for å formidle understøttende kliniske detaljer.">
+			use = <"Brukes for de fleste laboratorie rekvisisjoner utført på en pasient.
+Hvis der er mer spesifikke detaljer om test og/eller testmaterialet kan denne informasjon i mer detaljert form inkluderes i CLUSTER arketyper som passer til formålet.">
+			keywords = <"bestilling", "rekvisisjon", "ordre", "service", "yte", "laboratorie", "patologi", "mikrobiologi", "hematologi", "diagnostikk">
+			misuse = <"">
+			copyright = <"© Nasjonal IKT HF">
 		>
 	>
-	lifecycle_state = <"AuthorDraft">
+	lifecycle_state = <"in_development">
 	other_contributors = <"Heather Leslie, Ocean Informatics, Australia (Editor)", "Ian McNicoll, Ocean Informatics, United Kingdom (Editor)">
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"14243EFF13C3E222BB1D7E9AEFD4D6A0">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"Nasjonal IKT">
+		["original_namespace"] = <"no.nasjonalikt">
+		["original_publisher"] = <"Nasjonal IKT">
+		["custodian_namespace"] = <"no.nasjonalikt">
+		["MD5-CAM-1.0.1"] = <"9C24F731CCE5032374BAC0052598D12D">
+		["build_uid"] = <"5a41a750-7bcf-4ae3-b960-bd64227372bb">
+		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
-	INSTRUCTION[at0000.1] matches {	-- Laboratory Test request (IKKE BRUK DENNE)
+	INSTRUCTION[at0000.1] matches {	-- Laboratory Test request
 		activities cardinality matches {0..*; unordered} matches {
 			ACTIVITY[at0001] occurrences matches {1..*} matches {	-- Request
 				description matches {
@@ -188,6 +212,7 @@ definition
 		}
 	}
 
+
 ontology
 	term_definitions = <
 		["en"] = <
@@ -201,8 +226,8 @@ ontology
 					description = <"Generic request for a range of different healthcare services e.g referral, lab request, equipment request.">
 				>
 				["at0000.1"] = <
-					text = <"Laboratory Test request (IKKE BRUK DENNE)">
-					description = <"NB! SKAL IKKE BRUKES . Erstattes av openEHR-EHR-INSTRUCTION.request-laboratory_test.v0">
+					text = <"Laboratory Test request">
+					description = <"Generic request for a laboratory request.">
 				>
 				["at0001"] = <
 					text = <"Request">
@@ -325,8 +350,8 @@ ontology
 					description = <"*Generic request for a range of different healthcare services e.g referral, lab request, equipment request.(en)">
 				>
 				["at0000.1"] = <
-					text = <"*Laboratory Test request (IKKE BRUK DENNE)(en)">
-					description = <"*NB! SKAL IKKE BRUKES . Erstattes av openEHR-EHR-INSTRUCTION.request-laboratory_test.v0(en)">
+					text = <"طلب إجراء تحليل معملي">
+					description = <"طلب جنيس (غير محدود الملكية) لطلب تحليل معملي.">
 				>
 				["at0001"] = <
 					text = <"الطلب">
@@ -451,8 +476,8 @@ ontology
 					description = <"*Generic request for a range of different healthcare services e.g referral, lab request, equipment request.(en)">
 				>
 				["at0000.1"] = <
-					text = <"*Laboratory Test request (IKKE BRUK DENNE)(en)">
-					description = <"*NB! SKAL IKKE BRUKES . Erstattes av openEHR-EHR-INSTRUCTION.request-laboratory_test.v0(en)">
+					text = <"Solicitud de prueba de laboratorio">
+					description = <"Solicitud genérica para una prueba de laboratorio.">
 				>
 				["at0001"] = <
 					text = <"Solicitud">
@@ -561,6 +586,130 @@ ontology
 				["at0144.1"] = <
 					text = <"Fecha y hora límites para la prueba solicitada">
 					description = <"La fecha mas tardía aceptable para el cumplimiento del servicio.">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0.145"] = <
+					text = <"Test materiale detaljer">
+					description = <"Strukturerte detaljer som definerer test materialet.">
+				>
+				["at0000"] = <
+					text = <"*Healthcare service request(en)">
+					description = <"*Generic request for a range of different healthcare services e.g referral, lab request, equipment request.(en)">
+				>
+				["at0000.1"] = <
+					text = <"Laboratorie test rekvisisjon">
+					description = <"En generell rekvisisjon for en laboratorie test.">
+				>
+				["at0001"] = <
+					text = <"Rekvisisjon">
+					description = <"Aktuell aktivitet.">
+				>
+				["at0008"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0009"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0010"] = <
+					text = <"Rekvirent identifikator">
+					description = <"En lokal ID tillagt en rekvisisjon av helsepersonell eller organisasjon som rekvirere servicen. Dette kalles også Rekvirent bestillings identifikator. (Identifiserer rekvirent og rekvisisjonen).">
+				>
+				["at0011"] = <
+					text = <"Mottaker identifikator">
+					description = <"En ID som tillegges en rekvisisjon av helseforetak eller organisasjon som mottar en rekvisisjon for en service. Dette kalles også en Rekvisisjons mottaker identifikator.">
+				>
+				["at0040"] = <
+					text = <"*Date &/or time service required(en)">
+					description = <"*The date and time that the service should be performed or completed.(en)">
+				>
+				["at0040.1"] = <
+					text = <"Foretrukne dato for testen">
+					description = <"Det foretrukne dato og tidspunkt for når servicen burde bli utført eller avsluttet.">
+				>
+				["at0062"] = <
+					text = <"Årsak for rekvisisjonen">
+					description = <"En kort beskrivelse av årsaken til rekvisisjonen. Dette er ofte kodet i ekstern en terminologi.">
+				>
+				["at0064"] = <
+					text = <"Årsak beskrivning">
+					description = <"En narrativ beskrivelse som forklarer årsaken for rekvisisjonen.">
+				>
+				["at0065"] = <
+					text = <"Hensikt">
+					description = <"Det uttrykte hensikten med rekvisisjonen av den henvisende bestiller.">
+				>
+				["at0068"] = <
+					text = <"Haster">
+					description = <"Hastegraden til rekvisisjonen.">
+				>
+				["at0076"] = <
+					text = <"Ytterligere informasjon følger">
+					description = <"Sann: indikerer at ytterligere informasjon er blitt identifisert og vil bli fremsendt når det er tilgjengelig fex. fullførte laboratorie tester.">
+				>
+				["at0078"] = <
+					text = <"Ytterligere informasjon forventes">
+					description = <"Detaljer om arten av den ytterligere informasjon som følger fx. navnet på laboratorie test resultatene.">
+				>
+				["at0112"] = <
+					text = <"LOkalt">
+					description = <"Lokale detaljert informasjon som fx fakturering.">
+				>
+				["at0116"] = <
+					text = <"Pasient krav">
+					description = <"Sprog, transport eller andre personlige krav som støtter pasientens fremmøte eller deltakelse i utførselen av servicen ( test/undersøkelse)">
+				>
+				["at0121"] = <
+					text = <"Service som er rekviret">
+					description = <"Identifikasjon av den rekvirerte service. Dette er ofte kodet i ekstern terminologi.">
+				>
+				["at0127"] = <
+					text = <"Rekvisisjons status">
+					description = <"Status for rekvisisjonen som det er bestilt av rekvirenten.Status skal vise om dette er den opprinnelige rekvisisjon eller en oppfølgende rekvisisjon for endring eller for å gi supplerende informasjon.">
+				>
+				["at0128"] = <
+					text = <"Distribusjons liste for svar">
+					description = <"En liste av personer eller organisasjon som bør motta kopier av enhver kommunikasjon.">
+				>
+				["at0132"] = <
+					text = <"Spesifikke detaljer">
+					description = <"Strukturerte detaljer som definerer den rekvirert service ex. CLUSTER arketype som spesifiserer at et katater skal legges inn.">
+				>
+				["at0135"] = <
+					text = <"Beskrivelse av service">
+					description = <"Detaljert narrativ beskrivelse av den rekvirerte service.">
+				>
+				["at0136"] = <
+					text = <"Akutt (ØH)">
+					description = <"Rekvisisjonen er akutt.">
+				>
+				["at0137"] = <
+					text = <"Haster">
+					description = <"Rekvisisjonen haster.">
+				>
+				["at0138"] = <
+					text = <"Rutine">
+					description = <"Rekvisisjonen er rutine.">
+				>
+				["at0141"] = <
+					text = <"Rekvirent">
+					description = <"Detaljer om helse foretak eller organisasjon som bestiller servicen.">
+				>
+				["at0142"] = <
+					text = <"Mottaker">
+					description = <"Detaljer om helseforetak eller organisasjon som mottar rekvisisjonen for en service.">
+				>
+				["at0144"] = <
+					text = <"*Latest date service required(en)">
+					description = <"*The latest date that is acceptable for the service to be completed.(en)">
+				>
+				["at0144.1"] = <
+					text = <"Seneste dato for test utførelse">
+					description = <"Det seneste tidspunkt som er akseptable for fullførelse av servicen.">
 				>
 			>
 		>
