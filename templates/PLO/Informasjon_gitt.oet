@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
-  <id>7f80ded0-c862-467a-9699-11e7b37c4f54</id>
-  <name>Legemidler i bruk</name>
+  <id>e16080c5-dc4d-4666-be53-79843370ba16</id>
+  <name>Informasjon_gitt</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
@@ -60,10 +60,26 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.medication_list_persistent_dips.v1" concept_name="Medication list persistent dips">
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.legemidler_i_bruk_classic_dips.v1" concept_name="Legemidler i bruk classic dips" path="/content" />
-    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.medication.v0" concept_name="Legemiddelhandling" path="/content">
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.medication_medicindetails_no.v002" concept_name="Medication medicindetails no" path="/protocol[at0030]/items[at0085]" />
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.admin_informasjon_dips.v1" concept_name="Admin informasjon dips v1">
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.informasjon_gitt_dips.v1" concept_name="Informasjon gitt" path="/content">
+      <Rule path="/data[at0001]/items[at0004]/items[at0006]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Muntlig</includedValues>
+          <includedValues>Skriftlig</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0004]/items[at0005]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Pasient</includedValues>
+          <includedValues>Pårørende</includedValues>
+          <includedValues>Andre</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0008]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="HEALTHCAREPARTY" />
+        </constraint>
+      </Rule>
     </Content>
   </definition>
 </template>
