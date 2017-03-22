@@ -1,0 +1,1239 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.iplos_funksjonsvurdering_dips.v1
+
+concept
+	[at0000]	-- Iplos funksjonsvurdering
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for å informere pleie- og omsorgstjenesten om pasientens funksjonsnivå.">
+			use = <"Brukes i for å vise pasientens funksjonsnivå. Skår 1-5 (9 Ikke relevant) for hvert område. 1: Utgjør ingen problemer. 2: Ikke behov for bistand/assistanse. 3: Middels behov for bistand/assistanse. 4: Stort behov for bistand/assistanse. 5: Fullt bistand/assistansebehov. 9: Ikke relevant">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <"Anine Ramberg", ...>
+	other_details = <
+		["references"] = <"IPLOS veileder for personell i kommunale helse- og
+omsorgstjenester ( http://www.helsedirektoratet.no/publikasjoner/iplosveileder-for-personell-i-kommunale-helse-ogsosialtjenester/Sider/default.aspx )
+
+Drammen kommunes kartleggingsskjema
+">
+		["MD5-CAM-1.0.1"] = <"FA255945CA018E99772EE0C54A8305FB">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Iplos funksjonsvurdering
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0207] occurrences matches {0..1} matches {	-- Pasienten er selvhjulpen
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True}
+											}
+										}
+									}
+									CLUSTER[at0021] occurrences matches {0..1} matches {	-- Alminnelig husarbeid
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0062] occurrences matches {0..1} matches {	-- Alminnelig husarbeid
+												value matches {
+													1|[local::at0063], 	-- Utgjør ingen problemer/utfordringer
+													2|[local::at0101], 	-- Ikke behov for bistand/assistanse/helsehjelp
+													3|[local::at0124], 	-- Middels behov for bistand/assistanse/helsehjelp
+													4|[local::at0142], 	-- Store behov for bistand/assistanse/helsehjelp
+													5|[local::at0162], 	-- Fullt behov for bistand/assistanse/helsehjelp
+													9|[local::at0180]  	-- Ikke relevant
+												}
+											}
+											ELEMENT[at0022] occurrences matches {0..1} matches {	-- Kommentar
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0023] occurrences matches {0..1} matches {	-- Skaffe seg varer og tjenester
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0064] occurrences matches {0..1} matches {	-- Skaffe seg varer og tjenester
+												value matches {
+													1|[local::at0080], 	-- Utgjør ingen problemer/utfordringer
+													2|[local::at0081], 	-- Ikke behov for bistand/assistanse/helsehjelp
+													3|[local::at0082], 	-- Middels behov for bistand/assistanse/helsehjelp
+													4|[local::at0083], 	-- Store behov for bistand/assistanse/helsehjelp
+													5|[local::at0084], 	-- Fullt behov for bistand/assistanse/helsehjelp
+													9|[local::at0085]  	-- Ikke relevant
+												}
+											}
+											ELEMENT[at0024] occurrences matches {0..1} matches {	-- Kommentar
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0025] occurrences matches {0..1} matches {	-- Personlig hygiene
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0065] occurrences matches {0..1} matches {	-- Personlig hygiene
+												value matches {
+													1|[local::at0086], 	-- Utgjør ingen problemer/utfordringer
+													2|[local::at0119], 	-- Ikke behov for bistand/assistanse/helsehjelp
+													3|[local::at0120], 	-- Middels behov for bistand/assistanse/helsehjelp
+													4|[local::at0121], 	-- Store behov for bistand/assistanse/helsehjelp
+													5|[local::at0122], 	-- Fullt behov for bistand/assistanse/helsehjelp
+													9|[local::at0123]  	-- Ikke relevant
+												}
+											}
+											ELEMENT[at0026] occurrences matches {0..1} matches {	-- Kommentar
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0027] occurrences matches {0..1} matches {	-- På- og avkledning
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0066] occurrences matches {0..1} matches {	-- På- og avkledning
+												value matches {
+													1|[local::at0087], 	-- Utgjør ingen problemer/utfordringer
+													2|[local::at0104], 	-- Ikke behov for bistand/assistanse/helsehjelp
+													3|[local::at0125], 	-- Middels behov for bistand/assistanse/helsehjelp
+													4|[local::at0143], 	-- Store behov for bistand/assistanse/helsehjelp
+													5|[local::at0163], 	-- Fullt behov for bistand/assistanse/helsehjelp
+													9|[local::at0181]  	-- Ikke relevant
+												}
+											}
+											ELEMENT[at0028] occurrences matches {0..1} matches {	-- Kommentar
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0029] occurrences matches {0..1} matches {	-- Toalett
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0067] occurrences matches {0..1} matches {	-- Toalett
+												value matches {
+													1|[local::at0088], 	-- Utgjør ingen problemer/utfordringer
+													2|[local::at0106], 	-- Ikke behov for bistand/assistanse/helsehjelp
+													3|[local::at0126], 	-- Middels behov for bistand/assistanse/helsehjelp
+													4|[local::at0144], 	-- Store behov for bistand/assistanse/helsehjelp
+													5|[local::at0164], 	-- Fullt behov for bistand/assistanse/helsehjelp
+													9|[local::at0182]  	-- Ikke relevant
+												}
+											}
+											ELEMENT[at0030] occurrences matches {0..1} matches {	-- Kommentar
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0031] occurrences matches {0..1} matches {	-- Lage mat
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0068] occurrences matches {0..1} matches {	-- Lage mat
+												value matches {
+													1|[local::at0089], 	-- Utgjør ingen problemer/utfordringer
+													2|[local::at0107], 	-- Ikke behov for bistand/assistanse/helsehjelp
+													3|[local::at0127], 	-- Middels behov for bistand/assistanse/helsehjelp
+													4|[local::at0145], 	-- Store behov for bistand/assistanse/helsehjelp
+													5|[local::at0165], 	-- Fullt behov for bistand/assistanse/helsehjelp
+													9|[local::at0183]  	-- Ikke relevant
+												}
+											}
+											ELEMENT[at0032] occurrences matches {0..1} matches {	-- Kommentar
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0033] occurrences matches {0..1} matches {	-- Spise
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0069] occurrences matches {0..1} matches {	-- Spise
+												value matches {
+													1|[local::at0090], 	-- Utgjør ingen problemer/utfordringer
+													2|[local::at0108], 	-- Ikke behov for bistand/assistanse/helsehjelp
+													3|[local::at0129], 	-- Middels behov for bistand/assistanse/helsehjelp
+													4|[local::at0149], 	-- Store behov for bistand/assistanse/helsehjelp
+													5|[local::at0167], 	-- Fullt behov for bistand/assistanse/helsehjelp
+													9|[local::at0185]  	-- Ikke relevant
+												}
+											}
+											ELEMENT[at0034] occurrences matches {0..1} matches {	-- Kommentar
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0037] occurrences matches {0..1} matches {	-- Bevege seg innendørs
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0070] occurrences matches {0..1} matches {	-- Bevege seg innendørs
+												value matches {
+													1|[local::at0091], 	-- Utgjør ingen problemer/utfordringer
+													2|[local::at0109], 	-- Ikke behov for bistand/assistanse/helsehjelp
+													3|[local::at0131], 	-- Middels behov for bistand/assistanse/helsehjelp
+													4|[local::at0151], 	-- Store behov for bistand/assistanse/helsehjelp
+													5|[local::at0169], 	-- Fullt behov for bistand/assistanse/helsehjelp
+													9|[local::at0186]  	-- Ikke relevant
+												}
+											}
+											ELEMENT[at0039] occurrences matches {0..1} matches {	-- Kommentar
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0048] occurrences matches {0..1} matches {	-- Bevege seg utendørs
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0071] occurrences matches {0..1} matches {	-- Bevege seg utendørs
+												value matches {
+													1|[local::at0092], 	-- Utgjør ingen problemer/utfordringer
+													2|[local::at0110], 	-- Ikke behov for bistand/assistanse/helsehjelp
+													3|[local::at0132], 	-- Middels behov for bistand/assistanse/helsehjelp
+													4|[local::at0152], 	-- Store behov for bistand/assistanse/helsehjelp
+													5|[local::at0170], 	-- Fullt behov for bistand/assistanse/helsehjelp
+													9|[local::at0187]  	-- Ikke relevant
+												}
+											}
+											ELEMENT[at0049] occurrences matches {0..1} matches {	-- Kommentar
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0044] occurrences matches {0..1} matches {	-- Ivareta egen helse
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0072] occurrences matches {0..1} matches {	-- Ivareta egen helse
+												value matches {
+													1|[local::at0093], 	-- Utgjør ingen problemer/utfordringer
+													2|[local::at0111], 	-- Ikke behov for bistand/assistanse/helsehjelp
+													3|[local::at0133], 	-- Middels behov for bistand/assistanse/helsehjelp
+													4|[local::at0153], 	-- Store behov for bistand/assistanse/helsehjelp
+													5|[local::at0171], 	-- Fullt behov for bistand/assistanse/helsehjelp
+													9|[local::at0188]  	-- Ikke relevant
+												}
+											}
+											ELEMENT[at0050] occurrences matches {0..1} matches {	-- Kommentar
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0042] occurrences matches {0..1} matches {	-- Hukommelse
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0073] occurrences matches {0..1} matches {	-- Hukommelse
+												value matches {
+													0|[local::at0094], 	-- Utgjør ingen problemer/utfordringer
+													1|[local::at0112], 	-- Ikke behov for bistand/assistanse/helsehjelp
+													2|[local::at0134], 	-- Middels behov for bistand/assistanse/helsehjelp
+													3|[local::at0154], 	-- Store behov for bistand/assistanse/helsehjelp
+													4|[local::at0172], 	-- Fullt behov for bistand/assistanse/helsehjelp
+													5|[local::at0189]  	-- Ikke relevant
+												}
+											}
+											ELEMENT[at0051] occurrences matches {0..1} matches {	-- Kommentar
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0043] occurrences matches {0..1} matches {	-- Kommunikasjon
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0074] occurrences matches {0..1} matches {	-- Kommunikasjon
+												value matches {
+													1|[local::at0095], 	-- Utgjør ingen problemer/utfordringer
+													2|[local::at0113], 	-- Ikke behov for bistand/assistanse/helsehjelp
+													3|[local::at0135], 	-- Middels behov for bistand/assistanse/helsehjelp
+													4|[local::at0155], 	-- Store behov for bistand/assistanse/helsehjelp
+													5|[local::at0173], 	-- Fullt behov for bistand/assistanse/helsehjelp
+													9|[local::at0190]  	-- Ikke relevant
+												}
+											}
+											ELEMENT[at0052] occurrences matches {0..1} matches {	-- Kommentar
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0053] occurrences matches {0..1} matches {	-- Beslutninger i dagliglivet
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0075] occurrences matches {0..1} matches {	-- Beslutninger i dagliglivet
+												value matches {
+													1|[local::at0096], 	-- Utgjør ingen problemer/utfordringer
+													2|[local::at0114], 	-- Ikke behov for bistand/assistanse/helsehjelp
+													3|[local::at0136], 	-- Middels behov for bistand/assistanse/helsehjelp
+													4|[local::at0156], 	-- Store behov for bistand/assistanse/helsehjelp
+													5|[local::at0174], 	-- Fullt behov for bistand/assistanse/helsehjelp
+													9|[local::at0191]  	-- Ikke relevant
+												}
+											}
+											ELEMENT[at0054] occurrences matches {0..1} matches {	-- Kommentar
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0047] occurrences matches {0..1} matches {	-- Sosial deltakelse
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0076] occurrences matches {0..1} matches {	-- Sosial deltakelse
+												value matches {
+													1|[local::at0097], 	-- Utgjør ingen problemer/utfordringer
+													2|[local::at0115], 	-- Ikke behov for bistand/assistanse/helsehjelp
+													3|[local::at0137], 	-- Middels behov for bistand/assistanse/helsehjelp
+													4|[local::at0157], 	-- Store behov for bistand/assistanse/helsehjelp
+													5|[local::at0175], 	-- Fullt behov for bistand/assistanse/helsehjelp
+													9|[local::at0192]  	-- Ikke relevant
+												}
+											}
+											ELEMENT[at0060] occurrences matches {0..1} matches {	-- Kommentar
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0046] occurrences matches {0..1} matches {	-- Styre atferd
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0077] occurrences matches {0..1} matches {	-- Styre atferd
+												value matches {
+													1|[local::at0098], 	-- Utgjør ingen problemer/utfordringer
+													2|[local::at0116], 	-- Ikke behov for bistand/assistanse/helsehjelp
+													3|[local::at0138], 	-- Middels behov for bistand/assistanse/helsehjelp
+													4|[local::at0158], 	-- Store behov for bistand/assistanse/helsehjelp
+													5|[local::at0176], 	-- Fullt behov for bistand/assistanse/helsehjelp
+													9|[local::at0193]  	-- Ikke relevant
+												}
+											}
+											ELEMENT[at0057] occurrences matches {0..1} matches {	-- Kommentar
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0055] occurrences matches {0..1} matches {	-- Syn
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0078] occurrences matches {0..1} matches {	-- Syn
+												value matches {
+													1|[local::at0099], 	-- Ser godt / har ingen problemer
+													2|[local::at0117], 	-- Har noe redusert syn
+													3|[local::at0139], 	-- Har dårlig syn
+													4|[local::at0159], 	-- Har svært dårlig syn
+													5|[local::at0177], 	-- Blind
+													9|[local::at0194]  	-- Ikke relevant
+												}
+											}
+											ELEMENT[at0058] occurrences matches {0..1} matches {	-- Kommentar
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0056] occurrences matches {0..1} matches {	-- Hørsel
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0079] occurrences matches {0..1} matches {	-- Hørsel
+												value matches {
+													1|[local::at0100], 	-- Hører godt/har ingen problemer
+													2|[local::at0118], 	-- Har noe redusert hørsel
+													3|[local::at0140], 	-- Har dårlig hørsel
+													4|[local::at0160], 	-- Har svært dårlig hørsel
+													5|[local::at0178], 	-- Døv
+													9|[local::at0195]  	-- Ikke relevant
+												}
+											}
+											ELEMENT[at0059] occurrences matches {0..1} matches {	-- Kommentar
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0196] occurrences matches {0..1} matches {	-- Ivareta egen økonomi
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0197] occurrences matches {0..1} matches {	-- Ivareta egen økonomi
+												value matches {
+													0|[local::at0199], 	-- Utgjør ingen problemer/utfordringer
+													1|[local::at0200], 	-- Ikke behov for bistand/assistanse/helsehjelp
+													2|[local::at0201], 	-- Middels behov for bistand/assistanse/helsehjelp
+													3|[local::at0202], 	-- Store behov for bistand/assistanse/helsehjelp
+													4|[local::at0203], 	-- Fullt behov for bistand/assistanse/helsehjelp
+													5|[local::at0204]  	-- Ikke relevant
+												}
+											}
+											ELEMENT[at0198] occurrences matches {0..1} matches {	-- Kommentar
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									ELEMENT[at0206] occurrences matches {0..1} matches {	-- Oppsummering
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Iplos funksjonsvurdering">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0021"] = <
+					text = <"Alminnelig husarbeid">
+					description = <"Beskriver om pasienten har behov for bistand/assistanse til å
+utføre vanlig husarbeid som å gjøre
+rent, vaske klær, bruke husholdningsapparater,
+lagre matvarer og kaste
+avfall.">
+				>
+				["at0022"] = <
+					text = <"Kommentar">
+					description = <"Brukes for å eventuelt legge til kommentar til skåringen">
+				>
+				["at0023"] = <
+					text = <"Skaffe seg varer og tjenester">
+					description = <"Beskriver om pasienten har behov for bistand/assistanse til å
+skaffe seg varer som mat/drikke,
+klær/sko, husholdningartikler, tekniske
+tjenester og husholdningstjenester som
+er nødvendige og relevante i dagliglivet.
+(Enten via internett/telefon eller direkte i
+butikk)">
+				>
+				["at0024"] = <
+					text = <"Kommentar">
+					description = <"Brukes for å eventuelt legge til kommentar til skåringen">
+				>
+				["at0025"] = <
+					text = <"Personlig hygiene">
+					description = <"Beskriver om pasienten har behov for bistand/assistanse til å
+vaske og stelle hele kroppen inkl. pusse
+tenner/munnhygiene.">
+				>
+				["at0026"] = <
+					text = <"Kommentar">
+					description = <"Brukes for å eventuelt legge til kommentar til skåringen">
+				>
+				["at0027"] = <
+					text = <"På- og avkledning">
+					description = <"Beskriver om pasienten har behov for bistand/assistanse til å ta
+på og av seg klær og fottøy, finne fram
+og velge i overstemmelse med årstid,
+vær og temperatur.">
+				>
+				["at0028"] = <
+					text = <"Kommentar">
+					description = <"Brukes for å eventuelt legge til kommentar til skåringen">
+				>
+				["at0029"] = <
+					text = <"Toalett">
+					description = <"Beskriver om pasienten har behov for bistand/assistanse til å
+utføre toalettbesøk/-funksjoner.">
+				>
+				["at0030"] = <
+					text = <"Kommentar">
+					description = <"Brukes for å eventuelt legge til kommentar til skåringen">
+				>
+				["at0031"] = <
+					text = <"Lage mat">
+					description = <"Beskriver om pasienten har behov for bistand/assistanse til å
+planlegge, organisere og tilbereder
+enkle og sammensatte måltider, lage
+tørrmat, varme opp mat og lage kaffe og
+te.">
+				>
+				["at0032"] = <
+					text = <"Kommentar">
+					description = <"Brukes for å eventuelt legge til kommentar til skåringen">
+				>
+				["at0033"] = <
+					text = <"Spise">
+					description = <"Beskriver om pasienten har behov for bistand/assistanse til å
+spise servert mat og drikke">
+				>
+				["at0034"] = <
+					text = <"Kommentar">
+					description = <"Brukes for å eventuelt legge til kommentar til skåringen">
+				>
+				["at0037"] = <
+					text = <"Bevege seg innendørs">
+					description = <"Beskriver om pasienten har behov for bistand/assistanse til å
+forflytte seg på ett plan innendørs,
+bevege seg på flatt gulv, over terskler,
+ut og inn av seng, opp og ned av stol.">
+				>
+				["at0039"] = <
+					text = <"Kommentar">
+					description = <"Brukes for å eventuelt legge til kommentar til skåringen">
+				>
+				["at0042"] = <
+					text = <"Hukommelse">
+					description = <"Beskriver om pasienten har behov for bistand/assistanse til å
+huske nylig inntrufne hendelser. Være
+orientert for tid og sted, gjenkjenne
+kjente personer, huske avtaler og viktige
+hendelser den siste uken.">
+				>
+				["at0043"] = <
+					text = <"Kommunikasjon">
+					description = <"Beskriver om pasienten har behov for bistand/assistanse til å
+kommunisere med andre personer. Med
+kommunikasjon menes å forstå og
+utrykke seg verbaltt/ nonverbalt, evt ved
+bruk av kommunikasjonsutstyr, tolk og
+teknikker">
+				>
+				["at0044"] = <
+					text = <"Ivareta egen helse">
+					description = <"Beskriver om pasienten har behov for bistand/assistanse til å
+håndtere egen sykdom, skade eller
+funksjonsnedsettelse, til å ta kontakt med
+behandlingsapparatet når symptomer og
+skade oppstår, følge behandlingsopplegg
+og håndterer egne medisiner.">
+				>
+				["at0046"] = <
+					text = <"Styre atferd">
+					description = <"Beskriver om pasienten har behov for bistand/assistanse til å
+styre egen atferd. Med dette menes å ha
+kontroll over impulser, verbal og fysisk
+aggresjon overfor seg selv og andre">
+				>
+				["at0047"] = <
+					text = <"Sosial deltakelse">
+					description = <"Beskriver om pasienten har behov for bistand/assistanse til å
+styrke og opprettholde et sosialt
+nettverk, ha/ta kontakt med familie,
+venner, kolleger og personer i
+nærmiljøet">
+				>
+				["at0048"] = <
+					text = <"Bevege seg utendørs">
+					description = <"*">
+				>
+				["at0049"] = <
+					text = <"Kommentar">
+					description = <"Brukes for å eventuelt legge til kommentar til skåringen">
+				>
+				["at0050"] = <
+					text = <"Kommentar">
+					description = <"Brukes for å eventuelt legge til kommentar til skåringen">
+				>
+				["at0051"] = <
+					text = <"Kommentar">
+					description = <"Brukes for å eventuelt legge til kommentar til skåringen">
+				>
+				["at0052"] = <
+					text = <"Kommentar">
+					description = <"Brukes for å eventuelt legge til kommentar til skåringen">
+				>
+				["at0053"] = <
+					text = <"Beslutninger i dagliglivet">
+					description = <"Beskriver om pasienten har behov for bistand/assistanse til å ta
+avgjørelser og organisere daglige
+gjøremål, gjør valg mellom alternativer,
+disponerer tiden gjøremålene tar og
+integrere uforutsette hendelser.">
+				>
+				["at0054"] = <
+					text = <"Kommentar">
+					description = <"Brukes for å eventuelt legge til kommentar til skåringen">
+				>
+				["at0055"] = <
+					text = <"Syn">
+					description = <"Beskriver i hvilken grad pasienten sanser lys og farge, se størrelse,
+form og avstand">
+				>
+				["at0056"] = <
+					text = <"Hørsel">
+					description = <"Beskriver i hvilken grad pasienten sanser lyd og skille mellom
+lyders tonehøyde, styrke, egenart og
+sted. Skille mellom ulike lyder, stedsog
+sidebestemmelse av lyd,
+talegjenkjenning.">
+				>
+				["at0057"] = <
+					text = <"Kommentar">
+					description = <"Brukes for å eventuelt legge til kommentar til skåringen">
+				>
+				["at0058"] = <
+					text = <"Kommentar">
+					description = <"Brukes for å eventuelt legge til kommentar til skåringen">
+				>
+				["at0059"] = <
+					text = <"Kommentar">
+					description = <"Brukes for å eventuelt legge til kommentar til skåringen">
+				>
+				["at0060"] = <
+					text = <"Kommentar">
+					description = <"Brukes for å eventuelt legge til kommentar til skåringen">
+				>
+				["at0062"] = <
+					text = <"Alminnelig husarbeid">
+					description = <"Beskriver om pasienten har behov for bistand/assistanse til å
+utføre vanlig husarbeid som å gjøre
+rent, vaske klær, bruke husholdningsapparater,
+lagre matvarer og kaste
+avfall.">
+				>
+				["at0063"] = <
+					text = <"Utgjør ingen problemer/utfordringer">
+					description = <"Ikke behov for personbistand
+">
+				>
+				["at0064"] = <
+					text = <"Skaffe seg varer og tjenester">
+					description = <"Beskriver om pasienten har behov for bistand/assistanse til å
+skaffe seg varer som mat/drikke,
+klær/sko, husholdningartikler, tekniske
+tjenester og husholdningstjenester som
+er nødvendige og relevante i dagliglivet.
+(Enten via internett/telefon eller direkte i
+butikk)">
+				>
+				["at0065"] = <
+					text = <"Personlig hygiene">
+					description = <"Beskriver om pasienten har behov for bistand/assistanse til å
+vaske og stelle hele kroppen inkl. pusse
+tenner/munnhygiene.">
+				>
+				["at0066"] = <
+					text = <"På- og avkledning">
+					description = <"Beskriver om pasienten har behov for bistand/assistanse til å ta
+på og av seg klær og fottøy, finne fram
+og velge i overstemmelse med årstid,
+vær og temperatur.">
+				>
+				["at0067"] = <
+					text = <"Toalett">
+					description = <"Beskriver om pasienten har behov for bistand/assistanse til å
+utføre toalettbesøk/-funksjoner.">
+				>
+				["at0068"] = <
+					text = <"Lage mat">
+					description = <"Beskriver om pasienten har behov for bistand/assistanse til å
+planlegge, organisere og tilbereder
+enkle og sammensatte måltider, lage
+tørrmat, varme opp mat og lage kaffe og
+te.">
+				>
+				["at0069"] = <
+					text = <"Spise">
+					description = <"Beskriver om pasienten har behov for bistand/assistanse til å
+spise servert mat og drikke">
+				>
+				["at0070"] = <
+					text = <"Bevege seg innendørs">
+					description = <"Beskriver om pasienten har behov for bistand/assistanse til å
+forflytte seg på ett plan innendørs,
+bevege seg på flatt gulv, over terskler,
+ut og inn av seng, opp og ned av stol.">
+				>
+				["at0071"] = <
+					text = <"Bevege seg utendørs">
+					description = <"Beskriver om pasienten har behov for bistand/ assistanse til å
+forflytte seg utenfor egen bolig, opp og
+ned trapper, fortauskanter, på ujevne
+underlag mm. Med utenfor egen bolig
+menes her alt utenfor egen inngangsdør.
+Trappeoppganger og trapper ute er
+utendørs">
+				>
+				["at0072"] = <
+					text = <"Ivareta egen helse">
+					description = <"Beskriver om pasienten har behov for bistand/assistanse til å
+håndtere egen sykdom, skade eller
+funksjonsnedsettelse, til å ta kontakt med
+behandlingsapparatet når symptomer og
+skade oppstår, følge behandlingsopplegg
+og håndterer egne medisiner.">
+				>
+				["at0073"] = <
+					text = <"Hukommelse">
+					description = <"Beskriver om pasienten har behov for bistand/assistanse til å
+huske nylig inntrufne hendelser. Være
+orientert for tid og sted, gjenkjenne
+kjente personer, huske avtaler og viktige
+hendelser den siste uken.">
+				>
+				["at0074"] = <
+					text = <"Kommunikasjon">
+					description = <"Beskriver om pasienten har behov for bistand/assistanse til å
+kommunisere med andre personer. Med
+kommunikasjon menes å forstå og
+utrykke seg verbaltt/ nonverbalt, evt ved
+bruk av kommunikasjonsutstyr, tolk og
+teknikker">
+				>
+				["at0075"] = <
+					text = <"Beslutninger i dagliglivet">
+					description = <"Beskriver om pasienten har behov for bistand/assistanse til å ta
+avgjørelser og organisere daglige
+gjøremål, gjør valg mellom alternativer,
+disponerer tiden gjøremålene tar og
+integrere uforutsette hendelser.">
+				>
+				["at0076"] = <
+					text = <"Sosial deltakelse">
+					description = <"Beskriver om pasienten har behov for bistand/assistanse til å
+styrke og opprettholde et sosialt
+nettverk, ha/ta kontakt med familie,
+venner, kolleger og personer i
+nærmiljøet">
+				>
+				["at0077"] = <
+					text = <"Styre atferd">
+					description = <"Beskriver om pasienten har behov for bistand/assistanse til å
+styre egen atferd. Med dette menes å ha
+kontroll over impulser, verbal og fysisk
+aggresjon overfor seg selv og andre">
+				>
+				["at0078"] = <
+					text = <"Syn">
+					description = <"Beskriver i hvilken grad pasienten sanser lys og farge, se størrelse,
+form og avstand">
+				>
+				["at0079"] = <
+					text = <"Hørsel">
+					description = <"Beskriver i hvilken grad pasienten sanser lyd og skille mellom
+lyders tonehøyde, styrke, egenart og
+sted. Skille mellom ulike lyder, stedsog
+sidebestemmelse av lyd,
+talegjenkjenning.">
+				>
+				["at0080"] = <
+					text = <"Utgjør ingen problemer/utfordringer">
+					description = <"Ikke behov for personbistand
+Ikke behov for personbistand
+">
+				>
+				["at0081"] = <
+					text = <"Ikke behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer selv (eventuelt med hjelpemidler), men har utfordringer eller endret standard. Endret standard vil si hvordan enkeltindividet utfører/klarer aktiviteten i forhold til tidligere.">
+				>
+				["at0082"] = <
+					text = <"Middels behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler av aktiviteten selv, men trenger personbistand til andre deler av aktiviteten. Bistandsyter kan eventuelt gå til og fra.">
+				>
+				["at0083"] = <
+					text = <"Store behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler selv, men med bistandsyter til stede hele tiden. Bistandsyter er til stede for assistanse/tilrettelegging/veiledning. Behov for personbistand.">
+				>
+				["at0084"] = <
+					text = <"Fullt behov for bistand/assistanse/helsehjelp">
+					description = <"Behov for personbistand til alle aktivitetene.
+">
+				>
+				["at0085"] = <
+					text = <"Ikke relevant">
+					description = <"Opplysningen er ikke relevant for å kartlegge ressurser og vurdere behov for personbistand. Det foreligger ikke behov for bistands/assistanse/helsehjelp på registrerings-tidspunktet og opplysningen er ikke relevant for en helhetlig vurdering.">
+				>
+				["at0086"] = <
+					text = <"Utgjør ingen problemer/utfordringer">
+					description = <"Ikke behov for personbistand
+">
+				>
+				["at0087"] = <
+					text = <"Utgjør ingen problemer/utfordringer">
+					description = <"Ikke behov for personbistand
+">
+				>
+				["at0088"] = <
+					text = <"Utgjør ingen problemer/utfordringer">
+					description = <"Ikke behov for personbistand
+">
+				>
+				["at0089"] = <
+					text = <"Utgjør ingen problemer/utfordringer">
+					description = <"Ikke behov for personbistand
+">
+				>
+				["at0090"] = <
+					text = <"Utgjør ingen problemer/utfordringer">
+					description = <"Ikke behov for personbistand
+">
+				>
+				["at0091"] = <
+					text = <"Utgjør ingen problemer/utfordringer">
+					description = <"Ikke behov for personbistand
+">
+				>
+				["at0092"] = <
+					text = <"Utgjør ingen problemer/utfordringer">
+					description = <"Ikke behov for personbistand
+">
+				>
+				["at0093"] = <
+					text = <"Utgjør ingen problemer/utfordringer">
+					description = <"Ikke behov for personbistand
+">
+				>
+				["at0094"] = <
+					text = <"Utgjør ingen problemer/utfordringer">
+					description = <"Ikke behov for personbistand
+">
+				>
+				["at0095"] = <
+					text = <"Utgjør ingen problemer/utfordringer">
+					description = <"Ikke behov for personbistand
+">
+				>
+				["at0096"] = <
+					text = <"Utgjør ingen problemer/utfordringer">
+					description = <"Ikke behov for personbistand
+">
+				>
+				["at0097"] = <
+					text = <"Utgjør ingen problemer/utfordringer">
+					description = <"Ikke behov for personbistand
+">
+				>
+				["at0098"] = <
+					text = <"Utgjør ingen problemer/utfordringer">
+					description = <"Ikke behov for personbistand
+">
+				>
+				["at0099"] = <
+					text = <"Ser godt / har ingen problemer">
+					description = <"*">
+				>
+				["at0100"] = <
+					text = <"Hører godt/har ingen problemer">
+					description = <"*">
+				>
+				["at0101"] = <
+					text = <"Ikke behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer selv (eventuelt med hjelpemidler), men har utfordringer eller endret standard. Endret standard vil si hvordan enkeltindividet utfører/klarer aktiviteten i forhold til tidligere.">
+				>
+				["at0104"] = <
+					text = <"Ikke behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer selv (eventuelt med hjelpemidler), men har utfordringer eller endret standard. Endret standard vil si hvordan enkeltindividet utfører/klarer aktiviteten i forhold til tidligere.">
+				>
+				["at0106"] = <
+					text = <"Ikke behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer selv (eventuelt med hjelpemidler), men har utfordringer eller endret standard. Endret standard vil si hvordan enkeltindividet utfører/klarer aktiviteten i forhold til tidligere.">
+				>
+				["at0107"] = <
+					text = <"Ikke behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer selv (eventuelt med hjelpemidler), men har utfordringer eller endret standard. Endret standard vil si hvordan enkeltindividet utfører/klarer aktiviteten i forhold til tidligere.">
+				>
+				["at0108"] = <
+					text = <"Ikke behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer selv (eventuelt med hjelpemidler), men har utfordringer eller endret standard. Endret standard vil si hvordan enkeltindividet utfører/klarer aktiviteten i forhold til tidligere.">
+				>
+				["at0109"] = <
+					text = <"Ikke behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer selv (eventuelt med hjelpemidler), men har utfordringer eller endret standard. Endret standard vil si hvordan enkeltindividet utfører/klarer aktiviteten i forhold til tidligere.">
+				>
+				["at0110"] = <
+					text = <"Ikke behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer selv (eventuelt med hjelpemidler), men har utfordringer eller endret standard. Endret standard vil si hvordan enkeltindividet utfører/klarer aktiviteten i forhold til tidligere.">
+				>
+				["at0111"] = <
+					text = <"Ikke behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer selv (eventuelt med hjelpemidler), men har utfordringer eller endret standard. Endret standard vil si hvordan enkeltindividet utfører/klarer aktiviteten i forhold til tidligere.">
+				>
+				["at0112"] = <
+					text = <"Ikke behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer selv (eventuelt med hjelpemidler), men har utfordringer eller endret standard. Endret standard vil si hvordan enkeltindividet utfører/klarer aktiviteten i forhold til tidligere.">
+				>
+				["at0113"] = <
+					text = <"Ikke behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer selv (eventuelt med hjelpemidler), men har utfordringer eller endret standard. Endret standard vil si hvordan enkeltindividet utfører/klarer aktiviteten i forhold til tidligere.">
+				>
+				["at0114"] = <
+					text = <"Ikke behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer selv (eventuelt med hjelpemidler), men har utfordringer eller endret standard. Endret standard vil si hvordan enkeltindividet utfører/klarer aktiviteten i forhold til tidligere.">
+				>
+				["at0115"] = <
+					text = <"Ikke behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer selv (eventuelt med hjelpemidler), men har utfordringer eller endret standard. Endret standard vil si hvordan enkeltindividet utfører/klarer aktiviteten i forhold til tidligere.">
+				>
+				["at0116"] = <
+					text = <"Ikke behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer selv (eventuelt med hjelpemidler), men har utfordringer eller endret standard. Endret standard vil si hvordan enkeltindividet utfører/klarer aktiviteten i forhold til tidligere.">
+				>
+				["at0117"] = <
+					text = <"Har noe redusert syn">
+					description = <"Ser godt med hjelpemidler som briller, godt lys, evt. lupe ved lesing. Ingen problemer
+å synsorientere seg i eget hjem eller nye omgivelser.">
+				>
+				["at0118"] = <
+					text = <"Har noe redusert hørsel">
+					description = <"Ikke til vesentlig hinder for samtale en til en og i gruppe. Lettere vansker når det ikke
+er stille i omgivelsene/flere snakker i samme rom. Hører godt med hjelpemidler som
+høreapparat/hørat og lignende.">
+				>
+				["at0119"] = <
+					text = <"Ikke behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer selv (eventuelt med hjelpemidler), men har utfordringer eller endret standard. Endret standard vil si hvordan enkeltindividet utfører/klarer aktiviteten i forhold til tidligere.">
+				>
+				["at0120"] = <
+					text = <"Middels behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler av aktiviteten selv, men trenger personbistand til andre deler av aktiviteten. Bistandsyter kan eventuelt gå til og fra.">
+				>
+				["at0121"] = <
+					text = <"Store behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler selv, men med bistandsyter til stede hele tiden. Bistandsyter er til stede for assistanse/tilrettelegging/veiledning. Behov for personbistand.">
+				>
+				["at0122"] = <
+					text = <"Fullt behov for bistand/assistanse/helsehjelp">
+					description = <"Behov for personbistand til alle aktivitetene.
+">
+				>
+				["at0123"] = <
+					text = <"Ikke relevant">
+					description = <"Opplysningen er ikke relevant for å kartlegge ressurser og vurdere behov for personbistand. Det foreligger ikke behov for bistands/assistanse/helsehjelp på registrerings-tidspunktet og opplysningen er ikke relevant for en helhetlig vurdering.">
+				>
+				["at0124"] = <
+					text = <"Middels behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler av aktiviteten selv, men trenger personbistand til andre deler av aktiviteten. Bistandsyter kan eventuelt gå til og fra.">
+				>
+				["at0125"] = <
+					text = <"Middels behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler av aktiviteten selv, men trenger personbistand til andre deler av aktiviteten. Bistandsyter kan eventuelt gå til og fra.">
+				>
+				["at0126"] = <
+					text = <"Middels behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler av aktiviteten selv, men trenger personbistand til andre deler av aktiviteten. Bistandsyter kan eventuelt gå til og fra.">
+				>
+				["at0127"] = <
+					text = <"Middels behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler av aktiviteten selv, men trenger personbistand til andre deler av aktiviteten. Bistandsyter kan eventuelt gå til og fra.">
+				>
+				["at0129"] = <
+					text = <"Middels behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler av aktiviteten selv, men trenger personbistand til andre deler av aktiviteten. Bistandsyter kan eventuelt gå til og fra.">
+				>
+				["at0131"] = <
+					text = <"Middels behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler av aktiviteten selv, men trenger personbistand til andre deler av aktiviteten. Bistandsyter kan eventuelt gå til og fra.">
+				>
+				["at0132"] = <
+					text = <"Middels behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler av aktiviteten selv, men trenger personbistand til andre deler av aktiviteten. Bistandsyter kan eventuelt gå til og fra.">
+				>
+				["at0133"] = <
+					text = <"Middels behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler av aktiviteten selv, men trenger personbistand til andre deler av aktiviteten. Bistandsyter kan eventuelt gå til og fra.">
+				>
+				["at0134"] = <
+					text = <"Middels behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler av aktiviteten selv, men trenger personbistand til andre deler av aktiviteten. Bistandsyter kan eventuelt gå til og fra.">
+				>
+				["at0135"] = <
+					text = <"Middels behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler av aktiviteten selv, men trenger personbistand til andre deler av aktiviteten. Bistandsyter kan eventuelt gå til og fra.">
+				>
+				["at0136"] = <
+					text = <"Middels behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler av aktiviteten selv, men trenger personbistand til andre deler av aktiviteten. Bistandsyter kan eventuelt gå til og fra.">
+				>
+				["at0137"] = <
+					text = <"Middels behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler av aktiviteten selv, men trenger personbistand til andre deler av aktiviteten. Bistandsyter kan eventuelt gå til og fra.">
+				>
+				["at0138"] = <
+					text = <"Middels behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler av aktiviteten selv, men trenger personbistand til andre deler av aktiviteten. Bistandsyter kan eventuelt gå til og fra.">
+				>
+				["at0139"] = <
+					text = <"Har dårlig syn">
+					description = <"Kan ikke lese aviser/egen post/innkomne regninger/oppskrifter/bruke redskaper som
+litermål ol. Kan synsorientere seg i eget hjem og nye omgivelser.">
+				>
+				["at0140"] = <
+					text = <"Har dårlig hørsel">
+					description = <"Hører kun når det blir snakket høyt, klart og tydelig. Har noe problemer selv ved bruk
+av hjelpemidler som høreapparat/hørat og lignende. Vansker med å føre samtale en
+til en og i grupper.">
+				>
+				["at0142"] = <
+					text = <"Store behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler selv, men med bistandsyter til stede hele tiden. Bistandsyter er til stede for assistanse/tilrettelegging/veiledning. Behov for personbistand.">
+				>
+				["at0143"] = <
+					text = <"Store behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler selv, men med bistandsyter til stede hele tiden. Bistandsyter er til stede for assistanse/tilrettelegging/veiledning. Behov for personbistand.">
+				>
+				["at0144"] = <
+					text = <"Store behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler selv, men med bistandsyter til stede hele tiden. Bistandsyter er til stede for assistanse/tilrettelegging/veiledning. Behov for personbistand.">
+				>
+				["at0145"] = <
+					text = <"Store behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler selv, men med bistandsyter til stede hele tiden. Bistandsyter er til stede for assistanse/tilrettelegging/veiledning. Behov for personbistand.">
+				>
+				["at0149"] = <
+					text = <"Store behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler selv, men med bistandsyter til stede hele tiden. Bistandsyter er til stede for assistanse/tilrettelegging/veiledning. Behov for personbistand.">
+				>
+				["at0151"] = <
+					text = <"Store behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler selv, men med bistandsyter til stede hele tiden. Bistandsyter er til stede for assistanse/tilrettelegging/veiledning. Behov for personbistand.">
+				>
+				["at0152"] = <
+					text = <"Store behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler selv, men med bistandsyter til stede hele tiden. Bistandsyter er til stede for assistanse/tilrettelegging/veiledning. Behov for personbistand.">
+				>
+				["at0153"] = <
+					text = <"Store behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler selv, men med bistandsyter til stede hele tiden. Bistandsyter er til stede for assistanse/tilrettelegging/veiledning. Behov for personbistand.">
+				>
+				["at0154"] = <
+					text = <"Store behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler selv, men med bistandsyter til stede hele tiden. Bistandsyter er til stede for assistanse/tilrettelegging/veiledning. Behov for personbistand.">
+				>
+				["at0155"] = <
+					text = <"Store behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler selv, men med bistandsyter til stede hele tiden. Bistandsyter er til stede for assistanse/tilrettelegging/veiledning. Behov for personbistand.">
+				>
+				["at0156"] = <
+					text = <"Store behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler selv, men med bistandsyter til stede hele tiden. Bistandsyter er til stede for assistanse/tilrettelegging/veiledning. Behov for personbistand.">
+				>
+				["at0157"] = <
+					text = <"Store behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler selv, men med bistandsyter til stede hele tiden. Bistandsyter er til stede for assistanse/tilrettelegging/veiledning. Behov for personbistand.">
+				>
+				["at0158"] = <
+					text = <"Store behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler selv, men med bistandsyter til stede hele tiden. Bistandsyter er til stede for assistanse/tilrettelegging/veiledning. Behov for personbistand.">
+				>
+				["at0159"] = <
+					text = <"Har svært dårlig syn">
+					description = <"Kan ikke lese aviser / egen post / innkomne regninger / oppskrifter / bruke redskaper
+som litermål ol. Kan synsorientere seg i eget hjem men ikke i nye omgivelser.">
+				>
+				["at0160"] = <
+					text = <"Har svært dårlig hørsel">
+					description = <"Kan ikke høre verbal kommunikasjon og har store problemer selv ved bruk av
+høreapparat/hørat og lignende. Må se den som prater.">
+				>
+				["at0162"] = <
+					text = <"Fullt behov for bistand/assistanse/helsehjelp">
+					description = <"Behov for personbistand til alle aktivitetene
+">
+				>
+				["at0163"] = <
+					text = <"Fullt behov for bistand/assistanse/helsehjelp">
+					description = <"Behov for personbistand til alle aktivitetene.
+">
+				>
+				["at0164"] = <
+					text = <"Fullt behov for bistand/assistanse/helsehjelp">
+					description = <"Behov for personbistand til alle aktivitetene.
+">
+				>
+				["at0165"] = <
+					text = <"Fullt behov for bistand/assistanse/helsehjelp">
+					description = <"Behov for personbistand til alle aktivitetene.
+">
+				>
+				["at0167"] = <
+					text = <"Fullt behov for bistand/assistanse/helsehjelp">
+					description = <"Behov for personbistand til alle aktivitetene.
+">
+				>
+				["at0169"] = <
+					text = <"Fullt behov for bistand/assistanse/helsehjelp">
+					description = <"Behov for personbistand til alle aktivitetene.
+">
+				>
+				["at0170"] = <
+					text = <"Fullt behov for bistand/assistanse/helsehjelp">
+					description = <"Behov for personbistand til alle aktivitetene.
+">
+				>
+				["at0171"] = <
+					text = <"Fullt behov for bistand/assistanse/helsehjelp">
+					description = <"Behov for personbistand til alle aktivitetene.
+">
+				>
+				["at0172"] = <
+					text = <"Fullt behov for bistand/assistanse/helsehjelp">
+					description = <"Behov for personbistand til alle aktivitetene.
+">
+				>
+				["at0173"] = <
+					text = <"Fullt behov for bistand/assistanse/helsehjelp">
+					description = <"Behov for personbistand til alle aktivitetene.
+">
+				>
+				["at0174"] = <
+					text = <"Fullt behov for bistand/assistanse/helsehjelp">
+					description = <"Behov for personbistand til alle aktivitetene.
+">
+				>
+				["at0175"] = <
+					text = <"Fullt behov for bistand/assistanse/helsehjelp">
+					description = <"Behov for personbistand til alle aktivitetene.
+">
+				>
+				["at0176"] = <
+					text = <"Fullt behov for bistand/assistanse/helsehjelp">
+					description = <"Behov for personbistand til alle aktivitetene.
+">
+				>
+				["at0177"] = <
+					text = <"Blind">
+					description = <"*">
+				>
+				["at0178"] = <
+					text = <"Døv">
+					description = <"*">
+				>
+				["at0180"] = <
+					text = <"Ikke relevant">
+					description = <"Opplysningen er ikke relevant for å kartlegge ressurser og vurdere behov for personbistand. Det foreligger ikke behov for bistands/assistanse/helsehjelp på registrerings-tidspunktet og opplysningen er ikke relevant for en helhetlig vurdering.">
+				>
+				["at0181"] = <
+					text = <"Ikke relevant">
+					description = <"Opplysningen er ikke relevant for å kartlegge ressurser og vurdere behov for personbistand. Det foreligger ikke behov for bistands/assistanse/helsehjelp på registrerings-tidspunktet og opplysningen er ikke relevant for en helhetlig vurdering.">
+				>
+				["at0182"] = <
+					text = <"Ikke relevant">
+					description = <"Opplysningen er ikke relevant for å kartlegge ressurser og vurdere behov for personbistand. Det foreligger ikke behov for bistands/assistanse/helsehjelp på registrerings-tidspunktet og opplysningen er ikke relevant for en helhetlig vurdering.">
+				>
+				["at0183"] = <
+					text = <"Ikke relevant">
+					description = <"Opplysningen er ikke relevant for å kartlegge ressurser og vurdere behov for personbistand. Det foreligger ikke behov for bistands/assistanse/helsehjelp på registrerings-tidspunktet og opplysningen er ikke relevant for en helhetlig vurdering.">
+				>
+				["at0185"] = <
+					text = <"Ikke relevant">
+					description = <"Opplysningen er ikke relevant for å kartlegge ressurser og vurdere behov for personbistand. Det foreligger ikke behov for bistands/assistanse/helsehjelp på registrerings-tidspunktet og opplysningen er ikke relevant for en helhetlig vurdering.">
+				>
+				["at0186"] = <
+					text = <"Ikke relevant">
+					description = <"Opplysningen er ikke relevant for å kartlegge ressurser og vurdere behov for personbistand. Det foreligger ikke behov for bistands/assistanse/helsehjelp på registrerings-tidspunktet og opplysningen er ikke relevant for en helhetlig vurdering.">
+				>
+				["at0187"] = <
+					text = <"Ikke relevant">
+					description = <"Opplysningen er ikke relevant for å kartlegge ressurser og vurdere behov for personbistand. Det foreligger ikke behov for bistands/assistanse/helsehjelp på registrerings-tidspunktet og opplysningen er ikke relevant for en helhetlig vurdering.">
+				>
+				["at0188"] = <
+					text = <"Ikke relevant">
+					description = <"Opplysningen er ikke relevant for å kartlegge ressurser og vurdere behov for personbistand. Det foreligger ikke behov for bistands/assistanse/helsehjelp på registrerings-tidspunktet og opplysningen er ikke relevant for en helhetlig vurdering.">
+				>
+				["at0189"] = <
+					text = <"Ikke relevant">
+					description = <"Opplysningen er ikke relevant for å kartlegge ressurser og vurdere behov for personbistand. Det foreligger ikke behov for bistands/assistanse/helsehjelp på registrerings-tidspunktet og opplysningen er ikke relevant for en helhetlig vurdering.">
+				>
+				["at0190"] = <
+					text = <"Ikke relevant">
+					description = <"Opplysningen er ikke relevant for å kartlegge ressurser og vurdere behov for personbistand. Det foreligger ikke behov for bistands/assistanse/helsehjelp på registrerings-tidspunktet og opplysningen er ikke relevant for en helhetlig vurdering.">
+				>
+				["at0191"] = <
+					text = <"Ikke relevant">
+					description = <"Opplysningen er ikke relevant for å kartlegge ressurser og vurdere behov for personbistand. Det foreligger ikke behov for bistands/assistanse/helsehjelp på registrerings-tidspunktet og opplysningen er ikke relevant for en helhetlig vurdering.">
+				>
+				["at0192"] = <
+					text = <"Ikke relevant">
+					description = <"Opplysningen er ikke relevant for å kartlegge ressurser og vurdere behov for personbistand. Det foreligger ikke behov for bistands/assistanse/helsehjelp på registrerings-tidspunktet og opplysningen er ikke relevant for en helhetlig vurdering.">
+				>
+				["at0193"] = <
+					text = <"Ikke relevant">
+					description = <"Opplysningen er ikke relevant for å kartlegge ressurser og vurdere behov for personbistand. Det foreligger ikke behov for bistands/assistanse/helsehjelp på registrerings-tidspunktet og opplysningen er ikke relevant for en helhetlig vurdering.">
+				>
+				["at0194"] = <
+					text = <"Ikke relevant">
+					description = <"*">
+				>
+				["at0195"] = <
+					text = <"Ikke relevant">
+					description = <"*">
+				>
+				["at0196"] = <
+					text = <"Ivareta egen økonomi">
+					description = <"Beskriver om pasienten har behov for bistand/assistanse til å betale regninger, prioritere
+mellom utgifter, betale for seg med kontanter og kort.">
+				>
+				["at0197"] = <
+					text = <"Ivareta egen økonomi">
+					description = <"Beskriver om pasienten har behov for bistand/assistanse til å betale regninger, prioritere 
+mellom utgifter, betale for seg med kontanter og kort.">
+				>
+				["at0198"] = <
+					text = <"Kommentar">
+					description = <"Brukes for å eventuelt legge til kommentar til skåringen">
+				>
+				["at0199"] = <
+					text = <"Utgjør ingen problemer/utfordringer">
+					description = <"Ikke behov for personbistand
+">
+				>
+				["at0200"] = <
+					text = <"Ikke behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer selv (eventuelt med hjelpemidler), men har utfordringer eller endret standard. Endret standard vil si hvordan enkeltindividet utfører/klarer aktiviteten i forhold til tidligere.">
+				>
+				["at0201"] = <
+					text = <"Middels behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler av aktiviteten selv, men trenger personbistand til andre deler av aktiviteten. Bistandsyter kan eventuelt gå til og fra.">
+				>
+				["at0202"] = <
+					text = <"Store behov for bistand/assistanse/helsehjelp">
+					description = <"Utfører/klarer deler selv, men med bistandsyter til stede hele tiden. Bistandsyter er til stede for assistanse/tilrettelegging/veiledning. Behov for personbistand.">
+				>
+				["at0203"] = <
+					text = <"Fullt behov for bistand/assistanse/helsehjelp">
+					description = <"Behov for personbistand til alle aktivitetene
+">
+				>
+				["at0204"] = <
+					text = <"Ikke relevant">
+					description = <"Opplysningen er ikke relevant for å kartlegge ressurser og vurdere behov for personbistand. Det foreligger ikke behov for bistands/assistanse/helsehjelp på registrerings-tidspunktet og opplysningen er ikke relevant for en helhetlig vurdering">
+				>
+				["at0206"] = <
+					text = <"Oppsummering">
+					description = <"Benyttes til å gi en samlet kommentar, for eksempel dersom skåring ikke lar seg gjøre.">
+				>
+				["at0207"] = <
+					text = <"Pasienten er selvhjulpen">
+					description = <"Brukes for å registrere at pasienten er selvhjulpen.">
+				>
+			>
+		>
+	>

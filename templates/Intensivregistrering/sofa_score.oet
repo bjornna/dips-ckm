@@ -61,7 +61,38 @@
     </other_details>
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="SOFA score">
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.sofa_score.v0" concept_name="SOFA score" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.sofa_score_dips.v1" concept_name="Sofa score" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_dips.v1" concept_name="Laboratoriesvar" path="/content">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_panel_dips.v1" concept_name="Laboratoriesvargruppe" path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]">
+        <Rule path="/items[at0002]/items[at0001]" name="PaO2">
+          <constraint xsi:type="quantityConstraint">
+            <includedUnits>kPa</includedUnits>
+            <unitMagnitude>
+              <unit>kPa</unit>
+              <maxMagnitude>20</maxMagnitude>
+              <minMagnitude>5</minMagnitude>
+              <includesMaximum>true</includesMaximum>
+              <includesMinimum>true</includesMinimum>
+            </unitMagnitude>
+          </constraint>
+        </Rule>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.ambient_oxygen_dips.v1" concept_name="Ambient oxygen" path="/data[at0001]/events[at0002]/state[at0112]/items[at0114]">
+        <Rule path="/items[at0054]">
+          <constraint xsi:type="quantityConstraint">
+            <unitMagnitude>
+              <unit>1</unit>
+              <maxMagnitude>1</maxMagnitude>
+              <minMagnitude>0</minMagnitude>
+              <precision>2</precision>
+              <includesMaximum>true</includesMaximum>
+              <includesMinimum>true</includesMinimum>
+            </unitMagnitude>
+          </constraint>
+        </Rule>
+      </Items>
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.pao2_fio2_ratio_dips.v1" concept_name="PaO2-FiO2 ratioer" path="/content" />
     <Context />
   </definition>
 </template>

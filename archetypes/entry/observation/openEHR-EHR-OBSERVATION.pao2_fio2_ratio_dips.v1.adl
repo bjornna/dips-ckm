@@ -1,13 +1,16 @@
-archetype (adl_version=1.4)
+﻿archetype (adl_version=1.4; uid=84a6e430-a978-44a4-870d-75c0aa8fb8b7)
 	openEHR-EHR-OBSERVATION.pao2_fio2_ratio_dips.v1
 
 concept
-	[at0000]	-- Kalkulasjoner med PaO2 og FiO2
+	[at0000]	-- PaO2-FiO2 ratioer
 language
 	original_language = <[ISO_639-1::nb]>
 description
 	original_author = <
-		["name"] = <"">
+		["name"] = <"Siv Fauchald">
+		["email"] = <"sfa@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2017-03-08">
 	>
 	details = <
 		["nb"] = <
@@ -15,17 +18,24 @@ description
 			purpose = <"Arketype for å angi resultatet av kalkulasjoner som omfatter målte/observerte verdier for PaO2 og FiO2.">
 			use = <"Arketypen brukes når det er ønske om å angi resultatet av kalkulasjoner som omfatter målte/observerte verdier for PaO2 og FiO2.">
 			misuse = <"Arketypen skal ikke brukes for å registrere inn observerte verdier av PaO2 og FiO2, dvs. rådata.">
-			copyright = <"">
+			copyright = <"© Nasjonal IKT HF">
 		>
 	>
-	lifecycle_state = <"0">
+	lifecycle_state = <"NotSet">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"8509F8FD64B53E8A0EC31B2B648E56BD">
+		["revision"] = <"0.0.1-alpha">
+		["original_publisher"] = <"Nasjonal IKT">
+		["build_uid"] = <"356efe68-a866-4270-b85d-06d518b4d6f0">
+		["original_namespace"] = <"no.nasjonalikt">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["MD5-CAM-1.0.1"] = <"8626242C207776EC9EB0AA4776808E67">
+		["custodian_namespace"] = <"no.nasjonalikt">
+		["custodian_organisation"] = <"Nasjonal IKT">
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- Kalkulasjoner med PaO2 og FiO2
+	OBSERVATION[at0000] matches {	-- PaO2-FiO2 ratioer
 		data matches {
 			HISTORY[at0001] matches {	-- Event Series
 				events cardinality matches {1..*; unordered} matches {
@@ -58,6 +68,20 @@ definition
 											DV_TEXT matches {*}
 										}
 									}
+									ELEMENT[at0010] occurrences matches {0..1} matches {	-- PaO2/FiO2
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::125]>
+												list = <
+													["1"] = <
+														units = <"kPa">
+														magnitude = <|0.0|>
+														precision = <|3|>
+													>
+												>
+											>
+										}
+									}
 								}
 							}
 						}
@@ -83,7 +107,7 @@ ontology
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"Kalkulasjoner med PaO2 og FiO2">
+					text = <"PaO2-FiO2 ratioer">
 					description = <"Arketype for å vise resultat av kalkulasjoner som omfatter målte/observerte verdier for PaO2 og FiO2.">
 				>
 				["at0001"] = <
@@ -121,6 +145,10 @@ ontology
 				["at0009"] = <
 					text = <"FiO2/PaO2">
 					description = <"FiO2/PaO2 er lik fraksjonen av innåndet oksygen dividert med partialtrykket av oksygen.">
+				>
+				["at0010"] = <
+					text = <"PaO2/FiO2">
+					description = <"PaO2/FiO2 er lik partialtrykket av oksygen dividert med fraksjonen av innåndet oksygen.">
 				>
 			>
 		>

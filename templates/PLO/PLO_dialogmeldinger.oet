@@ -2,6 +2,64 @@
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
   <id>1b16b743-484d-4a1c-9f75-7a7753500974</id>
   <name>PLO_dialogmeldinger</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose />
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
   <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.meldingstype.v0]/items[at0001]">
     <items>
       <item>
@@ -10,19 +68,28 @@
       </item>
     </items>
   </annotations>
-  <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/content[openEHR-EHR-ADMIN_ENTRY.dialogmelding.v0]/data[at0001]/items[at0002]/items[at0003]">
-    <items>
-      <item>
-        <key>Notes.Comment</key>
-        <value>Comment	Sett inn kodeverk (volven 9154)</value>
-      </item>
-    </items>
-  </annotations>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Rapport">
-    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.plo_status.v0" concept_name="Plo status" path="/content" />
-    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.dialogmelding.v0" concept_name="Dialogmelding" path="/content" />
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.dialogmelding_dips.v1" concept_name="Dialogmelding" path="/content">
+      <Rule path="/data[at0001]/items[at0002]/items[at0003]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>2.16.578.1.12.4.1.1-9154::1::Helseopplysninger</includedValues>
+          <includedValues>2.16.578.1.12.4.1.1-9154::4::Legemiddelopplysninger</includedValues>
+          <includedValues>2.16.578.1.12.4.1.1-9154::8::Status/plan om utskrivning</includedValues>
+          <includedValues>2.16.578.1.12.4.1.1-9154::99::Annen henvendelse</includedValues>
+        </constraint>
+      </Rule>
+    </Content>
     <Context>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.meldingstype.v0" concept_name="Meldingstype" path="/context/other_context[at0001]/items[at0006]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.meldingstype_dips.v1" concept_name="Meldingstype" path="/context/other_context[at0001]/items[at0006]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>2.16.578.1.12.4.1.1-8279::DIALOG_FORESPORSEL::Forespørsel</includedValues>
+            <includedValues>2.16.578.1.12.4.1.1-8279::DIALOG_AVVIK::Avviksmelding</includedValues>
+            <includedValues>2.16.578.1.12.4.1.1-8279::DIALOG_NOTAT::Notat</includedValues>
+            <includedValues>2.16.578.1.12.4.1.1-8279::DIALOG_SVAR::Svar på forespørsel</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
     </Context>
   </definition>
 </template>

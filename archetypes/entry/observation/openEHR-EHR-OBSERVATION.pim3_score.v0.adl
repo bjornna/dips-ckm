@@ -1,0 +1,339 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.pim3_score.v0
+
+concept
+	[at0000]	-- Pim3 score
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Pediatric index of mortality (PIM) 3 score er et skåringsverktøy for å estimere sannsynligheten for død for barn med behov for intensivbehandling.
+
+Skåringsområdene og skåringsverdiene for parameterne i PIM3 score er iht. Norsk Intensivregisters (NIRs) spesifikasjon av 09.11.2016 for XML-meldingen av intensivpasienter til NIR.">
+			use = <"Observasjonene som registreres skal være gjort ved eller omkring tidspunktet for første møte ansikt til ansikt, dvs. ikke telefonisk, mellom pasienten og en lege fra intensivenheten eller en lege fra et spesialisert barnetransportteam.
+
+Det er den første målte verdien for hver enkelt parameter fra første kontakt til én time etter ankomst til intensivenheten. Den første kontakten kan være i intensivenheten, i akuttmottaket, på sengepost på eget sykehus eller annet sykehus ved f.eks. henteoppdrag.
+
+Formel for PIM3 score:
+PIM3 score = (konstant for pupillereaksjon × score for pupillereaksjon) + (konstant for elektiv innleggelse × score for elektiv innleggelse) + (konstant for mekanisk ventilasjon × score for mekanisk ventilasjon) + (konstant for base excess × absoluttverdi av base excess) + (konstant for SBT × SBT) + (konstant for SBT2 × [SBP2/1000]) + (konstant for FiO2/PaO2 × [{FiO2 × 100}/PaO2]) − (konstant for hjerteprosedyre med hjerte-lungemaskin × score for hjerteprosedyre med hjerte-lungemaskin) − (konstant for hjerteprosedyre uten hjerte-lungemaskin × score for hjerteprosedyre uten hjerte-lungemaskin) − (konstant for ikke hjerterelatert prosedyre × score for ikke hjerterelatert prosedyre) + (konstant for svært høy risiko diagnose × score for svært høy risiko diagnose) + (konstant for høy risiko diagnose × score for høy risiko diagnose) − (konstant for lav risiko diagnose × score for lav risiko diagnose) − konstant for PIM3 score.
+
+Formel for sannsynlighet for død:
+Sannsynlighet for død = exp(PIM3 score)/[1 + exp (PIM3 score)]. ">
+			misuse = <"Skal ikke brukes til andre formål enn beskrevet i Purpose og på andre måter enn beskrevet i Use.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"C028B770435696A180E1CDB8A46E1046">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Pim3 score
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; ordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Systolisk blodtrykk (SBT)
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::125]>
+												list = <
+													["1"] = <
+														units = <"mm[Hg]">
+														magnitude = <|20.0..250.0|>
+														precision = <|0|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Pupillereaksjon på skarpt lys
+										value matches {
+											0|[local::at0006], 	-- Annen reaksjon eller ukjent 
+											1|[local::at0007]  	-- ≥ 3 mm og begge fikserte 
+										}
+									}
+									ELEMENT[at0008] occurrences matches {0..1} matches {	-- PaO2
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::125]>
+												list = <
+													["1"] = <
+														units = <"kPa">
+														magnitude = <|>0.0|>
+														precision = <|2|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0009] occurrences matches {0..1} matches {	-- FiO2
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::380]>
+												list = <
+													["1"] = <
+														units = <"1">
+														precision = <|2|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0010] occurrences matches {0..1} matches {	-- Base excess i arterielt eller kapillært blod
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::119]>
+												list = <
+													["1"] = <
+														units = <"mmol/l">
+														magnitude = <|-30.0..30.0|>
+														precision = <|0|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0011] occurrences matches {0..1} matches {	-- Mekanisk ventilasjon på noe tidspunkt i løpe av første timen på intensivenheten?
+										value matches {
+											0|[local::at0012], 	-- Nei
+											1|[local::at0013]  	-- Ja
+										}
+									}
+									ELEMENT[at0014] occurrences matches {0..1} matches {	-- Elektiv innleggelse i intensivenheten
+										value matches {
+											0|[local::at0015], 	-- Nei 
+											1|[local::at0016]  	-- Ja 
+										}
+									}
+									ELEMENT[at0017] occurrences matches {0..1} matches {	-- Overvåkning/oppvåkning etter kirurgi eller en prosedyre er hovedgrunn for innleggelse i intensivenheten
+										value matches {
+											0|[local::at0018], 	-- Nei 
+											1|[local::at0019], 	-- Ja, overvåkning/oppvåkning etter en ikke hjerterelatert prosedyre
+											2|[local::at0020], 	-- Ja, overvåkning/oppvåkning etter en hjerteprosedyre uten hjerte-lungemaskin
+											3|[local::at0021]  	-- Ja, overvåkning/oppvåkning etter en hjerteprosedyre med hjerte-lungemaskin
+										}
+									}
+									ELEMENT[at0022] occurrences matches {0..1} matches {	-- Vektet diagnose
+										value matches {
+											0|[local::at0023], 	-- Nei 
+											1|[local::at0024], 	-- Lav risiko 
+											2|[local::at0025], 	-- Høy risiko 
+											3|[local::at0026]  	-- Svært høy risiko 
+										}
+									}
+									ELEMENT[at0027] occurrences matches {0..1} matches {	-- PIM3 score
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::380]>
+												list = <
+													["1"] = <
+														units = <"1">
+														precision = <|3|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0028] occurrences matches {0..1} matches {	-- Sannsynlighet for død
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::380]>
+												list = <
+													["1"] = <
+														units = <"1">
+														magnitude = <|>=0.0|>
+														precision = <|3|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0033] occurrences matches {0..1} matches {	-- Kommentar
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_LIST[at0029] matches {	-- List
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0030] occurrences matches {0..1} matches {	-- Metode
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0031] occurrences matches {0..1} matches {	-- Formel
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0032] occurrences matches {0..1} matches {	-- Kommentar
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Pim3 score">
+					description = <"Pediatric index of mortality (PIM) 3 score er et skåringsverktøy for å estimere sannsynligheten for død for barn har behov for intensivbehandling.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Systolisk blodtrykk (SBT)">
+					description = <"Systolisk blodtrykk.">
+				>
+				["at0005"] = <
+					text = <"Pupillereaksjon på skarpt lys">
+					description = <"Pupillereaksjon ved stimulering med skarpt lys blir brukt som indikasjon på hjernefunksjon.">
+				>
+				["at0006"] = <
+					text = <"Annen reaksjon eller ukjent ">
+					description = <"Pupilleraksjonen på skarpt lys er ukjent eller annen enn 3 mm eller mer og begge pupillene er fikserte.">
+				>
+				["at0007"] = <
+					text = <"≥ 3 mm og begge fikserte ">
+					description = <"Pupilleraksjonen på skarpt lys er 3 mm eller mer og begge pupillene er fikserte.">
+				>
+				["at0008"] = <
+					text = <"PaO2">
+					description = <"PaO2 er partialtrykket av oksygen i arterielt eller kapillært blod.">
+				>
+				["at0009"] = <
+					text = <"FiO2">
+					description = <"FiO2 er fraksjonen av oksygen i innåndet luft.">
+				>
+				["at0010"] = <
+					text = <"Base excess i arterielt eller kapillært blod">
+					description = <"Base excess i arterielt eller kapillært blod.">
+				>
+				["at0011"] = <
+					text = <"Mekanisk ventilasjon på noe tidspunkt i løpe av første timen på intensivenheten?">
+					description = <"Mekanisk ventilasjon inkluderer invasiv ventilasjon, maske-/nese-CPAP, BiPAP eller undertrykksventilasjon (skjoldrespirator).">
+				>
+				["at0012"] = <
+					text = <"Nei">
+					description = <"Pasienten fikk ikke mekanisk ventilasjonsstøtte i løpet av første timen på intensivenheten.">
+				>
+				["at0013"] = <
+					text = <"Ja">
+					description = <"Pasienten fikk mekanisk ventilasjonsstøtte i løpet av første timen på intensivenheten.">
+				>
+				["at0014"] = <
+					text = <"Elektiv innleggelse i intensivenheten">
+					description = <"Elektiv innleggelse inkluderer planlagt eller forutsigbar innleggelse etter elektiv kirurgi eller innleggelse for en elektiv prosedyre, f.eks. innleggelse av CVK, samt elektiv overvåkning eller gjennomgang av hjemmeventilasjon. En innleggelse i intensivenhet eller en operasjon anses for elektiv hvis den kunne vært utsatt mer enn seks timer uten ugunstige effekter.">
+				>
+				["at0015"] = <
+					text = <"Nei ">
+					description = <"Innleggelsen i intensivenheten var ikke elektiv.">
+				>
+				["at0016"] = <
+					text = <"Ja ">
+					description = <"Innleggelsen i intensivenheten var elektiv.">
+				>
+				["at0017"] = <
+					text = <"Overvåkning/oppvåkning etter kirurgi eller en prosedyre er hovedgrunn for innleggelse i intensivenheten">
+					description = <"Overvåkning/oppvåkning etter kirurgi eller prosedyre inkluderer en radiologisk prosedyre eller hjertekateterisering. Overvåkning/oppvåkning etter kirurgi eller prosedyre inkluderer ikke pasienter innlagt fra operasjonsstua når oppvåkning etter kirurgi ikke er hovedgrunn for innleggelse i intensivenheten, f.eks. en pasient med en hodeskade som innlegges fra operasjonsstua etter innleggelse av en ICP-måler. Da hovedgrunnen for innleggelse i intensivenheten er hodeskaden.">
+				>
+				["at0018"] = <
+					text = <"Nei ">
+					description = <"Hovedgrunn for innleggelsen er ikke overvåkning/oppvåkning etter kirurgi eller en prosedyre.">
+				>
+				["at0019"] = <
+					text = <"Ja, overvåkning/oppvåkning etter en ikke hjerterelatert prosedyre">
+					description = <"Hovedgrunn for innleggelsen er overvåkning/oppvåkning etter en ikke hjerterelatert prosedyre.">
+				>
+				["at0020"] = <
+					text = <"Ja, overvåkning/oppvåkning etter en hjerteprosedyre uten hjerte-lungemaskin">
+					description = <"Hovedgrunn for innleggelsen er overvåkning/oppvåkning etter en hjerteprosedyre uten hjerte-lungemaskin.">
+				>
+				["at0021"] = <
+					text = <"Ja, overvåkning/oppvåkning etter en hjerteprosedyre med hjerte-lungemaskin">
+					description = <"Hovedgrunn for innleggelsen er overvåkning/oppvåkning etter en hjerteprosedyre med hjerte-lungemaskin.">
+				>
+				["at0022"] = <
+					text = <"Vektet diagnose">
+					description = <"Vektet diagnose ved innleggelsen i intensivenheten.">
+				>
+				["at0023"] = <
+					text = <"Nei ">
+					description = <"Ingen vektet diagnose.">
+				>
+				["at0024"] = <
+					text = <"Lav risiko ">
+					description = <"Vektet diagnose er en lav risiko diagnose.">
+				>
+				["at0025"] = <
+					text = <"Høy risiko ">
+					description = <"Vektet diagnose er en høy risiko diagnose.">
+				>
+				["at0026"] = <
+					text = <"Svært høy risiko ">
+					description = <"Vektet diagnose er en svært høy risiko diagnose.">
+				>
+				["at0027"] = <
+					text = <"PIM3 score">
+					description = <"Beregnes på grunnlag av valgte verdier for parameterne som inngår i PIM score.">
+				>
+				["at0028"] = <
+					text = <"Sannsynlighet for død">
+					description = <"Beregnes på grunnlag av PIM score.">
+				>
+				["at0029"] = <
+					text = <"List">
+					description = <"@ internal @">
+				>
+				["at0030"] = <
+					text = <"Metode">
+					description = <"*">
+				>
+				["at0031"] = <
+					text = <"Formel">
+					description = <"Formel som er benyttet for beregning av PIM3 score og sannsynlighet for død. Brukes kun dersom det benyttes en annen formel enn den som er definert i Use.">
+				>
+				["at0032"] = <
+					text = <"Kommentar">
+					description = <"*">
+				>
+				["at0033"] = <
+					text = <"Kommentar">
+					description = <"Kommentar til PIM3 score.">
+				>
+			>
+		>
+	>
