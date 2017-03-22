@@ -1,0 +1,196 @@
+﻿archetype (adl_version=1.4; uid=2f28ec0e-90f1-4921-ac9c-897144c3a4a7)
+	openEHR-EHR-OBSERVATION.ankle_brachial_pressure_index.v0
+
+concept
+	[at0000]	-- Ankle brachial pressure index
+language
+	original_language = <[ISO_639-1::en]>
+description
+	original_author = <
+		["name"] = <"Lars Morgan Karlsen">
+		["organisation"] = <"DIPS ASA">
+		["email"] = <"lmk@dips.no">
+		["date"] = <"2017-03-21">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"The ankle-brachial pressure index (ABPI) or ankle-brachial index (ABI) is the ratio of the blood pressure at the ankle to the blood pressure in the upper arm (brachium). Compared to the arm, lower blood pressure in the leg is an indication of blocked arteries due to peripheral artery disease (PAD). The ABPI is calculated by dividing the systolic blood pressure at the ankle by the systolic blood pressure in the arm.">
+			use = <"To record the the measurement of the local systolic blood pressures of the brachium and ankle, and the ratio of the blood pressure at the ankle to the blood pressure in the upper arm (brachium).
+">
+			misuse = <"Not to be used for the measurement of arterial blood pressure which is a surrogate for arterial pressure in the systemic circulation - use the archetype OBSERVATION.blood_pressure for this purpose.">
+			copyright = <"© Nasjonal IKT HF">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <"Silje Ljosland Bakke, Nasjonal IKT HF, Norway", ...>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"Nasjonal IKT">
+		["references"] = <"https://stanfordmedicine25.stanford.edu/the25/ankle.html">
+		["current_contact"] = <"Lars Morgan Karlsen, DIPS ASA<lmk@dips.no>">
+		["original_namespace"] = <"no.nasjonalikt">
+		["original_publisher"] = <"Nasjonal IKT">
+		["custodian_namespace"] = <"no.nasjonalikt">
+		["MD5-CAM-1.0.1"] = <"A2F55047A36D5208120813B14F2344E7">
+		["build_uid"] = <"2aeed3a5-1038-46fe-85a7-8b94acac0898">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Ankle brachial pressure index
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Ankle pressure
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::125]>
+												list = <
+													["1"] = <
+														units = <"mm[Hg]">
+														magnitude = <|>=0.0|>
+														precision = <|0|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {	-- Brachial pressure
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::125]>
+												list = <
+													["1"] = <
+														units = <"mm[Hg]">
+														magnitude = <|>=0.0|>
+														precision = <|0|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Ankle-brachial pressure index
+										value matches {
+											DV_PROPORTION matches {
+												numerator matches {*}
+												is_integral matches {False}
+												type matches {1}
+											}
+										}
+									}
+									ELEMENT[at0009] occurrences matches {0..1} matches {	-- Comment
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+						state matches {
+							ITEM_TREE[at0010] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0011] occurrences matches {0..1} matches {	-- Confounding factors
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0008] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0012] occurrences matches {0..1} matches {	-- Method
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0013] occurrences matches {0..*} matches {	-- Device
+						include
+							archetype_id/value matches {/openEHR-EHR-CLUSTER\.device(-[a-zA-Z0-9_]+)*\.v1/}
+					}
+					allow_archetype CLUSTER[at0014] occurrences matches {0..*} matches {	-- Extension
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Ankle brachial pressure index">
+					description = <"Ankle-brachial pressure index (ABPI).">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"Default, unspecified point in time or interval event which may be explicitly defined in a template or at run-time.">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0005"] = <
+					text = <"Ankle-brachial pressure index">
+					description = <"Ankle-brachial pressure index (ABPI).">
+					comment = <"The ankle-brachial pressure index (ABPI) or ankle-brachial index (ABI) is the ratio of the blood pressure at the ankle to the blood pressure in the upper arm (brachium). Compared to the arm, lower blood pressure in the leg is an indication of blocked arteries due to peripheral artery disease (PAD). The ABPI is calculated by dividing the systolic blood pressure at the ankle by the systolic blood pressure in the arm.">
+				>
+				["at0006"] = <
+					text = <"Brachial pressure">
+					description = <"The measured blood pressure in the upper arm (brachium).">
+				>
+				["at0007"] = <
+					text = <"Ankle pressure">
+					description = <"The measured blood pressure at the ankle.">
+				>
+				["at0008"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0009"] = <
+					text = <"Comment">
+					description = <"Additional narrative about the ankle-brachial pressure index, not captured in other fields.">
+				>
+				["at0010"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0011"] = <
+					text = <"Confounding factors">
+					description = <"Comment on and record other incidental factors that may be contributing to the measurement.">
+				>
+				["at0012"] = <
+					text = <"Method">
+					description = <"Method of measurement.">
+					comment = <"For example: Doppler blood flow detector and a sphygmomanometer.">
+				>
+				["at0013"] = <
+					text = <"Device">
+					description = <"Details about Doppler, sphygmomanometer or other device used to measure the blood pressure.">
+				>
+				["at0014"] = <
+					text = <"Extension">
+					description = <"Additional information required to capture local context or to align with other reference models/formalisms.">
+					comment = <"For example: Local hospital departmental infomation or additional metadata to align with FHIR or CIMI equivalents.">
+				>
+			>
+		>
+	>
