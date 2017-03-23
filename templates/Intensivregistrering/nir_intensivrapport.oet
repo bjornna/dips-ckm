@@ -292,8 +292,8 @@
           <includedValues>nir::JSC::Annet</includedValues>
         </constraint>
       </Rule>
-      <Rule path="/data[at0001]/items[at0005]" max="1" name="Årsak overføringen til denne intensivenheten" />
-      <Rule path="/data[at0001]/items[at0005]" max="1" clone="true" name="Årsak overføringen fra denne intensivenheten" />
+      <Rule path="/data[at0001]/items[at0005]" max="1" name="Årsak til overføring til denne intensivenheten" />
+      <Rule path="/data[at0001]/items[at0005]" max="1" clone="true" name="Årsak til overføring fra denne intensivenheten" />
     </Content>
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.contact_summary_dips.v1" concept_name="contact summary" path="/content">
       <Rule path="/data[at0001]/items[at0017]" name="Pasienten er overført til denne intensivenhet fra hvilken enhet/sykehus">
@@ -437,43 +437,19 @@
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.nir_klinisk_informasjon.v1" concept_name="Nir klinisk informasjon" path="/content" />
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.nir_mekanisk_ventilasjon.v1" concept_name="Mekanisk ventilasjon" path="/content" />
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.saps_score_dips.v1" concept_name="Saps score dips" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.saps_grunnlagsdata_dips.v1" concept_name="Saps grunnlagsdata dips" path="/content" />
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.nir_sofa_uttrekk.v1" concept_name="Nir sofa uttrekk" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.pao2_fio2_ratio_dips.v1" concept_name="PaO2-FiO2 ratioer" path="/content" />
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.pim3_score_dips.v1" concept_name="Pim3 score" path="/content" />
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.nir_tilleggsdata_barn.v1" concept_name="Nir tilleggsdata barn" path="/content" />
-    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.nir_sofa_uttrekk.v1" concept_name="Nir sofa uttrekk" path="/content" />
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/diagnose" path="/content">
-      <Rule path="/data[at0001]/items[at0002]" name="Diagnose" />
-    </Content>
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/diagnose" max="1" path="/content" name="Problem/diagnose #4">
-      <Rule path="/data[at0001]/items[at0002]" name="Diagnose" />
-    </Content>
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/diagnose" max="1" path="/content" name="Problem/diagnose #3">
-      <Rule path="/data[at0001]/items[at0002]" name="Diagnose" />
-    </Content>
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/diagnose" max="1" path="/content" name="Problem/diagnose #2">
-      <Rule path="/data[at0001]/items[at0002]" name="Diagnose" />
-    </Content>
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/diagnose" max="1" path="/content" name="Problem/diagnose #1">
-      <Rule path="/data[at0001]/items[at0002]" name="Diagnose" />
+      <Rule path="/data[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="ICD10" terminologyLang="en-GB" queryName="ICD10" />
+        </constraint>
+      </Rule>
     </Content>
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.nir_organdonasjon.v1" concept_name="Nir organdonasjon" path="/content" />
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test.v0" concept_name="Laboratoriesvar" path="/content">
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_panel.v0" concept_name="Laboratoriesvargruppe" path="/data[at0001]/events[at0002]/data[at0003]/items[at0097]">
-        <Rule path="/items[at0002]/items[at0001]" name="PaO2">
-          <constraint xsi:type="quantityConstraint">
-            <includedUnits>kPa</includedUnits>
-            <unitMagnitude>
-              <unit>kPa</unit>
-              <maxMagnitude>20</maxMagnitude>
-              <minMagnitude>5</minMagnitude>
-              <precision>2</precision>
-              <includesMaximum>true</includesMaximum>
-              <includesMinimum>true</includesMinimum>
-            </unitMagnitude>
-          </constraint>
-        </Rule>
-      </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.ambient_oxygen_dips.v1" concept_name="Ambient oxygen" path="/data[at0001]/events[at0002]/state[at0112]/items[at0114]" />
-    </Content>
     <Context />
   </definition>
 </template>
