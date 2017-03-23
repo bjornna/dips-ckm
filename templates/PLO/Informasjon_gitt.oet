@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
-  <id>ba622205-0e6d-4a57-8c97-bfefe4e3dd82</id>
-  <name>pao2_fio2</name>
+  <id>e16080c5-dc4d-4666-be53-79843370ba16</id>
+  <name>Informasjon_gitt</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
@@ -60,15 +60,26 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt">
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.pao2_fio2_sfa.v0" concept_name="PaO2-FiO2 sfa" path="/content">
-      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
-        <constraint xsi:type="quantityConstraint">
-          <excludedUnits>atm</excludedUnits>
-          <excludedUnits>mm[Hg]</excludedUnits>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.admin_informasjon_dips.v1" concept_name="Admin informasjon dips v1">
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.informasjon_gitt_dips.v1" concept_name="Informasjon gitt" path="/content">
+      <Rule path="/data[at0001]/items[at0004]/items[at0006]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Muntlig</includedValues>
+          <includedValues>Skriftlig</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0004]/items[at0005]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Pasient</includedValues>
+          <includedValues>Pårørende</includedValues>
+          <includedValues>Andre</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0008]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="HEALTHCAREPARTY" />
         </constraint>
       </Rule>
     </Content>
-    <Context />
   </definition>
 </template>

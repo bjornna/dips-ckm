@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
-  <id>77778599-361f-485d-80bf-8d9e7c9bb47b</id>
-  <name>sfa_test_blodtrykk</name>
+  <id>236a3869-678c-4978-b6f8-07eddf65d635</id>
+  <name>Intensiv_diagnoser</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
@@ -60,8 +60,15 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter-persistence.v1" concept_name="Klinisk kontakt">
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.nir_tilleggsdata_barn.v1" concept_name="Nir tilleggsdata barn" path="/content" />
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.pim3_score_dips.v1" concept_name="Pim3 score" path="/content" />
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt">
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/diagnose" path="/content">
+      <Rule path="/data[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="ICD10" terminologyLang="en-GB" queryName="ICD10" />
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.diagnose_prioritet_dips.v1" concept_name="Diagnose prioritet dips" max="1" path="/data[at0001]/items[at0043]" />
+    </Content>
+    <Context />
   </definition>
 </template>

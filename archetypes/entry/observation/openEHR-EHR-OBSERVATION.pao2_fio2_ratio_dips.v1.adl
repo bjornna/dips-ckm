@@ -29,7 +29,7 @@ description
 		["build_uid"] = <"356efe68-a866-4270-b85d-06d518b4d6f0">
 		["original_namespace"] = <"no.nasjonalikt">
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
-		["MD5-CAM-1.0.1"] = <"5B971F946BF5434BB7FF25881AC8DFB1">
+		["MD5-CAM-1.0.1"] = <"EC4AB3EB3DDFC8448287FEC0277F8A1D">
 		["custodian_namespace"] = <"no.nasjonalikt">
 		["custodian_organisation"] = <"Nasjonal IKT">
 	>
@@ -45,50 +45,48 @@ definition
 								items cardinality matches {0..*; unordered} matches {
 									ELEMENT[at0004] occurrences matches {0..1} matches {	-- PaO2/FiO2
 										value matches {
-											C_DV_QUANTITY <
-												property = <[openehr::125]>
-												list = <
-													["1"] = <
-														units = <"kPa">
-													>
-													["2"] = <
-														units = <"mm[Hg]">
-													>
-												>
-											>
+											DV_PROPORTION matches {
+												numerator matches {|>0.0|}
+												denominator matches {|>0.0|}
+												is_integral matches {False}
+												type matches {0, 2}
+											}
 										}
 									}
 									ELEMENT[at0008] occurrences matches {0..1} matches {	-- (FiO2*100)/PaO2
 										value matches {
-											C_DV_QUANTITY <
-												property = <[openehr::507]>
-												list = <
-													["1"] = <
-														units = <"">
-														magnitude = <|>=0.0|>
-														precision = <|2|>
-													>
-												>
-											>
+											DV_PROPORTION matches {*}
 										}
 									}
 									ELEMENT[at0009] occurrences matches {0..1} matches {	-- FiO2/PaO2
 										value matches {
-											C_DV_QUANTITY <
-												property = <[openehr::507]>
-												list = <
-													["1"] = <
-														units = <"">
-														magnitude = <|>=0.0|>
-														precision = <|2|>
-													>
-												>
-											>
+											DV_PROPORTION matches {*}
 										}
 									}
 									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Kommentar
 										value matches {
 											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0010] occurrences matches {0..1} matches {	-- PaO2/FiO2
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::125]>
+												list = <
+													["1"] = <
+														units = <"kPa">
+														magnitude = <|0.0|>
+														precision = <|3|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0011] occurrences matches {0..1} matches {	-- (FiO2*100)/PaO2
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::118]>
+											>
 										}
 									}
 								}
@@ -154,6 +152,14 @@ ontology
 				["at0009"] = <
 					text = <"FiO2/PaO2">
 					description = <"FiO2/PaO2 er lik fraksjonen av innåndet oksygen dividert med partialtrykket av oksygen.">
+				>
+				["at0010"] = <
+					text = <"PaO2/FiO2">
+					description = <"PaO2/FiO2 er lik partialtrykket av oksygen dividert med fraksjonen av innåndet oksygen.">
+				>
+				["at0011"] = <
+					text = <"(FiO2*100)/PaO2">
+					description = <"(FiO2*100)/PaO2 er lik fraksjonen av innåndet oksygen multiplisert med 100 dividert på partialtrykket til oksygen.">
 				>
 			>
 		>
