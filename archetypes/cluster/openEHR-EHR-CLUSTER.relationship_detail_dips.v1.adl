@@ -1,0 +1,87 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.relationship_detail_dips.v1
+
+concept
+	[at0000]	-- Relationship detail
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for å dokumentere pårørende,pårørendetype, adresse/telefon og omsorgsfunksjon">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"20E4B88EEF8657CFC23433C98402ADC3">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Relationship detail
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Type pårørende
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			allow_archetype CLUSTER[at0002] occurrences matches {0..*} matches {	-- Person detaljer
+				include
+					archetype_id/value matches {/.*/}
+			}
+			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Relasjon
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0004] occurrences matches {0..1} matches {	-- Omsorgsfunksjon
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0005] occurrences matches {0..1} matches {	-- Viktig info
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Relationship detail">
+					description = <"Beskrive type pårørende, omsorgsfunksjon og adresse/telefon.">
+				>
+				["at0001"] = <
+					text = <"Type pårørende">
+					description = <"Type pårørende er hovedpårørende, barn som pårørende osv.">
+				>
+				["at0002"] = <
+					text = <"Person detaljer">
+					description = <"Informasjon om navn, adresse, telefon.">
+				>
+				["at0003"] = <
+					text = <"Relasjon">
+					description = <"Hvilken relasjon pasient har til person, mor, far, barn, ektefelle, venn, nabo, kollega.">
+				>
+				["at0004"] = <
+					text = <"Omsorgsfunksjon">
+					description = <"Benyttes for å registrere at en person har en spesiell omsorgsfunksjon, f.eks foreldrerett eller formynderskap i forhold til pasienten.">
+				>
+				["at0005"] = <
+					text = <"Viktig info">
+					description = <"Beskrive viktig informasjon i tilknytning til pårørende">
+				>
+			>
+		>
+	>

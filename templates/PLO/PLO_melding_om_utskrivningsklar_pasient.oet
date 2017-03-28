@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
-  <id>13793663-5255-40aa-ad50-c6994ba96ae2</id>
-  <name>PLO_utskrivningsklar_pasient</name>
+  <id>9e29bf36-1da5-4899-ac35-3d40f445894f</id>
+  <name>PLO_melding_om_utskrivningsklar_pasient.</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
@@ -60,61 +60,48 @@
       </item>
     </other_details>
   </description>
-  <annotations path="[openEHR-EHR-COMPOSITION.plo_helseopplysninger1_5.v1]/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.meldingstype.v0]/items[at0001]">
-    <items>
-      <item>
-        <key>Notes.Comment</key>
-        <value>Sett inn kode (Volven 8279)</value>
-      </item>
-    </items>
-  </annotations>
-  <annotations path="[openEHR-EHR-COMPOSITION.plo_helseopplysninger1_5.v1]/content[openEHR-EHR-ACTION.trajectory_follow_up.v1 and name/value='Utskrivningsklar ']/description[at0001]/items[at0002]">
-    <items>
-      <item>
-        <key>Notes.Comment</key>
-        <value>sett inn kode (Volven 9121)</value>
-      </item>
-    </items>
-  </annotations>
-  <annotations path="[openEHR-EHR-COMPOSITION.plo_helseopplysninger1_5.v1]/content[openEHR-EHR-ADMIN_ENTRY.contact_summery.v0]/data[at0001]/items[openEHR-EHR-CLUSTER.individual_professional.v1]/items[openEHR-EHR-CLUSTER.person_name.v1]/items[at0001]">
-    <items>
-      <item>
-        <key>Notes.Comment</key>
-        <value>sett inn kodeverk dips: HEALTHCAREPARTY</value>
-      </item>
-    </items>
-  </annotations>
-  <annotations path="[openEHR-EHR-COMPOSITION.plo_helseopplysninger1_5.v1]/content[openEHR-EHR-ADMIN_ENTRY.contact_summery.v0]/data[at0001]/items[openEHR-EHR-CLUSTER.individual_professional.v1]/items[at0003]/items[openEHR-EHR-CLUSTER.professional_role.v1]/items[at0001]">
-    <items>
-      <item>
-        <key>Notes.Comment</key>
-        <value>Comment	sett inn kodeverk (Volven 9034)</value>
-      </item>
-    </items>
-  </annotations>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.plo_helseopplysninger1_5.v1" concept_name="PLO">
-    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Innleggelse">
-      <Rule path="/description[at0001]/items[at0002]" name="Innleggelsestidspunkt">
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Rapport">
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.contact_summary_dips.v1" concept_name="contact summary" path="/content">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.individual_professional_dips.v1" concept_name="*Professional demographics detail(en)" max="1" path="/data[at0001]/items[at0008]" name="Behandlingsansvarlig lege">
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.person_name_dips.v1" concept_name="Person navn" path="/items[at0015]">
+          <Rule path="/items[at0001]">
+            <constraint xsi:type="textConstraint">
+              <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="HEALTHCAREPARTY" />
+            </constraint>
+          </Rule>
+        </Items>
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.rolle_ovenfor_pasient_dips.v1" concept_name="Rolle ovenfor pasient" path="/items[at0003]/items[at0016]">
+          <Rule path="/items[at0001]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>2.16.578.1.12.4.1.1-9034::3::Behandlingsansvarlig lege</includedValues>
+            </constraint>
+          </Rule>
+        </Items>
+      </Items>
+    </Content>
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Utskrivningsklar">
+      <Rule path="/description[at0001]/items[at0002]" name="Utskrivningsklar">
         <constraint xsi:type="textConstraint">
-          <includedValues>2.16.578.1.12.4.1.1-9121::1::Pasient innlagt</includedValues>
+          <includedValues>2.16.578.1.12.4.1.1-9121::3::Pasient utskrivningsklar</includedValues>
         </constraint>
       </Rule>
     </Content>
-    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Utskrivningsklar ">
-      <Rule path="/description[at0001]/items[at0002]" name="Utskrivningsklar hendelse" />
-    </Content>
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Avmelding utskrivningsklar">
-      <Rule path="/description[at0001]/items[at0002]" name="Avmelding utskrivningsklar hendelse" />
-    </Content>
-    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.plo_status.v0" concept_name="Plo status" path="/content" />
-    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.contact_summery.v0" concept_name="contact summery" max="1" path="/content" name="Contact summary">
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.individual_professional.v1" concept_name="*Professional demographics detail(en)" path="/data[at0001]/items[at0008]">
-        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.person_name.v1" concept_name="Person navn" path="/items[at0015]" />
-        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.professional_role.v1" concept_name="Profesjonsrolle" path="/items[at0003]/items[at0016]" />
-      </Items>
+      <Rule path="/description[at0001]/items[at0002]" name="Avmelding utskrivningsklar">
+        <constraint xsi:type="textConstraint">
+          <includedValues>2.16.578.1.12.4.1.1-9121::4::Avmelding av utskrivningsklar pasient</includedValues>
+        </constraint>
+      </Rule>
     </Content>
     <Context>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.meldingstype.v0" concept_name="Meldingstype" path="/context/other_context[at0001]/items[at0003]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.meldingstype_dips.v1" concept_name="Meldingstype" path="/context/other_context[at0001]/items[at0006]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>2.16.578.1.12.4.1.1-8279::LOG_AVMELDING::Avmelding av utskrivningsklar pasient</includedValues>
+            <includedValues>2.16.578.1.12.4.1.1-8279::LOG_UTSKRIVNINGSKLAR::Melding om utskrivningsklar pasient</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
     </Context>
   </definition>
 </template>

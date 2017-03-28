@@ -1,0 +1,107 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ACTION.plo_status_dips.v1
+
+concept
+	[at0000]	-- Plo status
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"9C07AA7CB0424E0AD23A4B3628563140">
+	>
+
+definition
+	ACTION[at0000] matches {	-- Plo status
+		ism_transition matches {
+			ISM_TRANSITION[at0002] matches {	-- Active
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0002]}		-- Active
+					}
+				}
+			}
+			ISM_TRANSITION[at0003] matches {	-- Completed
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0003]}		-- Completed
+					}
+				}
+			}
+		}
+		description matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Start
+						value matches {
+							DV_DATE_TIME matches {
+								value matches {yyyy-mm-ddTHH:MM:SS}
+							}
+						}
+					}
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Slutt
+						value matches {
+							DV_DATE_TIME matches {
+								value matches {yyyy-mm-ddTHH:MM:SS}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Plo status">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Active">
+					description = <"Start">
+				>
+				["at0003"] = <
+					text = <"Completed">
+					description = <"Slutt">
+				>
+				["at0004"] = <
+					text = <"Start">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Slutt">
+					description = <"*">
+				>
+			>
+		>
+	>
