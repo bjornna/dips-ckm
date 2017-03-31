@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
-  <id>2963310e-8b64-494e-9654-00c6cfcbeeb6</id>
-  <name>Status_og_antatt_forløp</name>
+  <id>8d794f28-0a68-486e-a0fb-a83acb51a6d3</id>
+  <name>Cave</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
@@ -60,8 +60,28 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.health_summary.v1" concept_name="Health summary">
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.clinical_synopsis.v1" concept_name="Klinisk sammendrag" max="1" path="/content" name="Status og antatt forløp" />
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.adverse_reaction_list_dips.v1" concept_name="Liste over overfølsomhetsreaksjoner">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.cave_classic_dips.v1" concept_name="Cave classic" path="/content">
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0007]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Lav</includedValues>
+          <includedValues>Høy</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0010]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="HEALTHCAREPARTY" />
+        </constraint>
+      </Rule>
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.kritisk_info_classic_dips.v1" concept_name="Kritisk info classic" path="/content">
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0014]/items[at0006]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Lav</includedValues>
+          <includedValues>Høy</includedValues>
+        </constraint>
+      </Rule>
+    </Content>
     <Context />
   </definition>
 </template>
