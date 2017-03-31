@@ -2,10 +2,16 @@
 	openEHR-EHR-COMPOSITION.request.v1
 
 concept
-	[at0000]	-- Request for service
+	[at0000]	-- Tjenesteforespørsel
 language
 	original_language = <[ISO_639-1::en]>
 	translations = <
+		["ar-sy"] = <
+			language = <[ISO_639-1::ar-sy]>
+			author = <
+				["name"] = <"Mona Saleh">
+			>
+		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
 			author = <
@@ -13,18 +19,12 @@ language
 				["organisation"] = <"Haukeland Universitetssjukehus">
 			>
 		>
-		["ar-sy"] = <
-			language = <[ISO_639-1::ar-sy]>
-			author = <
-				["name"] = <"Mona Saleh">
-			>
-		>
 	>
 description
 	original_author = <
 		["name"] = <"Dr Ian McNicoll">
-		["organisation"] = <"freshEHR Informatics, UK">
 		["email"] = <"ian@freshehr.com">
+		["organisation"] = <"freshEHR Informatics, UK">
 		["date"] = <"2008-01-08">
 	>
 	details = <
@@ -76,21 +76,22 @@ Forespørselsdokumentet kan ha en spesifikk mottaker (spesifikk helsetjenesteyte
 			misuse = <"Brukes ikke for å registrere detaljer om en enkel interaksjon, kontakt eller omsorgshendelse mellom et individ og helsepersonell. Bruk arketypen Klinisk kontakt (COMPOSITION.encounter) for dette formålet
 
 Brukes ikke som overflyttingsnotat/epikrise til andre organisasjoner eller tjenesteytere. Bruk Overføringsdokument (COMPOSITION.transfer_summary) for dette formålet.">
+			copyright = <"">
 		>
 	>
 	lifecycle_state = <"published">
 	other_contributors = <"Nadim Anani, Karolinska Institutet, Sweden", "Anne Pauline Anderssen, Helse Nord RHF, Norway", "Vebjørn Arntzen, Oslo universitetssykehus HF, Norway (Nasjonal IKT redaktør)", "Silje Ljosland Bakke, Nasjonal IKT HF, Norway (Nasjonal IKT redaktør)", "Lars Bitsch-Larsen, Haukeland University hospital, Norway", "Terje Bless, Helse Nord FIKS, Norway", "Rose Mari Eikås, Helse Bergen, Norway", "Shahla Foozonkhah, Ocean Informatics, Australia", "Heather Grain, Llewelyn Grain Informatics, Australia", "Bjørn Grøva, Diretoratet for e-helse, Norway", "Kristian Heldal, Telemark Hospital Trust, Norway", "Lars Karlsen, DIPS ASA, Norway", "Lars Morgan Karlsen, DIPS ASA, Norway", "Shinji Kobayashi, Kyoto University, Japan", "Heather Leslie, Ocean Informatics, Australia (openEHR Editor)", "Hallvard Lærum, Oslo Universitetssykehus HF, Norway", "Ian McNicoll, freshEHR Clinical Informatics, United Kingdom (openEHR Editor)", "Bjørn Næss, DIPS ASA, Norway", "Andrej Orel, Marand d.o.o., Slovenia", "Norwegian Review Summary, Nasjonal IKT, Norway", "Jussara Rotzsch, UNB, Brazil", "Line Sæle, Nasjonal IKT HF, Norway", "Jon Tysdahl, Furst medlab AS, Norway", "John Tore Valand, Haukeland Universitetssjukehus, Norway (Nasjonal IKT redaktør)">
 	other_details = <
-		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
-		["custodian_organisation"] = <"openEHR Foundation">
-		["references"] = <"FHIR ReferralRequest resource: http://hl7-fhir.github.io/referralrequest.html">
-		["current_contact"] = <"Heather Leslie, Ocean Informatics<heather.leslie@oceaninformatics.com>">
-		["original_namespace"] = <"org.openehr">
-		["original_publisher"] = <"openEHR Foundation">
-		["custodian_namespace"] = <"org.openehr">
-		["MD5-CAM-1.0.1"] = <"115E5B757528A9F024C561692EAB86CF">
-		["build_uid"] = <"009815d7-8841-4beb-bab3-adacd1a57fc1">
 		["revision"] = <"1.1.0">
+		["original_publisher"] = <"openEHR Foundation">
+		["current_contact"] = <"Heather Leslie, Ocean Informatics<heather.leslie@oceaninformatics.com>">
+		["build_uid"] = <"009815d7-8841-4beb-bab3-adacd1a57fc1">
+		["original_namespace"] = <"org.openehr">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["references"] = <"FHIR ReferralRequest resource: http://hl7-fhir.github.io/referralrequest.html">
+		["MD5-CAM-1.0.1"] = <"457E6CEE160D16A8EF2876B4BAA5F5A6">
+		["custodian_namespace"] = <"org.openehr">
+		["custodian_organisation"] = <"openEHR Foundation">
 	>
 
 definition
@@ -104,7 +105,7 @@ definition
 			EVENT_CONTEXT matches {
 				other_context matches {
 					ITEM_TREE[at0001] matches {	-- Tree
-						items cardinality matches {1..*; unordered} matches {
+						items cardinality matches {0..*; unordered} matches {
 							allow_archetype CLUSTER[at0042] occurrences matches {0..*} matches {	-- Tilleggsinformasjon
 								include
 									archetype_id/value matches {/.*/}
@@ -115,7 +116,6 @@ definition
 			}
 		}
 	}
-
 
 ontology
 	term_definitions = <

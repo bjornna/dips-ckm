@@ -1,0 +1,533 @@
+﻿archetype (adl_version=1.4; uid=cea90213-ddfc-4715-bd2a-b2263ff1081a)
+	openEHR-EHR-ACTION.service.v0
+
+concept
+	[at0000]	-- Tjeneste
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["name"] = <"Bjørn Næss">
+				["email"] = <"bna@dips.no">
+				["organisation"] = <"DIPS ASA">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Heather Leslie">
+		["email"] = <"heather.leslie@oceaninformatics.com">
+		["organisation"] = <"Ocean Informatics">
+		["date"] = <"2015-12-21">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record information about the execution of a request for a health-related service.">
+			use = <"Use to record information about the execution of a request for a health-related service. This is done by recording relevant data against any or all of activities specified in the 'Planned', 'Scheduled', 'Active', 'Suspended', 'Cancelled', 'Postponed', 'Aborted' pathway steps.
+
+The scope of this archetype deliberately encompasses activities for a broad range of clinical services. Examples include, but are not limited to:
+- self-referral by a patient for a check-up visit to a dentist for preventive care or a series of visits to a physiotherapist for management of a musculoskeletal strain; and
+- a referral from a requesting healthcare provider, such as a primary care clinician, to a receiving healthcare provider, such as a specialist, for the patient to receive a specific service, advice or care.
+
+Additional structured and detailed information about the service can be captured using purpose-specific archetypes inserted into the 'Service detail' slot, where required.
+
+Timings related to a procedure can be managed in one of two ways:
+- using the reference model - the time for performance of any pathway step will use the ACTION time attribute for each step; and
+- using the archetyped data - the 'Scheduled date/time' data element is intended to record the precise time when the service is planned. Note: the corresponding ACTION time attribute for the Scheduled pathway step will record the time that the service was scheduled into a system, not the intended date/time on which the service is intended to be carried out.
+
+In practice, some services (for example, in ambulatory care) will occur once and not be ordered in advance. The details about the service will be added against the pathway step, 'Service completed'. In some cases a recurring service will be ordered, and in this situation data against the 'Service delivered' step will be recorded on each occasion, leaving the instruction in the active state. When the last delivery of the service is recorded, the 'Service completed' action is recorded showing that this order is now in the completed state.
+
+In other situations, such as secondary care, there may be a formal order for a procedure using a corresponding INSTRUCTION.request archetype. This ACTION archetype can then be used to record the workflow of when and how the order has been carried out.
+
+This archetype may only be used in two ways:
+- as a full record of the service that was delivered; or
+- as a framework to record primarily the state of the requested service, with separate OBSERVATION archetypes used to record the actual test results for the delivered service - for example OBSERVATION.hearing_screening_result.
+
+Recording information using this ACTION archetype indicates that some sort of activity has actually occurred; this will usually be the service delivery itself but may be a failed attempt or another activity such as postponement of the service delivery. If there is a formal order for the procedure, the state of this order is represented by the Pathway step against which the data is recorded. For example, using this archetype the progressing state of a referral request may be recorded through separate entries in the EHR progress notes at each 'Pathway' step:
+- record the scheduled Start date/time for the referral (Service scheduled); and
+- record that the referral has been completed, potentially including information about the service delivered (Service completed).
+
+Please note that in the openEHR Reference Model there is a 'Time' attribute, which is intended to record the date and time at which each pathway step of the Action was performed. This is the attribute to use to record the start of the procedure (using the 'Service delivered' pathway step) or the time that the service was aborted (using the 'Service abandoned' pathway step).">
+			keywords = <"referral", "visit", "encounter">
+			misuse = <"Not to be used to record data about activities carried out for activities that require a purpose built ACTION archetype because they have very specific data recording or pathway step requirements. For example: ACTION.procedure or ACTION.health_education.">
+			copyright = <"© Northern Territory Department of Health, Australia">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For å registrere informasjon knyttet til utførelse av en helserelatert tjeneste. ">
+			use = <"*Use to record information about the execution of a request for a health-related service. This is done by recording relevant data against any or all of activities specified in the 'Planned', 'Scheduled', 'Active', 'Suspended', 'Cancelled', 'Postponed', 'Aborted' pathway steps.
+
+The scope of this archetype deliberately encompasses activities for a broad range of clinical services. Examples include, but are not limited to:
+- self-referral by a patient for a check-up visit to a dentist for preventive care or a series of visits to a physiotherapist for management of a musculoskeletal strain; and
+- a referral from a requesting healthcare provider, such as a primary care clinician, to a receiving healthcare provider, such as a specialist, for the patient to receive a specific service, advice or care.
+
+Additional structured and detailed information about the service can be captured using purpose-specific archetypes inserted into the 'Service detail' slot, where required.
+
+Timings related to a procedure can be managed in one of two ways:
+- using the reference model - the time for performance of any pathway step will use the ACTION time attribute for each step; and
+- using the archetyped data - the 'Scheduled date/time' data element is intended to record the precise time when the service is planned. Note: the corresponding ACTION time attribute for the Scheduled pathway step will record the time that the service was scheduled into a system, not the intended date/time on which the service is intended to be carried out.
+
+In practice, some services (for example, in ambulatory care) will occur once and not be ordered in advance. The details about the service will be added against the pathway step, 'Service completed'. In some cases a recurring service will be ordered, and in this situation data against the 'Service delivered' step will be recorded on each occasion, leaving the instruction in the active state. When the last delivery of the service is recorded, the 'Service completed' action is recorded showing that this order is now in the completed state.
+
+In other situations, such as secondary care, there may be a formal order for a procedure using a corresponding INSTRUCTION.request archetype. This ACTION archetype can then be used to record the workflow of when and how the order has been carried out.
+
+This archetype may only be used in two ways:
+- as a full record of the service that was delivered; or
+- as a framework to record primarily the state of the requested service, with separate OBSERVATION archetypes used to record the actual test results for the delivered service - for example OBSERVATION.hearing_screening_result.
+
+Recording information using this ACTION archetype indicates that some sort of activity has actually occurred; this will usually be the service delivery itself but may be a failed attempt or another activity such as postponement of the service delivery. If there is a formal order for the procedure, the state of this order is represented by the Pathway step against which the data is recorded. For example, using this archetype the progressing state of a referral request may be recorded through separate entries in the EHR progress notes at each 'Pathway' step:
+- record the scheduled Start date/time for the referral (Service scheduled); and
+- record that the referral has been completed, potentially including information about the service delivered (Service completed).
+
+Please note that in the openEHR Reference Model there is a 'Time' attribute, which is intended to record the date and time at which each pathway step of the Action was performed. This is the attribute to use to record the start of the procedure (using the 'Service delivered' pathway step) or the time that the service was aborted (using the 'Service abandoned' pathway step).(en)">
+			keywords = <"*referral(en)", "*visit(en)", "*encounter(en)", "henvisning", "besøk", "kontakt">
+			misuse = <"*Not to be used to record data about activities carried out for activities that require a purpose built ACTION archetype because they have very specific data recording or pathway step requirements. For example: ACTION.procedure or ACTION.health_education.(en)">
+			copyright = <"© Northern Territory Department of Health, Australia">
+		>
+	>
+	lifecycle_state = <"NotSet">
+	other_contributors = <>
+	other_details = <
+		["revision"] = <"0.0.1-alpha">
+		["original_publisher"] = <"nehta, Australia">
+		["current_contact"] = <"Heather Leslie, Ocean Informatics<heather.leslie@oceaninformatics.com>">
+		["build_uid"] = <"6154b061-b5dd-41b1-bf3d-0e06a5f71fdd">
+		["original_namespace"] = <"au.org.nehta">
+		["MD5-CAM-1.0.1"] = <"1F1CA873DC8885F91FD3E891D49BAA13">
+		["custodian_namespace"] = <"au.org.nehta">
+		["custodian_organisation"] = <"nehta, Australia">
+	>
+
+definition
+	ACTION[at0000] matches {	-- Tjeneste
+		ism_transition matches {
+			ISM_TRANSITION[at0002] matches {	-- Tjeneste planlagt
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::526]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0002]}		-- Tjeneste planlagt
+					}
+				}
+			}
+			ISM_TRANSITION[at0026] matches {	-- Tjenesterekvirering sendt
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::526]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0026]}		-- Tjenesterekvirering sendt
+					}
+				}
+			}
+			ISM_TRANSITION[at0008] matches {	-- Tjeneste utsatt
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::527]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0008]}		-- Tjeneste utsatt
+					}
+				}
+			}
+			ISM_TRANSITION[at0009] matches {	-- Tjeneste kansellert
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::528]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0009]}		-- Tjeneste kansellert
+					}
+				}
+			}
+			ISM_TRANSITION[at0003] matches {	-- Tjeneste tidsfastsatt
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::529]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0003]}		-- Tjeneste tidsfastsatt
+					}
+				}
+			}
+			ISM_TRANSITION[at0004] matches {	-- Tjeneste levert
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0004]}		-- Tjeneste levert
+					}
+				}
+			}
+			ISM_TRANSITION[at0010] matches {	-- Tjeneste satt på vent
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::530]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0010]}		-- Tjeneste satt på vent
+					}
+				}
+			}
+			ISM_TRANSITION[at0006] matches {	-- Tjeneste avbrutt
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::531]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0006]}		-- Tjeneste avbrutt
+					}
+				}
+			}
+			ISM_TRANSITION[at0023] matches {	-- Tjeneste utløpt
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::531]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0023]}		-- Tjeneste utløpt
+					}
+				}
+			}
+			ISM_TRANSITION[at0005] matches {	-- Tjenesteaktiviteten fullført
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0005]}		-- Tjenesteaktiviteten fullført
+					}
+				}
+			}
+		}
+		description matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0011] occurrences matches {0..1} matches {	-- Tjenestenavn
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0014] occurrences matches {0..1} matches {	-- Tjenestetype
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0013] occurrences matches {0..1} matches {	-- Beskrivelse
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0027] occurrences matches {0..*} matches {	-- Tjeneste detaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0025] occurrences matches {0..1} matches {	-- Planlagt tid
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0021] occurrences matches {0..1} matches {	-- Sekvens
+						value matches {
+							DV_COUNT matches {
+								magnitude matches {|>=0|}
+							}
+						}
+					}
+					allow_archetype CLUSTER[at0029] occurrences matches {0..*} matches {	-- Multimedia
+						include
+							archetype_id/value matches {/openEHR-EHR-CLUSTER\.multimedia(-[a-zA-Z0-9_]+)*\.v1/}
+					}
+					ELEMENT[at0012] occurrences matches {0..1} matches {	-- Årsak
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0028] occurrences matches {0..1} matches {	-- Kommentar
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0015] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0016] occurrences matches {0..1} matches {	-- Rekvirent identifikasjon
+						value matches {
+							DV_IDENTIFIER matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0017] occurrences matches {0..*} matches {	-- Rekvirent
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0018] occurrences matches {0..1} matches {	-- Mottaker identifikasjon
+						value matches {
+							DV_IDENTIFIER matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0019] occurrences matches {0..*} matches {	-- Mottaker
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Service">
+					description = <"A general clinical activity carried out for the patient to receive a specified service, advice or care from an expert healthcare provider.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Service planned">
+					description = <"Service request to healthcare provider is planned.">
+				>
+				["at0003"] = <
+					text = <"Service scheduled">
+					description = <"Appointment for a healthcare provider service has been made.">
+				>
+				["at0004"] = <
+					text = <"Service delivered">
+					description = <"The healthcare provider has delivered the service.">
+				>
+				["at0005"] = <
+					text = <"Service activity complete">
+					description = <"All service activities have been completed.">
+				>
+				["at0006"] = <
+					text = <"Service abandoned">
+					description = <"The referral has been ceased before the service has been completed.">
+				>
+				["at0008"] = <
+					text = <"Service postponed">
+					description = <"The planned service has been postponed.">
+				>
+				["at0009"] = <
+					text = <"Service cancelled">
+					description = <"The planned service has been cancelled prior to commencement.">
+				>
+				["at0010"] = <
+					text = <"Service suspended">
+					description = <"The service has been suspended without completion.">
+				>
+				["at0011"] = <
+					text = <"Service name">
+					description = <"Identification of the clinical service to be/being carried out.">
+					comment = <"Coding of the specific service name with a terminology is preferred, where possible.">
+				>
+				["at0012"] = <
+					text = <"Reason">
+					description = <"Reason that the activity or care pathway step for the identified service was carried out.">
+					comment = <"For example: the reason for the cancellation or suspension of the service.">
+				>
+				["at0013"] = <
+					text = <"Description">
+					description = <"Narrative description about the service, as appropriate for the pathway step.">
+				>
+				["at0014"] = <
+					text = <"Service type">
+					description = <"Type of service to be carried out or being carried out.">
+				>
+				["at0015"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0016"] = <
+					text = <"Requestor identifier">
+					description = <"The local ID assigned to the order by the healthcare provider or organisation requesting the service. This is also referred to as Placer Order Identifier.">
+				>
+				["at0017"] = <
+					text = <"Requestor">
+					description = <"Details about the healthcare provider or organisation requesting the service.">
+				>
+				["at0018"] = <
+					text = <"Receiver identifier">
+					description = <"The ID assigned to the order by the healthcare provider or organisation receiving the request for referral. This is also referred to as Filler Order Identifier.">
+				>
+				["at0019"] = <
+					text = <"Receiver">
+					description = <"Details about the healthcare provider or organisation receiving the request for referral.">
+				>
+				["at0021"] = <
+					text = <"Sequence">
+					description = <"The sequence of the specified clinical service.">
+					comment = <"Only for use in association with the 'Service delivered' pathway step. For example: record that this is the 3rd physiotherapy appointment in a planned sequence.">
+				>
+				["at0023"] = <
+					text = <"Service expired">
+					description = <"The referral has expired before the referral episode has been completed.">
+				>
+				["at0025"] = <
+					text = <"Scheduled date/time">
+					description = <"The date and/or time on which the service is intended to be performed.">
+					comment = <"Only for use in association with the 'Service scheduled' pathway step.">
+				>
+				["at0026"] = <
+					text = <"Service request sent">
+					description = <"Request for service sent.">
+				>
+				["at0027"] = <
+					text = <"Service detail">
+					description = <"Structured information about the service.">
+					comment = <"Use to capture detailed, structured information about specified aspects of the service.">
+				>
+				["at0028"] = <
+					text = <"Comment">
+					description = <"Additional narrative about the activity or care pathway step not captured in other fields.">
+				>
+				["at0029"] = <
+					text = <"Multimedia">
+					description = <"Mulitimedia representation of a performed service.">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Tjeneste">
+					description = <"En generell klinisk aktivitet utført for pasienten å få en spesifisert tjeneste, råd eller omsorg fra en ekspert helsepersonell.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Tjeneste planlagt">
+					description = <"*Service request to healthcare provider is planned.(en)">
+				>
+				["at0003"] = <
+					text = <"Tjeneste tidsfastsatt">
+					description = <"*Appointment for a healthcare provider service has been made.(en)">
+				>
+				["at0004"] = <
+					text = <"Tjeneste levert">
+					description = <"Helsetjenesteyteren har levert tjeneste som er nærmere angitt">
+				>
+				["at0005"] = <
+					text = <"Tjenesteaktiviteten fullført">
+					description = <"*All service activities have been completed.(en)">
+				>
+				["at0006"] = <
+					text = <"Tjeneste avbrutt">
+					description = <"Tjenesten ble avsluttet før den ble ferdigstilt">
+				>
+				["at0008"] = <
+					text = <"Tjeneste utsatt">
+					description = <"*The planned service has been postponed.(en)">
+				>
+				["at0009"] = <
+					text = <"Tjeneste kansellert">
+					description = <"*The planned service has been cancelled prior to commencement.(en)">
+				>
+				["at0010"] = <
+					text = <"Tjeneste satt på vent">
+					description = <"Tjenesten er satt på vent uten ferdigstilling">
+				>
+				["at0011"] = <
+					text = <"Tjenestenavn">
+					description = <"*Identification of the clinical service to be/being carried out.(en)">
+					comment = <"*Coding of the specific service name with a terminology is preferred, where possible.(en)">
+				>
+				["at0012"] = <
+					text = <"Årsak">
+					description = <"*Reason that the activity or care pathway step for the identified service was carried out.(en)">
+					comment = <"*For example: the reason for the cancellation or suspension of the service.(en)">
+				>
+				["at0013"] = <
+					text = <"Beskrivelse">
+					description = <"*Narrative description about the service, as appropriate for the pathway step.(en)">
+				>
+				["at0014"] = <
+					text = <"Tjenestetype">
+					description = <"*Type of service to be carried out or being carried out.(en)">
+				>
+				["at0015"] = <
+					text = <"Tree">
+					description = <"*@ internal @(en)">
+				>
+				["at0016"] = <
+					text = <"Rekvirent identifikasjon">
+					description = <"*The local ID assigned to the order by the healthcare provider or organisation requesting the service. This is also referred to as Placer Order Identifier.(en)">
+				>
+				["at0017"] = <
+					text = <"Rekvirent">
+					description = <"*Details about the healthcare provider or organisation requesting the service.(en)">
+				>
+				["at0018"] = <
+					text = <"Mottaker identifikasjon">
+					description = <"*The ID assigned to the order by the healthcare provider or organisation receiving the request for referral. This is also referred to as Filler Order Identifier.(en)">
+				>
+				["at0019"] = <
+					text = <"Mottaker">
+					description = <"*Details about the healthcare provider or organisation receiving the request for referral.(en)">
+				>
+				["at0021"] = <
+					text = <"Sekvens">
+					description = <"*The sequence of the specified clinical service.(en)">
+					comment = <"*Only for use in association with the 'Service delivered' pathway step. For example: record that this is the 3rd physiotherapy appointment in a planned sequence.(en)">
+				>
+				["at0023"] = <
+					text = <"Tjeneste utløpt">
+					description = <"Tjenesten utløpte før den ble ferdigstilt">
+				>
+				["at0025"] = <
+					text = <"Planlagt tid">
+					description = <"*The date and/or time on which the service is intended to be performed.(en)">
+					comment = <"*Only for use in association with the 'Service scheduled' pathway step.(en)">
+				>
+				["at0026"] = <
+					text = <"Tjenesterekvirering sendt">
+					description = <"*Request for service sent.(en)">
+				>
+				["at0027"] = <
+					text = <"Tjeneste detaljer">
+					description = <"*Structured information about the service.(en)">
+					comment = <"*Use to capture detailed, structured information about specified aspects of the service.(en)">
+				>
+				["at0028"] = <
+					text = <"Kommentar">
+					description = <"*Additional narrative about the activity or care pathway step not captured in other fields.(en)">
+				>
+				["at0029"] = <
+					text = <"Multimedia">
+					description = <"*Mulitimedia representation of a performed service.(en)">
+				>
+			>
+		>
+	>

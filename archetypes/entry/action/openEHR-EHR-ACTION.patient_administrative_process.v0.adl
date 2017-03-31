@@ -1,0 +1,161 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-ACTION.patient_administrative_process.v0
+
+concept
+	[at0000]	-- Pasientlogistikk
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"85B2B5979A5C39403C250DD08D68A3FE">
+	>
+
+definition
+	ACTION[at0000] matches {	-- Pasientlogistikk
+		ism_transition matches {
+			ISM_TRANSITION[at0007] matches {	-- Planlagt steg
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::526]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0007]}		-- Planlagt steg
+					}
+				}
+			}
+			ISM_TRANSITION[at0008] matches {	-- Klar for tjeneste
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::529]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0008]}		-- Klar for tjeneste
+					}
+				}
+			}
+			ISM_TRANSITION[at0005] matches {	-- Aktivt steg
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0005]}		-- Aktivt steg
+					}
+				}
+			}
+			ISM_TRANSITION[at0006] matches {	-- Ferdig
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0006]}		-- Ferdig
+					}
+				}
+			}
+		}
+		description matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Tjenestetype
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Hendelse
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Neste hendelse
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Kommentar
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0004] occurrences matches {0..*} matches {	-- Detaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Pasientlogistikk">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Tjenestetype">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Hendelse">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Detaljer">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Aktivt steg">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Ferdig">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Planlagt steg">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Klar for tjeneste">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Neste hendelse">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Kommentar">
+					description = <"*">
+				>
+			>
+		>
+	>
