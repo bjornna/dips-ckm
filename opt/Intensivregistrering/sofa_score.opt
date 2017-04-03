@@ -1071,7 +1071,7 @@
         </term_definitions>
         <term_definitions code="at0007">
           <items id="description">Partialtrykket av oksygen i arterielt eller kapillært blod målt i kPa dividert med fraksjonen av innåndet oksygen er større eller lik 26,6 kPa.</items>
-          <items id="text">PaO2/FiO2  &gt; 26,6 kPa</items>
+          <items id="text">PaO2/FiO2 &gt; 26,6 kPa</items>
         </term_definitions>
         <term_definitions code="at0008">
           <items id="description">Med ventilasjonsstøtte er partialtrykket av oksygen i arterielt eller kapillært blod målt i kPa dividert med fraksjonen av innåndet oksygen mellom 13,3 og 26,6 kPa.</items>
@@ -1347,7 +1347,7 @@
                             <right_operand xsi:type="EXPR_LEAF">
                               <type>C_STRING</type>
                               <item xsi:type="C_STRING">
-                                <pattern>openEHR-EHR-CLUSTER\.specimen(-[a-zA-Z0-9_]+)*\.v1</pattern>
+                                <pattern>openEHR-EHR-CLUSTER\.specimen(-[a-zA-Z0-9_]+)*\.v0</pattern>
                               </item>
                               <reference_type>constraint</reference_type>
                             </right_operand>
@@ -1361,7 +1361,7 @@
                           <upper_included>true</upper_included>
                           <lower_unbounded>false</lower_unbounded>
                           <upper_unbounded>false</upper_unbounded>
-                          <lower>1</lower>
+                          <lower>0</lower>
                           <upper>1</upper>
                         </occurrences>
                         <node_id>at0073</node_id>
@@ -1429,7 +1429,7 @@
                           <upper_included>true</upper_included>
                           <lower_unbounded>false</lower_unbounded>
                           <upper_unbounded>false</upper_unbounded>
-                          <lower>1</lower>
+                          <lower>0</lower>
                           <upper>1</upper>
                         </occurrences>
                         <node_id>at0075</node_id>
@@ -1603,9 +1603,15 @@
                                         <upper_included>true</upper_included>
                                         <lower_unbounded>false</lower_unbounded>
                                         <upper_unbounded>false</upper_unbounded>
-                                        <lower>5</lower>
-                                        <upper>20</upper>
+                                        <lower>0</lower>
+                                        <upper>101</upper>
                                       </magnitude>
+                                      <precision>
+                                        <lower_unbounded>false</lower_unbounded>
+                                        <upper_unbounded>false</upper_unbounded>
+                                        <lower>2</lower>
+                                        <upper>2</upper>
+                                      </precision>
                                       <units>kPa</units>
                                     </list>
                                   </children>
@@ -1830,6 +1836,35 @@
                                   </children>
                                 </attributes>
                               </children>
+                              <children xsi:type="ARCHETYPE_SLOT">
+                                <rm_type_name>CLUSTER</rm_type_name>
+                                <occurrences>
+                                  <lower_included>true</lower_included>
+                                  <lower_unbounded>false</lower_unbounded>
+                                  <upper_unbounded>true</upper_unbounded>
+                                  <lower>0</lower>
+                                </occurrences>
+                                <node_id>at0014</node_id>
+                                <includes>
+                                  <expression xsi:type="EXPR_BINARY_OPERATOR">
+                                    <type>Boolean</type>
+                                    <operator>2007</operator>
+                                    <precedence_overridden>false</precedence_overridden>
+                                    <left_operand xsi:type="EXPR_LEAF">
+                                      <type>String</type>
+                                      <item xsi:type="xsd:string">archetype_id/value</item>
+                                      <reference_type>attribute</reference_type>
+                                    </left_operand>
+                                    <right_operand xsi:type="EXPR_LEAF">
+                                      <type>C_STRING</type>
+                                      <item xsi:type="C_STRING">
+                                        <pattern>.*</pattern>
+                                      </item>
+                                      <reference_type>constraint</reference_type>
+                                    </right_operand>
+                                  </expression>
+                                </includes>
+                              </children>
                               <cardinality>
                                 <is_ordered>false</is_ordered>
                                 <is_unique>false</is_unique>
@@ -1864,7 +1899,7 @@
                                 <right_operand xsi:type="EXPR_LEAF">
                                   <type>C_STRING</type>
                                   <item xsi:type="C_STRING">
-                                    <pattern>openEHR-EHR-CLUSTER\.specimen(-[a-zA-Z0-9_]+)*\.v1</pattern>
+                                    <pattern>.*</pattern>
                                   </item>
                                   <reference_type>constraint</reference_type>
                                 </right_operand>
@@ -1886,27 +1921,27 @@
                           <value>openEHR-EHR-CLUSTER.laboratory_test_panel_dips.v1</value>
                         </archetype_id>
                         <term_definitions code="at0000">
-                          <items id="description">Laboratoriesvar som en enkeltverdi eller i grupper/pakker som er vanlig i kliniske prøveanalyser.</items>
+                          <items id="description">Laboratoriesvar som en enkeltverdi eller i et panel/pakkeformat.</items>
                           <items id="text">Laboratoriesvargruppe</items>
                         </term_definitions>
                         <term_definitions code="at0001">
-                          <items id="description">Faktisk verdi av prøvesvaret. Navnet på dette dataelementet er vanligvis erstattet i templat eller i applikasjon, slik at det samsvarer med den faktiske analysen. For eksempel "S-Na" eller "Serum Natrium". Det vil også som regel være kodet ved hjelp av et kodeverk.</items>
+                          <items id="description">Svarets verdi. Navnet på dette elementet vil ordinært erstattes i en templat eller applikasjon med navnet og/eller koden på analysen, f.eks. Serum natrium.</items>
                           <items id="text">Svarverdi</items>
                         </term_definitions>
                         <term_definitions code="at0002">
-                          <items id="description">Spesifikt detaljert svar, som inkluderer både verdien og tilleggsinformasjon som kan være nyttig for klinisk tolkning.</items>
-                          <items id="text">Analysesvar</items>
+                          <items id="description">Spesifikt detaljert svar, inkludert både verdien av svaret og annen informasjon som kan være nyttig i klinisk tolkning.</items>
+                          <items id="text">Laboratoriesvar</items>
                         </term_definitions>
                         <term_definitions code="at0003">
-                          <items id="description">Kommentar til svaret.</items>
+                          <items id="description">Kommentar om svaret.</items>
                           <items id="text">Kommentar</items>
                         </term_definitions>
                         <term_definitions code="at0004">
-                          <items id="description">Tilleggsinformasjon med råd for referanseområdets hensiktsmessighet.</items>
+                          <items id="description">Ytterligere veiledning om anvendeligheten av referanseområdet.</items>
                           <items id="text">Veiledning til referanseområdet</items>
                         </term_definitions>
                         <term_definitions code="at0005">
-                          <items id="description">Svarverdiens status</items>
+                          <items id="description">Statusen til svarverdien.</items>
                           <items id="text">Svarstatus</items>
                         </term_definitions>
                         <term_definitions code="at0006">
@@ -1914,7 +1949,7 @@
                           <items id="text">Tidspunkt for svarstatus</items>
                         </term_definitions>
                         <term_definitions code="at0007">
-                          <items id="description">Ikke tilgjengelig svar ennå.</items>
+                          <items id="description">Svar ikke tjengengelig enda.</items>
                           <items id="text">Registrert</items>
                         </term_definitions>
                         <term_definitions code="at0008">
@@ -1938,8 +1973,12 @@
                           <items id="text">Ikke bestilt</items>
                         </term_definitions>
                         <term_definitions code="at0013">
-                          <items id="description">Ytterligere detaljer, inkludert informasjon om prøveeksemplaret i analysepakker, eller når materialet deles opp i flere forskjellige analyser.</items>
+                          <items id="description">Ytterligere detaljer, inkludert informasjon om prøveeksemplaret, eller en undergruppe av svar.</items>
                           <items id="text">Andre detaljer</items>
+                        </term_definitions>
+                        <term_definitions code="at0014">
+                          <items id="description">Ytterligere detaljer om et spesifikt svar.</items>
+                          <items id="text">Svardetaljer</items>
                         </term_definitions>
                       </children>
                       <children xsi:type="C_COMPLEX_OBJECT">
@@ -2111,7 +2150,7 @@
                           <lower_included>true</lower_included>
                           <lower_unbounded>false</lower_unbounded>
                           <upper_unbounded>true</upper_unbounded>
-                          <lower>3</lower>
+                          <lower>1</lower>
                         </interval>
                       </cardinality>
                     </attributes>
@@ -2572,7 +2611,7 @@
                                     <upper_included>true</upper_included>
                                     <lower_unbounded>false</lower_unbounded>
                                     <upper_unbounded>false</upper_unbounded>
-                                    <lower>0</lower>
+                                    <lower>0.21</lower>
                                     <upper>1</upper>
                                   </magnitude>
                                   <precision>
@@ -3133,13 +3172,13 @@
         </term_definitions>
         <term_definitions code="at0062">
           <items id="comment">Tilsvarende HL7 "Placer Order Identifier".</items>
-          <items id="description">Lokal ID som er tildelt rekvisisjonen av den som har rekvirert.</items>
-          <items id="text">RekvisisjonsID</items>
+          <items id="description">Lokal ID som er tildelt rekvisisjonen av rekvirenten.</items>
+          <items id="text">Rekvirentens rekvisisjonsID</items>
         </term_definitions>
         <term_definitions code="at0063">
           <items id="comment">En ID tilordnet rekvisisjonen av laboratorieinformasjonssystemet (LIS) åpner for sporing av fremdrift og til å koble svar til rekvisisjoner. Det gir også en referanse for forespørsler, og tilsvarer som regel HL7 "Filler Order Identifier".</items>
-          <items id="description">Lokal ID som er tildelt rekvisisjonen av utførende laboratorie, vanligvis av laboratoriesystemet (LIS).</items>
-          <items id="text">Laboratoriets rekvisisjonsID</items>
+          <items id="description">Lokal ID som er tildelt rekvisisjonen av rekvisisjonsmottakeren, vanligvis av laboratoriesystemet (LIS).</items>
+          <items id="text">Rekvisisjonsmottakers rekvisisjonsID</items>
         </term_definitions>
         <term_definitions code="at0065">
           <items id="description">Detaljer om prøven dersom alle prøveresultater er avledet fra samme prøvemateriale. Hvis prøvematerialet er tilstrekkelig spesifisert med en kode i Prøvenavn, er dette dataelementet overflødig. Hvis det er multiple prøver, kan disse representeres per "resultatgruppe".</items>
@@ -3147,7 +3186,7 @@
         </term_definitions>
         <term_definitions code="at0068">
           <items id="description">Lokal ID som er gitt til analysesvaret av laboratoriesystemet (LIS).</items>
-          <items id="text">SvarID</items>
+          <items id="text">Laboratoriets svarID</items>
         </term_definitions>
         <term_definitions code="at0073">
           <items id="description">Overordnet status på analyseresultatet.</items>
@@ -3611,14 +3650,6 @@
                               <code_string>125</code_string>
                             </property>
                             <list>
-                              <magnitude>
-                                <lower_included>true</lower_included>
-                                <upper_included>true</upper_included>
-                                <lower_unbounded>false</lower_unbounded>
-                                <upper_unbounded>false</upper_unbounded>
-                                <lower>0</lower>
-                                <upper>0</upper>
-                              </magnitude>
                               <precision>
                                 <lower_included>true</lower_included>
                                 <upper_included>true</upper_included>
@@ -3629,6 +3660,47 @@
                               </precision>
                               <units>kPa</units>
                             </list>
+                          </children>
+                        </attributes>
+                      </children>
+                      <children xsi:type="C_COMPLEX_OBJECT">
+                        <rm_type_name>ELEMENT</rm_type_name>
+                        <occurrences>
+                          <lower_included>true</lower_included>
+                          <upper_included>true</upper_included>
+                          <lower_unbounded>false</lower_unbounded>
+                          <upper_unbounded>false</upper_unbounded>
+                          <lower>0</lower>
+                          <upper>1</upper>
+                        </occurrences>
+                        <node_id>at0011</node_id>
+                        <attributes xsi:type="C_SINGLE_ATTRIBUTE">
+                          <rm_attribute_name>value</rm_attribute_name>
+                          <existence>
+                            <lower_included>true</lower_included>
+                            <upper_included>true</upper_included>
+                            <lower_unbounded>false</lower_unbounded>
+                            <upper_unbounded>false</upper_unbounded>
+                            <lower>0</lower>
+                            <upper>1</upper>
+                          </existence>
+                          <children xsi:type="C_DV_QUANTITY">
+                            <rm_type_name>DV_QUANTITY</rm_type_name>
+                            <occurrences>
+                              <lower_included>true</lower_included>
+                              <upper_included>true</upper_included>
+                              <lower_unbounded>false</lower_unbounded>
+                              <upper_unbounded>false</upper_unbounded>
+                              <lower>1</lower>
+                              <upper>1</upper>
+                            </occurrences>
+                            <node_id />
+                            <property>
+                              <terminology_id>
+                                <value>openehr</value>
+                              </terminology_id>
+                              <code_string>118</code_string>
+                            </property>
                           </children>
                         </attributes>
                       </children>
@@ -3784,6 +3856,10 @@
         <term_definitions code="at0010">
           <items id="description">PaO2/FiO2 er lik partialtrykket av oksygen dividert med fraksjonen av innåndet oksygen.</items>
           <items id="text">PaO2/FiO2</items>
+        </term_definitions>
+        <term_definitions code="at0011">
+          <items id="description">(FiO2*100)/PaO2 er lik fraksjonen av innåndet oksygen multiplisert med 100 dividert på partialtrykket til oksygen.</items>
+          <items id="text">(FiO2*100)/PaO2</items>
         </term_definitions>
       </children>
       <children xsi:type="C_ARCHETYPE_ROOT">
