@@ -64,7 +64,26 @@
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.iplos_funksjonsvurdering_dips.v1" concept_name="Iplos funksjonsvurdering" path="/content" />
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.clinical_synopsis.v1" concept_name="Klinisk sammendrag" max="1" path="/content" name="Praktiske opplysninger" />
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.clinical_synopsis.v1" concept_name="Klinisk sammendrag" max="1" path="/content" name="Pasientens egne vurderinger" />
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.informasjon_gitt_dips.v1" concept_name="Informasjon gitt" path="/content" />
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.informasjon_gitt_dips.v1" concept_name="Informasjon gitt" path="/content">
+      <Rule path="/data[at0001]/items[at0004]/items[at0006]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Muntlig</includedValues>
+          <includedValues>Skriftlig</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0004]/items[at0005]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Pasient</includedValues>
+          <includedValues>Pårørende</includedValues>
+          <includedValues>Andre</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0008]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="HEALTHCAREPARTY" />
+        </constraint>
+      </Rule>
+    </Content>
     <Context />
   </definition>
 </template>

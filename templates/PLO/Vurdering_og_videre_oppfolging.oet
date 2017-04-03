@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
-  <id>2dc5341d-97be-4e5d-b381-42b9c802fa3e</id>
-  <name>Mekanisk_ventialsjon</name>
+  <id>e2f049a8-5eef-4fa9-bb6f-1359d300a585</id>
+  <name>Videre_oppfølging</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
@@ -60,20 +60,11 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Mekanisk ventilasjon">
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.nir_mekanisk_ventilasjon.v1" concept_name="Mekanisk ventilasjon" path="/content">
-      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0029]/items[at0021]">
-        <constraint xsi:type="textConstraint">
-          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ARK-TYPEVENTILASJON" />
-        </constraint>
-      </Rule>
-      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0027]/items[at0022]">
-        <constraint xsi:type="textConstraint">
-          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ARK-TYPEVENTILASJON" />
-        </constraint>
-      </Rule>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.videre_oppfolging.v0" concept_name="Videre oppfølging">
+    <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.request.v1" concept_name="Helsetjenesterekvirering" path="/content">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.organisasjonsstruktur_dips.v1" concept_name="Organisasjonsstruktur dips" path="/activities[at0001]/description[at0009]/items[at0132]" />
     </Content>
-    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.nir_inklusjonskriterier.v1" concept_name="Nir inklusjonskriterier" path="/content" />
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.clinical_synopsis.v1" concept_name="Klinisk sammendrag" max="1" path="/content" name="Vurdering" />
     <Context />
   </definition>
 </template>
