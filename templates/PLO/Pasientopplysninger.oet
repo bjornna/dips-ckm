@@ -70,12 +70,17 @@
   </annotations>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.admin_informasjon_dips.v1" concept_name="Admin informasjon dips v1">
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.patient_information_dips.v1" concept_name="Pasientopplysninger" path="/content">
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.interpreter_details_dips.v1" concept_name="Tolk detaljer" path="/data[at0001]/items[at0004]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.interpreter_details_dips.v1" concept_name="Tolk detaljer" path="/data[at0001]/items[at0004]">
+        <Rule path="/items[at0005]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="PAS-TOLK" />
+          </constraint>
+        </Rule>
+      </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.household_dips.v1" concept_name="Household DIPS" path="/data[at0001]/items[at0004]">
         <Rule path="/items[at0001]">
           <constraint xsi:type="textConstraint">
-            <includedValues>Bor alene</includedValues>
-            <includedValues>Bor sammen med andre</includedValues>
+            <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="PY-BOSITUASJON" />
           </constraint>
         </Rule>
       </Items>
@@ -86,9 +91,9 @@
           </constraint>
         </Rule>
         <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.person_name_dips.v1" concept_name="Person navn" path="/items[at0002]" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.slektskap_dips.v1" concept_name="Slektskap" path="/items[at0002]" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.telecom_details_dips.v1" concept_name="Telekommunikasjonsdetaljer" path="/items[at0002]" />
       </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.telecom_details_dips.v1" concept_name="Telekommunikasjonsdetaljer" path="/data[at0001]/items[at0005]" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.slektskap_dips.v1" concept_name="Slektskap" path="/data[at0001]/items[at0006]" />
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.individual_professional_dips.v1" concept_name="*Professional demographics detail(en)" max="1" path="/data[at0001]/items[at0006]" name="Fastlege">
         <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.person_name_dips.v1" concept_name="Person navn" path="/items[at0015]">
           <Rule path="/items[at0001]">
