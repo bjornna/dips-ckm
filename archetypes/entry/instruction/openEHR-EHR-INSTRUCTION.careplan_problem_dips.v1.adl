@@ -49,14 +49,14 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"4AD9411F0CA136C0D9F7124C6CA3203B">
+		["MD5-CAM-1.0.1"] = <"437D7D7F61F752F93749CAE0607C73B2">
 	>
 
 definition
 	INSTRUCTION[at0000] matches {	-- Løse problem
 		activities cardinality matches {0..*; unordered} matches {
 			ACTIVITY[at0006] occurrences matches {0..1} matches {	-- Registrer
-				action_archetype_id matches {/openEHR-EHR-ACTION\.insight_problem\.v1/}
+				action_archetype_id matches {/openEHR-EHR-ACTION\.careplan_problem_dips\.v1/}
 				description matches {
 					ITEM_TREE[at0007] matches {	-- Tree
 						items cardinality matches {1..*; unordered} matches {
@@ -85,7 +85,21 @@ definition
 									DV_DATE_TIME matches {*}
 								}
 							}
+							allow_archetype CLUSTER[at0013] occurrences matches {0..*} matches {	-- Detaljer
+								include
+									archetype_id/value matches {/.*/}
+							}
 						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0014] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0016] occurrences matches {0..*} matches {	-- Tilleggsinformasjon
+						include
+							archetype_id/value matches {/.*/}
 					}
 				}
 			}
@@ -128,6 +142,18 @@ ontology
 					text = <"*TimeOriginalActivityCreated(nb)">
 					description = <"**(nb)">
 				>
+				["at0013"] = <
+					text = <"*Detaljer(nb)">
+					description = <"**(nb)">
+				>
+				["at0014"] = <
+					text = <"*Tree(nb)">
+					description = <"*@ internal @(nb)">
+				>
+				["at0016"] = <
+					text = <"*Tilleggsinformasjon(nb)">
+					description = <"**(nb)">
+				>
 			>
 		>
 		["nb"] = <
@@ -164,6 +190,18 @@ ontology
 					text = <"TimeOriginalActivityCreated">
 					description = <"*">
 				>
+				["at0013"] = <
+					text = <"Detaljer">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0016"] = <
+					text = <"Tilleggsinformasjon">
+					description = <"*">
+				>
 			>
 		>
 		["en"] = <
@@ -198,6 +236,18 @@ ontology
 				>
 				["at0012"] = <
 					text = <"*TimeOriginalActivityCreated(nb)">
+					description = <"**(nb)">
+				>
+				["at0013"] = <
+					text = <"*Detaljer(nb)">
+					description = <"**(nb)">
+				>
+				["at0014"] = <
+					text = <"*Tree(nb)">
+					description = <"*@ internal @(nb)">
+				>
+				["at0016"] = <
+					text = <"*Tilleggsinformasjon(nb)">
 					description = <"**(nb)">
 				>
 			>
