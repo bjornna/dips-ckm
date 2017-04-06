@@ -1,6 +1,6 @@
 ﻿archetype (adl_version=1.4; uid=bd1f5af5-ffbb-4491-a062-442bb4588062)
 	openEHR-EHR-INSTRUCTION.request-procedure.v1
-specialise
+specialize
 	openEHR-EHR-INSTRUCTION.request.v1
 
 concept
@@ -20,19 +20,11 @@ language
 description
 	original_author = <
 		["name"] = <"Dr Ian McNicoll">
-		["organisation"] = <"Ocean Informatics, United Kingdom">
 		["email"] = <"ian.mcnicoll@oceaninformatics.com">
+		["organisation"] = <"Ocean Informatics, United Kingdom">
 		["date"] = <"2009-12-08">
 	>
 	details = <
-		["en"] = <
-			language = <[ISO_639-1::en]>
-			purpose = <"Provide simple and generic details about the request for a procedure to be performed.">
-			use = <"Use to share details about the order or request for a procedure to be performed. This archetype has been designed to provide the core information required for a simple request for most procedures. If more specific detail is required about the procedure it can be added via CLUSTER archetypes inserted into the Specific Details slot.">
-			keywords = <"request", "refer", "order", "service", "provide">
-			misuse = <"">
-			copyright = <"© Nasjonal IKT HF">
-		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
 			purpose = <"Brukes til å registrere enkle og generelle detaljer om rekvirering av en ønsket prosedyre.">
@@ -51,107 +43,115 @@ Benyttes ikke til å rekvirere administrative aktiviteter - bruk spesifikke INST
 Benyttes ikke til å registrere detaljer om en utført prosedyre - bruk ACTION.procedure for dette formålet.">
 			copyright = <"© Nasjonal IKT HF">
 		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"Provide simple and generic details about the request for a procedure to be performed.">
+			use = <"Use to share details about the order or request for a procedure to be performed. This archetype has been designed to provide the core information required for a simple request for most procedures. If more specific detail is required about the procedure it can be added via CLUSTER archetypes inserted into the Specific Details slot.">
+			keywords = <"request", "refer", "order", "service", "provide">
+			misuse = <"">
+			copyright = <"© Nasjonal IKT HF">
+		>
 	>
 	lifecycle_state = <"published">
 	other_contributors = <"Tomas Alme, DIPS ASA, Norway", "Anne Pauline Anderssen, Helse Nord RHF, Norway", "Vebjørn Arntzen, Oslo universitetssykehus HF, Norway", "Silje Ljosland Bakke, Nasjonal IKT HF, Norway (Nasjonal IKT redaktør)", "Lars Bitsch-Larsen, Haukeland University Hospital, Bergen, Norway", "Anita Bjørnnes, Helse Bergen, Norway", "Gunn Elin Blakkisrud, DIPS ASA, Norway", "B Christensen, HUS, Norway", "Lisbeth Dahlhaug, Helse Midt - Norge IT, Norway", "Rose Mari Eikås, Helse Bergen, Norway", "Einar Fosse, UNN HF, Norwegian Centre for Integrated Care and Telemedicine, Norway", "Frode Gilberg, PRIDOK AS, Norway", "Bjørn Grøva, Helsedirektoratet, Norway", "Knut Harboe, Stavanger Universitetssjukehus, Norway", "Anne Gunn Haugland, Helse Bergen HF, Norway", "Ingrid Heitmann, Oslo universitetssykehus HF, Norway", "Kristian Heldal, Telemark Hospital Trust, Norway", "Andreas Hering, Helse Bergen HF, Haukeland universitetssjukehus, Norway", "Anca Heyd, DIPS ASA, Norway", "Hilde Hollås, Norway", "Lars Ivar Mehlum, Helse Bergen HF, Norway", "Lars Morgan Karlsen, DIPS ASA, Norway", "Heather Leslie, Ocean Informatics, Australia", "Hallvard Lærum, Oslo Universitetssykehus HF, Norway", "Bjørn Næss, DIPS ASA, Norway", "Rune Pedersen, Universitetssykehuset i Nord Norge, Norway", "Line Sæle, Nasjonal IKT HF, Norway", "Micaela Thierley, Helse Bergen, Norway", "John Tore Valand, Haukeland Universitetssjukehus, Norway (Nasjonal IKT redaktør)", "Nils Widnes, Helse-Bergen, Norway">
 	other_details = <
-		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
 		["revision"] = <"1.0.0">
+		["original_publisher"] = <"Nasjonal IKT">
 		["build_uid"] = <"84dca40f-ffe1-4108-97c2-16842701e5f7">
 		["original_namespace"] = <"no.nasjonalikt">
-		["original_publisher"] = <"Nasjonal IKT">
-		["MD5-CAM-1.0.1"] = <"8CDA62221DFABEBA70262CE96D23E309">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["MD5-CAM-1.0.1"] = <"2FA2984460C8B94C1297C10B11AA390B">
 		["custodian_namespace"] = <"no.nasjonalikt">
 		["custodian_organisation"] = <"Nasjonal IKT">
 	>
 
 definition
-	INSTRUCTION[at0000.1] matches {	-- Prosedyrerekvirering
+	INSTRUCTION[at0000.1] matches {	-- Procedure request
 		activities cardinality matches {0..*; unordered} matches {
-			ACTIVITY[at0001] occurrences matches {1..*} matches {	-- Rekvirering
+			ACTIVITY[at0001] occurrences matches {1..*} matches {	-- Request
 				description matches {
 					ITEM_TREE[at0009] matches {	-- Tree
 						items cardinality matches {1..*; unordered} matches {
-							ELEMENT[at0121.1] matches {	-- Prosedyrenavn
+							ELEMENT[at0121.1] matches {	-- Procedure name
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0.2] occurrences matches {0..1} matches {	-- Prosedyretype
+							ELEMENT[at0.2] occurrences matches {0..1} matches {	-- Type of procedure
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0135.1] occurrences matches {0..1} matches {	-- Prosedyrebeskrivelse
+							ELEMENT[at0135.1] occurrences matches {0..1} matches {	-- Procedure description
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							allow_archetype CLUSTER[at0132] occurrences matches {0..*} matches {	-- Spesifikke detaljer
+							allow_archetype CLUSTER[at0132] occurrences matches {0..*} matches {	-- Specific details
 								include
 									archetype_id/value matches {/.*/}
 							}
-							ELEMENT[at0062] occurrences matches {0..1} matches {	-- Rekvireringsårsak
+							ELEMENT[at0062] occurrences matches {0..1} matches {	-- Reason for request
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0064] occurrences matches {0..1} matches {	-- Årsaksbeskrivelse
+							ELEMENT[at0064] occurrences matches {0..1} matches {	-- Reason description
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0065.1] occurrences matches {0..1} matches {	-- Hensikt
+							ELEMENT[at0065.1] occurrences matches {0..1} matches {	-- Intent
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0068] occurrences matches {0..1} matches {	-- Hastegrad
+							ELEMENT[at0068] occurrences matches {0..1} matches {	-- Urgency
 								value matches {
 									DV_CODED_TEXT matches {
 										defining_code matches {
 											[local::
-											at0136, 	-- Akutt
-											at0137, 	-- Haster
-											at0138]	-- Rutine
+											at0136, 	-- Emergency
+											at0137, 	-- Urgent
+											at0138]	-- Routine
 										}
 									}
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0146.1] occurrences matches {0..1} matches {	-- Ønsket dato/tid for start av prosedyre
+							ELEMENT[at0146.1] occurrences matches {0..1} matches {	-- Requested date/time for started procedure
 								value matches {
 									DV_DATE_TIME matches {*}
 								}
 							}
-							ELEMENT[at0145.1] occurrences matches {0..1} matches {	-- Tidligste dato/tid for start av prosedyre
+							ELEMENT[at0145.1] occurrences matches {0..1} matches {	-- Earliest date procedure started
 								value matches {
 									DV_DATE_TIME matches {*}
 								}
 							}
-							ELEMENT[at0040.1] occurrences matches {0..1} matches {	-- Ønsket dato/tid for fullført prosedyre
+							ELEMENT[at0040.1] occurrences matches {0..1} matches {	-- Requested date/time for completed procedure
 								value matches {
 									DV_DATE_TIME matches {*}
 								}
 							}
-							ELEMENT[at0144.1] occurrences matches {0..1} matches {	-- Seneste dato/tid for fullført prosedyre
+							ELEMENT[at0144.1] occurrences matches {0..1} matches {	-- Latest date procedure completed
 								value matches {
 									DV_DATE_TIME matches {*}
 								}
 							}
-							ELEMENT[at0076] occurrences matches {0..1} matches {	-- Supplerende informasjon følger
+							ELEMENT[at0076] occurrences matches {0..1} matches {	-- Supplementary information to follow
 								value matches {
 									DV_BOOLEAN matches {
 										value matches {True}
 									}
 								}
 							}
-							ELEMENT[at0078] occurrences matches {0..1} matches {	-- Detaljer om følgende supplerende informasjon
+							ELEMENT[at0078] occurrences matches {0..1} matches {	-- Details of expected supplementary information
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							allow_archetype CLUSTER[at0116] occurrences matches {0..*} matches {	-- Pasientens behov
+							allow_archetype CLUSTER[at0116] occurrences matches {0..*} matches {	-- Patient requirements
 								include
 									archetype_id/value matches {/.*/}
 							}
@@ -163,34 +163,34 @@ definition
 		protocol matches {
 			ITEM_TREE[at0008] matches {	-- Tree
 				items cardinality matches {1..*; unordered} matches {
-					ELEMENT[at0010.1] occurrences matches {0..1} matches {	-- Rekvisisjonsidentifikator
+					ELEMENT[at0010.1] occurrences matches {0..1} matches {	-- Requestor Identifier
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					allow_archetype CLUSTER[at0141] occurrences matches {0..*} matches {	-- Rekvirent
+					allow_archetype CLUSTER[at0141] occurrences matches {0..*} matches {	-- Requestor
 						include
 							archetype_id/value matches {/.*/}
 					}
-					ELEMENT[at0011] occurrences matches {0..1} matches {	-- Mottakers rekvisisjonsidentifikator
+					ELEMENT[at0011] occurrences matches {0..1} matches {	-- Receiver identifier
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					allow_archetype CLUSTER[at0142] occurrences matches {0..*} matches {	-- Mottaker
+					allow_archetype CLUSTER[at0142] occurrences matches {0..*} matches {	-- Receiver
 						include
 							archetype_id/value matches {/.*/}
 					}
-					ELEMENT[at0127.1] occurrences matches {0..1} matches {	-- Rekvisisjonsstatus
+					ELEMENT[at0127.1] occurrences matches {0..1} matches {	-- Request status
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					allow_archetype CLUSTER[at0128] occurrences matches {0..*} matches {	-- Svarmottakere
+					allow_archetype CLUSTER[at0128] occurrences matches {0..*} matches {	-- Distribution list for response
 						include
 							archetype_id/value matches {/openEHR-EHR-CLUSTER\.distribution\.v1/}
 					}
-					allow_archetype CLUSTER[at0112] occurrences matches {0..*} matches {	-- Tilleggsinformasjon
+					allow_archetype CLUSTER[at0112] occurrences matches {0..*} matches {	-- Extension
 						include
 							archetype_id/value matches {/.*/}
 					}
@@ -198,7 +198,6 @@ definition
 			}
 		}
 	}
-
 
 ontology
 	term_definitions = <
@@ -516,23 +515,23 @@ Status is used to denote whether this is the initial request, or a follow-up req
 					description = <"Detaljer om helsepersonellet eller organisasjonen som mottar prosedyrerekvisisjonen.">
 				>
 				["at0144"] = <
-					text = <"Seneste dato for rekvirert tjeneste">
-					description = <"Seneste akseptable dato for å fullføre tjenesten.">
+					text = <"Seneste dato/tid for rekvirert tjeneste">
+					description = <"Seneste akseptable dato/tid for å fullføre tjenesten.">
 					comment = <"Eksempel: I noen tilfeller må en tjeneste være utført før en annen hendelse, f.eks. planlagt kirurgi.">
 				>
 				["at0144.1"] = <
 					text = <"Seneste dato/tid for fullført prosedyre">
-					description = <"Seneste akseptable dato for å fullføre prosedyren.">
+					description = <"Seneste akseptable dato/tid for å fullføre prosedyren.">
 					comment = <"Eksempel: I noen tilfeller må en prosedyre være utført før en annen hendelse, f.eks. planlagt kirurgi.">
 				>
 				["at0145"] = <
-					text = <"Tidligste dato for rekvirert tjeneste">
-					description = <"Tidligste akseptable dato for å påbegynne tjenesten.">
+					text = <"Tidligste dato/tid for rekvirert tjeneste">
+					description = <"Tidligste akseptable dato/tid for å påbegynne tjenesten.">
 					comment = <"I noen tilfeller må en viss tid løpe før en tjeneste kan utføres, f.eks. ved noen gastroskopier er en avhengig av at pasienten har seponert legemidler i en periode før prosedyren.">
 				>
 				["at0145.1"] = <
 					text = <"Tidligste dato/tid for start av prosedyre">
-					description = <"Tidligste akseptable dato for å påbegynne prosedyren.">
+					description = <"Tidligste akseptable dato/tid for å påbegynne prosedyren.">
 					comment = <"I noen tilfeller må en viss tid løpe før en prosedyre kan utføres, f.eks. ved noen gastroskopier er en avhengig av at pasienten har seponert legemidler i en periode før prosedyren.">
 				>
 				["at0146"] = <
