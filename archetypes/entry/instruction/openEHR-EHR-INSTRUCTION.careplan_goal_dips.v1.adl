@@ -49,14 +49,14 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"F9A176A375FB91E424E80A3977048D8C">
+		["MD5-CAM-1.0.1"] = <"4F8FFEF6155B8773EF04AD8EF569C3A0">
 	>
 
 definition
 	INSTRUCTION[at0000] matches {	-- Oppnå mål
 		activities cardinality matches {0..*; unordered} matches {
 			ACTIVITY[at0001] occurrences matches {1..*} matches {	-- Registrer
-				action_archetype_id matches {/openEHR-EHR-ACTION\.insight_goal\.v1/}
+				action_archetype_id matches {/openEHR-EHR-ACTION\.careplan_goal_dips\.v1/}
 				description matches {
 					ITEM_TREE[at0002] matches {	-- Tree
 						items cardinality matches {1..*; unordered} matches {
@@ -154,6 +154,16 @@ definition
 				}
 			}
 		}
+		protocol matches {
+			ITEM_TREE[at0021] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0022] occurrences matches {0..*} matches {	-- Tilleggsinformasjon
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
 	}
 
 ontology
@@ -224,6 +234,14 @@ ontology
 					text = <"*New element(nb)">
 					description = <"**(nb)">
 				>
+				["at0021"] = <
+					text = <"*Tree(nb)">
+					description = <"*@ internal @(nb)">
+				>
+				["at0022"] = <
+					text = <"*Tilleggsinformasjon(nb)">
+					description = <"**(nb)">
+				>
 			>
 		>
 		["nb"] = <
@@ -292,6 +310,14 @@ ontology
 					text = <"TimeOriginalActivityCreated">
 					description = <"*">
 				>
+				["at0021"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0022"] = <
+					text = <"Tilleggsinformasjon">
+					description = <"*">
+				>
 			>
 		>
 		["en"] = <
@@ -358,6 +384,14 @@ ontology
 				>
 				["at0020"] = <
 					text = <"*New element(nb)">
+					description = <"**(nb)">
+				>
+				["at0021"] = <
+					text = <"*Tree(nb)">
+					description = <"*@ internal @(nb)">
+				>
+				["at0022"] = <
+					text = <"*Tilleggsinformasjon(nb)">
 					description = <"**(nb)">
 				>
 			>
