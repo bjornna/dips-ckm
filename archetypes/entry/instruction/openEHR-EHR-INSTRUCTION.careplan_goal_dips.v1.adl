@@ -2,20 +2,20 @@ archetype (adl_version=1.4)
 	openEHR-EHR-INSTRUCTION.careplan_goal_dips.v1
 
 concept
-	[at0000]	-- Oppnå mål
+	[at0000]	-- Care Plan Goal
 language
 	original_language = <[ISO_639-1::nb]>
 	translations = <
 		["en"] = <
 			language = <[ISO_639-1::en]>
 			author = <
-				["name"] = <"?">
+				["name"] = <"">
 			>
 		>
 		["no"] = <
 			language = <[ISO_639-1::no]>
 			author = <
-				["name"] = <"?">
+				["name"] = <"">
 			>
 		>
 	>
@@ -23,54 +23,140 @@ description
 	original_author = <
 		["name"] = <"Phuong Pedersen">
 		["email"] = <"ppe@dips.no">
-		["organisation"] = <"DIPS ASA">
+		["organisation"] = <"DIPS AS">
 	>
 	details = <
 		["no"] = <
 			language = <[ISO_639-1::no]>
-			purpose = <"*For å registrere mål, delmålog oppnåelsesfaktor på målet  for en pasient (nb)">
-			use = <"*Registrere mål og delmål for en pasient(nb)">
-			misuse = <"*(nb)">
-			copyright = <"*(nb)">
+			purpose = <"For å registrere mål, delmålog oppnåelsesfaktor på målet  for en pasient">
+			use = <"Registrere mål og delmål for en pasient">
+			misuse = <"">
+			copyright = <"">
 		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"For å registrere mål, delmålog oppnåelsesfaktor på målet  for en pasient 
-
-Narrative på instruction er brukt for å lagre målet">
-			use = <"DIPS Intern bruk">
+			purpose = <"Registrering av mål, delmål og måloppnåelse for en pasient.">
+			use = <"Arketypen brukes for å registrere mål, delmål og oppnåelse av målet for en pasient.">
 			misuse = <"">
 			copyright = <"DIPS AS">
 		>
 		["en"] = <
 			language = <[ISO_639-1::en]>
-			purpose = <"Recording goals and targets person">
-			use = <"For recording instructions to about goals and target for a person">
+			purpose = <"Recording goals and targets.">
+			use = <"For recording instructions to about goals and targets for a patient.">
 			misuse = <"">
-			copyright = <"">
+			copyright = <"DIPS AS">
 		>
 	>
 	lifecycle_state = <"0">
-	other_contributors = <"Ivar Yrke", "Sindre Nordbøe Årøen", "Terje Sagmyr">
+	other_contributors = <"Ivar Yrke, DIPS AS, Norway", "Sindre Nordbøe Årøen, DIPS AS, Norway", "Terje Sagmyr, DIPS AS, Norway, Bjørn-Petter Johannessen, DIPS AS, Norway">
 	other_details = <
-		["current_contact"] = <"Phuong Pedersen, DIPS AS<ppe@disp.no>">
-		["MD5-CAM-1.0.1"] = <"C7CCAB37ABB3AF373CAD1704DCF27399">
+		["current_contact"] = <"Phuong Pedersen, DIPS AS <ppe@dips.no>">
+		["MD5-CAM-1.0.1"] = <"3F4144C0CB671E92BEC43B6B18F90666">
+		["custodian_organisation"] = <"DIPS AS">
 	>
 
 definition
-	INSTRUCTION[at0000] matches {	-- Oppnå mål
+	INSTRUCTION[at0000] matches {	-- Care Plan Goal
 		activities cardinality matches {0..*; unordered} matches {
-			ACTIVITY[at0001] occurrences matches {1..*} matches {	-- Registrer
+			ACTIVITY[at0001] occurrences matches {1..*} matches {	-- Register
 				action_archetype_id matches {/openEHR-EHR-ACTION\.careplan_goal_dips\.v1/}
 				description matches {
-					ITEM_TREE[at0002] matches {*}
+					ITEM_TREE[at0002] matches {	-- Tree
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0003] occurrences matches {0..1} matches {	-- Goal Name
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0004] occurrences matches {0..1} matches {	-- Description
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0005] occurrences matches {0..1} matches {	-- Proposed Achievement Date
+								value matches {
+									DV_DATE matches {*}
+								}
+							}
+							CLUSTER[at0008] occurrences matches {0..1} matches {	-- Target Details
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0009] occurrences matches {0..1} matches {	-- Target
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0010] occurrences matches {0..1} matches {	-- Target Measurement
+										name matches {
+											DV_TEXT matches {*}
+										}
+										value matches {
+											DV_DURATION matches {*}
+											C_DV_QUANTITY <
+											>
+											DV_COUNT matches {*}
+											DV_PROPORTION matches {*}
+											DV_TEXT matches {*}
+											DV_INTERVAL<DV_COUNT> matches {
+												upper matches {
+													DV_COUNT matches {*}
+												}
+												lower matches {
+													DV_COUNT matches {*}
+												}
+											}
+											DV_INTERVAL<DV_QUANTITY> matches {
+												upper matches {
+													C_DV_QUANTITY <
+													>
+												}
+												lower matches {
+													C_DV_QUANTITY <
+													>
+												}
+											}
+										}
+									}
+									ELEMENT[at0013] matches {	-- Target Archetype Node
+										value matches {
+											DV_URI matches {*}
+										}
+									}
+									ELEMENT[at0011] occurrences matches {0..1} matches {	-- Proposed Target Date
+										value matches {
+											DV_DATE matches {*}
+										}
+									}
+									ELEMENT[at0015] occurrences matches {0..1} matches {	-- Actual Target Date
+										value matches {
+											DV_DATE matches {*}
+										}
+									}
+								}
+							}
+							allow_archetype CLUSTER[at0017] occurrences matches {0..*} matches {	-- Goal Details
+								include
+									archetype_id/value matches {/.*/}
+							}
+							ELEMENT[at0019] occurrences matches {0..1} matches {	-- Comment
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0020] occurrences matches {0..1} matches {	-- Time Original Activity Created
+								value matches {
+									DV_DATE_TIME matches {*}
+								}
+							}
+						}
+					}
 				}
 			}
 		}
 		protocol matches {
 			ITEM_TREE[at0021] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
-					allow_archetype CLUSTER[at0022] occurrences matches {0..*} matches {	-- Tilleggsinformasjon
+					allow_archetype CLUSTER[at0022] occurrences matches {0..*} matches {	-- Additional Information
 						include
 							archetype_id/value matches {/.*/}
 					}
@@ -84,40 +170,64 @@ ontology
 		["no"] = <
 			items = <
 				["at0000"] = <
-					text = <"*Oppnå mål(nb)">
-					description = <"*Støtter opp omkring Classic funksjonalitet ved å ha prossess rundt det å ha et mål som man jobber med. (nb)">
-				>
-				["at0001"] = <
-					text = <"*Registrer(nb)">
-					description = <"**(nb)">
-				>
-				["at0002"] = <
-					text = <"*Tree(nb)">
-					description = <"*@ internal @(nb)">
-				>
-				["at0021"] = <
-					text = <"*Tree(nb)">
-					description = <"*@ internal @(nb)">
-				>
-				["at0022"] = <
-					text = <"*Tilleggsinformasjon(nb)">
-					description = <"*Placeholder for å kunne legge detaljer som er felles for alle behandlingsplan element typer på instruksjon nivå(nb)">
-				>
-			>
-		>
-		["nb"] = <
-			items = <
-				["at0000"] = <
 					text = <"Oppnå mål">
-					description = <"Støtter opp omkring Classic funksjonalitet ved å ha prossess rundt det å ha et mål som man jobber med. ">
+					description = <"Fremtidig helsetilstand som skal oppnås for pasienten.">
 				>
 				["at0001"] = <
 					text = <"Registrer">
-					description = <"*">
+					description = <"Registrer helsetilstand for pasienten.">
 				>
 				["at0002"] = <
 					text = <"Tree">
 					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Mål">
+					description = <"Navn på målet som skal oppnås.">
+				>
+				["at0004"] = <
+					text = <"Beskrivelse">
+					description = <"Beskrivelse av mål.">
+				>
+				["at0005"] = <
+					text = <"Foreslått oppnåelsesdato">
+					description = <"Foreslått dato for når målet ønskes oppnådd.">
+				>
+				["at0008"] = <
+					text = <"Delmåldetaljer">
+					description = <"Detaljer for delmål.">
+				>
+				["at0009"] = <
+					text = <"Delmål">
+					description = <"Navnet på delmålet.">
+				>
+				["at0010"] = <
+					text = <"Delmåloppnåelsesfaktor">
+					description = <"Hvor nært målet man er.">
+				>
+				["at0011"] = <
+					text = <"Foreslått oppnåelsesdato på delmål">
+					description = <"Foreslått dato for når delmålet ønskes oppnådd.">
+				>
+				["at0013"] = <
+					text = <"Delmål arketypenode">
+					description = <"Arketypeidentifikator for noden som brukes for å registrere målingen.">
+				>
+				["at0015"] = <
+					text = <"Reell oppnåelsesdato">
+					description = <"Datoen for når delmålet ble oppnådd.">
+				>
+				["at0017"] = <
+					text = <"Måldetaljer">
+					description = <"Detaljer for mål.">
+				>
+				["at0019"] = <
+					text = <"Kommentar">
+					description = <"Kommentar.">
+				>
+				["at0020"] = <
+					text = <"Time Original Activity Created">
+					description = <"Dato for når målet ble opprettet.">
 				>
 				["at0021"] = <
 					text = <"Tree">
@@ -125,31 +235,152 @@ ontology
 				>
 				["at0022"] = <
 					text = <"Tilleggsinformasjon">
-					description = <"Placeholder for å kunne legge detaljer som er felles for alle behandlingsplan element typer på instruksjon nivå">
+					description = <"Eventuell tilleggsinformasjon.">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Oppnå mål">
+					description = <"Fremtidig helsetilstand som skal oppnås for pasienten.">
+				>
+				["at0001"] = <
+					text = <"Registrer">
+					description = <"Registrer helsetilstand for pasienten.">
+				>
+				["at0002"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Mål">
+					description = <"Navn på målet som skal oppnås.">
+				>
+				["at0004"] = <
+					text = <"Beskrivelse">
+					description = <"Beskrivelse av mål.">
+				>
+				["at0005"] = <
+					text = <"Foreslått oppnåelsesdato">
+					description = <"Foreslått dato for når målet ønskes oppnådd.">
+				>
+				["at0008"] = <
+					text = <"Delmåldetaljer">
+					description = <"Detaljer for delmål.">
+				>
+				["at0009"] = <
+					text = <"Delmål">
+					description = <"Navnet på delmålet.">
+				>
+				["at0010"] = <
+					text = <"Delmåloppnåelsesfaktor">
+					description = <"Hvor nært målet man er.">
+				>
+				["at0011"] = <
+					text = <"Foreslått oppnåelsesdato på delmål">
+					description = <"Foreslått dato for når delmålet ønskes oppnådd.">
+				>
+				["at0013"] = <
+					text = <"Delmål arketypenode">
+					description = <"Arketypeidentifikator for noden som brukes for å registrere målingen.">
+				>
+				["at0015"] = <
+					text = <"Reell oppnåelsesdato">
+					description = <"Datoen for når delmålet ble oppnådd.">
+				>
+				["at0017"] = <
+					text = <"Måldetaljer">
+					description = <"Detaljer for mål.">
+				>
+				["at0019"] = <
+					text = <"Kommentar">
+					description = <"Kommentar.">
+				>
+				["at0020"] = <
+					text = <"Time Original Activity Created">
+					description = <"Dato for når målet ble opprettet.">
+				>
+				["at0021"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0022"] = <
+					text = <"Tilleggsinformasjon">
+					description = <"Eventuell tilleggsinformasjon.">
 				>
 			>
 		>
 		["en"] = <
 			items = <
 				["at0000"] = <
-					text = <"*Oppnå mål(nb)">
-					description = <"*Støtter opp omkring Classic funksjonalitet ved å ha prossess rundt det å ha et mål som man jobber med. (nb)">
+					text = <"Care Plan Goal">
+					description = <"A future health state that is agreed to be the patient.">
 				>
 				["at0001"] = <
 					text = <"Register">
-					description = <"*">
+					description = <"Register a health state for the patient.">
 				>
 				["at0002"] = <
-					text = <"*Tree(nb)">
-					description = <"*@ internal @(nb)">
+					text = <"Tree">
+					description = <"@ internal @">
 				>
+				["at0003"] = <
+					text = <"Goal Name">
+					description = <"The name of the goal that is to be achieved.">
+				>
+				["at0004"] = <
+					text = <"Description">
+					description = <"A description of the goal.">
+				>
+				["at0005"] = <
+					text = <"Proposed Achievement Date">
+					description = <"The date at which the goal is proposed to be achieved.">
+				>
+				["at0008"] = <
+					text = <"Target Details">
+					description = <"Details for the target.">
+				>
+				["at0009"] = <
+					text = <"Target">
+					description = <"Name of the target.">
+				>
+				["at0010"] = <
+					text = <"Target Measurement">
+					description = <"The arget measurement value or range of values.">
+				>
+				["at0011"] = <
+					text = <"Proposed Target Date">
+					description = <"The proposed date for achieving the target.">
+				>
+				["at0013"] = <
+					text = <"Target Archetype Node">
+					description = <"The archetype identifier and path of the specific node that should be used to capture the actual measurement.">
+				>
+				["at0015"] = <
+					text = <"Actual Target Date">
+					description = <"The actual date the target was achieved.">
+				>
+				["at0017"] = <
+					text = <"Goal Details">
+					description = <"Details for the goal.">
+				>
+				["at0019"] = <
+					text = <"Comment">
+					description = <"Comment">
+				>
+				["at0020"] = <
+					text = <"Time Original Activity Created">
+					description = <"The date the activity was created.">
+				>
+
 				["at0021"] = <
-					text = <"*Tree(nb)">
-					description = <"*@ internal @(nb)">
+					text = <"Tree">
+					description = <"@ internal @">
 				>
 				["at0022"] = <
-					text = <"*Tilleggsinformasjon(nb)">
-					description = <"*Placeholder for å kunne legge detaljer som er felles for alle behandlingsplan element typer på instruksjon nivå(nb)">
+					text = <"Additional Information">
+					description = <"Additional information that may be needed.">
 				>
 			>
 		>
