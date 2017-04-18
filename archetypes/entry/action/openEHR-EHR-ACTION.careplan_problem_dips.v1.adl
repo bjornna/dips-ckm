@@ -2,7 +2,7 @@ archetype (adl_version=1.4)
 	openEHR-EHR-ACTION.careplan_problem_dips.v1
 
 concept
-	[at0000]	-- Vurdering av problemstilling
+	[at0000]	-- Vurdering av en aktuel problemstilling er gjort
 language
 	original_language = <[ISO_639-1::nb]>
 	translations = <
@@ -29,37 +29,37 @@ description
 	details = <
 		["en"] = <
 			language = <[ISO_639-1::en]>
-			purpose = <"">
-			use = <"">
+			purpose = <"The recording of activities undertaken with regard to an item/issue">
+			use = <"DIPS internal use">
 			misuse = <"">
-			copyright = <"">
+			copyright = <"DIPS AS">
 		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
 			purpose = <"Denne arketypen brukes for å dokumentere vurderingen av en problemstilling med tidspunkt og et valgfritt notat.">
-			use = <"">
+			use = <"DIPS intern bruk">
 			misuse = <"">
 			copyright = <"DIPS AS">
 		>
 		["no"] = <
 			language = <[ISO_639-1::no]>
-			purpose = <"*(nb)">
-			use = <"*(nb)">
-			misuse = <"*(nb)">
-			copyright = <"*(nb)">
+			purpose = <"For vurdering av en problemstilling med tidspunkt og et valgfritt notat i Arena behandlingsplan">
+			use = <"DIPS intern bruk">
+			misuse = <"">
+			copyright = <"DIPS AS">
 		>
 	>
 	lifecycle_state = <"Initial">
 	other_contributors = <"Ivar Yrke, DIPS AS, Norway", "Terje Sagmyr, DIPS AS, Norway", "Sindre Nordbøe Årøen, DIPS AS, Norway", "Bjørn-Petter Johannessen, DIPS AS, Norway">
 	other_details = <
 		["current_contact"] = <"Phuong Pedersen, DIPS AS <ppe@dips.no>">
-		["MD5-CAM-1.0.1"] = <"82B82C6CB2AB6DF7EEF4E4A66B49477E">
+		["MD5-CAM-1.0.1"] = <"44A18257BE4B381884B2518CAE52702B">
 	>
 
 definition
-	ACTION[at0000] matches {	-- Vurdering av problemstilling
+	ACTION[at0000] matches {	-- Vurdering av en aktuel problemstilling er gjort
 		ism_transition matches {
-			ISM_TRANSITION[at0002] matches {	-- Foreslå
+			ISM_TRANSITION[at0002] matches {	-- Proposed
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::526]}
@@ -67,11 +67,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0002]}		-- Foreslå
+						defining_code matches {[local::at0002]}		-- Proposed
 					}
 				}
 			}
-			ISM_TRANSITION[at0008] matches {	-- Annuller
+			ISM_TRANSITION[at0008] matches {	-- Cancel
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::528]}
@@ -79,11 +79,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0008]}		-- Annuller
+						defining_code matches {[local::at0008]}		-- Cancel
 					}
 				}
 			}
-			ISM_TRANSITION[at0003] matches {	-- Vurder
+			ISM_TRANSITION[at0003] matches {	-- Evaluate
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::245]}
@@ -91,11 +91,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0003]}		-- Vurder
+						defining_code matches {[local::at0003]}		-- Evaluate
 					}
 				}
 			}
-			ISM_TRANSITION[at0004] matches {	-- Aktiver
+			ISM_TRANSITION[at0004] matches {	-- Activate
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::245]}
@@ -103,11 +103,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0004]}		-- Aktiver
+						defining_code matches {[local::at0004]}		-- Activate
 					}
 				}
 			}
-			ISM_TRANSITION[at0005] matches {	-- Avslutt
+			ISM_TRANSITION[at0005] matches {	-- Completed
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::532]}
@@ -115,11 +115,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0005]}		-- Avslutt
+						defining_code matches {[local::at0005]}		-- Completed
 					}
 				}
 			}
-			ISM_TRANSITION[at0007] matches {	-- DIPS.ARENA.SYSTEM.NEWVERSION
+			ISM_TRANSITION[at0007] matches {	-- *DIPS.ARENA.SYSTEM.NEWVERSION(nb)
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::532]}
@@ -127,15 +127,15 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0007]}		-- DIPS.ARENA.SYSTEM.NEWVERSION
+						defining_code matches {[local::at0007]}		-- *DIPS.ARENA.SYSTEM.NEWVERSION(nb)
 					}
 				}
 			}
 		}
 		description matches {
-			ITEM_TREE[at0001] matches {	-- Tree
+			ITEM_TREE[at0001] matches {	-- *
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Notat
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Note
 						value matches {
 							DV_TEXT matches {*}
 						}
@@ -150,48 +150,48 @@ ontology
 		["no"] = <
 			items = <
 				["at0000"] = <
-					text = <"*Vurdering av problemstilling(nb)">
-					description = <"*For vurdering av en problemstilling med tidspunkt og et valgfritt notat.(nb)">
+					text = <"Vurdering en aktuel problemstilling er gjort">
+					description = <"">
 				>
 				["at0001"] = <
 					text = <"Tree">
-					description = <"*@ internal @(nb)">
+					description = <"@ internal @">
 				>
 				["at0002"] = <
-					text = <"*Foreslå(nb)">
-					description = <"*Setter problem til foreslått.(nb)">
+					text = <"Foreslå">
+					description = <"Setter problem til foreslått">
 				>
 				["at0003"] = <
-					text = <"*Vurder(nb)">
-					description = <"*Setter problem til vurdert.(nb)">
+					text = <"Vurder">
+					description = <"Setter problem til vurdert">
 				>
 				["at0004"] = <
-					text = <"*Aktiver(nb)">
-					description = <"*Setter problem til aktivert.(nb)">
+					text = <"Aktiver">
+					description = <"Setter problem til aktivert">
 				>
 				["at0005"] = <
-					text = <"*Avslutt(nb)">
-					description = <"*Setter problem til avsluttet.(nb)">
+					text = <"Avslutt">
+					description = <"Setter problem til avsluttet">
 				>
 				["at0006"] = <
-					text = <"*Notat(nb)">
-					description = <"*Valgfritt notat tilknyttet vurdering av problemstilling.(nb)">
+					text = <"Notat">
+					description = <"Valgfritt notat tilknyttet vurdering av problemstilling">
 				>
 				["at0007"] = <
-					text = <"*DIPS.ARENA.SYSTEM.NEWVERSION(nb)">
-					description = <"*Tilstand for å spesifisere endringer.(nb)">
+					text = <"DIPS.ARENA.SYSTEM.NEWVERSION">
+					description = <"DIPS system tilstand, som brukes når kommentar på den aktuelle problemstilling endres">
 				>
 				["at0008"] = <
-					text = <"*Annuller(nb)">
-					description = <"*Setter problem til annullert.(nb)">
+					text = <"Annuller">
+					description = <"Setter problem til annullert">
 				>
 			>
 		>
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"Vurdering av problemstilling">
-					description = <"For vurdering av en problemstilling med tidspunkt og et valgfritt notat.">
+					text = <"Vurdering av problemstilling i Arena behandlingsplan">
+					description = <"">
 				>
 				["at0001"] = <
 					text = <"Tree">
@@ -219,7 +219,7 @@ ontology
 				>
 				["at0007"] = <
 					text = <"DIPS.ARENA.SYSTEM.NEWVERSION">
-					description = <"Tilstand for å spesifisere endringer.">
+					description = <"DIPS system tilstand, som brukes når kommentar på den aktuelle problemstilling endres">
 				>
 				["at0008"] = <
 					text = <"Annuller">
@@ -230,40 +230,40 @@ ontology
 		["en"] = <
 			items = <
 				["at0000"] = <
-					text = <"*Vurdering av problemstilling(nb)">
-					description = <"*For vurdering av en problemstilling med tidspunkt og et valgfritt notat.(nb)">
+					text = <"Vurdering av en aktuel problemstilling er gjort">
+					description = <"">
 				>
 				["at0001"] = <
 					text = <"*">
 					description = <"*">
 				>
 				["at0002"] = <
-					text = <"*Foreslå(nb)">
-					description = <"*Setter problem til foreslått.(nb)">
+					text = <"Proposed">
+					description = <"Record that the item/issue has been proposed">
 				>
 				["at0003"] = <
-					text = <"*Vurder(nb)">
-					description = <"*Setter problem til vurdert.(nb)">
+					text = <"Evaluate">
+					description = <"Record that the item/issue has been evaluated">
 				>
 				["at0004"] = <
-					text = <"*Aktiver(nb)">
-					description = <"*Setter problem til aktivert.(nb)">
+					text = <"Activate">
+					description = <"Record that the item/issue has beed activated">
 				>
 				["at0005"] = <
-					text = <"*Avslutt(nb)">
-					description = <"*Setter problem til avsluttet.(nb)">
+					text = <"Completed">
+					description = <"Record that the item/issue has beed completed">
 				>
 				["at0006"] = <
-					text = <"*Notat(nb)">
-					description = <"*Valgfritt notat tilknyttet vurdering av problemstilling.(nb)">
+					text = <"Note">
+					description = <"Optional note regarding the item/issue">
 				>
 				["at0007"] = <
 					text = <"*DIPS.ARENA.SYSTEM.NEWVERSION(nb)">
-					description = <"*Tilstand for å spesifisere endringer.(nb)">
+					description = <"*DIPS system tilstand, som brukes når kommentar på den aktuelle problemstilling endres(nb)">
 				>
 				["at0008"] = <
-					text = <"*Annuller(nb)">
-					description = <"*Setter problem til annullert.(nb)">
+					text = <"Cancel">
+					description = <"Record that the item/issue has been cancelled">
 				>
 			>
 		>
