@@ -63,17 +63,18 @@
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Intensivopphold start og stopp">
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.intensivopphold_dips.v1" concept_name="Intensivopphold" path="/content">
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.age_dips.v1" concept_name="Age" path="/description[at0001]/items[at0011]">
-        <Rule path="/items[at0001]" max="1" name="Age NIR startsak">
-          <constraint xsi:type="multipleConstraint">
-            <includedTypes>Text</includedTypes>
+        <Rule path="/items[at0001]" max="1" name="Age NIR intensivsak">
+          <constraint xsi:type="durationConstraint">
+            <pattern>PYTS</pattern>
+            <includesMaximum>false</includesMaximum>
+            <includesMinimum>false</includesMinimum>
           </constraint>
         </Rule>
       </Items>
     </Content>
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.contact_summary_dips.v1" concept_name="contact summary" path="/content">
-      <Rule path="/data[at0001]/items[at0002]" name="Startdato og klokkeslett NIR startsak" />
+      <Rule path="/data[at0001]/items[at0002]" name="Startdato NIR intensivsak" />
     </Content>
-    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.nir_hjelpefelt.v1" concept_name="Nir hjelpefelt" path="/content" />
     <Context />
   </definition>
 </template>
