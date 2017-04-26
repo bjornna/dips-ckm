@@ -1,0 +1,253 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.diabetes_retinopati_ous_dips.v1
+
+concept
+	[at0000]	-- Diabetes retinopati ous dips
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Arne Løberg Sæter">
+		["email"] = <"asa@dips.no">
+		["organisation"] = <"DIPS ASA / OUS HF">
+		["date"] = <"2017-04-01">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For registrering av detaljer til bruk innen evaluering av diabetesretinopati.">
+			use = <"For registrering av detaljer til bruk innen evaluering av diabetesretinopati.">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"NotSet">
+	other_contributors = <"Thomas Bærland", ...>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"D1DDDB8B157EF53408CDE3459FD29AD9">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Diabetes retinopati ous dips
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..*} matches {	-- Beskrivelse
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0012] occurrences matches {0..*} matches {	-- Funn
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..*} matches {	-- Mikroaneurysmer
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0010] occurrences matches {0..*} matches {	-- Harde eksudater i makula
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0008] occurrences matches {0..*} matches {	-- Makulaødem
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0023] occurrences matches {0..*} matches {	-- Korpusblødning
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0025] occurrences matches {0..*} matches {	-- CRT
+				value matches {
+					C_DV_QUANTITY <
+					>
+				}
+			}
+			ELEMENT[at0024] occurrences matches {0..*} matches {	-- Netthinnetraksjon
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			allow_archetype CLUSTER[at0002] occurrences matches {0..*} matches {	-- Detaljer
+				include
+					archetype_id/value matches {/.*/}
+			}
+			CLUSTER[at0013] occurrences matches {0..*} matches {	-- Intraretinale blødninger
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0005] occurrences matches {0..*} matches {	-- Lokalisering
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0014] occurrences matches {0..*} matches {	-- Antall kvadranter
+						value matches {
+							DV_COUNT matches {
+								magnitude matches {|0..4|}
+							}
+						}
+					}
+				}
+			}
+			CLUSTER[at0015] occurrences matches {0..*} matches {	-- Neovaskulariseringer
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0007] occurrences matches {0..*} matches {	-- Lokalisering
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0011] occurrences matches {0..*} matches {	-- Størrelse PD
+						value matches {
+							C_DV_QUANTITY <
+								property = <[openehr::380]>
+								list = <
+									["1"] = <
+										units = <"">
+										magnitude = <|0.0..100.0|>
+										precision = <|1|>
+									>
+								>
+							>
+						}
+					}
+				}
+			}
+			CLUSTER[at0016] occurrences matches {0..*} matches {	-- Karforandringer
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0004] occurrences matches {0..*} matches {	-- Lokalisering
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0022] occurrences matches {0..*} matches {	-- Type
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0020] occurrences matches {0..*} matches {	-- Antall kvadranter
+						value matches {
+							DV_COUNT matches {
+								magnitude matches {|0..4|}
+							}
+						}
+					}
+				}
+			}
+			CLUSTER[at0017] occurrences matches {0..*} matches {	-- Intraretinale mikrovaskulære abnormaliteter (IRMA)
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0006] occurrences matches {0..*} matches {	-- Lokalisering
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0021] occurrences matches {0..*} matches {	-- Antall kvadranter
+						value matches {
+							DV_COUNT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Diabetes retinopati ous dips">
+					description = <"For registrering av detaljer til bruk innen evaluering av diabetesretinopati.">
+				>
+				["at0001"] = <
+					text = <"Beskrivelse">
+					description = <"Fritekstlig beskrivelse.">
+				>
+				["at0002"] = <
+					text = <"Detaljer">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Mikroaneurysmer">
+					description = <"Strukturer angivelse av mikroaneurysmer.">
+				>
+				["at0004"] = <
+					text = <"Lokalisering">
+					description = <"Strukturert beskrivelse av lokalisering av kaliberveksling (venous beading)">
+				>
+				["at0005"] = <
+					text = <"Lokalisering">
+					description = <"Angivelse av hvilke kvadranter det finnes intraretinale blødninger i.">
+				>
+				["at0006"] = <
+					text = <"Lokalisering">
+					description = <"Strukturert beskrivelse av lokalisering av IRMA.">
+				>
+				["at0007"] = <
+					text = <"Lokalisering">
+					description = <"NVE er neovaskularisering i netthinnen untatt NVI og NVD. NVD er neovaskularisering på papillen inkludert juxtapappilær proliferasjoner. NVI er neovaskularisering på iris og/eller i kemmervinkelen.">
+				>
+				["at0008"] = <
+					text = <"Makulaødem">
+					description = <"Strukturert beskrivelse av makulaødemet.">
+				>
+				["at0010"] = <
+					text = <"Harde eksudater i makula">
+					description = <"Strukturert beskrivelse av harde eksudater i makula.">
+				>
+				["at0011"] = <
+					text = <"Størrelse PD">
+					description = <"Størrelse vurdert i antall papillediametre. Hvis flere NV er det den største som skal angis.">
+				>
+				["at0012"] = <
+					text = <"Funn">
+					description = <"Strukturert beskrivelse av funn.">
+				>
+				["at0013"] = <
+					text = <"Intraretinale blødninger">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Antall kvadranter">
+					description = <"Antall kvadranter med intraretinale blødninger.">
+				>
+				["at0015"] = <
+					text = <"Neovaskulariseringer">
+					description = <"*">
+				>
+				["at0016"] = <
+					text = <"Karforandringer">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Intraretinale mikrovaskulære abnormaliteter (IRMA)">
+					description = <"*">
+				>
+				["at0020"] = <
+					text = <"Antall kvadranter">
+					description = <"Antall kvadranter med kalbervekslinger.">
+				>
+				["at0021"] = <
+					text = <"Antall kvadranter">
+					description = <"Antall kvadranter med intraretinale microvaskulære abnormiteter (IRMA)">
+				>
+				["at0022"] = <
+					text = <"Type">
+					description = <"Venous beading, loops, omega-sign, ">
+				>
+				["at0023"] = <
+					text = <"Korpusblødning">
+					description = <"*">
+				>
+				["at0024"] = <
+					text = <"Netthinnetraksjon">
+					description = <"*">
+				>
+				["at0025"] = <
+					text = <"CRT">
+					description = <"*">
+				>
+			>
+		>
+	>

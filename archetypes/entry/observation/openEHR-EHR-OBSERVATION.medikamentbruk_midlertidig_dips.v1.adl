@@ -1,0 +1,90 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.medikamentbruk_midlertidig_dips.v1
+
+concept
+	[at0000]	-- Medikamentbruk midlertidig
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["organisation"] = <"Dips ASA">
+		["email"] = <"ahe@dips.no">
+		["date"] = <"2015-11-10">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For å registrere medikamentbruk på et gitt tidspunkt i en klinisk situasjon f.eks. ved innkomst, planlegging av operasjon etc.
+
+">
+			use = <"Brukes midlertidig i påvente av at spesialiserte arketyper er ferdige og godkjent.">
+			keywords = <"medikamenter", "medikamentbruk">
+			misuse = <"Brukes ikke når det finnes spesialiserte arketyper som dokumentere legemidler i bruk forskrivinger etc.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <"Helge Pettersen", "Kristian Alm">
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"685BA5F09D3ABF94B63D10D867D64832">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Medikamentbruk midlertidig
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									allow_archetype CLUSTER[at0004] occurrences matches {0..*} matches {	-- Medikamentbruk
+										include
+											archetype_id/value matches {/openEHR-EHR-CLUSTER\.health_factor_generic\.v1/}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Medikasjon
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Medikamentbruk midlertidig">
+					description = <"Dokumenterte medikamentbruk i påvente av en arketypebasert løsning på LIB.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Medikamentbruk">
+					description = <"Detaljer vedrørende medikamentbruk.">
+				>
+				["at0005"] = <
+					text = <"Medikasjon">
+					description = <"Fritekst-versjon av faste medikamenter. Benyttes frem til strukturert løsning foreligger.">
+				>
+			>
+		>
+	>

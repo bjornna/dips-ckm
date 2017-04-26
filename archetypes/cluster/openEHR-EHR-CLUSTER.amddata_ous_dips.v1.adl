@@ -1,0 +1,572 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.amddata_ous_dips.v1
+
+concept
+	[at0000]	-- Amddata ous dips
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"A51A4BB9E06F63AF852E22C205953C0A">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Amddata ous dips
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0004] occurrences matches {0..*} matches {	-- Side
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			CLUSTER[at0005] occurrences matches {0..*} matches {	-- Oppsummering
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0006] occurrences matches {0..*} matches {	-- Forrige undersøkelse
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0001] occurrences matches {0..*} matches {	-- Type AMD
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0002] occurrences matches {0..*} matches {	-- Alvorlighetsgrad
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0007] occurrences matches {0..*} matches {	-- Siste desimalvisus
+						value matches {
+							C_DV_QUANTITY <
+							>
+						}
+					}
+					allow_archetype CLUSTER[at0020] occurrences matches {0..*} matches {	-- Oppsummering detaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0003] occurrences matches {0..*} matches {	-- Beskrivelse
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0021] occurrences matches {0..*} matches {	-- Refraksjon detaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+			CLUSTER[at0008] occurrences matches {0..*} matches {	-- Nonneovaskulær AMD / Tørr AMD
+				items cardinality matches {1..*; unordered} matches {
+					CLUSTER[at0051] occurrences matches {0..*} matches {	-- Debutdetaljer tørr AMD
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0055] occurrences matches {0..*} matches {	-- Diagnosedato nonneovaskulær AMD
+								value matches {
+									DV_DATE_TIME matches {*}
+								}
+							}
+							ELEMENT[at0054] occurrences matches {0..*} matches {	-- Utgangsvisus
+								value matches {
+									C_DV_QUANTITY <
+									>
+								}
+							}
+							ELEMENT[at0053] occurrences matches {0..*} matches {	-- Debutsymptomer
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0052] occurrences matches {0..*} matches {	-- Refraksjonsdato
+								include
+									archetype_id/value matches {/.*/}
+							}
+						}
+					}
+					CLUSTER[at0017] occurrences matches {0..*} matches {	-- Kliniske funn tørr AMD
+						items cardinality matches {1..*; unordered} matches {
+							CLUSTER[at0009] occurrences matches {0..*} matches {	-- Druser
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0012] occurrences matches {0..*} matches {	-- Type
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0011] occurrences matches {0..*} matches {	-- Størrelse
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0010] occurrences matches {0..*} matches {	-- Mønster
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+							CLUSTER[at0013] occurrences matches {0..*} matches {	-- Pigmentforandringer
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0014] occurrences matches {0..*} matches {	-- Fokal hyperpigmentering
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+							CLUSTER[at0015] occurrences matches {0..*} matches {	-- Atrofiutvikling
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0016] occurrences matches {0..*} matches {	-- Relativ størrelse av atrofi målt i PA
+										value matches {
+											C_DV_QUANTITY <
+											>
+										}
+									}
+								}
+							}
+							allow_archetype CLUSTER[at0019] occurrences matches {0..*} matches {	-- Kliniske funn nonneovaskulær detaljer
+								include
+									archetype_id/value matches {/.*/}
+							}
+						}
+					}
+					CLUSTER[at0022] occurrences matches {0..*} matches {	-- Behandling tørr AMD
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0023] occurrences matches {0..*} matches {	-- Behandling nonneovaskulær AMD
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0024] occurrences matches {0..*} matches {	-- Behandling nonneovaskulær AMD detaljer
+								include
+									archetype_id/value matches {/.*/}
+							}
+						}
+					}
+					allow_archetype CLUSTER[at0025] occurrences matches {0..*} matches {	-- Nonneovaskulær AMD detaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+			CLUSTER[at0026] occurrences matches {0..*} matches {	-- Neovaskulær AMD / Eksudativ AMD
+				items cardinality matches {1..*; unordered} matches {
+					CLUSTER[at0047] occurrences matches {0..*} matches {	-- Debutdetaljer eksudativ AMD
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0027] occurrences matches {0..*} matches {	-- Diagnosedato eksudativ AMD
+								value matches {
+									DV_DATE_TIME matches {*}
+								}
+							}
+							ELEMENT[at0048] occurrences matches {0..*} matches {	-- Utgangsvisus
+								value matches {
+									C_DV_QUANTITY <
+									>
+								}
+							}
+							ELEMENT[at0050] occurrences matches {0..*} matches {	-- Debutsymptomer
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0049] occurrences matches {0..*} matches {	-- Refraksjonsdetaljer
+								include
+									archetype_id/value matches {/.*/}
+							}
+						}
+					}
+					CLUSTER[at0035] occurrences matches {0..*} matches {	-- Behandling eksudativ AMD
+						items cardinality matches {1..*; unordered} matches {
+							allow_archetype CLUSTER[at0046] occurrences matches {0..*} matches {	-- Behandling neovaskulær AMD detaljer
+								include
+									archetype_id/value matches {/.*/}
+							}
+							ELEMENT[at0037] occurrences matches {0..*} matches {	-- Nåværende medikament
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0041] occurrences matches {0..*} matches {	-- Nåværende behandlingsintervall
+								value matches {
+									C_DV_QUANTITY <
+										property = <[openehr::128]>
+										list = <
+											["1"] = <
+												units = <"wk">
+												precision = <|0|>
+											>
+										>
+									>
+								}
+							}
+							ELEMENT[at0045] occurrences matches {0..*} matches {	-- Dato forrige residiv
+								value matches {
+									DV_DATE_TIME matches {*}
+								}
+							}
+							ELEMENT[at0042] occurrences matches {0..*} matches {	-- Intervall ved siste residiv
+								value matches {
+									C_DV_QUANTITY <
+										property = <[openehr::128]>
+										list = <
+											["1"] = <
+												units = <"wk">
+												precision = <|0|>
+											>
+										>
+									>
+								}
+							}
+							ELEMENT[at0043] occurrences matches {0..*} matches {	-- Forrige endring av injeksjonsintervall
+								value matches {
+									DV_DATE_TIME matches {*}
+								}
+							}
+							ELEMENT[at0044] occurrences matches {0..*} matches {	-- Endring av injeksjonsintervall
+								value matches {
+									C_DV_QUANTITY <
+										property = <[openehr::128]>
+										list = <
+											["1"] = <
+												units = <"wk">
+												precision = <|0|>
+											>
+										>
+									>
+								}
+							}
+							ELEMENT[at0039] occurrences matches {0..*} matches {	-- Forrige bytte av medikament
+								value matches {
+									DV_DATE_TIME matches {*}
+								}
+							}
+							ELEMENT[at0059] occurrences matches {0..*} matches {	-- Tørt siden
+								value matches {
+									DV_DATE_TIME matches {*}
+								}
+							}
+							ELEMENT[at0038] occurrences matches {0..*} matches {	-- Tidligere medikamenter
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0040] occurrences matches {0..*} matches {	-- Forrige bytteårsak
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0036] occurrences matches {0..*} matches {	-- Behandlingsstatus
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+						}
+					}
+					CLUSTER[at0028] occurrences matches {0..*} matches {	-- Kliniske funn eksudativ AMD
+						items cardinality matches {1..*; unordered} matches {
+							allow_archetype CLUSTER[at0034] occurrences matches {0..*} matches {	-- Eksudative funn detaljer
+								include
+									archetype_id/value matches {/.*/}
+							}
+							ELEMENT[at0033] occurrences matches {0..*} matches {	-- Komplikasjon eksudativ AMD
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0032] occurrences matches {0..*} matches {	-- Ødemendring
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0031] occurrences matches {0..*} matches {	-- Ødemstatus
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0030] occurrences matches {0..*} matches {	-- CNV relativ størrelse i PA
+								value matches {
+									C_DV_QUANTITY <
+									>
+								}
+							}
+							ELEMENT[at0029] occurrences matches {0..*} matches {	-- Type eksudativ
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+						}
+					}
+				}
+			}
+			CLUSTER[at0056] occurrences matches {0..*} matches {	-- Annet
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0057] occurrences matches {0..*} matches {	-- Kjente risikofaktorer
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0058] occurrences matches {0..*} matches {	-- Kommentarer
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Amddata ous dips">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Type AMD">
+					description = <"*">
+				>
+				["at0002"] = <
+					text = <"Alvorlighetsgrad">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Beskrivelse">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Side">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Oppsummering">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Forrige undersøkelse">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Siste desimalvisus">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Nonneovaskulær AMD / Tørr AMD">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Druser">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Mønster">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Størrelse">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Type">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Pigmentforandringer">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Fokal hyperpigmentering">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Atrofiutvikling">
+					description = <"*">
+				>
+				["at0016"] = <
+					text = <"Relativ størrelse av atrofi målt i PA">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Kliniske funn tørr AMD">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"Kliniske funn nonneovaskulær detaljer">
+					description = <"*">
+				>
+				["at0020"] = <
+					text = <"Oppsummering detaljer">
+					description = <"*">
+				>
+				["at0021"] = <
+					text = <"Refraksjon detaljer">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Behandling tørr AMD">
+					description = <"*">
+				>
+				["at0023"] = <
+					text = <"Behandling nonneovaskulær AMD">
+					description = <"*">
+				>
+				["at0024"] = <
+					text = <"Behandling nonneovaskulær AMD detaljer">
+					description = <"*">
+				>
+				["at0025"] = <
+					text = <"Nonneovaskulær AMD detaljer">
+					description = <"*">
+				>
+				["at0026"] = <
+					text = <"Neovaskulær AMD / Eksudativ AMD">
+					description = <"*">
+				>
+				["at0027"] = <
+					text = <"Diagnosedato eksudativ AMD">
+					description = <"*">
+				>
+				["at0028"] = <
+					text = <"Kliniske funn eksudativ AMD">
+					description = <"*">
+				>
+				["at0029"] = <
+					text = <"Type eksudativ">
+					description = <"*">
+				>
+				["at0030"] = <
+					text = <"CNV relativ størrelse i PA">
+					description = <"*">
+				>
+				["at0031"] = <
+					text = <"Ødemstatus">
+					description = <"*">
+				>
+				["at0032"] = <
+					text = <"Ødemendring">
+					description = <"*">
+				>
+				["at0033"] = <
+					text = <"Komplikasjon eksudativ AMD">
+					description = <"*">
+				>
+				["at0034"] = <
+					text = <"Eksudative funn detaljer">
+					description = <"*">
+				>
+				["at0035"] = <
+					text = <"Behandling eksudativ AMD">
+					description = <"*">
+				>
+				["at0036"] = <
+					text = <"Behandlingsstatus">
+					description = <"*">
+				>
+				["at0037"] = <
+					text = <"Nåværende medikament">
+					description = <"*">
+				>
+				["at0038"] = <
+					text = <"Tidligere medikamenter">
+					description = <"*">
+				>
+				["at0039"] = <
+					text = <"Forrige bytte av medikament">
+					description = <"*">
+				>
+				["at0040"] = <
+					text = <"Forrige bytteårsak">
+					description = <"*">
+				>
+				["at0041"] = <
+					text = <"Nåværende behandlingsintervall">
+					description = <"*">
+				>
+				["at0042"] = <
+					text = <"Intervall ved siste residiv">
+					description = <"*">
+				>
+				["at0043"] = <
+					text = <"Forrige endring av injeksjonsintervall">
+					description = <"*">
+				>
+				["at0044"] = <
+					text = <"Endring av injeksjonsintervall">
+					description = <"*">
+				>
+				["at0045"] = <
+					text = <"Dato forrige residiv">
+					description = <"*">
+				>
+				["at0046"] = <
+					text = <"Behandling neovaskulær AMD detaljer">
+					description = <"*">
+				>
+				["at0047"] = <
+					text = <"Debutdetaljer eksudativ AMD">
+					description = <"*">
+				>
+				["at0048"] = <
+					text = <"Utgangsvisus">
+					description = <"*">
+				>
+				["at0049"] = <
+					text = <"Refraksjonsdetaljer">
+					description = <"*">
+				>
+				["at0050"] = <
+					text = <"Debutsymptomer">
+					description = <"*">
+				>
+				["at0051"] = <
+					text = <"Debutdetaljer tørr AMD">
+					description = <"*">
+				>
+				["at0052"] = <
+					text = <"Refraksjonsdato">
+					description = <"*">
+				>
+				["at0053"] = <
+					text = <"Debutsymptomer">
+					description = <"*">
+				>
+				["at0054"] = <
+					text = <"Utgangsvisus">
+					description = <"*">
+				>
+				["at0055"] = <
+					text = <"Diagnosedato nonneovaskulær AMD">
+					description = <"*">
+				>
+				["at0056"] = <
+					text = <"Annet">
+					description = <"*">
+				>
+				["at0057"] = <
+					text = <"Kjente risikofaktorer">
+					description = <"*">
+				>
+				["at0058"] = <
+					text = <"Kommentarer">
+					description = <"*">
+				>
+				["at0059"] = <
+					text = <"Tørt siden">
+					description = <"*">
+				>
+			>
+		>
+	>

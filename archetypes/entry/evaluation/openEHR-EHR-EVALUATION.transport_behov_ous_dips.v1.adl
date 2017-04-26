@@ -1,0 +1,242 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-EVALUATION.transport_behov_ous_dips.v1
+
+concept
+	[at0000]	-- Transport behov
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Evaluering etter rett til \"Dekning av faktiske utgifter til drosje og bil mv.\" iht forskrift.
+
+Pasienten har rett til å få dekket nødvendige dokumenterte utgifter til drosje eller dokumenterte utgifter til bilferge, bomvei, parkering og piggdekkavgift ved bruk av bil hvis
+
+a)	reisen gjelder øyeblikkelig hjelp,
+b)	personell som nevnt i tredje ledd attesterer at pasientens helsetilstand gjør det nødvendig å bruke drosje eller bil, eller
+c)	pasientreisekontor eller en annen som har fått myndighet til det, attesterer at manglende rutegående transport gjør det nødvendig å bruke drosje eller bil.
+
+Hvis helseforetaket har opplyst om at helseforetaket skal bestille drosje i et tidligere enkeltvedtak om retten til å få dekket reiseutgifter, men pasienten likevel selv legger ut for drosje, har pasienten bare rett til å få dekket utgifter etter første ledd når reisen gjelder øyeblikkelig hjelp.
+
+Pasientens behandler, oversykepleier, avdelingssykepleier og faglig ansvarlig på røntgenavdelingen eller laboratorium i sykehus kan attestere et behov for drosje eller bil etter første ledd bokstav b. Ansatte i helse- og omsorgstjenesten kan attestere et slikt behov ved reise til en institusjon som yter tverrfaglig spesialisert behandling for rusmiddelmisbruk.
+Bruk av ambulansebåt til pasientreiser skal være rekvirert av lege og dekkes bare når billigere forsvarlig transport ikke kan skaffes. Dette gjelder ikke når pasientens situasjon krever øyeblikkelig hjelp.">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"95DD0CC275841D4667F6B36178ECEEF0">
+	>
+
+definition
+	EVALUATION[at0000] matches {	-- Transport behov
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0005] occurrences matches {0..*} matches {	-- Trenger transport
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					CLUSTER[at0006] occurrences matches {0..*} matches {	-- Transportbehov
+						items cardinality matches {1..*; unordered} matches {
+							CLUSTER[at0017] occurrences matches {0..*} matches {	-- Transportbehov
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0012] occurrences matches {0..*} matches {	-- Transsportbehov
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0013] occurrences matches {0..*} matches {	-- Begrunnelse
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+							CLUSTER[at0018] occurrences matches {0..*} matches {	-- Årsak
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0015] occurrences matches {0..*} matches {	-- Årsak
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0019] occurrences matches {0..*} matches {	-- Begrunnelse
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+							CLUSTER[at0020] occurrences matches {0..*} matches {	-- Gyldighet
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0002] occurrences matches {0..*} matches {	-- Begrunnelse
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0004] occurrences matches {0..*} matches {	-- Begrenset varighet
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False; True}
+											}
+										}
+									}
+									ELEMENT[at0003] occurrences matches {0..*} matches {	-- Gyldig til
+										value matches {
+											DV_DATE matches {*}
+										}
+									}
+								}
+							}
+							ELEMENT[at0021] occurrences matches {0..*} matches {	-- Begrunnelse
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+						}
+					}
+					CLUSTER[at0007] occurrences matches {0..*} matches {	-- Ledsagerbehov
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0014] occurrences matches {0..*} matches {	-- Transportbehov
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0010] occurrences matches {0..*} matches {	-- Begrenset varighet
+								value matches {
+									DV_BOOLEAN matches {
+										value matches {True, False}
+									}
+								}
+							}
+							ELEMENT[at0016] occurrences matches {0..*} matches {	-- Årsak
+								value matches {
+									DV_BOOLEAN matches {
+										value matches {True, False}
+									}
+								}
+							}
+							ELEMENT[at0008] occurrences matches {0..*} matches {	-- Gyldig til
+								value matches {
+									DV_DATE_TIME matches {*}
+								}
+							}
+							ELEMENT[at0009] occurrences matches {0..*} matches {	-- Begrunnelse
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Transport behov">
+					description = <"Evaluering av transportbehov til og fra sykehus eller andre syeder helsetjenester leveres. ">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Begrunnelse">
+					description = <"Pasienten har rett til å få dekket nødvendige dokumenterte utgifter til drosje eller dokumenterte utgifter til bilferge, bomvei, parkering og piggdekkavgift ved bruk av bil hvis
+
+a)	reisen gjelder øyeblikkelig hjelp,
+b)	personell som nevnt i tredje ledd attesterer at pasientens helsetilstand gjør det nødvendig å bruke drosje eller bil, eller
+c)	pasientreisekontor eller en annen som har fått myndighet til det, attesterer at manglende rutegående transport gjør det nødvendig å bruke drosje eller bil.">
+				>
+				["at0003"] = <
+					text = <"Gyldig til">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Begrenset varighet">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Trenger transport">
+					description = <"Til beskrivelse av transport.">
+				>
+				["at0006"] = <
+					text = <"Transportbehov">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Ledsagerbehov">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Gyldig til">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Begrunnelse">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Begrenset varighet">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Transsportbehov">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Begrunnelse">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Transportbehov">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Årsak">
+					description = <"*">
+				>
+				["at0016"] = <
+					text = <"Årsak">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Transportbehov">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Årsak">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"Begrunnelse">
+					description = <"*">
+				>
+				["at0020"] = <
+					text = <"Gyldighet">
+					description = <"*">
+				>
+				["at0021"] = <
+					text = <"Begrunnelse">
+					description = <"*">
+				>
+			>
+		>
+	>

@@ -1,0 +1,120 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.exam_details_dips.v1
+
+concept
+	[at0000]	-- Undersøkelsesdetaljer
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Arne Løberg Sæter">
+		["organisation"] = <"DIPS ASA  / OUS HF">
+		["email"] = <"asa@dips.no">
+		["date"] = <"2017-03-25">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Generisk cluster til registrering av klinisk undersøkelser tiltenkt å ligge under OBSERVATION.exam-arketypen. Clusteret inneholder slot for anatomisk lokalisering.">
+			use = <"Generisk cluster til registrering av klinisk undersøkelser tiltenkt å ligge under OBSERVATION.exam-arketypen. Clusteret inneholder slot for anatomisk lokalisering.">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"OrganisationDraft">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"A462B5236F74704A7F3EEBD526720433">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Undersøkelsesdetaljer
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0004] occurrences matches {0..1} matches {	-- Intet unormalt avdekket
+				value matches {
+					DV_BOOLEAN matches {
+						value matches {True, False}
+					}
+				}
+			}
+			ELEMENT[at0001] occurrences matches {0..*} matches {	-- Beskrivelse
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..*} matches {	-- Funn
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			allow_archetype CLUSTER[at0003] occurrences matches {0..*} matches {	-- Detaljer
+				include
+					archetype_id/value matches {/.*/}
+			}
+			ELEMENT[at0005] occurrences matches {0..*} matches {	-- Multimedia representasjon [Cluster]
+				value matches {
+					DV_MULTIMEDIA matches {
+						media_type matches {[openEHR::]}
+					}
+				}
+			}
+			ELEMENT[at0006] occurrences matches {0..1} matches {	-- Klinisk betydning
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0007] occurrences matches {0..1} matches {	-- Kommentar
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			allow_archetype CLUSTER[at0008] occurrences matches {0..*} matches {	-- Undersøkelse ikke gjennomført
+				include
+					archetype_id/value matches {/.*/}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Undersøkelsesdetaljer">
+					description = <"Brukes til å registrere detaljerte undersøkelsesfunn.">
+				>
+				["at0001"] = <
+					text = <"Beskrivelse">
+					description = <"Beskrivelse i fritekst.">
+				>
+				["at0002"] = <
+					text = <"Funn">
+					description = <"Beskrivelse av funn strukturert eller fritekst.">
+				>
+				["at0003"] = <
+					text = <"Detaljer">
+					description = <"Slot til bruk ved behov for registrering av ekstra detaljer som strukturerte data eller anatomisk lokalisasjon.">
+				>
+				["at0004"] = <
+					text = <"Intet unormalt avdekket">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Multimedia representasjon [Cluster]">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Klinisk betydning">
+					description = <"Enkelt ord, frase eller kort beskrivelse som representerer klinisk betydning og signifikans av funnene ved klinisk undersøkelse.">
+				>
+				["at0007"] = <
+					text = <"Kommentar">
+					description = <"Tekstlig tilleggsinformasjon vedrørende klinisk undersøkelse, som ikke er fanget opp i de andre dataelementene.">
+				>
+				["at0008"] = <
+					text = <"Undersøkelse ikke gjennomført">
+					description = <"Egen slot for dokumentasjon av undersøkelse ikke gjennomført.">
+				>
+			>
+		>
+	>

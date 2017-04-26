@@ -1,0 +1,71 @@
+﻿archetype (adl_version=1.4; uid=796ec9b5-91cf-42db-b73c-bec718ecdec6)
+	openEHR-EHR-EVALUATION.stimulantia_ous_dips.v1
+
+concept
+	[at0000]	-- Stimulantia
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Thomas Pedersen Baerland">
+		["organisation"] = <"Oslo University Hospital / DIPS ASA">
+		["email"] = <"tba@dips.no">
+		["date"] = <"2017-03-25">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Registrere som tekst hva pasienten bruker av stimulerende substanser. Her inngår blant annet røyk, alkohol, stoff, anabole steroider, vanedannende tabletter mm.">
+			use = <"">
+			misuse = <"">
+			copyright = <"© Nasjonal IKT HF">
+		>
+	>
+	lifecycle_state = <"NotSet">
+	other_contributors = <"Arne Løberg Sæter", ...>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"218809E5476C89DDF3530D26234129E4">
+	>
+
+definition
+	EVALUATION[at0000] matches {	-- Stimulantia
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Stimulantia
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0004] occurrences matches {0..*} matches {	-- Detaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Stimulantia">
+					description = <"Stimulantia som brukes av pasienten. Røyk, alkohol, stoff, anabole steroider, vanedannende tabletter">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Stimulantia">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Detaljer">
+					description = <"*">
+				>
+			>
+		>
+	>

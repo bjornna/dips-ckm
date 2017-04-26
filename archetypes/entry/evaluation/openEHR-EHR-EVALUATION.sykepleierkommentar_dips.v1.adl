@@ -1,0 +1,71 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-EVALUATION.sykepleierkommentar_dips.v1
+
+concept
+	[at0000]	-- Sykepleierkommentar dips
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Arne Løberg Sæter">
+		["organisation"] = <"DIPS ASA / OUS HF">
+		["email"] = <"asa@dips.no">
+		["date"] = <"2017-03-28">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Til registrering av sykepleierkommentar i forbindelse med dokumentasjon av utført arbeid.">
+			use = <"Til registrering av sykepleierkommentar i forbindelse med dokumentasjon av utført arbeid.">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"OrganisationDraft">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"FC9442F40DC7C5204667DE00ACE0DA92">
+	>
+
+definition
+	EVALUATION[at0000] matches {	-- Sykepleierkommentar dips
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Kommentar
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0003] occurrences matches {0..*} matches {	-- Cluster
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Sykepleierkommentar dips">
+					description = <"Til registrering av sykepleierkommentar i forbindelse med dokumentasjon av utført arbeid.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Kommentar">
+					description = <"Sykepleiers kommentar der hvor dette er ønskelig.">
+				>
+				["at0003"] = <
+					text = <"Cluster">
+					description = <"*">
+				>
+			>
+		>
+	>
