@@ -1,0 +1,183 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.multiple_events_cluster.v0
+
+concept
+	[at0000]	-- Multiple events and clusters
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			author = <
+				["name"] = <"Bjørn Næss">
+				["email"] = <"bna@dips.no">
+				["organisation"] = <"DIPS AS">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Bjørn Næss">
+		["email"] = <"bna@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2017-04-20">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"OBSERVATION archetype to test and verify AQL on repeating EVENT and CLUSTER structures. ">
+			use = <"OBSERVATION archetype to test and verify AQL on repeating EVENT and CLUSTER structures. ">
+			keywords = <"conformance", "testing", "aql">
+			misuse = <"DO NOT USE to register clinical data.">
+			copyright = <"DIPS AS">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"OBSERVATION arketype for å teste AQL med flere EVENTS og CLUSTER. ">
+			use = <"For test og verifikasjon av AQL på komplekse OBSERVATION strukturer.">
+			keywords = <"conformance", "testing", "aql">
+			misuse = <"DO NOT USE to register clinical data.">
+			copyright = <"DIPS AS">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"5429F9FC9E7377D76F8866A7D2D23A78">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Multiple events and clusters 
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									CLUSTER[at0004] occurrences matches {0..*} matches {	-- The repeating cluster
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0005] occurrences matches {0..*} matches {	-- The repeating measurement
+												value matches {
+													C_DV_QUANTITY <
+														property = <[openehr::128]>
+														list = <
+															["1"] = <
+																units = <"a">
+															>
+															["2"] = <
+																units = <"h">
+															>
+															["3"] = <
+																units = <"min">
+															>
+															["4"] = <
+																units = <"microsec">
+															>
+															["5"] = <
+																units = <"s">
+															>
+															["6"] = <
+																units = <"wk">
+															>
+														>
+													>
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0007] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0008] occurrences matches {0..*} matches {	-- Some protocol value
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Multiple events and clusters ">
+					description = <"OBSERVATION arketype for å teste AQL med flere EVENTS og CLUSTER. ">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Det repeterende CLUSTER">
+					description = <"Et CLUSTER som kan repeteres i det uendelige">
+				>
+				["at0005"] = <
+					text = <"Den repeterende målingen">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0008"] = <
+					text = <"En protkollverdi">
+					description = <"En protokollverdi som kan repeteres i det uendelige">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Multiple events and clusters">
+					description = <"OBSERVATION to test AQL with multiple EVENTS and CLUSTER">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"The repeating cluster">
+					description = <"A CLUSTER that may be repeated unbounded.">
+				>
+				["at0005"] = <
+					text = <"The repeating measurement">
+					description = <"A measurement that may be repeated with several units. ">
+				>
+				["at0007"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0008"] = <
+					text = <"Some protocol value">
+					description = <"Some protocol value that may be repeated unbounded.">
+				>
+			>
+		>
+	>
