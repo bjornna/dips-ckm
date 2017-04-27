@@ -21,15 +21,6 @@ description
 		["date"] = <"2017-03-02">
 	>
 	details = <
-		["nb"] = <
-			language = <[ISO_639-1::nb]>
-			purpose = <"Skåringssystemet  SAPS II (Simplified Acute Physiology Score II) benyttes for fastsettelse av alvorlighetsgrad og sannsynlighet for død ved sykehusopphold. ">
-			use = <"SAPS II benytter seg av 17 variabler –  alder, type innleggelse (planlagt kirurgisk, øyeblikkelig hjelp-kirurgi og ikke-operativ), 12 fysiologiske eller biokjemiske variabler, samt tre variabler for underliggende kronisk sykdom (AIDS, cancer med metastaser, hematologisk malign sykdom).
-
-Selve skåringen gjøres kun én gang for hver pasient på basis av registrerte observasjoner i de første 24 timene av oppholdet i intensivavdelingen. De mest avvikende resultatene i løpet av denne perioden registreres. Til hver variabel tillegges angitte poeng, og den samlede poengsum utgjør en score som igjen konverteres til en sannsynlighet for død under sykehusoppholdet. ">
-			misuse = <"SAPS II kan ikke brukes for individuell prognosefastsettelse. En pasient med en viss score allokeres til en gruppe som har en bestemt sannsynlighet for død under sykehusoppholdet. Selve skåringsresultatet sier ikke noe om den enkelte pasient vil overleve eller ikke.">
-			copyright = <"">
-		>
 		["en"] = <
 			language = <[ISO_639-1::en]>
 			purpose = <"Simplified acute physiology score II (SAPS II) is used for measuring severity of illness and to predict ICU mortality.
@@ -40,6 +31,15 @@ The score uses the worst value (the one that gives the most points) in the last 
 ">
 			misuse = <"SAPS II can not be used for individual prognosis determination. A patient with a certain score is allocated to a group that has a certain probability of death during hospitalization. The score results say nothing about if the individual patient will survive or not.">
 			copyright = <"*(nb)">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Skåringssystemet  SAPS II (Simplified Acute Physiology Score II) benyttes for fastsettelse av alvorlighetsgrad og sannsynlighet for død ved sykehusopphold. ">
+			use = <"SAPS II benytter seg av 17 variabler –  alder, type innleggelse (planlagt kirurgisk, øyeblikkelig hjelp-kirurgi og ikke-operativ), 12 fysiologiske eller biokjemiske variabler, samt tre variabler for underliggende kronisk sykdom (AIDS, cancer med metastaser, hematologisk malign sykdom).
+
+Selve skåringen gjøres kun én gang for hver pasient på basis av registrerte observasjoner i de første 24 timene av oppholdet i intensivavdelingen. De mest avvikende resultatene i løpet av denne perioden registreres. Til hver variabel tillegges angitte poeng, og den samlede poengsum utgjør en score som igjen konverteres til en sannsynlighet for død under sykehusoppholdet. ">
+			misuse = <"SAPS II kan ikke brukes for individuell prognosefastsettelse. En pasient med en viss score allokeres til en gruppe som har en bestemt sannsynlighet for død under sykehusoppholdet. Selve skåringsresultatet sier ikke noe om den enkelte pasient vil overleve eller ikke.">
+			copyright = <"">
 		>
 	>
 	lifecycle_state = <"0">
@@ -61,129 +61,129 @@ Le Gall JR1, Lemeshow S, Saulnier : A new Simplified Acute Physiology Score (SAP
 Jones &Barlett Learning:  Scores and Definitions Used in respiratory and Critical Care Research. http://samples.jbpub.com/9780763784096/84096_CH01_Chatburn.pdf
 
 http://www.helsebiblioteket.no/fagprosedyrer/ferdige/_attachment/247503?_ts=152cb6645f3&download=true">
-		["MD5-CAM-1.0.1"] = <"FAFD20E543F2C28ECB4CA4CBE63964C2">
+		["MD5-CAM-1.0.1"] = <"84C56B7744FF26EC97E00E04E32B42CD">
 	>
 
 definition
 	OBSERVATION[at0000] matches {	-- Saps score dips
 		data matches {
-			HISTORY[at0001] matches {	-- *Event Series(nb)
+			HISTORY[at0001] matches {	-- Event Series
 				events cardinality matches {1..*; unordered} matches {
-					EVENT[at0002] occurrences matches {0..1} matches {	-- *Any event(nb)
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
 						data matches {
-							ITEM_TREE[at0003] matches {	-- *Tree(nb)
+							ITEM_TREE[at0003] matches {	-- Tree
 								items cardinality matches {0..*; ordered} matches {
-									ELEMENT[at0052] occurrences matches {0..1} matches {	-- Age
+									ELEMENT[at0052] occurrences matches {0..1} matches {	-- Alder
 										value matches {
-											0|[local::at0054], 	-- < 40 years
-											7|[local::at0055], 	-- 40 - 59 years
-											12|[local::at0056], 	-- 60 - 69 years
-											15|[local::at0057], 	-- 70 - 74 years
-											16|[local::at0058], 	-- 75 - 79 years
-											18|[local::at0059]  	-- >= 80 years
+											0|[local::at0054], 	-- < 40 år (= 0 poeng)
+											7|[local::at0055], 	-- 40 - 59 år (= 7 poeng)
+											12|[local::at0056], 	-- 60 - 69 år (= 12 poeng)
+											15|[local::at0057], 	-- 70 - 74 år (= 15 poeng)
+											16|[local::at0058], 	-- 75 - 79 år (= 16 poeng)
+											18|[local::at0059]  	-- >= 80 år (= 18 poeng)
 										}
 									}
 									ELEMENT[at0030] occurrences matches {0..1} matches {	-- PaO2/FiO2
 										value matches {
-											6|[local::at0060], 	-- > 26,66 kPa
-											9|[local::at0061], 	-- 13,33 - 26,66 kPa
-											11|[local::at0062]  	-- < 13,33 kPa 
+											6|[local::at0060], 	-- > 26,66 kPa (= 6 poeng)
+											9|[local::at0061], 	-- 13,33 - 26,66 kPa (= 9 poeng)
+											11|[local::at0062]  	-- < 13,33 kPa (= 11 poeng)
 										}
 									}
-									ELEMENT[at0031] occurrences matches {0..1} matches {	-- Heart rate
+									ELEMENT[at0031] occurrences matches {0..1} matches {	-- Hjertefrekvens
 										value matches {
-											0|[local::at0063], 	-- 70 - 119 bpm
-											2|[local::at0064], 	-- 40 - 69 bpm
-											4|[local::at0065], 	--  120-159 bpm
-											7|[local::at0066], 	-- >= 160 /min 
-											11|[local::at0067]  	-- < 40 bpm
+											0|[local::at0063], 	-- 70 - 119 /min (= 0 poeng)
+											2|[local::at0064], 	-- 40 - 69 /min (= 2 poeng)
+											4|[local::at0065], 	-- 120 - 159 /min (= 4 poeng)
+											7|[local::at0066], 	-- >= 160 /min (= 7 poeng)
+											11|[local::at0067]  	-- < 40 /min (= 11 poeng)
 										}
 									}
-									ELEMENT[at0032] occurrences matches {0..1} matches {	-- Systolic blood pressure
+									ELEMENT[at0032] occurrences matches {0..1} matches {	-- Systolisk blodtrykk
 										value matches {
-											0|[local::at0068], 	-- 100 - 199 mmHg
-											2|[local::at0069], 	-- >= 200 mmHg 
-											5|[local::at0070], 	-- 70 - 99 mmHg
-											13|[local::at0071]  	-- < 70 mmHg
+											0|[local::at0068], 	-- 100 - 199 mmHg (= 0 poeng)
+											2|[local::at0069], 	-- >= 200 mmHg (= 2 poeng)
+											5|[local::at0070], 	-- 70 - 99 mmHg (= 5 poeng)
+											13|[local::at0071]  	-- < 70 mmHg (= 13 poeng)
 										}
 									}
-									ELEMENT[at0033] occurrences matches {0..1} matches {	-- Body temperature
+									ELEMENT[at0033] occurrences matches {0..1} matches {	-- Temperatur
 										value matches {
-											0|[local::at0072], 	-- < 39 °C
-											3|[local::at0073]  	-- >= 39 °C 
+											0|[local::at0072], 	-- < 39 Cel (= 0 poeng)
+											3|[local::at0073]  	-- >= 39 Cel (= 3 poeng)
 										}
 									}
-									ELEMENT[at0034] occurrences matches {0..1} matches {	-- Urine output
+									ELEMENT[at0034] occurrences matches {0..1} matches {	-- Døgnurin
 										value matches {
-											0|[local::at0074], 	-- >= 1000 ml/day 
-											4|[local::at0075], 	-- 500 - 999 ml/day 
-											11|[local::at0076]  	-- < 500 ml/day 
+											0|[local::at0074], 	-- >= 1000 ml/døgn (= 0 poeng)
+											4|[local::at0075], 	-- 500 - 999 ml/døgn (= 4 poeng)
+											11|[local::at0076]  	-- < 500 ml/døgn (= 11 poeng)
 										}
 									}
-									ELEMENT[at0035] occurrences matches {0..1} matches {	-- Serum urea level
+									ELEMENT[at0035] occurrences matches {0..1} matches {	-- S-Karbamid
 										value matches {
-											0|[local::at0077], 	-- < 10 mmol/l
-											6|[local::at0078], 	-- 10 - 29,9 mmol/l
-											10|[local::at0079]  	-- >= 30 mmol/l 
+											0|[local::at0077], 	-- < 10 mmol/l (= 0 poeng)
+											6|[local::at0078], 	-- 10 - 29,9 mmol/l (= 6 poeng)
+											10|[local::at0079]  	-- >= 30 mmol/l (= 10 poeng)
 										}
 									}
-									ELEMENT[at0036] occurrences matches {0..1} matches {	-- White blood cell count
+									ELEMENT[at0036] occurrences matches {0..1} matches {	-- B-Leukocytter
 										value matches {
-											0|[local::at0080], 	-- 1 - 19,9 (x10*9/l) 
-											3|[local::at0081], 	-- >= 20 (x10*9/l) 
-											12|[local::at0082]; 	-- < 1 (x10*9/l) 
+											0|[local::at0080], 	-- 1 - 19,9 (x10*9/l) (= 0 poeng)
+											3|[local::at0081], 	-- >= 20 (x10*9/l) (= 3 poeng)
+											12|[local::at0082]; 	-- < 1 (x10*9/l) (= 12 poeng)
 											0  	-- assumed value
 										}
 									}
-									ELEMENT[at0037] occurrences matches {0..1} matches {	-- Potassium
+									ELEMENT[at0037] occurrences matches {0..1} matches {	-- S-Kalium
 										value matches {
-											0|[local::at0083], 	-- 3 - 4,9 mmol/l 
-											3|[local::at0084]  	-- < 3 eller >= 5 mmol/l 
+											0|[local::at0083], 	-- 3 - 4,9 mmol/l (= 0 poeng)
+											3|[local::at0084]  	-- < 3 eller >= 5 mmol/l (= 3 poeng)
 										}
 									}
-									ELEMENT[at0038] occurrences matches {0..1} matches {	-- Sodium
+									ELEMENT[at0038] occurrences matches {0..1} matches {	-- S-Natrium
 										value matches {
-											0|[local::at0085], 	-- 125 - 144 mmol/l 
-											1|[local::at0086], 	-- >= 145 mmol/l 
-											5|[local::at0087]  	-- < 125 mmol/l 
+											0|[local::at0085], 	-- 125 - 144 mmol/l (= 0 poeng)
+											1|[local::at0086], 	-- >= 145 mmol/l (= 1 poeng)
+											5|[local::at0087]  	-- < 125 mmol/l (= 5 poeng)
 										}
 									}
-									ELEMENT[at0039] occurrences matches {0..1} matches {	-- Bicarbonate
+									ELEMENT[at0039] occurrences matches {0..1} matches {	-- S-Bikarbonat
 										value matches {
-											0|[local::at0088], 	-- >= 20 mmol/l 
-											3|[local::at0089], 	-- 15-19 mmol/l 
-											6|[local::at0090]  	-- < 15 mmol/l 
+											0|[local::at0088], 	-- >= 20 mmol/l (= 0 poeng)
+											3|[local::at0089], 	-- 15-19 mmol/l (= 3 poeng)
+											6|[local::at0090]  	-- < 15 mmol/l (= 6 poeng)
 										}
 									}
-									ELEMENT[at0040] occurrences matches {0..1} matches {	-- Bilirubin
+									ELEMENT[at0040] occurrences matches {0..1} matches {	-- S- Bilirubin
 										value matches {
-											0|[local::at0091], 	-- < 68,4 mikromol/l 
-											4|[local::at0092], 	-- 68,4 - 102,5 mikromol/l
-											9|[local::at0093]  	-- >= 102,6 mikromol/l 
+											0|[local::at0091], 	-- < 68,4 mikromol/l (= 0 poeng)
+											4|[local::at0092], 	-- 68,4 - 102,5 mikromol/l (= 4 poeng)
+											9|[local::at0093]  	-- >= 102,6 mikromol/l (= 9 poeng)
 										}
 									}
-									ELEMENT[at0053] occurrences matches {0..1} matches {	-- Glasgow Coma Score
+									ELEMENT[at0053] occurrences matches {0..1} matches {	-- Glasgow Coma Scale
 										value matches {
-											0|[local::at0094], 	-- GCS 14-15
-											5|[local::at0095], 	-- GCS 11-13
-											7|[local::at0096], 	-- GCS 9-10
-											13|[local::at0097], 	-- GCS 6-8
-											26|[local::at0098]  	-- GCS < 6
+											0|[local::at0094], 	-- GCS 14-15 (= 0 poeng)
+											5|[local::at0095], 	-- GCS 11-13 (= 5 poeng)
+											7|[local::at0096], 	-- GCS 9-10 (= 7 poeng)
+											13|[local::at0097], 	-- GCS 6-8 (= 13 poeng)
+											26|[local::at0098]  	-- GCS < 6 (= 26 poeng)
 										}
 									}
-									ELEMENT[at0041] occurrences matches {0..1} matches {	-- Type of admission
+									ELEMENT[at0041] occurrences matches {0..1} matches {	-- Type innleggelse
 										value matches {
-											0|[local::at0101], 	-- Scheduled surgical
-											6|[local::at0102], 	-- Medical
-											8|[local::at0103]  	-- Unscheduled surgical
+											0|[local::at0101], 	-- Etter planlagt operasjon (= 0 poeng)
+											6|[local::at0102], 	-- Akutt nonoperativ (= 6 poeng)
+											8|[local::at0103]  	-- Etter akutt operasjon (= 8 poeng)
 										}
 									}
-									ELEMENT[at0042] occurrences matches {0..1} matches {	-- Chronic diseases
+									ELEMENT[at0042] occurrences matches {0..1} matches {	-- Kronisk sykdom
 										value matches {
-											0|[local::at0108], 	-- None
-											9|[local::at0104], 	-- Metastatisk cancer
-											10|[local::at0105], 	-- Hematologic malignancy
-											17|[local::at0100]  	-- AIDS (acquired immunodeficiency syndrome)
+											0|[local::at0108], 	-- Ingen (= 0 poeng)
+											9|[local::at0104], 	-- Metastatisk cancer (= 9 poeng)
+											10|[local::at0105], 	-- Hematologisk malignitet  (= 10 poeng)
+											17|[local::at0100]  	-- AIDS (= 17 poeng)
 										}
 									}
 									ELEMENT[at0025] occurrences matches {0..1} matches {	-- SAPS score
@@ -193,7 +193,7 @@ definition
 											}
 										}
 									}
-									ELEMENT[at0109] occurrences matches {0..1} matches {	-- Mortality score
+									ELEMENT[at0109] occurrences matches {0..1} matches {	-- Mortalitet score
 										value matches {
 											C_DV_QUANTITY <
 												property = <[openehr::380]>
@@ -214,9 +214,9 @@ definition
 			}
 		}
 		protocol matches {
-			ITEM_TREE[at0106] matches {	-- *Tree(nb)
+			ITEM_TREE[at0106] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0107] occurrences matches {0..1} matches {	-- *Mortalitet score(nb)
+					ELEMENT[at0107] occurrences matches {0..1} matches {	-- Mortalitet score
 						value matches {
 							DV_PROPORTION matches {*}
 						}
@@ -264,7 +264,7 @@ ontology
 				>
 				["at0033"] = <
 					text = <"Temperatur">
-					description = <"Kroppstemperatur, °C.">
+					description = <"Kroppstemperatur, Cel.">
 				>
 				["at0034"] = <
 					text = <"Døgnurin">
@@ -383,11 +383,11 @@ ontology
 					description = <"*">
 				>
 				["at0072"] = <
-					text = <"< 39 °C (= 0 poeng)">
+					text = <"< 39 Cel (= 0 poeng)">
 					description = <"*">
 				>
 				["at0073"] = <
-					text = <">= 39 °C (= 3 poeng)">
+					text = <">= 39 Cel (= 3 poeng)">
 					description = <"*">
 				>
 				["at0074"] = <
@@ -568,7 +568,7 @@ ontology
 				>
 				["at0033"] = <
 					text = <"Body temperature">
-					description = <"Body temperature, °C.">
+					description = <"Body temperature, Cel.">
 				>
 				["at0034"] = <
 					text = <"Urine output">
@@ -688,11 +688,11 @@ ontology
 					description = <"*">
 				>
 				["at0072"] = <
-					text = <"< 39 °C">
+					text = <"< 39 Cel">
 					description = <"*">
 				>
 				["at0073"] = <
-					text = <">= 39 °C ">
+					text = <">= 39 Cel">
 					description = <"*">
 				>
 				["at0074"] = <
