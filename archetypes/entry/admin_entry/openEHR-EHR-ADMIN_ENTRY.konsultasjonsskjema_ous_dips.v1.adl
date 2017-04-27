@@ -1,0 +1,93 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-ADMIN_ENTRY.konsultasjonsskjema_ous_dips.v1
+
+concept
+	[at0000]	-- Konsultasjonsskjema ous dips
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"651AECC1B5F2B581E391837B6F474814">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {	-- Konsultasjonsskjema ous dips
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0002] occurrences matches {0..*} matches {	-- Dagens koder
+						include
+							archetype_id/value matches {/.*/}
+					}
+					allow_archetype CLUSTER[at0005] occurrences matches {0..*} matches {	-- Planlagte kontakter
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0007] occurrences matches {0..*} matches {	-- Kommentar
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Status
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0009] occurrences matches {0..*} matches {	-- Andre detaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Konsultasjonsskjema ous dips">
+					description = <"Knsultasjonsskjema som benyttes til å erstatte papirmeldinger fra klinikere til kontor/sekretær for å registrere administrative detaljer som dagens diagnosekoder, prosedyrekoder, takster og videre plan nye kontakter på pasienten.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Dagens koder">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Planlagte kontakter">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Kommentar">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Status">
+					description = <"For å registrere status. Kan benyttes til å beskrive trinn i en prosess. ">
+				>
+				["at0009"] = <
+					text = <"Andre detaljer">
+					description = <"Til bruk ved behov for ekstra detaljer, som ved CLUSTER.transport_behov_ous_dips.v1.">
+				>
+			>
+		>
+	>

@@ -1,0 +1,91 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.retinal_laser_protokoll.v1
+
+concept
+	[at0000]	-- Retinal laser protokoll
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Arne Løberg Sæter">
+		["organisation"] = <"DIPS AS / OUS HF">
+		["email"] = <"asa@dips.no">
+		["date"] = <"2017-04-04">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For registrering av detaljert protokoll ved retinal laserbehandling til bruk i ACTION.procedure.">
+			use = <"For registrering av detaljert protokoll ved retinal laserbehandling til bruk i ACTION.procedure.">
+			misuse = <"Annet bruk enn overnevnt.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"NotSet">
+	other_contributors = <"Thomas Bærland", ...>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"BCE5359A27F1C9CE8706060218DCF514">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Retinal laser protokoll
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Modalitet
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Farge på laser
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Bølgelengde på laser
+				value matches {
+					C_DV_QUANTITY <
+						property = <[openehr::122]>
+						list = <
+							["1"] = <
+								units = <"nanom">
+								magnitude = <|>=0.0|>
+								precision = <|0|>
+							>
+						>
+					>
+				}
+			}
+			ELEMENT[at0004] occurrences matches {0..1} matches {	-- Type
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Retinal laser protokoll">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Modalitet">
+					description = <"Strukturert beskrivelse av modalitet.">
+				>
+				["at0002"] = <
+					text = <"Bølgelengde på laser">
+					description = <"Bølgelengde i nanometer,">
+				>
+				["at0003"] = <
+					text = <"Farge på laser">
+					description = <"Farge på laser. Dette er koblet til bølgelengde, men bølgelengden kan variere noe innenfor hver farge.">
+				>
+				["at0004"] = <
+					text = <"Type">
+					description = <"*">
+				>
+			>
+		>
+	>
