@@ -2,9 +2,17 @@
 	openEHR-EHR-OBSERVATION.substance_use_dips.v1
 
 concept
-	[at0000]	-- Substance use DIPS
+	[at0000]	-- Substansbruk DIPS
 language
 	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
 description
 	original_author = <
 		["name"] = <"Heather Leslie">
@@ -23,15 +31,25 @@ A typical use of this archetype will be related to a diary record of use or cons
 Do not use this archetype for recording use or consumption histories for common substances such as tobacco smoking and alcohol consumption.  As these are so commonly consumed, data should be recorded using detailed and specific specialisations of this archetype.">
 			copyright = <"copyright (c) 2009 openEHR Foundation">
 		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"*This is a generic archetype used to record details of the use of any and all substances. (en)">
+			use = <"*This is a generic archetype used to record details of the use of any and all substances that have not had specific specialisation archetypes created.  This includes use at specific point in time, over intervals of time, and use of mathematical functions such as average or minimum eg average consumption over a week.  
+A typical use of this archetype will be related to a diary record of use or consumption of substances, especially those with addictive properties.  (en)">
+			keywords = <"*substance(en)", "*addiction(en)", "*consumption(en)", "*use(en)">
+			misuse = <"*Do not use this archetype for recording summary details about the use of the substance - this should be captured using the EVALUATION.substance_use_summary archetype.  
+Do not use this archetype for recording use or consumption histories for common substances such as tobacco smoking and alcohol consumption.  As these are so commonly consumed, data should be recorded using detailed and specific specialisations of this archetype.(en)">
+			copyright = <"*copyright (c) 2009 openEHR Foundation(en)">
+		>
 	>
 	lifecycle_state = <"0">
 	other_contributors = <"Sam Heard, Ocean Informatics, Australia", ...>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"CD9920351B6B44B028FECC8C65563516">
+		["MD5-CAM-1.0.1"] = <"C47785C201378C66D3D68297F11E3D73">
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- Substance use DIPS
+	OBSERVATION[at0000] matches {	-- Substansbruk DIPS
 		data matches {
 			HISTORY[at0001] matches {	-- Event Series
 				events cardinality matches {1..*; unordered} matches {
@@ -39,24 +57,24 @@ definition
 						data matches {
 							ITEM_TREE[at0003] matches {	-- Tree
 								items cardinality matches {0..*; unordered} matches {
-									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Substance
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Substans
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									CLUSTER[at0010] occurrences matches {0..1} matches {	-- Consumption details
-										items cardinality matches {0..*; unordered} matches {
+									CLUSTER[at0010] occurrences matches {0..1} matches {	-- Detaljert bruk
+										items cardinality matches {1..*; unordered} matches {
 											ELEMENT[at0011] occurrences matches {0..1} matches {	-- Form
 												value matches {
 													DV_TEXT matches {*}
 												}
 											}
-											ELEMENT[at0018] occurrences matches {0..1} matches {	-- Method of use
+											ELEMENT[at0018] occurrences matches {0..1} matches {	-- Inntaksmåte
 												value matches {
 													DV_TEXT matches {*}
 												}
 											}
-											ELEMENT[at0019] occurrences matches {0..1} matches {	-- Frequency
+											ELEMENT[at0019] occurrences matches {0..1} matches {	-- Hyppighet bruk
 												value matches {
 													DV_TEXT matches {*}
 												}
@@ -64,19 +82,19 @@ definition
 											ELEMENT[at0012] occurrences matches {0..*} matches {*}
 										}
 									}
-									ELEMENT[at0013] occurrences matches {0..1} matches {	-- Triggers
+									ELEMENT[at0013] occurrences matches {0..1} matches {	-- Triggere
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									allow_archetype CLUSTER[at0014] occurrences matches {0..*} matches {	-- Readiness for change
+									ELEMENT[at0016] occurrences matches {0..1} matches {	-- Tegn til avhengighet
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									allow_archetype CLUSTER[at0014] occurrences matches {0..*} matches {	-- Forutsetninger for atferdsendring
 										include
 											archetype_id/value matches {/openEHR-EHR-CLUSTER\.change\.v1/}
-									}
-									ELEMENT[at0016] occurrences matches {0..1} matches {	-- Evidence of dependence
-										value matches {
-											DV_TEXT matches {*}
-										}
 									}
 								}
 							}
@@ -142,6 +160,62 @@ ontology
 				["at0019"] = <
 					text = <"Frequency">
 					description = <"*">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Substansbruk DIPS">
+					description = <"Generisk arketype for å registrere faktisk bruk av en definert substans nå, ved et gitt tidspunkt, eller over en tidsperiode.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"Any event">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Substans">
+					description = <"Identifikasjon av substans.">
+				>
+				["at0010"] = <
+					text = <"Detaljert bruk">
+					description = <"Detaljer om bruken av substansen.">
+				>
+				["at0011"] = <
+					text = <"Form">
+					description = <"Substansens form.">
+				>
+				["at0012"] = <
+					text = <"Mengde">
+					description = <"Mengde substans som inntas.">
+				>
+				["at0013"] = <
+					text = <"Triggere">
+					description = <"Identifiserte triggere som kan stimulere til substansbruk.">
+				>
+				["at0014"] = <
+					text = <"Forutsetninger for atferdsendring">
+					description = <"Detaljer om pasientens forutsetninger for endring av atferd for substansbruk.">
+				>
+				["at0016"] = <
+					text = <"Tegn til avhengighet">
+					description = <"Beskrivelse av tegn til avhengighet til substansen.">
+				>
+				["at0018"] = <
+					text = <"Inntaksmåte">
+					description = <"Inntaksmetode for substansen.">
+				>
+				["at0019"] = <
+					text = <"Hyppighet bruk">
+					description = <"Hyppighet av bruk av substansen.">
 				>
 			>
 		>
