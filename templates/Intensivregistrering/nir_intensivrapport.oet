@@ -297,6 +297,8 @@
       <Rule path="/data[at0001]/items[at0005]" max="1" clone="true" name="Årsak til overføring fra denne intensivenheten" />
     </Content>
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.contact_summary_dips.v1" concept_name="contact summary" path="/content">
+      <Rule path="/data[at0001]/items[at0002]" name="NIR start intensivopphold" />
+      <Rule path="/data[at0001]/items[at0003]" name="NIR avslutt intensivopphold" />
       <Rule path="/data[at0001]/items[at0017]" name="Pasienten er overført til denne intensivenhet fra hvilken enhet/sykehus">
         <constraint xsi:type="textConstraint">
           <includedValues>nir::4209889::Sykehuset Østfold HF – Fredrikstad</includedValues>
@@ -364,6 +366,7 @@
           <includedValues>nir::700620::Universitetssykehuset Nord-Norge – Oppvåkning Tromsø</includedValues>
         </constraint>
       </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.nir_postopphold.v1" concept_name="Nir postopphold" path="/data[at0001]/items[at0011]" />
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.utskrivelsesinformasjon_dips.v1" concept_name="Utskrivelsesinformasjon dips" path="/data[at0001]/items[at0021]">
         <Rule path="/items[at0003]" name="Pasienten er overført fra denne intensivenhet til hvilken enhet/sykehus">
           <constraint xsi:type="textConstraint">
@@ -435,7 +438,6 @@
       </Items>
     </Content>
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.nir_klinisk_informasjon.v1" concept_name="Nir klinisk informasjon" path="/content" />
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.nir_mekanisk_ventilasjon.v1" concept_name="Mekanisk ventilasjon" path="/content" />
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.saps_score_dips.v1" concept_name="Saps score dips" path="/content" />
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.nir_sofa_uttrekk.v1" concept_name="Nir sofa uttrekk" path="/content" />
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.pao2_fio2_ratio_dips.v1" concept_name="PaO2-FiO2 ratioer" path="/content" />
@@ -494,7 +496,22 @@
       </Rule>
     </Content>
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.nir_organdonasjon.v1" concept_name="Nir organdonasjon" path="/content" />
-    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.nir_hjelpefelt.v1" concept_name="Nir hjelpefelt" path="/content" />
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.nir_hjelpefelt.v1" concept_name="Nir hjelpefelt" path="/content">
+      <Rule path="/data[at0001]/items[at0005]">
+        <constraint xsi:type="durationConstraint">
+          <pattern>PTHM</pattern>
+          <includesMaximum>false</includesMaximum>
+          <includesMinimum>false</includesMinimum>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0006]">
+        <constraint xsi:type="durationConstraint">
+          <pattern>PTHM</pattern>
+          <includesMaximum>false</includesMaximum>
+          <includesMinimum>false</includesMinimum>
+        </constraint>
+      </Rule>
+    </Content>
     <Context />
   </definition>
 </template>
