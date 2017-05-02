@@ -21,7 +21,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"3CC0D8762BA8E7F877D8B7119E0B9406">
+		["MD5-CAM-1.0.1"] = <"7C925DAF47E8032362538002322183D9">
 	>
 
 definition
@@ -29,9 +29,63 @@ definition
 		data matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Alder ved innleggelse
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- NIR sum inklusjonskriterier
 						value matches {
-							DV_COUNT matches {*}
+							DV_COUNT matches {
+								magnitude matches {|>=0|}
+							}
+						}
+					}
+					ELEMENT[at0014] occurrences matches {0..1} matches {	-- NIR alder ved innleggelse i intensivenheten
+						value matches {
+							DV_COUNT matches {
+								magnitude matches {|>=0|}
+							}
+						}
+					}
+					ELEMENT[at0015] occurrences matches {0..1} matches {	-- NIR oppholdstid i intensivenheten i timer
+						value matches {
+							DV_COUNT matches {
+								magnitude matches {|>=0|}
+							}
+						}
+					}
+					ELEMENT[at0009] occurrences matches {0..1} matches {	-- NIR oppholdstid i intensivenheten i døgn
+						value matches {
+							C_DV_QUANTITY <
+								property = <[openehr::128]>
+								list = <
+									["1"] = <
+										units = <"d">
+										magnitude = <|>=0.0|>
+										precision = <|1|>
+									>
+								>
+							>
+						}
+					}
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- NIR varighet av non-invasiv mekanisk ventilasjon
+						value matches {
+							DV_DURATION matches {*}
+						}
+					}
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- NIR varighet av invasiv mekanisk ventilasjon
+						value matches {
+							DV_DURATION matches {*}
+						}
+					}
+					ELEMENT[at0012] occurrences matches {0..1} matches {	-- NIR totaltid respirasjonsstøtte
+						value matches {
+							C_DV_QUANTITY <
+								property = <[openehr::128]>
+								list = <
+									["1"] = <
+										units = <"h">
+										magnitude = <|>=0.0|>
+										precision = <|1|>
+									>
+								>
+							>
 						}
 					}
 				}
@@ -52,7 +106,31 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0002"] = <
-					text = <"Alder ved innleggelse">
+					text = <"NIR sum inklusjonskriterier">
+					description = <"Sum av inklusjonskriterienes ordinalverdier.">
+				>
+				["at0005"] = <
+					text = <"NIR varighet av non-invasiv mekanisk ventilasjon">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"NIR varighet av invasiv mekanisk ventilasjon">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"NIR oppholdstid i intensivenheten i døgn">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"NIR totaltid respirasjonsstøtte">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"NIR alder ved innleggelse i intensivenheten">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"NIR oppholdstid i intensivenheten i timer">
 					description = <"*">
 				>
 			>
