@@ -2,7 +2,7 @@ archetype (adl_version=1.4)
 	openEHR-EHR-CLUSTER.careplan_elem_req_additional_info_dips.v1
 
 concept
-	[at0000]	-- DIPS-spesifikke detaljer om instruksjonen
+	[at0000]	-- *DIPS-spesifikke detaljer om instruksjonen(nb)
 language
 	original_language = <[ISO_639-1::nb]>
 	translations = <
@@ -20,17 +20,17 @@ description
 		["organisation"] = <"DIPS AS">
 	>
 	details = <
-		["en"] = <
-			language = <[ISO_639-1::en]>
-			purpose = <"">
-			use = <"">
-			misuse = <"">
-			copyright = <"">
-		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
 			purpose = <"Brukes av alle instruksjonsarketyper i Arena behandlingsplan for å beskrive DIPS-spesifikke detaljer på instruksjonen.">
 			use = <"Intern bruk i DIPS.">
+			misuse = <"">
+			copyright = <"DIPS AS">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"Used to descripe DIPS specific careplan instruction details ">
+			use = <"Internal used in DIPS">
 			misuse = <"">
 			copyright = <"DIPS AS">
 		>
@@ -39,29 +39,29 @@ description
 	other_contributors = <"Ivar Yrke, DIPS AS, Norway", "Terje Sagmyr, DIPS AS, Norway", "Bjørn-Petter Johannessen, DIPS AS, Norway">
 	other_details = <
 		["current_contact"] = <"Phuong Pedersen, DIPS AS <ppe@dips.no>">
-		["MD5-CAM-1.0.1"] = <"9EED660A64799762F8A865D7EBC6E300">
+		["MD5-CAM-1.0.1"] = <"528C0EE24485FCF613D73161962CA424">
 		["custodian_organisation"] = <"DIPS AS">
 	>
 
 definition
-	CLUSTER[at0000] matches {	-- DIPS-spesifikke detaljer om instruksjonen
+	CLUSTER[at0000] matches {	-- *DIPS-spesifikke detaljer om instruksjonen(nb)
 		items cardinality matches {1..*; unordered} matches {
-			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Spesifisering
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Specification
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0008] occurrences matches {0..1} matches {	-- Bestillingstidspunkt
+			ELEMENT[at0008] occurrences matches {0..1} matches {	-- Order Time
 				value matches {
 					DV_DATE_TIME matches {*}
 				}
 			}
-			ELEMENT[at0009] occurrences matches {0..1} matches {	-- InstruksjonGUID
+			ELEMENT[at0009] occurrences matches {0..1} matches {	-- InstructionGUID
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0010] occurrences matches {0..1} matches {	-- KommerFraVeiledendePlan
+			ELEMENT[at0010] occurrences matches {0..1} matches {	-- GuidelinePlan
 				value matches {
 					DV_TEXT matches {*}
 				}
@@ -95,7 +95,7 @@ ontology
 					description = <"Denne er for å holde rede på hvilke instruksjoner som er lik når instruksjonen avsluttes av systemet.">
 				>
 				["at0010"] = <
-					text = <"KommerFraVeiledendePlan">
+					text = <"VeiledendePlan">
 					description = <"Navnet på den veiledende planen dette behandlingsplanelementet er hentet fra.">
 				>
 				["at0011"] = <
@@ -120,15 +120,15 @@ ontology
 				>
 				["at0009"] = <
 					text = <"InstructionGUID">
-					description = <"*">
+					description = <"This it to keep track on which instructions are related when the system ends and activates instructions">
 				>
 				["at0010"] = <
-					text = <"Indicative Care Plan">
-					description = <"Name of the care plan this care plan element is obtained from.">
+					text = <"GuidelinePlan">
+					description = <"Name of the guideline plan origin for this element">
 				>
 				["at0011"] = <
 					text = <"SistEndretTidspunkt">
-					description = <"Siste gang den aktuelle problemstilling, mål eller tiltaket ble endret">
+					description = <"Last time the instruction was changed">
 				>
 			>
 		>
