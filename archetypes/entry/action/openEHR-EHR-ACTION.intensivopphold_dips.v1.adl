@@ -1,0 +1,117 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ACTION.intensivopphold_dips.v1
+
+concept
+	[at0000]	-- Intensivopphold
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Nasrin Amele Jamedari">
+		["email"] = <"nja@dips.no">
+		["date"] = <"2017-03-29">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Hensikten er å kunne starte en intensivsak og avslutte en intensivsak.">
+			use = <"Benyttes i fbm intensivregistrering.">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"B2B897DB69D817B829DB4FE0D31DD4C9">
+	>
+
+definition
+	ACTION[at0000] matches {	-- Intensivopphold
+		ism_transition matches {
+			ISM_TRANSITION[at0004] matches {	-- Start
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0004]}		-- Start
+					}
+				}
+			}
+			ISM_TRANSITION[at0008] matches {	-- Avslutt
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0008]}		-- Avslutt
+					}
+				}
+			}
+		}
+		description matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Start intensivopphold
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True}
+							}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Avslutt intensivopphold
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True}
+							}
+						}
+					}
+					allow_archetype CLUSTER[at0011] occurrences matches {0..*} matches {	-- Alder ved innleggelse
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Intensivopphold">
+					description = <"Brukes til å opprette og avslutte intensivsak.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Start intensivopphold">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Avslutt intensivopphold">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Start">
+					description = <"Intensivopphold startet">
+				>
+				["at0008"] = <
+					text = <"Avslutt">
+					description = <"Intensivopphold avsluttet">
+				>
+				["at0011"] = <
+					text = <"Alder ved innleggelse">
+					description = <"Slot for Age-arketypen.">
+				>
+			>
+		>
+	>

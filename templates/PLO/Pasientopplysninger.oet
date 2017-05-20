@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>059b62a9-df82-4c53-b0ce-aa1f0c75b386</id>
+  <name>PLO_pasientopplysninger</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose />
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <annotations path="[openEHR-EHR-COMPOSITION.report.v1]/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.meldingstype.v0]/items[at0001]">
+    <items>
+      <item>
+        <key>Notes.Comment</key>
+        <value>Kodeverk 7289</value>
+      </item>
+    </items>
+  </annotations>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.admin_informasjon_dips.v1" concept_name="Admin informasjon dips v1">
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.patient_information_dips.v1" concept_name="Pasientopplysninger" path="/content">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.interpreter_details_dips.v1" concept_name="Tolk detaljer" path="/data[at0001]/items[at0004]">
+        <Rule path="/items[at0005]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="PAS-TOLK" />
+          </constraint>
+        </Rule>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.household_dips.v1" concept_name="Household DIPS" path="/data[at0001]/items[at0004]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="PY-BOSITUASJON" />
+          </constraint>
+        </Rule>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.relationship_detail_dips.v1" concept_name="Relationship detail" path="/data[at0001]/items[at0004]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="FE-PAARORENDETYPE" />
+          </constraint>
+        </Rule>
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.person_name_dips.v1" concept_name="Person navn" path="/items[at0002]" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.telecom_details_dips.v1" concept_name="Telekommunikasjonsdetaljer" max="1" path="/items[at0002]" name="Telekommunikasjon mobiltelefon">
+          <Rule path="/items[at0001]/items[at0004]">
+            <constraint xsi:type="textConstraint">
+              <excludedValues>local::at0013</excludedValues>
+              <excludedValues>local::at0014</excludedValues>
+              <excludedValues>local::at0016</excludedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0001]/items[at0003]/items[at0007]" name="Mobiltelefon" />
+        </Items>
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.telecom_details_dips.v1" concept_name="Telekommunikasjonsdetaljer" max="1" path="/items[at0002]" name="Telekommunikasjon fasttelefon">
+          <Rule path="/items[at0001]/items[at0004]">
+            <constraint xsi:type="textConstraint">
+              <excludedValues>local::at0014</excludedValues>
+              <excludedValues>local::at0015</excludedValues>
+              <excludedValues>local::at0016</excludedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0001]/items[at0003]/items[at0007]" name="Fasttelefon" />
+        </Items>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.individual_professional_dips.v1" concept_name="*Professional demographics detail(en)" max="1" path="/data[at0001]/items[at0006]" name="Fastlege">
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.person_name_dips.v1" concept_name="Person navn" path="/items[at0015]" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.rolle_ovenfor_pasient_dips.v1" concept_name="Rolle ovenfor pasient" path="/items[at0003]/items[at0016]">
+          <Rule path="/items[at0001]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>2.16.578.1.12.4.1.1-9034::6::Fastlege</includedValues>
+            </constraint>
+          </Rule>
+        </Items>
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.organisation_dips.v1" concept_name="Organisasjon" path="/items[at0003]/items[at0018]" />
+      </Items>
+    </Content>
+  </definition>
+</template>

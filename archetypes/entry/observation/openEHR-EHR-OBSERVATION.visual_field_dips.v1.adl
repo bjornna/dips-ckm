@@ -1,0 +1,92 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.visual_field_dips.v1
+
+concept
+	[at0000]	-- Visual field dips
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Arne Løberg Sæter">
+		["organisation"] = <"DIPS AS / OUS HF">
+		["email"] = <"asa@dips.no">
+		["date"] = <"2017-04-25">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <"Thomas Bærland", ...>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"6A3FA00C31DED07892F6A692C896B16B">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Visual field dips
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Beskrivelse
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Side
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									allow_archetype CLUSTER occurrences matches {0..*} matches {
+										include
+											archetype_id/value matches {/.*/}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Visual field dips">
+					description = <"Benyttes for registrering og vurdering av data fra synsfeltsundersøklelser.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Beskrivelse">
+					description = <"Vurdering av resultatet av synsfeltundersøkelsen i fritekst.">
+				>
+				["at0005"] = <
+					text = <"Side">
+					description = <"Side/øye(ne) undersøkt, oftest i strukturert form. ">
+				>
+			>
+		>
+	>

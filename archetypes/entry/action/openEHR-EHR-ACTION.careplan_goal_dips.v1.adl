@@ -1,0 +1,270 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ACTION.careplan_goal_dips.v1
+
+concept
+	[at0000]	-- Registrer mål handling
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Phuong Pedersen">
+		["email"] = <"ppe@dips.no">
+		["organisation"] = <"DIPS AS">
+	>
+	details = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"Relatert til registrering av mål">
+			use = <"Registrering av tilstand på mål, om det er avsluttet eller aktivt">
+			misuse = <"">
+			copyright = <"">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Relatert til registrering av behandlingsmål med behandlingen.">
+			use = <"Registrering av tilstand på behandlingsmålet, om det er avsluttet eller aktivt.">
+			misuse = <"">
+			copyright = <"DIPS AS">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"For recording the planning, activating, completion of a goal in Arena Careplan">
+			use = <"DIPS internal use">
+			misuse = <"">
+			copyright = <"DIPS AS">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <"Bjørn-Petter Johannessen, DIPS AS, Norway", ...>
+	other_details = <
+		["current_contact"] = <"Phuong Pedersen, DIPS AS <ppe@dips.no>">
+		["MD5-CAM-1.0.1"] = <"010E037240C53BB72E50578BC4C6C89D">
+		["custodian_organisation"] = <"DIPS AS">
+	>
+
+definition
+	ACTION[at0000] matches {	-- Registrer mål handling
+		ism_transition matches {
+			ISM_TRANSITION[at0002] matches {	-- Foreslå
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::526]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0002]}		-- Foreslå
+					}
+				}
+			}
+			ISM_TRANSITION[at0007] matches {	-- Annuller
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::528]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0007]}		-- Annuller
+					}
+				}
+			}
+			ISM_TRANSITION[at0003] matches {	-- Aktiver
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0003]}		-- Aktiver
+					}
+				}
+			}
+			ISM_TRANSITION[at0006] matches {	-- Vurder
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0006]}		-- Vurder
+					}
+				}
+			}
+			ISM_TRANSITION[at0004] matches {	-- Avslutt
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0004]}		-- Avslutt
+					}
+				}
+			}
+			ISM_TRANSITION[at0009] matches {	-- DIPS.ARENA.SYSTEM.NEWVERSION
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0009]}		-- DIPS.ARENA.SYSTEM.NEWVERSION
+					}
+				}
+			}
+		}
+		description matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Notat
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"Registrer mål handling">
+					description = <"Detaljer på et mål">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Foreslå">
+					description = <"Setter mål til foreslått">
+				>
+				["at0003"] = <
+					text = <"Aktiver">
+					description = <"Setter mål til aktivt">
+				>
+				["at0004"] = <
+					text = <"Avslutt">
+					description = <"Setter mål til avsluttet">
+				>
+				["at0006"] = <
+					text = <"Vurder">
+					description = <"Setter mål til vurdert">
+				>
+				["at0007"] = <
+					text = <"Annuller">
+					description = <"Setter mål til annullert">
+				>
+				["at0008"] = <
+					text = <"Notat">
+					description = <"En vurdering/notat tilknyttet aktiviteten">
+				>
+				["at0009"] = <
+					text = <"DIPS.ARENA.SYSTEM.NEWVERSION">
+					description = <"Transition for å avslutte målet i det tilfelle hvor kommentar endres">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Registrering av ønsket resultat med behandlingen.">
+					description = <"Arketypen brukes for å registrere detaljer på ønsket behandlingsmål.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Foreslå">
+					description = <"Setter behandlingsmålet til foreslått.">
+				>
+				["at0003"] = <
+					text = <"Aktiver">
+					description = <"Setter behandlingsmålet til aktivt.">
+				>
+				["at0004"] = <
+					text = <"Avslutt">
+					description = <"Setter behandlingsmålet til avsluttet.">
+				>
+				["at0006"] = <
+					text = <"Vurder">
+					description = <"Setter behandlingsmålet til vurdert.">
+				>
+				["at0007"] = <
+					text = <"Annuller">
+					description = <"Setter behandlingsmålet til annullert.">
+				>
+				["at0008"] = <
+					text = <"Notat">
+					description = <"Valgfritt notat tilknyttet vurdering av behandlingsmålet.">
+				>
+				["at0009"] = <
+					text = <"DIPS.ARENA.SYSTEM.NEWVERSION">
+					description = <"Transition for å avslutte målet i det tilfelle hvor kommentar endres">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Record evaluation of a goal in Arena Careplan">
+					description = <"">
+				>
+				["at0001"] = <
+					text = <"*">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Proposed">
+					description = <"Transition for setting goal as proposed">
+				>
+				["at0003"] = <
+					text = <"Activate">
+					description = <"Transition for activating goal">
+				>
+				["at0004"] = <
+					text = <"Complete">
+					description = <"Transition for completing goal">
+				>
+				["at0006"] = <
+					text = <"Evaluate">
+					description = <"Transition for evaluating goal">
+				>
+				["at0007"] = <
+					text = <"Cancel">
+					description = <"Transition for cancelling goal">
+				>
+				["at0008"] = <
+					text = <"Note">
+					description = <"A additional note/evaluation about the goal">
+				>
+				["at0009"] = <
+					text = <"DIPS.ARENA.SYSTEM.NEWVERSION(nb)">
+					description = <"System spesific transition for when user changes">
+				>
+			>
+		>
+	>

@@ -1,0 +1,289 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ACTION.careplan_measure_dips.v1
+
+concept
+	[at0000]	-- Registrering av forordning i et tiltak.
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Phuong Pedersen">
+		["email"] = <"ppe@dips.no">
+		["organisation"] = <"DIPS AS">
+	>
+	details = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"Relatert til forordninger i et tiltak. Registrering av tilstand på forordning,om det er planlagt, aktiv eller avsluttet">
+			use = <"DIPS intern bruk">
+			misuse = <"">
+			copyright = <"DIPS AS">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Relatert til forordninger i et tiltak. Brukes for å registrere tilstanden på en forordning, om den er planlagt, aktiv eller avsluttet.">
+			use = <"DIPS intern bruk">
+			misuse = <"">
+			copyright = <"DIPS AS">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"Recordes the state of a measures ordination. For recording the planning, activating, completion of a ordination">
+			use = <"DIPS internal use">
+			misuse = <"">
+			copyright = <"DIPS AS">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <"Bjørn-Petter Johannessen, DIPS AS, Norway", ...>
+	other_details = <
+		["current_contact"] = <"Phuong Pedersen, DIPS AS <ppe@dips.no>">
+		["MD5-CAM-1.0.1"] = <"A680B27CF8C3529446D3FBFA6926C2A2">
+		["custodian_organisation"] = <"DIPS AS">
+	>
+
+definition
+	ACTION[at0000] matches {	-- Registrering av forordning i et tiltak.
+		ism_transition matches {
+			ISM_TRANSITION[at0002] matches {	-- Foreslå
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::526]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0002]}		-- Foreslå
+					}
+				}
+			}
+			ISM_TRANSITION[at0011] matches {	-- Annuller
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::528]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0011]}		-- Annuller
+					}
+				}
+			}
+			ISM_TRANSITION[at0003] matches {	-- Aktiver
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0003]}		-- Aktiver
+					}
+				}
+			}
+			ISM_TRANSITION[at0006] matches {	-- Registrer
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0006]}		-- Registrer
+					}
+				}
+			}
+			ISM_TRANSITION[at0004] matches {	-- Avslutt
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0004]}		-- Avslutt
+					}
+				}
+			}
+			ISM_TRANSITION[at0012] matches {	-- DIPS.ARENA.SYSTEM.NEWVERSION
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0012]}		-- DIPS.ARENA.SYSTEM.NEWVERSION
+					}
+				}
+			}
+		}
+		description matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Notat
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Registrer som ikke utført
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"Registrering av forordning i et tiltak.">
+					description = <"Detaljer på forordning">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Foreslå">
+					description = <"Setter forordning som foreslått">
+				>
+				["at0003"] = <
+					text = <"Aktiver">
+					description = <"Setter forordning til aktiv">
+				>
+				["at0004"] = <
+					text = <"Avslutt">
+					description = <"Setter forordning til avsluttet">
+				>
+				["at0006"] = <
+					text = <"Registrer">
+					description = <"Registrerer forordning">
+				>
+				["at0008"] = <
+					text = <"Notat">
+					description = <"En vurdering/notat tilknyttet forordningen">
+				>
+				["at0010"] = <
+					text = <"Registrer som ikke utført">
+					description = <"Setter forordning som ikke utført">
+				>
+				["at0011"] = <
+					text = <"Annuller">
+					description = <"Setter forordning som annullert">
+				>
+				["at0012"] = <
+					text = <"*DIPS.ARENA.SYSTEM.NEWVERSION(nb)">
+					description = <"*DIPS system tilstand, som brukes når kommentar på forordningen, situasjon og frekvens endres(nb)">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Registrering av forordning i et tiltak.">
+					description = <"Detaljer på forordning.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Foreslå">
+					description = <"Setter forordning som foreslått.">
+				>
+				["at0003"] = <
+					text = <"Aktiver">
+					description = <"Setter forordning til aktiv.">
+				>
+				["at0004"] = <
+					text = <"Avslutt">
+					description = <"Setter forordning til avsluttet">
+				>
+				["at0006"] = <
+					text = <"Registrer">
+					description = <"Registrerer forordning.">
+				>
+				["at0008"] = <
+					text = <"Notat">
+					description = <"En vurdering/notat tilknyttet forordningen.">
+				>
+				["at0010"] = <
+					text = <"Registrer som ikke utført">
+					description = <"Setter forordning som ikke utført.">
+				>
+				["at0011"] = <
+					text = <"Annuller">
+					description = <"Setter forordning som annullert.">
+				>
+				["at0012"] = <
+					text = <"DIPS.ARENA.SYSTEM.NEWVERSION">
+					description = <"DIPS system tilstand, som brukes når kommentar på forordningen, situasjon og frekvens endres">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Recording of an ordination in Arena Careplan">
+					description = <"Ordination details">
+				>
+				["at0001"] = <
+					text = <"*">
+					description = <"*">
+				>
+				["at0002"] = <
+					text = <"Proposed">
+					description = <"Sets the ordination to proposed">
+				>
+				["at0003"] = <
+					text = <"Activate">
+					description = <"Sets the ordination to active ">
+				>
+				["at0004"] = <
+					text = <"*Avslutt(nb)">
+					description = <"*Setter forordning til avsluttet(nb)">
+				>
+				["at0006"] = <
+					text = <"Record">
+					description = <"Record the ordination as performed">
+				>
+				["at0008"] = <
+					text = <"Note">
+					description = <"A note related to the ordination performed">
+				>
+				["at0010"] = <
+					text = <"Record as not performed">
+					description = <"Record the ordination as not performed">
+				>
+				["at0011"] = <
+					text = <"Cancel">
+					description = <"Sets the ordination to cancelled">
+				>
+				["at0012"] = <
+					text = <"*DIPS.ARENA.SYSTEM.NEWVERSION(nb)">
+					description = <"*DIPS system tilstand, som brukes når kommentar på forordningen, situasjon og frekvens endres(nb)">
+				>
+			>
+		>
+	>

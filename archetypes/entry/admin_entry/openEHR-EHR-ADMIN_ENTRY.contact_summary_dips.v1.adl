@@ -1,0 +1,154 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ADMIN_ENTRY.contact_summary_dips.v1
+
+concept
+	[at0000]	-- contact summary
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for å registrere start og sluttidspunkt for en kontakt enten poliklinisk eller innleggelse. 
+Ansvarlig behandler og andre oppholdsdata.">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"6EB2943C23317FB57EA62EB13271F5FA">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {	-- contact summary
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Startdato og klokkeslett
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Sluttdato og klokkeslett
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0006] occurrences matches {0..*} matches {	-- Organisatorisk enhet
+						include
+							archetype_id/value matches {/.*/}
+					}
+					allow_archetype CLUSTER[at0011] occurrences matches {0..*} matches {	-- Oppholdsdata
+						include
+							archetype_id/value matches {/.*/}
+					}
+					allow_archetype CLUSTER[at0008] occurrences matches {0..*} matches {	-- Involvert helsepersonell
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0016] occurrences matches {0..1} matches {	-- Innlagt fra
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0017] occurrences matches {0..1} matches {	-- Navn institusjon innlagt fra
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0015] occurrences matches {0..*} matches {	-- Detaljerte opplysninger
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0019] occurrences matches {0..1} matches {	-- Kontakttype
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0020] occurrences matches {0..1} matches {	-- Kontaktstatus
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0021] occurrences matches {0..*} matches {	-- Utskrivelsesinformasjon
+						include
+							archetype_id/value matches {/.*/}
+					}
+					allow_archetype CLUSTER[at0022] occurrences matches {0..*} matches {	-- Innleggelsesinformasjon
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"contact summary">
+					description = <"Gjelder administrative opplysninger både for innlagte pasienter og polikliniske pasienter.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Startdato og klokkeslett">
+					description = <"Dato og klokkeslett for innleggelse og poliklinisk oppmøte.">
+				>
+				["at0003"] = <
+					text = <"Sluttdato og klokkeslett">
+					description = <"Utskrivelsesdato og klokkeslett for innlagte pasienter. Sluttdato og klokkeslett for polikliniske konsultasjoner.">
+				>
+				["at0006"] = <
+					text = <"Organisatorisk enhet">
+					description = <"Organisatorisk enhet kontakten ble utført ved.">
+				>
+				["at0008"] = <
+					text = <"Involvert helsepersonell">
+					description = <"Ansvarlig behandler som er registrert på kontakten. Kan enten være en poliklinisk konsultasjon eller innleggelse.">
+				>
+				["at0011"] = <
+					text = <"Oppholdsdata">
+					description = <"Andre oppholdsdata.">
+				>
+				["at0015"] = <
+					text = <"Detaljerte opplysninger">
+					description = <"Brukes for å beskrive detaljerte opplysninger">
+				>
+				["at0016"] = <
+					text = <"Innlagt fra">
+					description = <"Brukes for å registrere fra hvor pasienten legges inn fra, bosted, annen institusjon osv.">
+				>
+				["at0017"] = <
+					text = <"Navn institusjon innlagt fra">
+					description = <"Brukes for å registrere fra hvilken institusjon/sykehus pasienten kommer fra.">
+				>
+				["at0019"] = <
+					text = <"Kontakttype">
+					description = <"Brukes for å definere f.eks sykehusopphold, avdelingsopphold, postopphold og poliklinikk.">
+				>
+				["at0020"] = <
+					text = <"Kontaktstatus">
+					description = <"Brukes for å definere status på kontakten, planlagt, møtt, avsluttet.">
+				>
+				["at0021"] = <
+					text = <"Utskrivelsesinformasjon">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Innleggelsesinformasjon">
+					description = <"*">
+				>
+			>
+		>
+	>

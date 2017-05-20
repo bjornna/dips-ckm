@@ -1,0 +1,165 @@
+﻿archetype (adl_version=1.4; uid=84a6e430-a978-44a4-870d-75c0aa8fb8b7)
+	openEHR-EHR-OBSERVATION.pao2_fio2_ratio_dips.v1
+
+concept
+	[at0000]	-- PaO2-FiO2 ratioer
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Siv Fauchald">
+		["email"] = <"sfa@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2017-03-08">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Arketype for å angi resultatet av kalkulasjoner som omfatter målte/observerte verdier for PaO2 og FiO2.">
+			use = <"Arketypen brukes når det er ønske om å angi resultatet av kalkulasjoner som omfatter målte/observerte verdier for PaO2 og FiO2.">
+			misuse = <"Arketypen skal ikke brukes for å registrere inn observerte verdier av PaO2 og FiO2, dvs. rådata.">
+			copyright = <"© Nasjonal IKT HF">
+		>
+	>
+	lifecycle_state = <"NotSet">
+	other_contributors = <>
+	other_details = <
+		["revision"] = <"0.0.1-alpha">
+		["original_publisher"] = <"Nasjonal IKT">
+		["build_uid"] = <"356efe68-a866-4270-b85d-06d518b4d6f0">
+		["original_namespace"] = <"no.nasjonalikt">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["MD5-CAM-1.0.1"] = <"143EBC117182261E98B99D7C938D12AF">
+		["custodian_namespace"] = <"no.nasjonalikt">
+		["custodian_organisation"] = <"Nasjonal IKT">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- PaO2-FiO2 ratioer
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- PaO2/FiO2
+										value matches {
+											DV_PROPORTION matches {
+												numerator matches {|>0.0|}
+												denominator matches {|>0.0|}
+												is_integral matches {False}
+												type matches {0, 2}
+											}
+										}
+									}
+									ELEMENT[at0008] occurrences matches {0..1} matches {	-- (FiO2*100)/PaO2
+										value matches {
+											DV_PROPORTION matches {*}
+										}
+									}
+									ELEMENT[at0009] occurrences matches {0..1} matches {	-- FiO2/PaO2
+										value matches {
+											DV_PROPORTION matches {*}
+										}
+									}
+									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Kommentar
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0010] occurrences matches {0..1} matches {	-- PaO2/FiO2
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::125]>
+												list = <
+													["1"] = <
+														units = <"kPa">
+														precision = <|3|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0011] occurrences matches {0..1} matches {	-- (FiO2*100)/PaO2
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::118]>
+											>
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0005] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Formel
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"PaO2-FiO2 ratioer">
+					description = <"Arketype for å vise resultat av kalkulasjoner som omfatter målte/observerte verdier for PaO2 og FiO2.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"PaO2/FiO2">
+					description = <"PaO2/FiO2 er lik partialtrykket av oksygen dividert med fraksjonen av innåndet oksygen.">
+				>
+				["at0005"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0006"] = <
+					text = <"Formel">
+					description = <"Skriv formelen her">
+				>
+				["at0007"] = <
+					text = <"Kommentar">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"(FiO2*100)/PaO2">
+					description = <"(FiO2*100)/PaO2 er lik fraksjonen av innåndet oksygen multiplisert med 100 dividert på partialtrykket til oksygen.">
+				>
+				["at0009"] = <
+					text = <"FiO2/PaO2">
+					description = <"FiO2/PaO2 er lik fraksjonen av innåndet oksygen dividert med partialtrykket av oksygen.">
+				>
+				["at0010"] = <
+					text = <"PaO2/FiO2">
+					description = <"PaO2/FiO2 er lik partialtrykket av oksygen dividert med fraksjonen av innåndet oksygen.">
+				>
+				["at0011"] = <
+					text = <"(FiO2*100)/PaO2">
+					description = <"(FiO2*100)/PaO2 er lik fraksjonen av innåndet oksygen multiplisert med 100 dividert på partialtrykket til oksygen.">
+				>
+			>
+		>
+	>

@@ -5,6 +5,14 @@ concept
 	[at0000]	-- Npr medical procedure
 language
 	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
 description
 	original_author = <
 		["name"] = <"">
@@ -18,47 +26,54 @@ description
 			misuse = <"">
 			copyright = <"">
 		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To specify which procedures to report to the NPR.">
+			use = <"Used to specify which procedures to report to the NRP.">
+			misuse = <"">
+			copyright = <"">
+		>
 	>
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"963CEB2D987C715B4458F25FB0A0E5E0">
+		["MD5-CAM-1.0.1"] = <"17D126C371E30F85E8A570A07C254155">
 	>
 
 definition
 	ADMIN_ENTRY[at0000] matches {	-- Npr medical procedure
 		data matches {
-			ITEM_TREE[at0001] matches {	-- Tree
+			ITEM_TREE[at0001] matches {	-- *Tree(nb)
 				items cardinality matches {4..*; unordered} matches {
-					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Rekkefølge
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Order
 						value matches {
 							DV_COUNT matches {
 								magnitude matches {|>=0|}
 							}
 						}
 					}
-					allow_archetype CLUSTER[at0003] occurrences matches {1..*} matches {	-- Kode
+					allow_archetype CLUSTER[at0003] occurrences matches {1..*} matches {	-- Code
 						include
 							archetype_id/value matches {/openEHR-EHR-CLUSTER\.code(-[a-zA-Z0-9_]+)*\.v0/}
 					}
-					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Tilstandsnummer
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Condition number
 						value matches {
 							DV_COUNT matches {
 								magnitude matches {|>=0|}
 							}
 						}
 					}
-					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Start tid
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Start time
 						value matches {
 							DV_DATE_TIME matches {*}
 						}
 					}
-					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Slutt tid
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- End time
 						value matches {
 							DV_DATE_TIME matches {*}
 						}
 					}
-					ELEMENT[at0007] occurrences matches {0..*} matches {	-- Behandler
+					ELEMENT[at0007] occurrences matches {0..*} matches {	-- Personnel
 						value matches {
 							DV_TEXT matches {*}
 						}
@@ -73,7 +88,7 @@ ontology
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"Npr medical procedure">
+					text = <"Npr medisinsk prosedyre">
 					description = <"unknown">
 				>
 				["at0001"] = <
@@ -103,6 +118,42 @@ ontology
 				["at0007"] = <
 					text = <"Behandler">
 					description = <"*">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Npr medical procedure">
+					description = <"">
+				>
+				["at0001"] = <
+					text = <"*Tree(nb)">
+					description = <"*@ internal @(nb)">
+				>
+				["at0002"] = <
+					text = <"Order">
+					description = <"Specifies the order of this procedure among all the registered procedures on the same episode of care">
+				>
+				["at0003"] = <
+					text = <"Code">
+					description = <"One or more codes that describes the procedure. Internal order on these codes.">
+				>
+				["at0004"] = <
+					text = <"Condition number">
+					description = <"Number that refers to the condition it is meant to treat or affect.">
+				>
+				["at0005"] = <
+					text = <"Start time">
+					description = <"">
+				>
+				["at0006"] = <
+					text = <"End time">
+					description = <"">
+				>
+				["at0007"] = <
+					text = <"Personnel">
+					description = <"Personnel that performed the procedure">
 				>
 			>
 		>

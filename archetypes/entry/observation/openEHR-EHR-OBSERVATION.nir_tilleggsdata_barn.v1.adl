@@ -1,0 +1,241 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.nir_tilleggsdata_barn.v1
+
+concept
+	[at0000]	-- Nir tilleggsdata barn
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Siv Fauchald">
+		["email"] = <"sfa@dips.no">
+		["date"] = <"2017-03-08">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes til å rapportere data, som ikke inngår i PIM3-skåringsarketypen, på barn innlagt i en intensivenhet til Norsk Intensivregister (NIR).">
+			use = <"Brukes til rapportering av intensivdata på barn yngre enn 16 år.">
+			misuse = <"Skal ikke brukes til å registrere data som inngår i PIM3-skåringsarketypen.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"9C4009B0740959C64CC2677CE1B09261">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Nir tilleggsdata barn
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0010] occurrences matches {0..1} matches {	-- Fikk pasienten tilført oksygen via endotrakealtube eller tett hodeboks?
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Lav risiko diagnose
+										value matches {
+											0|[local::at0021], 	-- Ingen
+											1|[local::at0022], 	-- Astma
+											2|[local::at0023], 	-- Bronkiolitt
+											3|[local::at0024], 	-- Falsk krupp
+											4|[local::at0025], 	-- Obstruktiv søvnapné
+											5|[local::at0026], 	-- Diabetisk ketoacidose
+											6|[local::at0027]  	-- Epileptiforme krampeanfall
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Høy risiko diagnose
+										value matches {
+											0|[local::at0028], 	-- Ingen
+											1|[local::at0029], 	-- Spontan cerebral blødning
+											2|[local::at0030], 	-- Kardiomyopati eller myokardit
+											3|[local::at0031], 	-- Hypoplastisk venstre hjerte syndrom
+											4|[local::at0032], 	-- Nevrodegenerativ sykdom
+											5|[local::at0033]  	-- Nekrotiserende enterokolitt
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {	-- Svært høy risiko diagnose
+										value matches {
+											0|[local::at0034], 	-- Ingen
+											1|[local::at0035], 	-- Hjertestans forut for innleggelse i intensivenheten
+											2|[local::at0036], 	-- Alvorlig kombinert immunsvikt (SCID)
+											3|[local::at0037], 	-- Leukemi eller lymfom etter første induksjonskur
+											4|[local::at0038], 	-- Benmargstransplantert
+											5|[local::at0039]  	-- Leversvikt
+										}
+									}
+									ELEMENT[at0017] occurrences matches {0..1} matches {	-- Type innleggelse
+										value matches {
+											0|[local::at0018], 	-- Etter planlagt operasjon
+											6|[local::at0019], 	-- Akutt non-operativ
+											8|[local::at0020]  	-- Etter akutt operasjon
+										}
+									}
+									ELEMENT[at0040] occurrences matches {0..1} matches {	-- Perifer oksygenmetning
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::380]>
+												list = <
+													["1"] = <
+														units = <"%">
+														magnitude = <|0.0..100.0|>
+														precision = <|2|>
+													>
+												>
+											>
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Nir tilleggsdata barn">
+					description = <"Registrering av data som Norsk Intensivregister (NIR) ønsker rapportert for pasienter yngre enn 16 år ved innleggelse.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Lav risiko diagnose">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Høy risiko diagnose">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Svært høy risiko diagnose">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Fikk pasienten tilført oksygen via endotrakealtube eller tett hodeboks?">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Type innleggelse">
+					description = <"">
+				>
+				["at0018"] = <
+					text = <"Etter planlagt operasjon">
+					description = <"Til intensiv etter elektiv operasjon i løpet av de siste 7 døgn.">
+				>
+				["at0019"] = <
+					text = <"Akutt non-operativ">
+					description = <"Til intensiv uten forutgående operasjon de siste 7 døgn.">
+				>
+				["at0020"] = <
+					text = <"Etter akutt operasjon">
+					description = <"Til intensiv etter akutt operasjon i løpet av de siste 7 døgn.">
+				>
+				["at0021"] = <
+					text = <"Ingen">
+					description = <"Velges dersom det er tvil om lav risiko diagnose.">
+				>
+				["at0022"] = <
+					text = <"Astma">
+					description = <"*">
+				>
+				["at0023"] = <
+					text = <"Bronkiolitt">
+					description = <"Inkluderer barn som presenterer seg enten med respirasjonsbesvær eller sentral apne hvor den kliniske diagnosen er bronkiolitt.">
+				>
+				["at0024"] = <
+					text = <"Falsk krupp">
+					description = <"*">
+				>
+				["at0025"] = <
+					text = <"Obstruktiv søvnapné">
+					description = <"Inkluderer pasienter innlagt etter adenotomi og/eller tonsillektomi der obstruktiv søvnapne er hovedgrunnen for innleggelsen i intensivenheten (kodes som overvåkning etter kirurgi.">
+				>
+				["at0026"] = <
+					text = <"Diabetisk ketoacidose">
+					description = <"*">
+				>
+				["at0027"] = <
+					text = <"Epileptiforme krampeanfall">
+					description = <"Inkluderer pasienter som innlegges primært pga status epileptikus, epilepsi, feberkramper eller annet epileptisk syndrom hvor innleggelse er nødvendig enten for å få kontroll med krampene eller for å komme seg fra effektene av krampene eller behandlingen.">
+				>
+				["at0028"] = <
+					text = <"Ingen">
+					description = <"Velges dersom det er tvil om lav risiko diagnose.">
+				>
+				["at0029"] = <
+					text = <"Spontan cerebral blødning">
+					description = <"Hjerneblødningen må være spontan, f.eks. fra aneurysme eller AV-malformasjon. Ikke inkluder traumatisk hjerneblødning eller intrakranial blødning som ikke er intracerebral, f.eks. subdural blødning.">
+				>
+				["at0030"] = <
+					text = <"Kardiomyopati eller myokardit">
+					description = <"*">
+				>
+				["at0031"] = <
+					text = <"Hypoplastisk venstre hjerte syndrom">
+					description = <"Alle aldre, men inkluderer kun de tilfellene hvor en Norwood-prosedyre eller lignende er eller var nødvendig for overlevelse i nyfødtperioden.">
+				>
+				["at0032"] = <
+					text = <"Nevrodegenerativ sykdom">
+					description = <"*">
+				>
+				["at0033"] = <
+					text = <"Nekrotiserende enterokolitt">
+					description = <"Krever en historikk på progressivt tap av milepæler selv om ingen spesifikk tilstand har blitt diagnostisert eller en diagnose hvor dette uunngåelig vil skje.">
+				>
+				["at0034"] = <
+					text = <"Ingen">
+					description = <"Velges dersom det er tvil om lav risiko diagnose.">
+				>
+				["at0035"] = <
+					text = <"Hjertestans forut for innleggelse i intensivenheten">
+					description = <"Inkluderer både stans i sykehus og utenfor sykehus. Det kreves enten dokumentert pulsløshet eller behov for ekstern hjertekompresjon. Ikke inkludér tidligere historikk på hjertestans.">
+				>
+				["at0036"] = <
+					text = <"Alvorlig kombinert immunsvikt (SCID)">
+					description = <"*">
+				>
+				["at0037"] = <
+					text = <"Leukemi eller lymfom etter første induksjonskur">
+					description = <"Inkluderer bare tilfeller der innleggelsen er relatert til leukemi eller lymfom eller terapien for disse tilstandene.">
+				>
+				["at0038"] = <
+					text = <"Benmargstransplantert">
+					description = <"*">
+				>
+				["at0039"] = <
+					text = <"Leversvikt">
+					description = <"Inkluderer bare tilfeller der innleggelsen er relatert til leukemi eller lymfom eller terapien for disse tilstandene.
+Leversvikt, akutt eller kronisk. Må være hovedgrunnen for innleggelse i intensivenheten. Ikke inkludér pasienter innlagt etter elektiv levertransplantasjon.">
+				>
+				["at0040"] = <
+					text = <"Perifer oksygenmetning">
+					description = <"*">
+				>
+			>
+		>
+	>

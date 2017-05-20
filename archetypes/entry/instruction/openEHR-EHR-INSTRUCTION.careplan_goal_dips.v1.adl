@@ -1,0 +1,155 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-INSTRUCTION.careplan_goal_dips.v1
+
+concept
+	[at0000]	-- Oppnå mål
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			author = <
+				["name"] = <"">
+			>
+		>
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			author = <
+				["name"] = <"">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Phuong Pedersen">
+		["email"] = <"ppe@dips.no">
+		["organisation"] = <"DIPS AS">
+	>
+	details = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"For å registrere mål, delmålog oppnåelsesfaktor på målet  for en pasient">
+			use = <"Registrere mål og delmål for en pasient">
+			misuse = <"">
+			copyright = <"">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Registrering av mål, delmål og måloppnåelse for en pasient.">
+			use = <"Arketypen brukes for å registrere mål, delmål og oppnåelse av målet for en pasient.">
+			misuse = <"">
+			copyright = <"DIPS AS">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"Recording goals and targets.">
+			use = <"For recording instructions to about goals and targets for a patient.">
+			misuse = <"">
+			copyright = <"DIPS AS">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <"Ivar Yrke, DIPS AS, Norway", "Sindre Nordbøe Årøen, DIPS AS, Norway", "Terje Sagmyr, DIPS AS, Norway, Bjørn-Petter Johannessen, DIPS AS, Norway">
+	other_details = <
+		["current_contact"] = <"Phuong Pedersen, DIPS AS <ppe@dips.no>">
+		["MD5-CAM-1.0.1"] = <"BEA5D6E196B85B4FD3E9605A53C5700F">
+		["custodian_organisation"] = <"DIPS AS">
+	>
+
+definition
+	INSTRUCTION[at0000] matches {	-- Oppnå mål
+		activities cardinality matches {0..*; unordered} matches {
+			ACTIVITY[at0001] occurrences matches {1..*} matches {	-- Registrer
+				action_archetype_id matches {/openEHR-EHR-ACTION\.careplan_goal_dips\.v1/}
+				description matches {
+					ITEM_TREE[at0002] matches {*}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0021] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0022] occurrences matches {0..*} matches {	-- Tilleggsinformasjon
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"Oppnå mål">
+					description = <"Fremtidig helsetilstand som skal oppnås for pasienten.">
+				>
+				["at0001"] = <
+					text = <"Registrer">
+					description = <"Registrer helsetilstand for pasienten.">
+				>
+				["at0002"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0021"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0022"] = <
+					text = <"Tilleggsinformasjon">
+					description = <"Eventuell tilleggsinformasjon.">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Oppnå mål">
+					description = <"Fremtidig helsetilstand som skal oppnås for pasienten.">
+				>
+				["at0001"] = <
+					text = <"Registrer">
+					description = <"Registrer helsetilstand for pasienten.">
+				>
+				["at0002"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0021"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0022"] = <
+					text = <"Tilleggsinformasjon">
+					description = <"Eventuell tilleggsinformasjon.">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Care Plan Goal">
+					description = <"A future health state that is agreed to be the patient.">
+				>
+				["at0001"] = <
+					text = <"Register">
+					description = <"Register a health state for the patient.">
+				>
+				["at0002"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0021"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0022"] = <
+					text = <"Additional Information">
+					description = <"Additional information that may be needed.">
+				>
+			>
+		>
+	>

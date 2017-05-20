@@ -1,0 +1,539 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.euroscore_dips.v1
+
+concept
+	[at0000]	-- EuroSCORE DIPS
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Ingrid Skard">
+		["email"] = <"ins@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2017-04-21">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for å registrere input til utregning av EuroSCORE.">
+			use = <"Brukes for å registrere input til utregning av EuroSCORE.
+
+Selve beregningen av EuroSCORE gjøres på skjemanivå.
+
+Resultatet lagres i denne arketypen.">
+			keywords = <"euroscore", "euroscore II">
+			misuse = <"Skal ikke brukes til andre formål en registrering av EuroSCORE.">
+			copyright = <"DIPS AS">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["references"] = <"Norsk oversettelse av EuroSCORE ved Ullevål Universitetssykehus.">
+		["MD5-CAM-1.0.1"] = <"9C8E3886FFE4AB90CC0C8F6B1D473F61">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- EuroSCORE DIPS
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									allow_archetype CLUSTER[at0004] occurrences matches {0..*} matches {	-- Alder
+										include
+											archetype_id/value matches {/.*/}
+									}
+									ELEMENT[at0023] occurrences matches {0..1} matches {	-- Kvinne
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0032, 	-- Ja
+													at0033]	-- Nei
+												}
+											}
+										}
+									}
+									CLUSTER[at0025] occurrences matches {0..1} matches {	-- Nyresvikt
+										items cardinality matches {1..*; unordered} matches {
+											allow_archetype CLUSTER[at0026] occurrences matches {0..*} matches {	-- P-Kreatinin
+												include
+													archetype_id/value matches {/.*/}
+											}
+											allow_archetype CLUSTER[at0027] occurrences matches {0..*} matches {	-- Kroppsvekt
+												include
+													archetype_id/value matches {/.*/}
+											}
+											ELEMENT[at0009] occurrences matches {0..1} matches {	-- Kreatininclearance
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {[local::]}
+													}
+												}
+											}
+										}
+									}
+									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Perifer karsykdom
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0030, 	-- Ja
+													at0031]	-- Nei
+												}
+											}
+										}
+									}
+									ELEMENT[at0008] occurrences matches {0..1} matches {	-- Nevrologisk sykdom/sekvele
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0034, 	-- Ja
+													at0035]	-- Nei
+												}
+											}
+										}
+									}
+									ELEMENT[at0011] occurrences matches {0..1} matches {	-- REDO
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0036, 	-- Ja
+													at0037]	-- Nei
+												}
+											}
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {	-- KOLS
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0038, 	-- Ja
+													at0039]	-- Nei
+												}
+											}
+										}
+									}
+									ELEMENT[at0010] occurrences matches {0..1} matches {	-- Endocarditt, akutt
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0040, 	-- Ja
+													at0041]	-- Nei
+												}
+											}
+										}
+									}
+									ELEMENT[at0012] occurrences matches {0..1} matches {	-- Klinisk instabilitet
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0042, 	-- Ja
+													at0043]	-- Nei
+												}
+											}
+										}
+									}
+									ELEMENT[at0028] occurrences matches {0..1} matches {	-- Diabetiker på insulin
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0044, 	-- Ja
+													at0045]	-- Nei
+												}
+											}
+										}
+									}
+									allow_archetype CLUSTER[at0029] occurrences matches {0..*} matches {	-- NYHA
+										include
+											archetype_id/value matches {/.*/}
+									}
+									ELEMENT[at0013] occurrences matches {0..1} matches {	-- Ustabil angina pectoris
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0046, 	-- Ja
+													at0047]	-- Nei
+												}
+											}
+										}
+									}
+									ELEMENT[at0014] occurrences matches {0..1} matches {	-- Ejeksjonsfraksjon
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0048, 	-- God (> 50 %)
+													at0049, 	-- Moderat (31-50 %)
+													at0050, 	-- Nedsatt (21-30 %)
+													at0051]	-- Betydelig nedsatt (< 20 %)
+												}
+											}
+										}
+									}
+									ELEMENT[at0016] occurrences matches {0..1} matches {	-- Hjerteinfarkt, nylig
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0052, 	-- Ja
+													at0053]	-- Nei
+												}
+											}
+										}
+									}
+									ELEMENT[at0017] occurrences matches {0..1} matches {	-- Pulmonal hypertensjon
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0054, 	-- Nei
+													at0055, 	-- Moderat (31-55 mmHg)
+													at0056]	-- Alvorlig (> 55 mmHg)
+												}
+											}
+										}
+									}
+									ELEMENT[at0021] occurrences matches {0..1} matches {	-- Postinfarkt VSR
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0057, 	-- Ja
+													at0058]	-- Nei
+												}
+											}
+										}
+									}
+									ELEMENT[at0018] occurrences matches {0..1} matches {	-- Hastegrad for operasjon
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0059, 	-- Elektiv
+													at0061, 	-- Elektiv (haster)
+													at0062, 	-- Ø-hjelp
+													at0063]	-- Salvage
+												}
+											}
+										}
+									}
+									ELEMENT[at0019] occurrences matches {0..1} matches {	-- Tillegg til ACB-operasjon
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0064, 	-- Ingen
+													at0065, 	-- 1
+													at0066, 	-- 2
+													at0067]	-- 3
+												}
+											}
+										}
+									}
+									ELEMENT[at0020] occurrences matches {0..1} matches {	-- Kirurgi av aorta thoracalis
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0068, 	-- Ja
+													at0069]	-- Nei
+												}
+											}
+										}
+									}
+									ELEMENT[at0024] occurrences matches {0..1} matches {	-- Resultat
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"EuroSCORE DIPS">
+					description = <"Registrering av EuroSCORE.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Alder">
+					description = <"Pasientens alder.">
+				>
+				["at0006"] = <
+					text = <"KOLS">
+					description = <"Pasienten behandles med broncholytica og/eller steroider.">
+				>
+				["at0007"] = <
+					text = <"Perifer karsykdom">
+					description = <"Claudicatio, carotisstenose, utført eller planlagt karkirurgi eller røntgenintervensjon.">
+				>
+				["at0008"] = <
+					text = <"Nevrologisk sykdom/sekvele">
+					description = <"Alvorlig bevegelseshemming, affiserer ADL-funksjon.">
+				>
+				["at0009"] = <
+					text = <"Kreatininclearance">
+					description = <"Kreatininclearance (ml/min) beregnet ved Cockroft-Gault.">
+				>
+				["at0010"] = <
+					text = <"Endocarditt, akutt">
+					description = <"Pasienten er under medikamentell behandling.">
+				>
+				["at0011"] = <
+					text = <"REDO">
+					description = <"Tidligere hjerteoperasjon hvor pericard er åpnet.">
+				>
+				["at0012"] = <
+					text = <"Klinisk instabilitet">
+					description = <"Sirkulatorisk instabilitet (dvs. VT, preoperativ hjertemassasje, resusitert pasient), intubert preoperativt, preoperativ inotopi, ABP, preoperativ akutt nyresvikt (<10ml/time).">
+				>
+				["at0013"] = <
+					text = <"Ustabil angina pectoris">
+					description = <"Pågående nitrater iv. under anestesiinnledning.">
+				>
+				["at0014"] = <
+					text = <"Ejeksjonsfraksjon">
+					description = <"Ejeksjonsfraksjon 30-50 % .">
+				>
+				["at0016"] = <
+					text = <"Hjerteinfarkt, nylig">
+					description = <"Pasienten har hatt et hjerteinfarkt i løpet av de siste 90 dager.">
+				>
+				["at0017"] = <
+					text = <"Pulmonal hypertensjon">
+					description = <"PAP > 60 mmHg.">
+				>
+				["at0018"] = <
+					text = <"Hastegrad for operasjon">
+					description = <"Hastegrad for operasjon.">
+				>
+				["at0019"] = <
+					text = <"Tillegg til ACB-operasjon">
+					description = <"Alle større hjertekirurgiske prosedyrer ulike fra eller i tillegg til ACB-operasjon.">
+				>
+				["at0020"] = <
+					text = <"Kirurgi av aorta thoracalis">
+					description = <"Ascendens, bue og descendens.">
+				>
+				["at0021"] = <
+					text = <"Postinfarkt VSR">
+					description = <"Ventrikkelseptumruptur.">
+				>
+				["at0023"] = <
+					text = <"Kvinne">
+					description = <"Pasienten er kvinne.">
+				>
+				["at0024"] = <
+					text = <"Resultat">
+					description = <"EuroSCORE.">
+				>
+				["at0025"] = <
+					text = <"Nyresvikt">
+					description = <"*">
+				>
+				["at0026"] = <
+					text = <"P-Kreatinin">
+					description = <"Pasientens plasmakreatinin i umol/l.">
+				>
+				["at0027"] = <
+					text = <"Kroppsvekt">
+					description = <"Pasientens kroppsvekt i kg.">
+				>
+				["at0028"] = <
+					text = <"Diabetiker på insulin">
+					description = <"Pasienten har diabetes og behandles med insulin.">
+				>
+				["at0029"] = <
+					text = <"NYHA">
+					description = <"Pasientens NYHA-score.">
+				>
+				["at0030"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0031"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0032"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0033"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0034"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0035"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0036"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0037"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0038"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0039"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0040"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0041"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0042"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0043"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0044"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0045"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0046"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0047"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0048"] = <
+					text = <"God (> 50 %)">
+					description = <"*">
+				>
+				["at0049"] = <
+					text = <"Moderat (31-50 %)">
+					description = <"*">
+				>
+				["at0050"] = <
+					text = <"Nedsatt (21-30 %)">
+					description = <"*">
+				>
+				["at0051"] = <
+					text = <"Betydelig nedsatt (< 20 %)">
+					description = <"*">
+				>
+				["at0052"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0053"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0054"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0055"] = <
+					text = <"Moderat (31-55 mmHg)">
+					description = <"*">
+				>
+				["at0056"] = <
+					text = <"Alvorlig (> 55 mmHg)">
+					description = <"*">
+				>
+				["at0057"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0058"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0059"] = <
+					text = <"Elektiv">
+					description = <"*">
+				>
+				["at0061"] = <
+					text = <"Elektiv (haster)">
+					description = <"*">
+				>
+				["at0062"] = <
+					text = <"Ø-hjelp">
+					description = <"*">
+				>
+				["at0063"] = <
+					text = <"Salvage">
+					description = <"*">
+				>
+				["at0064"] = <
+					text = <"Ingen">
+					description = <"*">
+				>
+				["at0065"] = <
+					text = <"1">
+					description = <"*">
+				>
+				["at0066"] = <
+					text = <"2">
+					description = <"*">
+				>
+				["at0067"] = <
+					text = <"3">
+					description = <"*">
+				>
+				["at0068"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0069"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+			>
+		>
+	>
