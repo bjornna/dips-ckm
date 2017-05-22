@@ -21,7 +21,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"2D2ABA9947A31F88A8A7578C6857B10C">
+		["MD5-CAM-1.0.1"] = <"DBCF0658A55C070D296BBE55CFDBA27F">
 	>
 
 definition
@@ -29,13 +29,6 @@ definition
 		data matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0014] occurrences matches {0..1} matches {	-- Alder ved innleggelse
-						value matches {
-							DV_COUNT matches {
-								magnitude matches {|>=0|}
-							}
-						}
-					}
 					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Sum inklusjonskriterier
 						value matches {
 							DV_COUNT matches {
@@ -53,42 +46,12 @@ definition
 							DV_COUNT matches {*}
 						}
 					}
-					ELEMENT[at0029] occurrences matches {0..1} matches {	-- Sjekk SAPS alder
+					ELEMENT[at0016] occurrences matches {0..1} matches {	-- Inklusjonskriterier og alder ved innleggelse
 						value matches {
 							DV_COUNT matches {*}
 						}
 					}
-					ELEMENT[at0031] occurrences matches {0..1} matches {	-- Sjekk PIM3 alder
-						value matches {
-							DV_COUNT matches {*}
-						}
-					}
-					ELEMENT[at0016] occurrences matches {0..1} matches {	-- Om pasient og opphold
-						value matches {
-							DV_COUNT matches {*}
-						}
-					}
-					ELEMENT[at0035] occurrences matches {0..1} matches {	-- Sjekk om pasient og opphold
-						value matches {
-							DV_COUNT matches {*}
-						}
-					}
-					ELEMENT[at0033] occurrences matches {0..1} matches {	-- SAPS score
-						value matches {
-							DV_COUNT matches {*}
-						}
-					}
-					ELEMENT[at0036] occurrences matches {0..1} matches {	-- Sjekk SAPS score
-						value matches {
-							DV_COUNT matches {*}
-						}
-					}
-					ELEMENT[at0034] occurrences matches {0..1} matches {	-- PIM3 score
-						value matches {
-							DV_COUNT matches {*}
-						}
-					}
-					ELEMENT[at0037] occurrences matches {0..1} matches {	-- Sjekk PIM3 score
+					ELEMENT[at0038] occurrences matches {0..1} matches {	-- Sjekk inklusjonskriterier og alder ved innleggelse
 						value matches {
 							DV_COUNT matches {*}
 						}
@@ -100,23 +63,51 @@ definition
 							}
 						}
 					}
-					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Liggetid døgn
+					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Liggetid døgn + 1
 						value matches {
 							DV_COUNT matches {
 								magnitude matches {|>=0|}
 							}
 						}
 					}
-					ELEMENT[at0020] occurrences matches {0..1} matches {	-- Liggetid døgn
+					ELEMENT[at0031] occurrences matches {0..1} matches {	-- Liggetid døgn
+						value matches {
+							DV_COUNT matches {*}
+						}
+					}
+					ELEMENT[at0020] occurrences matches {0..1} matches {	-- Liggetid døgn + 0,1
 						value matches {
 							C_DV_QUANTITY <
+								property = <[openehr::128]>
+								list = <
+									["1"] = <
+										units = <"d">
+										magnitude = <|>=0.0|>
+										precision = <|1|>
+									>
+								>
 							>
 						}
 					}
-					ELEMENT[at0025] occurrences matches {0..1} matches {	-- Sjekk nyreerstattende behandling
+					ELEMENT[at0028] occurrences matches {0..1} matches {	-- Sjekk kontinuerlig dialyse
 						value matches {
-							1|[local::at0026], 	-- Ja
-							2|[local::at0027]  	-- Nei
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0029] occurrences matches {0..1} matches {	-- Sjekk intermitterende dialyse
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0030] occurrences matches {0..1} matches {	-- Sjekk peritonealdialyse
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
 						}
 					}
 					ELEMENT[at0024] occurrences matches {0..1} matches {	-- Sjekk sum dialyse
@@ -124,13 +115,47 @@ definition
 							DV_COUNT matches {*}
 						}
 					}
-					ELEMENT[at0012] occurrences matches {0..1} matches {	-- Respirasjonsstøtte totaltid
+					ELEMENT[at0033] occurrences matches {0..1} matches {	-- Sum non-invasiv mekanisk ventilasjon
 						value matches {
 							C_DV_QUANTITY <
 								property = <[openehr::128]>
 								list = <
 									["1"] = <
-										units = <"h">
+										units = <"d">
+										magnitude = <|>=0.0|>
+										precision = <|1|>
+									>
+								>
+							>
+						}
+					}
+					ELEMENT[at0032] occurrences matches {0..1} matches {	-- Sum invasiv mekanisk ventilasjon
+						value matches {
+							C_DV_QUANTITY <
+								property = <[openehr::128]>
+								list = <
+									["1"] = <
+										units = <"d">
+										magnitude = <|>=0.0|>
+										precision = <|1|>
+									>
+								>
+							>
+						}
+					}
+					ELEMENT[at0034] occurrences matches {0..1} matches {	-- Sjekk antall døgn nyreerstattende behandling
+						value matches {
+							1|[local::at0035], 	-- Ja
+							2|[local::at0036]  	-- Nei
+						}
+					}
+					ELEMENT[at0037] occurrences matches {0..1} matches {	-- Sjekk respirasjonsstøtte
+						value matches {
+							C_DV_QUANTITY <
+								property = <[openehr::128]>
+								list = <
+									["1"] = <
+										units = <"d">
 										magnitude = <|>=0.0|>
 										precision = <|1|>
 									>
@@ -160,15 +185,7 @@ ontology
 					description = <"Sum av inklusjonskriterienes ordinalverdier.">
 				>
 				["at0009"] = <
-					text = <"Liggetid døgn">
-					description = <"*">
-				>
-				["at0012"] = <
-					text = <"Respirasjonsstøtte totaltid">
-					description = <"*">
-				>
-				["at0014"] = <
-					text = <"Alder ved innleggelse">
+					text = <"Liggetid døgn + 1">
 					description = <"*">
 				>
 				["at0015"] = <
@@ -176,7 +193,7 @@ ontology
 					description = <"*">
 				>
 				["at0016"] = <
-					text = <"Om pasient og opphold">
+					text = <"Inklusjonskriterier og alder ved innleggelse">
 					description = <"*">
 				>
 				["at0017"] = <
@@ -188,51 +205,55 @@ ontology
 					description = <"*">
 				>
 				["at0020"] = <
-					text = <"Liggetid døgn">
+					text = <"Liggetid døgn + 0,1">
 					description = <"*">
 				>
 				["at0024"] = <
 					text = <"Sjekk sum dialyse">
 					description = <"*">
 				>
-				["at0025"] = <
-					text = <"Sjekk nyreerstattende behandling">
-					description = <"*">
-				>
-				["at0026"] = <
-					text = <"Ja">
-					description = <"*">
-				>
-				["at0027"] = <
-					text = <"Nei">
+				["at0028"] = <
+					text = <"Sjekk kontinuerlig dialyse">
 					description = <"*">
 				>
 				["at0029"] = <
-					text = <"Sjekk SAPS alder">
+					text = <"Sjekk intermitterende dialyse">
+					description = <"*">
+				>
+				["at0030"] = <
+					text = <"Sjekk peritonealdialyse">
 					description = <"*">
 				>
 				["at0031"] = <
-					text = <"Sjekk PIM3 alder">
+					text = <"Liggetid døgn">
+					description = <"*">
+				>
+				["at0032"] = <
+					text = <"Sum invasiv mekanisk ventilasjon">
 					description = <"*">
 				>
 				["at0033"] = <
-					text = <"SAPS score">
+					text = <"Sum non-invasiv mekanisk ventilasjon">
 					description = <"*">
 				>
 				["at0034"] = <
-					text = <"PIM3 score">
+					text = <"Sjekk antall døgn nyreerstattende behandling">
 					description = <"*">
 				>
 				["at0035"] = <
-					text = <"Sjekk om pasient og opphold">
+					text = <"Ja">
 					description = <"*">
 				>
 				["at0036"] = <
-					text = <"Sjekk SAPS score">
+					text = <"Nei">
 					description = <"*">
 				>
 				["at0037"] = <
-					text = <"Sjekk PIM3 score">
+					text = <"Sjekk respirasjonsstøtte">
+					description = <"*">
+				>
+				["at0038"] = <
+					text = <"Sjekk inklusjonskriterier og alder ved innleggelse">
 					description = <"*">
 				>
 			>
