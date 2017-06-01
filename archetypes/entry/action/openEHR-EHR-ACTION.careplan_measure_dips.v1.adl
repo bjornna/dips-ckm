@@ -2,7 +2,7 @@ archetype (adl_version=1.4)
 	openEHR-EHR-ACTION.careplan_measure_dips.v1
 
 concept
-	[at0000]	-- Registrering av forordning i et tiltak.
+	[at0000]	-- Recording of an ordination in Arena Careplan
 language
 	original_language = <[ISO_639-1::nb]>
 	translations = <
@@ -52,14 +52,14 @@ description
 	other_contributors = <"Bjørn-Petter Johannessen, DIPS AS, Norway", ...>
 	other_details = <
 		["current_contact"] = <"Phuong Pedersen, DIPS AS <ppe@dips.no>">
-		["MD5-CAM-1.0.1"] = <"A680B27CF8C3529446D3FBFA6926C2A2">
+		["MD5-CAM-1.0.1"] = <"FFD75340C4AA86F3D4702BCB9951F6FC">
 		["custodian_organisation"] = <"DIPS AS">
 	>
 
 definition
-	ACTION[at0000] matches {	-- Registrering av forordning i et tiltak.
+	ACTION[at0000] matches {	-- Recording of an ordination in Arena Careplan
 		ism_transition matches {
-			ISM_TRANSITION[at0002] matches {	-- Foreslå
+			ISM_TRANSITION[at0002] matches {	-- Suggest
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::526]}
@@ -67,11 +67,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0002]}		-- Foreslå
+						defining_code matches {[local::at0002]}		-- Suggest
 					}
 				}
 			}
-			ISM_TRANSITION[at0011] matches {	-- Annuller
+			ISM_TRANSITION[at0011] matches {	-- Cancel
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::528]}
@@ -79,11 +79,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0011]}		-- Annuller
+						defining_code matches {[local::at0011]}		-- Cancel
 					}
 				}
 			}
-			ISM_TRANSITION[at0003] matches {	-- Aktiver
+			ISM_TRANSITION[at0003] matches {	-- Activate
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::245]}
@@ -91,11 +91,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0003]}		-- Aktiver
+						defining_code matches {[local::at0003]}		-- Activate
 					}
 				}
 			}
-			ISM_TRANSITION[at0006] matches {	-- Registrer
+			ISM_TRANSITION[at0006] matches {	-- Register
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::245]}
@@ -103,11 +103,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0006]}		-- Registrer
+						defining_code matches {[local::at0006]}		-- Register
 					}
 				}
 			}
-			ISM_TRANSITION[at0004] matches {	-- Avslutt
+			ISM_TRANSITION[at0004] matches {	-- Discontinue
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::532]}
@@ -115,7 +115,7 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0004]}		-- Avslutt
+						defining_code matches {[local::at0004]}		-- Discontinue
 					}
 				}
 			}
@@ -133,14 +133,14 @@ definition
 			}
 		}
 		description matches {
-			ITEM_TREE[at0001] matches {	-- Tree
+			ITEM_TREE[at0001] matches {	-- *
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Notat
+					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Note
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Registrer som ikke utført
+					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Record as not performed
 						value matches {
 							DV_BOOLEAN matches {
 								value matches {True}
@@ -166,19 +166,19 @@ ontology
 				>
 				["at0002"] = <
 					text = <"Foreslå">
-					description = <"Setter forordning som foreslått">
+					description = <"Legg til som foreslått forordning">
 				>
 				["at0003"] = <
 					text = <"Aktiver">
-					description = <"Setter forordning til aktiv">
+					description = <"Legg til som aktivt forordning">
 				>
 				["at0004"] = <
 					text = <"Avslutt">
-					description = <"Setter forordning til avsluttet">
+					description = <"Avslutt forordning">
 				>
 				["at0006"] = <
 					text = <"Registrer">
-					description = <"Registrerer forordning">
+					description = <"Registrer en utført handling på forordningen">
 				>
 				["at0008"] = <
 					text = <"Notat">
@@ -189,12 +189,12 @@ ontology
 					description = <"Setter forordning som ikke utført">
 				>
 				["at0011"] = <
-					text = <"Annuller">
-					description = <"Setter forordning som annullert">
+					text = <"Kanseller">
+					description = <"Kansellerer forordningen">
 				>
 				["at0012"] = <
-					text = <"*DIPS.ARENA.SYSTEM.NEWVERSION(nb)">
-					description = <"*DIPS system tilstand, som brukes når kommentar på forordningen, situasjon og frekvens endres(nb)">
+					text = <"DIPS.ARENA.SYSTEM.NEWVERSION">
+					description = <"DIPS system tilstand, som brukes når kommentar på forordningen, situasjon og frekvens endres">
 				>
 			>
 		>
@@ -210,19 +210,19 @@ ontology
 				>
 				["at0002"] = <
 					text = <"Foreslå">
-					description = <"Setter forordning som foreslått.">
+					description = <"Legg til som foreslått forordning">
 				>
 				["at0003"] = <
 					text = <"Aktiver">
-					description = <"Setter forordning til aktiv.">
+					description = <"Legg til som aktivt forordning">
 				>
 				["at0004"] = <
 					text = <"Avslutt">
-					description = <"Setter forordning til avsluttet">
+					description = <"Avslutt forordning">
 				>
 				["at0006"] = <
 					text = <"Registrer">
-					description = <"Registrerer forordning.">
+					description = <"Registrer en utført handling på forordningen">
 				>
 				["at0008"] = <
 					text = <"Notat">
@@ -233,8 +233,8 @@ ontology
 					description = <"Setter forordning som ikke utført.">
 				>
 				["at0011"] = <
-					text = <"Annuller">
-					description = <"Setter forordning som annullert.">
+					text = <"Kanseller">
+					description = <"Kansellerer forordningen">
 				>
 				["at0012"] = <
 					text = <"DIPS.ARENA.SYSTEM.NEWVERSION">
@@ -253,20 +253,20 @@ ontology
 					description = <"*">
 				>
 				["at0002"] = <
-					text = <"Proposed">
-					description = <"Sets the ordination to proposed">
+					text = <"Suggest">
+					description = <"Suggest ordination">
 				>
 				["at0003"] = <
 					text = <"Activate">
-					description = <"Sets the ordination to active ">
+					description = <"Activate ordination">
 				>
 				["at0004"] = <
-					text = <"*Avslutt(nb)">
-					description = <"*Setter forordning til avsluttet(nb)">
+					text = <"Discontinue">
+					description = <"Discontinue ordination">
 				>
 				["at0006"] = <
-					text = <"Record">
-					description = <"Record the ordination as performed">
+					text = <"Register">
+					description = <"Register performing of ordination">
 				>
 				["at0008"] = <
 					text = <"Note">
@@ -278,11 +278,11 @@ ontology
 				>
 				["at0011"] = <
 					text = <"Cancel">
-					description = <"Sets the ordination to cancelled">
+					description = <"Cancel ordination">
 				>
 				["at0012"] = <
-					text = <"*DIPS.ARENA.SYSTEM.NEWVERSION(nb)">
-					description = <"*DIPS system tilstand, som brukes når kommentar på forordningen, situasjon og frekvens endres(nb)">
+					text = <"DIPS.ARENA.SYSTEM.NEWVERSION">
+					description = <"DIPS system tilstand, som brukes når kommentar på forordningen, situasjon og frekvens endres">
 				>
 			>
 		>
