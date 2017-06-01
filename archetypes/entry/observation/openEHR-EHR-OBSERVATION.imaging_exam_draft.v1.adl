@@ -1,0 +1,658 @@
+﻿archetype (adl_version=1.4; uid=d6687263-0988-4010-94b9-e356cd361a39)
+	openEHR-EHR-OBSERVATION.imaging_exam_draft.v1
+
+concept
+	[at0000]	-- Resultat av bildediagnostisk undersøkelse
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["organisation"] = <"Haukeland University Hospital of Bergen, Norway">
+				["name"] = <"Lars Bitsch-Larsen">
+			>
+			accreditation = <"MD, DEAA, MBA, spec in anesthesia, spec in tropical medicine.">
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Grahame Grieve">
+		["organisation"] = <"Health Intersections Pty Ltd">
+		["email"] = <"grahame@healthintersections.com.au">
+		["date"] = <"07/02/2011">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record the findings and interpretation of an imaging examination, or series of examinations, performed.">
+			use = <"Use to record all results related to the diagnostic imaging aspects of any imaging examinations performed. 
+
+Use to record the imaging examination components (only) of a more complex procedure, including those that may have been undertaken under imaging guidance.
+
+More complex procedures (such as echocardiaograms or Bone density scans) may be represented using templates or specialised archetypes where additional report content is appropriate.
+
+Will normally be reported back to the requesting clinician as one component within the context of an overall COMPOSITION-based report.">
+			misuse = <"Not to be used to record non-imaging examination findings or activities. For example when imaging is performed as part of a procedure the information related to the procedure must be recorded using the ACTION.procedure archetype or an OBSERVATION for the operative findings. This archetype will only be used to record the findings from the imaging.
+
+Not to be used to record details about any parallel procedure undertaken. Use the specific procedure-related archetypes, for example ACTION.procedure.
+
+Not to be used to record details about medications administered during the imaging test. Use specific medication-related archetypes, for example ACTION.medication.">
+			copyright = <"© Nasjonal IKT HF">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For registrering av funn og tolkninger av utførte bildeundersøkinger eller serier av bildeundersøkinger.">
+			use = <"Anvendes til å registrere alle resultater knyttet til alle bildediagnostiske aspekter av utførte bildebehandlings undersøkelser. 
+
+Anvendes bare til å registrere bildediagnostiske komponenter for mer komplekse prosedyre, inkludert de som kan ha blitt utført som manuelle prosedyrer (fx ultralyd eller ekko kardiografi).
+ 
+Mer komplekse prosedyrer (for eksempel ekko kardiografi eller bentetthets skanning) kan presenteres ved hjelp av maler eller spesialiserte arketyper hvor ytterligere data eller informasjon kan inkorporeres hvor det er hensiktsmessig. 
+
+Vil normalt bli rapportert tilbake til den bestillende klinikker som en komponent innenfor rammen av en samlet COMPOSITION-based report.
+">
+			keywords = <".", ...>
+			misuse = <"Anvendes ikke til å registrere ikke-bildebehandlings undersøkelse funn eller aktiviteter. For eksempel når bildebehandling er utført som en del av en prosedyre, må informasjon relatert til prosedyren registreres i en ACTION.procedure arketype eller en Observation for de operative funn. Denne arketypen vil kun bli brukt til å registrere funnene fra bildebehandling. 
+
+Anvendes ikke til å registrere opplysninger om prosedyrer som utføres parallelt. Bruk spesifikke prosedyremessige arketyper, for eksempel ACTION.procedure. 
+
+Anvendes ikke til å registrere informasjon om legemidlene som administreres under en -bildebehandlings undersøkelse. Bruk spesifikke medisiner relaterte arketyper, for eksempel ACTION.medication.
+">
+			copyright = <"© Nasjonal IKT HF">
+		>
+	>
+	lifecycle_state = <"NotSet">
+	other_contributors = <"Sharmila Biswas, Australia", "Eric Browne", "David Cartwright, Queensland Health, Australia", "Stephen Chu, NEHTA, Australia (Editor)", "Matthew Cordell, NEHTA, Australia", "Andre de Wolf, NeHTA, Australia", "David Evans, Queensland Health, Australia", "Jacquie Garton-Smith, Royal Perth Hospital and DoHWA, Australia", "Grahame Grieve, Health Intersections Pyty Ltd, Australia (Editor)", "Mary Kelaher, NEHTA, Australia", "Diane Kirkham, NEHTA, Australia", "Robert L'egan, NEHTA, Australia", "Heather Leslie, Ocean Informatics, Australia (Editor)", "Mike Martyn, The Hobart Anaesthetic Group, Australia", "Ian McNicoll, Ocean Informatics UK, United Kingdom", "Chris Mitchell, RACGP, Australia", "Stewart Morrison, NEHTA, Australia", "Michael Osborne, Mater Health Services, Australia", "Ning Pan", "Chris Pearce, Melbourne East GP Network, Australia", "Jodie Pycroft, Adelaide Northern Division of General Practice Ltd, Australia", "Cathy Richardson, NEHTA, Australia", "Stephen Royce, NEHTA, Australia", "Eleanor Royle", "Don Stewart", "Michael Thompson, Queensland Health, Australia", "Gordon Tomes, Australian Institute of Health and Welfare, Australia", "Richard Townley-O'Neill, NEHTA, Australia">
+	other_details = <
+		["references"] = <"IHE.netTechnical Frameworks - Radiology [Internet]. [date unknown];[cited 2011 Jan 2 ] Available from: http://www.ihe.net/Technical_Framework/index.cfm#radiology
+
+RSNA.org: Radiology Reporting [Internet]. [date unknown];[cited 2011 Jan 2 ] Available from: http://www.rsna.org/Informatics/radreports.cfm
+
+Radiology Written Report Guidelin Project (Draft Consultation); December 2010.
+
+Diagnostic Imaging data specifications; NEHTA, version 1.0, 2007 Jun 29.">
+		["MD5-CAM-1.0.1"] = <"476A482C8BA5B6E0841BA30AF6EE244D">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Resultat av bildediagnostisk undersøkelse
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {	-- Uspesifisert hendelse
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {2..*; unordered} matches {
+									ELEMENT[at0004] matches {	-- Bildediagnostisk undersøkelse
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Metode
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									allow_archetype CLUSTER[at0006] occurrences matches {0..*} matches {	-- Anatomiske område
+										include
+											archetype_id/value matches {/openEHR-EHR-CLUSTER\.anatomical_location(-[a-zA-Z0-9_]+)*\.v1/}
+									}
+									ELEMENT[at0007] matches {	-- Samlet resultat status
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0009, 	-- Registrert
+													at0010, 	-- Midlertidig
+													at0011, 	-- Endelig resultat
+													at0012, 	-- Endret
+													at0013]	-- Kansellert/avbestilt
+												}
+											}
+										}
+									}
+									ELEMENT[at0024] occurrences matches {0..1} matches {	-- Dato og tidspunkt for ferdigstilt resultat
+										value matches {
+											DV_DATE_TIME matches {*}
+										}
+									}
+									ELEMENT[at0014] occurrences matches {0..1} matches {	-- Medfølgende klinisk informasjon
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0008] occurrences matches {0..1} matches {	-- Funn
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									CLUSTER[at0015] occurrences matches {0..1} matches {	-- Resultatgruppe
+										items cardinality matches {1..*; unordered} matches {
+											CLUSTER[at0016] occurrences matches {0..*} matches {	-- Resultat
+												items cardinality matches {1..*; unordered} matches {
+													ELEMENT[at0017] occurrences matches {0..1} matches {*}
+													ELEMENT[at0018] occurrences matches {0..*} matches {	-- Resultat kommentar
+														value matches {
+															DV_TEXT matches {*}
+														}
+													}
+												}
+											}
+											allow_archetype CLUSTER[at0019] occurrences matches {0..*} matches {	-- Anatomisk område
+												include
+													archetype_id/value matches {/.*/}
+											}
+											allow_archetype CLUSTER[at0043] occurrences matches {0..*} matches {	-- Detaljert resultat
+												include
+													archetype_id/value matches {/.*/}
+											}
+										}
+									}
+									ELEMENT[at0020] occurrences matches {0..*} matches {	-- Radiologisk diagnose
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0021] occurrences matches {0..1} matches {	-- Konklusjon
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0022] occurrences matches {0..*} matches {	-- Presentasjon av undersøkelsesresultat
+										value matches {
+											DV_MULTIMEDIA matches {
+												media_type matches {
+													[openEHR::
+													517, 
+													518, 
+													519, 
+													682, 
+													683, 
+													417, 
+													418, 
+													419]
+												}
+											}
+										}
+									}
+									ELEMENT[at0023] occurrences matches {0..1} matches {	-- Undersøkelse kommentar
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0025] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0026] occurrences matches {0..*} matches {	-- Rekvisisjonsmottaker
+						include
+							archetype_id/value matches {/.*/}
+					}
+					CLUSTER[at0027] occurrences matches {0..*} matches {	-- Bildediagnostisk rekvisisjon
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0028] occurrences matches {0..1} matches {	-- UndersøkelsesID
+								value matches {
+									DV_IDENTIFIER matches {*}
+								}
+							}
+							ELEMENT[at0029] occurrences matches {0..*} matches {	-- Undersøkelsensnavn
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0030] occurrences matches {0..*} matches {	-- Rekvirent
+								include
+									archetype_id/value matches {/.*/}
+							}
+							ELEMENT[at0031] occurrences matches {0..1} matches {	-- Mottakers rekvisisjonsID
+								value matches {
+									DV_IDENTIFIER matches {*}
+								}
+							}
+							ELEMENT[at0032] occurrences matches {0..1} matches {	-- DICOM studie identifikator
+								value matches {
+									DV_URI matches {*}
+								}
+							}
+							ELEMENT[at0033] occurrences matches {0..1} matches {	-- RapportID
+								value matches {
+									DV_IDENTIFIER matches {*}
+								}
+							}
+							CLUSTER[at0034] occurrences matches {0..*} matches {	-- Bildedetaljer
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0035] occurrences matches {0..1} matches {	-- BildeID
+										value matches {
+											DV_IDENTIFIER matches {*}
+										}
+									}
+									ELEMENT[at0036] occurrences matches {0..1} matches {	-- DICOM serieID
+										value matches {
+											DV_IDENTIFIER matches {*}
+										}
+									}
+									ELEMENT[at0037] occurrences matches {0..1} matches {	-- Visning
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0038] occurrences matches {0..1} matches {	-- Posisjon
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0039] occurrences matches {0..1} matches {	-- Bilde dato
+										value matches {
+											DV_DATE_TIME matches {*}
+										}
+									}
+									ELEMENT[at0040] occurrences matches {0..1} matches {	-- Bilde
+										value matches {
+											DV_MULTIMEDIA matches {
+												media_type matches {
+													[openEHR::
+													637, 
+													425, 
+													426, 
+													427, 
+													428, 
+													429]
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					allow_archetype CLUSTER[at0041] occurrences matches {0..*} matches {	-- Undersøkings prosedyre
+						include
+							archetype_id/value matches {/.*/}
+					}
+					CLUSTER[at0042] occurrences matches {0..*} matches {	-- Detaljer om sammenligningsbilder
+						items cardinality matches {1..*; unordered} matches {
+							use_node ELEMENT occurrences matches {0..1} /protocol[at0025]/items[at0027]/items[at0028]	-- /protocol[Tree]/items[Bildediagnostisk rekvisisjon]/items[UndersøkelsesID]
+							use_node ELEMENT occurrences matches {0..1} /protocol[at0025]/items[at0027]/items[at0032]	-- /protocol[Tree]/items[Bildediagnostisk rekvisisjon]/items[DICOM studie identifikator]
+							use_node ELEMENT occurrences matches {0..1} /protocol[at0025]/items[at0027]/items[at0034]/items[at0035]	-- /protocol[Tree]/items[Bildediagnostisk rekvisisjon]/items[Bildedetaljer]/items[BildeID]
+							use_node ELEMENT occurrences matches {0..1} /protocol[at0025]/items[at0027]/items[at0034]/items[at0036]	-- /protocol[Tree]/items[Bildediagnostisk rekvisisjon]/items[Bildedetaljer]/items[DICOM serieID]
+							use_node ELEMENT occurrences matches {0..1} /protocol[at0025]/items[at0027]/items[at0034]/items[at0037]	-- /protocol[Tree]/items[Bildediagnostisk rekvisisjon]/items[Bildedetaljer]/items[Visning]
+							use_node ELEMENT occurrences matches {0..1} /protocol[at0025]/items[at0027]/items[at0034]/items[at0038]	-- /protocol[Tree]/items[Bildediagnostisk rekvisisjon]/items[Bildedetaljer]/items[Posisjon]
+							use_node ELEMENT occurrences matches {0..1} /protocol[at0025]/items[at0027]/items[at0034]/items[at0039]	-- /protocol[Tree]/items[Bildediagnostisk rekvisisjon]/items[Bildedetaljer]/items[Bilde dato]
+							use_node ELEMENT occurrences matches {0..1} /protocol[at0025]/items[at0027]/items[at0034]/items[at0040]	-- /protocol[Tree]/items[Bildediagnostisk rekvisisjon]/items[Bildedetaljer]/items[Bilde]
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Imaging examination result">
+					description = <"Record the findings and interpretation of an imaging examination, or series of examinations, performed.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"Any event.">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Examination result name">
+					description = <"Identification of the imaging examination or procedure performed, typically including modality and anatomical location (including laterality). Coding with a terminology, potientially a pre-coordinated term specifying both modality and anatomical location, is desirable where possible. Possible candidate terminologies: LOINC, SNOMED CT or RadLex.">
+				>
+				["at0005"] = <
+					text = <"Modality">
+					description = <"The imaging method used to perform the examination e.g Ultrasound, CT, X-ray. Coding with a terminology is desirable, where possible. If the modality is specified by a code in the Examination result name, then this field is not required.">
+				>
+				["at0006"] = <
+					text = <"Anatomical site">
+					description = <"Details of the anatomical site of imaging examination, including laterality, if all individual findings and results are related to the same anatomical location. If the anatomical site is sufficiently specified with a code in the Examination test name, then this additional data is not required. Finer-grained multiple anatomical sites may be represented per ‘Result group’.">
+				>
+				["at0007"] = <
+					text = <"Overall result status">
+					description = <"The status of the examination result as a whole.">
+				>
+				["at0008"] = <
+					text = <"Findings">
+					description = <"Narrative description of findings, including comparative findings.">
+				>
+				["at0009"] = <
+					text = <"Registered">
+					description = <"No result yet available.">
+				>
+				["at0010"] = <
+					text = <"Interim">
+					description = <"This is an initial or interim result: data may be missing or verification not been performed.">
+				>
+				["at0011"] = <
+					text = <"Final">
+					description = <"The result is complete and verified by the responsible radiologist.">
+				>
+				["at0012"] = <
+					text = <"Amended">
+					description = <"The result has been modified subsequent to being Final, and is complete and verified by the radiologist.">
+				>
+				["at0013"] = <
+					text = <"Cancelled / Aborted">
+					description = <"The result is not available because the examination was not started or completed.">
+				>
+				["at0014"] = <
+					text = <"Clinical information provided">
+					description = <"Description of clinical information available at the time of interpretation of results, and which may a link to the original clinical information provided in the examination request.">
+				>
+				["at0015"] = <
+					text = <"Result group">
+					description = <"A group of structured results. Results may be grouped by anatomical location or by some other name or code to describe what binds all the results together. If a name or code is used, it is provided by run-time re-naming of the 'Result group' element or may be fixed in a specialised archetype or template. Coding with a terminology, potentially a pre-coordinated term including specimen type, is preferred where possible for the name. Should be coded with LOINC or SNOMED CT.">
+				>
+				["at0016"] = <
+					text = <"Result">
+					description = <"Specific detailed result, including both the value of the result item and additional information that may be useful for clinical interpretation. Results include whatever specific data items imaging services report as part of the clinical service; it may include measurements. These are often referred to as 'Structured Findings'. The result is identified by run-time re-naming of the 'Result group' element or may be fixed in a specialised archetype or template. Coding with a terminology, potentially a pre-coordinated term including specimen type, is preferred where possible for the name. Should be coded with LOINC or SNOMED CT. Examples include cardiac ejection fraction or bone density.">
+				>
+				["at0017"] = <
+					text = <"Result value">
+					description = <"Actual value of the result. Most result values will be numerical measurements, but others may be coded concepts or free text.">
+				>
+				["at0018"] = <
+					text = <"Result comment">
+					description = <"May include statements about significant, unexpected or unreliable 
+values, or information about the source of the value where this may be relevant to the interpretation of the result.">
+				>
+				["at0019"] = <
+					text = <"Anatomical site">
+					description = <"Details about the individual anatomical location to which these ‘Result group’ examination results refer, where finer-grained representation of Anatomical location is required.">
+				>
+				["at0020"] = <
+					text = <"Radiological diagnosis">
+					description = <"Single word, phrase or brief description representing the 'Conclusion'. Coding with a terminology is preferred, where possible.">
+				>
+				["at0021"] = <
+					text = <"Conclusion">
+					description = <"Concise and clinically contextualised narrative interpretation of the imaging examination findings.">
+				>
+				["at0022"] = <
+					text = <"Examination result representation">
+					description = <"Rich text representation of the entire result as issued by the diagnostic service. Multiple formats are allowed but they must be semantically equivalent.">
+				>
+				["at0023"] = <
+					text = <"Examination comment">
+					description = <"Additional narrative about the examination not captured in other fields. For example, recommendations for future examinations; a comment on appropriateness of the examination or on quality of images, if separate to findings; or a note that the film was given to the patient.">
+				>
+				["at0024"] = <
+					text = <"DateTime result issued">
+					description = <"The date and/or time that the result was issued for the recorded 'Examination result status'.">
+				>
+				["at0025"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0026"] = <
+					text = <"Receiving imaging service">
+					description = <"Demographic details about the receiving imaging service performing the imaging test.">
+				>
+				["at0027"] = <
+					text = <"Examination request details">
+					description = <"Details concerning a single examination requested. Note: Usually there is one examination request for each result, however in some circumstances multiple examination requests may be represented using a single Imaging examination result archetype.">
+				>
+				["at0028"] = <
+					text = <"Requester order identifier">
+					description = <"The local identifier assigned to the order by the order requester. Equivalent to the HL7 Placer Order Identifier.">
+				>
+				["at0029"] = <
+					text = <"Examination requested name">
+					description = <"Identification of imaging examination or procedure requested, where the examination requested differs from the examination actually performed.">
+				>
+				["at0030"] = <
+					text = <"Requester">
+					description = <"Details about the clinician or organisation requesting the imaging examination.">
+				>
+				["at0031"] = <
+					text = <"Receiver order identifier">
+					description = <"The local identifier assigned to the examination order by the order filler, usually by the Radiology Information System (RIS). Usually equivalent to the HL7 Filler Order Number.">
+				>
+				["at0032"] = <
+					text = <"DICOM study identifier">
+					description = <"Unique identifier of this study allocated by the imaging service.">
+				>
+				["at0033"] = <
+					text = <"Report identifier">
+					description = <"The local identifier given to the imaging examination report.">
+				>
+				["at0034"] = <
+					text = <"Image details">
+					description = <"Images referred to, or provided, to assist clinical understanding of the examination. If attached image is in DICOM format, all the fields below should be populated so the values are available to software that does not process DICOM images.">
+				>
+				["at0035"] = <
+					text = <"Image identifier">
+					description = <"Unique identifier of this image allocated by the imaging service (often the DICOM image instance UID).">
+				>
+				["at0036"] = <
+					text = <"DICOM series identifier">
+					description = <"Unique identifier of this series allocated by the imaging service.">
+				>
+				["at0037"] = <
+					text = <"View">
+					description = <"The name of the imaging view e.g Lateral or Antero-posterior (AP). Coding using a terminology is desirable, where possible.">
+				>
+				["at0038"] = <
+					text = <"Position">
+					description = <"Description of the subject of care's positon when the image was performed.">
+				>
+				["at0039"] = <
+					text = <"Image DateTime">
+					description = <"Specific date/time the imaging examination was performed.">
+				>
+				["at0040"] = <
+					text = <"Image">
+					description = <"An attached or referenced image of a current view.">
+				>
+				["at0041"] = <
+					text = <"Examination procedure">
+					description = <"Additional structured details of imaging examination methodology followed. For example, structured details about the examination technique, prepraration or contrast medium used.">
+				>
+				["at0042"] = <
+					text = <"Compared image details">
+					description = <"Details of previous images used for comparison.">
+				>
+				["at0043"] = <
+					text = <"*Cluster(en)">
+					description = <"**(en)">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Resultat av bildediagnostisk undersøkelse">
+					description = <"Registrering av funn og tolkning av en bildediagnostisk undersøkelse eller en serie av bildediagnostiske undersøkelser.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Uspesifisert hendelse">
+					description = <"Uspesifiserte hendelser.">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Bildediagnostisk undersøkelse">
+					description = <"Identifikasjon av den utførte bildediagnostisk undersøkelse eller prosedyre, vanligvis inkludert metode og anatomiske område (inkludert lateralitet). Koding med en fastlagt terminologi, er ønskelig der det er mulig som inkludere både metode og anatomiske område. Mulig kandidat for terminologier: LOINC, SNOMED CT eller RadLex.">
+				>
+				["at0005"] = <
+					text = <"Metode">
+					description = <"Den avbildningmetode som brukes til å utføre undersøkelsen f.eks ultralyd, CT, røntgen. Koding med en fastlagt terminologi er ønskelig, der det er mulig. Hvis metode er spesifisert av en kode i undersøkelses navnet, er dette feltet ikke nødvendig.">
+				>
+				["at0006"] = <
+					text = <"Anatomiske område">
+					description = <"Detaljer om det anatomiske området som undersøkes bildediagnostisk, inkludert lateralitet, hvis alle individuelle funn og resultater er knyttet til den samme anatomiske plassering. Hvis det anatomiske området er tilstrekkelig spesifisert med en kode i undersøkelses navnet, så er dette felt ikke nødvendig. Bilder med høy oppløsning (fin-kornet) fra multipple anatomiske områder kan presenteres gruppevis som 'Resultat gruppe'.">
+				>
+				["at0007"] = <
+					text = <"Samlet resultat status">
+					description = <"Status til det samlede resultat.">
+				>
+				["at0008"] = <
+					text = <"Funn">
+					description = <"Tekstlig beskrivelse av funn inklusiv sammenlignende funn.">
+				>
+				["at0009"] = <
+					text = <"Registrert">
+					description = <"Resultatet er ikke tilgjengelig ennå.">
+				>
+				["at0010"] = <
+					text = <"Midlertidig">
+					description = <"Dette er et midlertidig resultat. Data kan mangle eller verifisering er ikke utført.">
+				>
+				["at0011"] = <
+					text = <"Endelig resultat">
+					description = <"Resultatet er komplett og verifisert av ansvarlig radiolog.">
+				>
+				["at0012"] = <
+					text = <"Endret">
+					description = <"Resultatet er blitt modifisert etter ferdigstilling og er komplett og verifisert av ansvarlig radiolog.">
+				>
+				["at0013"] = <
+					text = <"Kansellert/avbestilt">
+					description = <"Resultatet er ikke tilgjengelig da undersøkelsen ikke er startet eller ikke er avsluttet.">
+				>
+				["at0014"] = <
+					text = <"Medfølgende klinisk informasjon">
+					description = <"Beskrivelse av den tilgjengelige kliniske informasjon på tidspunkt for tolkning av resultatene og som kan lenkes til det originale kliniske informasjon som ble gitt i rekvisisjonen.">
+				>
+				["at0015"] = <
+					text = <"Resultatgruppe">
+					description = <"En gruppe strukturerte resultater. Resultatene kan være gruppert til samme anatomiske område eller et navn eller kode for at beskrive hva som binder resultatene sammen. Hvis navn eller kode anvendes gis dette automatisk av \"Result Group\" elementet eller det kan være fastlåst av en spesialisert arketype eller mal. Anvendelse av kode navn med fastlagt terminologi som inneholder opplysninger om undersøkelses type foretrekkes når dette er mulig. Bør kodes med LOINC eller SNOMED CT.">
+				>
+				["at0016"] = <
+					text = <"Resultat">
+					description = <"Resultatet, spesifikk og detaljert inklusiv både verdien og ytterligere informasjon som kan være nyttig for den kliniske tolkningen. Resultatene inkluderer alle spesifikke data elementer og en beskrivelse, som en del av den kliniske service. Den kan inneholde målinger. Disse blir ofte kalt «strukturerte funn». Resultatet blir navngitt automatisk av «Result group» elementet som identifikasjon, eller fastlåses av en spesialisert arketype eller mal. Koding med fastlagt terminologi som inneholder undersøkelsestype foretrekkes, når dette er mulig. Bør kodes med LOINC eller SNOMED CT. Eksempler inkluderer kardial ejeksjonsfraksjon eller benskjørhet.">
+				>
+				["at0017"] = <
+					text = <"Resultatverdi">
+					description = <"Faktisk verdi. De fleste resultater vil være numeriske målinger, men andre resultater kan være kodede konsepter eller fri tekst.">
+				>
+				["at0018"] = <
+					text = <"Resultat kommentar">
+					description = <"Kan inneholde kommentarer om signifikante, uventede eller usikre verdier eller informasjon om kilde for verdien hvor dette kan være relevant for resultatet.">
+				>
+				["at0019"] = <
+					text = <"Anatomisk område">
+					description = <"Detaljer om individuell anatomisk område som \"Resultatgruppe\"-undersøkelsen referer til, når presentasjon av bilde med høy oppløsning av de anatomiske områder er nødvendig.">
+				>
+				["at0020"] = <
+					text = <"Radiologisk diagnose">
+					description = <"Enkelt ord, setning eller en kort beskrivelse som presenterer konklusjonen. Koding med fastlagt terminologi foretrekkes når mulig.">
+				>
+				["at0021"] = <
+					text = <"Konklusjon">
+					description = <"Presis og klinisk fyldig sammenhengende narrativ tolkning av funn ved bildeundersøkelsen.">
+				>
+				["at0022"] = <
+					text = <"Presentasjon av undersøkelsesresultat">
+					description = <"Fyldig tekst presentasjon av hele undersøkningens resultater som utferdiget av den diagnostiske service. Multiple formater er tillatte men de må være innholdsmessig likelydende.">
+				>
+				["at0023"] = <
+					text = <"Undersøkelse kommentar">
+					description = <"Ytterligere kommentarer om undersøkningen som ikke er medtatt i andre felter. F.eks. anbefalinger for fremtidige undersøkelser, kommentarer om hensiktsmessigheten av undersøkelsen eller om bildekvalitet hvis dette er separate funn; eller et notat om at film/kopi er gitt til pasienten.">
+				>
+				["at0024"] = <
+					text = <"Dato og tidspunkt for ferdigstilt resultat">
+					description = <"Dato og tidspunkt for når resultatet er registrert som ferdigstilt som \"Undersøkelsesresultatstatus\".">
+				>
+				["at0025"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0026"] = <
+					text = <"Rekvisisjonsmottaker">
+					description = <"Demografiske opplysninger om den organisasjon eller person som utfører bildebehandlingen.">
+				>
+				["at0027"] = <
+					text = <"Bildediagnostisk rekvisisjon">
+					description = <"Detaljer om en enkel bildediagnostisk rekvisisjon. Normalt er der en rekvisisjon for hvert undersøkelsesresultat. Det kan skje at flere rekvisisjoner kan presenteres ut fra en enkelt undersøkelsesresultat-arketype.">
+				>
+				["at0028"] = <
+					text = <"UndersøkelsesID">
+					description = <"Den lokale undersøkelses identifikator som genereres automatisk i forbindelse med at undersøkelsen bestilles. (HL7 Place order identifier).">
+				>
+				["at0029"] = <
+					text = <"Undersøkelsensnavn">
+					description = <"Identifikasjon av bildeundersøking eller rekvirert prosedyre, når den rekvirerte undersøking avviker fra den undersøking som faktisk er utført.">
+				>
+				["at0030"] = <
+					text = <"Rekvirent">
+					description = <"Detaljer om den klinikker eller organisasjon som rekvirerer undersøkingen.">
+				>
+				["at0031"] = <
+					text = <"Mottakers rekvisisjonsID">
+					description = <"Den lokale identifikator som tildeles undersøkingen av den som utfører rekvisisjonen, normalt skjer dette i radiologi systemet (RIS).">
+				>
+				["at0032"] = <
+					text = <"DICOM studie identifikator">
+					description = <"En unik identifikator som tildeles dette studie av bildebehandlings servicen.">
+				>
+				["at0033"] = <
+					text = <"RapportID">
+					description = <"Den lokale identifikator som tildeles en bildebehandlings rapport.">
+				>
+				["at0034"] = <
+					text = <"Bildedetaljer">
+					description = <"Bilder som henvises til eller vedlegges for å støtte den kliniske forståelse av undersøkelsen. Hvis vedlagt bilde er i DICOM format, bør alle felt utfylles så bildet er tilgjengelig i programvare som ikke understøtter DICOM bilder.">
+				>
+				["at0035"] = <
+					text = <"BildeID">
+					description = <"Unik bilde-identifikator tildelt av radiologiprogramvaren (Ofte DICOM UID).">
+				>
+				["at0036"] = <
+					text = <"DICOM serieID">
+					description = <"Unik identifikator for en serie bilder tildelt av bildeleverandøren.">
+				>
+				["at0037"] = <
+					text = <"Visning">
+					description = <"Navnet til en bilde visning, f.eks. lateral eller antero posterior (AP). Koding med fastlagt terminologi foretrekkes.">
+				>
+				["at0038"] = <
+					text = <"Posisjon">
+					description = <"Beskrivelse av posisjonen til personen under den bildediagnostiske undersøkelsen.">
+				>
+				["at0039"] = <
+					text = <"Bilde dato">
+					description = <"Spesifikk dato og tidspunkt for utførelse av bildeundersøkelsen.">
+				>
+				["at0040"] = <
+					text = <"Bilde">
+					description = <"Vedlagt eller referert bilde av en aktuelt visning.">
+				>
+				["at0041"] = <
+					text = <"Undersøkings prosedyre">
+					description = <"Ytterligere strukturerte detaljer om bildeundersøkelsesprosedyren som anvendes. F.eks. strukturerte detaljer om undersøkelsesteknikk, forberedelser eller anvendt kontrastmedium.">
+				>
+				["at0042"] = <
+					text = <"Detaljer om sammenligningsbilder">
+					description = <"Detaljer om tidligere bilder anvendt for sammenligning.">
+				>
+				["at0043"] = <
+					text = <"Detaljert resultat">
+					description = <"*">
+				>
+			>
+		>
+	>

@@ -1,0 +1,301 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.retinal_oct_dips.v1
+
+concept
+	[at0000]	-- Retinal OCT
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Arne Løberg Sæter">
+		["organisation"] = <"DIPS ASA / OUS HF">
+		["email"] = <"asa@dips.no">
+		["date"] = <"2017-03-29">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Cluster til bruk i OBSERVATION.imaging_exam for å registrere funn ved OCT av retina.">
+			use = <"Cluster til bruk i OBSERVATION.imaging_exam for å registrere funn ved OCT av retina.">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"OrganisationDraft">
+	other_contributors = <"Thomas Bærland", ...>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"F83B5F1375E116065F0195B03C6614C5">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Retinal OCT
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0002] occurrences matches {0..*} matches {	-- Funn
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Sentral retinatykkelse (CRT)
+				value matches {
+					C_DV_QUANTITY <
+						property = <[openehr::122]>
+						list = <
+							["1"] = <
+								units = <"µm">
+								magnitude = <|<=3000.0|>
+								precision = <|0|>
+							>
+						>
+						assumed_value = <
+							magnitude = <0.0>
+							units = <"µm">
+							precision = <0>
+						>
+					>
+				}
+			}
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Beskrivelse
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			allow_archetype CLUSTER[at0008] occurrences matches {0..*} matches {	-- Detaljer
+				include
+					archetype_id/value matches {/.*/}
+			}
+			CLUSTER[at0014] occurrences matches {0..1} matches {	-- Ødemstatus
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Status
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Endring
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Intraretinalt ødem
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0012] occurrences matches {0..1} matches {	-- Subretinalt ødem
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0013] occurrences matches {0..1} matches {	-- Pigmentepitelløsning (PED)
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0020] occurrences matches {0..*} matches {	-- Detaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+			CLUSTER[at0015] occurrences matches {0..1} matches {	-- Epiretinal membran
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Effekt av traksjon
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0016] occurrences matches {0..1} matches {	-- Intraretinal forandring
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0021] occurrences matches {0..*} matches {	-- Detaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+			CLUSTER[at0017] occurrences matches {0..1} matches {	-- Bakre korpusløsning
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0025] occurrences matches {0..1} matches {	-- Type
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0027] occurrences matches {0..1} matches {	-- Størrelse
+						value matches {
+							C_DV_QUANTITY <
+								property = <[openehr::122]>
+								list = <
+									["1"] = <
+										units = <"µm">
+										magnitude = <|>=0.0|>
+										precision = <|0|>
+									>
+								>
+							>
+						}
+					}
+					allow_archetype CLUSTER[at0022] occurrences matches {0..*} matches {	-- Detaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+			CLUSTER[at0018] occurrences matches {0..1} matches {	-- Atrofi
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0006] occurrences matches {0..*} matches {	-- Type atrofi
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0023] occurrences matches {0..*} matches {	-- Detaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+			CLUSTER[at0019] occurrences matches {0..1} matches {	-- Fulltykkelse makulahull
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Type full-tykkelse makulahull
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0028] occurrences matches {0..1} matches {	-- Størrelse
+						value matches {
+							C_DV_QUANTITY <
+								property = <[openehr::122]>
+								list = <
+									["1"] = <
+										units = <"µm">
+										magnitude = <|>=0.0|>
+										precision = <|0|>
+									>
+								>
+							>
+						}
+					}
+					allow_archetype CLUSTER[at0024] occurrences matches {0..*} matches {	-- Detaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Retinal OCT">
+					description = <"Cluster til bruk i OBSERVATION.imaging_exam for å registrere funn ved OCT av retina.">
+				>
+				["at0001"] = <
+					text = <"Beskrivelse">
+					description = <"Friteksltig beskrivelse av funn.">
+				>
+				["at0002"] = <
+					text = <"Funn">
+					description = <"Tiltenkt strukturerte funn.">
+				>
+				["at0003"] = <
+					text = <"Sentral retinatykkelse (CRT)">
+					description = <"Central retinal thickness (CRT) in micrometer. ">
+				>
+				["at0004"] = <
+					text = <"Type full-tykkelse makulahull">
+					description = <"For strukturert kategorisering av makulahull.">
+				>
+				["at0005"] = <
+					text = <"Effekt av traksjon">
+					description = <"For strukturert beskrivelse av den epiretinale membranens påvirkning på makula.">
+				>
+				["at0006"] = <
+					text = <"Type atrofi">
+					description = <"For strukturert beskrivelse av atrofien.">
+				>
+				["at0007"] = <
+					text = <"Status">
+					description = <"For strukturert beskrivelse av ødemet.">
+				>
+				["at0008"] = <
+					text = <"Detaljer">
+					description = <"For andre detaljer.">
+				>
+				["at0009"] = <
+					text = <"Intraretinalt ødem">
+					description = <"For strukturert beskrivelse av endring i ødem.">
+				>
+				["at0010"] = <
+					text = <"Endring">
+					description = <"For andre strukturerte detaljer.">
+				>
+				["at0012"] = <
+					text = <"Subretinalt ødem">
+					description = <"For strukturert beskrivelse av endring.">
+				>
+				["at0013"] = <
+					text = <"Pigmentepitelløsning (PED)">
+					description = <"For strukturert beskrivelse av endring.">
+				>
+				["at0014"] = <
+					text = <"Ødemstatus">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Epiretinal membran">
+					description = <"*">
+				>
+				["at0016"] = <
+					text = <"Intraretinal forandring">
+					description = <"For strukturert beskrivelse.">
+				>
+				["at0017"] = <
+					text = <"Bakre korpusløsning">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Atrofi">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"Fulltykkelse makulahull">
+					description = <"*">
+				>
+				["at0020"] = <
+					text = <"Detaljer">
+					description = <"*">
+				>
+				["at0021"] = <
+					text = <"Detaljer">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Detaljer">
+					description = <"*">
+				>
+				["at0023"] = <
+					text = <"Detaljer">
+					description = <"*">
+				>
+				["at0024"] = <
+					text = <"Detaljer">
+					description = <"*">
+				>
+				["at0025"] = <
+					text = <"Type">
+					description = <"For strukturert beskrivelse.">
+				>
+				["at0027"] = <
+					text = <"Størrelse">
+					description = <"Diameter av vitreomakulær-adheranse.">
+				>
+				["at0028"] = <
+					text = <"Størrelse">
+					description = <"Diameter av vitreomakulær-adheranse.">
+				>
+			>
+		>
+	>

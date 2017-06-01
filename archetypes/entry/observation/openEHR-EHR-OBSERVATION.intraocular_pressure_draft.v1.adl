@@ -1,0 +1,422 @@
+﻿archetype (adl_version=1.4; uid=8659ed02-3466-462c-9c54-7f538016528c)
+	openEHR-EHR-OBSERVATION.intraocular_pressure_draft.v1
+
+concept
+	[at0000]	-- Resultat av intraokulært trykk måling.
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["organisation"] = <"OUS HF / DIPS ASA">
+				["name"] = <"Arne Løberg Sæter">
+				["email"] = <"asa@dips.no">
+			>
+			accreditation = <"Lege">
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Gustavo M Bacelar-Silva">
+		["organisation"] = <"Faculty of Medicine - University of Porto">
+		["email"] = <"mail@gustavobacelar.com">
+		["date"] = <"2012-06-05">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record the measurement of intraocular pressure in a single eye.">
+			use = <"Use to record the measurement of intraocular pressure in a single eye.  
+
+The CLUSTER.exclusion_exam archetype can be nested within the 'Measurement not done' SLOT to optionally record explicit details about the measurement not being performed.">
+			keywords = <"IOP", "toniometry", "glaucoma", "eye">
+			misuse = <"Where details of methodology carried under protocol change between the examination of each eye, a new Entry must be created at run-time.">
+			copyright = <"© openEHR Foundation, Nasjonal IKT HF">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For registrering av trykkmåling av et øye.">
+			use = <"For registrering av trykkmåling av et øye.
+
+CLUSTER.exclusion_exam kan benyttes om undersøkelsen ikke ble utført og plasseres i \"Måling ikke utført\"-slot">
+			keywords = <"IOP", "Tonometri", "Glaukom", "Øye", "GAT", "iCare">
+			misuse = <"Om målemetode endres i løpet av en seire med registreringer må ny registrering benyttes da protokollen ikke kan endres på hendelses-nivå.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"NotSet">
+	other_contributors = <"Ian McNicoll, freshEHR Informatics, UK ", "Heather Leslie, Ocean Informatics, Australia">
+	other_details = <
+		["references"] = <"IHE Eye Care Domain. General Eye Evaluation (GEE) [Internet]. IHE; 2012. Available from: http://www.ihe.net/Technical_Framework/upload/IHE_EyeCare_Supp_GEE_Rev1-1_TI_2012-06-29.pdf
+
+Royal College of Opthalmologists. Cataract National Dataset for Adults [Internet]. 2011. Available from: http://www.rcophth.ac.uk/page.asp?section=583&sectionTitle=Cataract+National+Data+Set+for+Adults
+
+CfH, UK. Do Once & Share - Glaucoma [Internet]. [cited 2012 Sep 26]. Available from: http://www.doasglaucoma.org/
+
+DICOM Supplement 30 [Internet]. [cited 2012 Sep 26]. Available from: http://medical.nema.org/
+
+Lamparter, J., & Hoffmann, E. M. (2009). Messung des Augeninnendrucks (Tonometrie) mit unterschiedlichen Verfahren. Der Ophthalmologe, 106(8), 676-682.">
+		["current_contact"] = <"Gustavo M Bacelar-Silva, mail@gustavobacelar.com">
+		["MD5-CAM-1.0.1"] = <"FE7DC6C12F47B46CFB89E3146D4CD1EE">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Resultat av intraokulært trykk måling.
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {	-- Uspesifisert hendelse.
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0057] occurrences matches {0..1} matches {	-- Øye undersøket
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0058, 	-- Venstre
+													at0059]	-- Høyre
+												}
+											}
+										}
+									}
+									ELEMENT[at0042] occurrences matches {0..1} matches {	-- Trykk
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::125]>
+												list = <
+													["1"] = <
+														units = <"mm[Hg]">
+														magnitude = <|0.0..90.0|>
+														precision = <|1|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0065] occurrences matches {0..1} matches {	-- Applanasjonstid
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::128]>
+												list = <
+													["1"] = <
+														units = <"ms">
+														magnitude = <|>=0.0|>
+														precision = <|0|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0061] occurrences matches {0..*} matches {	-- Klinisk tolkning.
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									allow_archetype CLUSTER[at0080] occurrences matches {0..*} matches {	-- Multimedia
+										include
+											archetype_id/value matches {/openEHR-EHR-CLUSTER\.multimedia(-[a-zA-Z0-9_]+)*\.v1/}
+									}
+									ELEMENT[at0063] occurrences matches {0..1} matches {	-- Kommentar
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									allow_archetype CLUSTER[at0078] occurrences matches {0..*} matches {	-- Test ikke gjort.
+										include
+											archetype_id/value matches {/openEHR-EHR-CLUSTER\.exclusion_exam(-[a-zA-Z0-9_]+)*\.v1/}
+									}
+									allow_archetype CLUSTER[at0081] occurrences matches {0..*} matches {	-- Anatomisk lokalisasjon
+										include
+											archetype_id/value matches {/.*/}
+									}
+								}
+							}
+						}
+						state matches {
+							ITEM_TREE[at0007] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0074] occurrences matches {0..*} matches {	-- Avvikende/forstyrrende faktorer.
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0068] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0046] occurrences matches {0..1} matches {	-- Tonometrisk metode
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0047, 	-- Goldmann applanasjonstonometer
+									at0048, 	-- Perkins applanasjonstonometer.
+									at0049, 	-- Tono-Pen
+									at0050, 	-- Icare
+									at0051, 	-- Dynamisk tonometri
+									at0052, 	-- Ocular Response Analyzer(en)
+									at0053, 	-- TGDc-01(en)
+									at0066]	-- Non-kontakt tonometri
+								}
+							}
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0055] occurrences matches {0..1} matches {	-- Utstyrsdetaljer.
+						include
+							archetype_id/value matches {/openEHR-EHR-CLUSTER\.device(-[a-zA-Z0-9_]+)*\.v1/}
+					}
+					allow_archetype CLUSTER[at0079] occurrences matches {0..*} matches {	-- Tillegg.
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Intraocular pressure test result">
+					description = <"The local measurement of intraocular pressure, most commonly using a tonometry device.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"Default, unspecified point in time or interval event which may be explicitly defined in a template or at run-time.">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0007"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0042"] = <
+					text = <"Pressure">
+					description = <"Measured intraocular pressure.">
+				>
+				["at0046"] = <
+					text = <"Tonometry Method">
+					description = <"Type of tonometery used to measure intracoular pressure.">
+				>
+				["at0047"] = <
+					text = <"Goldmann">
+					description = <"Goldmann tonometry.">
+				>
+				["at0048"] = <
+					text = <"Perkins">
+					description = <"Perkins tonometry.">
+				>
+				["at0049"] = <
+					text = <"Tono-Pen">
+					description = <"Tono-Pen tonometry.">
+				>
+				["at0050"] = <
+					text = <"Icare (Rebound)">
+					description = <"Icare (Rebound) tonometry.">
+				>
+				["at0051"] = <
+					text = <"Dynamic Contour">
+					description = <"Dynamic Contour tonometry.">
+				>
+				["at0052"] = <
+					text = <"Ocular Response Analyzer">
+					description = <"Ocular Response Analyzer.">
+				>
+				["at0053"] = <
+					text = <"TGDc-01">
+					description = <"A TGDc-01 device was used to perform the test.">
+				>
+				["at0055"] = <
+					text = <"Device details">
+					description = <"Details about the tonometry device used to measure intraocular pressure.">
+				>
+				["at0057"] = <
+					text = <"Eye examined">
+					description = <"Identification of the eye under examination.">
+				>
+				["at0058"] = <
+					text = <"Left">
+					description = <"The left eye was examined.">
+				>
+				["at0059"] = <
+					text = <"Right">
+					description = <"The right eye was examined.">
+				>
+				["at0061"] = <
+					text = <"Clinical interpretation">
+					description = <"Single word, phrase or brief description that represents the clinical meaning and significance of the physical examination findings.">
+				>
+				["at0063"] = <
+					text = <"Comment">
+					description = <"Additional narrative about the measurement, not captured in other fields.">
+				>
+				["at0065"] = <
+					text = <"Applanation time">
+					description = <"The time taken for a non-contact tonometer to flatten the cornea, used to calculate intraocular pressure.">
+				>
+				["at0066"] = <
+					text = <"Non-contact tonometry">
+					description = <"Non-contact tonometry was used to perfrom the test.">
+				>
+				["at0068"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0074"] = <
+					text = <"Confounding factors">
+					description = <"Description of any incidental factors related to the state of the subject which may affect clinical interpretation of the measurement.">
+				>
+				["at0078"] = <
+					text = <"Test not done">
+					description = <"Details to explicitly record that this test was not performed.">
+				>
+				["at0079"] = <
+					comment = <"For example: local information requirements or additional metadata to align with FHIR or CIMI equivalents.">
+					text = <"Extension">
+					description = <"Additional information required to capture local content or to align with other reference models/formalisms.">
+				>
+				["at0080"] = <
+					text = <"Multimedia">
+					description = <"Digital image, video or diagram representing the measurement of intraocular pressure.">
+				>
+				["at0081"] = <
+					text = <"*Cluster(en)">
+					description = <"**(en)">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Resultat av intraokulært trykk måling.">
+					description = <"Måling av intraokulært trykk, med tonometer.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Uspesifisert hendelse.">
+					description = <"Uspesifiserte hendelser.">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0007"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0042"] = <
+					text = <"Trykk">
+					description = <"Målt intraokulært trykk.">
+				>
+				["at0046"] = <
+					text = <"Tonometrisk metode">
+					description = <"Type tonometer brukt til målingen.">
+				>
+				["at0047"] = <
+					text = <"Goldmann applanasjonstonometer">
+					description = <"Goldmann applanasjonstonometer (GAT)">
+				>
+				["at0048"] = <
+					text = <"Perkins applanasjonstonometer.">
+					description = <"Perkins applanasjonstonometer.">
+				>
+				["at0049"] = <
+					text = <"Tono-Pen">
+					description = <"Tono-Pen">
+				>
+				["at0050"] = <
+					text = <"Icare">
+					description = <"Icare">
+				>
+				["at0051"] = <
+					text = <"Dynamisk tonometri">
+					description = <"Dynamisk tonometri">
+				>
+				["at0052"] = <
+					text = <"Ocular Response Analyzer(en)">
+					description = <"Ocular Response Analyzer.(en)">
+				>
+				["at0053"] = <
+					text = <"TGDc-01(en)">
+					description = <"Et TGDc-01 tonometer ble brukt til måling av intraokulært trykk.">
+				>
+				["at0055"] = <
+					text = <"Utstyrsdetaljer.">
+					description = <"Detaljer om tonometeret brukt til å måle intraokulært trykk.">
+				>
+				["at0057"] = <
+					text = <"Øye undersøket">
+					description = <"Registrering av hvilket øye som er undersøkt.">
+				>
+				["at0058"] = <
+					text = <"Venstre">
+					description = <"Venstre øye ble undersøkt.">
+				>
+				["at0059"] = <
+					text = <"Høyre">
+					description = <"Høyre øye ble undersøkt.">
+				>
+				["at0061"] = <
+					text = <"Klinisk tolkning.">
+					description = <"Kort beskrivelse av tolkningen av funnet og dets signifikanse.">
+				>
+				["at0063"] = <
+					text = <"Kommentar">
+					description = <"Tilleggsbeskrivelse av målingen(nb).">
+				>
+				["at0065"] = <
+					text = <"Applanasjonstid">
+					description = <"Usikkert hva som menes med applanasjonstid. Applanasjon er en kontaktundersøkelse og ikke nonkontakt slik den engelske versjonen sier. Denne delen av arketypen kan antakelig ikke brukes.">
+				>
+				["at0066"] = <
+					text = <"Non-kontakt tonometri">
+					description = <"Et non-kontakt tonometer ble brukt til trykkmåling.">
+				>
+				["at0068"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0074"] = <
+					text = <"Avvikende/forstyrrende faktorer.">
+					description = <"Beskrivelse av tilfeldige faktorer som kan påvirke resultatet og den kliniske tolkningen.">
+				>
+				["at0078"] = <
+					text = <"Test ikke gjort.">
+					description = <"Detaljer om at denne målingen ikker er gjort.">
+				>
+				["at0079"] = <
+					comment = <"For eksempel: lokale metadata eller annen informasjon.">
+					text = <"Tillegg.">
+					description = <"Beskrivende tilleggsinformasjon.">
+				>
+				["at0080"] = <
+					text = <"Multimedia">
+					description = <"Digitalt bilde, video eller diagram.">
+				>
+				["at0081"] = <
+					text = <"Anatomisk lokalisasjon">
+					description = <"*">
+				>
+			>
+		>
+	>

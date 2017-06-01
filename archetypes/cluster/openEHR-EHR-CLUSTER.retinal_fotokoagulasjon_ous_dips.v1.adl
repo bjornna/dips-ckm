@@ -1,0 +1,241 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.retinal_fotokoagulasjon_ous_dips.v1
+
+concept
+	[at0000]	-- Retinal fotokoagulasjon ous dips
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Arne Løberg Sæter">
+		["organisation"] = <"DIPS ASA">
+		["email"] = <"asa@dips.no">
+		["date"] = <"2017-04-04">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For registrering av detaljer rundt retinal fotokoagulasjon.">
+			use = <"For registrering av detaljer rundt retinal fotokoagulasjon.">
+			keywords = <"laser", "fotokoagulasjon", "PRP">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"NotSet">
+	other_contributors = <"Thomas Bærland", ...>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"F92F862D0F4FCDA6320F585DF36AFFB7">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Retinal fotokoagulasjon ous dips
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Beskrivelse
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0015] occurrences matches {0..1} matches {	-- Status
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0016] occurrences matches {0..*} matches {	-- Utført PRP
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..*} matches {	-- Indikasjon
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0014] occurrences matches {0..1} matches {	-- Type laserbehandling
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..*} matches {	-- Anestesi
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			CLUSTER[at0006] occurrences matches {0..*} matches {	-- Koagulasjoner
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Antall
+						value matches {
+							DV_COUNT matches {
+								magnitude matches {|>=0|}
+							}
+						}
+					}
+					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Størrelse
+						value matches {
+							C_DV_QUANTITY <
+								property = <[openehr::122]>
+								list = <
+									["1"] = <
+										units = <"µm">
+										magnitude = <|>=0.0|>
+										precision = <|0|>
+									>
+								>
+							>
+						}
+					}
+					ELEMENT[at0010] occurrences matches {0..*} matches {	-- Linse
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0011] occurrences matches {0..*} matches {	-- Omregningsfaktor
+						value matches {
+							C_DV_QUANTITY <
+								property = <[openehr::380]>
+								list = <
+									["1"] = <
+										units = <"">
+										precision = <|2|>
+									>
+								>
+							>
+						}
+					}
+					ELEMENT[at0005] occurrences matches {0..*} matches {	-- Tid
+						value matches {
+							C_DV_QUANTITY <
+								property = <[openehr::128]>
+								list = <
+									["1"] = <
+										units = <"millisec">
+										magnitude = <|>=0.0|>
+										precision = <|0|>
+									>
+									["2"] = <
+										units = <"s">
+										magnitude = <|>=0.0|>
+										precision = <|0|>
+									>
+									["3"] = <
+										units = <"min">
+										magnitude = <|>=0.0|>
+										precision = <|0|>
+									>
+									["4"] = <
+										units = <"h">
+										magnitude = <|>=0.0|>
+										precision = <|0|>
+									>
+								>
+							>
+						}
+					}
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Effekt W
+						value matches {
+							C_DV_QUANTITY <
+								property = <[openehr::363]>
+								list = <
+									["1"] = <
+										units = <"milliW">
+										magnitude = <|>=0.0|>
+										precision = <|0|>
+									>
+								>
+							>
+						}
+					}
+					ELEMENT[at0013] occurrences matches {0..1} matches {	-- Total energi J
+						value matches {
+							C_DV_QUANTITY <
+								property = <[openehr::121]>
+								list = <
+									["1"] = <
+										units = <"J">
+										magnitude = <|>=0.0|>
+										precision = <|0|>
+									>
+								>
+							>
+						}
+					}
+				}
+			}
+			allow_archetype CLUSTER[at0007] occurrences matches {0..*} matches {	-- Detaljer
+				include
+					archetype_id/value matches {/.*/}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Retinal fotokoagulasjon ous dips">
+					description = <"For registrering av detaljer rundt retinal fotokoagulasjon.">
+				>
+				["at0001"] = <
+					text = <"Beskrivelse">
+					description = <"Fritekstlig beskrivelse.">
+				>
+				["at0002"] = <
+					text = <"Indikasjon">
+					description = <"Strukturert eller fritekst indikasjon.">
+				>
+				["at0003"] = <
+					text = <"Anestesi">
+					description = <"Strukturert eller fritekst beskrivelse av anestesi.">
+				>
+				["at0004"] = <
+					text = <"Effekt W">
+					description = <"Maksimal effekt i watt benyttet.">
+				>
+				["at0005"] = <
+					text = <"Tid">
+					description = <"Koagulasjonstid pr fotokoagulasjon.">
+				>
+				["at0006"] = <
+					text = <"Koagulasjoner">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Detaljer">
+					description = <"Detaljer som inkluderer anatomisl_lokalisering. ">
+				>
+				["at0008"] = <
+					text = <"Antall">
+					description = <"Antall fotokoagulasjoner utført ila prosedyren.">
+				>
+				["at0009"] = <
+					text = <"Størrelse">
+					description = <"Registrering av spot size diameter, f.eks. den største spot size ila behandlingen.">
+				>
+				["at0010"] = <
+					text = <"Linse">
+					description = <"Registrering av linse(r) benyttet. ">
+				>
+				["at0011"] = <
+					text = <"Omregningsfaktor">
+					description = <"Omregningsfaktorer pr linse.">
+				>
+				["at0013"] = <
+					text = <"Total energi J">
+					description = <"Total energi i J.">
+				>
+				["at0014"] = <
+					text = <"Type laserbehandling">
+					description = <"Strukturert beskrivesle av type laserbehandling utført.">
+				>
+				["at0015"] = <
+					text = <"Status">
+					description = <"Strukturert registrering av status i laserbehandlingen.">
+				>
+				["at0016"] = <
+					text = <"Utført PRP">
+					description = <"Fritekstlig eller strukturert registering av området som PRP er utført i.">
+				>
+			>
+		>
+	>

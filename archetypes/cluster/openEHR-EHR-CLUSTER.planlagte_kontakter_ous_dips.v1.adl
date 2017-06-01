@@ -1,0 +1,215 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.planlagte_kontakter_ous_dips.v1
+
+concept
+	[at0000]	-- Planlagte kontakter
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"F7EE3630FF557837CB3947831C3799D7">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Planlagte kontakter
+		items cardinality matches {1..*; unordered} matches {
+			CLUSTER[at0006] occurrences matches {0..1} matches {	-- Hurtigvalg
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0020] occurrences matches {0..*} matches {	-- Hurtivalg
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+				}
+			}
+			CLUSTER[at0002] occurrences matches {0..*} matches {	-- Planlagt kontakt
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Neste kontakt dato
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0018] occurrences matches {0..1} matches {	-- Neste kontakt datointervall
+						value matches {
+							DV_INTERVAL<DV_DATE> matches {
+								upper matches {
+									DV_DATE matches {*}
+								}
+								lower matches {
+									DV_DATE matches {*}
+								}
+							}
+						}
+					}
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Neste kontakt om uker
+						value matches {
+							C_DV_QUANTITY <
+								property = <[openehr::128]>
+								list = <
+									["1"] = <
+										units = <"wk">
+										magnitude = <|0.0..156.0|>
+										precision = <|0|>
+									>
+									["2"] = <
+										units = <"d">
+										magnitude = <|0.0..365.0|>
+										precision = <|0|>
+									>
+								>
+							>
+						}
+					}
+					ELEMENT[at0017] occurrences matches {0..*} matches {	-- Tiltak
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0010] occurrences matches {0..*} matches {	-- Forundersøkelser
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0008] occurrences matches {0..*} matches {	-- Dillateres med medikament
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0011] occurrences matches {0..*} matches {	-- Medikament OD
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0013] occurrences matches {0..*} matches {	-- Medikament OS
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0015] occurrences matches {0..*} matches {	-- Synsfelt protokoll
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0022] occurrences matches {0..1} matches {	-- Transport
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0023] occurrences matches {0..1} matches {	-- Annet
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0021] occurrences matches {0..*} matches {	-- Andre kontaktdetaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+			allow_archetype CLUSTER[at0019] occurrences matches {0..*} matches {	-- Annen informasjon
+				include
+					archetype_id/value matches {/.*/}
+			}
+			ELEMENT[at0001] occurrences matches {0..*} matches {	-- Beskrivelse
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Planlagte kontakter">
+					description = <"Til bruk for formidling av planlagte kontakter fra kliniker til de som setter opp timer.">
+				>
+				["at0001"] = <
+					text = <"Beskrivelse">
+					description = <"*">
+				>
+				["at0002"] = <
+					text = <"Planlagt kontakt">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Neste kontakt dato">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Neste kontakt om uker">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Hurtigvalg">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Dillateres med medikament">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Forundersøkelser">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Medikament OD">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Medikament OS">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Synsfelt protokoll">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Tiltak">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Neste kontakt datointervall">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"Annen informasjon">
+					description = <"*">
+				>
+				["at0020"] = <
+					text = <"Hurtivalg">
+					description = <"Denne tilpasses på templatnivå og kan klones. ">
+				>
+				["at0021"] = <
+					text = <"Andre kontaktdetaljer">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Transport">
+					description = <"*">
+				>
+				["at0023"] = <
+					text = <"Annet">
+					description = <"*">
+				>
+			>
+		>
+	>
