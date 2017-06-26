@@ -1,0 +1,108 @@
+:imagesdir: images
+= Task Planning Notes and Requirements 
+
+== Examples 
+
+=== Medication step up and down 
+
+Give medication X
+
+. start on 2 mg per day, increase with 1 mg each day until dose is 10 mg per day 
+. keep dose on 10 mg per day for 3 days 
+. decrease dose by 2 mg each day until 2 mg per day then end medication 
+
+=== Referred patient with blood in urine 
+Use order set which defines the following: 
+
+. Urography (x-ray of kidneys and urine tract)
+. Cystoscopi 
+. Lab. package hematuri 
+. Outpatient consulation within 2 weeks 
+
+=== Hip replacement 
+After the inital examinations the clinician and the patient decides to do replacement of hip. The following activities will be done: 
+
+. "Hip School" 
+.. One day course at the hospital with nurse, physiotherapist and ergotheraphist to prepare patient for surgery and the post operative routines 
+. Admission 
+. Surgery 
+.. Lots of tasks not included here for the preparation of surgery 
+. Post-operative routines 
+.. Mobilize the patient 
+.. Training on crutches
+.. If needed train in steps 
+.. ADL (Activity of Daily Living) follow ups 
+.. Medications 
+.. Etc. 
+
+
+include::workflow-10-nutrition.adoc[leveloffset=+2]
+
+    
+== OpenEHR Medical Order Management 
+The logical modules of openEHR Order Management are displayed in the image below and described in the following: 
+
+image::arena_med_ord_modules.png[]
+
+Service Catalogue:: A collection of all medical servics (to be ordered). The module provides a service interface (i.e. REST) and has an administrative userinterface to configure the content. 
+
+Order Client:: Software (application) that uses the services provided by `Service Catalogue`to build concrete orders (Instructions) on medical servies. 
+
+Order Management:: The component responsible of managing orders. 
+
+Order Workflow:: The workflow engine which dispatches tasks to users/user groups and notifies when notification rules are asserted. 
+
+Order Integration Broker:: The integration engine that works as a "middleware" with external systems. Sends and receives notification/messages. 
+
+External System:: A system or organisation that manages or in other other ways are outside of the current instanse of the Order Management System. 
+
+=== Functions that should be handled by the components 
+
+==== Service Catalogue 
+
+. Give me all services that I can order in this healthcare service provider (organisation) 
+. Give me all lab.services which contains the word _ala_ 
+. What are the timing requirements for patiens on a https://github.com/bjornna/dips-ckm/blob/nymaster/doc/kreftpakkeforl%C3%B8p/kreftforlop_dokumentasjon_en.adoc#21-eksempel-breast-cancer[breast cancer trajectory]
+. Which container should be used when ordering Hemoglobin analysis? 
+. What are the requirements to be able to order CT Caput for a 3o year old woman? 
+. Give me the openEHR Composition (prototype) to for order set X 
+. Why should patients with acute coronary syndrom measure blood pressure 2 times an hour? 
+
+==== Order Management 
+. Make sure that someone gives tablet X til patient Y 4 times daily in one week starting tomorrow at 10:00. 
+. Stop all ongoing activities for patient A (he died) 
+. Make sure that a full blood sample is taken of patient A and that the sample is sent to lab XY. The final report should be sent to me and Dr. Y. 
+. Notify team A on channel X (SMS) when a report is present on order Y 
+
+==== Order Integration Broker 
+. Send this order to system X 
+. What is the state of order A in system X
+. Notify on channel X (SMS) that there is an report with pathological results on order Y 
+
+
+== Activities related to clinical acitvities 
+
+. Definisjon of order sets
+.. define the service provider profile / catalogue 
+. The order 
+.. Will always contain information about *what* should be done 
+.. May contain information about how to perform the activities 
+.. May contain information about why the activity should be performed 
+.. May include a specific procedure to be followed. One example might be lab.order where there is information about how to take the sample and handle the specimen and container. 
+. Execution 
+.. Those responsible or involved in doing the activity must document what is performed and when. This documentation makes sure that the requestor gets status on the progress of the activity. 
+. Report 
+.. After the execution of an acitivity the outcome will be evaluated and documented in a report. The report contains information about the `state`of the activity to let the requestor see that the activity is performed. 
+. Evaluation, report and further assessments 
+.. The requestor evaluates the report and makes assessment on the needs for further actvities to reach the target/goal. 
+. Integration 
+.. The activity might be performed in another system than the requestor is using.
+.. There must be some kind of integration to make the above communication possible 
+. Connection to evidence based knowledge 
+.. Clinical activities is always (!) performed to reach a target. The activities are expensive for the society. That's why it is needed to only do activities which has docuemnted effect. Evidence based knowledge, i.e. http://www.magicapp.org[Magic], gives the requestor access to such information. Such "hardcore" evidence based knowledge is an addition to the "silent knowledge" and experienced based knowledge of the clinicia. 
+
+
+
+
+
+

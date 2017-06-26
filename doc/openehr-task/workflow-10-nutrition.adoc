@@ -1,0 +1,155 @@
+:imagesdir: images 
+
+= Nutrition 
+
+== Preface
+Nutrition risk screening and assessment is used as an example since about 30% of all patients in hospital are undernourished. A large part of these patients are undernourished when admitted to hospital and in the majority of these, undernutrition develops further while in hospital. <<McWhirter>>. This can be prevented if special attention is paid to their nutritional care. There is every reason,therefore, for hospitals and healthcare organizations to adopt a minimum set of standards in this area. <<ESPENScreening>>. 
+
+Here we will try to explain the basis for the related clinical workflow and then how this may be mapped to a computable workflow definition. 
+
+
+== Nutritional screening
+According to Norwegian Directorate of Health should all patients be assessed for nutritional risk at admission and then weekly, or by another professionally grounded individually scheme. To assess nutritional risk are the recommended tools <<NRS_2002, NRS 2002>>,  <<MUST, MUST>> og <<MNA, MNA>>. <<HDirNutrition>>
+]
+
+An overview of the workflow is given below. The primary units of work are: 
+
+* Nutritional Risk Screening (see <<NUTR_SCREENING, screening>>)
+* Nutritional Risk Outcome Assessment (see <<NUTR_OUTCOME, monitoring and outcome>>)
+* Nutritional Risk Assessment (see <<NUTR_ASSESSMENT, assessment>>) 
+
+And as a result of these there will be the following items: 
+
+* Routine screening of low risk patients 
+* Observation of medium risk patients 
+* Take actions on high risk patients 
+* Treatment and follow up of nutritional care plan 
+* Request clinical nutrition physiologist 
+* Admission conversation
+
+
+.Nutritional screening as flow diagram. Redrawn and extended from <<HDirNutrition>>
+image::NutritionRiskScreening_Drawing.png[]
+
+=== Computable definition 
+
+In the following we will try to express this steps/protocol in a computable way. First by setting up the _acceptance criteria_ for the user story.
+
+//footnote:[https://www.agilealliance.org/glossary/gwt/[]] 
+
+[%hardbreaks]
+*GIVEN* an admission 
+*AND* one of the following is true
+
+. Is BMI < 20.5 
+. Has the patient lost weight within the last 3 months? 
+. Has the patient had reduced food intake during the last week? 
+. Is the patient severely / critically ill? +
+Does the patient have an increased stress metabolism in conjunction with current disease (trauma, intensive patient).
+
+*THEN* http://arketyper.no/ckm/#showArchetype_1078.36.381[openEHR-EHR-OBSERVATION.nutritional_risk_screening.v1] should be performed
+
+
+ 
+.Script
+
+[source,ruby]
+----
+let episodeOfCare:EpisodeOfCare := assert('openEHR-EHR-ADMIN_ENTRY.admission.v1').isActive()
+
+let age:int := require( $episodeOfCare.subjectOfCare.age )
+let bmi:openEHR-EHR-OBSERVATION.body_mass_index.v1 := require('openEHR-EHR-OBSERVATION.body_mass_index.v1').after($episodeOfCare.startTime)
+let bmiValuePath:string := '/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value/magnitude'
+
+if(valueOf($bmi, $bmiValuePath) <= 20.5){
+require('openEHR-EHR-OBSERVATION.nutritional_risk_screening.v1')
+}
+----
+
+[[ASSERT]]
+The `assert` function is used to declare under what condition the script should be run. Here we define that the script should only be run during an active/ongoing admission. 
+
+WARNING: Need to define how the fact of an active admission is defined. 
+
+[[REQUIRE]]
+The `require` function used to require the presence of the parameter. The function should be implemented as: 
+
+. Check the existence in the EHR for the given constraining parameters 
+. If present
+.. Return the instance of the arcehtype 
+. If *NOT* present 
+.. Start a workflow to make sure the archetype will be present 
+.. Some INSTRUCTION should be placed in the system? 
+
+
+
+== Appendix 
+
+=== Tools 
+
+[[NRS_2002]]
+==== Nutritional Risk Screening (NRS 2002)
+
+According to ESPEN Guidelines for Nutrition Screening 2002 should the following actions be undertaken  <<ESPENScreening>>: 
+
+[[NUTR_SCREENING]]
+. _Screening_. 
+This is a rapid and simple process conducted by admitting staff or community healthcare teams. All patients should be screened on admission to hospital or other institutions. The outcome of screening must be linked to defined courses of action:
+
+a. The patient is not at risk, but may need to be re-screened at specified intervals, e.g. weekly during hospital stay.
+b. The patient is at risk and a nutrition plan is worked out by the staff.
+c. The patient is at risk, but metabolic or functional problems prevent a standard plan being carried out.
+d. There is doubt as whether the patient is at risk. In the two latter cases, referral should be made to an expert for more detailed assessment.
+
+[[NUTR_ASSESSMENT]]
+. _Assessment_. 
+This is a detailed examination of metabolic, nutritional or functional variables by an expert clinician, dietitian or nutrition nurse. It is a longer process than screening which leads to an appropriate care plan considering indications, possible side-effects, and, in some cases, special feeding techniques. It is based, like all diagnosis, upon a full history, examination and, where appropriate, laboratory investigations. It will include the evaluation or measurement of the functional consequences of undernutrition, such as muscle weakness, fatigue and depression. It involves consideration of drugs that the patient is taking and which may be contributing to the symptoms, and of personal habits such as eating patterns and alcohol intake. It includes gastrointestinal assessment, including dentition, swallowing, bowel function, etc. It necessitates an understanding of the interpretation of laboratory tests, e.g. plasma albumin which is more likely to be a measure of disease severity than of malnutrition per se. Calcium, magnesium and zinc levels may be important, and in some cases laboratory measurement of micronutrient levels may be appropriate
+
+[[NUTR_OUTCOME]]
+. _Monitoring and outcome_.
+A process of monitoring and defining outcome should be in place. The effectiveness of the care plan should be monitored by defined measurements and observations, such as recording of dietary intake, body weight and function, and a schedule for detecting possible sideeffects. This may lead to alterations in treatment during the natural history of the patient’s condition
+
+. _Communication._ 
+Results of screening, assessment and nutrition care plans should be communicated to other healthcare professionals when the patient is transferred, either back into the community or to another institution. When patients are transferred from the community to hospital or vice versa, it is important that the nutritional data and future care plans be communicated.
+
+. _Audit_. 
+If this process is carried out in a systematic way, it will allow audit of outcomes which may inform future policy decisions.
+
+
+.NRS 2002 initial screening <<ESPENScreening>>
+image::nutrition_nrs2002.PNG[]
+
+.NRS2002 extended screening <<ESPENScreening>>
+image::nutrition_nrs2002_final_screening.PNG[]
+
+
+
+[[MUST]]
+==== Malnutrition Universal Screening Tool (MUST) for adults
+
+.MUST <<ESPENScreening>>
+image::nutrition_must.png[]
+
+
+
+[[MNA]]
+==== Mini Nutritional Assessment (MNA) for the elderly
+
+.MNA <<ESPENScreening>>
+image::nutrition_mna.png[]
+
+== Appendix
+
+[bibliography]
+=== References
+
+
+
+[bibliography]
+- [[[McWhirter]]] McWhirter J P, Pennington C R. Incidence and recognition of malnutrition in hospital. BMJ 1994; 308: 945–948
+- [[[HDirNutrition]]] https://helsedirektoratet.no/lists/publikasjoner/attachments/916/nasjonal-faglig-retningslinje-for-forebygging-og-behandling-av-underernering-is-1580.pdf[National guideline for prevention and treatment of malnutrition] 
+- [[[ESPENScreening]]]  http://espen.info/documents/screening.pdf[ESPEN Guidelines for Nutrition Screening 2002]
+
+=== Abbrevations 
+
+ESPEN:: ESPEN The European Society for Clinical Nutrition and Metabolism http://espen.info/[]
