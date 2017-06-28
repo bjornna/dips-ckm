@@ -1,0 +1,86 @@
+= Follow up after surgery 
+
+== Background
+
+NOIS is a registry with data about infection after surgery.
+
+https://www.fhi.no/hn/helseregistre-og-registre/nois/[NOIS] 
+
+The following procedures are included in the registry: 
+
+* Heart surgery 
+* "Keisersnitt"
+* Hip replacement
+* Kolecystektomi (removeal of "galleblære")
+* Procudes on colon 
+
+
+NOTE: Some hospitals might include other procedures for the follow up. The set above is the minimal and required procedures defined by national authorities. 
+
+For each of the procedures there are datasets that should be collected at specific intervals: 
+[options="header"]
+|==== 
+|Step | When | Who | What
+| 1 | After surgery | Surgeon | Details about the procedyre 
+| 2 | At discharge | Surgeon | State at discharge 
+| 3 | 30 days after discharge | Patient | Questionare to identify infection 
+| 4 | 1 year after discharge | Patient | Questoinare to identify infection 
+|==== 
+
+NOTE: Only hip replacement should be followed up after one year. 
+
+== openEHR Taskplan 
+The follow up for these patients should be a good example for an openEHR taskplan application. So how should we model this?
+
+One xample is the the status after discharge. This task should imply that the surgeon actually takes a look at the patient and examines different parameters. This could be physical examination, anamense, x-rays and perhaps some lab.tests to verify that everything is ok. This means that the status at discharge should not be bound directly to this _taskplan_, that task shuold be bound to a _normal follow up after surgery_ 
+
+And if we then should have a specific Taskplan for infection follow up - the tasks should all be in the same _task_plan_ for the surgeon and the specific patient. 
+
+Perhaps the modelling of this specific "guideline" should be modelled as reusable _TASK_GROUPs_ that might be added into other _TASK_PLANs_ ? 
+
+I think this makes sense. As the patient trajectory goes on there will be new _TASK_ITEMs_ added to the complete list of _TASKs_. Some items will be added from protocols like this, and they might have strict rules for the sequence and timing. 
+
+All _TASK_ITEMs_ added must have a "source" or, put another way, a reason why they where added. The minimum _source_ must be one openEHR INSTRUCTION . The specification should also support orders (order set) with several openEHR-INSTRUCTION and the correlation with the inital order must be taken care of. 
+
+=== How to start the taskplan? 
+This "taskplan" is mandatory for Patients in the population. The application should be able to start this process automatically if the requirements are fulfilled. 
+
+There should be some kind of a "rule/workflow" engine that gets notified after surgery about what kind of surgery was performed. This agent could have pseudo code like: 
+
+[source]
+----
+onSurgeryComplete
+if(procedure IN NOIS_PROCEDURES)
+ startTaskPlan('FOLLOW_UP_INFECTION_AFTER_SURGERY')
+----
+
+=== The inital task definition 
+First I would try to identify the primary _DEFINED_TASKs_ . 
+
+* Surgeon approves details after surgery 
+* Surgeon approves status at discharge
+* Patient approves 30 days questionare 
+* Patient approves 1 year questionare 
+
+Since there are two principal performes this must be at least two _TASK_PLANs_. 
+
+Both the Surgeon and the Patient needs an agent to be able to follow up the registration. There might also be som additional observations and evaluations to be done to be able to complete the _forms_ 
+
+=== Define decisions points
+There are a few decisions points here: 
+
+. Is Patient in the population (the included procedures)? 
+. Is Patient included in 1 year follow up? 
+
+=== Generic Task Plan 
+In the following there is an inital example on how to make a Task Plan (skeleton) of this protocoll
+
+[source, json]
+----
+include::tp_infection_general.json[]
+----
+
+
+
+
+
