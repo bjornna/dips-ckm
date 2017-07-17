@@ -1,10 +1,18 @@
 ﻿archetype (adl_version=1.4; uid=99f4ffc4-cc9f-4328-98a1-24e66d270c5b)
-	openEHR-EHR-OBSERVATION.body_surface_area_dips.v1
+	openEHR-EHR-OBSERVATION.body_surface_area.v0
 
 concept
-	[at0000]	-- Body Surface Area
+	[at0000]	-- Kroppsoverflate
 language
 	original_language = <[ISO_639-1::en]>
+	translations = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
 description
 	original_author = <
 		["name"] = <"Cailin Lowry">
@@ -20,6 +28,14 @@ description
 			keywords = <"body", "surface", "area", "BSA", "surface area", "skin">
 			misuse = <"Do not use to record the percentage of body surface area involvement in burns or other skin damage etc. This information would be carried in separate specific archetypes.">
 			copyright = <"© openEHR Foundation">
+		>
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"Kroppsoverflate er den målte eller kalkulerte overflaten av menneskekroppen. Det brukes i mange målinger i medisin, inkludert beregning av legemiddeldoser og mengden væske som skal administreres intravenøst.">
+			use = <"Brukes til å måle eller kalkulere kroppsoverflaten av menneskekroppen. Kan brukes til å støtte kliniske beslutninger, for eksempel doser av kjemoterapi, glukokortikoider og andre medisiner med en smal terapeutisk indeks, beregning av hjerteindeksen og i større sekundære bruksområder som klinisk forskning.">
+			keywords = <"*body(en)", "*surface(en)", "*area(en)", "*BSA(en)", "*surface area(en)", "*skin(en)">
+			misuse = <"Brukes ikke til å dokumentere prosent av kroppsoverflaten i forbindelse med brann- eller hudskader.">
+			copyright = <"*© openEHR Foundation(en)">
 		>
 	>
 	lifecycle_state = <"NotSet">
@@ -42,21 +58,21 @@ Boyd E, The growth of the surface area of the human body. Minneapolis: universit
 
 Lam TK, Leung DT: More on simplified calculation of body-surface area. N Engl J Med 1988 Apr 28;318(17):1130, (letter)
 Wang Y, Moss J, Thisted R. Predictors of body surface area. J Clin Anesth. 1992; 4(1):4-10.">
-		["MD5-CAM-1.0.1"] = <"4D479967920BDFC6B299399CE2073825">
+		["MD5-CAM-1.0.1"] = <"67DCAE6436D7B5EEF78BA122397C8B4F">
 		["custodian_namespace"] = <"org.openehr">
 		["custodian_organisation"] = <"openEHR Foundation">
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- Body Surface Area
+	OBSERVATION[at0000] matches {	-- Kroppsoverflate
 		data matches {
 			HISTORY[at0001] matches {	-- Event Series
 				events cardinality matches {1..*; unordered} matches {
-					POINT_EVENT[at0002] occurrences matches {0..1} matches {	-- Point in time
+					POINT_EVENT[at0002] occurrences matches {0..1} matches {	-- Uspesifisert hendelse
 						data matches {
 							ITEM_TREE[at0003] matches {	-- Tree
 								items cardinality matches {1..*; unordered} matches {
-									ELEMENT[at0004] matches {	-- Body Surface Area
+									ELEMENT[at0004] matches {	-- Kroppsoverflate
 										value matches {
 											C_DV_QUANTITY <
 												property = <[openehr::335]>
@@ -69,7 +85,7 @@ definition
 											>
 										}
 									}
-									ELEMENT[at0019] occurrences matches {0..1} matches {	-- Comment
+									ELEMENT[at0019] occurrences matches {0..1} matches {	-- Kommentar
 										value matches {
 											DV_TEXT matches {*}
 										}
@@ -84,39 +100,39 @@ definition
 		protocol matches {
 			ITEM_TREE[at0005] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Method
+					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Metode
 						value matches {
 							DV_CODED_TEXT matches {
 								defining_code matches {
 									[local::
-									at0010, 	-- Automatic entry
-									at0011]	-- Direct entry
+									at0010, 	-- *Automatic entry(en)
+									at0011]	-- *Direct entry(en)
 								}
 							}
 						}
 					}
-					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Formula
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- *Formula(en)
 						value matches {
 							DV_CODED_TEXT matches {
 								defining_code matches {
 									[local::
-									at0012, 	-- Dubois and Dubois
-									at0013, 	-- Mosteller
-									at0014, 	-- Haycock
-									at0015, 	-- Gehan and George
-									at0016, 	-- Boyd
-									at0017, 	-- Fujimoto
-									at0018]	-- Takihara
+									at0012, 	-- *Dubois and Dubois(en)
+									at0013, 	-- *Mosteller(en)
+									at0014, 	-- *Haycock(en)
+									at0015, 	-- *Gehan and George(en)
+									at0016, 	-- *Boyd(en)
+									at0017, 	-- *Fujimoto(en)
+									at0018]	-- *Takihara(en)
 								}
 							}
 							DV_TEXT matches {*}
 						}
 					}
-					allow_archetype CLUSTER[at0008] occurrences matches {0..*} matches {	-- Device
+					allow_archetype CLUSTER[at0008] occurrences matches {0..*} matches {	-- Måleutstyr
 						include
 							archetype_id/value matches {/openEHR-EHR-CLUSTER\.device(-[a-zA-Z0-9_]+)*\.v1/}
 					}
-					allow_archetype CLUSTER[at0007] occurrences matches {0..*} matches {	-- Extension
+					allow_archetype CLUSTER[at0007] occurrences matches {0..*} matches {	-- Tilleggsinformasjon
 						include
 							archetype_id/value matches {/.*/}
 					}
@@ -217,29 +233,29 @@ ontology
 		["no"] = <
 			items = <
 				["at0000"] = <
-					text = <"*Body Surface Area(en)">
-					description = <"*Body surface area (BSA) is the measured or calculated surface area of a human body.(en)">
+					text = <"Kroppsoverflate">
+					description = <"Kroppsoverflate er den målte eller kalkulerte overflaten av menneskekroppen.">
 				>
 				["at0001"] = <
-					text = <"*Event Series(en)">
-					description = <"*@ internal @(en)">
+					text = <"Event Series">
+					description = <"@ internal @">
 				>
 				["at0002"] = <
-					text = <"*Point in time(en)">
-					description = <"*Specified point in time at which the BSA was recorded, and  which may be explicitly defined in a template or at run-time.(en)">
+					text = <"Uspesifisert hendelse">
+					description = <"Standard, uspesifisert tidspunkt eller tidsintervall som kan defineres mer eksplisitt i en template eller i en applikasjon.">
 				>
 				["at0003"] = <
-					text = <"*Tree(en)">
-					description = <"*@ internal @(en)">
+					text = <"Tree">
+					description = <"@ internal @">
 				>
 				["at0004"] = <
-					text = <"*Body Surface Area(en)">
-					description = <"*The measured or calculated surface area of a human body.(en)">
+					text = <"Kroppsoverflate">
+					description = <"Den målte eller kalkulerte overflaten av menneskekroppen.">
 					comment = <"*For example: '1.81 m2'(en)">
 				>
 				["at0005"] = <
-					text = <"*Tree(en)">
-					description = <"*@ internal @(en)">
+					text = <"Tree">
+					description = <"@ internal @">
 				>
 				["at0006"] = <
 					text = <"*Formula(en)">
@@ -247,16 +263,16 @@ ontology
 					comment = <"*For example: Mosteller, DuBois and DuBois, Haycock and Boyd.(en)">
 				>
 				["at0007"] = <
-					text = <"*Extension(en)">
-					description = <"*Additional information required to capture local content or to align with other reference models/formalisms.(en)">
+					text = <"Tilleggsinformasjon">
+					description = <"Ytterligere informasjon som trengs for å kunne registrere lokalt definert innhold eller for å tilpasse til andre referansemodeller/formalismer.">
 					comment = <"*For example: local information requirements or additional metadata to align with FHIR or CIMI equivalents.(en)">
 				>
 				["at0008"] = <
-					text = <"*Device(en)">
-					description = <"*The device used to estimate body surface area.(en)">
+					text = <"Måleutstyr">
+					description = <"Detaljer om utstyret som ble brukt til målingen.">
 				>
 				["at0009"] = <
-					text = <"*Method(en)">
+					text = <"Metode">
 					description = <"*The method by which the body surface area was estimated.(en)">
 				>
 				["at0010"] = <
@@ -296,8 +312,8 @@ ontology
 					description = <"*The Takihara formula was used to estimate body surface area.(en)">
 				>
 				["at0019"] = <
-					text = <"*Comment(en)">
-					description = <"*Any additional comment about the body surface area estimation.(en)">
+					text = <"Kommentar">
+					description = <"Ytterligere kommentar om kroppsarealestimering.">
 				>
 			>
 		>
