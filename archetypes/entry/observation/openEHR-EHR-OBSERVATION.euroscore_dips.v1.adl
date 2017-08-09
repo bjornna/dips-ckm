@@ -5,6 +5,16 @@ concept
 	[at0000]	-- EuroSCORE DIPS
 language
 	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			author = <
+				["name"] = <"Ingrid Skard">
+				["email"] = <"ins@dips.no">
+				["organisation"] = <"DIPS AS">
+			>
+		>
+	>
 description
 	original_author = <
 		["name"] = <"Ingrid Skard">
@@ -13,16 +23,20 @@ description
 		["date"] = <"2017-04-21">
 	>
 	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"EuroSCORE is a method of calculating predicted operative mortality for patients undergoing cardiac surgery.">
+			use = <"Single archetype for recording EuroSCORE. Suffix _dips should be removed by the time the archetype is approved. In the meantime, this archetype is put into use in Norway (DIPS AS).">
+			keywords = <"euroscore", "euroscore ii">
+			misuse = <"Not to be used for any other purpose than recording EuroSCORE, ref. http://www.euroscore.org/what_is_euroscore">
+			copyright = <"DIPS AS">
+		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"Brukes for å registrere input til utregning av EuroSCORE.">
-			use = <"Brukes for å registrere input til utregning av EuroSCORE.
-
-Selve beregningen av EuroSCORE gjøres på skjemanivå.
-
-Resultatet lagres i denne arketypen.">
+			purpose = <"EuroSCORE er en internasjonal standard for kalkulasjon av mortalitetsrisiko for pasienter som skal gjennom en hjerteoperasjon.">
+			use = <"Brukes for registrering av EuroSCORE. Suffiks _dips skal fjernes ved godkjenning av arketypen. I mellomtiden settes arketypen i produksjon i Norge.">
 			keywords = <"euroscore", "euroscore II">
-			misuse = <"Skal ikke brukes til andre formål en registrering av EuroSCORE.">
+			misuse = <"Skal ikke brukes til andre formål enn registrering av EuroSCORE.">
 			copyright = <"DIPS AS">
 		>
 	>
@@ -30,7 +44,7 @@ Resultatet lagres i denne arketypen.">
 	other_contributors = <>
 	other_details = <
 		["references"] = <"Norsk oversettelse av EuroSCORE ved Ullevål Universitetssykehus.">
-		["MD5-CAM-1.0.1"] = <"9C8E3886FFE4AB90CC0C8F6B1D473F61">
+		["MD5-CAM-1.0.1"] = <"113ACBFADAA58B66906A1C668B47F4E5">
 	>
 
 definition
@@ -46,13 +60,13 @@ definition
 										include
 											archetype_id/value matches {/.*/}
 									}
-									ELEMENT[at0023] occurrences matches {0..1} matches {	-- Kvinne
+									ELEMENT[at0023] occurrences matches {0..1} matches {	-- Kjønn
 										value matches {
 											DV_CODED_TEXT matches {
 												defining_code matches {
 													[local::
-													at0032, 	-- Ja
-													at0033]	-- Nei
+													at0070, 	-- Kvinne
+													at0071]	-- Ikke kvinne
 												}
 											}
 										}
@@ -69,9 +83,7 @@ definition
 											}
 											ELEMENT[at0009] occurrences matches {0..1} matches {	-- Kreatininclearance
 												value matches {
-													DV_CODED_TEXT matches {
-														defining_code matches {[local::]}
-													}
+													DV_TEXT matches {*}
 												}
 											}
 										}
@@ -81,8 +93,8 @@ definition
 											DV_CODED_TEXT matches {
 												defining_code matches {
 													[local::
-													at0030, 	-- Ja
-													at0031]	-- Nei
+													at0072, 	-- Ja
+													at0073]	-- Nei
 												}
 											}
 										}
@@ -153,9 +165,18 @@ definition
 											}
 										}
 									}
-									allow_archetype CLUSTER[at0029] occurrences matches {0..*} matches {	-- NYHA
-										include
-											archetype_id/value matches {/.*/}
+									ELEMENT[at0076] occurrences matches {0..1} matches {	-- NYHA
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0077, 	-- *I(nb)
+													at0078, 	-- *II(nb)
+													at0079, 	-- *III(nb)
+													at0080]	-- *IV(nb)
+												}
+											}
+										}
 									}
 									ELEMENT[at0013] occurrences matches {0..1} matches {	-- Ustabil angina pectoris
 										value matches {
@@ -173,10 +194,10 @@ definition
 											DV_CODED_TEXT matches {
 												defining_code matches {
 													[local::
-													at0048, 	-- God (> 50 %)
+													at0048, 	-- God (>50 %)
 													at0049, 	-- Moderat (31-50 %)
 													at0050, 	-- Nedsatt (21-30 %)
-													at0051]	-- Betydelig nedsatt (< 20 %)
+													at0051]	-- Betydelig nedsatt (<20 %)
 												}
 											}
 										}
@@ -199,7 +220,7 @@ definition
 													[local::
 													at0054, 	-- Nei
 													at0055, 	-- Moderat (31-55 mmHg)
-													at0056]	-- Alvorlig (> 55 mmHg)
+													at0056]	-- Alvorlig (>55 mmHg)
 												}
 											}
 										}
@@ -296,7 +317,7 @@ ontology
 				>
 				["at0007"] = <
 					text = <"Perifer karsykdom">
-					description = <"Claudicatio, carotisstenose, utført eller planlagt karkirurgi eller røntgenintervensjon.">
+					description = <"Claudicatio, carotisstenose, utført eller planlagt karkirurgi, eller røntgenintervensjon.">
 				>
 				["at0008"] = <
 					text = <"Nevrologisk sykdom/sekvele">
@@ -324,7 +345,7 @@ ontology
 				>
 				["at0014"] = <
 					text = <"Ejeksjonsfraksjon">
-					description = <"Ejeksjonsfraksjon 30-50 % .">
+					description = <"Ejeksjonsfraksjon.">
 				>
 				["at0016"] = <
 					text = <"Hjerteinfarkt, nylig">
@@ -332,7 +353,7 @@ ontology
 				>
 				["at0017"] = <
 					text = <"Pulmonal hypertensjon">
-					description = <"PAP > 60 mmHg.">
+					description = <"Pulmonal hypertensjon (PAP).">
 				>
 				["at0018"] = <
 					text = <"Hastegrad for operasjon">
@@ -348,11 +369,11 @@ ontology
 				>
 				["at0021"] = <
 					text = <"Postinfarkt VSR">
-					description = <"Ventrikkelseptumruptur.">
+					description = <"Tidligere postinfarkt ventrikkelseptumruptur.">
 				>
 				["at0023"] = <
-					text = <"Kvinne">
-					description = <"Pasienten er kvinne.">
+					text = <"Kjønn">
+					description = <"Pasientens kjønn.">
 				>
 				["at0024"] = <
 					text = <"Resultat">
@@ -373,26 +394,6 @@ ontology
 				["at0028"] = <
 					text = <"Diabetiker på insulin">
 					description = <"Pasienten har diabetes og behandles med insulin.">
-				>
-				["at0029"] = <
-					text = <"NYHA">
-					description = <"Pasientens NYHA-score.">
-				>
-				["at0030"] = <
-					text = <"Ja">
-					description = <"*">
-				>
-				["at0031"] = <
-					text = <"Nei">
-					description = <"*">
-				>
-				["at0032"] = <
-					text = <"Ja">
-					description = <"*">
-				>
-				["at0033"] = <
-					text = <"Nei">
-					description = <"*">
 				>
 				["at0034"] = <
 					text = <"Ja">
@@ -451,7 +452,7 @@ ontology
 					description = <"*">
 				>
 				["at0048"] = <
-					text = <"God (> 50 %)">
+					text = <"God (>50 %)">
 					description = <"*">
 				>
 				["at0049"] = <
@@ -463,7 +464,7 @@ ontology
 					description = <"*">
 				>
 				["at0051"] = <
-					text = <"Betydelig nedsatt (< 20 %)">
+					text = <"Betydelig nedsatt (<20 %)">
 					description = <"*">
 				>
 				["at0052"] = <
@@ -483,7 +484,7 @@ ontology
 					description = <"*">
 				>
 				["at0056"] = <
-					text = <"Alvorlig (> 55 mmHg)">
+					text = <"Alvorlig (>55 mmHg)">
 					description = <"*">
 				>
 				["at0057"] = <
@@ -532,6 +533,326 @@ ontology
 				>
 				["at0069"] = <
 					text = <"Nei">
+					description = <"*">
+				>
+				["at0070"] = <
+					text = <"Kvinne">
+					description = <"*">
+				>
+				["at0071"] = <
+					text = <"Ikke kvinne">
+					description = <"*">
+				>
+				["at0072"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0073"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0076"] = <
+					text = <"NYHA">
+					description = <"NYHA-score.">
+				>
+				["at0077"] = <
+					text = <"*I(nb)">
+					description = <"*I(nb)">
+				>
+				["at0078"] = <
+					text = <"*II(nb)">
+					description = <"*II(nb)">
+				>
+				["at0079"] = <
+					text = <"*III(nb)">
+					description = <"*III(nb)">
+				>
+				["at0080"] = <
+					text = <"*IV(nb)">
+					description = <"*IV(nb)">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"EuroSCORE DIPS">
+					description = <"*Registrering av EuroSCORE.(nb)">
+				>
+				["at0001"] = <
+					text = <"*Event Series(nb)">
+					description = <"*@ internal @(nb)">
+				>
+				["at0002"] = <
+					text = <"*Any event(nb)">
+					description = <"**(nb)">
+				>
+				["at0003"] = <
+					text = <"*Tree(nb)">
+					description = <"*@ internal @(nb)">
+				>
+				["at0004"] = <
+					text = <"Age">
+					description = <"Age of patient.">
+				>
+				["at0006"] = <
+					text = <"Chronic lung disease">
+					description = <"Long term use og bronchodilators or steriods for lung disease.">
+				>
+				["at0007"] = <
+					text = <"Extracardiac arteriopathy">
+					description = <"Extracardiac arteriopathy.">
+				>
+				["at0008"] = <
+					text = <"Neurological dysfunction disease (poor mobility)">
+					description = <"Severe impairment of mobility secondary to musculoskeletal or neurological dysfunction.">
+				>
+				["at0009"] = <
+					text = <"Creatinine clearance">
+					description = <"Creatinine Clearance calculated by the Cockroft-Gault formula.">
+				>
+				["at0010"] = <
+					text = <"Active endocarditis">
+					description = <"Patient still on antibiotic treatment for endocarditis at time of surgery.">
+				>
+				["at0011"] = <
+					text = <"Previous cardiac surgery">
+					description = <"Previous surgery requiring opening of pericardium.">
+				>
+				["at0012"] = <
+					text = <"Critical preoperative state">
+					description = <"Ventricular tachycardia or ventricular fibrillation or aborted sudden death, preoperative cardiac massage, preoperative ventilation before anaesthetic room, preoperative inotropes or IABP, preoperative acute renal failure (anuria or oliguria <10 ml/hr).">
+				>
+				["at0013"] = <
+					text = <"CCS class 4 angina">
+					description = <"Angina at rest.">
+				>
+				["at0014"] = <
+					text = <"LV function">
+					description = <"Left ventricular ejection fraction.">
+				>
+				["at0016"] = <
+					text = <"Recent MI">
+					description = <"Myocardial infarction within 90 days.">
+				>
+				["at0017"] = <
+					text = <"Pulmonary hypertension">
+					description = <"Pulmonary hypertension.">
+				>
+				["at0018"] = <
+					text = <"Emergency">
+					description = <"Urgency of operation.">
+				>
+				["at0019"] = <
+					text = <"Weight of intervention">
+					description = <"Major intervention on the heart besides CABG.">
+				>
+				["at0020"] = <
+					text = <"Surgery on thoracic aorta">
+					description = <"Surgery on ascending, arch, or descending aorta.">
+				>
+				["at0021"] = <
+					text = <"Postinfarct septal rupture">
+					description = <"Postinfarct ventricular septum rupture.">
+				>
+				["at0023"] = <
+					text = <"Sex">
+					description = <"Biological sex of patient.">
+				>
+				["at0024"] = <
+					text = <"Score">
+					description = <"EuroSCORE result.">
+				>
+				["at0025"] = <
+					text = <"Renal impairment">
+					description = <"Renal impairment based on creatinine clearance.">
+				>
+				["at0026"] = <
+					text = <"S-Creatinine">
+					description = <"Preoperative S-Creatinine in umol/L.">
+				>
+				["at0027"] = <
+					text = <"Body weight">
+					description = <"Body weight of patient.">
+				>
+				["at0028"] = <
+					text = <"Diabetes on insulin">
+					description = <"Diabetes treated with insulin.">
+				>
+				["at0034"] = <
+					text = <"Yes">
+					description = <"*">
+				>
+				["at0035"] = <
+					text = <"No">
+					description = <"*">
+				>
+				["at0036"] = <
+					text = <"Yes">
+					description = <"*">
+				>
+				["at0037"] = <
+					text = <"No">
+					description = <"*">
+				>
+				["at0038"] = <
+					text = <"Yes">
+					description = <"*">
+				>
+				["at0039"] = <
+					text = <"No">
+					description = <"*">
+				>
+				["at0040"] = <
+					text = <"Yes">
+					description = <"*">
+				>
+				["at0041"] = <
+					text = <"No">
+					description = <"*">
+				>
+				["at0042"] = <
+					text = <"Yes">
+					description = <"*">
+				>
+				["at0043"] = <
+					text = <"No">
+					description = <"*">
+				>
+				["at0044"] = <
+					text = <"Yes">
+					description = <"*">
+				>
+				["at0045"] = <
+					text = <"No">
+					description = <"*">
+				>
+				["at0046"] = <
+					text = <"Yes">
+					description = <"*">
+				>
+				["at0047"] = <
+					text = <"No">
+					description = <"*">
+				>
+				["at0048"] = <
+					text = <"Good (>50%)">
+					description = <"*">
+				>
+				["at0049"] = <
+					text = <"Moderate (31-50%)">
+					description = <"*">
+				>
+				["at0050"] = <
+					text = <"Poor (21-30%)">
+					description = <"*">
+				>
+				["at0051"] = <
+					text = <"Very poor (<20%)">
+					description = <"*">
+				>
+				["at0052"] = <
+					text = <"Yes">
+					description = <"*">
+				>
+				["at0053"] = <
+					text = <"No">
+					description = <"*">
+				>
+				["at0054"] = <
+					text = <"None">
+					description = <"*">
+				>
+				["at0055"] = <
+					text = <"Moderate (31-55 mmHg)">
+					description = <"*">
+				>
+				["at0056"] = <
+					text = <"Severe (>55 mmHg)">
+					description = <"*">
+				>
+				["at0057"] = <
+					text = <"Yes">
+					description = <"*">
+				>
+				["at0058"] = <
+					text = <"No">
+					description = <"*">
+				>
+				["at0059"] = <
+					text = <"Elective">
+					description = <"Routine admission for operation.">
+				>
+				["at0061"] = <
+					text = <"Urgent">
+					description = <"Patients who have not been electively admitted for operation but who require intervention or surgery on the current admission for medical reasons. These pasients cannot be sent home without a definite procedure.">
+				>
+				["at0062"] = <
+					text = <"Emergency">
+					description = <"Operation before the beginning of the next working day after decision to operate.">
+				>
+				["at0063"] = <
+					text = <"Salvage">
+					description = <"Patients requiring cardiopulmonary resuscitation (external cardiac massage) en route to the operating theatre or prior to introduction of anaesthesia. This does not include cardiopulmonary resuscitation following introduction of anaesthesia.">
+				>
+				["at0064"] = <
+					text = <"Isolated CABG">
+					description = <"*">
+				>
+				["at0065"] = <
+					text = <"Single non-CAGB">
+					description = <"*">
+				>
+				["at0066"] = <
+					text = <"2">
+					description = <"*">
+				>
+				["at0067"] = <
+					text = <"3">
+					description = <"*">
+				>
+				["at0068"] = <
+					text = <"Yes">
+					description = <"*">
+				>
+				["at0069"] = <
+					text = <"No">
+					description = <"*">
+				>
+				["at0070"] = <
+					text = <"Female">
+					description = <"*">
+				>
+				["at0071"] = <
+					text = <"Not female">
+					description = <"*">
+				>
+				["at0072"] = <
+					text = <"Claudication">
+					description = <"*">
+				>
+				["at0073"] = <
+					text = <"Carotid occlusion or >50% stenosis">
+					description = <"*">
+				>
+				["at0076"] = <
+					text = <"NYHA">
+					description = <"NYHA-score at time of surgery.">
+				>
+				["at0077"] = <
+					text = <"I">
+					description = <"*">
+				>
+				["at0078"] = <
+					text = <"II">
+					description = <"*">
+				>
+				["at0079"] = <
+					text = <"III">
+					description = <"*">
+				>
+				["at0080"] = <
+					text = <"IV">
 					description = <"*">
 				>
 			>
