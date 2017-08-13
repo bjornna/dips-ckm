@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
   <id>b22d3785-48e1-470f-afc2-9d629d2b9b98</id>
-  <name>MAB_Growth_Chart_Reg</name>
+  <name>Growth_Chart_Reg</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
@@ -177,7 +177,16 @@
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_mass_index.v1" concept_name="Kroppsmasseindeks" path="/content[at0001]">
       <Rule path="/protocol[at0005]/items[at0010]" max="0" />
     </Content>
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.bone_age_dips.v1" concept_name="Skjelettalder" path="/content[at0001]" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_surface_area_dips.v1" concept_name="Body Surface Area" max="1" path="/content[at0001]" name="Body Surface Area in Grams" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.bone_age_dips.v1" concept_name="Skjelettalder" path="/content[at0001]">
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]">
+        <constraint xsi:type="durationConstraint">
+          <pattern>PYM</pattern>
+          <includesMaximum>false</includesMaximum>
+          <includesMinimum>false</includesMinimum>
+        </constraint>
+      </Rule>
+    </Content>
     <Context />
   </definition>
 </template>
