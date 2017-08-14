@@ -2,7 +2,7 @@ archetype (adl_version=1.4)
 	openEHR-EHR-CLUSTER.careplan_elem_req_additional_info_dips.v1
 
 concept
-	[at0000]	-- *DIPS-spesifikke detaljer om instruksjonen
+	[at0000]	-- DIPS-specific details about the instruction
 language
 	original_language = <[ISO_639-1::nb]>
 	translations = <
@@ -20,13 +20,6 @@ description
 		["organisation"] = <"DIPS AS">
 	>
 	details = <
-		["en"] = <
-			language = <[ISO_639-1::en]>
-			purpose = <"">
-			use = <"">
-			misuse = <"">
-			copyright = <"">
-		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
 			purpose = <"Brukes av alle instruksjonsarketyper i Arena behandlingsplan for å beskrive DIPS-spesifikke detaljer på instruksjonen.">
@@ -34,36 +27,48 @@ description
 			misuse = <"">
 			copyright = <"DIPS AS">
 		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"Used to descripe DIPS specific careplan instruction details ">
+			use = <"Internal used in DIPS">
+			misuse = <"">
+			copyright = <"DIPS AS">
+		>
 	>
 	lifecycle_state = <"0">
 	other_contributors = <"Ivar Yrke, DIPS AS, Norway", "Terje Sagmyr, DIPS AS, Norway", "Bjørn-Petter Johannessen, DIPS AS, Norway">
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"8F91E5C5531B91567AA27DCE4512F0E5">
 		["current_contact"] = <"Phuong Pedersen, DIPS AS <ppe@dips.no>">
+		["MD5-CAM-1.0.1"] = <"01F7CEB84434E5F8F9A8D7C929D8554B">
 		["custodian_organisation"] = <"DIPS AS">
 	>
 
 definition
-	CLUSTER[at0000] matches {	-- *DIPS spesifikke detaljer om instruksjonen
+	CLUSTER[at0000] matches {	-- DIPS-specific details about the instruction
 		items cardinality matches {1..*; unordered} matches {
-			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Spesifisering
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Specification
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0008] occurrences matches {0..1} matches {	-- Bestillingstidspunkt
+			ELEMENT[at0008] occurrences matches {0..1} matches {	-- Order Time
 				value matches {
 					DV_DATE_TIME matches {*}
 				}
 			}
-			ELEMENT[at0009] occurrences matches {0..1} matches {	-- InstruksjonGUID
+			ELEMENT[at0009] occurrences matches {0..1} matches {	-- InstructionGUID
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0010] occurrences matches {0..1} matches {	-- KommerFraVeiledendePlan
+			ELEMENT[at0010] occurrences matches {0..1} matches {	-- GuidelinePlan
 				value matches {
 					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0011] occurrences matches {0..1} matches {	-- SistEndretTidspunkt
+				value matches {
+					DV_DATE_TIME matches {*}
 				}
 			}
 		}
@@ -75,7 +80,7 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"DIPS-spesifikke detaljer om instruksjonen">
-					description = <"">
+					description = <"*">
 				>
 				["at0002"] = <
 					text = <"Spesifisering">
@@ -90,16 +95,20 @@ ontology
 					description = <"Denne er for å holde rede på hvilke instruksjoner som er lik når instruksjonen avsluttes av systemet.">
 				>
 				["at0010"] = <
-					text = <"KommerFraVeiledendePlan">
+					text = <"VeiledendePlan">
 					description = <"Navnet på den veiledende planen dette behandlingsplanelementet er hentet fra.">
+				>
+				["at0011"] = <
+					text = <"SistEndretTidspunkt">
+					description = <"Siste gang den aktuelle problemstilling, mål eller tiltaket ble endret">
 				>
 			>
 		>
 		["en"] = <
 			items = <
 				["at0000"] = <
-					text = <"DIPS Specific Details About the Instruction">
-					description = <"">
+					text = <"DIPS-specific details about the instruction">
+					description = <"*">
 				>
 				["at0002"] = <
 					text = <"Specification">
@@ -111,13 +120,16 @@ ontology
 				>
 				["at0009"] = <
 					text = <"InstructionGUID">
-					description = <"">
+					description = <"This it to keep track on which instructions are related when the system ends and activates instructions">
 				>
 				["at0010"] = <
-					text = <"Indicative Care Plan">
-					description = <"Name of the care plan this care plan element is obtained from.">
+					text = <"GuidelinePlan">
+					description = <"Name of the guideline plan origin for this element">
+				>
+				["at0011"] = <
+					text = <"SistEndretTidspunkt">
+					description = <"Last time the instruction was changed">
 				>
 			>
 		>
-		
 	>

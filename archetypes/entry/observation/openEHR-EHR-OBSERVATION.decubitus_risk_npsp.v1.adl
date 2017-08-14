@@ -1,0 +1,157 @@
+﻿archetype (adl_version=1.4; uid=293d4128-3595-4955-bc67-9835f501b224)
+	openEHR-EHR-OBSERVATION.decubitus_risk_npsp.v1
+
+concept
+	[at0000]	-- Risiko for trykksår Pasientsikkerhetsprogrammet
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Silje Ljosland Bakke og John Tore Valand">
+		["date"] = <"2015-11-17">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For å vurdere alle pasienter for trykksårrisiko ved innleggelse i sykehus og ved første møte med pasient i sykehjem.
+">
+			use = <"Brukes for å vurdere alle pasienter for trykksårrisiko ved innleggelse i sykehus og ved første møte med pasient i sykehjem. Alle nyinnlagte pasienter vurderes for trykksårrisiko innen 4 timer.">
+			keywords = <"trykk", "sår", "vurdering">
+			misuse = <"">
+			copyright = <"© Nasjonal IKT HF">
+		>
+	>
+	lifecycle_state = <"published">
+	other_contributors = <"Vebjørn Arntzen, Oslo universitetssykehus HF, Norway", "Silje Ljosland Bakke, Nasjonal IKT HF, Norway (Nasjonal IKT redaktør)", "Lars Bitsch-Larsen, Haukeland University Hospital, Bergen, Norway", "Lisbeth Dahlhaug, Helse Midt - Norge IT, Norway", "Øygunn Leite Kallevik, Helse Bergen, Norway", "Lars Morgan Karlsen, DIPS ASA, Norway", "Siv Marie Lien, DIPS ASA, Norway", "Knut Nesheim, Helse Bergen, Norway", "Mona Oppedal, Helse Bergen, Norway", "Rune Pedersen, Universitetssykehuset i Nord Norge, Norway", "Tanja Riise, Nasjonal IKT HF, Norway", "Line Sæle, Nasjonal IKT HF, Norway", "John Tore Valand, Haukeland Universitetssjukehus, Norway (Nasjonal IKT redaktør)">
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"Nasjonal IKT">
+		["references"] = <"Pasientssikkerhetsprogrammets tiltakspakke for forebygging av trykksår [Internet]. [cited 17.11.15] Available from: <http://www.pasientsikkerhetsprogrammet.no/no/I+trygge+hender/Innsatsomr%C3%A5der/_attachment/3304?_ts=14e26104012>.">
+		["original_namespace"] = <"no.nasjonalikt">
+		["original_publisher"] = <"Nasjonal IKT">
+		["custodian_namespace"] = <"no.nasjonalikt">
+		["MD5-CAM-1.0.1"] = <"3BB79FB9BEB7AF47B86D0B18A2D062FC">
+		["build_uid"] = <"f5f5edbd-312f-4246-9fcc-5628f1b7026c">
+		["revision"] = <"1.0.0">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Risiko for trykksår Pasientsikkerhetsprogrammet
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Uspesifisert hendelse
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Trykksår
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0008, 	-- Ja
+													at0009]	-- Nei
+												}
+											}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Stillingsendring
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0010, 	-- Ja
+													at0011]	-- Nei
+												}
+											}
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {	-- Risiko for trykksår
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0012, 	-- Ja
+													at0013]	-- Nei
+												}
+											}
+										}
+									}
+									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Kommentar
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Risiko for trykksår Pasientsikkerhetsprogrammet">
+					description = <"Tre spørsmål for å vurdere alle pasienter for trykksårrisiko ved innleggelse i sykehus, og ved første møte med pasienter i sykehjem. Gjengitt fra Tiltak 1 i Pasientsikkerhetsprogrammets innsatsområde \"Forebygging av trykksår\".">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Uspesifisert hendelse">
+					description = <"Standard, uspesifisert tidspunkt eller tidsintervall som kan defineres mer eksplisitt i en template eller i en applikasjon.">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Trykksår">
+					description = <"Har pasienten trykksår ved innleggelse/overflytting?">
+				>
+				["at0005"] = <
+					text = <"Stillingsendring">
+					description = <"Har pasienten behov for hjelp til å endre stilling i seng eller stol?">
+				>
+				["at0006"] = <
+					text = <"Risiko for trykksår">
+					description = <"Vurderer du det som sannsynlig at pasienten kan få trykksår under innleggelsen?">
+				>
+				["at0007"] = <
+					text = <"Kommentar">
+					description = <"Tekstlig beskrivelse av vurderingen som ikke er dekket av andre felt.">
+				>
+				["at0008"] = <
+					text = <"Ja">
+					description = <"Pasienten har trykksår ved innleggelse/overflytting.">
+				>
+				["at0009"] = <
+					text = <"Nei">
+					description = <"Pasienten har ikke trykksår ved innleggelse/overflytting.">
+				>
+				["at0010"] = <
+					text = <"Ja">
+					description = <"Pasienten har behov for hjelp til å endre stilling i seng eller stol.">
+				>
+				["at0011"] = <
+					text = <"Nei">
+					description = <"Pasienten har ikke behov for hjelp til å endre stilling i seng eller stol.">
+				>
+				["at0012"] = <
+					text = <"Ja">
+					description = <"Det er sannsynlig at pasienten kan få trykksår under innleggelsen.">
+				>
+				["at0013"] = <
+					text = <"Nei">
+					description = <"Det er ikke sannsynlig at pasienten kan få trykksår under innleggelsen.">
+				>
+			>
+		>
+	>

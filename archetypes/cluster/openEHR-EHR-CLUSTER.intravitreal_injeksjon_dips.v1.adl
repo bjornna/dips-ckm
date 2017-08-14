@@ -1,0 +1,155 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.intravitreal_injeksjon_dips.v1
+
+concept
+	[at0000]	-- Intravitreal injeksjon
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["organisation"] = <"OUS HF / DIPS ASA">
+		["name"] = <"Arne Løberg Sæter">
+		["email"] = <"asa@dips.no">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <"Thomas Bærland", ...>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"026CD2BCA4E02A3F7109D84581642BED">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Intravitreal injeksjon
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0017] occurrences matches {0..*} matches {	-- Øye
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0020, 	-- Høyre
+							at0021, 	-- Venstre
+							at0022]	-- Begge
+						}
+					}
+				}
+			}
+			ELEMENT[at0007] occurrences matches {0..1} matches {	-- Beskrivelse
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0018] occurrences matches {0..1} matches {	-- Medikament
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0023] occurrences matches {0..1} matches {	-- Intervall
+				value matches {
+					C_DV_QUANTITY <
+						property = <[openehr::128]>
+						list = <
+							["1"] = <
+								units = <"wk">
+								magnitude = <|>=0.0|>
+								precision = <|0|>
+							>
+						>
+					>
+				}
+			}
+			allow_archetype CLUSTER[at0019] occurrences matches {0..*} matches {	-- Cluster
+				include
+					archetype_id/value matches {/.*/}
+			}
+			ELEMENT[at0024] occurrences matches {0..1} matches {	-- Dato for forrige injeksjon
+				value matches {
+					DV_DATE_TIME matches {*}
+				}
+			}
+			ELEMENT[at0025] occurrences matches {0..1} matches {	-- Antall uker siden forrige injeksjon
+				value matches {
+					DV_COUNT matches {*}
+				}
+			}
+			ELEMENT[at0026] occurrences matches {0..1} matches {	-- Årsak til avlysning av injeksjon
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0027] occurrences matches {0..1} matches {	-- Bekreft at data er korrekt
+				value matches {
+					DV_BOOLEAN matches {
+						value matches {True, False}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Intravitreal injeksjon">
+					description = <"unknown">
+				>
+				["at0007"] = <
+					text = <"Beskrivelse">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Øye">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Medikament">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"Cluster">
+					description = <"For ekstra detaljer ved senere behov og evt. anatomisk lokalisasjon.">
+				>
+				["at0020"] = <
+					text = <"Høyre">
+					description = <"*">
+				>
+				["at0021"] = <
+					text = <"Venstre">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Begge">
+					description = <"*">
+				>
+				["at0023"] = <
+					text = <"Intervall">
+					description = <"Til registrering av injeksjonsintervall.">
+				>
+				["at0024"] = <
+					text = <"Dato for forrige injeksjon">
+					description = <"Dato for forrige injeksjon samme øye.">
+				>
+				["at0025"] = <
+					text = <"Antall uker siden forrige injeksjon">
+					description = <"*">
+				>
+				["at0026"] = <
+					text = <"Årsak til avlysning av injeksjon">
+					description = <"*">
+				>
+				["at0027"] = <
+					text = <"Bekreft at data er korrekt">
+					description = <"*">
+				>
+			>
+		>
+	>
