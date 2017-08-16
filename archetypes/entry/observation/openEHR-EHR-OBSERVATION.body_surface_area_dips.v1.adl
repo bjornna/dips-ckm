@@ -2,7 +2,7 @@
 	openEHR-EHR-OBSERVATION.body_surface_area_dips.v1
 
 concept
-	[at0000]	-- Body Surface Area
+	[at0000]	-- Kroppsoverflate
 language
 	original_language = <[ISO_639-1::en]>
 	translations = <
@@ -21,14 +21,6 @@ description
 		["date"] = <"2012-12-07">
 	>
 	details = <
-		["no"] = <
-			language = <[ISO_639-1::no]>
-			purpose = <"Kroppsoverflate er den målte eller kalkulerte overflaten av menneskekroppen. Det brukes i mange målinger i medisin, inkludert beregning av legemiddeldoser og mengden væske som skal administreres intravenøst.">
-			use = <"Brukes til å måle eller kalkulere kroppsoverflaten av menneskekroppen. Kan brukes til å støtte kliniske beslutninger, for eksempel doser av kjemoterapi, glukokortikoider og andre medisiner med en smal terapeutisk indeks, beregning av hjerteindeksen og i større sekundære bruksområder som klinisk forskning.">
-			keywords = <"*body(en)", "*surface(en)", "*area(en)", "*BSA(en)", "*surface area(en)", "*skin(en)">
-			misuse = <"Brukes ikke til å dokumentere prosent av kroppsoverflaten i forbindelse med brann- eller hudskader.">
-			copyright = <"*© openEHR Foundation(en)">
-		>
 		["en"] = <
 			language = <[ISO_639-1::en]>
 			purpose = <"Body surface area (BSA) is the measured or calculated surface area of a human body. It is used in many measurements in medicine, including the calculation of drug dosages and the amount of fluids to be administered intravenously.">
@@ -36,6 +28,14 @@ description
 			keywords = <"body", "surface", "area", "BSA", "surface area", "skin">
 			misuse = <"Do not use to record the percentage of body surface area involvement in burns or other skin damage etc. This information would be carried in separate specific archetypes.">
 			copyright = <"© openEHR Foundation">
+		>
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"Kroppsoverflate er den målte eller kalkulerte overflaten av menneskekroppen. Det brukes i mange målinger i medisin, inkludert beregning av legemiddeldoser og mengden væske som skal administreres intravenøst.">
+			use = <"Brukes til å måle eller kalkulere kroppsoverflaten av menneskekroppen. Kan brukes til å støtte kliniske beslutninger, for eksempel doser av kjemoterapi, glukokortikoider og andre medisiner med en smal terapeutisk indeks, beregning av hjerteindeksen og i større sekundære bruksområder som klinisk forskning.">
+			keywords = <"*body(en)", "*surface(en)", "*area(en)", "*BSA(en)", "*surface area(en)", "*skin(en)">
+			misuse = <"Brukes ikke til å dokumentere prosent av kroppsoverflaten i forbindelse med brann- eller hudskader.">
+			copyright = <"*© openEHR Foundation(en)">
 		>
 	>
 	lifecycle_state = <"NotSet">
@@ -58,21 +58,21 @@ Boyd E, The growth of the surface area of the human body. Minneapolis: universit
 
 Lam TK, Leung DT: More on simplified calculation of body-surface area. N Engl J Med 1988 Apr 28;318(17):1130, (letter)
 Wang Y, Moss J, Thisted R. Predictors of body surface area. J Clin Anesth. 1992; 4(1):4-10.">
-		["MD5-CAM-1.0.1"] = <"D708CC7EC4BAF571BD502FC2A98CEC90">
+		["MD5-CAM-1.0.1"] = <"68716778128E431C987CA3CCFB141696">
 		["custodian_namespace"] = <"org.openehr">
 		["custodian_organisation"] = <"openEHR Foundation">
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- Body Surface Area
+	OBSERVATION[at0000] matches {	-- Kroppsoverflate
 		data matches {
 			HISTORY[at0001] matches {	-- Event Series
 				events cardinality matches {1..*; unordered} matches {
-					POINT_EVENT[at0002] occurrences matches {0..1} matches {	-- Point in time
+					POINT_EVENT[at0002] occurrences matches {0..1} matches {	-- Uspesifisert hendelse
 						data matches {
 							ITEM_TREE[at0003] matches {	-- Tree
 								items cardinality matches {1..*; unordered} matches {
-									ELEMENT[at0004] matches {	-- Body Surface Area
+									ELEMENT[at0004] matches {	-- Kroppsoverflate
 										value matches {
 											C_DV_QUANTITY <
 												property = <[openehr::335]>
@@ -85,7 +85,7 @@ definition
 											>
 										}
 									}
-									ELEMENT[at0019] occurrences matches {0..1} matches {	-- Comment
+									ELEMENT[at0019] occurrences matches {0..1} matches {	-- Kommentar
 										value matches {
 											DV_TEXT matches {*}
 										}
@@ -100,18 +100,18 @@ definition
 		protocol matches {
 			ITEM_TREE[at0005] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Method
+					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Metode
 						value matches {
 							DV_CODED_TEXT matches {
 								defining_code matches {
 									[local::
-									at0010, 	-- Automatic entry
-									at0011]	-- Direct entry
+									at0010, 	-- Automatisk oppføring
+									at0011]	-- Direkte oppføring
 								}
 							}
 						}
 					}
-					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Formula
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Formel
 						value matches {
 							DV_CODED_TEXT matches {
 								defining_code matches {
@@ -128,11 +128,11 @@ definition
 							DV_TEXT matches {*}
 						}
 					}
-					allow_archetype CLUSTER[at0008] occurrences matches {0..*} matches {	-- Device
+					allow_archetype CLUSTER[at0008] occurrences matches {0..*} matches {	-- Måleutstyr
 						include
 							archetype_id/value matches {/openEHR-EHR-CLUSTER\.device(-[a-zA-Z0-9_]+)*\.v1/}
 					}
-					allow_archetype CLUSTER[at0007] occurrences matches {0..*} matches {	-- Extension
+					allow_archetype CLUSTER[at0007] occurrences matches {0..*} matches {	-- Tilleggsinformasjon
 						include
 							archetype_id/value matches {/.*/}
 					}
@@ -258,8 +258,8 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0006"] = <
-					text = <"*Formula(en)">
-					description = <"*Formula used to calculate the BSA.  A number of different formulae have been devised.(en)">
+					text = <"Formel">
+					description = <"Formelen brukt til å kalkulere kroppsoverflate.">
 					comment = <"*For example: Mosteller, DuBois and DuBois, Haycock and Boyd.(en)">
 				>
 				["at0007"] = <
@@ -273,47 +273,47 @@ ontology
 				>
 				["at0009"] = <
 					text = <"Metode">
-					description = <"*The method by which the body surface area was estimated.(en)">
+					description = <"Metoden brukt til å estimere kroppsoverflaten.">
 				>
 				["at0010"] = <
-					text = <"*Automatic entry(en)">
-					description = <"*The body surface area was calculated and entered automatically without user intervention.(en)">
+					text = <"Automatisk oppføring">
+					description = <"Kroppsoverflaten ble kalkulering automatisk uten å involvere brukeren.">
 				>
 				["at0011"] = <
-					text = <"*Direct entry(en)">
-					description = <"*The body surface area was calculated and entered directly by the user.(en)">
+					text = <"Direkte oppføring">
+					description = <"Kroppsoverflaten ble kalkulert og registrert av brukeren.">
 				>
 				["at0012"] = <
-					text = <"*Dubois and Dubois(en)">
-					description = <"*The Dubois and Dubois formula was used to estimate body surface area.(en)">
+					text = <"Dubois and Dubois">
+					description = <"Dubois and Dubois formelen ble brukt til å estimere kroppsoverflate.">
 				>
 				["at0013"] = <
-					text = <"*Mosteller(en)">
-					description = <"*The Mosteller formula was used to estimate body surface area.(en)">
+					text = <"Mosteller">
+					description = <"Mosteller formelen ble brukt til å estimere kroppsoverflate.">
 				>
 				["at0014"] = <
-					text = <"*Haycock(en)">
-					description = <"*The Haycock formula was used to estimate body surface area.(en)">
+					text = <"Haycock">
+					description = <"Haycock formelen ble brukt til å estimere kroppsoverflate.">
 				>
 				["at0015"] = <
-					text = <"*Gehan and George(en)">
-					description = <"*The Gehan and George formula was used to estimate body surface area.(en)">
+					text = <"Gehan and George">
+					description = <"Gehan and George formelen ble brukt til å estimere kroppsoverflate.">
 				>
 				["at0016"] = <
-					text = <"*Boyd(en)">
-					description = <"*The Boyd formula was used to estimate body surface area.(en)">
+					text = <"Boyd">
+					description = <"Boyd formelen ble brukt til å estimere kroppsoverflate.">
 				>
 				["at0017"] = <
-					text = <"*Fujimoto(en)">
-					description = <"*The Fujimoto formula to estimate body surface area.(en)">
+					text = <"Fujimoto">
+					description = <"Fujimoto formelen ble brukt til å estimere kroppsoverflate.">
 				>
 				["at0018"] = <
-					text = <"*Takihara(en)">
-					description = <"*The Takihara formula was used to estimate body surface area.(en)">
+					text = <"Takihara">
+					description = <"Takihara formelen ble brukt til å estimere kroppsoverflate.">
 				>
 				["at0019"] = <
 					text = <"Kommentar">
-					description = <"Ytterligere kommentar om kroppsarealestimering.">
+					description = <"Ytterligere kommentar om kroppsoverflateestimering.">
 				>
 			>
 		>
