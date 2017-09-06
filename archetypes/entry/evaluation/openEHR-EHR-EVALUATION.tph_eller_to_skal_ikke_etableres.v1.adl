@@ -21,7 +21,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"EB8257C2D4C06EE86FCC285E986E9189">
+		["MD5-CAM-1.0.1"] = <"FF610B468D4E42B49B40873FB90C035A">
 	>
 
 definition
@@ -29,66 +29,10 @@ definition
 		data matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Det er framsatt begjæring
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True, False}
-							}
-						}
-					}
-					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Begjæringen er dokumentert i journalnotat datert
-						value matches {
-							DV_DATE matches {
-								value matches {yyyy-??-XX}
-							}
-						}
-					}
-					ELEMENT[at0021] occurrences matches {0..1} matches {	-- Dato og tidspunkt vedtak fattet
+					ELEMENT[at0002] occurrences matches {0..*} matches {	-- Pasienens ankomst til institusjonen
 						value matches {
 							DV_DATE_TIME matches {
 								value matches {yyyy-mm-ddTHH:??:??}
-							}
-						}
-					}
-					ELEMENT[at0020] occurrences matches {0..1} matches {	-- Helsetjenesteenhet
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Pasienens ankomst til institusjonen
-						value matches {
-							DV_DATE_TIME matches {
-								value matches {yyyy-mm-ddTHH:??:??}
-							}
-						}
-					}
-					ELEMENT[at0025] occurrences matches {0..1} matches {	-- Nedenfor fremgår begrunnelse for hvilke(t) vilkår for tvungen observasjon/TPH som vurderes å ikke være oppfylt 
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					allow_archetype CLUSTER[at0032] occurrences matches {0..*} matches {	-- Begjærende instans
-						include
-							archetype_id/value matches {/.*/}
-					}
-					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Dato begjæringen ble fremmet
-						value matches {
-							DV_DATE matches {
-								value matches {yyyy-??-XX}
-							}
-						}
-					}
-					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak i journalnotat datert
-						value matches {
-							DV_DATE matches {
-								value matches {yyyy-??-XX}
-							}
-						}
-					}
-					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Begrunnelse for vedtaket er dokumentert i eget journalnotat
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True, False}
 							}
 						}
 					}
@@ -161,6 +105,62 @@ definition
 							}
 						}
 					}
+					ELEMENT[at0025] occurrences matches {0..*} matches {	-- Nedenfor fremgår begrunnelse for hvilke(t) vilkår for tvungen observasjon/TPH som vurderes å ikke være oppfylt 
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0006] occurrences matches {0..*} matches {	-- Det er framsatt begjæring
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0021] occurrences matches {0..*} matches {	-- Dato og tidspunkt vedtak fattet
+						value matches {
+							DV_DATE_TIME matches {
+								value matches {yyyy-mm-ddTHH:??:??}
+							}
+						}
+					}
+					ELEMENT[at0008] occurrences matches {0..*} matches {	-- Begjæringen er dokumentert i journalnotat datert
+						value matches {
+							DV_DATE matches {
+								value matches {yyyy-??-XX}
+							}
+						}
+					}
+					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Dato begjæringen ble fremmet
+						value matches {
+							DV_DATE matches {
+								value matches {yyyy-??-XX}
+							}
+						}
+					}
+					ELEMENT[at0020] occurrences matches {0..*} matches {	-- Helsetjenesteenhet
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0032] occurrences matches {0..*} matches {	-- Begjærende instans
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak i journalnotat datert
+						value matches {
+							DV_DATE matches {
+								value matches {yyyy-??-XX}
+							}
+						}
+					}
+					ELEMENT[at0005] occurrences matches {0..*} matches {	-- Begrunnelse for vedtaket er dokumentert i eget journalnotat
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
 					allow_archetype CLUSTER[at0034] occurrences matches {0..*} matches {	-- Vedtakstype
 						include
 							archetype_id/value matches {/.*/}
@@ -185,7 +185,7 @@ ontology
 				>
 				["at0002"] = <
 					text = <"Pasienens ankomst til institusjonen">
-					description = <"*">
+					description = <"Dato og klokkeslett for pasientens ankomst til institusjonen">
 				>
 				["at0003"] = <
 					text = <"Begrunnelse for vedtak i journalnotat datert">
@@ -193,19 +193,19 @@ ontology
 				>
 				["at0005"] = <
 					text = <"Begrunnelse for vedtaket er dokumentert i eget journalnotat">
-					description = <"*">
+					description = <"">
 				>
 				["at0006"] = <
 					text = <"Det er framsatt begjæring">
-					description = <"*">
+					description = <"Dersom det foreligger en begjæring om tvungen observasjon eller tvungent psykisk helsevern etter psykisk helsevernloven § 3-6">
 				>
 				["at0007"] = <
 					text = <"Dato begjæringen ble fremmet">
-					description = <"*">
+					description = <"Dato begjæringen ble fremmet">
 				>
 				["at0008"] = <
 					text = <"Begjæringen er dokumentert i journalnotat datert">
-					description = <"*">
+					description = <"Referanse til selve begjæringen">
 				>
 				["at0009"] = <
 					text = <"Ekstern legeundersøkelse">
@@ -253,15 +253,15 @@ ontology
 				>
 				["at0020"] = <
 					text = <"Helsetjenesteenhet">
-					description = <"*">
+					description = <"">
 				>
 				["at0021"] = <
 					text = <"Dato og tidspunkt vedtak fattet">
-					description = <"*">
+					description = <"Dato vedtaket ble fattet">
 				>
 				["at0025"] = <
 					text = <"Nedenfor fremgår begrunnelse for hvilke(t) vilkår for tvungen observasjon/TPH som vurderes å ikke være oppfylt ">
-					description = <"*">
+					description = <"Registrer begrunnelse for hvilke(t) vilkår for tvungen observasjon/TPH som vurderes å ikke være oppfylt.">
 				>
 				["at0032"] = <
 					text = <"Begjærende instans">
