@@ -1,0 +1,78 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-EVALUATION.samtykkekompetanse.v1
+
+concept
+	[at0000]	-- Samtykkekompetanse
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"7A156703AC16CD80C24EFCA04EDA62E2">
+	>
+
+definition
+	EVALUATION[at0000] matches {	-- Samtykkekompetanse
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Vurdering av pasientens samtykkekompetanse
+						value matches {
+							0|[local::at0003], 	-- Pasienten mangler samtykkekompetanse på det tidspunkt vedtaket fattes, jf. pasient- og brukerrettighetsloven § 4-3 andre ledd
+							1|[local::at0004]  	-- Pasienten har samtykkekompetanse på det tidspunktet vedtaket fattes, jf. pasient- og brukerrettighetsloven § 4-3 andre ledd, men utgjør en nærliggende og alvorlig fare for eget liv eller andres liv eller helse
+						}
+					}
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Samtykkekompetanse, begrunnelse
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Samtykkekompetanse">
+					description = <"Dokumentasjon om pasientens samtykkekompetanse ">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Vurdering av pasientens samtykkekompetanse">
+					description = <"">
+				>
+				["at0003"] = <
+					text = <"Pasienten mangler samtykkekompetanse på det tidspunkt vedtaket fattes, jf. pasient- og brukerrettighetsloven § 4-3 andre ledd">
+					description = <"">
+				>
+				["at0004"] = <
+					text = <"Pasienten har samtykkekompetanse på det tidspunktet vedtaket fattes, jf. pasient- og brukerrettighetsloven § 4-3 andre ledd, men utgjør en nærliggende og alvorlig fare for eget liv eller andres liv eller helse">
+					description = <"">
+				>
+				["at0005"] = <
+					text = <"Samtykkekompetanse, begrunnelse">
+					description = <"Samtykkekompetansen kan bortfalle helt eller delvis dersom pasienten på grunn av fysiske eller psykiske forstyrrelser, senil demens eller psykisk utviklingshemming åpenbart ikke er i stand til å forstå hva samtykket omfatter">
+				>
+			>
+		>
+	>
