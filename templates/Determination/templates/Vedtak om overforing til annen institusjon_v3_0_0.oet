@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
-  <id>1128238c-278d-4445-8e02-7344065f0c23</id>
-  <name>Vedtak om tvungen obs</name>
+  <id>a691d5ea-bf6a-46da-b5ae-433de2558e17</id>
+  <name>Vedtak om overforing til annen institusjon</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
@@ -60,112 +60,28 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.vedtak_om_tvungen_obs.v1" concept_name="Vedtak om tvungen obs">
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.vedtak_om_tvungen_obs.v1" concept_name="Vedtak om tvungen obs" path="/content">
-      <Rule path="/data[at0001]/items[at0040]/items[at0042]">
-        <constraint xsi:type="textConstraint">
-          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="HEALTHCAREPARTY_BOTH" />
-        </constraint>
-      </Rule>
-      <Rule path="/data[at0001]/items[at0045]/items[at0047]">
-        <constraint xsi:type="textConstraint">
-          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="HEALTHCAREPARTY" />
-        </constraint>
-      </Rule>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.hjemmel.v1" concept_name="Hjemmel psykisk helsevern" path="/data[at0001]/items[at0068]">
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.vedtak_om_overforing_til_annen_institusjon.v1" concept_name="Vedtak om overforing til annen institusjon">
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.vedtak_om_overforing_til_annen_institusjon.v1" concept_name="Vedtak om overforing til annen institusjon" path="/content">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.hjemmel.v1" concept_name="Hjemmel psykisk helsevern" path="/data[at0001]/items[at0019]">
         <Rule path="/items[at0026]">
           <constraint xsi:type="ordinalConstraint">
-            <excludedValues>2|Tvungent psykisk helsevern med døgnopphold i institusjon godkjent for dette formål, jf. Psykisk helsevernloven § 3-3 a, jf. § 3-3 jf. § 3-5, første ledd</excludedValues>
-            <excludedValues>3|Tvungent psykisk helsevern uten døgnopphold i institusjon, jf. Psykisk helsevernloven  § 3-3 a, jf. 3-3 jf. § 3-5, tredje ledd</excludedValues>
-            <excludedValues>4|Tvungent psykisk helsevern med døgnopphold i institusjon som ikke er godkjent etter § 3-5 første ledd, jf. Psykisk helsevernloven § 3-3 a, jf. § 3-3 jf. § 3-5 andre ledd (typisk somatisk institusjon)</excludedValues>
+            <excludedValues>0|Tvungen observasjon med døgnopphold. Psykisk helsevernloven, jf. § 3-3 a, jf. § 3-2 jf. § 3-5 første ledd</excludedValues>
+            <excludedValues>1|Tvungen observasjon uten døgnopphold. Psykisk helsevernloven, jf. § 3-3 a, jf. § 3-2 jf. § 3-5 tredje ledd</excludedValues>
             <excludedValues>5|Dom på overføring til tvungent psykisk helsevern. Straffeloven § 62 første ledd første punktum, jf. Psykisk helsevernloven kapittel 5.</excludedValues>
             <excludedValues>6|Dom på overføring til tvungent psykisk helsevern. Straffeloven § 62 første ledd andre punktum, jf. Psykisk helsevernloven kapittel 5.</excludedValues>
           </constraint>
         </Rule>
         <Rule path="/items[at0020]">
           <constraint xsi:type="textConstraint">
-            <excludedValues>local::at0023</excludedValues>
-            <excludedValues>local::at0024</excludedValues>
-            <excludedValues>local::at0025</excludedValues>
+            <excludedValues>local::at0021</excludedValues>
+            <excludedValues>local::at0022</excludedValues>
           </constraint>
         </Rule>
       </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.begjaerende_instans.v1" concept_name="Begjaerende instans" path="/data[at0001]/items[at0085]" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.vedtakstype.v1" concept_name="Vedtakstype" path="/data[at0001]/items[at0069]">
-        <Rule path="/items[at0065]">
-          <constraint xsi:type="ordinalConstraint">
-            <excludedValues>0|Undersøkelse uten eget samtykke</excludedValues>
-            <excludedValues>1|Vedtak om behandling med legemidler uten eget samtykke</excludedValues>
-            <excludedValues>2|Vedtak om ernæring uten eget samtykke</excludedValues>
-            <excludedValues>3|Vedtak om ernæring uten eget samtykke kombinert med annen behandlingsform</excludedValues>
-            <excludedValues>4|Vedtak om annen behandlingsform</excludedValues>
-            <excludedValues>5|Vedtak om overføring til annen institusjon</excludedValues>
-            <excludedValues>6|Vedtak om overføring til annen tvangsform</excludedValues>
-            <excludedValues>7|Vedtak om overføring av domfelt til annen institusjon</excludedValues>
-            <excludedValues>8|Vedtak om overføring av domfelt til annen tvangsform</excludedValues>
-            <excludedValues>11|Vedtak om opphør av tvungen observasjon</excludedValues>
-            <excludedValues>12|Vedtak om å ikke etablere tvungen observasjon</excludedValues>
-            <excludedValues>13|Vedtak om å ikke etablere tvungen observasjon/tvungent psykisk helsevern</excludedValues>
-            <excludedValues>14|Vedtak om TPH med døgnopphold</excludedValues>
-            <excludedValues>15|Vedtak om TPH uten døgnopphold</excludedValues>
-            <excludedValues>16|Vedtak om opphør av tvungent psykisk helsevern</excludedValues>
-            <excludedValues>17|Vedtak om å ikke etablere psykisk helsevern</excludedValues>
-            <excludedValues>18|Pasienten motsetter seg skjerming, jf. psykisk helsevernloven § 4 3 annet ledd første punktum. Vedtak skal fattes før skjerming settes i verk.</excludedValues>
-            <excludedValues>19|Pasienten motsetter seg ikke skjerming av mindre inngripende karakter, jf. psykisk helsevernloven § 4 3 annet ledd første punktum. Det fattes da vedtak ved opprettholdelse ut over 24 timer.</excludedValues>
-            <excludedValues>20|Pasienten motsetter seg ikke overføring til skjermet enhet eller liknende som innebærer en betydelig endring av omgivelser eller bevegelsesfrihet, jf. psykisk helsevernloven § 4 3 annet ledd annet punktum. Det fattes da vedtak ved opprettholdelse ut over 12 timer.</excludedValues>
-            <excludedValues>21|Vedtak om bruk av mekaniske tvangsmidler som hindrer pasientens bevegelsesfrihet: Belter/remmer.</excludedValues>
-            <excludedValues>22|Vedtak om bruk av mekaniske tvangsmidler som hindrer pasientens bevegelsesfrihet: Skadeforebyggende spesialklær.</excludedValues>
-            <excludedValues>23|Vedtak om kortvarig anbringelse bak låst eller stengt dør uten personale til stede</excludedValues>
-            <excludedValues>24|Vedtak om enkeltstående bruk av korttidsvirkende legemidler i beroligende eller bedøvende hensikt</excludedValues>
-            <excludedValues>25|Vedtak om kortvarig fastholding</excludedValues>
-            <excludedValues>26|Vedtak om innskrenket forbindelse med omverdenen</excludedValues>
-            <excludedValues>27|Vedtak om åpning og kontroll av post</excludedValues>
-            <excludedValues>28|Vedtak om undersøkelse av rom og eiendeler og/eller kroppsvisitasjon</excludedValues>
-            <excludedValues>29|Vedtak om beslag og eventuell tilintetgjørelse</excludedValues>
-            <excludedValues>30|Vedtak om rusmiddeltesting av biologisk materiale</excludedValues>
-            <excludedValues>31|Vedtak om undersøkelse av pasientens person, rom og eiendeler</excludedValues>
-            <excludedValues>32|Vedtak om kroppslig undersøkelse</excludedValues>
-            <excludedValues>33|Vedtak om innskrenkninger i pasientens forbindelse med omverdenen</excludedValues>
-            <excludedValues>34|Vedtak om nattelåsing av pasientrom</excludedValues>
-          </constraint>
-        </Rule>
-        <Rule path="/items[at0033]">
-          <constraint xsi:type="textConstraint">
-            <excludedValues>local::at0034</excludedValues>
-            <excludedValues>local::at0035</excludedValues>
-            <excludedValues>local::at0036</excludedValues>
-            <excludedValues>local::at0037</excludedValues>
-            <excludedValues>local::at0038</excludedValues>
-            <excludedValues>local::at0039</excludedValues>
-            <excludedValues>local::at0040</excludedValues>
-            <excludedValues>local::at0043</excludedValues>
-            <excludedValues>local::at0044</excludedValues>
-            <excludedValues>local::at0045</excludedValues>
-            <excludedValues>local::at0046</excludedValues>
-            <excludedValues>local::at0047</excludedValues>
-            <excludedValues>local::at0048</excludedValues>
-            <excludedValues>local::at0049</excludedValues>
-            <excludedValues>local::at0050</excludedValues>
-            <excludedValues>local::at0051</excludedValues>
-            <excludedValues>local::at0052</excludedValues>
-            <excludedValues>local::at0053</excludedValues>
-            <excludedValues>local::at0054</excludedValues>
-            <excludedValues>local::at0055</excludedValues>
-            <excludedValues>local::at0056</excludedValues>
-            <excludedValues>local::at0057</excludedValues>
-            <excludedValues>local::at0058</excludedValues>
-            <excludedValues>local::at0059</excludedValues>
-            <excludedValues>local::at0060</excludedValues>
-            <excludedValues>local::at0061</excludedValues>
-            <excludedValues>local::at0062</excludedValues>
-            <excludedValues>local::at0063</excludedValues>
-            <excludedValues>local::at0064</excludedValues>
-          </constraint>
-        </Rule>
-      </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.vurdering_pasientinnsyn.v0" concept_name="Vurdering av pasientinnsyn" path="/data[at0001]/items[at0088]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.eksisterende_hjemmel.v0" concept_name="Eksisterende hjemmel" path="/data[at0001]/items[at0019]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.vedtakstype.v1" concept_name="Vedtakstype" path="/data[at0001]/items[at0018]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.vurdering_pasientinnsyn.v0" concept_name="Vurdering av pasientinnsyn" path="/data[at0001]/items[at0025]" />
     </Content>
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.samtykkekompetanse.v1" concept_name="Samtykkekompetanse" path="/content" />
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.uttalelsesrett.v1" concept_name="Uttalelsesrett" path="/content" />
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.klagerett_tvang.v0" concept_name="Klagerett tvang" path="/content">
       <Rule path="/data[at0001]/items[at0011]">
@@ -182,13 +98,14 @@
       </Rule>
     </Content>
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.ny_faglig_ansvarlig.v1" concept_name="Ny faglig ansvarlig" path="/content" />
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.neste_kontrollundersokelse.v1" concept_name="Neste Kontrollundersokelse" path="/content" />
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.rettslig_grunnlag.v1" concept_name="Rettslig grunnlag" path="/content">
       <Rule path="/data[at0001]/items[at0054]">
         <constraint xsi:type="ordinalConstraint">
           <excludedValues>1|Gyldighetsperiode for rettslig grunnlag overskredet uten at nytt rettslig grunnlag er etablert</excludedValues>
+          <excludedValues>2|Feilregistrering, erstattet av nytt, korrekt rettslig grunnlag</excludedValues>
           <excludedValues>3|Erstattet av et oppdatert rettslig grunnlag etter forlengelse av gyldighetsperioden</excludedValues>
           <excludedValues>4|Erstattet av nytt rettslig grunnlag i henhold til nytt vedtak/dom</excludedValues>
-          <excludedValues>5|Pasienten overført til annen institusjon innenfor det psykiske helsevern. (tvang opprettholdt)</excludedValues>
           <excludedValues>6|Tvang opphørt, pasienten overført til annen institusjon innenfor det psykiske helsevern</excludedValues>
           <excludedValues>7|Tvang opphørt, pasienten fortsatt ved institusjonen (nytt rettslig grunnlag registrert)</excludedValues>
           <excludedValues>8|Avsluttet, pasienten utskrevet</excludedValues>
@@ -197,9 +114,9 @@
       <Rule path="/data[at0001]/items[at0014]">
         <constraint xsi:type="ordinalConstraint">
           <excludedValues>1|Gyldighetsperiode for rettslig grunnlag overskredet uten at nytt rettslig grunnlag er etablert</excludedValues>
+          <excludedValues>2|Feilregistrert, erstattet av nytt, korrekt rettslig grunnlag</excludedValues>
           <excludedValues>3|Erstattet av nytt rettslig grunnlag etter forlengelse av gyldighetsperioden</excludedValues>
           <excludedValues>4|Erstattet av nytt rettslig grunnlag i henhold til nytt vedtak</excludedValues>
-          <excludedValues>5|Pasienten overført til annen institusjon innenfor det psykiske helsevern</excludedValues>
           <excludedValues>6|Tvang opphørt, pasienten fortsatt ved institusjonen</excludedValues>
           <excludedValues>7|Avsluttet, pasienten utskrevet</excludedValues>
         </constraint>
@@ -209,7 +126,7 @@
           <excludedValues>0|Frivillig, eget samtykke. Psykisk helsevernloven § 2-1</excludedValues>
           <excludedValues>1|Frivillig, representert samtykke. Psykisk helsevernloven § 2-1, jf. pasient- og brukerrettighetsloven kapittel 4 </excludedValues>
           <excludedValues>2|Samtykke til å være undergitt reglene om tvungent psykisk helsevern i § 3-5. Psykisk helsevernloven § 2-2</excludedValues>
-          <excludedValues>4|Tvungent psykisk helsevern. Psykisk helsevernloven § 3-3</excludedValues>
+          <excludedValues>3|Tvungen observasjon. Psykisk helsevernloven § 3-2</excludedValues>
           <excludedValues>5|Tvungent psykisk helsevern uten døgnopphold med frivillig innleggelse. Psykisk helsevernloven § 3-5 tredje ledd, jf. § 2-1</excludedValues>
           <excludedValues>6|Dom på overføring til tvungent psykisk helsevern. Straffeloven § 62 jf. psykisk helsevernloven kapittel 5</excludedValues>
           <excludedValues>7|Dom på tvungen omsorg. Straffeloven § 63, jf. psykisk helsevernloven kapittel 5.</excludedValues>
@@ -230,7 +147,7 @@
             <excludedValues>0|Frivillig, eget samtykke. Psykisk helsevernloven § 2-1.</excludedValues>
             <excludedValues>1|Frivillig, representert samtykke. Psykisk helsevernloven § 2-1, jf. pasient- og brukerrettighetsloven kapittel 4.</excludedValues>
             <excludedValues>2|Samtykke til å være undergitt reglene om tvungent psykisk helsevern i § 3-5. Psykisk helsevernloven § 2-2.</excludedValues>
-            <excludedValues>4|Tvungent psykisk helsevern. Psykisk helsevernloven § 3-3 a jf. § 3-3.</excludedValues>
+            <excludedValues>3|Tvungen observasjon. Psykisk helsevernloven § 3-3 a jf. § 3-2.</excludedValues>
             <excludedValues>5|Tvungent psykisk helsevern uten døgnopphold med frivillig innleggelse. Psykisk helsevernloven § 3-3 a jf. § 3-5 tredje ledd, jf. § 2-1.</excludedValues>
             <excludedValues>6|Dom på overføring til tvungent psykisk helsevern. Straffeloven § 62 første ledd første punktum, jf. psykisk helsevernloven kapittel 5.</excludedValues>
             <excludedValues>7|Dom på overføring til tvungent psykisk helsevern. Straffeloven § 62 første ledd andre punktum, jf. psykisk helsevernloven kapittel 5.</excludedValues>
@@ -252,6 +169,7 @@
     </Content>
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.vedtak_status.v1" concept_name="Vedtak status" path="/content" />
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.vedtaksperiode_status.v1" concept_name="Vedtaksperiode status" path="/content" />
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.info_for_utskrift_av_vedtak.v1" concept_name="Info for utskrift av vedtak" path="/content" />
     <Context />
   </definition>
 </template>
