@@ -1,0 +1,176 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.complication_dips.v1
+
+concept
+	[at0000]	-- Complication dips
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Ingrid Skard">
+		["email"] = <"ins@dips.no">
+		["organisation"] = <"Dips AS">
+		["date"] = <"2017-09-18">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for å registrere detaljer rundt komplikasjner ved behandling for eksempel ved en prosedyre.">
+			use = <"Brukes for å registrere detaljer rundt komplikasjner ved behandling for eksempel ved en prosedyre. Detaljer kan omfatte behandling av komplikasjoner, beskrivelse av komplikasjonen, etc. ">
+			keywords = <"complication", "procedure">
+			misuse = <"Skal ikke brukes for å registrere informasjon om selve behandlingen men kun komplikasjoner ved behandlingen.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <"Anca Heyd", ...>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"03097E22FB1064193B8AADF37F930592">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Complication dips
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Navn på komplikasjon
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Beskrivelse av komplikasjon
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			CLUSTER[at0005] occurrences matches {0..*} matches {	-- Tiltak
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Navn på tiltak
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Beskrivelse av tiltak
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Tidspunkt for tiltak
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0014] occurrences matches {0..*} matches {	-- Detaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+			ELEMENT[at0008] occurrences matches {0..1} matches {	-- Tidspunkt for komplikajson oppstått
+				value matches {
+					DV_DATE_TIME matches {*}
+				}
+			}
+			ELEMENT[at0009] occurrences matches {0..1} matches {	-- Tidspunkt for komplikasjon oppdaget
+				value matches {
+					DV_DATE_TIME matches {*}
+				}
+			}
+			ELEMENT[at0011] occurrences matches {0..1} matches {	-- Kilde
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			allow_archetype CLUSTER[at0017] occurrences matches {0..*} matches {	-- Detaljer
+				include
+					archetype_id/value matches {/.*/}
+			}
+			ELEMENT[at0012] occurrences matches {0..*} matches {	-- Multimedia
+				value matches {
+					DV_MULTIMEDIA matches {
+						media_type matches {[openEHR::]}
+					}
+				}
+			}
+			ELEMENT[at0013] occurrences matches {0..*} matches {	-- Lenke til viktige journaldokumenter
+				value matches {
+					DV_EHR_URI matches {*}
+				}
+			}
+			ELEMENT[at0016] occurrences matches {0..1} matches {	-- Alvorlighetsgrad av komplikasjon
+				value matches {
+					DV_TEXT matches {*}
+					allow_archetype ELEMENT matches {
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Complication dips">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Navn på komplikasjon">
+					description = <"Navn på komplikasjon f.eks. perforasjon av uterus. Om mulig skal det brukes kodeverk.">
+				>
+				["at0002"] = <
+					text = <"Beskrivelse av komplikasjon">
+					description = <"En narrativ beskrivelse av komplikasjonene/problemet som har oppstått under behandling">
+				>
+				["at0004"] = <
+					text = <"Navn på tiltak">
+					description = <"Navn på tiltak.">
+				>
+				["at0005"] = <
+					text = <"Tiltak">
+					description = <"tiltak som er gjort for å behandle den oppståtte komplikasjonen.">
+				>
+				["at0006"] = <
+					text = <"Beskrivelse av tiltak">
+					description = <"Beskrivelse av gjennomført tiltak.">
+				>
+				["at0007"] = <
+					text = <"Tidspunkt for tiltak">
+					description = <"Tidspunktet når tiltaket ble gjennomført.">
+				>
+				["at0008"] = <
+					text = <"Tidspunkt for komplikajson oppstått">
+					description = <"Tidspunkt når komplikasjonen ahr oppstått.">
+				>
+				["at0009"] = <
+					text = <"Tidspunkt for komplikasjon oppdaget">
+					description = <"Tidspunkt når kompliksjonen ble oppdaget.">
+				>
+				["at0011"] = <
+					text = <"Kilde">
+					description = <"Informasjn om hvem som har  oppdaget komplikasjonen.">
+				>
+				["at0012"] = <
+					text = <"Multimedia">
+					description = <"Mulighet til å legge inn f.eks. bilder eller video fra den oppståtte komplikasjonen.">
+				>
+				["at0013"] = <
+					text = <"Lenke til viktige journaldokumenter">
+					description = <"Lenke til aktuell dokumentasjon i pasientens journal.">
+				>
+				["at0014"] = <
+					text = <"Detaljer">
+					description = <"Slot for å legge in detaljer rundt behandlingen av kompliksjonen f.eks. hvem som har gjennomført et tiltak.">
+				>
+				["at0016"] = <
+					text = <"Alvorlighetsgrad av komplikasjon">
+					description = <"Her kan man legge inn standardiserte koder for utfallet/konskekvens av komplikasjonen. Man kan enten bruke tekstfeltet for å dokumentere i et gitt kodeverk eller Slot-et for å legge til predefienerte klassifikasjoner f.eks. Clavier-Dindo">
+				>
+				["at0017"] = <
+					text = <"Detaljer">
+					description = <"Brukes for å registrere detaljert strukturert informasjon om komplikasjoner f.eks. Cotton klassifikasjon ved ERCP.">
+				>
+			>
+		>
+	>
