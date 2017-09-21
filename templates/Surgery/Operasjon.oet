@@ -64,11 +64,44 @@
     <items>
       <item>
         <key>Notes.Comment</key>
-        <value>Bruker skal kunn velge mellom icd 10 og fritekst</value>
+        <value>Bruker skal kunn velge mellom icd 10 og fritekst. Gis nytt navn i skjema: diagnose/indikajson</value>
+      </item>
+    </items>
+  </annotations>
+  <annotations path="[openEHR-EHR-COMPOSITION.encounter.v1]/content[openEHR-EHR-INSTRUCTION.request-procedure.v1]">
+    <items>
+      <item>
+        <key>Notes.Comment</key>
+        <value>Endres i forms til å være tilleggsprosedyre og force min mulitplicity</value>
       </item>
     </items>
   </annotations>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Operasjon">
+    <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.request-procedure.v1" concept_name="Prosedyrerekvirering" max="1" path="/content" name="Hovedprosedyre">
+      <Rule path="/activities[at0001]/description[at0009]/items[at0121.1]" name="Planlagt inngrep" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0135.1]" name="Beskrivelse" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0062]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0064]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0065.1]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0040.1]" name="Ønskes gjennomført innen" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0144.1]" name="Kalkulert tidsfrist" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.individual_professional_dips.v1" concept_name="Individuell profesjonsutøver" max="1" path="/activities[at0001]/description[at0009]/items[at0132]" name="Ønsket helsepersonell">
+        <Rule path="/items[at0021]" name="Obligatorisk?" />
+        <Rule path="/items[at0003]" max="0" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.person_name_dips.v1" concept_name="Person navn" path="/items[at0015]">
+          <Rule path="/items[at0006]" max="0" />
+          <Rule path="/items[at0022]" max="0" />
+          <Rule path="/items[at0002]" max="0" />
+          <Rule path="/items[at0014]" max="0" />
+        </Items>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.health_care_location_dips.v1" concept_name="Behandlingssted" path="/activities[at0001]/description[at0009]/items[at0132]">
+        <Rule path="/items[at0002]" max="0" />
+        <Rule path="/items[at0003]" max="0" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.health_care_level_dips.v1" concept_name="Omsorgsnivå " path="/activities[at0001]/description[at0009]/items[at0132]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.estimated_surgery_time_dips.v1" concept_name="Estimert knivtid" path="/activities[at0001]/description[at0009]/items[at0132]" />
+    </Content>
     <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.request-procedure.v1" concept_name="Prosedyrerekvirering" path="/content">
       <Rule path="/activities[at0001]/description[at0009]/items[at0121.1]" name="Planlagt inngrep" />
       <Rule path="/activities[at0001]/description[at0009]/items[at0.2]" max="0" />
@@ -76,15 +109,24 @@
       <Rule path="/activities[at0001]/description[at0009]/items[at0062]" max="0" />
       <Rule path="/activities[at0001]/description[at0009]/items[at0064]" max="0" />
       <Rule path="/activities[at0001]/description[at0009]/items[at0065.1]" max="0" />
-      <Rule path="/activities[at0001]/description[at0009]/items[at0040.1]" name="Ønskes gjennomført innen" />
-      <Rule path="/activities[at0001]/description[at0009]/items[at0144.1]" name="Kalkulert tidsfrist" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.estimated_surgery_time_dips.v1" concept_name="Estimert knivtid" path="/activities[at0001]/description[at0009]/items[at0132]" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.health_care_level_dips.v1" concept_name="Omsorgsnivå " path="/activities[at0001]/description[at0009]/items[at0132]" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.health_care_location_dips.v1" concept_name="Behandlingssted" path="/activities[at0001]/description[at0009]/items[at0132]" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.individual_professional_dips.v1" concept_name="*Professional demographics detail(en)" path="/activities[at0001]/description[at0009]/items[at0132]" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0068]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0146.1]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0145.1]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0040.1]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0144.1]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0076]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0078]" max="0" />
     </Content>
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/diagnose" path="/content">
-      <Rule path="/data[at0001]/items[at0002]" name="Indikajson/diagnose" />
+      <Rule path="/data[at0001]/items[at0009]" max="0" />
+      <Rule path="/data[at0001]/items[at0012]" max="0" />
+      <Rule path="/data[at0001]/items[at0077]" max="0" />
+      <Rule path="/data[at0001]/items[at0003]" max="0" />
+      <Rule path="/data[at0001]/items[at0005]" max="0" />
+      <Rule path="/data[at0001]/items[at0072]" max="0" />
+      <Rule path="/data[at0001]/items[at0030]" max="0" />
+      <Rule path="/data[at0001]/items[at0073]" max="0" />
+      <Rule path="/protocol[at0032]/items[at0070]" max="0" />
     </Content>
     <Context />
   </definition>
