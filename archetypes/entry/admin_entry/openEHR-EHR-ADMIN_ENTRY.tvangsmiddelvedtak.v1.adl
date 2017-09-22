@@ -36,7 +36,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"6226347E3A90BCE2F12948E4DD049514">
+		["MD5-CAM-1.0.1"] = <"ACD055B43CBC1AC7C4B534E223674535">
 	>
 
 definition
@@ -72,17 +72,19 @@ definition
 							}
 						}
 					}
-					ELEMENT[at0046] occurrences matches {0..1} matches {	-- Nedenfor fremgår begrunnelsen for vedtaket
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
 					ELEMENT[at0047] occurrences matches {0..1} matches {	-- Nedenfor fremgår opplysninger om hvilke lempeligere midler som har vist seg åpenbart forgjeves eller utilstrekkelige
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
 					ELEMENT[at0017] occurrences matches {0..1} matches {	-- Det tidspunktet tiltaket ble iverksatt
+						value matches {
+							DV_DATE_TIME matches {
+								value matches {yyyy-mm-ddTHH:??:??}
+							}
+						}
+					}
+					ELEMENT[at0021] occurrences matches {0..1} matches {	-- Starttidspunktet
 						value matches {
 							DV_DATE_TIME matches {
 								value matches {yyyy-mm-ddTHH:??:??}
@@ -113,13 +115,6 @@ definition
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0051] occurrences matches {0..1} matches {	-- Det tidspunktet hastevedtaket ble fattet
-						value matches {
-							DV_DATE_TIME matches {
-								value matches {yyyy-mm-ddTHH:??:??}
-							}
-						}
-					}
 					ELEMENT[at0022] occurrences matches {0..1} matches {	-- Faglig ansvarlig informert
 						value matches {
 							DV_DATE_TIME matches {
@@ -134,9 +129,18 @@ definition
 					}
 					ELEMENT[at0050] occurrences matches {0..1} matches {	-- Hastevedtak opprettholdes
 						value matches {
-							DV_BOOLEAN matches {
-								value matches {True, False}
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0051, 	-- Ja
+									at0052]	-- Nei
+								}
 							}
+						}
+					}
+					ELEMENT[at0046] occurrences matches {0..1} matches {	-- Nedenfor fremgår begrunnelsen for vedtaket
+						value matches {
+							DV_TEXT matches {*}
 						}
 					}
 					allow_archetype CLUSTER[at0044] occurrences matches {0..*} matches {	-- Vurdering av pasientinnsyn
@@ -149,13 +153,6 @@ definition
 							1|[local::at0026], 	-- På grunnlag av kontakt med den som fattet hastevedtaket
 							2|[local::at0027], 	-- Utelukkende på grunnlag av opplysninger i pasientens journal
 							3|[local::at0028]  	-- På grunnlag av opplysninger i pasientens journal samt kontakt med den som fattet hastevedtaket
-						}
-					}
-					ELEMENT[at0021] occurrences matches {0..1} matches {	-- Starttidspunkt (slettes?)
-						value matches {
-							DV_DATE_TIME matches {
-								value matches {yyyy-mm-ddTHH:??:??}
-							}
 						}
 					}
 					ELEMENT[at0016] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak i journalnotat datert: (utgår)
@@ -221,16 +218,16 @@ ontology
 					description = <"*Referanse til journalnotat med nærmere begrunnelse for vedtaket.(nb)">
 				>
 				["at0017"] = <
-					text = <"Gyldig fra">
-					description = <"Tidspunktet vedtaket er gyldig fra">
+					text = <"*Det tidspunktet tiltaket ble iverksatt(nb)">
+					description = <"*Det tidspunktet tiltaket ble iverksatt.(nb)">
 				>
 				["at0019"] = <
 					text = <"Hastevedtak om bruk av tvangsmidler fattet av">
 					description = <"Den tjenesteyter som har fattet det aktuelle hastevedtaket om bruk av tvangsmidler">
 				>
 				["at0021"] = <
-					text = <"Starttidspunkt">
-					description = <"Starttidspunktet for vedtaket">
+					text = <"*Starttidspunktet(nb)">
+					description = <"*Starttidspunktet for vedtaket.(nb)">
 				>
 				["at0022"] = <
 					text = <"Faglig ansvarlig informert">
@@ -269,7 +266,7 @@ ontology
 					description = <"*">
 				>
 				["at0034"] = <
-					text = <"*Dato og tidspunkt vedtak fattet:(nb)">
+					text = <"*Dato og tidspunkt vedtak fattet(nb)">
 					description = <"*Det tidspunkt (dato og klokkeslett) vedtaket ble fattet.(nb)">
 				>
 				["at0035"] = <
@@ -329,7 +326,11 @@ ontology
 					description = <"**(nb)">
 				>
 				["at0051"] = <
-					text = <"*New element(nb)">
+					text = <"*Ja(nb)">
+					description = <"**(nb)">
+				>
+				["at0052"] = <
+					text = <"*Nei(nb)">
 					description = <"**(nb)">
 				>
 			>
@@ -362,15 +363,15 @@ ontology
 				>
 				["at0017"] = <
 					text = <"Det tidspunktet tiltaket ble iverksatt">
-					description = <"Det tidspunkt tvangsmidlet ble iverksatt.">
+					description = <"Det tidspunktet tiltaket ble iverksatt.">
 				>
 				["at0019"] = <
 					text = <"Hastevedtak om bruk av tvangsmidler fattet av">
 					description = <"Den tjenesteyter som har fattet det aktuelle hastevedtaket om bruk av tvangsmidler.">
 				>
 				["at0021"] = <
-					text = <"Starttidspunkt (slettes?)">
-					description = <"Starttidspunktet for vedtaket">
+					text = <"Starttidspunktet">
+					description = <"Starttidspunktet for vedtaket.">
 				>
 				["at0022"] = <
 					text = <"Faglig ansvarlig informert">
@@ -469,8 +470,12 @@ ontology
 					description = <"Den faglig ansvarlige har besluttet å opprettholde vedtaket.">
 				>
 				["at0051"] = <
-					text = <"Det tidspunktet hastevedtaket ble fattet">
-					description = <"Det tidspunktet hastevedtaket ble nedtegnet.">
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0052"] = <
+					text = <"Nei">
+					description = <"*">
 				>
 			>
 		>
