@@ -1,0 +1,140 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.triceps_skinfold_dips.v0
+
+concept
+	[at0000]	-- Triceps skinfold
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			author = <
+				["name"] = <"">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Malin Berg">
+		["email"] = <"mab@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2017-08-29">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for å registrere måling av tricepshudfold.">
+			use = <"">
+			misuse = <"">
+			copyright = <"DIPS AS">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"Used to register the thickness of the triceps skinfold.">
+			use = <"">
+			misuse = <"">
+			copyright = <"DIPS AS">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <"Bjørn-Petter Johannessen, DIPS AS, Norway", ...>
+	other_details = <
+		["references"] = <"http://tidsskriftet.no/2016/11/kronikk/nye-referansekurver-vektrelaterte-kroppsmal-hos-barn">
+		["MD5-CAM-1.0.1"] = <"D33D9B4A252D05238E4FC26D71D14FCF">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Triceps skinfold
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Triceps skinfold
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::122]>
+												list = <
+													["1"] = <
+														units = <"mm">
+														magnitude = <|0.0..500.0|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Comment
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Tricepshudfold">
+					description = <"Brukes for å registrere måling av tricepshudfold.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Tricepshudfold">
+					description = <"Finn den øverste kanten av spolebeinet (caput radii) og det ytre fremspringet av skulderbladet (acromion scapulae) og merk disse punktene. Mål avstanden mellom disse og merk av midtpunktet på baksiden av overarmen. Dra ut en hudfold mellom tommel og pekefinger tilsvarende dette punktet. Hudfoldmåleren holdes i 90 grader mot hudfoldene, i armens lengderetning, og settes på 1 cm nedenfor punktet man har merket.">
+				>
+				["at0005"] = <
+					text = <"Kommentar">
+					description = <"Kommentar til målingen.">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Triceps skinfold">
+					description = <"Used to register the thickness of the triceps skinfold.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Triceps skinfold">
+					description = <"Thickness of the triceps skinfold in millimeters.">
+				>
+				["at0005"] = <
+					text = <"Comment">
+					description = <"Comment to the measurement.">
+				>
+			>
+		>
+	>
