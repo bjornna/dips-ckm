@@ -36,7 +36,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"2970D7AD0B1DADA00A8CD98D7BC900A8">
+		["MD5-CAM-1.0.1"] = <"20E0C744DA322182A45EC2E22EC391E8">
 	>
 
 definition
@@ -51,63 +51,16 @@ definition
 							}
 						}
 					}
-					ELEMENT[at0018] occurrences matches {0..1} matches {	-- Relevant og nødvendig begrunnelse for de ulike vilkårene i vedtaket
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0024] occurrences matches {0..1} matches {	-- Begrunnelse for vedtaket er dokumentert i eget journalnotat
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True, False}
-							}
-						}
-					}
 					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak om tvungen observasjon i journalnotat datert
 						value matches {
-							DV_DATE matches {*}
-						}
-					}
-					ELEMENT[at0017] occurrences matches {0..1} matches {	-- Det er fremmet begjæring
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True}
+							DV_DATE matches {
+								value matches {yyyy-??-XX}
 							}
 						}
 					}
-					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Pasienten er gitt anledning til å uttale seg
+					ELEMENT[at0025] occurrences matches {0..1} matches {	-- Nedenfor fremgår begrunnelse for hvilke(t) vilkår for tvungen observasjon som vurderes å ikke være oppfylt
 						value matches {
-							DV_BOOLEAN matches {
-								value matches {True}
-							}
-						}
-					}
-					ELEMENT[at0020] occurrences matches {0..1} matches {	-- Nærmeste pårørendes uttalerett
-						value matches {
-							0|[local::at0021], 	-- Nærmeste pårørende er gitt anledning til å uttale seg
-							1|[local::at0022], 	-- Nærmeste pårørende er ikke gitt anledning til å uttale seg da dennes adresse er ukjent og ettersporing vil kreve urimelig mye tid eller arbeid
-							2|[local::at0023]  	-- Pasienten har ingen personer med status som nærmeste pårørende som kunne gis anledning til å uttale seg
-						}
-					}
-					ELEMENT[at0015] occurrences matches {0..1} matches {	-- Den som har fremsatt begjæring etter psykisk helsevernloven § 3-6, er gitt anledning til å uttale seg, jf. psykisk helsevernloven § 3-9
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True}
-							}
-						}
-					}
-					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Pasienten er informert om vedtaket
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True}
-							}
-						}
-					}
-					ELEMENT[at0016] occurrences matches {0..1} matches {	-- Begjærende instans er informert om om sin klageadgang
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True}
-							}
+							DV_TEXT matches {*}
 						}
 					}
 					ELEMENT[at0009] occurrences matches {0..*} matches {	-- Iverksetting av vedtak er besluttet utsatt
@@ -125,7 +78,14 @@ definition
 					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Dato og tidspunkt vedtak fattet
 						value matches {
 							DV_DATE_TIME matches {
-								value matches {yyyy-mm-ddTHH:MM:SS}
+								value matches {yyyy-mm-ddTHH:??:??}
+							}
+						}
+					}
+					ELEMENT[at0017] occurrences matches {0..1} matches {	-- Det er fremsatt begjæring
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True}
 							}
 						}
 					}
@@ -137,7 +97,54 @@ definition
 						include
 							archetype_id/value matches {/.*/}
 					}
-					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak om opphør tvungen observasjon i journalnotat datert
+					ELEMENT[at0024] occurrences matches {0..1} matches {	-- Begrunnelse for vedtaket er dokumentert i eget journalnotat (utgår)
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0018] occurrences matches {0..1} matches {	-- Relevant og nødvendig begrunnelse for de ulike vilkårene i vedtaket (utgår)
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Pasienten er gitt anledning til å uttale seg (utgår)
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True}
+							}
+						}
+					}
+					ELEMENT[at0020] occurrences matches {0..1} matches {	-- Nærmeste pårørendes uttalerett (utgår)
+						value matches {
+							0|[local::at0021], 	-- Nærmeste pårørende er gitt anledning til å uttale seg
+							1|[local::at0022], 	-- Nærmeste pårørende er ikke gitt anledning til å uttale seg da dennes adresse er ukjent og ettersporing vil kreve urimelig mye tid eller arbeid
+							2|[local::at0023]  	-- Pasienten har ingen personer med status som nærmeste pårørende som kunne gis anledning til å uttale seg
+						}
+					}
+					ELEMENT[at0015] occurrences matches {0..1} matches {	-- Den som har fremsatt begjæring etter psykisk helsevernloven § 3-6, er gitt anledning til å uttale seg, jf. psykisk helsevernloven § 3-9
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True}
+							}
+						}
+					}
+					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Pasienten er informert om vedtaket (utgår)
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True}
+							}
+						}
+					}
+					ELEMENT[at0016] occurrences matches {0..1} matches {	-- Begjærende instans er informert om om sin klageadgang (utgår)
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True}
+							}
+						}
+					}
+					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak om opphør tvungen observasjon i journalnotat datert (utgår)
 						value matches {
 							DV_DATE matches {*}
 						}
@@ -161,7 +168,7 @@ ontology
 				>
 				["at0002"] = <
 					text = <"Vedtakstype">
-					description = <"*">
+					description = <"Standard kodever 9275 Vedtak etter psykisk helsevernloven.">
 				>
 				["at0003"] = <
 					text = <"Dato og tidspunkt vedtak fattet">
@@ -173,43 +180,43 @@ ontology
 				>
 				["at0005"] = <
 					text = <"Tvungen observasjon opprinnelig vedtatt">
-					description = <"Den dato tvungen observasjon opprinnelig ble vedtatt.">
+					description = <"Den dato tvungen observasjon opprinnelig ble vedtatt. ">
 				>
 				["at0006"] = <
 					text = <"Begrunnelse for vedtak om tvungen observasjon i journalnotat datert">
-					description = <"Referanse til journalnotat med nærmere begrunnelse for vedtaket.">
+					description = <"Referanse til det dokument (vedtak) i pasienten journal som lå til grunn for etablering av tvungen observasjon. ">
 				>
 				["at0007"] = <
-					text = <"Begrunnelse for vedtak om opphør tvungen observasjon i journalnotat datert">
+					text = <"Begrunnelse for vedtak om opphør tvungen observasjon i journalnotat datert (utgår)">
 					description = <"Referanse til journalnotat med nærmere begrunnelse for vedtaket.">
 				>
 				["at0008"] = <
-					text = <"Pasienten er informert om vedtaket">
+					text = <"Pasienten er informert om vedtaket (utgår)">
 					description = <"*">
 				>
 				["at0009"] = <
 					text = <"Iverksetting av vedtak er besluttet utsatt">
-					description = <"*">
+					description = <"Vedtaket er påklaget og kontrollkommisjonens leder har besluttet utsatt iverksetting av vedtaket.">
 				>
 				["at0010"] = <
-					text = <"Pasienten er gitt anledning til å uttale seg">
+					text = <"Pasienten er gitt anledning til å uttale seg (utgår)">
 					description = <"*">
 				>
 				["at0015"] = <
 					text = <"Den som har fremsatt begjæring etter psykisk helsevernloven § 3-6, er gitt anledning til å uttale seg, jf. psykisk helsevernloven § 3-9
-">
+ (utgår)">
 					description = <"*">
 				>
 				["at0016"] = <
-					text = <"Begjærende instans er informert om om sin klageadgang">
+					text = <"Begjærende instans er informert om om sin klageadgang (utgår)">
 					description = <"*">
 				>
 				["at0017"] = <
-					text = <"Det er fremmet begjæring">
-					description = <"Hukes av dersom det foreligger begjæring">
+					text = <"Det er fremsatt begjæring">
+					description = <"Det er fremsatt begjæring.">
 				>
 				["at0018"] = <
-					text = <"Relevant og nødvendig begrunnelse for de ulike vilkårene i vedtaket">
+					text = <"Relevant og nødvendig begrunnelse for de ulike vilkårene i vedtaket (utgår)">
 					description = <"Dersom pasienten på det tidspunktet vedtaket fattes nektes innsyn i hele eller deler av begrunnelsen for vedtaket etter bestemmelsen i pasient- og brukerrettighetsloven § 3 2 tredje ledd, skal ikke begrunnelsen for vedtaket registreres i tekstfeltet under, men i et eget journalnotat. Begrunnelsen for å nekte innsyn må også fremkomme i samme journalnotat.">
 				>
 				["at0019"] = <
@@ -217,7 +224,7 @@ ontology
 					description = <"*">
 				>
 				["at0020"] = <
-					text = <"Nærmeste pårørendes uttalerett">
+					text = <"Nærmeste pårørendes uttalerett (utgår)">
 					description = <"*">
 				>
 				["at0021"] = <
@@ -233,8 +240,12 @@ ontology
 					description = <"*">
 				>
 				["at0024"] = <
-					text = <"Begrunnelse for vedtaket er dokumentert i eget journalnotat">
+					text = <"Begrunnelse for vedtaket er dokumentert i eget journalnotat (utgår)">
 					description = <"*">
+				>
+				["at0025"] = <
+					text = <"Nedenfor fremgår begrunnelse for hvilke(t) vilkår for tvungen observasjon som vurderes å ikke være oppfylt">
+					description = <"Begrunnelse for hvilke(t) vilkår for tvungen observasjon som vurderes å ikke være oppfylt.">
 				>
 			>
 		>
@@ -257,8 +268,8 @@ ontology
 					description = <"*Det tidspunkt (dato og klokkeslett) vedtaket ble fattet.(nb)">
 				>
 				["at0004"] = <
-					text = <"Helsetjenesteenhet">
-					description = <"Den enhet hvor vedtaket fattes">
+					text = <"*Helsetjenesteenhet(nb)">
+					description = <"*Identifikasjon av den enheten hvor vedtaket fattes.(nb)">
 				>
 				["at0005"] = <
 					text = <"Under tvungen observasjon siden">
@@ -321,6 +332,10 @@ ontology
 					description = <"**(nb)">
 				>
 				["at0024"] = <
+					text = <"*New element(nb)">
+					description = <"**(nb)">
+				>
+				["at0025"] = <
 					text = <"*New element(nb)">
 					description = <"**(nb)">
 				>

@@ -1,0 +1,306 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-EVALUATION.tph_eller_to_skal_ikke_etableres.v1
+
+concept
+	[at0000]	-- Tph eller TO skal ikke etableres
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"5393895EA07BA59F51A6E3E1F2EC064C">
+	>
+
+definition
+	EVALUATION[at0000] matches {	-- Tph eller TO skal ikke etableres
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..*} matches {	-- Pasientens ankomst til institusjonen
+						value matches {
+							DV_DATE_TIME matches {
+								value matches {yyyy-mm-ddTHH:??:??}
+							}
+						}
+					}
+					CLUSTER[at0009] occurrences matches {0..1} matches {	-- Ekstern legeundersøkelse
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0010] occurrences matches {0..1} matches {	-- Dato
+								value matches {
+									DV_DATE matches {
+										value matches {yyyy-??-XX}
+									}
+								}
+							}
+							ELEMENT[at0012] occurrences matches {0..1} matches {	-- Utført av
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {[ac0001]}		-- New constraint
+									}
+								}
+							}
+							ELEMENT[at0011] occurrences matches {0..1} matches {	-- Utført av
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0013] occurrences matches {0..1} matches {	-- Ekstern legeundersøkelse dokumentert i journalnotat datert
+								value matches {
+									DV_DATE matches {
+										value matches {yyyy-??-XX}
+									}
+								}
+							}
+							ELEMENT[at0014] occurrences matches {0..1} matches {	-- Legeundersøkelsen er foretatt på bakgrunn av vedtak om tvungen legeundersøkelse
+								value matches {
+									DV_BOOLEAN matches {
+										value matches {True, False}
+									}
+								}
+							}
+							ELEMENT[at0015] occurrences matches {0..1} matches {	-- Pasienten har vært undersøkt av en ekstern lege
+								value matches {
+									DV_BOOLEAN matches {
+										value matches {True, False}
+									}
+								}
+							}
+						}
+					}
+					CLUSTER[at0016] occurrences matches {0..1} matches {	-- Intern legeundersøkelse
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0017] occurrences matches {0..1} matches {	-- Dato
+								value matches {
+									DV_DATE matches {
+										value matches {yyyy-??-XX}
+									}
+								}
+							}
+							ELEMENT[at0018] occurrences matches {0..1} matches {	-- Utført av
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {[ac0002]}		-- New constraint
+									}
+								}
+							}
+							ELEMENT[at0019] occurrences matches {0..1} matches {	-- Intern legeundersøkelse dokumentert i journalnotat datert
+								value matches {
+									DV_DATE matches {
+										value matches {yyyy-??-XX}
+									}
+								}
+							}
+						}
+					}
+					ELEMENT[at0025] occurrences matches {0..*} matches {	-- Nedenfor fremgår begrunnelse for hvilke(t) vilkår for tvungen observasjon/TPH som vurderes å ikke være oppfylt 
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0006] occurrences matches {0..*} matches {	-- Det er framsatt begjæring
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0021] occurrences matches {0..*} matches {	-- Dato og tidspunkt vedtak fattet
+						value matches {
+							DV_DATE_TIME matches {
+								value matches {yyyy-mm-ddTHH:??:??}
+							}
+						}
+					}
+					ELEMENT[at0008] occurrences matches {0..*} matches {	-- Begjæringen er dokumentert i journalnotat datert
+						value matches {
+							DV_DATE matches {
+								value matches {yyyy-??-XX}
+							}
+						}
+					}
+					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Dato begjæringen ble fremmet
+						value matches {
+							DV_DATE matches {
+								value matches {yyyy-??-XX}
+							}
+						}
+					}
+					ELEMENT[at0020] occurrences matches {0..*} matches {	-- Helsetjenesteenhet
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0032] occurrences matches {0..*} matches {	-- Begjærende instans
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak i journalnotat datert
+						value matches {
+							DV_DATE matches {
+								value matches {yyyy-??-XX}
+							}
+						}
+					}
+					ELEMENT[at0005] occurrences matches {0..*} matches {	-- Begrunnelse for vedtaket er dokumentert i eget journalnotat
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					allow_archetype CLUSTER[at0034] occurrences matches {0..*} matches {	-- Vedtakstype
+						include
+							archetype_id/value matches {/.*/}
+					}
+					allow_archetype CLUSTER[at0035] occurrences matches {0..*} matches {	-- Pasientinnsyn
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	terminologies_available = <"DIPS", ...>
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Tph eller TO skal ikke etableres">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Pasientens ankomst til institusjonen">
+					description = <"Dato og klokkeslett for pasientens ankomst til institusjonen">
+				>
+				["at0003"] = <
+					text = <"Begrunnelse for vedtak i journalnotat datert">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Begrunnelse for vedtaket er dokumentert i eget journalnotat">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Det er framsatt begjæring">
+					description = <"Dersom det foreligger en begjæring om tvungen observasjon eller tvungent psykisk helsevern etter psykisk helsevernloven § 3-6">
+				>
+				["at0007"] = <
+					text = <"Dato begjæringen ble fremmet">
+					description = <"Dato begjæringen ble fremmet">
+				>
+				["at0008"] = <
+					text = <"Begjæringen er dokumentert i journalnotat datert">
+					description = <"Referanse til selve begjæringen">
+				>
+				["at0009"] = <
+					text = <"Ekstern legeundersøkelse">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Dato">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Utført av">
+					description = <"Benyttes dersom undersøkende lege ikke finnes i rekvirentsøket. Registrering bør inkludere navn, tittel og arbeidssted">
+				>
+				["at0012"] = <
+					text = <"Utført av">
+					description = <"Rekvirentsøk - Navn på lege som utførte undersøkelsen">
+				>
+				["at0013"] = <
+					text = <"Ekstern legeundersøkelse dokumentert i journalnotat datert">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Legeundersøkelsen er foretatt på bakgrunn av vedtak om tvungen legeundersøkelse">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Pasienten har vært undersøkt av en ekstern lege">
+					description = <"*">
+				>
+				["at0016"] = <
+					text = <"Intern legeundersøkelse">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Dato">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Utført av">
+					description = <"Referanse til den tjenesteyter (lege) som foretok undersøkelsen">
+				>
+				["at0019"] = <
+					text = <"Intern legeundersøkelse dokumentert i journalnotat datert">
+					description = <"*">
+				>
+				["at0020"] = <
+					text = <"Helsetjenesteenhet">
+					description = <"*">
+				>
+				["at0021"] = <
+					text = <"Dato og tidspunkt vedtak fattet">
+					description = <"Dato vedtaket ble fattet">
+				>
+				["at0025"] = <
+					text = <"Nedenfor fremgår begrunnelse for hvilke(t) vilkår for tvungen observasjon/TPH som vurderes å ikke være oppfylt ">
+					description = <"Registrer begrunnelse for hvilke(t) vilkår for tvungen observasjon/TPH som vurderes å ikke være oppfylt.">
+				>
+				["at0032"] = <
+					text = <"Begjærende instans">
+					description = <"*">
+				>
+				["at0034"] = <
+					text = <"Vedtakstype">
+					description = <"*">
+				>
+				["at0035"] = <
+					text = <"Pasientinnsyn">
+					description = <"*">
+				>
+			>
+		>
+	>
+	constraint_definitions = <
+		["nb"] = <
+			items = <
+				["ac0001"] = <
+					text = <"New constraint">
+					description = <"*">
+				>
+				["ac0002"] = <
+					text = <"New constraint">
+					description = <"*">
+				>
+			>
+		>
+	>
+	constraint_bindings = <
+		["DIPS"] = <
+			items = <
+				["ac0001"] = <terminology:DIPS?subset=healthcareparty_both>
+				["ac0002"] = <terminology:DIPS?subset=healthcareparty>
+			>
+		>
+	>

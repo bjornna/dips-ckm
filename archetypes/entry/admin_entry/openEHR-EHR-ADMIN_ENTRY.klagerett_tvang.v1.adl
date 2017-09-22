@@ -1,0 +1,122 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ADMIN_ENTRY.klagerett_tvang.v1
+
+concept
+	[at0000]	-- Klagerett tvang
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for å registrere om pasient og pårørende er informert om sin klageadgang. I tillegg til ev. hvorfor pårørende ikke er informert.">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"E41C44623AD273A579E87742EC0D209F">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {	-- Klagerett tvang
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Pasienten informeres om sin klageadgang
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..*} matches {	-- Informasjon til pårørende angående klageadgang
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0004, 	-- Nærmeste pårørende informeres om vedtaket og sin klageadgang og klagefrist
+									at0005, 	-- Nærmeste pårørende informeres ikke da pasienten motsetter seg dette
+									at0006, 	-- Nærmeste pårørende informeres ikke da dennes kontaktinformasjon for tiden er ukjent og oppsporing vil kreve urimelig mye tid
+									at0007, 	-- Nærmeste pårørende informeres ikke da denne har gitt beskjed om at vedkommende ikke ønsker informasjon om hvert enkelt vedtak av den aktuelle typen
+									at0008]	-- Pasienten har ingen personer med status nærmeste pårørende
+								}
+							}
+						}
+					}
+					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Den som har fremsatt begjæring etter psykisk helsevernloven § 3-6, informeres om vedtaket og sin klageadgang
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Påtalemyndigheten informeres om vedtaket og sin adgang til å påklage vedtaket innen tre uker fra det tidspunkt vedkommende fikk underretning om vedtaket
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Klagerett tvang">
+					description = <"Dokumentasjon om pasient og pårørende er informert om sin klageadgang. I tillegg til ev. hvorfor pårørende ikke er informert.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Pasienten informeres om sin klageadgang">
+					description = <"Dokumenterer at pasienten blir informert om sin klageadgang.">
+				>
+				["at0003"] = <
+					text = <"Informasjon til pårørende angående klageadgang">
+					description = <"Dokumenterer hvorvidt pårørende blir informert om klageadgang">
+				>
+				["at0004"] = <
+					text = <"Nærmeste pårørende informeres om vedtaket og sin klageadgang og klagefrist">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Nærmeste pårørende informeres ikke da pasienten motsetter seg dette">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Nærmeste pårørende informeres ikke da dennes kontaktinformasjon for tiden er ukjent og oppsporing vil kreve urimelig mye tid">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Nærmeste pårørende informeres ikke da denne har gitt beskjed om at vedkommende ikke ønsker informasjon om hvert enkelt vedtak av den aktuelle typen">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Pasienten har ingen personer med status nærmeste pårørende">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Den som har fremsatt begjæring etter psykisk helsevernloven § 3-6, informeres om vedtaket og sin klageadgang">
+					description = <"Dokumenterer at den som har fremsatt begjæring blir informert">
+				>
+				["at0010"] = <
+					text = <"Påtalemyndigheten informeres om vedtaket og sin adgang til å påklage vedtaket innen tre uker fra det tidspunkt vedkommende fikk underretning om vedtaket">
+					description = <"Påtalemyndigheten informeres om vedtaket og sin adgang til å påklage vedtaket innen tre uker fra det tidspunkt vedkommende fikk underretning om vedtaket">
+				>
+			>
+		>
+	>
