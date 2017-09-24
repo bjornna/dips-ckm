@@ -1,0 +1,144 @@
+﻿archetype (adl_version=1.4; uid=f5f5824b-887b-4a96-9e83-edfe18db947c)
+	openEHR-EHR-CLUSTER.public_services_dips.v1
+
+concept
+	[at0000]	-- Kommunale tjenester
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Tomas Nordheim Alme">
+		["email"] = <"tna@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2014-10-11">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"Use to document which municipal services (home care, nursing home etc) a patient are receiving. Using the Norwegian terminology 8663 for municipal health and social services.
+">
+			use = <"Use to document the services a patient is receiving at home or in the community.">
+			misuse = <"*(nb)">
+			copyright = <"© Nasjonal IKT HF">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for å dokumentere hvilke kommunale tjenester en pasient mottar. Fra kodeverk OID=8663 Kommunale helse- og sosialtjenester.">
+			use = <"Brukes for å dokumentere hvilke kommunale tjenester en pasient mottar. ">
+			keywords = <"kommunal", "tjeneste", "sykehjem", "hjemmesykepleie", "hjemmetjeneste", "nav">
+			misuse = <"">
+			copyright = <"© Nasjonal IKT HF">
+		>
+	>
+	lifecycle_state = <"NotSet">
+	other_contributors = <>
+	other_details = <
+		["revision"] = <"0.0.1-alpha">
+		["original_publisher"] = <"Nasjonal IKT">
+		["current_contact"] = <"Tomas Nordheim Alme, DIPS ASA, tna@dips.no">
+		["build_uid"] = <"e9d55f51-ef65-4da9-9e6d-41c2a1a2626b">
+		["original_namespace"] = <"no.nasjonalikt">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["MD5-CAM-1.0.1"] = <"0F3F9DD5A86861CBFA040CDE2FE08F17">
+		["custodian_namespace"] = <"no.nasjonalikt">
+		["custodian_organisation"] = <"Nasjonal IKT">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Kommunale tjenester
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0004] occurrences matches {0..1} matches {	-- Type tjeneste
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0010] occurrences matches {0..1} matches {	-- Tjeneste fra dato
+				value matches {
+					DV_DATE matches {
+						value matches {yyyy-mm-??}
+					}
+				}
+			}
+			ELEMENT[at0011] occurrences matches {0..1} matches {	-- Tjenestefrekvens
+				value matches {
+					C_DV_QUANTITY <
+						property = <[openehr::128]>
+						list = <
+							["1"] = <
+								units = <"d">
+								precision = <|0|>
+							>
+							["2"] = <
+								units = <"wk">
+								precision = <|0|>
+							>
+						>
+					>
+				}
+			}
+			allow_archetype CLUSTER[at0013] occurrences matches {0..*} matches {	-- Detaljer
+				include
+					archetype_id/value matches {/.*/}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Municipal services">
+					description = <"Use to document the health and social services the patient is receiving from the municipality">
+				>
+				["at0004"] = <
+					text = <"Type tjeneste">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Tjeneste fra dato">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Tjeneste frekvens">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"*Detaljer(nb)">
+					description = <"*(nb)">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Kommunale tjenester">
+					description = <"Brukes for å dokumentere pasientens kommunale tjenester">
+				>
+				["at0004"] = <
+					text = <"Type tjeneste">
+					description = <"Fra Volven OID=8663 Kommunale helse- og sosialtjenester.">
+				>
+				["at0010"] = <
+					text = <"Tjeneste fra dato">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Tjenestefrekvens">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Detaljer">
+					description = <"*">
+				>
+			>
+		>
+	>

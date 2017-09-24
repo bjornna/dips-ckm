@@ -21,7 +21,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"D2C3E28FED981628B665C944AB910D7C">
+		["MD5-CAM-1.0.1"] = <"5AAA10552B02384BB61433AB9B1BC9F2">
 	>
 
 definition
@@ -31,30 +31,6 @@ definition
 				description matches {
 					ITEM_TREE[at0002] matches {	-- Tree
 						items cardinality matches {0..*; unordered} matches {
-							ELEMENT[at0003] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak i journalnotat datert:
-								value matches {
-									DV_DATE matches {*}
-								}
-							}
-							ELEMENT[at0004] occurrences matches {0..1} matches {	-- Dato og tidspunkt vedtak fattet:
-								value matches {
-									DV_DATE_TIME matches {
-										value matches {yyyy-mm-ddTHH:MM:SS}
-									}
-								}
-							}
-							ELEMENT[at0017] occurrences matches {0..1} matches {	-- Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette
-								value matches {
-									DV_TEXT matches {*}
-								}
-							}
-							ELEMENT[at0019] occurrences matches {0..1} matches {	-- Begrunnelse for vedtaket er dokumentert i eget journalnotat
-								value matches {
-									DV_BOOLEAN matches {
-										value matches {True, False}
-									}
-								}
-							}
 							ELEMENT[at0005] occurrences matches {0..*} matches {	-- Hvordan undersøkelsen skal gjennomføres
 								value matches {
 									DV_CODED_TEXT matches {
@@ -73,17 +49,27 @@ definition
 										defining_code matches {
 											[local::
 											at0010, 	-- Mistanke om innføring av farlig gjenstand
-											at0011, 	-- Mistanke om innføring av medikamenter
-											at0012, 	-- Mistanke om innføring av rusmidler
+											at0011, 	-- Mistanke om innføring av legemidler
+											at0012, 	-- Mistanke om innføring av rusmidler eller skadelige stoffer
 											at0013]	-- Mistanke om innføring av rømningshjelpemiddel, herunder mobiltelefon eller andre kommunikasjonsmidler
 										}
 									}
 								}
 							}
-							ELEMENT[at0014] occurrences matches {0..1} matches {	-- Pasienten har opphold i en regional sikkerhetsavdeling eller i enhet med særlig høyt sikkerhetsnivå
+							ELEMENT[at0021] occurrences matches {0..1} matches {	-- Nedenfor fremgår begrunnelse for vedtaket
 								value matches {
-									DV_BOOLEAN matches {
-										value matches {True}
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0016] occurrences matches {0..1} matches {	-- Helsetjenesteenhet
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0004] occurrences matches {0..1} matches {	-- Dato og tidspunkt vedtak fattet
+								value matches {
+									DV_DATE_TIME matches {
+										value matches {yyyy-mm-ddTHH:??:??}
 									}
 								}
 							}
@@ -91,14 +77,33 @@ definition
 								include
 									archetype_id/value matches {/openEHR-EHR-CLUSTER\.vedtakstype(-[a-zA-Z0-9_]+)*\.v1/}
 							}
-							ELEMENT[at0016] occurrences matches {0..1} matches {	-- Helsetjenesteenhet
+							allow_archetype CLUSTER[at0018] occurrences matches {0..*} matches {	-- Vurdering av pasientinnsyn
+								include
+									archetype_id/value matches {/.*/}
+							}
+							ELEMENT[at0003] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak i journalnotat datert: (utgår)
+								value matches {
+									DV_DATE matches {*}
+								}
+							}
+							ELEMENT[at0017] occurrences matches {0..1} matches {	-- Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette (utgår)
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							allow_archetype CLUSTER[at0018] occurrences matches {0..*} matches {	-- Vurdering av pasientinnsyn
-								include
-									archetype_id/value matches {/.*/}
+							ELEMENT[at0019] occurrences matches {0..1} matches {	-- Begrunnelse for vedtaket er dokumentert i eget journalnotat (utgår)
+								value matches {
+									DV_BOOLEAN matches {
+										value matches {True, False}
+									}
+								}
+							}
+							ELEMENT[at0014] occurrences matches {0..1} matches {	-- Pasienten har opphold i en regional sikkerhetsavdeling eller i enhet med særlig høyt sikkerhetsnivå (utgår)
+								value matches {
+									DV_BOOLEAN matches {
+										value matches {True}
+									}
+								}
 							}
 						}
 					}
@@ -124,16 +129,17 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0003"] = <
-					text = <"Begrunnelse for vedtak i journalnotat datert:">
+					text = <"Begrunnelse for vedtak i journalnotat datert: (utgår)">
 					description = <"Referanse til journalnotat med nærmere begrunnelse for vedtaket.">
 				>
 				["at0004"] = <
-					text = <"Dato og tidspunkt vedtak fattet:">
+					text = <"Dato og tidspunkt vedtak fattet">
 					description = <"Det tidspunkt (dato og klokkeslett) vedtaket ble fattet.">
 				>
 				["at0005"] = <
 					text = <"Hvordan undersøkelsen skal gjennomføres">
-					description = <"Hvordan undersøkelsen skal gjennomføres. Ett eller flere alternativ kan velges. ">
+					description = <"Standard kodeverk 9302 
+Gjennomføring av undersøkelse av pasientens person, rom og eiendeler. ">
 				>
 				["at0006"] = <
 					text = <"Undersøkelse ved bruk av teknisk utstyr">
@@ -149,18 +155,19 @@ ontology
 				>
 				["at0009"] = <
 					text = <"Hva vedtaket er begrunnet i">
-					description = <"Hva vedtaket er begrunnet i. Ett eller flere alternativer kan velges, ">
+					description = <"Standard kodeverk 9301 Begrunnelse for vedtak om undersøkelse av pasientens person, 
+rom og eiendeler .">
 				>
 				["at0010"] = <
 					text = <"Mistanke om innføring av farlig gjenstand">
 					description = <"*">
 				>
 				["at0011"] = <
-					text = <"Mistanke om innføring av medikamenter">
+					text = <"Mistanke om innføring av legemidler">
 					description = <"*">
 				>
 				["at0012"] = <
-					text = <"Mistanke om innføring av rusmidler">
+					text = <"Mistanke om innføring av rusmidler eller skadelige stoffer">
 					description = <"*">
 				>
 				["at0013"] = <
@@ -168,19 +175,19 @@ ontology
 					description = <"*">
 				>
 				["at0014"] = <
-					text = <"Pasienten har opphold i en regional sikkerhetsavdeling eller i enhet med særlig høyt sikkerhetsnivå">
+					text = <"Pasienten har opphold i en regional sikkerhetsavdeling eller i enhet med særlig høyt sikkerhetsnivå (utgår)">
 					description = <"Markering for å angi at pasienten har opphold i en regional sikkerhetsavdeling eller i enhet med særlig høyt sikkerhetsnivå. ">
 				>
 				["at0015"] = <
 					text = <"Vedtakstype">
-					description = <"*">
+					description = <"Standard kodeverk 9275 Vedtak etter psykisk helsevernloven.">
 				>
 				["at0016"] = <
 					text = <"Helsetjenesteenhet">
 					description = <"Identifikasjon av den enheten hvor vedtaket fattes.">
 				>
 				["at0017"] = <
-					text = <"Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette">
+					text = <"Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette (utgår)">
 					description = <"Dersom pasienten på det tidspunktet vedtaket fattes nektes innsyn i hele eller deler av begrunnelsen for vedtaket etter bestemmelsen i pasient- og brukerrettighetsloven § 3 2 tredje ledd, skal ikke begrunnelsen for vedtaket registreres i tekstfeltet under, men i et eget journalnotat. Begrunnelsen for å nekte innsyn må også fremkomme i samme journalnotat.">
 				>
 				["at0018"] = <
@@ -188,8 +195,12 @@ ontology
 					description = <"*">
 				>
 				["at0019"] = <
-					text = <"Begrunnelse for vedtaket er dokumentert i eget journalnotat">
+					text = <"Begrunnelse for vedtaket er dokumentert i eget journalnotat (utgår)">
 					description = <"*">
+				>
+				["at0021"] = <
+					text = <"Nedenfor fremgår begrunnelse for vedtaket">
+					description = <"Begrunnelsen for vedtaket.">
 				>
 			>
 		>
