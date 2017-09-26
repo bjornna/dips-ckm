@@ -1,5 +1,5 @@
 archetype (adl_version=1.4)
-	openEHR-EHR-OBSERVATION.infeksjon_dips.v1
+	openEHR-EHR-OBSERVATION.melding_infeksjonsregister_dips.v1
 
 concept
 	[at0000]	-- Melding til infeksjonsregister
@@ -7,21 +7,25 @@ language
 	original_language = <[ISO_639-1::nb]>
 description
 	original_author = <
-		["name"] = <"">
+		["name"] = <"Anine Ramberg">
+		["email"] = <"ara@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2017-09-25">
 	>
 	details = <
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"">
+			purpose = <"Brukes i forbindelse registrering og rapportering av infeksjonsovervåkning til NOIS/POSI.">
 			use = <"">
 			misuse = <"">
 			copyright = <"">
 		>
 	>
-	lifecycle_state = <"0">
+	lifecycle_state = <"NotSet">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"954D2F65D2DD4889077E4223E10133FA">
+		["current_contact"] = <"Anine Ramberg, DIPS AS<ara@dips.no>">
+		["MD5-CAM-1.0.1"] = <"76F9D0E90BB94AD0BB7A208B2915482F">
 	>
 
 definition
@@ -42,9 +46,41 @@ definition
 													at0007, 	-- PS
 													at0008, 	-- SI
 													at0009, 	-- DI
-													at0010]	-- OS
+													at0010, 	-- OS
+													at0036, 	-- IA
+													at0037]	-- UK
 												}
 											}
+										}
+									}
+									ELEMENT[at0042] occurrences matches {0..1} matches {	-- Er infeksjonen behandlet med antibiotika
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0041] occurrences matches {0..1} matches {	-- Antall prosedyrer siste 30 dager før denne
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0040] occurrences matches {0..1} matches {	-- Endoskopisk undersøkelse
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0039] occurrences matches {0..1} matches {	-- Multiple prosedyrer
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0038] occurrences matches {0..1} matches {	-- Risikopoeng
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0031] occurrences matches {0..1} matches {	-- Narkose
+										value matches {
+											DV_TEXT matches {*}
 										}
 									}
 									ELEMENT[at0011] occurrences matches {0..1} matches {	-- Infeksjonsdato
@@ -83,7 +119,9 @@ definition
 															at0025, 	-- PS
 															at0026, 	-- SI
 															at0027, 	-- DI
-															at0028]	-- OS
+															at0028, 	-- OS
+															at0034, 	-- IA
+															at0035]	-- UK
 														}
 													}
 												}
@@ -126,7 +164,7 @@ ontology
 				>
 				["at0005"] = <
 					text = <"Infeksjonstype">
-					description = <"IN: ingen infeksjon
+					description = <"*IN: ingen infeksjon
 PS: Overflatisk postoperativ sårinfeksjon (diagnostisert av pasient)
 SI: Overflatisk postoperativ sårinfeksjon (diagnostisert av lege)
 DI: Dyp postoperativ sårinfeksjon (må diagnostiseres av lege)
@@ -167,9 +205,9 @@ OS: Postoperativ sårinfeksjon i organ eller hulrom (må diagnostiseres av lege)
 				["at0019"] = <
 					text = <"Sårets renhetsgrad">
 					description = <"Rene sår
-Rene-kontaminerte sår
-Kontaminerte sår
-Urene og infisert sår">
+. Rene-kontaminerte sår.
+Kontaminerte sår.  
+Urene og infiserte sår.">
 				>
 				["at0020"] = <
 					text = <"Rene -  kontaminerte sår">
@@ -213,6 +251,46 @@ Urene og infisert sår">
 				>
 				["at0030"] = <
 					text = <"Reoperert grunnet infeksjon">
+					description = <"*">
+				>
+				["at0031"] = <
+					text = <"Narkose">
+					description = <"Har pasienten fått narkose, ja, nei">
+				>
+				["at0034"] = <
+					text = <"IA">
+					description = <"Ikke aktuelt">
+				>
+				["at0035"] = <
+					text = <"UK">
+					description = <"Ukjent">
+				>
+				["at0036"] = <
+					text = <"IA">
+					description = <"Ikke aktuelt">
+				>
+				["at0037"] = <
+					text = <"UK">
+					description = <"Ukjent">
+				>
+				["at0038"] = <
+					text = <"Risikopoeng">
+					description = <"Felt for utregnet risikopoeng. Beregnes ut fra ASA, operasjonsvarighet, multiple prosedyrer.">
+				>
+				["at0039"] = <
+					text = <"Multiple prosedyrer">
+					description = <"Er det utført flere prosedyrer under inngrep. Ja eller nei.">
+				>
+				["at0040"] = <
+					text = <"Endoskopisk undersøkelse">
+					description = <"Er det utført en endoskopisk undersøkelse. Ja eller nei.">
+				>
+				["at0041"] = <
+					text = <"Antall prosedyrer siste 30 dager før denne">
+					description = <"Brukes i utregningen for infeksjonsrisiko">
+				>
+				["at0042"] = <
+					text = <"Er infeksjonen behandlet med antibiotika">
 					description = <"*">
 				>
 			>
