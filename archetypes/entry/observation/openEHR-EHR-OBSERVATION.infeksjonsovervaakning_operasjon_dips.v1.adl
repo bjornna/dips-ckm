@@ -1,0 +1,202 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.infeksjonsovervaakning_operasjon_dips.v1
+
+concept
+	[at0000]	-- Melding til infeksjonsregister
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anine Ramberg">
+		["email"] = <"ara@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2017-09-25">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes i forbindelse registrering og rapportering av infeksjonsovervåkning til NOIS/POSI.">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"NotSet">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <"Anine Ramberg, DIPS AS<ara@dips.no>">
+		["MD5-CAM-1.0.1"] = <"89746CE9E9EF8668FFFC752FFFDAAA4B">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Melding til infeksjonsregister
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Infeksjonstype
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {[local::]}
+											}
+										}
+									}
+									ELEMENT[at0042] occurrences matches {0..1} matches {	-- Er infeksjonen behandlet med antibiotika
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0041] occurrences matches {0..1} matches {	-- Antall prosedyrer siste 30 dager før denne
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0040] occurrences matches {0..1} matches {	-- Endoskopisk undersøkelse
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0039] occurrences matches {0..1} matches {	-- Multiple prosedyrer
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0038] occurrences matches {0..1} matches {	-- Risikopoeng
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0031] occurrences matches {0..1} matches {	-- Narkose
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0011] occurrences matches {0..1} matches {	-- Infeksjonsdato
+										value matches {
+											DV_DATE matches {*}
+										}
+									}
+									ELEMENT[at0019] occurrences matches {0..1} matches {	-- Sårets renhetsgrad
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {[local::]}
+											}
+										}
+									}
+									ELEMENT[at0030] occurrences matches {0..1} matches {	-- Reoperert grunnet infeksjon
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									CLUSTER[at0029] occurrences matches {0..*} matches {	-- Høstested
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0012] occurrences matches {0..1} matches {	-- Infeksjonstype høstested
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {[local::]}
+													}
+												}
+											}
+											ELEMENT[at0017] occurrences matches {0..1} matches {	-- Infeksjonsdato høstested
+												value matches {
+													DV_DATE matches {*}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Melding til infeksjonsregister">
+					description = <"Brukes i forbindelse med infeksjonsovervåking">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0005"] = <
+					text = <"Infeksjonstype">
+					description = <"*IN: ingen infeksjon
+PS: Overflatisk postoperativ sårinfeksjon (diagnostisert av pasient)
+SI: Overflatisk postoperativ sårinfeksjon (diagnostisert av lege)
+DI: Dyp postoperativ sårinfeksjon (må diagnostiseres av lege)
+OS: Postoperativ sårinfeksjon i organ eller hulrom (må diagnostiseres av lege)">
+				>
+				["at0011"] = <
+					text = <"Infeksjonsdato">
+					description = <"Dato for når infeksjon ble oppdaget">
+				>
+				["at0012"] = <
+					text = <"Infeksjonstype høstested">
+					description = <"Infeksjonstype høstested. Kun brukes der man transplanterer vev fra et sted til et annet.">
+				>
+				["at0017"] = <
+					text = <"Infeksjonsdato høstested">
+					description = <"Dato for vevshøsting. Kun brukes der man transplanterer vev fra et sted til et annet.">
+				>
+				["at0019"] = <
+					text = <"Sårets renhetsgrad">
+					description = <"Rene sår
+. Rene-kontaminerte sår.
+Kontaminerte sår.  
+Urene og infiserte sår.">
+				>
+				["at0029"] = <
+					text = <"Høstested">
+					description = <"*">
+				>
+				["at0030"] = <
+					text = <"Reoperert grunnet infeksjon">
+					description = <"*">
+				>
+				["at0031"] = <
+					text = <"Narkose">
+					description = <"Har pasienten fått narkose, ja, nei">
+				>
+				["at0038"] = <
+					text = <"Risikopoeng">
+					description = <"Felt for utregnet risikopoeng. Beregnes ut fra ASA, operasjonsvarighet, multiple prosedyrer.">
+				>
+				["at0039"] = <
+					text = <"Multiple prosedyrer">
+					description = <"Er det utført flere prosedyrer under inngrep. Ja eller nei.">
+				>
+				["at0040"] = <
+					text = <"Endoskopisk undersøkelse">
+					description = <"Er det utført en endoskopisk undersøkelse. Ja eller nei.">
+				>
+				["at0041"] = <
+					text = <"Antall prosedyrer siste 30 dager før denne">
+					description = <"Brukes i utregningen for infeksjonsrisiko">
+				>
+				["at0042"] = <
+					text = <"Er infeksjonen behandlet med antibiotika">
+					description = <"*">
+				>
+			>
+		>
+	>
