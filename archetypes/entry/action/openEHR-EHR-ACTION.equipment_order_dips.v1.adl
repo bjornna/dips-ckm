@@ -1,0 +1,120 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ACTION.equipment_order_dips.v1
+
+concept
+	[at0000]	-- Utstyrsbestilling
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"EA30DD2C132F4BC90E0CBAA33D0B27C9">
+	>
+
+definition
+	ACTION[at0000] matches {	-- Utstyrsbestilling
+		ism_transition matches {
+			ISM_TRANSITION[at0006] matches {	-- Planlagt
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::526]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0006]}		-- Planlagt
+					}
+				}
+			}
+			ISM_TRANSITION[at0007] matches {	-- Bestilt
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::529]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0007]}		-- Bestilt
+					}
+				}
+			}
+		}
+		description matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Navn på utstyr
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Beskrivelse
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Kommentar
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0004] occurrences matches {0..*} matches {	-- Detaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Utstyrsbestilling">
+					description = <"Benyttes til bestilling av utstyr i fbm utføring av en helesetjeneste.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Navn på utstyr">
+					description = <"Navn på ønsket/bestilt utstyr.">
+				>
+				["at0003"] = <
+					text = <"Beskrivelse">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Detaljer">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Kommentar">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Planlagt">
+					description = <"Utsyret er planlagt/ønsket.">
+				>
+				["at0007"] = <
+					text = <"Bestilt">
+					description = <"Utsyret er bestilt/booket.">
+				>
+			>
+		>
+	>

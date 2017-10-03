@@ -60,7 +60,16 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Pasientstatus">
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Surgery Pasientstatus">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.exam.v1" concept_name="Funn ved fysisk undersøkelse" path="/content">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.exam_chest_dips.v1" concept_name="Thoraxundersøkelse" max="1" path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]" name="Undersøkelse av hjerte og lunger">
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.exam_heart_dips.v1" concept_name="Hjerteundersøkelse" path="/items[at0004]" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.exam_lungs_dips.v1" concept_name="Undersøkelse av begge lunger" path="/items[at0004]" />
+      </Items>
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.precaution.v1" concept_name="Forholdsregel" max="1" path="/content" name="Faste medisiner">
+      <Rule path="/data[at0001]/items[at0002]" name="Faste medisiner" />
+    </Content>
     <Context />
   </definition>
 </template>
