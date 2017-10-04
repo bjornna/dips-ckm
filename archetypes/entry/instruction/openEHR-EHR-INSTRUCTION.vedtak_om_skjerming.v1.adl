@@ -36,7 +36,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"DFE3DBD617D1D457D2A32CB762088333">
+		["MD5-CAM-1.0.1"] = <"1191281085E35DB668A3F954A8B627C0">
 	>
 
 definition
@@ -58,7 +58,7 @@ definition
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0017] occurrences matches {0..*} matches {	-- Utløsende årsak
+							ELEMENT[at0017] occurrences matches {0..2} matches {	-- Utløsende årsak
 								value matches {
 									DV_CODED_TEXT matches {
 										defining_code matches {
@@ -69,7 +69,7 @@ definition
 									}
 								}
 							}
-							ELEMENT[at0006] occurrences matches {0..*} matches {	-- Begrunnelse for skjerming
+							ELEMENT[at0006] occurrences matches {0..2} matches {	-- Begrunnelse for skjerming
 								value matches {
 									DV_CODED_TEXT matches {
 										defining_code matches {
@@ -80,16 +80,32 @@ definition
 									}
 								}
 							}
+							ELEMENT[at0056] occurrences matches {0..1} matches {	-- Vedtakstype
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0057, 	-- Pasienten motsetter seg ikke skjerming av mindre inngripende karakter, jf. psykisk helsevernloven § 4 3 annet ledd første punktum. Det fattes da vedtak ved opprettholdelse ut over 24 timer.
+											at0058]	-- Pasienten motsetter seg ikke overføring til skjermet enhet eller liknende som innebærer en betydelig endring av omgivelser eller bevegelsesfrihet, jf. psykisk helsevernloven § 4 3 annet ledd annet punktum. Det fattes da vedtak ved opprettholdelse ut over 12 timer.
+										}
+									}
+								}
+							}
 							ELEMENT[at0055] occurrences matches {0..1} matches {	-- Nedenfor fremgår opplysninger om skjermingens innhold og begrunnelsen for skjermingen
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0051] occurrences matches {0..1} matches {	-- Vedtakstype
+							ELEMENT[at0030] occurrences matches {0..1} matches {	-- Iverksatt av (tjenesteyter)
 								value matches {
-									0|[local::at0052], 	-- Pasienten motsetter seg skjerming, jf. psykisk helsevernloven § 4 3 annet ledd første punktum. Vedtak skal fattes før skjerming.
-									1|[local::at0053], 	-- Pasienten motsetter seg ikke skjerming av mindre inngripende karakter, jf. psykisk helsevernloven § 4 3 annet ledd første punktum. Det fattes da vedtak ved opprettholdelse ut over 24 timer.
-									2|[local::at0054]  	-- Pasienten motsetter seg ikke overføring til skjermet enhet eller liknende som innebærer en betydelig endring av omgivelser eller bevegelsesfrihet, jf. psykisk helsevernloven § 4 3 annet ledd annet punktum. Det fattes da vedtak ved opprettholdelse ut over 12 timer.
+									DV_CODED_TEXT matches {
+										defining_code matches {[ac0001]}		-- New constraint
+									}
+								}
+							}
+							ELEMENT[at0031] occurrences matches {0..1} matches {	-- Stilling
+								value matches {
+									DV_TEXT matches {*}
 								}
 							}
 							ELEMENT[at0012] occurrences matches {0..1} matches {	-- Iverksatt tidspunkt
@@ -99,14 +115,14 @@ definition
 									}
 								}
 							}
-							ELEMENT[at0037] occurrences matches {0..1} matches {	-- Vedtaket skal avsluttes innen
+							ELEMENT[at0035] occurrences matches {0..1} matches {	-- Dato og tidspunkt vedtak fattet
 								value matches {
 									DV_DATE_TIME matches {
 										value matches {yyyy-mm-ddTHH:??:??}
 									}
 								}
 							}
-							ELEMENT[at0035] occurrences matches {0..1} matches {	-- Dato og tidspunkt vedtak fattet
+							ELEMENT[at0032] occurrences matches {0..1} matches {	-- Frist for å fatte formelt vedtak
 								value matches {
 									DV_DATE_TIME matches {
 										value matches {yyyy-mm-ddTHH:??:??}
@@ -121,35 +137,6 @@ definition
 								include
 									archetype_id/value matches {/.*/}
 							}
-							ELEMENT[at0030] occurrences matches {0..1} matches {	-- Iverksatt av (tjenesteyter) (utgår)
-								value matches {
-									DV_CODED_TEXT matches {
-										defining_code matches {[ac0001]}		-- New constraint
-									}
-								}
-							}
-							ELEMENT[at0047] occurrences matches {0..1} matches {	--  Nødvendige, detaljerte opplysninger om skjermingens innhold og begrunnelsen for skjermingen (utgår)
-								value matches {
-									DV_TEXT matches {*}
-								}
-							}
-							ELEMENT[at0031] occurrences matches {0..1} matches {	-- Stilling (utgår)
-								value matches {
-									DV_TEXT matches {*}
-								}
-							}
-							ELEMENT[at0032] occurrences matches {0..1} matches {	-- Frist for å fatte formelt vedtak (utgår)
-								value matches {
-									DV_DATE_TIME matches {
-										value matches {yyyy-mm-ddTHH:MM:SS}
-									}
-								}
-							}
-							ELEMENT[at0046] occurrences matches {0..1} matches {	-- Begrunnelse for skjermingsvedtak i journalnotat datert: (utgår)
-								value matches {
-									DV_DATE matches {*}
-								}
-							}
 							ELEMENT[at0038] occurrences matches {0..1} matches {	-- Vedtakstype (utgår)
 								value matches {
 									DV_CODED_TEXT matches {
@@ -159,6 +146,23 @@ definition
 											at0040]	-- Pasienten overføres til skjermet enhet eller liknende som innebærer en betydelig endring av vedkommendes omgivelser eller bevegelsesfrihet, jf. psykisk helsevernloven § 4 3 annet ledd annet punktum
 										}
 									}
+								}
+							}
+							ELEMENT[at0047] occurrences matches {0..1} matches {	--  Nødvendige, detaljerte opplysninger om skjermingens innhold og begrunnelsen for skjermingen (utgår)
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0037] occurrences matches {0..1} matches {	-- Vedtaket skal avsluttes innen
+								value matches {
+									DV_DATE_TIME matches {
+										value matches {yyyy-mm-ddTHH:??:??}
+									}
+								}
+							}
+							ELEMENT[at0046] occurrences matches {0..1} matches {	-- Begrunnelse for skjermingsvedtak i journalnotat datert: (utgår)
+								value matches {
+									DV_DATE matches {*}
 								}
 							}
 							ELEMENT[at0050] occurrences matches {0..1} matches {	-- Begrunnelse for vedtaket er dokumentert i eget journalnotat (utgår)
@@ -209,15 +213,15 @@ ontology
 					description = <"Identifikasjon av den enheten hvor vedtaket fattes.">
 				>
 				["at0030"] = <
-					text = <"Iverksatt av (tjenesteyter) (utgår)">
-					description = <"Den tjenesteyter som besluttet å iverksette skjerming">
+					text = <"Iverksatt av (tjenesteyter)">
+					description = <"Den tjenesteyter som besluttet å iverksette skjerming.">
 				>
 				["at0031"] = <
-					text = <"Stilling (utgår)">
-					description = <"Stilling til tjenesteyter">
+					text = <"Stilling">
+					description = <"Stilling til tjenesteyter som besluttet å iverksette skjerming.">
 				>
 				["at0032"] = <
-					text = <"Frist for å fatte formelt vedtak (utgår)">
+					text = <"Frist for å fatte formelt vedtak">
 					description = <"Frist for å fatte formelt vedtak om skjerming ">
 				>
 				["at0035"] = <
@@ -226,7 +230,7 @@ ontology
 				>
 				["at0036"] = <
 					text = <"Vedtakstype">
-					description = <"*">
+					description = <"Standard kodeverk 9256 Vedtakstype skjerming.">
 				>
 				["at0037"] = <
 					text = <"Vedtaket skal avsluttes innen">
@@ -280,25 +284,21 @@ ontology
 					text = <"Begrunnelse for vedtaket er dokumentert i eget journalnotat (utgår)">
 					description = <"*">
 				>
-				["at0051"] = <
-					text = <"Vedtakstype">
-					description = <"Standard kodeverk 9256 Vedtakstype skjerming.">
-				>
-				["at0052"] = <
-					text = <"Pasienten motsetter seg skjerming, jf. psykisk helsevernloven § 4 3 annet ledd første punktum. Vedtak skal fattes før skjerming.">
-					description = <"*">
-				>
-				["at0053"] = <
-					text = <"Pasienten motsetter seg ikke skjerming av mindre inngripende karakter, jf. psykisk helsevernloven § 4 3 annet ledd første punktum. Det fattes da vedtak ved opprettholdelse ut over 24 timer.">
-					description = <"*">
-				>
-				["at0054"] = <
-					text = <"Pasienten motsetter seg ikke overføring til skjermet enhet eller liknende som innebærer en betydelig endring av omgivelser eller bevegelsesfrihet, jf. psykisk helsevernloven § 4 3 annet ledd annet punktum. Det fattes da vedtak ved opprettholdelse ut over 12 timer.">
-					description = <"*">
-				>
 				["at0055"] = <
 					text = <"Nedenfor fremgår opplysninger om skjermingens innhold og begrunnelsen for skjermingen">
 					description = <"Opplysninger om skjermingens innhold og begrunnelsen for skjermingen.">
+				>
+				["at0056"] = <
+					text = <"Vedtakstype">
+					description = <"Standard kodeverk 9256 Vedtakstype skjerming.">
+				>
+				["at0057"] = <
+					text = <"Pasienten motsetter seg ikke skjerming av mindre inngripende karakter, jf. psykisk helsevernloven § 4 3 annet ledd første punktum. Det fattes da vedtak ved opprettholdelse ut over 24 timer.">
+					description = <"*">
+				>
+				["at0058"] = <
+					text = <"Pasienten motsetter seg ikke overføring til skjermet enhet eller liknende som innebærer en betydelig endring av omgivelser eller bevegelsesfrihet, jf. psykisk helsevernloven § 4 3 annet ledd annet punktum. Det fattes da vedtak ved opprettholdelse ut over 12 timer.">
+					description = <"*">
 				>
 			>
 		>
@@ -333,24 +333,24 @@ ontology
 					description = <"*Identifikasjon av den enheten hvor vedtaket fattes.(nb)">
 				>
 				["at0030"] = <
-					text = <"Iverksatt av (tjenesteyter)">
-					description = <"Den tjenesteyter som besluttet å iverksette skjerming">
+					text = <"*Iverksatt av (tjenesteyter)(nb)">
+					description = <"*Den tjenesteyter som besluttet å iverksette skjerming.(nb)">
 				>
 				["at0031"] = <
-					text = <"Stilling">
-					description = <"Stilling til tjenesteyter">
+					text = <"*Stilling(nb)">
+					description = <"*Stilling til tjenesteyter som besluttet å iverksette skjerming.(nb)">
 				>
 				["at0032"] = <
-					text = <"Frist for å fatte formelt vedtak">
-					description = <"Kode som angir hvilken type vedtak registreringen gjelder">
+					text = <"*Frist for å fatte formelt vedtak(nb)">
+					description = <"*Frist for å fatte formelt vedtak om skjerming (nb)">
 				>
 				["at0035"] = <
 					text = <"*Dato og tidspunkt vedtak fattet:(nb)">
 					description = <"*Det tidspunkt (dato og klokkeslett) vedtaket ble fattet.(nb)">
 				>
 				["at0036"] = <
-					text = <"Vedtakstype">
-					description = <"*">
+					text = <"*Vedtakstype(nb)">
+					description = <"*Standard kodeverk 9256 Vedtakstype skjerming.(nb)">
 				>
 				["at0037"] = <
 					text = <"*Vedtaket skal avsluttes innen(nb)">
@@ -404,24 +404,20 @@ ontology
 					text = <"*Begrunnelse for vedtaket er dokumentert i eget journalnotat(nb)">
 					description = <"**(nb)">
 				>
-				["at0051"] = <
+				["at0055"] = <
 					text = <"*New element(nb)">
 					description = <"**(nb)">
 				>
-				["at0052"] = <
-					text = <"*Pasienten motsetter seg skjerming, jf. psykisk helsevernloven § 4 3 annet ledd første punktum. Vedtak skal fattes før skjerming.(nb)">
-					description = <"**(nb)">
+				["at0056"] = <
+					text = <"*Vedtakstype(nb)">
+					description = <"*Standard kodeverk 9256 Vedtakstype skjerming.(nb)">
 				>
-				["at0053"] = <
+				["at0057"] = <
 					text = <"*Pasienten motsetter seg ikke skjerming av mindre inngripende karakter, jf. psykisk helsevernloven § 4 3 annet ledd første punktum. Det fattes da vedtak ved opprettholdelse ut over 24 timer.(nb)">
 					description = <"**(nb)">
 				>
-				["at0054"] = <
+				["at0058"] = <
 					text = <"*Pasienten motsetter seg ikke overføring til skjermet enhet eller liknende som innebærer en betydelig endring av omgivelser eller bevegelsesfrihet, jf. psykisk helsevernloven § 4 3 annet ledd annet punktum. Det fattes da vedtak ved opprettholdelse ut over 12 timer.(nb)">
-					description = <"**(nb)">
-				>
-				["at0055"] = <
-					text = <"*New element(nb)">
 					description = <"**(nb)">
 				>
 			>
