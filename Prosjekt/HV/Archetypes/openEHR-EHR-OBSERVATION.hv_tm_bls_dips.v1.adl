@@ -1,0 +1,127 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.hv_tm_bls_dips.v1
+
+concept
+	[at0000]	-- Hv tm bls dips
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Lars Morgan Karlsen">
+		["email"] = <"lmk@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2017-07-19">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for å angi administrativ informasjon knyttet til blodsukkermåling, evt. med siste målte verdi og dato.">
+			use = <"Brukes for å angi administrativ informasjon knyttet til blodsukkermåling, evt. med siste målte verdi og dato.">
+			misuse = <"All annen bruk">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <"Lars Morgan Karlsen, DIPS ASA<lmk@dips.no>">
+		["MD5-CAM-1.0.1"] = <"2C1EC8811021CC1443A0E6FCD4FBD537">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Hv tm bls dips
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Blodsukker
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Sist målte blodsukker
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::384]>
+												list = <
+													["1"] = <
+														units = <"mmol">
+														magnitude = <|0.0..40.0|>
+														precision = <|1|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {	-- Tidspunkt sist målte blodsukker
+										value matches {
+											DV_DATE_TIME matches {*}
+										}
+									}
+									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Merknad
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0009] occurrences matches {0..1} matches {	-- Ikke relevant
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Hv tm bls dips">
+					description = <"Brukes for å angi administrativ informasjon knyttet til blodsukkermåling, evt. med siste målte verdi og dato.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Blodsukker">
+					description = <"Fritekstlig beskrivelse av blodsukkermålinger.">
+				>
+				["at0005"] = <
+					text = <"Sist målte blodsukker">
+					description = <"Sist målte blodsukker">
+				>
+				["at0006"] = <
+					text = <"Tidspunkt sist målte blodsukker">
+					description = <"Tidspunkt sist målte blodsukker">
+				>
+				["at0007"] = <
+					text = <"Merknad">
+					description = <"Merknad">
+				>
+				["at0009"] = <
+					text = <"Ikke relevant">
+					description = <"Angir at det ikke er relevant å måle blodsukker">
+				>
+			>
+		>
+	>
