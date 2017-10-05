@@ -36,7 +36,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"A2224C60FC6C67BBFB59F77CF9A4A0E1">
+		["MD5-CAM-1.0.1"] = <"FF3DC9C446038119D5D92AD068014859">
 	>
 
 definition
@@ -54,7 +54,7 @@ definition
 					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Vedtak TPH gjelder til
 						value matches {
 							DV_DATE_TIME matches {
-								value matches {yyyy-mm-ddTHH:MM:SS}
+								value matches {yyyy-mm-ddTHH:??:??}
 							}
 						}
 					}
@@ -67,7 +67,7 @@ definition
 						include
 							archetype_id/value matches {/.*/}
 					}
-					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Endring av tvangsform
+					ELEMENT[at0005] occurrences matches {0..3} matches {	-- Endring av tvangsform
 						value matches {
 							DV_CODED_TEXT matches {
 								defining_code matches {
@@ -84,7 +84,7 @@ definition
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0030] occurrences matches {0..1} matches {	-- En overføring fra med døgnopphold til uten døgnopphold er et bedre alternativ for pasienten, begrunnelse
+					ELEMENT[at0030] occurrences matches {0..1} matches {	-- En overføring fra "med døgnopphold" til "uten døgnopphold" er et bedre alternativ for pasienten, begrunnelse
 						value matches {
 							DV_TEXT matches {*}
 						}
@@ -106,11 +106,6 @@ definition
 							}
 						}
 					}
-					ELEMENT[at0031] occurrences matches {0..1} matches {	-- Nedenfor fremgår begrunnelse for at umiddelbar overføring er strengt nødvendig
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
 					ELEMENT[at0021] occurrences matches {0..1} matches {	-- Helsetjenesteenhet
 						value matches {
 							DV_TEXT matches {*}
@@ -123,13 +118,6 @@ definition
 							}
 						}
 					}
-					ELEMENT[at0024] occurrences matches {0..1} matches {	-- Det foreligger begjæring
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True, False}
-							}
-						}
-					}
 					allow_archetype CLUSTER[at0018] occurrences matches {0..*} matches {	-- Vedtakstype
 						include
 							archetype_id/value matches {/.*/}
@@ -137,6 +125,18 @@ definition
 					allow_archetype CLUSTER[at0025] occurrences matches {0..*} matches {	-- Vurdering av pasientinnsyn
 						include
 							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0024] occurrences matches {0..1} matches {	-- Det foreligger begjæring (utgår)
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0031] occurrences matches {0..1} matches {	-- Nedenfor fremgår begrunnelse for at umiddelbar overføring er strengt nødvendig
+						value matches {
+							DV_TEXT matches {*}
+						}
 					}
 					ELEMENT[at0026] occurrences matches {0..1} matches {	-- Relevant og nødvendig begrunnelse for de ulike vilkårene i vedtaket (utgår)
 						value matches {
@@ -235,7 +235,7 @@ ontology
 				>
 				["at0014"] = <
 					text = <"Iverksettelse av overføring">
-					description = <"Standard kodeverk 9282 Gjennomføring av overføringsvedtak TPH.">
+					description = <"Standard kodeverk 9282 gjennomføring av overføringsvedtak TPH.">
 				>
 				["at0015"] = <
 					text = <"Vedtak om overføring settes ikke i verk før klagefristen er ute eller klagesaken er avgjort">
@@ -270,7 +270,7 @@ ontology
 					description = <"Den dato tvungent psykisk helsevern opprinnelig ble vedtatt.">
 				>
 				["at0024"] = <
-					text = <"Det foreligger begjæring">
+					text = <"Det foreligger begjæring (utgår)">
 					description = <"Hukes av dersom det foreligger begjæring">
 				>
 				["at0025"] = <
@@ -294,12 +294,12 @@ ontology
 					description = <"Det er ved en overføring fra \"med døgnopphold\" er det tatt tilbørlig hensyn til pårørende som pasienten bor sammen med.">
 				>
 				["at0030"] = <
-					text = <"En overføring fra med døgnopphold til uten døgnopphold er et bedre alternativ for pasienten, begrunnelse">
+					text = <"En overføring fra \"med døgnopphold\" til \"uten døgnopphold\" er et bedre alternativ for pasienten, begrunnelse">
 					description = <"Det er vurdert at en overføring fra \"med døgnopphold\" til \"uten døgnopphold\" er et bedre alternativ for pasienten.">
 				>
 				["at0031"] = <
 					text = <"Nedenfor fremgår begrunnelse for at umiddelbar overføring er strengt nødvendig">
-					description = <"Dersom IVSN er angitt som kode for iverksettelse av vedtaket, skal tekstfelt for registrering av begrunnelse gjøres tilgjengelig og skal fylles ut.">
+					description = <"Begrunnelse for at umiddelbar overføring er strengt nødvendig.">
 				>
 			>
 		>
@@ -354,8 +354,8 @@ ontology
 					description = <"*">
 				>
 				["at0014"] = <
-					text = <"Iverksettelse av overføring">
-					description = <"*">
+					text = <"*Iverksettelse av overføring(nb)">
+					description = <"*Standard kodeverk 9282 gjennomføring av overføringsvedtak TPH.(nb)">
 				>
 				["at0015"] = <
 					text = <"Vedtak om overføring settes ikke i verk før klagefristen er ute eller klagesaken er avgjort">
@@ -390,8 +390,8 @@ ontology
 					description = <"*">
 				>
 				["at0024"] = <
-					text = <"Det foreligger begjæring">
-					description = <"Hukes av dersom det foreligger begjæring">
+					text = <"*Det foreligger begjæring (utgår)(nb)">
+					description = <"*Hukes av dersom det foreligger begjæring(nb)">
 				>
 				["at0025"] = <
 					text = <"*Vurdering av pasientinnsyn(nb)">
@@ -414,12 +414,12 @@ ontology
 					description = <"**(nb)">
 				>
 				["at0030"] = <
-					text = <"*En overføring fra med døgnopphold til uten døgnopphold er et bedre alternativ for pasienten, begrunnelse(nb)">
+					text = <"*En overføring fra \"med døgnopphold\" til \"uten døgnopphold\" er et bedre alternativ for pasienten, begrunnelse(nb)">
 					description = <"*Det er vurdert at en overføring fra \"med døgnopphold\" til \"uten døgnopphold\" er et bedre alternativ for pasienten.(nb)">
 				>
 				["at0031"] = <
-					text = <"*New element(nb)">
-					description = <"**(nb)">
+					text = <"*Nedenfor fremgår begrunnelse for at umiddelbar overføring er strengt nødvendig(nb)">
+					description = <"*Begrunnelse for at umiddelbar overføring er strengt nødvendig.(nb)">
 				>
 			>
 		>
