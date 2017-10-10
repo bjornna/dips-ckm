@@ -1,5 +1,5 @@
 archetype (adl_version=1.4)
-	openEHR-EHR-ADMIN_ENTRY.hjelpefelter_sykmld.v1
+	openEHR-EHR-ADMIN_ENTRY.hjelpefelter_sykmelding.v1
 
 concept
 	[at0000]	-- Hjelpefelter sykmelding
@@ -21,7 +21,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"D35C80D1D7A8BE8E685EF8D455380AC4">
+		["MD5-CAM-1.0.1"] = <"9D6FFAAAD04B289A422391CED4FEF899">
 	>
 
 definition
@@ -29,45 +29,24 @@ definition
 		data matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Vil du opprette utvidet sykmelding?
-						value matches {
-							DV_CODED_TEXT matches {
-								defining_code matches {[local::at0008]}		-- Ja
-							}
-						}
-					}
-					ELEMENT[at0003] occurrences matches {0..1} matches {	-- 1. Pasientopplysninger
-						value matches {
-							DV_CODED_TEXT matches {
-								defining_code matches {[local::at0009]}		-- Vis/skjul
-							}
-						}
-					}
-					ELEMENT[at0004] occurrences matches {0..1} matches {	-- 2. Arbeidsforhold
-						value matches {
-							DV_CODED_TEXT matches {
-								defining_code matches {[local::at0010]}		-- Vis/skjul
-							}
-						}
-					}
-					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Vil du opprette utvidet sykmelding?
+					ELEMENT[at0032] occurrences matches {0..1} matches {	-- Bruk hoveddiagnose fra aktuell kontakt
 						value matches {
 							DV_BOOLEAN matches {
 								value matches {True, False}
 							}
 						}
 					}
-					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Vis/skjul 1. Pasientopplysninger
+					ELEMENT[at0033] occurrences matches {0..1} matches {	-- Første fraværsdag
 						value matches {
-							DV_BOOLEAN matches {
-								value matches {True, False}
+							DV_DATE matches {
+								value matches {yyyy-??-XX}
 							}
 						}
 					}
-					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Vis/skjul 2. Arbeidsforhold
+					ELEMENT[at0034] occurrences matches {0..1} matches {	-- Periodens sluttdato forrige sykmelding i henvisningsperioden
 						value matches {
-							DV_BOOLEAN matches {
-								value matches {True, False}
+							DV_DATE matches {
+								value matches {yyyy-??-XX}
 							}
 						}
 					}
@@ -163,42 +142,6 @@ ontology
 					text = <"Tree">
 					description = <"@ internal @">
 				>
-				["at0002"] = <
-					text = <"Vil du opprette utvidet sykmelding?">
-					description = <"*">
-				>
-				["at0003"] = <
-					text = <"1. Pasientopplysninger">
-					description = <"*">
-				>
-				["at0004"] = <
-					text = <"2. Arbeidsforhold">
-					description = <"*">
-				>
-				["at0005"] = <
-					text = <"Vil du opprette utvidet sykmelding?">
-					description = <"*">
-				>
-				["at0006"] = <
-					text = <"Vis/skjul 1. Pasientopplysninger">
-					description = <"*">
-				>
-				["at0007"] = <
-					text = <"Vis/skjul 2. Arbeidsforhold">
-					description = <"*">
-				>
-				["at0008"] = <
-					text = <"Ja">
-					description = <"Ja">
-				>
-				["at0009"] = <
-					text = <"Vis/skjul">
-					description = <"*">
-				>
-				["at0010"] = <
-					text = <"Vis/skjul">
-					description = <"*">
-				>
 				["at0017"] = <
 					text = <"Kontrollsiffer A">
 					description = <"*">
@@ -258,6 +201,18 @@ ontology
 				["at0031"] = <
 					text = <"Reservert">
 					description = <"*">
+				>
+				["at0032"] = <
+					text = <"Bruk hoveddiagnose fra aktuell kontakt">
+					description = <"Sett hake for å hente hoveddiagnose fra aktuell kontakt. Dersom hoveddiagnose ikke er registrert på aktuell kontakt vil feltene 3.1.2 og 3.1.3 ikke få verdi.">
+				>
+				["at0033"] = <
+					text = <"Første fraværsdag">
+					description = <"SyketilfelleStartDato aka. SykmeldingFOMDato.">
+				>
+				["at0034"] = <
+					text = <"Periodens sluttdato forrige sykmelding i henvisningsperioden">
+					description = <"Gjenbruker periodens sluttdato forrige sykmelding, som forslag til periodens startdato i forlenget sykmelding.">
 				>
 			>
 		>

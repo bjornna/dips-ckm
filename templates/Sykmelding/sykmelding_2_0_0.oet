@@ -62,6 +62,34 @@
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Sykmelding">
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.sykmelding_dips.v1" concept_name="Sykmelding" path="/content">
+      <Rule path="/data[at0001]/items[at0024]/items[at0003]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>201710-VOLVEN-OID-8131::8131-1::a) når vedkommende er innlagt i en godkjent helseinstitusjon</includedValues>
+          <includedValues>201710-VOLVEN-OID-8131::8131-2::b) når vedkommende er under behandling og legen erklærer at behandlingen gjør det nødvendig at vedkommende ikke arbeider</includedValues>
+          <includedValues>201710-VOLVEN-OID-8131::8131-3::c) når vedkommende deltar på et arbeidsrettet tiltak</includedValues>
+          <includedValues>201710-VOLVEN-OID-8131::8131-4::d) når vedkommende på grunn av sykdom, skade eller lyte får tilskudd til opplæringstiltak etter § 10-7 tredje ledd</includedValues>
+          <includedValues>201710-VOLVEN-OID-8131::8131-5::e) når vedkommende er til nødvendig kontrollundersøkelse som krever minst 24 timers fravær, reisetid medregnet</includedValues>
+          <includedValues>201710-VOLVEN-OID-8131::8131-6::f) når vedkommende myndighet har nedlagt forbud mot at han eller hun arbeider på grunn av smittefare</includedValues>
+          <includedValues>201710-VOLVEN-OID-8131::8131-7::g) når vedkommende er arbeidsufør som følge av svangerskapsavbrudd</includedValues>
+          <includedValues>201710-VOLVEN-OID-8131::8131-8::h) når vedkommende er arbeidsufør som følge av behandling for barnløshet</includedValues>
+          <includedValues>201710-VOLVEN-OID-8131::8131-9::i) når vedkommende er donor eller er under vurdering som donor</includedValues>
+          <includedValues>201710-VOLVEN-OID-8131::8131-10::j) når vedkommende er arbeidsufør som følge av behandling i forbindelse med sterilisering</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0014]/items[at0022]/items[at0036]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>201710-VOLVEN-OID-8133::8133-1::Helsetilstanden hindrer pasienten i å være i aktivitet</includedValues>
+          <includedValues>201710-VOLVEN-OID-8133::8133-2::Aktivitet vil forverre helsetilstanden</includedValues>
+          <includedValues>201710-VOLVEN-OID-8133::8133-3::Aktivitet vil hindre/forsinke bedring av helsetilstanden</includedValues>
+          <includedValues>201710-VOLVEN-OID-8133::8133-9::Annet</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0014]/items[at0022]/items[at0039]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>201710-VOLVEN-OID-8132::8132-1::Manglende tilrettelegging på arbeidsplassen</includedValues>
+          <includedValues>201710-VOLVEN-OID-8132::8132-9::Annet</includedValues>
+        </constraint>
+      </Rule>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.public_services_dips.v1" concept_name="Kommunale tjenester" path="/data[at0001]/items[at0094]/items[at0092]">
         <Rule path="/items[at0004]">
           <constraint xsi:type="textConstraint">
@@ -71,7 +99,11 @@
         <Rule path="/items[at0010]" max="0" />
         <Rule path="/items[at0011]" max="0" />
         <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.organisation_dips.v1" concept_name="Organisasjon" path="/items[at0013]">
-          <Rule path="/items[at0001]" name="1.5 NAV-kontor" />
+          <Rule path="/items[at0001]" name="1.5 NAV-kontor">
+            <constraint xsi:type="textConstraint">
+              <termQueryId terminologyID="DIPS-Organisation" terminologyLang="no-nb" queryName="SocialSecurityOffice" />
+            </constraint>
+          </Rule>
           <Rule path="/items[at0011]">
             <constraint xsi:type="textConstraint">
               <includedValues>NAV-kontor</includedValues>
@@ -80,17 +112,43 @@
           <Rule path="/items[at0005]" max="0" />
         </Items>
       </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.occupation_dips.v1" concept_name="Sysselsetting" path="/data[at0001]/items[at0096]">
-        <Rule path="/items[at0001]" name="2.1 Pasienten har" />
-        <Rule path="/items[at0016]" max="0" />
-        <Rule path="/items[at0002]/items[at0003]" name="2.2 Arbeidsgiver for denne sykmeldingen" />
-        <Rule path="/items[at0002]/items[at0005]" max="1" name="2.3 Yrke/stilling for dette arbeidsforholdet" />
-        <Rule path="/items[at0002]/items[at0013]" name="2.4 Stillingsprosent" />
-        <Rule path="/items[at0002]/items[at0006]" max="0" />
-        <Rule path="/items[at0002]/items[at0015]" max="0" />
-        <Rule path="/items[at0002]/items[at0007]" max="0" />
-        <Rule path="/items[at0002]/items[at0008]" max="0" />
-        <Rule path="/items[at0002]/items[at0014]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.occupation_summary_dips.v1" concept_name="Sysselsettingssammendrag" path="/data[at0001]/items[at0096]">
+        <Rule path="/items[at0003]" name="2.1 Pasienten har">
+          <constraint xsi:type="textConstraint">
+            <includedValues>201710-VOLVEN-OID-8130::1::Én arbeidsgiver</includedValues>
+            <includedValues>201710-VOLVEN-OID-8130::2::Flere arbeidsgivere</includedValues>
+            <includedValues>201710-VOLVEN-OID-8130::3::Ingen arbeidsgivere</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0001]" max="0" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.occupation_episode_dips.v1" concept_name="Sysselsettingsepisode" path="/items[at0002]">
+          <Rule path="/items[at0001]" max="0" />
+          <Rule path="/items[at0016]" max="0" />
+          <Rule path="/items[at0007]" max="0" />
+          <Rule path="/items[at0006]" max="0" />
+          <Rule path="/items[at0005]" max="1" name="2.3 Yrke/stilling for dette arbeidsforholdet" />
+          <Rule path="/items[at0013]" name="2.4 Stillingsprosent">
+            <constraint xsi:type="quantityConstraint">
+              <unitMagnitude>
+                <unit>%</unit>
+                <maxMagnitude>100</maxMagnitude>
+                <minMagnitude>1</minMagnitude>
+                <precision>0</precision>
+                <includesMaximum>true</includesMaximum>
+                <includesMinimum>true</includesMinimum>
+              </unitMagnitude>
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0019]" max="0" />
+          <Rule path="/items[at0015]" max="0" />
+          <Rule path="/items[at0008]" max="0" />
+          <Rule path="/items[at0014]" max="0" />
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.organisation_dips.v1" concept_name="Organisasjon" path="/items[at0004]">
+            <Rule path="/items[at0001]" name="2.2 Arbeidsgiver for denne sykmeldingen" />
+            <Rule path="/items[at0011]" max="0" />
+            <Rule path="/items[at0005]" max="0" />
+          </Items>
+        </Items>
       </Items>
     </Content>
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.patient_information_dips.v1" concept_name="Pasientopplysninger" path="/content">
@@ -217,6 +275,7 @@
         </Items>
       </Items>
     </Content>
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.hjelpefelter_sykmelding.v1" concept_name="Hjelpefelter sykmelding" path="/content" />
     <Context />
   </definition>
 </template>
