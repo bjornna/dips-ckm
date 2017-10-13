@@ -77,7 +77,7 @@
       </Rule>
       <Rule path="/activities[at0001]/description[at0009]/items[at0.2]">
         <constraint xsi:type="textConstraint">
-          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="VI-OPERASJONSTYPER" />
+          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ARK-VI-OPERASJONSTYPER" />
         </constraint>
       </Rule>
       <Rule path="/activities[at0001]/description[at0009]/items[at0135.1]" name="Beskrivelse" />
@@ -99,7 +99,7 @@
         </Rule>
         <Rule path="/items[at0002]">
           <constraint xsi:type="textConstraint">
-            <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="VI-OPERASJONSTYPER" />
+            <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ARK-VI-OPERASJONSTYPER" />
           </constraint>
         </Rule>
       </Items>
@@ -113,13 +113,24 @@
         <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.person_name_dips.v1" concept_name="Person navn" path="/items[at0015]">
           <Rule path="/items[at0006]" max="0" />
           <Rule path="/items[at0022]" max="0" />
+          <Rule path="/items[at0001]">
+            <constraint xsi:type="textConstraint">
+              <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="HEALTHCAREPARTY" />
+            </constraint>
+          </Rule>
           <Rule path="/items[at0002]" max="0" />
           <Rule path="/items[at0014]" max="0" />
         </Items>
         <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.professional_role_dips.v1" concept_name="Profesjonsrolle" path="/items[at0003]/items[at0016]" />
       </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.estimated_surgery_time_dips.v1" concept_name="Estimert knivtid" path="/activities[at0001]/description[at0009]/items[at0132]" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.anesthesia_requested_dips.v1" concept_name="Ønsket anestesi" path="/activities[at0001]/description[at0009]/items[at0132]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.anesthesia_requested_dips.v1" concept_name="Ønsket anestesi" path="/activities[at0001]/description[at0009]/items[at0132]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ARK-UDS-ØNSKET ANESTESI" />
+          </constraint>
+        </Rule>
+      </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.surgery_details_dips.v1" concept_name="Operasjonsdetaljer" path="/activities[at0001]/description[at0009]/items[at0132]">
         <Rule path="/items[at0013]">
           <constraint xsi:type="textConstraint">
@@ -133,6 +144,14 @@
         <Rule path="/items[at0009]/items[at0010]">
           <constraint xsi:type="multipleConstraint">
             <includedTypes>Boolean</includedTypes>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0009]/items[at0012]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Infeksjon</includedValues>
+            <includedValues>Blødning</includedValues>
+            <includedValues>Mekanisk</includedValues>
+            <includedValues>Annet</includedValues>
           </constraint>
         </Rule>
       </Items>
@@ -155,10 +174,7 @@
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.contact_summary_dips.v1" concept_name="contact summary" path="/content">
       <Rule path="/data[at0001]/items[at0019]" name="Omsorgsnivå">
         <constraint xsi:type="textConstraint">
-          <includedValues>ARK-ADM-OMSORGSNIVÅ::I::Vanlig innleggelse</includedValues>
-          <includedValues>ARK-ADM-OMSORGSNIVÅ::NADK1::Dagkirurgi</includedValues>
-          <includedValues>ARK-ADM-OMSORGSNIVÅ::NADM::Dagmedisin</includedValues>
-          <includedValues>ARK-ADM-OMSORGSNIVÅ::P::Poliklinisk omsorg</includedValues>
+          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ARK-VI-NPROMSNIVAA" />
         </constraint>
       </Rule>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.organisasjonsstruktur_dips.v1" concept_name="Organisasjonsstruktur dips" path="/data[at0001]/items[at0006]" />
