@@ -1,0 +1,128 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.hv_tm_nevrologisk_observasjon_dips.v1
+
+concept
+	[at0000]	-- Hv tm nevrologisk observasjon dips
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Lars Morgan Karlsen">
+		["email"] = <"lmk@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2017-07-12">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Benyttes for registrering av nevrologisk observasjon i forbindelse med tavlemøter i Helse Vest">
+			use = <"Benyttes for registrering av nevrologisk observasjon i forbindelse med tavlemøter i Helse Vest">
+			misuse = <"All annen bruk">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <"Lars Morgan Karlsen, DIPS ASA<lmk@dips.no>">
+		["MD5-CAM-1.0.1"] = <"5833D9B15403984C513B0FBB57777283">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Hv tm nevrologisk observasjon dips
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..*} matches {	-- Nevrologisk observasjon
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0010, 	-- Bevegelsesprotokoll
+													at0007, 	-- Guillaine Barre
+													at0009, 	-- Intrakraniell blødning
+													at0005, 	-- Kramper/epilepsi
+													at0008, 	-- Slagregime
+													at0006, 	-- Økt ICP
+													at0011]	-- Annet
+												}
+											}
+										}
+									}
+									ELEMENT[at0012] occurrences matches {0..1} matches {	-- Merknad
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Hv tm nevrologisk observasjon dips">
+					description = <"Benyttes for registrering av nevrologisk observasjon i forbindelse med tavlemøter i Helse Vest">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Nevrologisk observasjon">
+					description = <"Angi type nevrologisk observasjon, flere valg er mulig">
+				>
+				["at0005"] = <
+					text = <"Kramper/epilepsi">
+					description = <"Observasjonsregime for kramper og epilepsi">
+				>
+				["at0006"] = <
+					text = <"Økt ICP">
+					description = <"Observasjonsregime for økt ICP">
+				>
+				["at0007"] = <
+					text = <"Guillaine Barre">
+					description = <"Observasjonsregime for Guillaine Barre">
+				>
+				["at0008"] = <
+					text = <"Slagregime">
+					description = <"Observasjonsregime for slag">
+				>
+				["at0009"] = <
+					text = <"Intrakraniell blødning">
+					description = <"Observasjonsregime for intrakraniell blødning">
+				>
+				["at0010"] = <
+					text = <"Bevegelsesprotokoll">
+					description = <"Observasjonsregime for bevegelsesprotokoll">
+				>
+				["at0011"] = <
+					text = <"Annet">
+					description = <"Angi i merknadsfeltet type observasjon">
+				>
+				["at0012"] = <
+					text = <"Merknad">
+					description = <"Merknad">
+				>
+			>
+		>
+	>
