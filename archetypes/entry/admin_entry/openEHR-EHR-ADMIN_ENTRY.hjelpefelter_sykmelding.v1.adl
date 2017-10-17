@@ -21,7 +21,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"9D6FFAAAD04B289A422391CED4FEF899">
+		["MD5-CAM-1.0.1"] = <"DD72D1C8F6830B7B731BB7710F146446">
 	>
 
 definition
@@ -39,14 +39,33 @@ definition
 					ELEMENT[at0033] occurrences matches {0..1} matches {	-- Første fraværsdag
 						value matches {
 							DV_DATE matches {
-								value matches {yyyy-??-XX}
+								value matches {yyyy-mm-dd}
 							}
 						}
 					}
-					ELEMENT[at0034] occurrences matches {0..1} matches {	-- Periodens sluttdato forrige sykmelding i henvisningsperioden
+					ELEMENT[at0036] occurrences matches {0..1} matches {	-- Beregningsfelt f.o.m-dato
+						value matches {
+							C_DV_QUANTITY <
+							>
+						}
+					}
+					ELEMENT[at0035] occurrences matches {0..1} matches {	-- Sykmeldingens f.o.m-dato
 						value matches {
 							DV_DATE matches {
-								value matches {yyyy-??-XX}
+								value matches {yyyy-mm-dd}
+							}
+						}
+					}
+					ELEMENT[at0037] occurrences matches {0..1} matches {	-- Beregningsfelt t.o.m-dato
+						value matches {
+							C_DV_QUANTITY <
+							>
+						}
+					}
+					ELEMENT[at0034] occurrences matches {0..1} matches {	-- Sykmeldingens t.o.m-dato
+						value matches {
+							DV_DATE matches {
+								value matches {yyyy-mm-dd}
 							}
 						}
 					}
@@ -208,11 +227,23 @@ ontology
 				>
 				["at0033"] = <
 					text = <"Første fraværsdag">
-					description = <"SyketilfelleStartDato aka. SykmeldingFOMDato.">
+					description = <"SyketilfelleStartDato.">
 				>
 				["at0034"] = <
-					text = <"Periodens sluttdato forrige sykmelding i henvisningsperioden">
-					description = <"Gjenbruker periodens sluttdato forrige sykmelding, som forslag til periodens startdato i forlenget sykmelding.">
+					text = <"Sykmeldingens t.o.m-dato">
+					description = <"SykmeldingTOMDato. Gjenbrukes som forslag til periodens startdato i forlenget sykmelding.">
+				>
+				["at0035"] = <
+					text = <"Sykmeldingens f.o.m-dato">
+					description = <"SykmeldingFOMDato.">
+				>
+				["at0036"] = <
+					text = <"Beregningsfelt f.o.m-dato">
+					description = <"Begrensninger ECS: max(null)=0 -> datetime(0)=01.01.0001, og generiske inputfelt lagrer store tall (ticks) med E-notasjon som ikke kan videreformidles til arketypefelt som tall.">
+				>
+				["at0037"] = <
+					text = <"Beregningsfelt t.o.m-dato">
+					description = <"Begrensninger ECS: max(null)=0 -> datetime(0)=01.01.0001, og generiske inputfelt lagrer store tall (ticks) med E-notasjon som ikke kan videreformidles til arketypefelt som tall.">
 				>
 			>
 		>
