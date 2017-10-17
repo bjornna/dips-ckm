@@ -62,9 +62,14 @@
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Anestesiplan">
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" path="/content">
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.planned_anesthesia_dips.v1" concept_name="Planlagt anestesi" path="/description[at0001]/items[at0003]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.additional_procedure_dips.v1" concept_name="Tilleggsprosedyre" path="/description[at0001]/items[at0003]">
+        <Rule path="/items[at0001]" max="1" name="Anestesitype" />
+        <Rule path="/items[at0001]" max="1" clone="true" name="Planlagt luftvei" />
+        <Rule path="/items[at0001]" max="1" clone="true" name="Planlagt ekstra overvåkning" />
+        <Rule path="/items[at0001]" max="1" clone="true" name="Plan for innledning" />
+        <Rule path="/items[at0001]" max="1" clone="true" name="Postoperativ overvåkning" />
+      </Items>
     </Content>
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.preoperative_evaluation_anesthesia_dips.v1" concept_name="Preoperativ evaluering anestesi" path="/content" />
     <Context />
   </definition>
 </template>

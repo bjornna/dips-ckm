@@ -60,27 +60,24 @@
       </item>
     </other_details>
   </description>
-  <annotations path="[openEHR-EHR-COMPOSITION.encounter.v1]/content[openEHR-EHR-OBSERVATION.risk_assesement_dips.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0009]/items[at0010]">
-    <items>
-      <item>
-        <key>Notes.Comment</key>
-        <value>Legg inn lokalt kodeverk, redusert nakke osv se excel ark</value>
-      </item>
-    </items>
-  </annotations>
-  <annotations path="[openEHR-EHR-COMPOSITION.encounter.v1]/content[openEHR-EHR-OBSERVATION.risk_assesement_dips.v1]/data[at0001]/events[at0002]/data[at0003]/items[at0006]">
-    <items>
-      <item>
-        <key>Notes.Comment</key>
-        <value>Ligger i excel ark</value>
-      </item>
-    </items>
-  </annotations>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Anatomiske forhold">
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.risk_assesement_dips.v1" concept_name="Evaluering av risiko for negativt utfall og eller komplikasjoner" path="/content">
-      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0009]" max="1" name="Luftvei" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.mallampati_classification.v1" concept_name="Modifisert Mallampati-klassifikasjon" path="/data[at0001]/events[at0002]/data[at0003]/items[at0007]" />
-    </Content>
-    <Context />
+    <Context>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.health_factor_generic_dips.v1" concept_name="Helsefaktor generisk" max="1" path="/context/other_context[at0001]/items[at0002]" name="Evaluering luftvei">
+        <Rule path="/items[at0001]" name="Luftvei">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Redusert nakkeekstensjon</includedValues>
+            <includedValues>Dårlig tannstatus</includedValues>
+            <includedValues>Redusert gapeevne</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0008]" max="1" name="Evaluering luftvei">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Forventet vanskelig intubasjon</includedValues>
+            <includedValues>Aspirasjonsrisiko</includedValues>
+          </constraint>
+        </Rule>
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.mallampati_classification.v1" concept_name="Modifisert Mallampati-klassifikasjon" path="/items[at0009]" />
+      </Items>
+    </Context>
   </definition>
 </template>
