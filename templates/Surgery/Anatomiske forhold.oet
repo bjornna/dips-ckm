@@ -62,30 +62,22 @@
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Anatomiske forhold">
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.precaution.v1" concept_name="Forholdsregel" path="/content">
-      <Rule path="/data[at0001]/items[at0002]" name="Luftvei" />
+      <Rule path="/data[at0001]/items[at0002]" name="Luftvei">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ANE-LUFTVEI" />
+        </constraint>
+      </Rule>
     </Content>
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.clinical_synopsis.v1" concept_name="Klinisk sammendrag" path="/content">
-      <Rule path="/data[at0001]/items[at0002]" name="Evaluering luftvei" />
+      <Rule path="/data[at0001]/items[at0002]" name="Evaluering luftvei">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ANE-EVALUERINGLUFTVEI" />
+        </constraint>
+      </Rule>
     </Content>
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.container_dips.v1" concept_name="Container" path="/content">
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.mallampati_classification.v1" concept_name="Modifisert Mallampati-klassifikasjon" path="/data[at0001]/items[at0004]" />
     </Content>
-    <Context>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.health_factor_generic_dips.v1" concept_name="Helsefaktor generisk" max="1" path="/context/other_context[at0001]/items[at0002]" name="Evaluering luftvei">
-        <Rule path="/items[at0001]" name="Luftvei">
-          <constraint xsi:type="textConstraint">
-            <includedValues>Redusert nakkeekstensjon</includedValues>
-            <includedValues>Dårlig tannstatus</includedValues>
-            <includedValues>Redusert gapeevne</includedValues>
-          </constraint>
-        </Rule>
-        <Rule path="/items[at0008]" max="1" name="Evaluering luftvei">
-          <constraint xsi:type="textConstraint">
-            <includedValues>Forventet vanskelig intubasjon</includedValues>
-            <includedValues>Aspirasjonsrisiko</includedValues>
-          </constraint>
-        </Rule>
-      </Items>
-    </Context>
+    <Context />
   </definition>
 </template>
