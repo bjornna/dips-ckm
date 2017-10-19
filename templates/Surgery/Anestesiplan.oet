@@ -62,13 +62,32 @@
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Anestesiplan">
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" path="/content">
+      <Rule path="/protocol[at0053]/items[at0054]">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Text</includedTypes>
+        </constraint>
+      </Rule>
+      <Rule path="/protocol[at0053]/items[at0056]">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Text</includedTypes>
+        </constraint>
+      </Rule>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.additional_procedure_dips.v1" concept_name="Tilleggsprosedyre" path="/description[at0001]/items[at0003]">
-        <Rule path="/items[at0001]" max="1" name="Anestesitype" />
-        <Rule path="/items[at0001]" max="1" clone="true" name="Planlagt luftvei" />
+        <Rule path="/items[at0001]" max="1" name="Anestesitype">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ARK-ANE-HOVEDTYPE" />
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0001]" max="1" clone="true" name="Planlagt luftvei">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ARK-ANE-LUFTVEISTILGANG" />
+          </constraint>
+        </Rule>
         <Rule path="/items[at0001]" max="1" clone="true" name="Planlagt ekstra overvåkning" />
         <Rule path="/items[at0001]" max="1" clone="true" name="Plan for innledning" />
         <Rule path="/items[at0001]" max="1" clone="true" name="Postoperativ overvåkning" />
       </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.anesthesia_requested_dips.v1" concept_name="Ønsket anestesi" path="/description[at0001]/items[at0003]" />
     </Content>
     <Context />
   </definition>
