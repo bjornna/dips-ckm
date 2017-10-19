@@ -164,6 +164,22 @@
       </item>
     </items>
   </annotations>
+  <annotations path="[openEHR-EHR-COMPOSITION.encounter.v1]/content[openEHR-EHR-ACTION.procedure.v1 and name/value='Fosterdiagnostikk']/description[at0001]/items[at0048]">
+    <items>
+      <item>
+        <key>Notes.Comment</key>
+        <value>73 Skal obduseres</value>
+      </item>
+    </items>
+  </annotations>
+  <annotations path="[openEHR-EHR-COMPOSITION.encounter.v1]/content[openEHR-EHR-SECTION.fetal_diagnostics.v1]/items[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0073]">
+    <items>
+      <item>
+        <key>Notes.Comment</key>
+        <value>76 Diagnose bekreftet</value>
+      </item>
+    </items>
+  </annotations>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Svangerskapsavbrudd">
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" max="1" path="/content" name="Kirurgisk svangerskapsavbrudd">
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" path="/description[at0001]/items[at0003]" />
@@ -182,6 +198,7 @@
       <Rule path="/data[at0001]/items[at0139]" max="1" name="Prevensjonsbruk da kvinnen ble gravid" />
       <Rule path="/data[at0001]/items[at0139]" max="1" clone="true" name="Annen prevensjon, spesifikasjon" />
       <Rule path="/data[at0001]/items[at0128]" max="0" />
+      <Rule path="/data[at0001]/items[at0007]" name="Antall fostre" />
       <Rule path="/data[at0001]/items[at0065]" max="0" />
       <Rule path="/data[at0001]/items[at0028]" max="0" />
     </Content>
@@ -190,8 +207,21 @@
     </Content>
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.informasjon_gitt_dips.v1" concept_name="Informasjon gitt" max="1" path="/content" name="Informasjon om inngrepets art og virkning gitt" />
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.informasjon_gitt_dips.v1" concept_name="Informasjon gitt" max="1" path="/content" name="Informasjon om mulighet for rådgivning " />
-    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" max="1" path="/content" name="Fosterdiagnostikk" />
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.exclusion-procedure.v1" concept_name="Exclusion of a Procedure" max="1" path="/content" name="Fosterdiagnostikk ikke gjennomført" />
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.exclusion-procedure.v1" concept_name="Exclusion of a Procedure" max="1" path="/content" name="Svangerskapsavbrudd ikke gjennomført" />
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" max="1" path="/content" name="Medikamentelt svangerskapsavbrudd" />
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.fetal_diagnostics.v1" concept_name="Fetal diagnostics" max="1" path="/content" name="Fosterdiagnostikk">
+      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/diagnose" max="1" path="/items[at0001]" name="Diagnose">
+        <Rule path="/data[at0001]/items[at0073]" name="Diagnose bekreftet" />
+      </Item>
+      <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" max="1" path="/items[at0002]" name="Diagnostikk">
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" path="/description[at0001]/items[at0003]" />
+      </Item>
+      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.clinical_synopsis.v1" concept_name="Klinisk sammendrag" max="1" path="/items[at0003]" name="Patologiske funn" />
+      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.pregnancy_termination_dips.v1" concept_name="Svangerskapsavbrudd" path="/items[at0004]">
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.fetal_diagnostics_dips.v1" concept_name="Fosterdiagnostikk" path="/protocol[at0002]/items[at0003]" />
+      </Item>
+    </Content>
     <Context />
   </definition>
 </template>
