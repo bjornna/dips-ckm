@@ -25,7 +25,7 @@ description
 	other_contributors = <>
 	other_details = <
 		["current_contact"] = <"Anine Ramberg, DIPS AS<ara@dips.no>">
-		["MD5-CAM-1.0.1"] = <"76F9D0E90BB94AD0BB7A208B2915482F">
+		["MD5-CAM-1.0.1"] = <"74064DDFAF8887C57DADF6D2EE21B52D">
 	>
 
 definition
@@ -33,7 +33,7 @@ definition
 		data matches {
 			HISTORY[at0001] matches {	-- Event Series
 				events cardinality matches {1..*; unordered} matches {
-					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+					POINT_EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
 						data matches {
 							ITEM_TREE[at0003] matches {	-- Tree
 								items cardinality matches {0..*; unordered} matches {
@@ -137,6 +137,16 @@ definition
 							}
 						}
 					}
+					POINT_EVENT[at0043] occurrences matches {0..1} matches {	-- Any event
+						offset matches {
+							DV_DURATION matches {
+								value matches {|P30D|}
+							}
+						}
+						data matches {
+							use_node ITEM_TREE /data[at0001]/events[at0002]/data[at0003]	-- /data[Event Series]/events[Any event]/data[Tree]
+						}
+					}
 				}
 			}
 		}
@@ -156,7 +166,8 @@ ontology
 				>
 				["at0002"] = <
 					text = <"Any event">
-					description = <"*">
+					description = <"Utskriving
+">
 				>
 				["at0003"] = <
 					text = <"Tree">
@@ -292,6 +303,10 @@ Urene og infiserte sår.">
 				["at0042"] = <
 					text = <"Er infeksjonen behandlet med antibiotika">
 					description = <"*">
+				>
+				["at0043"] = <
+					text = <"Any event">
+					description = <"30 dager">
 				>
 			>
 		>
