@@ -61,15 +61,26 @@
     </other_details>
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt">
-    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.contact_summary_dips.v1" concept_name="contact summary" path="/content" />
-    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" path="/content" />
-    <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.request-procedure.v1" concept_name="Prosedyrerekvirering" path="/content">
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.planned_anesthesia_dips.v1" concept_name="Planlagt anestesi" path="/activities[at0001]/description[at0009]/items[at0132]">
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.contact_summary_dips.v1" concept_name="contact summary" path="/content">
+      <Rule path="/data[at0001]/items[at0019]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="VI-NPROMSNIVAA" />
+        </constraint>
+      </Rule>
+    </Content>
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" path="/content">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.surgery_details_dips.v1" concept_name="Operasjonsdetaljer" path="/description[at0001]/items[at0003]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.complication_dips.v1" concept_name="Complication dips" path="/description[at0001]/items[at0003]" />
+    </Content>
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.infeksjonsovervakning_dips.v1" concept_name="Infeksjonsovervakning" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.euroscore1_dips.v1" concept_name="EuroSCORE DIPS" path="/content" />
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.trygg_kirurgi_time_out_dips.v1" concept_name="Trygg kirurgi time out" path="/content" />
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.infeksjonsovervaakning_operasjon_dips.v1" concept_name="Melding til infeksjonsregister" path="/content">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.planned_anesthesia_dips.v1" concept_name="Anestesi detaljer" path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]">
         <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA-klassifikasjon" path="/items[at0007]" />
       </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.surgery_details_dips.v1" concept_name="Operasjonsdetaljer" path="/activities[at0001]/description[at0009]/items[at0132]" />
     </Content>
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.melding_infeksjonsregister_dips.v1" concept_name="Melding til infeksjonsregister" path="/content" />
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/diagnose" path="/content" />
     <Context />
   </definition>
 </template>
