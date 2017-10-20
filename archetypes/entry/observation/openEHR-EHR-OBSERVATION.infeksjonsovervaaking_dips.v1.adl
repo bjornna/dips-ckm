@@ -1,5 +1,5 @@
 archetype (adl_version=1.4)
-	openEHR-EHR-OBSERVATION.melding_infeksjonsregister_dips.v1
+	openEHR-EHR-OBSERVATION.infeksjonsovervaaking_dips.v1
 
 concept
 	[at0000]	-- Melding til infeksjonsregister
@@ -25,7 +25,7 @@ description
 	other_contributors = <>
 	other_details = <
 		["current_contact"] = <"Anine Ramberg, DIPS AS<ara@dips.no>">
-		["MD5-CAM-1.0.1"] = <"76F9D0E90BB94AD0BB7A208B2915482F">
+		["MD5-CAM-1.0.1"] = <"701440F16ABED29CA73597736C7C7542">
 	>
 
 definition
@@ -33,7 +33,7 @@ definition
 		data matches {
 			HISTORY[at0001] matches {	-- Event Series
 				events cardinality matches {1..*; unordered} matches {
-					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+					POINT_EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
 						data matches {
 							ITEM_TREE[at0003] matches {	-- Tree
 								items cardinality matches {0..*; unordered} matches {
@@ -58,31 +58,6 @@ definition
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0041] occurrences matches {0..1} matches {	-- Antall prosedyrer siste 30 dager før denne
-										value matches {
-											DV_TEXT matches {*}
-										}
-									}
-									ELEMENT[at0040] occurrences matches {0..1} matches {	-- Endoskopisk undersøkelse
-										value matches {
-											DV_TEXT matches {*}
-										}
-									}
-									ELEMENT[at0039] occurrences matches {0..1} matches {	-- Multiple prosedyrer
-										value matches {
-											DV_TEXT matches {*}
-										}
-									}
-									ELEMENT[at0038] occurrences matches {0..1} matches {	-- Risikopoeng
-										value matches {
-											DV_COUNT matches {*}
-										}
-									}
-									ELEMENT[at0031] occurrences matches {0..1} matches {	-- Narkose
-										value matches {
-											DV_TEXT matches {*}
-										}
-									}
 									ELEMENT[at0011] occurrences matches {0..1} matches {	-- Infeksjonsdato
 										value matches {
 											DV_DATE matches {*}
@@ -99,6 +74,11 @@ definition
 													at0022]	-- Urene og infisert sår
 												}
 											}
+										}
+									}
+									ELEMENT[at0031] occurrences matches {0..1} matches {	-- Narkose
+										value matches {
+											DV_TEXT matches {*}
 										}
 									}
 									ELEMENT[at0030] occurrences matches {0..1} matches {	-- Reoperert grunnet infeksjon
@@ -133,8 +113,42 @@ definition
 											}
 										}
 									}
+									allow_archetype CLUSTER[at0044] occurrences matches {0..*} matches {	-- Detaljer
+										include
+											archetype_id/value matches {/.*/}
+									}
+									ELEMENT[at0045] occurrences matches {0..1} matches {	-- Risikopoeng
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
 								}
 							}
+						}
+					}
+					POINT_EVENT[at0043] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							use_node ITEM_TREE /data[at0001]/events[at0002]/data[at0003]	-- /data[Event Series]/events[Any event]/data[Tree]
+						}
+					}
+					POINT_EVENT[at0046] occurrences matches {0..1} matches {	-- Any event
+						offset matches {
+							DV_DURATION matches {
+								value matches {|P30D|}
+							}
+						}
+						data matches {
+							use_node ITEM_TREE /data[at0001]/events[at0002]/data[at0003]	-- /data[Event Series]/events[Any event]/data[Tree]
+						}
+					}
+					POINT_EVENT[at0047] occurrences matches {0..1} matches {	-- Any event
+						offset matches {
+							DV_DURATION matches {
+								value matches {|P365D|}
+							}
+						}
+						data matches {
+							use_node ITEM_TREE /data[at0001]/events[at0002]/data[at0003]	-- /data[Event Series]/events[Any event]/data[Tree]
 						}
 					}
 				}
@@ -156,7 +170,7 @@ ontology
 				>
 				["at0002"] = <
 					text = <"Any event">
-					description = <"*">
+					description = <"Operasjon">
 				>
 				["at0003"] = <
 					text = <"Tree">
@@ -273,25 +287,29 @@ Urene og infiserte sår.">
 					text = <"UK">
 					description = <"Ukjent">
 				>
-				["at0038"] = <
-					text = <"Risikopoeng">
-					description = <"Felt for utregnet risikopoeng. Beregnes ut fra ASA, operasjonsvarighet, multiple prosedyrer.">
-				>
-				["at0039"] = <
-					text = <"Multiple prosedyrer">
-					description = <"Er det utført flere prosedyrer under inngrep. Ja eller nei.">
-				>
-				["at0040"] = <
-					text = <"Endoskopisk undersøkelse">
-					description = <"Er det utført en endoskopisk undersøkelse. Ja eller nei.">
-				>
-				["at0041"] = <
-					text = <"Antall prosedyrer siste 30 dager før denne">
-					description = <"Brukes i utregningen for infeksjonsrisiko">
-				>
 				["at0042"] = <
 					text = <"Er infeksjonen behandlet med antibiotika">
 					description = <"*">
+				>
+				["at0043"] = <
+					text = <"Any event">
+					description = <"Utskrivning">
+				>
+				["at0044"] = <
+					text = <"Detaljer">
+					description = <"Brukes for å kunne legge til detaljer">
+				>
+				["at0045"] = <
+					text = <"Risikopoeng">
+					description = <"Felt for utregnet risikopoeng. Beregnes ut fra ASA, operasjonsvarighet, multiple prosedyrer.">
+				>
+				["at0046"] = <
+					text = <"Any event">
+					description = <"30 dager">
+				>
+				["at0047"] = <
+					text = <"Any event">
+					description = <"365 dager">
 				>
 			>
 		>

@@ -1,0 +1,70 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-EVALUATION.pregnancy_termination_dips.v1
+
+concept
+	[at0000]	-- Svangerskapsavbrudd
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Ingrid Skard">
+		["email"] = <"ins@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2017-10-17">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Spesifikke data knyttet til svangerskapsavbrudd.">
+			use = <"Brukes for registrering av spesifikke data knyttet til svangerskapsavbrudd.">
+			keywords = <"svangerskapsavbrudd", "svangerskapsavbrytelse", "abort">
+			misuse = <"Brukes ikke til registrering av svangerskapssammendrag eller status. Se EVALUATION.pregnancy_summary.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"EACF299FB8A8DE7A1C04289BA07F59B2">
+	>
+
+definition
+	EVALUATION[at0000] matches {	-- Svangerskapsavbrudd
+		data matches {
+			ITEM_TREE[at0001] matches {*}
+		}
+		protocol matches {
+			ITEM_TREE[at0002] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0003] occurrences matches {0..*} matches {	-- Fosterdiagnostikk
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Svangerskapsavbrudd">
+					description = <"Spesifikke data for svangerskapsavbrudd.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Fosterdiagnostikk">
+					description = <"*">
+				>
+			>
+		>
+	>
