@@ -7,26 +7,52 @@ language
 	original_language = <[ISO_639-1::nb]>
 description
 	original_author = <
-		["name"] = <"">
+		["name"] = <"Ingrid Skard">
+		["email"] = <"ins@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2017-10-23">
 	>
 	details = <
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"">
-			use = <"">
-			misuse = <"">
-			copyright = <"">
+			purpose = <"Registrering av administrative data knyttet til svangerskapsavbrudd.">
+			use = <"Brukes for å registrere administrative data i forbindelse med svangerskapsavbrudd, som nemndbehandling.">
+			keywords = <"svangerskapsavbrudd", "hjelpefelter", "abortmeldingen">
+			misuse = <"Skal ikke brukes til å registrere klinisk informasjon eller data som ikke er relatert prosessen for svangerskapsavbrudd.">
+			copyright = <"DIPS AS">
 		>
 	>
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"0F0E35C0C3ED045C1D711D8697E3ECF1">
+		["MD5-CAM-1.0.1"] = <"1B627E727CCD88479D36B840BD137BC0">
 	>
 
 definition
 	ADMIN_ENTRY[at0000] matches {	-- Hjelpefelter svangerskapsavbrudd
-		data matches {*}
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0013] occurrences matches {0..1} matches {	-- Saksid
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0014] occurrences matches {0..1} matches {	-- Lokalisering
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0015] occurrences matches {0..1} matches {	-- Underskrevet av utførende lege/sykepleier
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 ontology
@@ -35,7 +61,23 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Hjelpefelter svangerskapsavbrudd">
-					description = <"unknown">
+					description = <"Hjelpefelter for svangerskapsavbrudd (abortmeldingen)">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0013"] = <
+					text = <"Saksid">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Lokalisering">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Underskrevet av utførende lege/sykepleier">
+					description = <"*">
 				>
 			>
 		>
