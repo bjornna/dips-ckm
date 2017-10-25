@@ -62,10 +62,15 @@
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt">
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" path="/content">
+      <Rule path="/description[at0001]/items[at0002]" name="Anestesitype">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ARK-ANE-HOVEDTYPE" />
+        </constraint>
+      </Rule>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" path="/description[at0001]/items[at0003]">
-        <Rule path="/items[at0001]" max="1" name="Anestesitype">
+        <Rule path="/items[at0001]" max="1" name="Prosedyretype">
           <constraint xsi:type="textConstraint">
-            <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ARK-ANE-HOVEDTYPE" />
+            <termQueryId terminologyID="NCMP" terminologyLang="en-GB" queryName="NCSP" />
           </constraint>
         </Rule>
         <Rule path="/items[at0002]" name="Planlagt luftvei">
@@ -82,11 +87,7 @@
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.organisasjonsstruktur_dips.v1" concept_name="Organisasjonsstruktur dips" path="/data[at0001]/items[at0006]" />
     </Content>
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/diagnose" path="/content">
-      <Rule path="/data[at0001]/items[at0002]">
-        <constraint xsi:type="textConstraint">
-          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ANE-PROBLEM-TYPE" />
-        </constraint>
-      </Rule>
+      <Rule path="/data[at0001]/items[at0002]" name="Problemtype" />
       <Rule path="/data[at0001]/items[at0009]">
         <constraint xsi:type="textConstraint">
           <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ANE-PROBLEM-TIDSPUNKT" />
@@ -97,6 +98,7 @@
           <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ANE-PROBLEM-ALVORLIGHETSGRAD" />
         </constraint>
       </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.diagnosis_details_.v1" concept_name="Diagnose details" path="/data[at0001]/items[at0043]" />
     </Content>
     <Context />
   </definition>
