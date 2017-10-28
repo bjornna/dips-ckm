@@ -1,8 +1,8 @@
 archetype (adl_version=1.4)
-	openEHR-EHR-ADMIN_ENTRY.mottatt_begjaering_om_tph_eller_tvungen_observasjon_sfa.v1
+	openEHR-EHR-ADMIN_ENTRY.mottatt_begjaering_tph_to.v1
 
 concept
-	[at0000]	-- Mottatt begjaering om tph eller tvungen observasjon
+	[at0000]	-- Mottatt begjaering tph to
 language
 	original_language = <[ISO_639-1::nb]>
 	translations = <
@@ -27,7 +27,7 @@ description
 		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"">
+			purpose = <"Arketypen brukes i vedtaksmodulen i DIPS Arena.">
 			use = <"">
 			misuse = <"">
 			copyright = <"">
@@ -36,32 +36,32 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"DA113A2D255338A1A9C18A4446363DE9">
+		["MD5-CAM-1.0.1"] = <"E681B8EC442DCBDBE5635BBB147C05CC">
 	>
 
 definition
-	ADMIN_ENTRY[at0000] matches {	-- Mottatt begjaering om tph eller tvungen observasjon
+	ADMIN_ENTRY[at0000] matches {	-- Mottatt begjaering tph to
 		data matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
 					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Begjæring mottatt dato
 						value matches {
 							DV_DATE matches {
-								value matches {yyyy-??-XX}
+								value matches {yyyy-mm-dd}
 							}
 						}
 					}
-					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Begjæringen gjelder
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Begjæring gjelder
 						value matches {
-							0|[local::at0004], 	-- Tvungen observasjon
-							1|[local::at0005]  	-- Tvungent psykisk helsevern
+							0|[local::at0016], 	-- Tvungen observasjon
+							1|[local::at0017]  	-- Tvungent psykisk helsevern
 						}
 					}
-					allow_archetype CLUSTER[at0013] occurrences matches {0..*} matches {	-- Begjæring framsatt av
+					allow_archetype CLUSTER[at0013] occurrences matches {0..1} matches {	-- Begjæring fremsatt av
 						include
 							archetype_id/value matches {/openEHR-EHR-CLUSTER\.begjaerende_instans(-[a-zA-Z0-9_]+)*\.v1/}
 					}
-					ELEMENT[at0011] occurrences matches {0..*} matches {	-- Kontaktinformasjon
+					ELEMENT[at0011] occurrences matches {0..1} matches {	-- Kontaktinformasjon
 						value matches {
 							DV_TEXT matches {*}
 						}
@@ -81,8 +81,8 @@ ontology
 		["no"] = <
 			items = <
 				["at0000"] = <
-					text = <"Mottatt begjaering om tph eller tvungen observasjon">
-					description = <"unknown">
+					text = <"*Mottatt begjaering tph to(nb)">
+					description = <"*unknown(nb)">
 				>
 				["at0001"] = <
 					text = <"Tree">
@@ -93,35 +93,35 @@ ontology
 					description = <"*">
 				>
 				["at0003"] = <
-					text = <"Begjæringen gjelder">
-					description = <"Kode som angir hva begjæringen gjelder. Standard kodeverk: 9309 ">
-				>
-				["at0004"] = <
-					text = <"Tvungen observasjon ">
-					description = <"*">
-				>
-				["at0005"] = <
-					text = <"Tvungent psykisk helsevern ">
-					description = <"*">
+					text = <"*Begjæring gjelder(nb)">
+					description = <"*Standard kodeverk 9309 Hva begjæring etter psykisk helsevernloven § 3-6 gjelder.(nb)">
 				>
 				["at0011"] = <
-					text = <"Kontaktinformasjon">
-					description = <"Kontaktopplysninger (adresse, kontaktperson mv.) til den instans som har framsatt begjæringen">
+					text = <"*Kontaktinformasjon(nb)">
+					description = <"*Kontaktopplysninger (adresse, kontaktperson mv.) til den instans som har fremsatt begjæringen.(nb)">
 				>
 				["at0012"] = <
-					text = <"Merknad">
-					description = <"*">
+					text = <"*Merknad(nb)">
+					description = <"*Supplerende opplysninger.(nb)">
 				>
 				["at0013"] = <
-					text = <"*Begjæring framsatt av(nb)">
-					description = <"*Kode som angir hvem som har framsatt begjæringen. Standard kodeverk: 9290 (nb)">
+					text = <"*Begjæring fremsatt av(nb)">
+					description = <"*Standard kodeverk 9290 Instanser som kan fremsette begjæring om tvungent psykisk helsevern.(nb)">
+				>
+				["at0016"] = <
+					text = <"*Tvungen observasjon(nb)">
+					description = <"**(nb)">
+				>
+				["at0017"] = <
+					text = <"*Tvungent psykisk helsevern(nb)">
+					description = <"*Tvungent psykisk helsevern(nb)">
 				>
 			>
 		>
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"Mottatt begjaering om tph eller tvungen observasjon">
+					text = <"Mottatt begjaering tph to">
 					description = <"unknown">
 				>
 				["at0001"] = <
@@ -133,28 +133,28 @@ ontology
 					description = <"Den dato begjæringen ble mottatt.">
 				>
 				["at0003"] = <
-					text = <"Begjæringen gjelder">
+					text = <"Begjæring gjelder">
 					description = <"Standard kodeverk 9309 Hva begjæring etter psykisk helsevernloven § 3-6 gjelder.">
-				>
-				["at0004"] = <
-					text = <"Tvungen observasjon">
-					description = <"*">
-				>
-				["at0005"] = <
-					text = <"Tvungent psykisk helsevern">
-					description = <"*">
 				>
 				["at0011"] = <
 					text = <"Kontaktinformasjon">
-					description = <"Kontaktopplysninger (adresse, kontaktperson mv.) til den instans som har framsatt begjæringen.">
+					description = <"Kontaktopplysninger (adresse, kontaktperson mv.) til den instans som har fremsatt begjæringen.">
 				>
 				["at0012"] = <
 					text = <"Merknad">
-					description = <"Supplerende opplysninger skal kunne gis i form av en kort merknad.">
+					description = <"Supplerende opplysninger.">
 				>
 				["at0013"] = <
-					text = <"Begjæring framsatt av">
+					text = <"Begjæring fremsatt av">
 					description = <"Standard kodeverk 9290 Instanser som kan fremsette begjæring om tvungent psykisk helsevern.">
+				>
+				["at0016"] = <
+					text = <"Tvungen observasjon">
+					description = <"Tvungen observasjon">
+				>
+				["at0017"] = <
+					text = <"Tvungent psykisk helsevern">
+					description = <"Tvungent psykisk helsevern">
 				>
 			>
 		>
