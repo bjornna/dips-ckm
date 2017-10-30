@@ -61,33 +61,35 @@
     </other_details>
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Anestesiplan">
-    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" path="/content">
-      <Rule path="/protocol[at0053]/items[at0054]">
-        <constraint xsi:type="multipleConstraint">
-          <includedTypes>Text</includedTypes>
+    <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.request-procedure.v1" concept_name="Prosedyrerekvirering" path="/content">
+      <Rule path="/activities[at0001]/description[at0009]/items[at0121.1]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ARK-ANE-HOVEDTYPE" />
         </constraint>
       </Rule>
-      <Rule path="/protocol[at0053]/items[at0056]">
-        <constraint xsi:type="multipleConstraint">
-          <includedTypes>Text</includedTypes>
-        </constraint>
-      </Rule>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" path="/description[at0001]/items[at0003]">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.anesthesia_requested_dips.v1" concept_name="Ønsket anestesi" path="/activities[at0001]/description[at0009]/items[at0132]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" max="1" path="/activities[at0001]/description[at0009]/items[at0132]" name="Prosedyredetaljer ">
         <Rule path="/items[at0001]" max="1" name="Anestesitype">
           <constraint xsi:type="textConstraint">
-            <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ARK-ANE-HOVEDTYPE" />
+            <termQueryId terminologyID="NCSP" terminologyLang="en-GB" queryName="NCSP" />
           </constraint>
         </Rule>
         <Rule path="/items[at0001]" max="1" clone="true" name="Planlagt luftvei">
           <constraint xsi:type="textConstraint">
-            <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ARK-ANE-LUFTVEISTILGANG" />
+            <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ANE-LUFTVEISTILGANG" />
           </constraint>
         </Rule>
         <Rule path="/items[at0001]" max="1" clone="true" name="Planlagt ekstra overvåkning" />
-        <Rule path="/items[at0001]" max="1" clone="true" name="Plan for innledning" />
+        <Rule path="/items[at0001]" max="1" clone="true" name="Plan for innledning">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Anestesilege/anestesisykepleier</includedValues>
+            <includedValues>Anestesisykepleier/anestesisykepleier</includedValues>
+            <includedValues>Anestesisykepleier</includedValues>
+            <includedValues>Anestesilege</includedValues>
+          </constraint>
+        </Rule>
         <Rule path="/items[at0001]" max="1" clone="true" name="Postoperativ overvåkning" />
       </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.anesthesia_requested_dips.v1" concept_name="Ønsket anestesi" path="/description[at0001]/items[at0003]" />
     </Content>
     <Context />
   </definition>

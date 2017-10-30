@@ -62,10 +62,15 @@
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt">
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" path="/content">
+      <Rule path="/description[at0001]/items[at0002]" name="Anestesitype">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ARK-ANE-HOVEDTYPE" />
+        </constraint>
+      </Rule>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" path="/description[at0001]/items[at0003]">
-        <Rule path="/items[at0001]" max="1" name="Anestesitype">
+        <Rule path="/items[at0001]" max="1" name="Prosedyrekode">
           <constraint xsi:type="textConstraint">
-            <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ARK-ANE-HOVEDTYPE" />
+            <termQueryId terminologyID="NCMP" terminologyLang="en-GB" queryName="NCMP" />
           </constraint>
         </Rule>
         <Rule path="/items[at0002]" name="Planlagt luftvei">
@@ -80,6 +85,54 @@
     </Content>
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.contact_summary_dips.v1" concept_name="contact summary" path="/content">
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.organisasjonsstruktur_dips.v1" concept_name="Organisasjonsstruktur dips" path="/data[at0001]/items[at0006]" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/diagnose" max="1" path="/content" name="Intubasjon">
+      <Rule path="/data[at0001]/items[at0002]" name="Problemtype">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ANE-PROBLEM" />
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0005]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ANE-PROBLEM-ALVORLIGHETSGRAD" />
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0072]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ANE-PROBLEM-TIDSPUNKT" />
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.problemdetaljer_dips.v1" concept_name="Problemdetaljer" path="/data[at0001]/items[at0043]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.mallampati_classification.v1" concept_name="Modifisert Mallampati-klassifikasjon" path="/data[at0001]/items[at0043]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.cormack_lehane.v1" concept_name="Cormack/Lehane-klassifikasjon" path="/data[at0001]/items[at0043]" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/diagnose" max="1" path="/content" name="Anestesiproblem">
+      <Rule path="/data[at0001]/items[at0002]" name="Problemtype" />
+      <Rule path="/data[at0001]/items[at0005]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ANE-PROBLEM-ALVORLIGHETSGRAD" />
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0072]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ANE-PROBLEM-TIDSPUNKT" />
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.problemdetaljer_dips.v1" concept_name="Problemdetaljer" path="/data[at0001]/items[at0043]" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/diagnose" max="1" path="/content" name="Andre problemer ved anestesi">
+      <Rule path="/data[at0001]/items[at0002]" name="Problemtype" />
+      <Rule path="/data[at0001]/items[at0005]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ANE-PROBLEM-ALVORLIGHETSGRAD" />
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0072]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ANE-PROBLEM-TIDSPUNKT" />
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.problemdetaljer_dips.v1" concept_name="Problemdetaljer" path="/data[at0001]/items[at0043]" />
     </Content>
     <Context />
   </definition>
