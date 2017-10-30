@@ -60,14 +60,6 @@
       </item>
     </other_details>
   </description>
-  <annotations path="[openEHR-EHR-COMPOSITION.encounter.v1]/content[openEHR-EHR-SECTION.adhoc.v1 and name/value='Generelt']/items[openEHR-EHR-EVALUATION.container_dips.v1]/data[at0001]/items[openEHR-EHR-CLUSTER.health_factor_generic_dips.v1]">
-    <items>
-      <item>
-        <key>Notes.Comment</key>
-        <value>Tidligere anestesi? Tidligere antestesi kompl. EKG anmerkninger, bilsyke PONV</value>
-      </item>
-    </items>
-  </annotations>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Anestesivurdering">
     <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.request-procedure.v1" concept_name="Prosedyrerekvirering" path="/content">
       <Rule path="/activities[at0001]/description[at0009]/items[at0.2]" max="0" />
@@ -81,9 +73,15 @@
       <Rule path="/activities[at0001]/description[at0009]/items[at0144.1]" max="0" />
       <Rule path="/activities[at0001]/description[at0009]/items[at0076]" max="0" />
       <Rule path="/activities[at0001]/description[at0009]/items[at0078]" max="0" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" path="/activities[at0001]/description[at0009]/items[at0132]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" path="/activities[at0001]/description[at0009]/items[at0132]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="NCSP" terminologyLang="en-GB" queryName="NCSP" />
+          </constraint>
+        </Rule>
+      </Items>
     </Content>
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.precaution.v1" template_id="1c01f931-e431-4b63-aba8-2d8af331eac2" concept_name="Faste medisiner" max="1" path="/content" name="Faste medisiner" />
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.precaution.v1" template_id="14f68073-f9aa-473a-a1fd-cc7d028fbf9e" concept_name="Faste medisiner" max="1" path="/content" name="Faste medisiner" />
     <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Generelt">
       <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.container_dips.v1" concept_name="Container" max="1" path="/items" name="Generelt">
         <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.health_factor_generic_dips.v1" concept_name="Helsefaktor generisk" max="1" path="/data[at0001]/items[at0004]" name="Generelt">
@@ -127,18 +125,26 @@
         </Items>
       </Item>
     </Content>
-    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Diverse">
-      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.container_dips.v1" concept_name="Container" max="1" path="/items" name="Diverse">
-        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.health_factor_generic_dips.v1" concept_name="Helsefaktor generisk" max="1" path="/data[at0001]/items[at0004]" name="Diverse">
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Andre tilstander">
+      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.container_dips.v1" concept_name="Container" max="1" path="/items" name="Andre tilstander">
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.health_factor_generic_dips.v1" concept_name="Helsefaktor generisk" max="1" path="/data[at0001]/items[at0004]" name="Andre tilstander">
           <Rule path="/items[at0008]">
             <constraint xsi:type="textConstraint">
               <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ANE-ANDRETILSTANDER" />
             </constraint>
           </Rule>
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.checkbox_generic_dips.v1" concept_name="Sjekkboks generisk" path="/items[at0009]" />
+        </Items>
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Diverse">
+      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.container_dips.v1" concept_name="Container" max="1" path="/items" name="Diverse">
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.health_factor_generic_dips.v1" concept_name="Helsefaktor generisk" max="1" path="/data[at0001]/items[at0004]" name="Diverse">
           <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.checkbox_generic_dips.v1" concept_name="Sjekkboks generisk" max="1" path="/items[at0009]" name="Tidligere anestesikomplikasjoner" />
           <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.checkbox_generic_dips.v1" concept_name="Sjekkboks generisk" max="1" path="/items[at0009]" name="Tidligere anestesi" />
           <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.checkbox_generic_dips.v1" concept_name="Sjekkboks generisk" max="1" path="/items[at0009]" name="EKG-anmerkninger" />
           <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.checkbox_generic_dips.v1" concept_name="Sjekkboks generisk" max="1" path="/items[at0009]" name="PONV/bilsyke" />
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.checkbox_generic_dips.v1" concept_name="Sjekkboks generisk" max="1" path="/items[at0009]" name="Anestesi uten anmerkning" />
         </Items>
       </Item>
       <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1" concept_name="Eksklusjonsutsagn - spesifikt" path="/items">

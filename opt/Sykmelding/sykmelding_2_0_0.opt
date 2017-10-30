@@ -531,7 +531,7 @@
                                       <upper>1</upper>
                                     </occurrences>
                                     <node_id />
-                                    <referenceSetUri>terminology:DIPS-Organisation?subset=SocialSecurityOffice&amp;language=no-nb</referenceSetUri>
+                                    <referenceSetUri>terminology:DIPS-Organization?subset=SocialSecurityOffice&amp;language=no-nb</referenceSetUri>
                                   </children>
                                 </attributes>
                               </children>
@@ -820,14 +820,14 @@
                       </cardinality>
                     </attributes>
                     <archetype_id>
-                      <value>openEHR-EHR-CLUSTER.public_services_dips.v1</value>
+                      <value>openEHR-EHR-CLUSTER.health_and_public_services_dips.v1</value>
                     </archetype_id>
                     <term_definitions code="at0000">
-                      <items id="description">Brukes for å dokumentere pasientens kommunale tjenester</items>
-                      <items id="text">Kommunale tjenester</items>
+                      <items id="description">Brukes for å dokumentere pasientens kommunale helse- og sosialtjenester</items>
+                      <items id="text">Kommunale helse- og sosialtjenester</items>
                     </term_definitions>
                     <term_definitions code="at0004">
-                      <items id="description">Fra Volven OID=8663 Kommunale helse- og sosialtjenester.</items>
+                      <items id="description">*</items>
                       <items id="text">Type tjeneste</items>
                     </term_definitions>
                     <term_definitions code="at0010">
@@ -987,6 +987,35 @@
                       </children>
                     </attributes>
                   </children>
+                  <children xsi:type="ARCHETYPE_SLOT">
+                    <rm_type_name>CLUSTER</rm_type_name>
+                    <occurrences>
+                      <lower_included>true</lower_included>
+                      <lower_unbounded>false</lower_unbounded>
+                      <upper_unbounded>true</upper_unbounded>
+                      <lower>0</lower>
+                    </occurrences>
+                    <node_id>at0002</node_id>
+                    <includes>
+                      <expression xsi:type="EXPR_BINARY_OPERATOR">
+                        <type>Boolean</type>
+                        <operator>2007</operator>
+                        <precedence_overridden>false</precedence_overridden>
+                        <left_operand xsi:type="EXPR_LEAF">
+                          <type>String</type>
+                          <item xsi:type="xsd:string">archetype_id/value</item>
+                          <reference_type>attribute</reference_type>
+                        </left_operand>
+                        <right_operand xsi:type="EXPR_LEAF">
+                          <type>C_STRING</type>
+                          <item xsi:type="C_STRING">
+                            <pattern>openEHR-EHR-CLUSTER\.occupation_episode(-[a-zA-Z0-9_]+)*\.v0</pattern>
+                          </item>
+                          <reference_type>constraint</reference_type>
+                        </right_operand>
+                      </expression>
+                    </includes>
+                  </children>
                   <children xsi:type="C_ARCHETYPE_ROOT">
                     <rm_type_name>CLUSTER</rm_type_name>
                     <occurrences>
@@ -1103,6 +1132,67 @@
                                     <node_id />
                                     <item xsi:type="C_STRING">
                                       <list>2.2 Arbeidsgiver for denne sykmeldingen</list>
+                                    </item>
+                                  </children>
+                                </attributes>
+                              </children>
+                            </attributes>
+                          </children>
+                          <children xsi:type="C_COMPLEX_OBJECT">
+                            <rm_type_name>ELEMENT</rm_type_name>
+                            <occurrences>
+                              <lower_included>true</lower_included>
+                              <upper_included>true</upper_included>
+                              <lower_unbounded>false</lower_unbounded>
+                              <upper_unbounded>false</upper_unbounded>
+                              <lower>0</lower>
+                              <upper>1</upper>
+                            </occurrences>
+                            <node_id>at0011</node_id>
+                            <attributes xsi:type="C_SINGLE_ATTRIBUTE">
+                              <rm_attribute_name>value</rm_attribute_name>
+                              <existence>
+                                <lower_included>true</lower_included>
+                                <upper_included>true</upper_included>
+                                <lower_unbounded>false</lower_unbounded>
+                                <upper_unbounded>false</upper_unbounded>
+                                <lower>0</lower>
+                                <upper>1</upper>
+                              </existence>
+                              <children xsi:type="C_COMPLEX_OBJECT">
+                                <rm_type_name>DV_TEXT</rm_type_name>
+                                <occurrences>
+                                  <lower_included>true</lower_included>
+                                  <upper_included>true</upper_included>
+                                  <lower_unbounded>false</lower_unbounded>
+                                  <upper_unbounded>false</upper_unbounded>
+                                  <lower>1</lower>
+                                  <upper>1</upper>
+                                </occurrences>
+                                <node_id />
+                                <attributes xsi:type="C_SINGLE_ATTRIBUTE">
+                                  <rm_attribute_name>value</rm_attribute_name>
+                                  <existence>
+                                    <lower_included>true</lower_included>
+                                    <upper_included>true</upper_included>
+                                    <lower_unbounded>false</lower_unbounded>
+                                    <upper_unbounded>false</upper_unbounded>
+                                    <lower>1</lower>
+                                    <upper>1</upper>
+                                  </existence>
+                                  <children xsi:type="C_PRIMITIVE_OBJECT">
+                                    <rm_type_name>STRING</rm_type_name>
+                                    <occurrences>
+                                      <lower_included>true</lower_included>
+                                      <upper_included>true</upper_included>
+                                      <lower_unbounded>false</lower_unbounded>
+                                      <upper_unbounded>false</upper_unbounded>
+                                      <lower>1</lower>
+                                      <upper>1</upper>
+                                    </occurrences>
+                                    <node_id />
+                                    <item xsi:type="C_STRING">
+                                      <list>Arbeidsgiver</list>
                                     </item>
                                   </children>
                                 </attributes>
@@ -1393,20 +1483,6 @@
                               <code_string>380</code_string>
                             </property>
                             <list>
-                              <magnitude>
-                                <lower_included>true</lower_included>
-                                <upper_included>true</upper_included>
-                                <lower_unbounded>false</lower_unbounded>
-                                <upper_unbounded>false</upper_unbounded>
-                                <lower>1</lower>
-                                <upper>100</upper>
-                              </magnitude>
-                              <precision>
-                                <lower_unbounded>false</lower_unbounded>
-                                <upper_unbounded>false</upper_unbounded>
-                                <lower>0</lower>
-                                <upper>0</upper>
-                              </precision>
                               <units>%</units>
                             </list>
                           </children>
@@ -1561,35 +1637,6 @@
                       <items id="description">Antall timer per tidsenhet individet bruker på den aktuelle sysselsettingsepisoden.</items>
                       <items id="text">Arbeidstimer</items>
                     </term_definitions>
-                  </children>
-                  <children xsi:type="ARCHETYPE_SLOT">
-                    <rm_type_name>CLUSTER</rm_type_name>
-                    <occurrences>
-                      <lower_included>true</lower_included>
-                      <lower_unbounded>false</lower_unbounded>
-                      <upper_unbounded>true</upper_unbounded>
-                      <lower>0</lower>
-                    </occurrences>
-                    <node_id>at0004</node_id>
-                    <includes>
-                      <expression xsi:type="EXPR_BINARY_OPERATOR">
-                        <type>Boolean</type>
-                        <operator>2007</operator>
-                        <precedence_overridden>false</precedence_overridden>
-                        <left_operand xsi:type="EXPR_LEAF">
-                          <type>String</type>
-                          <item xsi:type="xsd:string">archetype_id/value</item>
-                          <reference_type>attribute</reference_type>
-                        </left_operand>
-                        <right_operand xsi:type="EXPR_LEAF">
-                          <type>C_STRING</type>
-                          <item xsi:type="C_STRING">
-                            <pattern>.*</pattern>
-                          </item>
-                          <reference_type>constraint</reference_type>
-                        </right_operand>
-                      </expression>
-                    </includes>
                   </children>
                   <cardinality>
                     <is_ordered>false</is_ordered>
@@ -2066,7 +2113,6 @@
                             <terminology_id>
                               <value>local</value>
                             </terminology_id>
-                            <code_list>at0020</code_list>
                             <code_list>at0021</code_list>
                           </children>
                         </attributes>
@@ -4654,6 +4700,55 @@
                             <node_id />
                           </children>
                         </attributes>
+                        <attributes xsi:type="C_SINGLE_ATTRIBUTE">
+                          <rm_attribute_name>name</rm_attribute_name>
+                          <existence>
+                            <lower_included>true</lower_included>
+                            <upper_included>true</upper_included>
+                            <lower_unbounded>false</lower_unbounded>
+                            <upper_unbounded>false</upper_unbounded>
+                            <lower>1</lower>
+                            <upper>1</upper>
+                          </existence>
+                          <children xsi:type="C_COMPLEX_OBJECT">
+                            <rm_type_name>DV_TEXT</rm_type_name>
+                            <occurrences>
+                              <lower_included>true</lower_included>
+                              <upper_included>true</upper_included>
+                              <lower_unbounded>false</lower_unbounded>
+                              <upper_unbounded>false</upper_unbounded>
+                              <lower>1</lower>
+                              <upper>1</upper>
+                            </occurrences>
+                            <node_id />
+                            <attributes xsi:type="C_SINGLE_ATTRIBUTE">
+                              <rm_attribute_name>value</rm_attribute_name>
+                              <existence>
+                                <lower_included>true</lower_included>
+                                <upper_included>true</upper_included>
+                                <lower_unbounded>false</lower_unbounded>
+                                <upper_unbounded>false</upper_unbounded>
+                                <lower>1</lower>
+                                <upper>1</upper>
+                              </existence>
+                              <children xsi:type="C_PRIMITIVE_OBJECT">
+                                <rm_type_name>STRING</rm_type_name>
+                                <occurrences>
+                                  <lower_included>true</lower_included>
+                                  <upper_included>true</upper_included>
+                                  <lower_unbounded>false</lower_unbounded>
+                                  <upper_unbounded>false</upper_unbounded>
+                                  <lower>1</lower>
+                                  <upper>1</upper>
+                                </occurrences>
+                                <node_id />
+                                <item xsi:type="C_STRING">
+                                  <list>6.4.3 Hva mener du skal til for at pasienten skal komme tilbake i eget eller annet arbeid?</list>
+                                </item>
+                              </children>
+                            </attributes>
+                          </children>
+                        </attributes>
                       </children>
                       <cardinality>
                         <is_ordered>false</is_ordered>
@@ -5043,6 +5138,55 @@
                           <upper>1</upper>
                         </occurrences>
                         <node_id />
+                      </children>
+                    </attributes>
+                    <attributes xsi:type="C_SINGLE_ATTRIBUTE">
+                      <rm_attribute_name>name</rm_attribute_name>
+                      <existence>
+                        <lower_included>true</lower_included>
+                        <upper_included>true</upper_included>
+                        <lower_unbounded>false</lower_unbounded>
+                        <upper_unbounded>false</upper_unbounded>
+                        <lower>1</lower>
+                        <upper>1</upper>
+                      </existence>
+                      <children xsi:type="C_COMPLEX_OBJECT">
+                        <rm_type_name>DV_TEXT</rm_type_name>
+                        <occurrences>
+                          <lower_included>true</lower_included>
+                          <upper_included>true</upper_included>
+                          <lower_unbounded>false</lower_unbounded>
+                          <upper_unbounded>false</upper_unbounded>
+                          <lower>1</lower>
+                          <upper>1</upper>
+                        </occurrences>
+                        <node_id />
+                        <attributes xsi:type="C_SINGLE_ATTRIBUTE">
+                          <rm_attribute_name>value</rm_attribute_name>
+                          <existence>
+                            <lower_included>true</lower_included>
+                            <upper_included>true</upper_included>
+                            <lower_unbounded>false</lower_unbounded>
+                            <upper_unbounded>false</upper_unbounded>
+                            <lower>1</lower>
+                            <upper>1</upper>
+                          </existence>
+                          <children xsi:type="C_PRIMITIVE_OBJECT">
+                            <rm_type_name>STRING</rm_type_name>
+                            <occurrences>
+                              <lower_included>true</lower_included>
+                              <upper_included>true</upper_included>
+                              <lower_unbounded>false</lower_unbounded>
+                              <upper_unbounded>false</upper_unbounded>
+                              <lower>1</lower>
+                              <upper>1</upper>
+                            </occurrences>
+                            <node_id />
+                            <item xsi:type="C_STRING">
+                              <list>7.1 Tilrettelegging/hensyn som bør tas på arbeidsplassen. Beskriv (kan leses av arbeidsgiver)</list>
+                            </item>
+                          </children>
+                        </attributes>
                       </children>
                     </attributes>
                   </children>
@@ -6712,6 +6856,216 @@
                       <items id="description">Indikerer at dette er det navn som personen velger som identitet.</items>
                       <items id="text">Foretrukken navn</items>
                     </term_definitions>
+                  </children>
+                  <children xsi:type="C_COMPLEX_OBJECT">
+                    <rm_type_name>CLUSTER</rm_type_name>
+                    <occurrences>
+                      <lower_included>true</lower_included>
+                      <upper_included>true</upper_included>
+                      <lower_unbounded>false</lower_unbounded>
+                      <upper_unbounded>false</upper_unbounded>
+                      <lower>0</lower>
+                      <upper>1</upper>
+                    </occurrences>
+                    <node_id>at0003</node_id>
+                    <attributes xsi:type="C_MULTIPLE_ATTRIBUTE">
+                      <rm_attribute_name>items</rm_attribute_name>
+                      <existence>
+                        <lower_included>true</lower_included>
+                        <upper_included>true</upper_included>
+                        <lower_unbounded>false</lower_unbounded>
+                        <upper_unbounded>false</upper_unbounded>
+                        <lower>1</lower>
+                        <upper>1</upper>
+                      </existence>
+                      <children xsi:type="ARCHETYPE_SLOT">
+                        <rm_type_name>CLUSTER</rm_type_name>
+                        <occurrences>
+                          <lower_included>true</lower_included>
+                          <lower_unbounded>false</lower_unbounded>
+                          <upper_unbounded>true</upper_unbounded>
+                          <lower>0</lower>
+                        </occurrences>
+                        <node_id>at0016</node_id>
+                        <includes>
+                          <expression xsi:type="EXPR_BINARY_OPERATOR">
+                            <type>Boolean</type>
+                            <operator>2007</operator>
+                            <precedence_overridden>false</precedence_overridden>
+                            <left_operand xsi:type="EXPR_LEAF">
+                              <type>String</type>
+                              <item xsi:type="xsd:string">archetype_id/value</item>
+                              <reference_type>attribute</reference_type>
+                            </left_operand>
+                            <right_operand xsi:type="EXPR_LEAF">
+                              <type>C_STRING</type>
+                              <item xsi:type="C_STRING">
+                                <pattern>.*</pattern>
+                              </item>
+                              <reference_type>constraint</reference_type>
+                            </right_operand>
+                          </expression>
+                        </includes>
+                      </children>
+                      <children xsi:type="C_COMPLEX_OBJECT">
+                        <rm_type_name>ELEMENT</rm_type_name>
+                        <occurrences>
+                          <lower_included>true</lower_included>
+                          <upper_included>true</upper_included>
+                          <lower_unbounded>false</lower_unbounded>
+                          <upper_unbounded>false</upper_unbounded>
+                          <lower>0</lower>
+                          <upper>1</upper>
+                        </occurrences>
+                        <node_id>at0005</node_id>
+                        <attributes xsi:type="C_SINGLE_ATTRIBUTE">
+                          <rm_attribute_name>value</rm_attribute_name>
+                          <existence>
+                            <lower_included>true</lower_included>
+                            <upper_included>true</upper_included>
+                            <lower_unbounded>false</lower_unbounded>
+                            <upper_unbounded>false</upper_unbounded>
+                            <lower>0</lower>
+                            <upper>1</upper>
+                          </existence>
+                          <children xsi:type="C_COMPLEX_OBJECT">
+                            <rm_type_name>DV_TEXT</rm_type_name>
+                            <occurrences>
+                              <lower_included>true</lower_included>
+                              <upper_included>true</upper_included>
+                              <lower_unbounded>false</lower_unbounded>
+                              <upper_unbounded>false</upper_unbounded>
+                              <lower>1</lower>
+                              <upper>1</upper>
+                            </occurrences>
+                            <node_id />
+                            <attributes xsi:type="C_SINGLE_ATTRIBUTE">
+                              <rm_attribute_name>value</rm_attribute_name>
+                              <existence>
+                                <lower_included>true</lower_included>
+                                <upper_included>true</upper_included>
+                                <lower_unbounded>false</lower_unbounded>
+                                <upper_unbounded>false</upper_unbounded>
+                                <lower>1</lower>
+                                <upper>1</upper>
+                              </existence>
+                              <children xsi:type="C_PRIMITIVE_OBJECT">
+                                <rm_type_name>STRING</rm_type_name>
+                                <occurrences>
+                                  <lower_included>true</lower_included>
+                                  <upper_included>true</upper_included>
+                                  <lower_unbounded>false</lower_unbounded>
+                                  <upper_unbounded>false</upper_unbounded>
+                                  <lower>1</lower>
+                                  <upper>1</upper>
+                                </occurrences>
+                                <node_id />
+                                <item xsi:type="C_STRING">
+                                  <list>Fastlege</list>
+                                </item>
+                              </children>
+                            </attributes>
+                          </children>
+                        </attributes>
+                      </children>
+                      <children xsi:type="ARCHETYPE_SLOT">
+                        <rm_type_name>CLUSTER</rm_type_name>
+                        <occurrences>
+                          <lower_included>true</lower_included>
+                          <lower_unbounded>false</lower_unbounded>
+                          <upper_unbounded>true</upper_unbounded>
+                          <lower>0</lower>
+                        </occurrences>
+                        <node_id>at0017</node_id>
+                        <includes>
+                          <expression xsi:type="EXPR_BINARY_OPERATOR">
+                            <type>Boolean</type>
+                            <operator>2007</operator>
+                            <precedence_overridden>false</precedence_overridden>
+                            <left_operand xsi:type="EXPR_LEAF">
+                              <type>String</type>
+                              <item xsi:type="xsd:string">archetype_id/value</item>
+                              <reference_type>attribute</reference_type>
+                            </left_operand>
+                            <right_operand xsi:type="EXPR_LEAF">
+                              <type>C_STRING</type>
+                              <item xsi:type="C_STRING">
+                                <pattern>openEHR-EHR-CLUSTER\.telecom_details(-[a-zA-Z0-9_]+)*\.v1</pattern>
+                              </item>
+                              <reference_type>constraint</reference_type>
+                            </right_operand>
+                          </expression>
+                        </includes>
+                      </children>
+                      <children xsi:type="ARCHETYPE_SLOT">
+                        <rm_type_name>CLUSTER</rm_type_name>
+                        <occurrences>
+                          <lower_included>true</lower_included>
+                          <lower_unbounded>false</lower_unbounded>
+                          <upper_unbounded>true</upper_unbounded>
+                          <lower>0</lower>
+                        </occurrences>
+                        <node_id>at0019</node_id>
+                        <includes>
+                          <expression xsi:type="EXPR_BINARY_OPERATOR">
+                            <type>Boolean</type>
+                            <operator>2007</operator>
+                            <precedence_overridden>false</precedence_overridden>
+                            <left_operand xsi:type="EXPR_LEAF">
+                              <type>String</type>
+                              <item xsi:type="xsd:string">archetype_id/value</item>
+                              <reference_type>attribute</reference_type>
+                            </left_operand>
+                            <right_operand xsi:type="EXPR_LEAF">
+                              <type>C_STRING</type>
+                              <item xsi:type="C_STRING">
+                                <pattern>openEHR-EHR-CLUSTER\.address(-[a-zA-Z0-9_]+)*\.v1</pattern>
+                              </item>
+                              <reference_type>constraint</reference_type>
+                            </right_operand>
+                          </expression>
+                        </includes>
+                      </children>
+                      <children xsi:type="ARCHETYPE_SLOT">
+                        <rm_type_name>CLUSTER</rm_type_name>
+                        <occurrences>
+                          <lower_included>true</lower_included>
+                          <lower_unbounded>false</lower_unbounded>
+                          <upper_unbounded>true</upper_unbounded>
+                          <lower>0</lower>
+                        </occurrences>
+                        <node_id>at0018</node_id>
+                        <includes>
+                          <expression xsi:type="EXPR_BINARY_OPERATOR">
+                            <type>Boolean</type>
+                            <operator>2007</operator>
+                            <precedence_overridden>false</precedence_overridden>
+                            <left_operand xsi:type="EXPR_LEAF">
+                              <type>String</type>
+                              <item xsi:type="xsd:string">archetype_id/value</item>
+                              <reference_type>attribute</reference_type>
+                            </left_operand>
+                            <right_operand xsi:type="EXPR_LEAF">
+                              <type>C_STRING</type>
+                              <item xsi:type="C_STRING">
+                                <pattern>openEHR-EHR-CLUSTER\.organisation(-[a-zA-Z0-9_]+)*\.v1</pattern>
+                              </item>
+                              <reference_type>constraint</reference_type>
+                            </right_operand>
+                          </expression>
+                        </includes>
+                      </children>
+                      <cardinality>
+                        <is_ordered>false</is_ordered>
+                        <is_unique>false</is_unique>
+                        <interval>
+                          <lower_included>true</lower_included>
+                          <lower_unbounded>false</lower_unbounded>
+                          <upper_unbounded>true</upper_unbounded>
+                          <lower>1</lower>
+                        </interval>
+                      </cardinality>
+                    </attributes>
                   </children>
                   <cardinality>
                     <is_ordered>false</is_ordered>
@@ -9659,67 +10013,6 @@ Dersom den anatomiske lokaliseringen inkluderes i feltet "Problem/diagnosenavn" 
                   <lower>0</lower>
                   <upper>1</upper>
                 </occurrences>
-                <node_id>at0033</node_id>
-                <attributes xsi:type="C_SINGLE_ATTRIBUTE">
-                  <rm_attribute_name>value</rm_attribute_name>
-                  <existence>
-                    <lower_included>true</lower_included>
-                    <upper_included>true</upper_included>
-                    <lower_unbounded>false</lower_unbounded>
-                    <upper_unbounded>false</upper_unbounded>
-                    <lower>0</lower>
-                    <upper>1</upper>
-                  </existence>
-                  <children xsi:type="C_COMPLEX_OBJECT">
-                    <rm_type_name>DV_DATE</rm_type_name>
-                    <occurrences>
-                      <lower_included>true</lower_included>
-                      <upper_included>true</upper_included>
-                      <lower_unbounded>false</lower_unbounded>
-                      <upper_unbounded>false</upper_unbounded>
-                      <lower>1</lower>
-                      <upper>1</upper>
-                    </occurrences>
-                    <node_id />
-                    <attributes xsi:type="C_SINGLE_ATTRIBUTE">
-                      <rm_attribute_name>value</rm_attribute_name>
-                      <existence>
-                        <lower_included>true</lower_included>
-                        <upper_included>true</upper_included>
-                        <lower_unbounded>false</lower_unbounded>
-                        <upper_unbounded>false</upper_unbounded>
-                        <lower>1</lower>
-                        <upper>1</upper>
-                      </existence>
-                      <children xsi:type="C_PRIMITIVE_OBJECT">
-                        <rm_type_name>DATE</rm_type_name>
-                        <occurrences>
-                          <lower_included>true</lower_included>
-                          <upper_included>true</upper_included>
-                          <lower_unbounded>false</lower_unbounded>
-                          <upper_unbounded>false</upper_unbounded>
-                          <lower>1</lower>
-                          <upper>1</upper>
-                        </occurrences>
-                        <node_id />
-                        <item xsi:type="C_DATE">
-                          <pattern>yyyy-mm-dd</pattern>
-                        </item>
-                      </children>
-                    </attributes>
-                  </children>
-                </attributes>
-              </children>
-              <children xsi:type="C_COMPLEX_OBJECT">
-                <rm_type_name>ELEMENT</rm_type_name>
-                <occurrences>
-                  <lower_included>true</lower_included>
-                  <upper_included>true</upper_included>
-                  <lower_unbounded>false</lower_unbounded>
-                  <upper_unbounded>false</upper_unbounded>
-                  <lower>0</lower>
-                  <upper>1</upper>
-                </occurrences>
                 <node_id>at0036</node_id>
                 <attributes xsi:type="C_SINGLE_ATTRIBUTE">
                   <rm_attribute_name>value</rm_attribute_name>
@@ -9899,6 +10192,76 @@ Dersom den anatomiske lokaliseringen inkluderes i feltet "Problem/diagnosenavn" 
                         </item>
                       </children>
                     </attributes>
+                  </children>
+                </attributes>
+              </children>
+              <children xsi:type="C_COMPLEX_OBJECT">
+                <rm_type_name>ELEMENT</rm_type_name>
+                <occurrences>
+                  <lower_included>true</lower_included>
+                  <upper_included>true</upper_included>
+                  <lower_unbounded>false</lower_unbounded>
+                  <upper_unbounded>false</upper_unbounded>
+                  <lower>0</lower>
+                  <upper>1</upper>
+                </occurrences>
+                <node_id>at0038</node_id>
+                <attributes xsi:type="C_SINGLE_ATTRIBUTE">
+                  <rm_attribute_name>value</rm_attribute_name>
+                  <existence>
+                    <lower_included>true</lower_included>
+                    <upper_included>true</upper_included>
+                    <lower_unbounded>false</lower_unbounded>
+                    <upper_unbounded>false</upper_unbounded>
+                    <lower>0</lower>
+                    <upper>1</upper>
+                  </existence>
+                  <children xsi:type="C_COMPLEX_OBJECT">
+                    <rm_type_name>DV_COUNT</rm_type_name>
+                    <occurrences>
+                      <lower_included>true</lower_included>
+                      <upper_included>true</upper_included>
+                      <lower_unbounded>false</lower_unbounded>
+                      <upper_unbounded>false</upper_unbounded>
+                      <lower>1</lower>
+                      <upper>1</upper>
+                    </occurrences>
+                    <node_id />
+                  </children>
+                </attributes>
+              </children>
+              <children xsi:type="C_COMPLEX_OBJECT">
+                <rm_type_name>ELEMENT</rm_type_name>
+                <occurrences>
+                  <lower_included>true</lower_included>
+                  <upper_included>true</upper_included>
+                  <lower_unbounded>false</lower_unbounded>
+                  <upper_unbounded>false</upper_unbounded>
+                  <lower>0</lower>
+                  <upper>1</upper>
+                </occurrences>
+                <node_id>at0040</node_id>
+                <attributes xsi:type="C_SINGLE_ATTRIBUTE">
+                  <rm_attribute_name>value</rm_attribute_name>
+                  <existence>
+                    <lower_included>true</lower_included>
+                    <upper_included>true</upper_included>
+                    <lower_unbounded>false</lower_unbounded>
+                    <upper_unbounded>false</upper_unbounded>
+                    <lower>0</lower>
+                    <upper>1</upper>
+                  </existence>
+                  <children xsi:type="C_COMPLEX_OBJECT">
+                    <rm_type_name>DV_TEXT</rm_type_name>
+                    <occurrences>
+                      <lower_included>true</lower_included>
+                      <upper_included>true</upper_included>
+                      <lower_unbounded>false</lower_unbounded>
+                      <upper_unbounded>false</upper_unbounded>
+                      <lower>1</lower>
+                      <upper>1</upper>
+                    </occurrences>
+                    <node_id />
                   </children>
                 </attributes>
               </children>
@@ -10227,41 +10590,6 @@ Dersom den anatomiske lokaliseringen inkluderes i feltet "Problem/diagnosenavn" 
                   <lower>0</lower>
                   <upper>1</upper>
                 </occurrences>
-                <node_id>at0031</node_id>
-                <attributes xsi:type="C_SINGLE_ATTRIBUTE">
-                  <rm_attribute_name>value</rm_attribute_name>
-                  <existence>
-                    <lower_included>true</lower_included>
-                    <upper_included>true</upper_included>
-                    <lower_unbounded>false</lower_unbounded>
-                    <upper_unbounded>false</upper_unbounded>
-                    <lower>0</lower>
-                    <upper>1</upper>
-                  </existence>
-                  <children xsi:type="C_COMPLEX_OBJECT">
-                    <rm_type_name>DV_TEXT</rm_type_name>
-                    <occurrences>
-                      <lower_included>true</lower_included>
-                      <upper_included>true</upper_included>
-                      <lower_unbounded>false</lower_unbounded>
-                      <upper_unbounded>false</upper_unbounded>
-                      <lower>1</lower>
-                      <upper>1</upper>
-                    </occurrences>
-                    <node_id />
-                  </children>
-                </attributes>
-              </children>
-              <children xsi:type="C_COMPLEX_OBJECT">
-                <rm_type_name>ELEMENT</rm_type_name>
-                <occurrences>
-                  <lower_included>true</lower_included>
-                  <upper_included>true</upper_included>
-                  <lower_unbounded>false</lower_unbounded>
-                  <upper_unbounded>false</upper_unbounded>
-                  <lower>0</lower>
-                  <upper>1</upper>
-                </occurrences>
                 <node_id>at0017</node_id>
                 <attributes xsi:type="C_SINGLE_ATTRIBUTE">
                   <rm_attribute_name>value</rm_attribute_name>
@@ -10507,17 +10835,9 @@ Dersom den anatomiske lokaliseringen inkluderes i feltet "Problem/diagnosenavn" 
           <items id="description">*</items>
           <items id="text">TOM</items>
         </term_definitions>
-        <term_definitions code="at0031">
-          <items id="description">*</items>
-          <items id="text">Reservert</items>
-        </term_definitions>
         <term_definitions code="at0032">
           <items id="description">Sett hake for å hente hoveddiagnose fra aktuell kontakt. Dersom hoveddiagnose ikke er registrert på aktuell kontakt vil feltene 3.1.2 og 3.1.3 ikke få verdi.</items>
           <items id="text">Bruk hoveddiagnose fra aktuell kontakt</items>
-        </term_definitions>
-        <term_definitions code="at0033">
-          <items id="description">SyketilfelleStartDato.</items>
-          <items id="text">Første fraværsdag</items>
         </term_definitions>
         <term_definitions code="at0034">
           <items id="description">SykmeldingTOMDato. Gjenbrukes som forslag til periodens startdato i forlenget sykmelding.</items>
@@ -10534,6 +10854,14 @@ Dersom den anatomiske lokaliseringen inkluderes i feltet "Problem/diagnosenavn" 
         <term_definitions code="at0037">
           <items id="description">Begrensninger ECS: max(null)=0 -&gt; datetime(0)=01.01.0001, og generiske inputfelt lagrer store tall (ticks) med E-notasjon som ikke kan videreformidles til arketypefelt som tall.</items>
           <items id="text">Beregningsfelt t.o.m-dato</items>
+        </term_definitions>
+        <term_definitions code="at0038">
+          <items id="description">*</items>
+          <items id="text">Dager mellom systemdato og syketilfelle startdato</items>
+        </term_definitions>
+        <term_definitions code="at0040">
+          <items id="description">*</items>
+          <items id="text">Fødselsnummer</items>
         </term_definitions>
       </children>
       <cardinality>

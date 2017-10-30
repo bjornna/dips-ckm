@@ -36,14 +36,14 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"6A915EB3CC232E1C89D4E147364A9C05">
+		["MD5-CAM-1.0.1"] = <"8403216CCC08B3C5739830F7EAE8D20E">
 	>
 
 definition
 	EVALUATION[at0000] matches {	-- tph
 		data matches {
 			ITEM_TREE[at0001] matches {	-- Tree
-				items cardinality matches {3..*; unordered} matches {
+				items cardinality matches {1..*; unordered} matches {
 					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Pasientens ankomst til institusjonen
 						value matches {
 							DV_DATE_TIME matches {
@@ -51,31 +51,24 @@ definition
 							}
 						}
 					}
-					ELEMENT[at0085] occurrences matches {0..1} matches {	-- Pasienten er under tvungen observasjon
+					ELEMENT[at0016] occurrences matches {0..1} matches {	-- Oppstartsdato tvungen observasjon
 						value matches {
-							DV_BOOLEAN matches {
-								value matches {True, False}
+							DV_DATE_TIME matches {
+								value matches {yyyy-mm-ddTHH:??:??}
 							}
 						}
 					}
-					ELEMENT[at0016] occurrences matches {0..1} matches {	-- Oppstartdato for tvungen observasjon 
-						value matches {
-							DV_DATE matches {
-								value matches {yyyy-??-XX}
-							}
-						}
-					}
-					allow_archetype CLUSTER[at0068] occurrences matches {0..*} matches {	-- Hjemmel for helsehjelp
+					allow_archetype CLUSTER[at0068] occurrences matches {0..1} matches {	-- Hjemmel for helsehjelp
 						include
 							archetype_id/value matches {/.*/}
 					}
 					ELEMENT[at0017] occurrences matches {0..2} matches {	-- Vurdering av frivillighet
 						value matches {
-							0|[local::at0018], 	-- Frivillig psykisk helsevern er blitt forsøkt uten at dette har ført frem.
+							0|[local::at0018], 	-- Frivillig psykisk helsevern er blitt forsøkt uten at dette har ført frem
 							1|[local::at0019]  	-- Det er åpenbart formålsløst å forsøke frivillig psykisk helsevern
 						}
 					}
-					ELEMENT[at0084] occurrences matches {0..*} matches {	-- Frivillighet er forsøkt eller er formålsløst, begrunnelse
+					ELEMENT[at0084] occurrences matches {0..1} matches {	-- Frivillighet er forsøkt eller er formålsløst, begrunnelse
 						value matches {
 							DV_TEXT matches {*}
 						}
@@ -85,14 +78,7 @@ definition
 							ELEMENT[at0041] occurrences matches {0..1} matches {	-- Dato
 								value matches {
 									DV_DATE matches {
-										value matches {yyyy-??-XX}
-									}
-								}
-							}
-							ELEMENT[at0070] occurrences matches {0..1} matches {	-- Pasienten har vært undersøkt av en ekstern lege
-								value matches {
-									DV_BOOLEAN matches {
-										value matches {True, False}
+										value matches {yyyy-mm-dd}
 									}
 								}
 							}
@@ -111,14 +97,21 @@ definition
 							ELEMENT[at0043] occurrences matches {0..1} matches {	-- Ekstern legeundersøkelse dokumentert i journalnotat datert
 								value matches {
 									DV_DATE matches {
-										value matches {yyyy-??-XX}
+										value matches {yyyy-mm-dd}
+									}
+								}
+							}
+							ELEMENT[at0070] occurrences matches {0..1} matches {	-- Pasienten har vært undersøkt av en ekstern lege
+								value matches {
+									DV_BOOLEAN matches {
+										value matches {True}
 									}
 								}
 							}
 							ELEMENT[at0044] occurrences matches {0..1} matches {	-- Legeundersøkelsen er foretatt på bakgrunn av vedtak om tvungen legeundersøkelse
 								value matches {
 									DV_BOOLEAN matches {
-										value matches {True, False}
+										value matches {True}
 									}
 								}
 							}
@@ -129,7 +122,7 @@ definition
 							ELEMENT[at0046] occurrences matches {0..1} matches {	-- Dato
 								value matches {
 									DV_DATE matches {
-										value matches {yyyy-??-XX}
+										value matches {yyyy-mm-dd}
 									}
 								}
 							}
@@ -143,18 +136,18 @@ definition
 							ELEMENT[at0048] occurrences matches {0..1} matches {	-- Intern legeundersøkelse dokumentert i journalnotat datert
 								value matches {
 									DV_DATE matches {
-										value matches {yyyy-??-XX}
+										value matches {yyyy-mm-dd}
 									}
 								}
 							}
 						}
 					}
-					ELEMENT[at0080] occurrences matches {0..*} matches {	-- Det vurderes at hovedvilkåret «alvorlig sinnslidelse» er oppfylt, begrunnelse 
+					ELEMENT[at0080] occurrences matches {0..1} matches {	-- Det vurderes at hovedvilkåret «alvorlig sinnslidelse» er oppfylt, begrunnelse 
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0062] occurrences matches {0..*} matches {	-- Tvungent psykisk helsevern er nødvendig for å hindre at vedkommende på grunn av sinnslidelsen
+					ELEMENT[at0062] occurrences matches {0..4} matches {	-- Tilleggsvilkår som vurderes oppfylt
 						value matches {
 							DV_CODED_TEXT matches {
 								defining_code matches {
@@ -167,75 +160,71 @@ definition
 							}
 						}
 					}
-					ELEMENT[at0081] occurrences matches {0..*} matches {	-- Tilleggsvilkår, begrunnelse 
+					ELEMENT[at0081] occurrences matches {0..1} matches {	-- Tilleggsvilkår, begrunnelse 
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0082] occurrences matches {0..*} matches {	-- Institusjonen er faglig og materielt egnet for denne pasienten, begrunnelse 
+					ELEMENT[at0082] occurrences matches {0..1} matches {	-- Institusjonen er faglig og materielt egnet for denne pasienten, begrunnelse 
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0083] occurrences matches {0..*} matches {	-- Helhetsvurdering, begrunnelse for at tvungent psykisk helsevern framstår som den klart beste løsningen for pasienten 
+					ELEMENT[at0083] occurrences matches {0..1} matches {	-- Helhetsvurdering, begrunnelse for at tvungent psykisk helsevern framstår som den klart beste løsningen for pasienten 
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0003] occurrences matches {0..*} matches {	-- Det gjøres unntak fra konverteringsforbudet, jf. Psykisk helsevernloven § 3-4 annet ledd
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Det gjøres unntak fra konverteringsforbudet, jf. Psykisk helsevernloven § 3-4 annet ledd
 						value matches {
 							DV_BOOLEAN matches {
-								value matches {True, False}
+								value matches {True}
 							}
 						}
 					}
-					ELEMENT[at0074] occurrences matches {0..*} matches {	-- Begrunnelse for unntak fra konverteringsforbudet
+					ELEMENT[at0074] occurrences matches {0..1} matches {	-- Begrunnelse for unntak fra konverteringsforbudet
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0005] occurrences matches {0..*} matches {	-- Det er framsatt begjæring (regelsett; info klageadgang)
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Det er fremsatt begjæring
 						value matches {
 							DV_BOOLEAN matches {
-								value matches {True, False}
+								value matches {True}
 							}
 						}
 					}
-					ELEMENT[at0007] occurrences matches {0..*} matches {	-- Dato begjæringen ble fremmet
+					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Dato begjæringen ble fremmet
 						value matches {
 							DV_DATE matches {
-								value matches {yyyy-??-XX}
+								value matches {yyyy-mm-dd}
 							}
 						}
 					}
-					allow_archetype CLUSTER[at0072] occurrences matches {0..*} matches {	-- Begjæring framsatt av
+					allow_archetype CLUSTER[at0072] occurrences matches {0..1} matches {	-- Begjæring framsatt av
 						include
 							archetype_id/value matches {/.*/}
 					}
-					ELEMENT[at0014] occurrences matches {0..*} matches {	-- Begjæringen er dokumentert i journalnotat datert
+					ELEMENT[at0014] occurrences matches {0..1} matches {	-- Begjæringen er dokumentert i journalnotat datert
 						value matches {
 							DV_DATE matches {
-								value matches {yyyy-??-XX}
+								value matches {yyyy-mm-dd}
 							}
 						}
 					}
-					ELEMENT[at0049] occurrences matches {0..*} matches {	-- Helsetjenesteenhet 
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0050] occurrences matches {0..*} matches {	-- Dato og tidspunkt vedtak fattet
+					ELEMENT[at0050] occurrences matches {0..1} matches {	-- Dato og tidspunkt vedtak fattet
 						value matches {
 							DV_DATE_TIME matches {
 								value matches {yyyy-mm-ddTHH:??:??}
 							}
 						}
 					}
-					allow_archetype CLUSTER[at0069] occurrences matches {0..*} matches {	-- Vedtakstype (skal skjules)
-						include
-							archetype_id/value matches {/.*/}
+					ELEMENT[at0049] occurrences matches {0..1} matches {	-- Helsetjenesteenhet 
+						value matches {
+							DV_TEXT matches {*}
+						}
 					}
-					allow_archetype CLUSTER[at0076] occurrences matches {0..*} matches {	-- Vurdering av pasientinnsyn
+					allow_archetype CLUSTER[at0069] occurrences matches {0..1} matches {	-- Vedtakstype
 						include
 							archetype_id/value matches {/.*/}
 					}
@@ -262,12 +251,12 @@ ontology
 					description = <"*Felt som angir om det ved etableringen av TPH gjøres unntak fra konverteringsforbudet(nb)">
 				>
 				["at0004"] = <
-					text = <"Pasientens ankomst til institusjonen">
-					description = <"Tidspunkt for pasientens ankomst til institusjonen">
+					text = <"*Pasientens ankomst til institusjonen(nb)">
+					description = <"*Dato og klokkeslett for pasientens ankomst til institusjonen.(nb)">
 				>
 				["at0005"] = <
-					text = <"*Det er framsatt begjæring(nb)">
-					description = <"*Angivelse av om begjæring foreligger.(nb)">
+					text = <"*Det er fremsatt begjæring(nb)">
+					description = <"*Det er fremsatt begjæring.(nb)">
 				>
 				["at0007"] = <
 					text = <"*Dato begjæringen ble fremmet(nb)">
@@ -278,24 +267,24 @@ ontology
 					description = <"*Referanse til journalnotat der begjæringen er dokumentert.(nb)">
 				>
 				["at0016"] = <
-					text = <"*Oppstartdato for tvungen observasjon (nb)">
-					description = <"*Dersom pasienten har vært til tvungen observasjon, skal den dato observasjonen startet, angis her(nb)">
+					text = <"*Oppstartsdato tvungen observasjon(nb)">
+					description = <"*Oppstartsdato for tvungen observasjonen dersom pasienten har vært til tvungen observasjon.(nb)">
 				>
 				["at0017"] = <
 					text = <"*Vurdering av frivillighet(nb)">
-					description = <"*Koder som angir hvilket vilkår for tvungent psykisk helsevern som er oppfylt. Kodeverk 9279(nb)">
+					description = <"*Standard kodeverk 9279 Hovedvilkår vedtak om tvungent psykisk helsevern/tvungen observasjon.(nb)">
 				>
 				["at0018"] = <
-					text = <"Frivillig psykisk helsevern er blitt forsøkt uten at dette har ført frem.">
-					description = <"*">
+					text = <"*Frivillig psykisk helsevern er blitt forsøkt uten at dette har ført frem(nb)">
+					description = <"*Frivillig psykisk helsevern er blitt forsøkt uten at dette har ført frem(nb)">
 				>
 				["at0019"] = <
-					text = <"Det er åpenbart formålsløst å forsøke frivillig psykisk helsevern">
-					description = <"*">
+					text = <"*Det er åpenbart formålsløst å forsøke frivillig psykisk helsevern(nb)">
+					description = <"*Det er åpenbart formålsløst å forsøke frivillig psykisk helsevern(nb)">
 				>
 				["at0040"] = <
-					text = <"Ekstern legeundersøkelse">
-					description = <"Beskrivelse av ekstern legeundersøkelse">
+					text = <"*Ekstern legeundersøkelse(nb)">
+					description = <"*Ekstern legeundersøkelse.(nb)">
 				>
 				["at0041"] = <
 					text = <"*Dato(nb)">
@@ -307,26 +296,26 @@ ontology
 				>
 				["at0044"] = <
 					text = <"*Legeundersøkelsen er foretatt på bakgrunn av vedtak om tvungen legeundersøkelse(nb)">
-					description = <"*Legeundersøkelsen er foretatt på bakgrunn av vedtak om tvungen legeundersøkelse.(nb)">
+					description = <"*Den eksterne legeundersøkelsen ble foretatt etter vedtak om tvungen legeundersøkelse.(nb)">
 				>
 				["at0045"] = <
-					text = <"Intern legeundersøkelse">
-					description = <"Beskrivelse av intern legeundersøkelse">
+					text = <"*Intern legeundersøkelse(nb)">
+					description = <"*Intern legeundersøkelse.(nb)">
 				>
 				["at0046"] = <
-					text = <"Dato">
-					description = <"Dato den interne legeundersøkelsen ble foretatt">
+					text = <"*Dato(nb)">
+					description = <"*Dato den interne legeundersøkelsen ble foretatt.(nb)">
 				>
 				["at0047"] = <
 					text = <"*Utført av(nb)">
-					description = <"*Referanse til den tjenesteyter (lege) som foretok undersøkelsen.(nb)">
+					description = <"*Rekvirentsøk - navn på lege som utførte undersøkelsen.(nb)">
 				>
 				["at0048"] = <
 					text = <"*Intern legeundersøkelse dokumentert i journalnotat datert(nb)">
 					description = <"*Referanse til dokumentasjon av intern legeundersøkelse.(nb)">
 				>
 				["at0049"] = <
-					text = <"*Helsetjenesteenhet(nb)">
+					text = <"*Helsetjenesteenhet (nb)">
 					description = <"*Identifikasjon av den enheten hvor vedtaket fattes.(nb)">
 				>
 				["at0050"] = <
@@ -334,63 +323,57 @@ ontology
 					description = <"*Det tidspunkt (dato og klokkeslett) vedtaket ble fattet.(nb)">
 				>
 				["at0062"] = <
-					text = <"Tvungent psykisk helsevern er nødvendig for å hindre at vedkommende på grunn av sinnslidelsen">
-					description = <"Her registreres en eller flere koder som angir hvorfor tvungent psykisk helsevern er nødvendig.
-Standard kodeverk: 9280 ">
+					text = <"*Tilleggsvilkår som vurderes oppfylt(nb)">
+					description = <"*Standard kodeverk 9280 Tilleggsvilkår vedtak om tvungent psykisk helsevern.(nb)">
 				>
 				["at0063"] = <
-					text = <"Får sin utsikt til helbredelse eller vesentlig bedring i betydelig grad redusert">
-					description = <"*">
+					text = <"*Får sin utsikt til helbredelse eller vesentlig bedring i betydelig grad redusert(nb)">
+					description = <"*Får sin utsikt til helbredelse eller vesentlig bedring i betydelig grad redusert(nb)">
 				>
 				["at0064"] = <
-					text = <"Med stor sannsynlighet i meget nær fremtid får sin tilstand vesentlig forverret">
-					description = <"*">
+					text = <"*Med stor sannsynlighet i meget nær fremtid får sin tilstand vesentlig forverret(nb)">
+					description = <"*Med stor sannsynlighet i meget nær fremtid får sin tilstand vesentlig forverret(nb)">
 				>
 				["at0065"] = <
-					text = <"Utgjør en nærliggende og alvorlig fare for eget liv og helse">
-					description = <"*">
+					text = <"*Utgjør en nærliggende og alvorlig fare for eget liv og helse(nb)">
+					description = <"*Utgjør en nærliggende og alvorlig fare for eget liv og helse(nb)">
 				>
 				["at0066"] = <
-					text = <"Utgjør en nærliggende og alvorlig fare for andres liv og helse">
-					description = <"*">
+					text = <"*Utgjør en nærliggende og alvorlig fare for andres liv og helse(nb)">
+					description = <"*Utgjør en nærliggende og alvorlig fare for andres liv og helse(nb)">
 				>
 				["at0068"] = <
-					text = <"Hjemmel for helsehjelp">
-					description = <"Kode som angir hvilken hjemmel som danner grunnlaget for behandling i det psykiske helsevernet.
-Standard kodeverk: 9277 ">
+					text = <"*Hjemmel for helsehjelp(nb)">
+					description = <"*Standard kodeverk 9276 Hjemmel for helsehjelp-psykisk helsevern og  9277 Hjemmel for helsehjelp-psykisk helsevern.(nb)">
 				>
 				["at0069"] = <
-					text = <"Vedtakstype (skal skjules)">
-					description = <"Kodeverk 9275">
+					text = <"*Vedtakstype(nb)">
+					description = <"*Standard kodeverk 9275 Vedtak etter psykisk helsevernloven.(nb)">
 				>
 				["at0070"] = <
 					text = <"*Pasienten har vært undersøkt av en ekstern lege(nb)">
-					description = <"*Pasienten har vært undersøkt av en ekstern lege.(nb)">
+					description = <"*Undersøkelsen er 
+foretatt av en lege utenfor den institusjon som skal fatte vedtak.(nb)">
 				>
 				["at0071"] = <
 					text = <"*Utført av(nb)">
-					description = <"*Referanse til den tjenesteyter (lege) som foretok undersøkelsen. Registrering bør inkludere navn, tittel og arbeidssted.(nb)">
+					description = <"*Rekvirentsøk - navn på lege som utførte undersøkelsen.(nb)">
 				>
 				["at0072"] = <
-					text = <"Begjæring framsatt av">
-					description = <"Kode som angir hvem som har framsatt begjæringen.
-Standard kodeverk: 9290">
+					text = <"*Begjæring framsatt av(nb)">
+					description = <"*Standard kodeverk 9290 Instanser som kan fremsette begjæring om tvungent psykisk helsevern.(nb)">
 				>
 				["at0074"] = <
 					text = <"*Begrunnelse for unntak fra konverteringsforbudet(nb)">
 					description = <"*Begrunnelse for unntak fra konverteringsforbudet.(nb)">
 				>
-				["at0076"] = <
-					text = <"*Vurdering av pasientinnsyn(nb)">
-					description = <"**(nb)">
-				>
 				["at0077"] = <
 					text = <"*Utført av(nb)">
-					description = <"*Navn til den tjenesteyter (lege) som foretok undersøkelsen.(nb)">
+					description = <"*Benyttes dersom undersøkende lege ikke finnes i rekvirentsøket. Registrering bør inkludere navn, tittel og arbeidssted.(nb)">
 				>
 				["at0080"] = <
 					text = <"*Det vurderes at hovedvilkåret «alvorlig sinnslidelse» er oppfylt, begrunnelse (nb)">
-					description = <"**(nb)">
+					description = <"*Vurdering av hovedvilkåret «alvorlig sinnslidelse».(nb)">
 				>
 				["at0081"] = <
 					text = <"*Tilleggsvilkår, begrunnelse (nb)">
@@ -398,19 +381,15 @@ Standard kodeverk: 9290">
 				>
 				["at0082"] = <
 					text = <"*Institusjonen er faglig og materielt egnet for denne pasienten, begrunnelse (nb)">
-					description = <"**(nb)">
+					description = <"*Sett hen til for eksempel kjønn, alder, tilstand, rusproblematikk og grad av utagering.(nb)">
 				>
 				["at0083"] = <
 					text = <"*Helhetsvurdering, begrunnelse for at tvungent psykisk helsevern framstår som den klart beste løsningen for pasienten (nb)">
 					description = <"*Herunder skal fremgå fordeler og ulemper med tvangsinngrepet, som forventet behandlingsmessig effekt og risiko for varig skade, samt pasientens tidligere erfaring med bruk av tvang. Ved vurderingen skal det legges særlig vekt på hvor stor belastning det tvangsmessige inngrepet vil medføre for vedkommende. Vektleggingen av hva som er den klart beste løsningen for pasienten svekkes når pasienten utgjør en nærliggende og alvorlig fare for andre.(nb)">
 				>
 				["at0084"] = <
-					text = <"*New element(nb)">
-					description = <"**(nb)">
-				>
-				["at0085"] = <
-					text = <"*Pasienten er under tvungen observasjon(nb)">
-					description = <"*Angir om pasienten er under tvungen observasjon(nb)">
+					text = <"*Frivillighet er forsøkt eller er formålsløst, begrunnelse(nb)">
+					description = <"*Begrunnelse for at frivillighet er forsøkt eller vurdert som formålsløst. (nb)">
 				>
 			>
 		>
@@ -430,39 +409,39 @@ Standard kodeverk: 9290">
 				>
 				["at0004"] = <
 					text = <"Pasientens ankomst til institusjonen">
-					description = <"Tidspunkt for pasientens ankomst til institusjonen">
+					description = <"Dato og tidpunkt for pasientens ankomst til institusjonen.">
 				>
 				["at0005"] = <
-					text = <"Det er framsatt begjæring (regelsett; info klageadgang)">
-					description = <"Angivelse av om begjæring foreligger">
+					text = <"Det er fremsatt begjæring">
+					description = <"Det er fremsatt begjæring.">
 				>
 				["at0007"] = <
 					text = <"Dato begjæringen ble fremmet">
-					description = <"Dato begjæringen ble fremmet">
+					description = <"Dato begjæringen ble fremmet.">
 				>
 				["at0014"] = <
 					text = <"Begjæringen er dokumentert i journalnotat datert">
-					description = <"Referanse til journalnotat der begjæringen er dokumentert">
+					description = <"Referanse til journalnotat der begjæringen er dokumentert.">
 				>
 				["at0016"] = <
-					text = <"Oppstartdato for tvungen observasjon ">
-					description = <"Dersom pasienten har vært til tvungen observasjon, skal den dato observasjonen startet, angis her">
+					text = <"Oppstartsdato tvungen observasjon">
+					description = <"Dato og tidpunkt for oppstart av tvungen observasjonen dersom pasienten har vært under tvungen observasjon.">
 				>
 				["at0017"] = <
 					text = <"Vurdering av frivillighet">
-					description = <"Koder som angir hvilket vilkår for tvungent psykisk helsevern som er oppfylt. Kodeverk 9279">
+					description = <"Standard kodeverk 9279 Hovedvilkår vedtak om tvungent psykisk helsevern/tvungen observasjon.">
 				>
 				["at0018"] = <
-					text = <"Frivillig psykisk helsevern er blitt forsøkt uten at dette har ført frem.">
-					description = <"*">
+					text = <"Frivillig psykisk helsevern er blitt forsøkt uten at dette har ført frem">
+					description = <"Frivillig psykisk helsevern er blitt forsøkt uten at dette har ført frem">
 				>
 				["at0019"] = <
 					text = <"Det er åpenbart formålsløst å forsøke frivillig psykisk helsevern">
-					description = <"*">
+					description = <"Det er åpenbart formålsløst å forsøke frivillig psykisk helsevern">
 				>
 				["at0040"] = <
 					text = <"Ekstern legeundersøkelse">
-					description = <"Beskrivelse av ekstern legeundersøkelse">
+					description = <"Ekstern legeundersøkelse.">
 				>
 				["at0041"] = <
 					text = <"Dato">
@@ -474,19 +453,19 @@ Standard kodeverk: 9290">
 				>
 				["at0044"] = <
 					text = <"Legeundersøkelsen er foretatt på bakgrunn av vedtak om tvungen legeundersøkelse">
-					description = <"Legeundersøkelsen er foretatt på bakgrunn av vedtak om tvungen legeundersøkelse.">
+					description = <"Den eksterne legeundersøkelsen ble foretatt etter vedtak om tvungen legeundersøkelse.">
 				>
 				["at0045"] = <
 					text = <"Intern legeundersøkelse">
-					description = <"Beskrivelse av intern legeundersøkelse">
+					description = <"Intern legeundersøkelse.">
 				>
 				["at0046"] = <
 					text = <"Dato">
-					description = <"Dato den interne legeundersøkelsen ble foretatt">
+					description = <"Dato den interne legeundersøkelsen ble foretatt.">
 				>
 				["at0047"] = <
 					text = <"Utført av">
-					description = <"Referanse til den tjenesteyter (lege) som foretok undersøkelsen.">
+					description = <"Rekvirentsøk - navn på lege som utførte undersøkelsen.">
 				>
 				["at0048"] = <
 					text = <"Intern legeundersøkelse dokumentert i journalnotat datert">
@@ -494,70 +473,64 @@ Standard kodeverk: 9290">
 				>
 				["at0049"] = <
 					text = <"Helsetjenesteenhet ">
-					description = <"Identifikasjon av den enheten hvor vedtaket fattes">
+					description = <"Identifikasjon av den enheten hvor vedtaket fattes.">
 				>
 				["at0050"] = <
 					text = <"Dato og tidspunkt vedtak fattet">
-					description = <"Det tidspunkt (dato og klokkeslett) vedtaket ble fattet">
+					description = <"Det tidspunkt (dato og klokkeslett) vedtaket ble fattet.">
 				>
 				["at0062"] = <
-					text = <"Tvungent psykisk helsevern er nødvendig for å hindre at vedkommende på grunn av sinnslidelsen">
-					description = <"Her registreres en eller flere koder som angir hvorfor tvungent psykisk helsevern er nødvendig.
-Standard kodeverk: 9280 ">
+					text = <"Tilleggsvilkår som vurderes oppfylt">
+					description = <"Standard kodeverk 9280 Tilleggsvilkår vedtak om tvungent psykisk helsevern.">
 				>
 				["at0063"] = <
 					text = <"Får sin utsikt til helbredelse eller vesentlig bedring i betydelig grad redusert">
-					description = <"*">
+					description = <"Får sin utsikt til helbredelse eller vesentlig bedring i betydelig grad redusert">
 				>
 				["at0064"] = <
 					text = <"Med stor sannsynlighet i meget nær fremtid får sin tilstand vesentlig forverret">
-					description = <"*">
+					description = <"Med stor sannsynlighet i meget nær fremtid får sin tilstand vesentlig forverret">
 				>
 				["at0065"] = <
 					text = <"Utgjør en nærliggende og alvorlig fare for eget liv og helse">
-					description = <"*">
+					description = <"Utgjør en nærliggende og alvorlig fare for eget liv og helse">
 				>
 				["at0066"] = <
 					text = <"Utgjør en nærliggende og alvorlig fare for andres liv og helse">
-					description = <"*">
+					description = <"Utgjør en nærliggende og alvorlig fare for andres liv og helse">
 				>
 				["at0068"] = <
 					text = <"Hjemmel for helsehjelp">
-					description = <"Kode som angir hvilken hjemmel som danner grunnlaget for behandling i det psykiske helsevernet.
-Standard kodeverk: 9277 ">
+					description = <"Standard kodeverk 9276 Hjemmel for helsehjelp-psykisk helsevern og  9277 Hjemmel for helsehjelp-psykisk helsevern.">
 				>
 				["at0069"] = <
-					text = <"Vedtakstype (skal skjules)">
-					description = <"Kodeverk 9275">
+					text = <"Vedtakstype">
+					description = <"Standard kodeverk 9275 Vedtak etter psykisk helsevernloven.">
 				>
 				["at0070"] = <
 					text = <"Pasienten har vært undersøkt av en ekstern lege">
-					description = <"Pasienten har vært undersøkt av en ekstern lege.">
+					description = <"Undersøkelsen er 
+foretatt av en lege utenfor den institusjon som skal fatte vedtak.">
 				>
 				["at0071"] = <
 					text = <"Utført av">
-					description = <"Rekvirentsøk - Navn på lege som utførte undersøkelsen">
+					description = <"Rekvirentsøk - navn på lege som utførte undersøkelsen.">
 				>
 				["at0072"] = <
 					text = <"Begjæring framsatt av">
-					description = <"Kode som angir hvem som har framsatt begjæringen.
-Standard kodeverk: 9290 ">
+					description = <"Standard kodeverk 9290 Instanser som kan fremsette begjæring om tvungent psykisk helsevern.">
 				>
 				["at0074"] = <
 					text = <"Begrunnelse for unntak fra konverteringsforbudet">
-					description = <"Begrunnelse for unntak fra konverteringsforbudet">
-				>
-				["at0076"] = <
-					text = <"Vurdering av pasientinnsyn">
-					description = <"*">
+					description = <"Begrunnelse for unntak fra konverteringsforbudet.">
 				>
 				["at0077"] = <
 					text = <"Utført av">
-					description = <"Benyttes dersom undersøkende lege ikke finnes i rekvirentsøket. Registrering bør inkludere navn, tittel og arbeidssted">
+					description = <"Benyttes dersom undersøkende lege ikke finnes i rekvirentsøket. Registrering bør inkludere navn, tittel og arbeidssted.">
 				>
 				["at0080"] = <
 					text = <"Det vurderes at hovedvilkåret «alvorlig sinnslidelse» er oppfylt, begrunnelse ">
-					description = <"Registrer vurdering av hovedvilkåret «alvorlig sinnslidelse»">
+					description = <"Vurdering av hovedvilkåret «alvorlig sinnslidelse».">
 				>
 				["at0081"] = <
 					text = <"Tilleggsvilkår, begrunnelse ">
@@ -565,7 +538,7 @@ Standard kodeverk: 9290 ">
 				>
 				["at0082"] = <
 					text = <"Institusjonen er faglig og materielt egnet for denne pasienten, begrunnelse ">
-					description = <"Registrer begrunnelse for at institusjonen er faglig og materielt egnet for denne pasienten">
+					description = <"Sett hen til for eksempel kjønn, alder, tilstand, rusproblematikk og grad av utagering.">
 				>
 				["at0083"] = <
 					text = <"Helhetsvurdering, begrunnelse for at tvungent psykisk helsevern framstår som den klart beste løsningen for pasienten ">
@@ -573,11 +546,7 @@ Standard kodeverk: 9290 ">
 				>
 				["at0084"] = <
 					text = <"Frivillighet er forsøkt eller er formålsløst, begrunnelse">
-					description = <"Registrer begrunnelse for at frivillighet er forsøkt eller vurdert som formålsløst">
-				>
-				["at0085"] = <
-					text = <"Pasienten er under tvungen observasjon">
-					description = <"Angir om pasienten er under tvungen observasjon">
+					description = <"Begrunnelse for at frivillighet er forsøkt eller vurdert som formålsløst. ">
 				>
 			>
 		>
@@ -587,11 +556,11 @@ Standard kodeverk: 9290 ">
 			items = <
 				["ac0001"] = <
 					text = <"*New constraint(nb)">
-					description = <"**(nb)">
+					description = <"*(nb)">
 				>
 				["ac0003"] = <
 					text = <"*New constraint(nb)">
-					description = <"**(nb)">
+					description = <"*(nb)">
 				>
 			>
 		>
@@ -599,11 +568,11 @@ Standard kodeverk: 9290 ">
 			items = <
 				["ac0001"] = <
 					text = <"New constraint">
-					description = <"*">
+					description = <"">
 				>
 				["ac0003"] = <
 					text = <"New constraint">
-					description = <"*">
+					description = <"">
 				>
 			>
 		>

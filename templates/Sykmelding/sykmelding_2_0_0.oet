@@ -76,6 +76,11 @@
           <includedValues>201710-VOLVEN-OID-8131::8131-10::j) når vedkommende er arbeidsufør som følge av behandling i forbindelse med sterilisering</includedValues>
         </constraint>
       </Rule>
+      <Rule path="/data[at0001]/items[at0024]/items[at0019]">
+        <constraint xsi:type="textConstraint">
+          <excludedValues>local::at0020</excludedValues>
+        </constraint>
+      </Rule>
       <Rule path="/data[at0001]/items[at0014]/items[at0022]/items[at0036]">
         <constraint xsi:type="textConstraint">
           <includedValues>201710-VOLVEN-OID-8133::8133-1::Helsetilstanden hindrer pasienten i å være i aktivitet</includedValues>
@@ -90,7 +95,9 @@
           <includedValues>201710-VOLVEN-OID-8132::8132-9::Annet</includedValues>
         </constraint>
       </Rule>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.public_services_dips.v1" concept_name="Kommunale tjenester" path="/data[at0001]/items[at0094]/items[at0092]">
+      <Rule path="/data[at0001]/items[at0061]/items[at0064]/items[at0067]" name="6.4.3 Hva mener du skal til for at pasienten skal komme tilbake i eget eller annet arbeid?" />
+      <Rule path="/data[at0001]/items[at0078]/items[at0079]" name="7.1 Tilrettelegging/hensyn som bør tas på arbeidsplassen. Beskriv (kan leses av arbeidsgiver)" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.health_and_public_services_dips.v1" concept_name="Kommunale helse- og sosialtjenester" path="/data[at0001]/items[at0094]/items[at0092]">
         <Rule path="/items[at0004]">
           <constraint xsi:type="textConstraint">
             <includedValues>NAV-kontor</includedValues>
@@ -101,7 +108,7 @@
         <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.organisation_dips.v1" concept_name="Organisasjon" path="/items[at0013]">
           <Rule path="/items[at0001]" name="1.5 NAV-kontor">
             <constraint xsi:type="textConstraint">
-              <termQueryId terminologyID="DIPS-Organisation" terminologyLang="no-nb" queryName="SocialSecurityOffice" />
+              <termQueryId terminologyID="DIPS-Organization" terminologyLang="no-nb" queryName="SocialSecurityOffice" />
             </constraint>
           </Rule>
           <Rule path="/items[at0011]">
@@ -121,31 +128,24 @@
           </constraint>
         </Rule>
         <Rule path="/items[at0001]" max="0" />
-        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.occupation_episode_dips.v1" concept_name="Sysselsettingsepisode" path="/items[at0002]">
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.occupation_episode_dips.v1" concept_name="Sysselsettingsepisode" path="/items[at0004]">
           <Rule path="/items[at0001]" max="0" />
           <Rule path="/items[at0016]" max="0" />
           <Rule path="/items[at0007]" max="0" />
           <Rule path="/items[at0006]" max="0" />
           <Rule path="/items[at0005]" max="1" name="2.3 Yrke/stilling for dette arbeidsforholdet" />
-          <Rule path="/items[at0013]" name="2.4 Stillingsprosent">
-            <constraint xsi:type="quantityConstraint">
-              <unitMagnitude>
-                <unit>%</unit>
-                <maxMagnitude>100</maxMagnitude>
-                <minMagnitude>1</minMagnitude>
-                <precision>0</precision>
-                <includesMaximum>true</includesMaximum>
-                <includesMinimum>true</includesMinimum>
-              </unitMagnitude>
-            </constraint>
-          </Rule>
+          <Rule path="/items[at0013]" name="2.4 Stillingsprosent" />
           <Rule path="/items[at0019]" max="0" />
           <Rule path="/items[at0015]" max="0" />
           <Rule path="/items[at0008]" max="0" />
           <Rule path="/items[at0014]" max="0" />
           <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.organisation_dips.v1" concept_name="Organisasjon" path="/items[at0004]">
             <Rule path="/items[at0001]" name="2.2 Arbeidsgiver for denne sykmeldingen" />
-            <Rule path="/items[at0011]" max="0" />
+            <Rule path="/items[at0011]">
+              <constraint xsi:type="textConstraint">
+                <includedValues>Arbeidsgiver</includedValues>
+              </constraint>
+            </Rule>
             <Rule path="/items[at0005]" max="0" />
           </Items>
         </Items>
@@ -170,7 +170,16 @@
       </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.individual_professional_dips.v1" concept_name="Individuell profesjonsutøver" max="1" path="/data[at0001]/items[at0006]" name="Fastlege">
         <Rule path="/items[at0021]" max="0" />
-        <Rule path="/items[at0003]" max="0" />
+        <Rule path="/items[at0003]/items[at0013]" max="0" />
+        <Rule path="/items[at0003]/items[at0005]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Fastlege</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0003]/items[at0020]" max="0" />
+        <Rule path="/items[at0003]/items[at0006]" max="0" />
+        <Rule path="/items[at0003]/items[at0012]" max="0" />
+        <Rule path="/items[at0003]/items[at0011]" max="0" />
         <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.person_name_dips.v1" concept_name="Person navn" max="1" path="/items[at0015]" name="Navn">
           <Rule path="/items[at0006]" max="0" />
           <Rule path="/items[at0022]" max="0" />

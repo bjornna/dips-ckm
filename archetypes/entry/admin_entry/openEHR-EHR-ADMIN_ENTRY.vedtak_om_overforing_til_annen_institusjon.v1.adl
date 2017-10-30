@@ -36,7 +36,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"FF3DC9C446038119D5D92AD068014859">
+		["MD5-CAM-1.0.1"] = <"784C1EDB4AD64CD016568D44F4A10B93">
 	>
 
 definition
@@ -44,7 +44,7 @@ definition
 		data matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0023] occurrences matches {0..1} matches {	-- Dato for etablering av tvungent psykisk helsevern
+					ELEMENT[at0023] occurrences matches {0..1} matches {	-- Dato for etablering av TPH
 						value matches {
 							DV_DATE_TIME matches {
 								value matches {yyyy-mm-ddTHH:??:??}
@@ -58,16 +58,16 @@ definition
 							}
 						}
 					}
-					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Overføres til enhet
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Enheten pasienten skal overføres til
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					allow_archetype CLUSTER[at0019] occurrences matches {0..*} matches {	-- Hjemmel
+					allow_archetype CLUSTER[at0019] occurrences matches {0..2} matches {	-- Hjemmel
 						include
 							archetype_id/value matches {/.*/}
 					}
-					ELEMENT[at0005] occurrences matches {0..3} matches {	-- Endring av tvangsform
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Endring av tvangsform
 						value matches {
 							DV_CODED_TEXT matches {
 								defining_code matches {
@@ -94,7 +94,7 @@ definition
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0014] occurrences matches {0..1} matches {	-- Iverksettelse av overføring
+					ELEMENT[at0014] occurrences matches {0..1} matches {	-- Iversettelse av vedtaket
 						value matches {
 							DV_CODED_TEXT matches {
 								defining_code matches {
@@ -104,6 +104,11 @@ definition
 									at0017]	-- Det er klart at vedtaket ikke vil bli påklaget og overføringen iverksettes
 								}
 							}
+						}
+					}
+					ELEMENT[at0032] occurrences matches {0..1} matches {	-- Nedenfor fremgår begrunnelse for at umiddelbar overføring er strengt nødvendig
+						value matches {
+							DV_TEXT matches {*}
 						}
 					}
 					ELEMENT[at0021] occurrences matches {0..1} matches {	-- Helsetjenesteenhet
@@ -118,63 +123,9 @@ definition
 							}
 						}
 					}
-					allow_archetype CLUSTER[at0018] occurrences matches {0..*} matches {	-- Vedtakstype
+					allow_archetype CLUSTER[at0018] occurrences matches {0..1} matches {	-- Vedtakstype
 						include
 							archetype_id/value matches {/.*/}
-					}
-					allow_archetype CLUSTER[at0025] occurrences matches {0..*} matches {	-- Vurdering av pasientinnsyn
-						include
-							archetype_id/value matches {/.*/}
-					}
-					ELEMENT[at0024] occurrences matches {0..1} matches {	-- Det foreligger begjæring (utgår)
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True, False}
-							}
-						}
-					}
-					ELEMENT[at0031] occurrences matches {0..1} matches {	-- Nedenfor fremgår begrunnelse for at umiddelbar overføring er strengt nødvendig
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0026] occurrences matches {0..1} matches {	-- Relevant og nødvendig begrunnelse for de ulike vilkårene i vedtaket (utgår)
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0027] occurrences matches {0..1} matches {	-- Begrunnelse for vedtaket er dokumentert i eget journalnotat (utgår)
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True, False}
-							}
-						}
-					}
-					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak i journalnotat datert: (utgår)
-						value matches {
-							DV_DATE matches {*}
-						}
-					}
-					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Institusjonen er faglig og materielt i stand til å tilby pasienten tilfredsstillende behandling og omsorg og er godkjent i henhold til psykisk helsevernloven § 3 5 (utgår)
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True, False}
-							}
-						}
-					}
-					ELEMENT[at0011] occurrences matches {0..1} matches {	-- Det er vurdert at en overføring fra "med døgnopphold" til "uten døgnopphold" er et bedre alternativ for pasienten (utgår)
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True, False}
-							}
-						}
-					}
-					ELEMENT[at0012] occurrences matches {0..1} matches {	-- Det er tatt tilbørlig hensyn til pårørende som pasienten bor sammen med (utgår)
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True, False}
-							}
-						}
 					}
 				}
 			}
@@ -187,7 +138,7 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Vedtak om overforing til annen institusjon">
-					description = <"unknown">
+					description = <"Arketypen brukes i produktet Arena Psykiatri.">
 				>
 				["at0001"] = <
 					text = <"Tree">
@@ -198,7 +149,7 @@ ontology
 					description = <"Den dato vedtaket om tvungent psykisk helsevern, evt. siste samtykke av Kontrollomisjonen til forlengelse av dette, gjelder til.">
 				>
 				["at0004"] = <
-					text = <"Overføres til enhet">
+					text = <"Enheten pasienten skal overføres til">
 					description = <"Identifikasjon av den enhet pasienten skal overføres til.">
 				>
 				["at0005"] = <
@@ -207,47 +158,31 @@ ontology
 				>
 				["at0006"] = <
 					text = <"Vedtaket innebærer ingen endring av tvangsform">
-					description = <"*">
+					description = <"Vedtaket innebærer ingen endring av tvangsform">
 				>
 				["at0007"] = <
 					text = <"Vedtak om overføring fra \"uten døgnopphold\" til \"med døgnopphold\"">
-					description = <"*">
+					description = <"Vedtak om overføring fra \"uten døgnopphold\" til \"med døgnopphold\"">
 				>
 				["at0008"] = <
 					text = <"Vedtak om overføring fra \"med døgnopphold\" til \"uten døgnopphold\"">
-					description = <"*">
-				>
-				["at0009"] = <
-					text = <"Begrunnelse for vedtak i journalnotat datert: (utgår)">
-					description = <"Referanse til journalnotat med nærmere begrunnelse for vedtaket.">
-				>
-				["at0010"] = <
-					text = <"Institusjonen er faglig og materielt i stand til å tilby pasienten tilfredsstillende behandling og omsorg og er godkjent i henhold til psykisk helsevernloven § 3 5 (utgår)">
-					description = <"*">
-				>
-				["at0011"] = <
-					text = <"Det er vurdert at en overføring fra \"med døgnopphold\" til \"uten døgnopphold\" er et bedre alternativ for pasienten (utgår)">
-					description = <"*">
-				>
-				["at0012"] = <
-					text = <"Det er tatt tilbørlig hensyn til pårørende som pasienten bor sammen med (utgår)">
-					description = <"*">
+					description = <"Vedtak om overføring fra \"med døgnopphold\" til \"uten døgnopphold\"">
 				>
 				["at0014"] = <
-					text = <"Iverksettelse av overføring">
+					text = <"Iversettelse av vedtaket">
 					description = <"Standard kodeverk 9282 gjennomføring av overføringsvedtak TPH.">
 				>
 				["at0015"] = <
 					text = <"Vedtak om overføring settes ikke i verk før klagefristen er ute eller klagesaken er avgjort">
-					description = <"*">
+					description = <"Vedtak om overføring settes ikke i verk før klagefristen er ute eller klagesaken er avgjort">
 				>
 				["at0016"] = <
 					text = <"Umiddelbar overføring er strengt nødvendig, og iverksettes">
-					description = <"*">
+					description = <"Umiddelbar overføring er strengt nødvendig, og iverksettes">
 				>
 				["at0017"] = <
 					text = <"Det er klart at vedtaket ikke vil bli påklaget og overføringen iverksettes">
-					description = <"*">
+					description = <"Det er klart at vedtaket ikke vil bli påklaget og overføringen iverksettes">
 				>
 				["at0018"] = <
 					text = <"Vedtakstype">
@@ -266,24 +201,8 @@ ontology
 					description = <"Det tidspunkt (dato og klokkeslett) vedtaket ble fattet.">
 				>
 				["at0023"] = <
-					text = <"Dato for etablering av tvungent psykisk helsevern">
+					text = <"Dato for etablering av TPH">
 					description = <"Den dato tvungent psykisk helsevern opprinnelig ble vedtatt.">
-				>
-				["at0024"] = <
-					text = <"Det foreligger begjæring (utgår)">
-					description = <"Hukes av dersom det foreligger begjæring">
-				>
-				["at0025"] = <
-					text = <"Vurdering av pasientinnsyn">
-					description = <"*">
-				>
-				["at0026"] = <
-					text = <"Relevant og nødvendig begrunnelse for de ulike vilkårene i vedtaket (utgår)">
-					description = <"Dersom pasienten på det tidspunktet vedtaket fattes nektes innsyn i hele eller deler av begrunnelsen for vedtaket etter bestemmelsen i pasient- og brukerrettighetsloven § 3 2 tredje ledd, skal ikke begrunnelsen for vedtaket registreres i tekstfeltet under, men i et eget journalnotat. Begrunnelsen for å nekte innsyn må også fremkomme i samme journalnotat.">
-				>
-				["at0027"] = <
-					text = <"Begrunnelse for vedtaket er dokumentert i eget journalnotat (utgår)">
-					description = <"*">
 				>
 				["at0028"] = <
 					text = <"Begrunnelse">
@@ -297,7 +216,7 @@ ontology
 					text = <"En overføring fra \"med døgnopphold\" til \"uten døgnopphold\" er et bedre alternativ for pasienten, begrunnelse">
 					description = <"Det er vurdert at en overføring fra \"med døgnopphold\" til \"uten døgnopphold\" er et bedre alternativ for pasienten.">
 				>
-				["at0031"] = <
+				["at0032"] = <
 					text = <"Nedenfor fremgår begrunnelse for at umiddelbar overføring er strengt nødvendig">
 					description = <"Begrunnelse for at umiddelbar overføring er strengt nødvendig.">
 				>
@@ -306,8 +225,8 @@ ontology
 		["no"] = <
 			items = <
 				["at0000"] = <
-					text = <"Vedtak om overforing til annen institusjon">
-					description = <"unknown">
+					text = <"*Vedtak om overforing til annen institusjon(nb)">
+					description = <"*Arketypen brukes i produktet Arena Psykiatri.(nb)">
 				>
 				["at0001"] = <
 					text = <"Tree">
@@ -318,7 +237,7 @@ ontology
 					description = <"*Den dato vedtaket om tvungent psykisk helsevern, evt. siste samtykke av Kontrollomisjonen til forlengelse av dette, gjelder til.(nb)">
 				>
 				["at0004"] = <
-					text = <"*Overføres til enhet(nb)">
+					text = <"*Enheten pasienten skal overføres til(nb)">
 					description = <"*Identifikasjon av den enhet pasienten skal overføres til.(nb)">
 				>
 				["at0005"] = <
@@ -326,48 +245,32 @@ ontology
 					description = <"Kode som angir om vedtaket innebærer en overføring mellom tvangsformer. Standard kodeverk: 9299 ">
 				>
 				["at0006"] = <
-					text = <"Vedtaket innebærer ingen endring av tvangsform">
-					description = <"*">
+					text = <"*Vedtaket innebærer ingen endring av tvangsform(nb)">
+					description = <"*Vedtaket innebærer ingen endring av tvangsform(nb)">
 				>
 				["at0007"] = <
 					text = <"*Vedtak om overføring fra \"uten døgnopphold\" til \"med døgnopphold\"(nb)">
-					description = <"**(nb)">
+					description = <"*Vedtak om overføring fra \"uten døgnopphold\" til \"med døgnopphold\"(nb)">
 				>
 				["at0008"] = <
 					text = <"*Vedtak om overføring fra \"med døgnopphold\" til \"uten døgnopphold\"(nb)">
-					description = <"**(nb)">
-				>
-				["at0009"] = <
-					text = <"*Begrunnelse for vedtak i journalnotat datert:(nb)">
-					description = <"*Referanse til journalnotat med nærmere begrunnelse for vedtaket.(nb)">
-				>
-				["at0010"] = <
-					text = <"Institusjonen er faglig og materielt i stand til å tilby pasienten tilfredsstillende behandling og omsorg og er godkjent i henhold til psykisk helsevernloven § 3 5">
-					description = <"*">
-				>
-				["at0011"] = <
-					text = <"Det er vurdert at en overføring fra \"med døgnopphold\" til \"uten døgnopphold\" er et bedre alternativ for pasienten">
-					description = <"*">
-				>
-				["at0012"] = <
-					text = <"Det er tatt tilbørlig hensyn til pårørende som pasienten bor sammen med">
-					description = <"*">
+					description = <"*Vedtak om overføring fra \"med døgnopphold\" til \"uten døgnopphold\"(nb)">
 				>
 				["at0014"] = <
-					text = <"*Iverksettelse av overføring(nb)">
+					text = <"*Iversettelse av vedtaket(nb)">
 					description = <"*Standard kodeverk 9282 gjennomføring av overføringsvedtak TPH.(nb)">
 				>
 				["at0015"] = <
-					text = <"Vedtak om overføring settes ikke i verk før klagefristen er ute eller klagesaken er avgjort">
-					description = <"*">
+					text = <"*Vedtak om overføring settes ikke i verk før klagefristen er ute eller klagesaken er avgjort(nb)">
+					description = <"*Vedtak om overføring settes ikke i verk før klagefristen er ute eller klagesaken er avgjort(nb)">
 				>
 				["at0016"] = <
-					text = <"Umiddelbar overføring er strengt nødvendig, og iverksettes">
-					description = <"*">
+					text = <"*Umiddelbar overføring er strengt nødvendig, og iverksettes(nb)">
+					description = <"*Umiddelbar overføring er strengt nødvendig, og iverksettes(nb)">
 				>
 				["at0017"] = <
-					text = <"Det er klart at vedtaket ikke vil bli påklaget og overføringen iverksettes">
-					description = <"*">
+					text = <"*Det er klart at vedtaket ikke vil bli påklaget og overføringen iverksettes(nb)">
+					description = <"*Det er klart at vedtaket ikke vil bli påklaget og overføringen iverksettes(nb)">
 				>
 				["at0018"] = <
 					text = <"Vedtakstype (skal skjules)">
@@ -386,28 +289,12 @@ ontology
 					description = <"*Det tidspunkt (dato og klokkeslett) vedtaket ble fattet.(nb)">
 				>
 				["at0023"] = <
-					text = <"Dato for etablering av tvungent psykisk helsevern">
-					description = <"*">
-				>
-				["at0024"] = <
-					text = <"*Det foreligger begjæring (utgår)(nb)">
-					description = <"*Hukes av dersom det foreligger begjæring(nb)">
-				>
-				["at0025"] = <
-					text = <"*Vurdering av pasientinnsyn(nb)">
-					description = <"**(nb)">
-				>
-				["at0026"] = <
-					text = <"*Relevant og nødvendig begrunnelse for de ulike vilkårene i vedtaket(nb)">
-					description = <"*Dersom pasienten på det tidspunktet vedtaket fattes nektes innsyn i hele eller deler av begrunnelsen for vedtaket etter bestemmelsen i pasient- og brukerrettighetsloven § 3 2 tredje ledd, skal ikke begrunnelsen for vedtaket registreres i tekstfeltet under, men i et eget journalnotat. Begrunnelsen for å nekte innsyn må også fremkomme i samme journalnotat.(nb)">
-				>
-				["at0027"] = <
-					text = <"*New element(nb)">
-					description = <"**(nb)">
+					text = <"*Dato for etablering av TPH(nb)">
+					description = <"*Den dato tvungent psykisk helsevern opprinnelig ble vedtatt.(nb)">
 				>
 				["at0028"] = <
-					text = <"*New element(nb)">
-					description = <"**(nb)">
+					text = <"*Begrunnelse(nb)">
+					description = <"*Begrunnelse for overføringen.(nb)">
 				>
 				["at0029"] = <
 					text = <"*New element(nb)">
@@ -417,7 +304,7 @@ ontology
 					text = <"*En overføring fra \"med døgnopphold\" til \"uten døgnopphold\" er et bedre alternativ for pasienten, begrunnelse(nb)">
 					description = <"*Det er vurdert at en overføring fra \"med døgnopphold\" til \"uten døgnopphold\" er et bedre alternativ for pasienten.(nb)">
 				>
-				["at0031"] = <
+				["at0032"] = <
 					text = <"*Nedenfor fremgår begrunnelse for at umiddelbar overføring er strengt nødvendig(nb)">
 					description = <"*Begrunnelse for at umiddelbar overføring er strengt nødvendig.(nb)">
 				>
