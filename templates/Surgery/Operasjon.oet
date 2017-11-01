@@ -80,8 +80,8 @@
       <Rule path="/activities[at0001]/description[at0009]/items[at0064]" max="0" />
       <Rule path="/activities[at0001]/description[at0009]/items[at0065.1]" max="0" />
       <Rule path="/activities[at0001]/description[at0009]/items[at0068]">
-        <constraint xsi:type="multipleConstraint">
-          <includedTypes>Coded_text</includedTypes>
+        <constraint xsi:type="textConstraint">
+          <excludedValues>local::at0137</excludedValues>
         </constraint>
       </Rule>
       <Rule path="/activities[at0001]/description[at0009]/items[at0040.1]" name="Ønskes gjennomført innen" />
@@ -122,15 +122,6 @@
         </Rule>
       </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.surgery_details_dips.v1" concept_name="Operasjonsdetaljer" path="/activities[at0001]/description[at0009]/items[at0132]">
-        <Rule path="/items[at0013]">
-          <constraint xsi:type="textConstraint">
-            <includedValues>Umiddelbart (katastrofe)</includedValues>
-            <includedValues>Akutt (innen 6 timer)</includedValues>
-            <includedValues>Haster (innen 24 t)</includedValues>
-            <includedValues>Kan vente (innen 72 timer)</includedValues>
-            <includedValues>Elektiv</includedValues>
-          </constraint>
-        </Rule>
         <Rule path="/items[at0009]/items[at0010]">
           <constraint xsi:type="multipleConstraint">
             <includedTypes>Boolean</includedTypes>
@@ -142,6 +133,17 @@
             <includedValues>Blødning</includedValues>
             <includedValues>Mekanisk</includedValues>
             <includedValues>Annet</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.priority_details_dips.v1" concept_name="Hastegrad detaljer" path="/activities[at0001]/description[at0009]/items[at0132]">
+        <Rule path="/items[at0009]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ARENA-SURGERY-PRIORITY::P1::Umiddelbart (innen 15 min.)</includedValues>
+            <includedValues>ARENA-SURGERY-PRIORITY::P2::Akutt (innen 6 timer)</includedValues>
+            <includedValues>ARENA-SURGERY-PRIORITY::P3::Haster (innen 24 t)</includedValues>
+            <includedValues>ARENA-SURGERY-PRIORITY::P4::Kan vente (innen 72 timer)</includedValues>
+            <includedValues>ARENA-SURGERY-PRIORITY::P5::Elektivt</includedValues>
           </constraint>
         </Rule>
       </Items>
