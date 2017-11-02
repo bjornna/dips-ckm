@@ -220,14 +220,6 @@
       </item>
     </items>
   </annotations>
-  <annotations path="[openEHR-EHR-COMPOSITION.encounter.v1]/content[openEHR-EHR-ACTION.procedure.v1 and name/value='Kirurgisk svangerskapsavbrudd']/description[at0001]/items[openEHR-EHR-CLUSTER.procedure_details_dips.v1 and name/value='Tilleggsprosedyrer']/items[at0004]">
-    <items>
-      <item>
-        <key>Notes.Comment</key>
-        <value>Inngrep</value>
-      </item>
-    </items>
-  </annotations>
   <annotations path="[openEHR-EHR-COMPOSITION.encounter.v1]/content[openEHR-EHR-ACTION.procedure.v1 and name/value='Kirurgisk svangerskapsavbrudd']/description[at0001]/items[at0006]">
     <items>
       <item>
@@ -241,6 +233,14 @@
       <item>
         <key>Notes.Comment</key>
         <value>Behandling ved komplikasjoner</value>
+      </item>
+    </items>
+  </annotations>
+  <annotations path="[openEHR-EHR-COMPOSITION.encounter.v1]/content[openEHR-EHR-ACTION.procedure.v1 and name/value='Kirurgisk svangerskapsavbrudd']/description[at0001]/items[openEHR-EHR-CLUSTER.complication_dips.v1]/items[at0005]/items[at0006]">
+    <items>
+      <item>
+        <key>Notes.Comment</key>
+        <value>Spesifikasjon av behandling ved komplikasjoner</value>
       </item>
     </items>
   </annotations>
@@ -284,7 +284,7 @@
         </Rule>
         <Rule path="/items[at0001]" max="1" name="Begjæringen fremsatt av">
           <constraint xsi:type="textConstraint">
-            <includedValues>Svangerskapsavbrudd_0130_BEGJ_FR_AV::0130-1::Kvinnen</includedValues>
+            <includedValues>Svangerskapsavbrudd_0130_BEGJ_FR_AV::0130-1::Abortsøkende</includedValues>
             <includedValues>Svangerskapsavbrudd_0130_BEGJ_FR_AV::0130-2::Verge</includedValues>
           </constraint>
         </Rule>
@@ -450,6 +450,11 @@
       <Rule path="/data[at0001]/items[at0016]" max="0" />
       <Rule path="/data[at0001]/items[at0074]" max="0" />
       <Rule path="/data[at0001]/items[at0019]" max="0" />
+      <Rule path="/protocol[at0021]/items[at0072]">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Count</includedTypes>
+        </constraint>
+      </Rule>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.patient_refusal.v1" concept_name="Pasienten nekter" max="1" path="/data[at0001]/items[at0086]">
         <Rule path="/items[at0001]" name="Kvinnen motsetter seg melding av røykeopplysninger" />
         <Rule path="/items[at0004]" max="0" />
@@ -520,8 +525,9 @@
         <Rule path="/items[at0076]" max="0" />
         <Rule path="/items[at0077]" max="0" />
         <Rule path="/items[at0114]" name="Regelmessig kosttilskudd">
-          <constraint xsi:type="multipleConstraint">
-            <includedTypes>Boolean</includedTypes>
+          <constraint xsi:type="textConstraint">
+            <includedValues>Svangerskapsavbrudd_0320_KV_KOST::0320-1::Ja</includedValues>
+            <includedValues>Svangerskapsavbrudd_0320_KV_KOST::0320-2::Nei</includedValues>
           </constraint>
         </Rule>
         <Rule path="/items[at0115]" max="0" />
@@ -698,23 +704,8 @@
         <Rule path="/items[at0008.1]/items[at0.4]" max="0" />
         <Rule path="/items[at0008.1]/items[at0.12]" name="Antall foster" />
         <Rule path="/items[at0008.1]/items[at0.18]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
       </Items>
-    </Content>
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/diagnose" path="/content">
-      <Rule path="/data[at0001]/items[at0002]">
-        <constraint xsi:type="textConstraint">
-          <termQueryId terminologyID="ICD10" terminologyLang="no-nb" queryName="ICD10" />
-        </constraint>
-      </Rule>
-      <Rule path="/data[at0001]/items[at0009]" max="0" />
-      <Rule path="/data[at0001]/items[at0012]" max="0" />
-      <Rule path="/data[at0001]/items[at0077]" max="0" />
-      <Rule path="/data[at0001]/items[at0003]" max="0" />
-      <Rule path="/data[at0001]/items[at0005]" max="0" />
-      <Rule path="/data[at0001]/items[at0072]" max="0" />
-      <Rule path="/data[at0001]/items[at0030]" max="0" />
-      <Rule path="/data[at0001]/items[at0073]" max="0" />
-      <Rule path="/data[at0001]/items[at0069]" max="0" />
     </Content>
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.exclusion-problem_diagnosis_dips.v1" concept_name="Eksklusjon av problem/diagnose" max="1" path="/content" name="Eksklusjon av tidligere sykdommer">
       <Rule path="/data[at0001]/items[at0002.1]" max="1" name="Intet spesielt">
@@ -835,7 +826,12 @@
       <Rule path="/description[at0001]/items[at0065]" max="1" clone="true" name="Annen fosterdiagnostikk, spesifiser" />
       <Rule path="/description[at0001]/items[at0058]" max="0" />
       <Rule path="/description[at0001]/items[at0063]" max="0" />
-      <Rule path="/description[at0001]/items[at0048]" max="1" />
+      <Rule path="/description[at0001]/items[at0048]" max="1">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Svangerskapsavbrudd_0730_FD_OBDUK::0730-1::Ja</includedValues>
+          <includedValues>Svangerskapsavbrudd_0730_FD_OBDUK::0730-2::Nei</includedValues>
+        </constraint>
+      </Rule>
       <Rule path="/description[at0001]/items[at0069]" max="0" />
       <Rule path="/description[at0001]/items[at0006]" max="0" />
       <Rule path="/description[at0001]/items[at0066]" max="0" />
@@ -844,16 +840,29 @@
       <Rule path="/description[at0001]/items[at0067]" max="0" />
       <Rule path="/description[at0001]/items[at0014]" max="0" />
       <Rule path="/description[at0001]/items[at0005]" max="0" />
+      <Rule path="/protocol[at0053]/items[at0054]">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Text</includedTypes>
+        </constraint>
+      </Rule>
+      <Rule path="/protocol[at0053]/items[at0056]">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Text</includedTypes>
+        </constraint>
+      </Rule>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" max="1" path="/description[at0001]/items[at0003]">
         <Rule path="/items[at0002]" max="0" />
         <Rule path="/items[at0003]" max="0" />
         <Rule path="/items[at0004]" max="0" />
       </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.fetal_diagnostics_dips.v1" concept_name="Fosterdiagnostikk" path="/description[at0001]/items[at0003]" />
     </Content>
-    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.fetal_diagnostics.v1" concept_name="Fetal diagnostics" max="1" path="/content">
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.fetal_diagnostics.v1" concept_name="Fetal diagnostics" path="/content">
       <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/diagnose" path="/items[at0001]">
-        <Rule path="/data[at0001]/items[at0002]" name="Spesifisert klinisk diagnose" />
+        <Rule path="/data[at0001]/items[at0002]" name="Spesifisert klinisk diagnose">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="ICD10" terminologyLang="no-nb" queryName="ICD10" />
+          </constraint>
+        </Rule>
         <Rule path="/data[at0001]/items[at0009]" name="Diagnose, beskrivelse" />
         <Rule path="/data[at0001]/items[at0012]" max="0" />
         <Rule path="/data[at0001]/items[at0077]" max="0" />
@@ -868,14 +877,23 @@
           </constraint>
         </Rule>
         <Rule path="/data[at0001]/items[at0069]" max="0" />
-        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.kategori_dips.v1" concept_name="Kategori DIPS" max="1" path="/data[at0001]/items[at0043]">
-          <Rule path="/items[at0008]" name="Fosternummer diagnosen gjelder for" />
-          <Rule path="/items[at0005]" max="0" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.numbering_dips.v1" concept_name="Nummerering" path="/data[at0001]/items[at0043]">
+          <Rule path="/items[at0001]" name="Fosternummer diagnosen gjelder for">
+            <constraint xsi:type="countConstraint">
+              <minMagnitude>1</minMagnitude>
+              <includesMaximum>false</includesMaximum>
+              <includesMinimum>true</includesMinimum>
+            </constraint>
+          </Rule>
         </Items>
       </Item>
     </Content>
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.exclusion-procedure.v1" concept_name="Exclusion of a Procedure" max="1" path="/content" name="Fosterdiagnostikk ikke gjennomført">
-      <Rule path="/data[at0001]/items[at0002.1]" max="1" name="Fosterdiagnostikk" />
+      <Rule path="/data[at0001]/items[at0002.1]" max="1" name="Fosterdiagnostikk">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Svangerskapsavbrudd_0690_FD_DIAG_0::0690-0::Ikke utført</includedValues>
+        </constraint>
+      </Rule>
       <Rule path="/data[at0001]/items[at0003.1]">
         <constraint xsi:type="textConstraint">
           <includedValues>Fosterdiagnostikk ved svangerskapsavbrudd</includedValues>
@@ -884,31 +902,55 @@
       <Rule path="/data[at0001]/items[at0007]" max="0" />
     </Content>
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" max="1" path="/content" name="Kirurgisk svangerskapsavbrudd">
+      <Rule path="/description[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Svangerskapsavbrudd</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0001]/items[at0049]" max="0" />
+      <Rule path="/description[at0001]/items[at0065]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Svangerskapsavbrudd_0880_IG_KIR_MET::0880-1::Vakuumaspirasjon uten forbehandling</includedValues>
+          <includedValues>Svangerskapsavbrudd_0880_IG_KIR_MET::0880-4::Vakuumaspirasjon etter medikamentell forbehandlig</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0001]/items[at0058]" max="0" />
+      <Rule path="/description[at0001]/items[at0063]" max="0" />
+      <Rule path="/description[at0001]/items[at0048]" max="1" name="Gjenværende fostre" />
+      <Rule path="/description[at0001]/items[at0069]" max="0" />
+      <Rule path="/description[at0001]/items[at0006]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Svangerskapsavbrudd_0910_IG_KOMPL_AVBR::0910-0::Ingen</includedValues>
+          <includedValues>Svangerskapsavbrudd_0910_IG_KOMPL_AVBR::0910-1::Ufullstendig abort</includedValues>
+          <includedValues>Svangerskapsavbrudd_0910_IG_KOMPL_AVBR::0910-2::Perforasjon</includedValues>
+          <includedValues>Svangerskapsavbrudd_0910_IG_KOMPL_AVBR::0910-99::Annet</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0001]/items[at0006]" max="1" clone="true" name="Spesifikasjon av komplikasjoner" />
+      <Rule path="/description[at0001]/items[at0066]" max="0" />
+      <Rule path="/description[at0001]/items[at0060]" max="0" />
+      <Rule path="/description[at0001]/items[at0061]" max="0" />
+      <Rule path="/description[at0001]/items[at0067]" max="0" />
+      <Rule path="/description[at0001]/items[at0014]" max="0" />
+      <Rule path="/description[at0001]/items[at0005]" max="0" />
+      <Rule path="/protocol[at0053]/items[at0054]">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Text</includedTypes>
+        </constraint>
+      </Rule>
+      <Rule path="/protocol[at0053]/items[at0056]">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Text</includedTypes>
+        </constraint>
+      </Rule>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" max="1" path="/description[at0001]/items[at0003]">
         <Rule path="/items[at0002]" max="0" />
         <Rule path="/items[at0003]" max="0" />
         <Rule path="/items[at0004]" max="0" />
       </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" max="1" path="/description[at0001]/items[at0003]" name="Tilleggsprosedyrer">
-        <Rule path="/items[at0002]" max="0" />
-        <Rule path="/items[at0003]">
-          <constraint xsi:type="textConstraint">
-            <includedValues>Prevensjon</includedValues>
-          </constraint>
-        </Rule>
-        <Rule path="/items[at0004]">
-          <constraint xsi:type="textConstraint">
-            <includedValues>Svangerskapsavbrudd_0890_IG_INNGR::0890-5::Spiral satt inn</includedValues>
-            <includedValues>Svangerskapsavbrudd_0890_IG_INNGR::0890-6::Sterilisering</includedValues>
-            <includedValues>Svangerskapsavbrudd_0890_IG_INNGR::0890-99::Annet</includedValues>
-          </constraint>
-        </Rule>
-        <Rule path="/items[at0004]" max="1" clone="true" name="Spesifikasjon av inngrep" />
-      </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.complication_dips.v1" concept_name="Complication dips" max="1" path="/description[at0001]/items[at0003]" name="Komplikasjoner">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.complication_dips.v1" concept_name="Complication dips" max="1" path="/description[at0001]/items[at0003]">
         <Rule path="/items[at0001]" max="0" />
         <Rule path="/items[at0002]" max="0" />
-        <Rule path="/items[at0005]" max="5" />
         <Rule path="/items[at0005]/items[at0004]">
           <constraint xsi:type="textConstraint">
             <includedValues>Svangerskapsavbrudd_0930_IG_BEH_KOMPL::0930-0::Ingen</includedValues>
@@ -919,10 +961,92 @@
             <includedValues>Svangerskapsavbrudd_0930_IG_BEH_KOMPL::0930-99::Annet</includedValues>
           </constraint>
         </Rule>
-        <Rule path="/items[at0005]/items[at0006]" name="Spesifikasjon av behandling" />
+        <Rule path="/items[at0005]/items[at0007]" max="0" />
+        <Rule path="/items[at0008]" max="0" />
+        <Rule path="/items[at0009]" max="0" />
+        <Rule path="/items[at0011]" max="0" />
+        <Rule path="/items[at0012]" max="0" />
+        <Rule path="/items[at0013]" max="0" />
+        <Rule path="/items[at0016]" max="0" />
       </Items>
     </Content>
-    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" max="1" path="/content" name="Medikamentelt svangerskapsavbrudd" />
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" max="1" path="/content" name="Medikamentelt svangerskapsavbrudd">
+      <Rule path="/description[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Svangerskapsavbrudd</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0001]/items[at0049]" max="0" />
+      <Rule path="/description[at0001]/items[at0065]" max="0" />
+      <Rule path="/description[at0001]/items[at0058]" max="0" />
+      <Rule path="/description[at0001]/items[at0063]" max="0" />
+      <Rule path="/description[at0001]/items[at0048]" max="0" />
+      <Rule path="/description[at0001]/items[at0069]" max="0" />
+      <Rule path="/description[at0001]/items[at0006]" max="0" />
+      <Rule path="/description[at0001]/items[at0066]" max="0" />
+      <Rule path="/description[at0001]/items[at0060]" max="0" />
+      <Rule path="/description[at0001]/items[at0061]" max="0" />
+      <Rule path="/description[at0001]/items[at0067]" max="0" />
+      <Rule path="/description[at0001]/items[at0014]" max="0" />
+      <Rule path="/description[at0001]/items[at0005]" max="0" />
+      <Rule path="/protocol[at0053]/items[at0054]">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Text</includedTypes>
+        </constraint>
+      </Rule>
+      <Rule path="/protocol[at0053]/items[at0056]">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Text</includedTypes>
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" path="/description[at0001]/items[at0003]">
+        <Rule path="/items[at0002]" max="0" />
+        <Rule path="/items[at0003]" max="0" />
+        <Rule path="/items[at0004]" max="0" />
+      </Items>
+    </Content>
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" max="1" path="/content" name="Inngrep for prevensjon">
+      <Rule path="/description[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Prevensjon etter svangerskapsavbrudd</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0001]/items[at0049]" max="0" />
+      <Rule path="/description[at0001]/items[at0065]" max="0" />
+      <Rule path="/description[at0001]/items[at0058]" max="0" />
+      <Rule path="/description[at0001]/items[at0063]" max="0" />
+      <Rule path="/description[at0001]/items[at0048]" max="0" />
+      <Rule path="/description[at0001]/items[at0069]" max="0" />
+      <Rule path="/description[at0001]/items[at0006]" max="0" />
+      <Rule path="/description[at0001]/items[at0066]" max="0" />
+      <Rule path="/description[at0001]/items[at0060]" max="0" />
+      <Rule path="/description[at0001]/items[at0061]" max="0" />
+      <Rule path="/description[at0001]/items[at0067]" max="0" />
+      <Rule path="/description[at0001]/items[at0014]" max="0" />
+      <Rule path="/description[at0001]/items[at0005]" max="0" />
+      <Rule path="/protocol[at0053]/items[at0054]">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Text</includedTypes>
+        </constraint>
+      </Rule>
+      <Rule path="/protocol[at0053]/items[at0056]">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Text</includedTypes>
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" path="/description[at0001]/items[at0003]">
+        <Rule path="/items[at0002]" max="0" />
+        <Rule path="/items[at0003]" max="0" />
+        <Rule path="/items[at0004]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Svangerskapsavbrudd_0890_IG_INNGR::0890-5::Spiral satt inn</includedValues>
+            <includedValues>Svangerskapsavbrudd_0890_IG_INNGR::0890-6::Sterilisering</includedValues>
+            <includedValues>Svangerskapsavbrudd_0890_IG_INNGR::0890-99::Annet</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0004]" max="1" clone="true" name="Spesifikasjon av inngrep" />
+      </Items>
+    </Content>
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.exclusion-procedure.v1" concept_name="Exclusion of a Procedure" max="1" path="/content" name="Svangerskapsavbrudd ikke gjennomført">
       <Rule path="/data[at0001]/items[at0002.1]" max="1" name="Begrunnelse for at svangerskapsavbrudd ikke er gjennomført">
         <constraint xsi:type="textConstraint">
@@ -944,7 +1068,17 @@
     </Content>
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.hjelpefelter_svangerskapsavbrudd.v1" concept_name="Hjelpefelter svangerskapsavbrudd" path="/content">
       <Rule path="/data[at0001]/items[at0013]" min="1" />
-      <Rule path="/data[at0001]/items[at0014]" min="1" />
+      <Rule path="/data[at0001]/items[at0014]" min="1">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="DIPS" terminologyLang="no-nb" queryName="ADM-LOKALISERING" />
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0016]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Svangerskapsavbrudd_0540_ST_KLAM_TATT::0540-1::Ja</includedValues>
+          <includedValues>Svangerskapsavbrudd_0540_ST_KLAM_TATT::0540-2::Nei</includedValues>
+        </constraint>
+      </Rule>
     </Content>
     <Context />
   </definition>
