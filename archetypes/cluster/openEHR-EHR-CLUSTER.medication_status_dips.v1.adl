@@ -2,38 +2,54 @@ archetype (adl_version=1.4)
 	openEHR-EHR-CLUSTER.medication_status_dips.v1
 
 concept
-	[at0000]	-- Medication status dips
+	[at0000]	-- Medikasjon status
 language
 	original_language = <[ISO_639-1::nb]>
 description
 	original_author = <
-		["name"] = <"">
+		["name"] = <"Ingrid Skard">
+		["email"] = <"ins@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2017-10-23">
 	>
 	details = <
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"">
-			use = <"">
-			misuse = <"">
-			copyright = <"">
+			purpose = <"Registrering av fritekstsammendrag av pasientens medikamenter.">
+			use = <"Brukes for å registrere et fritekstsammendrag av legemidlene som pasienten står på. Settes inn i en klinisk kontekst.">
+			keywords = <"sammendrag", "legemidler", "medikamenter">
+			misuse = <"Brukes ikke for registrering av legemidler i bruk.">
+			copyright = <"DIPS AS">
 		>
 	>
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"A5ECA2DEB0EBD339CA3E820C3D58E3AF">
+		["MD5-CAM-1.0.1"] = <"E29CD59943D9B84383B5BF6A12CC91D9">
 	>
 
 definition
-	CLUSTER[at0000] matches {*}
+	CLUSTER[at0000] matches {	-- Medikasjon status
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..*} matches {	-- Medikasjon status
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+		}
+	}
 
 ontology
 	term_definitions = <
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"Medication status dips">
-					description = <"unknown">
+					text = <"Medikasjon status">
+					description = <"Registerer oversikt over medikamentene pasienten står på.">
+				>
+				["at0001"] = <
+					text = <"Medikasjon status">
+					description = <"*">
 				>
 			>
 		>

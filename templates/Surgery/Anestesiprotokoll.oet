@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>fced4b1d-262a-4d01-af09-6e6bbc1a0dec</id>
+  <name>Anestesiprotokoll</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose />
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report-procedure.v0" concept_name="Procedure Report">
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" path="/content">
+      <Rule path="/description[at0001]/items[at0049]" max="0" />
+      <Rule path="/description[at0001]/items[at0065]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ANE-HOVEDTYPE" />
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0001]/items[at0058]" max="0" />
+      <Rule path="/description[at0001]/items[at0063]" max="0" />
+      <Rule path="/description[at0001]/items[at0048]" max="0" />
+      <Rule path="/description[at0001]/items[at0067]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ANE-LUFTVEISTILGANG" />
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" path="/description[at0001]/items[at0003]">
+        <Rule path="/items[at0001]" max="1" name="Prosedyrekode">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="NCMP" terminologyLang="en-GB" queryName="NCMP" />
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0002]" max="0" />
+        <Rule path="/items[at0003]" max="0" />
+      </Items>
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/diagnose" max="1" path="/content" name="Intubasjonsproblem">
+      <Rule path="/data[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ANE-PROBLEM" />
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0005]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="FE-KRITISK INFORMASJON - ALVORLIGHETSGRAD" />
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0072]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ANE-PROBLEM-TIDSPUNKT" />
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.cormack_lehane.v1" concept_name="Cormack/Lehane-klassifikasjon" path="/data[at0001]/items[at0043]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.mallampati_classification.v1" concept_name="Modifisert Mallampati-klassifikasjon" path="/data[at0001]/items[at0043]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.problemdetaljer_dips.v1" concept_name="Problemdetaljer" path="/data[at0001]/items[at0043]" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/diagnose" max="1" path="/content" name="Annet problem ved anestesi ">
+      <Rule path="/data[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ANE-PROBLEM" />
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0005]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="FE-KRITISK INFORMASJON - ALVORLIGHETSGRAD" />
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0072]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ANE-PROBLEM-TIDSPUNKT" />
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.cormack_lehane.v1" concept_name="Cormack/Lehane-klassifikasjon" path="/data[at0001]/items[at0043]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.mallampati_classification.v1" concept_name="Modifisert Mallampati-klassifikasjon" path="/data[at0001]/items[at0043]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.problemdetaljer_dips.v1" concept_name="Problemdetaljer" path="/data[at0001]/items[at0043]" />
+    </Content>
+    <Context />
+  </definition>
+</template>

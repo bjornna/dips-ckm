@@ -25,23 +25,35 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"EACF299FB8A8DE7A1C04289BA07F59B2">
+		["MD5-CAM-1.0.1"] = <"520DDD0F86753CD6BEC26C77CC07600B">
 	>
 
 definition
 	EVALUATION[at0000] matches {	-- Svangerskapsavbrudd
 		data matches {
-			ITEM_TREE[at0001] matches {*}
-		}
-		protocol matches {
-			ITEM_TREE[at0002] matches {	-- Tree
+			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
-					allow_archetype CLUSTER[at0003] occurrences matches {0..*} matches {	-- Fosterdiagnostikk
+					allow_archetype CLUSTER[at0005] occurrences matches {0..*} matches {	-- Medikasjonsstatus
 						include
 							archetype_id/value matches {/.*/}
 					}
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Dato for siste avbrudd
+						value matches {
+							DV_DATE matches {
+								value matches {yyyy-??-XX}
+							}
+						}
+					}
+					ELEMENT[at0007] occurrences matches {0..*} matches {	-- Tidligere sykdommer
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
 				}
 			}
+		}
+		protocol matches {
+			ITEM_TREE[at0002] matches {*}
 		}
 	}
 
@@ -61,8 +73,16 @@ ontology
 					text = <"Tree">
 					description = <"@ internal @">
 				>
-				["at0003"] = <
-					text = <"Fosterdiagnostikk">
+				["at0005"] = <
+					text = <"Medikasjonsstatus">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Dato for siste avbrudd">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Tidligere sykdommer">
 					description = <"*">
 				>
 			>
