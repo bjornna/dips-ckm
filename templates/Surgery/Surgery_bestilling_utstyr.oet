@@ -61,17 +61,60 @@
     </other_details>
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Bestilling av utstyr">
-    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.equipment_order_dips.v1" concept_name="Utstyrsbestilling" path="/content" />
-    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.equipment_order_dips.v1" concept_name="Utstyrsbestilling" max="1" path="/content" name="Gjennomlysning peroperativt">
-      <Rule path="/description[at0001]/items[at0002]" name="Gjennomlysning peroperativt">
-        <constraint xsi:type="textConstraint">
-          <includedValues>Ja</includedValues>
-          <includedValues>Nei</includedValues>
-        </constraint>
-      </Rule>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.checkbox_generic_dips.v1" concept_name="Sjekkboks generisk" path="/description[at0001]/items[at0004]">
-        <Rule path="/items[at0001]" name="Gjennomlysning peroperativt" />
-      </Items>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Overordnet bestillingsstatus">
+      <Item xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.equipment_order_dips.v1" concept_name="Utstyrsbestilling" path="/items">
+        <Rule path="/activities[at0001]/description[at0002]/items[at0003]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ARENA-EQUIPMENT-STATUS::S1::Planlagt</includedValues>
+            <includedValues>ARENA-EQUIPMENT-STATUS::S2::Bestilt</includedValues>
+            <includedValues>ARENA-EQUIPMENT-STATUS::S3::Klart for operasjon</includedValues>
+            <includedValues>ARENA-EQUIPMENT-STATUS::S4::Kansellert</includedValues>
+          </constraint>
+        </Rule>
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Gjennomlysning peroperativt">
+      <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.equipment_order_dips.v1" concept_name="Utstyrsbestilling" max="1" path="/items" name="Gjennomlysning peroperativt">
+        <Rule path="/description[at0001]/items[at0002]" name="Gjennomlysning peroperativt">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Ja</includedValues>
+            <includedValues>Nei</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/description[at0001]/items[at0003]" max="0" />
+        <Rule path="/description[at0001]/items[at0011]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ARENA-TYPE-UTSTYR::TU2::Utstyr som finnes p� operasjonsstue</includedValues>
+          </constraint>
+        </Rule>
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.checkbox_generic_dips.v1" concept_name="Sjekkboks generisk" path="/description[at0001]/items[at0004]">
+          <Rule path="/items[at0001]" name="Gjennomlysning peroperativt" />
+        </Items>
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Utstyr til bestilling">
+      <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.equipment_order_dips.v1" concept_name="Utstyrsbestilling" path="/items">
+        <Rule path="/description[at0001]/items[at0003]" max="0" />
+        <Rule path="/description[at0001]/items[at0011]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ARENA-TYPE-UTSTYR::TU1::Utstyr som skal bestilles</includedValues>
+          </constraint>
+        </Rule>
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.checkbox_generic_dips.v1" concept_name="Sjekkboks generisk" path="/description[at0001]/items[at0004]" />
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Spesialutstyr">
+      <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.equipment_order_dips.v1" concept_name="Utstyrsbestilling" path="/items">
+        <Rule path="/description[at0001]/items[at0002]" name="Spesialutstyr" />
+        <Rule path="/description[at0001]/items[at0003]" max="0" />
+        <Rule path="/description[at0001]/items[at0005]" max="0" />
+        <Rule path="/description[at0001]/items[at0011]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ARENA-TYPE-UTSTYR::TU3::Spesialutstyr</includedValues>
+          </constraint>
+        </Rule>
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.checkbox_generic_dips.v1" concept_name="Sjekkboks generisk" path="/description[at0001]/items[at0004]" />
+      </Item>
     </Content>
     <Context />
   </definition>
