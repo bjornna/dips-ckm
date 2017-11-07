@@ -1,0 +1,111 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.dips_administrative_metadata.v1
+
+concept
+	[at0000]	-- Administrative metadata
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Bjørn Næss">
+		["email"] = <"bna@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2017-10-29">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Struktur for å definere knytningen til administrative prosesser som pasientforløp, henvisning, kontakt, episode og aktivitet. ">
+			use = <"Brukes for å knytte Compositions og Entry til administrative prosesser i systemet. ">
+			keywords = <"henvisning", "kontakt">
+			misuse = <"">
+			copyright = <"DIPS AS">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["references"] = <"Pasientforløp er den overordnete og samlede helsetjenesten som utføres for å optimalisere en pasients tilstand. Ofte starter pasientforløpet hos fastlegen. I mange tilfeller henvises pasienten til andre helsetjenestetilbydere. Henvisningen kan enten være for å få utført tjenester eller med en anmodning om å ta over ansvaret for pasientforløpet. 
+
+Denne arketypen har til formål å definere i hvilken konkrete del av et pasientforløp en registrering tilhører. Den skal kun benyttes for å lage kobling til de underliggende entitetene. 
+
+I DIPS EPJ/PAS finnes en rekke slike strukturer: 
+
+Henvisnings-id : Er unik identifikasjon på mottatt henvisning 
+Omsorgsperiode-id: En unik identifikasjon på perioden som starter ved aksept av henvisning 
+Planlagt kontakt - id: En fremtidig kontakt som det senere blir registrert oppmøte på. Da opprettes en omsorgsepisode
+Omsorgsepisode - id: En poliklinisk konsultasjon, en innleggelse eller et avdelingsopphold. 
+Planlagt aktivitet - id: En aktivitet (f.eks. operasjon) som utføres i forbindelse med en episode. Knytningen ligger på den planlagte kontakten slik at aktiviteten kan planlegges før oppmøte. ">
+		["MD5-CAM-1.0.1"] = <"D91DF57C054412FD5DACB636E1E6B13D">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Administrative metadata
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Pasientforløp
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Omsorgsperiode
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			CLUSTER[at0004] occurrences matches {0..1} matches {	-- Kontaktperiode
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Planlagt kontakt
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Kontakt (episode)
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Aktivitet
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Administrative metadata">
+					description = <"Struktur for å definere knytningen til administrative prosesser som pasientforløp, henvisning, kontakt, episode og aktivitet. ">
+				>
+				["at0001"] = <
+					text = <"Pasientforløp">
+					description = <"Når det innføres en gjennomgående identifikator av Pasientforløp i Norge kan dette markeres her. ">
+				>
+				["at0002"] = <
+					text = <"Omsorgsperiode">
+					description = <"Markerer pasientforløpet sett inne fra helsetjenestetilbyder. Omsorgsperiode starter etter vurdert henvisning. ">
+				>
+				["at0004"] = <
+					text = <"Kontaktperiode">
+					description = <"Kontaktperiode markerer en periode hvor det foregår kontakter med pasienten. Perioden identifiseres med \"kontaktperiode identifikasjon\" som i DIPS er planlagt kontakt id.  Se CONTSYS: https://contsys.org/concept/contact_period">
+				>
+				["at0005"] = <
+					text = <"Planlagt kontakt">
+					description = <"Identifkasjon av den planlagte kontakten. Siden enkelte system har egen identifikator på den planlagte kontatken - og annen på episoden - må disse skilles ut. ">
+				>
+				["at0006"] = <
+					text = <"Kontakt (episode)">
+					description = <"En episode kan ha flere omsorgsepisode. F.eks. kan en innleggelse ha flere avdelingsopphold som hver er en episode. ">
+				>
+				["at0007"] = <
+					text = <"Aktivitet">
+					description = <"Aktivitet er en identifikasjon av den planlagte og gjennomførte aktiviteten i forbindelse med en episode.">
+				>
+			>
+		>
+	>

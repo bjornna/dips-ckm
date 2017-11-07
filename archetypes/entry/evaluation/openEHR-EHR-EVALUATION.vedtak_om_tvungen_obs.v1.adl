@@ -36,7 +36,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"959B31FE599611D10313E2CBE8574C4A">
+		["MD5-CAM-1.0.1"] = <"618F99A5F30F60B976ACA4D5238411EE">
 	>
 
 definition
@@ -54,6 +54,47 @@ definition
 					allow_archetype CLUSTER[at0068] occurrences matches {0..1} matches {	-- Hjemmel for helsehjelp
 						include
 							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Det gjøres unntak fra konverteringsforbudet
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True}
+							}
+						}
+					}
+					ELEMENT[at0087] occurrences matches {0..1} matches {	-- Begrunnelse for unntak fra konverteringsforbudet
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					CLUSTER[at0095] occurrences matches {0..1} matches {	-- Begjæring
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0005] occurrences matches {0..1} matches {	-- Det er fremsatt begjæring
+								value matches {
+									DV_BOOLEAN matches {
+										value matches {True}
+									}
+								}
+							}
+							ELEMENT[at0007] occurrences matches {0..1} matches {	-- Dato begjæring ble fremsatt
+								value matches {
+									DV_DATE matches {
+										value matches {yyyy-mm-dd}
+									}
+								}
+							}
+							allow_archetype CLUSTER[at0085] occurrences matches {0..1} matches {	-- Begjæring fremsatt av
+								include
+									archetype_id/value matches {/openEHR-EHR-CLUSTER\.begjaerende_instans(-[a-zA-Z0-9_]+)*\.v1/}
+							}
+							ELEMENT[at0014] occurrences matches {0..1} matches {	-- Begjæring er dokumentert i journalnotat datert
+								value matches {
+									DV_DATE matches {
+										value matches {yyyy-mm-dd}
+									}
+								}
+							}
+						}
 					}
 					ELEMENT[at0017] occurrences matches {0..2} matches {	-- Vurdering av frivillighet
 						value matches {
@@ -147,8 +188,8 @@ definition
 									[local::
 									at0063, 	-- Får sin utsikt til helbredelse eller vesentlig bedring i betydelig grad redusert
 									at0064, 	-- Med stor sannsynlighet i meget nær fremtid får sin tilstand vesentlig forverret
-									at0065, 	-- Utgjør en nærliggende og alvorlig fare for eget liv og helse
-									at0066]	-- Utgjør en nærliggende og alvorlig fare for andres liv og helse
+									at0065, 	-- Utgjør en nærliggende og alvorlig fare for eget liv eller helse
+									at0066]	-- Utgjør en nærliggende og alvorlig fare for andres liv eller helse
 								}
 							}
 						}
@@ -167,43 +208,6 @@ definition
 						value matches {
 							DV_TEXT matches {*}
 						}
-					}
-					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Det gjøres unntak fra konverteringsforbudet, jf. psykisk helsevernloven § 3-4 annet ledd
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True}
-							}
-						}
-					}
-					ELEMENT[at0087] occurrences matches {0..1} matches {	-- Begrunnelse for unntak fra konverteringsforbudet
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Det er fremsatt begjæring
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True}
-							}
-						}
-					}
-					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Dato begjæring ble fremmet
-						value matches {
-							DV_DATE matches {
-								value matches {yyyy-mm-dd}
-							}
-						}
-					}
-					ELEMENT[at0014] occurrences matches {0..1} matches {	-- Begjæring er dokumentert i journalnotat datert
-						value matches {
-							DV_DATE matches {
-								value matches {yyyy-mm-dd}
-							}
-						}
-					}
-					allow_archetype CLUSTER[at0085] occurrences matches {0..1} matches {	-- Begjæring fremsatt av
-						include
-							archetype_id/value matches {/openEHR-EHR-CLUSTER\.begjaerende_instans(-[a-zA-Z0-9_]+)*\.v1/}
 					}
 					ELEMENT[at0049] occurrences matches {0..1} matches {	-- Helsetjenesteenhet
 						value matches {
@@ -240,16 +244,16 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0003"] = <
-					text = <"*Det gjøres unntak fra konverteringsforbudet, jf. psykisk helsevernloven § 3-4 annet ledd(nb)">
+					text = <"*Det gjøres unntak fra konverteringsforbudet(nb)">
 					description = <"*Ved etableringen av tvungen observasjon gjøres det unntak fra konverteringsforbudet.(nb)">
 				>
 				["at0005"] = <
 					text = <"*Det er fremsatt begjæring(nb)">
-					description = <"*Det er fremsatt begjæring.(nb)">
+					description = <"*Den dato begjæringen ble framsatt.(nb)">
 				>
 				["at0007"] = <
-					text = <"*Dato begjæring ble fremmet(nb)">
-					description = <"*Dato begjæringen ble fremmet.(nb)">
+					text = <"*Dato begjæring ble fremsatt(nb)">
+					description = <"*Den dato begjæringen ble framsatt.(nb)">
 				>
 				["at0014"] = <
 					text = <"*Begjæring er dokumentert i journalnotat datert(nb)">
@@ -265,7 +269,7 @@ ontology
 				>
 				["at0019"] = <
 					text = <"*Det er åpenbart formålsløst å forsøke frivillig psykisk helsevern(nb)">
-					description = <"*Frivillig psykisk helsevern er blitt forsøkt uten at dette har ført frem(nb)">
+					description = <"*Det er åpenbart formålsløst å forsøke frivillig psykisk helsevern(nb)">
 				>
 				["at0020"] = <
 					text = <"*Det vurderes som overveiende sannsynlig at hovedvilkåret \"alvorlig sinnslidelse\" er oppfylt, begrunnelse (nb)">
@@ -336,12 +340,12 @@ ontology
 					description = <"*Med stor sannsynlighet i meget nær fremtid får sin tilstand vesentlig forverret(nb)">
 				>
 				["at0065"] = <
-					text = <"*Utgjør en nærliggende og alvorlig fare for eget liv og helse(nb)">
-					description = <"*Utgjør en nærliggende og alvorlig fare for eget liv og helse(nb)">
+					text = <"*Utgjør en nærliggende og alvorlig fare for eget liv eller helse(nb)">
+					description = <"*Utgjør en nærliggende og alvorlig fare for eget liv eller helse(nb)">
 				>
 				["at0066"] = <
-					text = <"*Utgjør en nærliggende og alvorlig fare for andres liv og helse(nb)">
-					description = <"*Utgjør en nærliggende og alvorlig fare for andres liv og helse(nb)">
+					text = <"*Utgjør en nærliggende og alvorlig fare for andres liv eller helse(nb)">
+					description = <"*Utgjør en nærliggende og alvorlig fare for andres liv eller helse(nb)">
 				>
 				["at0067"] = <
 					text = <"*Pasientens ankomst til institusjonen(nb)">
@@ -373,12 +377,16 @@ tvungen observasjon.(nb)">
 					description = <"*Navn til den tjenesteyter (lege) som foretok undersøkelsen.(nb)">
 				>
 				["at0092"] = <
-					text = <"*New element(nb)">
-					description = <"**(nb)">
+					text = <"*Frivillighet er forsøkt eller er formålsløst, begrunnelse(nb)">
+					description = <"*Eksempel på «åpenbart formålsløst» kan være at pasienten mangler samtykkekompetanse.(nb)">
 				>
 				["at0094"] = <
 					text = <"*Tilleggsvilkår, begrunnelse(nb)">
 					description = <"*Begrunnelse for at minst ett av tilleggsvilkårene er oppfylt. (nb)">
+				>
+				["at0095"] = <
+					text = <"*Begjæring(nb)">
+					description = <"*Begjæring.(nb)">
 				>
 			>
 		>
@@ -393,16 +401,16 @@ tvungen observasjon.(nb)">
 					description = <"@ internal @">
 				>
 				["at0003"] = <
-					text = <"Det gjøres unntak fra konverteringsforbudet, jf. psykisk helsevernloven § 3-4 annet ledd">
+					text = <"Det gjøres unntak fra konverteringsforbudet">
 					description = <"Ved etableringen av tvungen observasjon gjøres det unntak fra konverteringsforbudet.">
 				>
 				["at0005"] = <
 					text = <"Det er fremsatt begjæring">
-					description = <"Det er fremsatt begjæring.">
+					description = <"Den dato begjæringen ble framsatt.">
 				>
 				["at0007"] = <
-					text = <"Dato begjæring ble fremmet">
-					description = <"Dato begjæringen ble fremmet.">
+					text = <"Dato begjæring ble fremsatt">
+					description = <"Den dato begjæringen ble framsatt.">
 				>
 				["at0014"] = <
 					text = <"Begjæring er dokumentert i journalnotat datert">
@@ -418,7 +426,7 @@ tvungen observasjon.(nb)">
 				>
 				["at0019"] = <
 					text = <"Det er åpenbart formålsløst å forsøke frivillig psykisk helsevern">
-					description = <"Frivillig psykisk helsevern er blitt forsøkt uten at dette har ført frem">
+					description = <"Det er åpenbart formålsløst å forsøke frivillig psykisk helsevern">
 				>
 				["at0020"] = <
 					text = <"Det vurderes som overveiende sannsynlig at hovedvilkåret \"alvorlig sinnslidelse\" er oppfylt, begrunnelse ">
@@ -490,12 +498,12 @@ foretatt av en lege utenfor den institusjon som skal fatte vedtak.">
 					description = <"Med stor sannsynlighet i meget nær fremtid får sin tilstand vesentlig forverret">
 				>
 				["at0065"] = <
-					text = <"Utgjør en nærliggende og alvorlig fare for eget liv og helse">
-					description = <"Utgjør en nærliggende og alvorlig fare for eget liv og helse">
+					text = <"Utgjør en nærliggende og alvorlig fare for eget liv eller helse">
+					description = <"Utgjør en nærliggende og alvorlig fare for eget liv eller helse">
 				>
 				["at0066"] = <
-					text = <"Utgjør en nærliggende og alvorlig fare for andres liv og helse">
-					description = <"Utgjør en nærliggende og alvorlig fare for andres liv og helse">
+					text = <"Utgjør en nærliggende og alvorlig fare for andres liv eller helse">
+					description = <"Utgjør en nærliggende og alvorlig fare for andres liv eller helse">
 				>
 				["at0067"] = <
 					text = <"Pasientens ankomst til institusjonen">
@@ -528,11 +536,15 @@ tvungen observasjon.">
 				>
 				["at0092"] = <
 					text = <"Frivillighet er forsøkt eller er formålsløst, begrunnelse">
-					description = <"Begrunnelse for at frivillighet er forsøkt eller vurdert som formålsløst. ">
+					description = <"Eksempel på «åpenbart formålsløst» kan være at pasienten mangler samtykkekompetanse.">
 				>
 				["at0094"] = <
 					text = <"Tilleggsvilkår, begrunnelse">
 					description = <"Begrunnelse for at minst ett av tilleggsvilkårene er oppfylt. ">
+				>
+				["at0095"] = <
+					text = <"Begjæring">
+					description = <"Begjæring.">
 				>
 			>
 		>
@@ -566,7 +578,7 @@ tvungen observasjon.">
 	constraint_bindings = <
 		["DIPS"] = <
 			items = <
-				["ac0001"] = <terminology:DIPS?subset=healthcareparty_both>
+				["ac0001"] = <terminology:DIPS?subset=healthcareparty>
 				["ac0002"] = <terminology:DIPS?subset=healthcareparty>
 			>
 		>
