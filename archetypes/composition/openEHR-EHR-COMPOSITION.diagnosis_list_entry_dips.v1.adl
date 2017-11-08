@@ -1,0 +1,64 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-COMPOSITION.diagnosis_list_entry_dips.v1
+
+concept
+	[at0000]	-- Tidligere sykdommer registrering
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"5C1796D2F2FCD38E98C1B62141520540">
+	>
+
+definition
+	COMPOSITION[at0000] matches {	-- Tidligere sykdommer registrering
+		category matches {
+			DV_CODED_TEXT matches {
+				defining_code matches {[openehr::433]}
+			}
+		}
+		content cardinality matches {1..*; unordered} matches {
+			allow_archetype EVALUATION[at0001] occurrences matches {0..*} matches {	-- Problemer, diagnoser eller helseproblemer
+				include
+					archetype_id/value matches {/openEHR-EHR-EVALUATION\.problem_diagnosis(-[a-zA-Z0-9_]+)*\.v1/}
+			}
+			allow_archetype ACTION[at0002] occurrences matches {0..*} matches {	-- Prosedyrer
+				include
+					archetype_id/value matches {/openEHR-EHR-ACTION\.procedure(-[a-zA-Z0-9_]+)*\.v1/}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Tidligere sykdommer registrering">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Problemer, diagnoser eller helseproblemer">
+					description = <"Detaljer om identifiserte problemer, diagnoser eller helseproblemer.">
+				>
+				["at0002"] = <
+					text = <"Prosedyrer">
+					description = <"Detaljer om identifiserte utførte prosedyrer.">
+				>
+			>
+		>
+	>

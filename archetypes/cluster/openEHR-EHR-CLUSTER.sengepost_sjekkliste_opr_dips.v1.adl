@@ -23,11 +23,26 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"AB8EBC0F5A2865F9718AD5906F2A664A">
+		["MD5-CAM-1.0.1"] = <"D949F255992096E046AF545C80482CC7">
 	>
 
 definition
-	CLUSTER[at0000] matches {*}
+	CLUSTER[at0000] matches {	-- Sjekkliste operasjon
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Spist sist
+				value matches {
+					DV_DATE_TIME matches {
+						value matches {yyyy-mm-ddTHH:MM:SS}
+					}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Drukket sist
+				value matches {
+					DV_DATE_TIME matches {*}
+				}
+			}
+		}
+	}
 
 ontology
 	term_definitions = <
@@ -36,6 +51,14 @@ ontology
 				["at0000"] = <
 					text = <"Sjekkliste operasjon">
 					description = <"Sjekklisten benyttes av sengepost for å registrere aktiviterer som er gjort før pasient sendes til operasjon.">
+				>
+				["at0001"] = <
+					text = <"Spist sist">
+					description = <"Pasientens siste inntak av mat før operasjon.">
+				>
+				["at0002"] = <
+					text = <"Drukket sist">
+					description = <"Pasientesn siste inntak av væske po før operasjon.">
 				>
 			>
 		>

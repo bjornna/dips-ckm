@@ -1,0 +1,81 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.healthcare_resource_dips.v1
+
+concept
+	[at0000]	-- Helsetjenesteressurs
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"Dips ASA">
+		["date"] = <"2017-11-07">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for å angi i en ressurs som er nødvendig for å utføre helstjenester.">
+			use = <"Brukes primært i forbindelse med planlegging av aktiviteter for å kunne angi hva slags type ressurser man trenger. F.eks. når man skal gjennomføre en operasjon.">
+			misuse = <"Brukes ikke i forbindelse med å registrere hvem som har gjennomført en helsetjeneste. Da brukes other_participations fra referansemodellen.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <"Bjørn Næss", ...>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"34A9BCDB0CDB99A6F77100F6D8CC2BB7">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Helsetjenesteressurs
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Ressurstype
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Navn på ressurs
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0004] occurrences matches {0..1} matches {	-- Obligatorisk
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			allow_archetype CLUSTER[at0003] occurrences matches {0..*} matches {	-- Strukturerte detaljer
+				include
+					archetype_id/value matches {/.*/}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Helsetjenesteressurs">
+					description = <"Brukes for å angi i en ressurs som er nødvendig for å utføre helstjenester">
+				>
+				["at0001"] = <
+					text = <"Ressurstype">
+					description = <"Angir ressurstypen som f.eks. medisinsk utstyr, pleiepunkt (ponint of care) eller helsepersonell/profesjon">
+				>
+				["at0002"] = <
+					text = <"Navn på ressurs">
+					description = <"Menneskelig lesbar besrivelse av ressursen som man behøver.">
+				>
+				["at0003"] = <
+					text = <"Strukturerte detaljer">
+					description = <"Strkturerte detaljer om ressursene som man behøver. ">
+				>
+				["at0004"] = <
+					text = <"Obligatorisk">
+					description = <"Angir om ressurens deltagelse i den ønskede settingen er obligatorisk elle r ikke">
+				>
+			>
+		>
+	>

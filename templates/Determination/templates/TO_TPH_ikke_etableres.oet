@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
-  <id>bae6840e-ca83-4191-a180-0a96f9c04d2d</id>
-  <name>4_4_Tvangsbehandling</name>
+  <id>ba311b58-cbde-48b6-9d81-b864c10b8196</id>
+  <name>TO_TPH_ikke_etableres</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
@@ -60,12 +60,16 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.tvangsbehandlingsvedtak.v1" concept_name="Tvangsbehandlingsvedtak">
-    <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.tvangsbehandlingsvedtak.v1" concept_name="Tvangsbehandlingsvedtak" path="/content">
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.vedtakstype.v1" concept_name="Vedtakstype" path="/activities[at0001]/description[at0002]/items[at0080]">
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.vedtak_ikke_etablering_to_tph.v1" concept_name="Vedtak ikke etablering to tph">
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.tph_eller_to_skal_ikke_etableres.v1" concept_name="Tph eller TO skal ikke etableres" path="/content">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.begjaerende_instans.v1" concept_name="Begjærende instans" path="/data[at0001]/items[at0036]/items[at0032]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.vedtakstype.v1" concept_name="Vedtakstype" path="/data[at0001]/items[at0034]">
         <Rule path="/items[at0033]">
           <constraint xsi:type="textConstraint">
-            <excludedValues>local::at0034</excludedValues>
+            <excludedValues>local::at0035</excludedValues>
+            <excludedValues>local::at0036</excludedValues>
+            <excludedValues>local::at0037</excludedValues>
+            <excludedValues>local::at0038</excludedValues>
             <excludedValues>local::at0039</excludedValues>
             <excludedValues>local::at0040</excludedValues>
             <excludedValues>local::at0041</excludedValues>
@@ -74,7 +78,6 @@
             <excludedValues>local::at0044</excludedValues>
             <excludedValues>local::at0045</excludedValues>
             <excludedValues>local::at0046</excludedValues>
-            <excludedValues>local::at0047</excludedValues>
             <excludedValues>local::at0048</excludedValues>
             <excludedValues>local::at0049</excludedValues>
             <excludedValues>local::at0050</excludedValues>
@@ -83,7 +86,6 @@
             <excludedValues>local::at0053</excludedValues>
             <excludedValues>local::at0054</excludedValues>
             <excludedValues>local::at0055</excludedValues>
-            <excludedValues>local::at0056</excludedValues>
             <excludedValues>local::at0057</excludedValues>
             <excludedValues>local::at0058</excludedValues>
             <excludedValues>local::at0059</excludedValues>
@@ -100,12 +102,17 @@
         </Rule>
       </Items>
     </Content>
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.samtykkekompetanse.v1" concept_name="Samtykkekompetanse" path="/content" />
-    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.uttalelsesrett.v1" concept_name="Uttalelsesrett" path="/content" />
-    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.klagerett_tvang.v1" concept_name="Klagerett tvang" path="/content" />
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.uttalelsesmulighet.v1" concept_name="Uttalelsesmulighet" path="/content" />
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.klagerett_tvang.v1" concept_name="Klagerett tvang" path="/content">
+      <Rule path="/data[at0001]/items[at0003]">
+        <constraint xsi:type="textConstraint">
+          <excludedValues>local::at0005</excludedValues>
+          <excludedValues>local::at0007</excludedValues>
+        </constraint>
+      </Rule>
+    </Content>
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.ny_faglig_ansvarlig.v1" concept_name="Ny faglig ansvarlig" path="/content" />
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.vedtak_status.v1" concept_name="Vedtak status" path="/content" />
-    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.info_for_utskrift_av_vedtak.v1" concept_name="Info for utskrift av vedtak" path="/content" />
     <Context />
   </definition>
 </template>
