@@ -1,0 +1,72 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.reoperation_details.v1
+
+concept
+	[at0000]	-- Reoperasjonsdetaljer
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"Dips ASA">
+		["date"] = <"2017-11-10">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Dokumentere detaljer vedrørende en reoperasjon.">
+			use = <"Kan brukes både i planleggingen og ved dokumentasjon.">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <"Bjørn Næss", ...>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"79F1C9DF6A5FD2A869A6113A4E9FCA1C">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Reoperasjonsdetaljer
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..*} matches {	-- Årsak til reoperasjon
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Kommentar
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			allow_archetype CLUSTER[at0003] occurrences matches {0..*} matches {	-- Detaljer
+				include
+					archetype_id/value matches {/.*/}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Reoperasjonsdetaljer">
+					description = <"Dokumentere detaljer om reoperasjon. ">
+				>
+				["at0001"] = <
+					text = <"Årsak til reoperasjon">
+					description = <"Årsaken til hvorfor det ble en reoperasjon.">
+				>
+				["at0002"] = <
+					text = <"Kommentar">
+					description = <"Ytterligere dateljer vedrørende reoperasjon.">
+				>
+				["at0003"] = <
+					text = <"Detaljer">
+					description = <"Ytterligere detaljer for reoperasjon som f.eks. kan gjelde et kvalitetsregister.">
+				>
+			>
+		>
+	>
