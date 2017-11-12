@@ -60,6 +60,22 @@
       </item>
     </other_details>
   </description>
+  <annotations path="[openEHR-EHR-COMPOSITION.encounter.v1]/content[openEHR-EHR-EVALUATION.problem_diagnosis.v1]/data[at0001]/items[at0002]">
+    <items>
+      <item>
+        <key>Notes.Comment</key>
+        <value>Hent inn verdier fra indikajson i bestillingsdokumentet</value>
+      </item>
+    </items>
+  </annotations>
+  <annotations path="[openEHR-EHR-COMPOSITION.encounter.v1]/content[openEHR-EHR-EVALUATION.precaution.v1]/data[at0001]/items[at0013]">
+    <items>
+      <item>
+        <key>Notes.Comment</key>
+        <value>Skjules i skjema og settes om standard til medikasjon pause</value>
+      </item>
+    </items>
+  </annotations>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Utvidet operasjonsbestilling">
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" path="/content">
       <Rule path="/description[at0001]/items[at0002]" name="Operasjonstype">
@@ -76,7 +92,13 @@
       <Rule path="/description[at0001]/items[at0066]" max="0" />
       <Rule path="/description[at0001]/items[at0060]" max="0" />
       <Rule path="/description[at0001]/items[at0061]" max="0" />
-      <Rule path="/description[at0001]/items[at0067]" max="0" />
+      <Rule path="/description[at0001]/items[at0067]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>SNOMEDCT::399455000::Hovedprosedyre</includedValues>
+          <includedValues>SNOMEDCT::262134003::Sekundærprosedyre</includedValues>
+          <includedValues>SNOMEDCT::261554009::Reoperasjon</includedValues>
+        </constraint>
+      </Rule>
       <Rule path="/description[at0001]/items[at0014]" max="0" />
       <Rule path="/description[at0001]/items[at0005]" max="0" />
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" path="/description[at0001]/items[at0003]">
@@ -90,16 +112,15 @@
             <includedValues>arena-procedure-type::SURGERY::Operasjon</includedValues>
           </constraint>
         </Rule>
-        <Rule path="/items[at0003]" max="0" />
         <Rule path="/items[at0004]" max="0" />
       </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.healthcare_resource_dips.v1" concept_name="Helsetjenesteressurs" path="/description[at0001]/items[at0003]">
         <Rule path="/items[at0001]">
           <constraint xsi:type="textConstraint">
-            <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ARK-FE-RESSURSTYPE" />
+            <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="FE-RESSURSTYPE" />
           </constraint>
         </Rule>
-        <Rule path="/items[at0002]" name="Ønsket operatør" />
+        <Rule path="/items[at0002]" name="Ønsket ressurs" />
         <Rule path="/items[at0004]">
           <constraint xsi:type="textConstraint">
             <includedValues>2.16.578.1.12.4.1.1.1101::1::Ja</includedValues>
@@ -116,13 +137,8 @@
             <includedValues>SNOMEDCT::51440002::Bilateral</includedValues>
           </constraint>
         </Rule>
-        <Rule path="/items[at0009]/items[at0010]">
-          <constraint xsi:type="multipleConstraint">
-            <includedTypes>Boolean</includedTypes>
-          </constraint>
-        </Rule>
-        <Rule path="/items[at0009]/items[at0011]" max="0" />
       </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.reoperation_details.v1" concept_name="Reoperasjonsdetaljer" path="/description[at0001]/items[at0003]" />
     </Content>
     <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.request-procedure.v1" concept_name="Prosedyrerekvirering" max="1" path="/content" name="Anestesirekvirering">
       <Rule path="/activities[at0001]" max="1" />
@@ -157,6 +173,37 @@
           </constraint>
         </Rule>
       </Items>
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/diagnose" path="/content">
+      <Rule path="/data[at0001]/items[at0002]" name="Indikasjon" />
+      <Rule path="/data[at0001]/items[at0009]" max="0" />
+      <Rule path="/data[at0001]/items[at0077]" max="0" />
+      <Rule path="/data[at0001]/items[at0003]" max="0" />
+      <Rule path="/data[at0001]/items[at0005]" max="0" />
+      <Rule path="/data[at0001]/items[at0072]" max="0" />
+      <Rule path="/data[at0001]/items[at0030]" max="0" />
+      <Rule path="/data[at0001]/items[at0073]" max="0" />
+      <Rule path="/data[at0001]/items[at0069]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.problem_diagnosis_dips.v1" concept_name="Problem/diagnose detaljer" path="/data[at0001]/items[at0043]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="ICD10" terminologyLang="en-GB" queryName="ICD10" />
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0002]" max="0" />
+        <Rule path="/items[at0003]" max="0" />
+      </Items>
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.precaution.v1" concept_name="Forholdsregel" path="/content">
+      <Rule path="/data[at0001]/items[at0002]" name="Medisiner som skal seponeres" />
+      <Rule path="/data[at0001]/items[at0014]" max="0" />
+      <Rule path="/data[at0001]/items[at0003]" max="0" />
+      <Rule path="/data[at0001]/items[at0013]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>SNOMEDCT::274512008::Medikasjon pause</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0008]" max="0" />
     </Content>
     <Context />
   </definition>

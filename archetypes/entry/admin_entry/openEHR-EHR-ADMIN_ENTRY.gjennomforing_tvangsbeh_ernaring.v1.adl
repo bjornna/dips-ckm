@@ -1,8 +1,8 @@
 archetype (adl_version=1.4)
-	openEHR-EHR-ADMIN_ENTRY.gjennomforing_skjerming.v1
+	openEHR-EHR-ADMIN_ENTRY.gjennomforing_tvangsbeh_ernaring.v1
 
 concept
-	[at0000]	-- Gjennomforing skjerming
+	[at0000]	-- Gjennomforing tvangsbeh ernæring
 language
 	original_language = <[ISO_639-1::nb]>
 	translations = <
@@ -36,29 +36,34 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"C342EE2C81E84CE79A61B91F6FDF07BB">
+		["MD5-CAM-1.0.1"] = <"15E0F479CC4F3FC8CBD6E83F9C9FA6E8">
 	>
 
 definition
-	ADMIN_ENTRY[at0000] matches {	-- Gjennomforing skjerming
+	ADMIN_ENTRY[at0000] matches {	-- Gjennomforing tvangsbeh ernæring
 		data matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Gjelder skjermingsvedtak av
+					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Registrering av gjennomføring nr.
+						value matches {
+							DV_COUNT matches {*}
+						}
+					}
+					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Gjelder tvangsbehandlingsvedtak av
 						value matches {
 							DV_DATE_TIME matches {
 								value matches {yyyy-mm-ddTHH:??:??}
 							}
 						}
 					}
-					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Skjermingen startet
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Gjennomført tidspunkt
 						value matches {
 							DV_DATE_TIME matches {
 								value matches {yyyy-mm-ddTHH:??:??}
 							}
 						}
 					}
-					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Skjermingen opphørte
+					ELEMENT[at0014] occurrences matches {0..1} matches {	-- Avsluttet tidspunkt
 						value matches {
 							DV_DATE_TIME matches {
 								value matches {yyyy-mm-ddTHH:??:??}
@@ -72,19 +77,9 @@ definition
 							}
 						}
 					}
-					ELEMENT[at0011] occurrences matches {0..1} matches {	-- Om gjennomføringen av skjermingen
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
 					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Merknad
 						value matches {
 							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Registrering av gjennomføring nr.
-						value matches {
-							DV_COUNT matches {*}
 						}
 					}
 				}
@@ -98,7 +93,7 @@ ontology
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"Gjennomforing skjerming">
+					text = <"Gjennomforing tvangsbeh ernæring">
 					description = <"unknown">
 				>
 				["at0001"] = <
@@ -106,39 +101,35 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0004"] = <
-					text = <"Skjermingen startet">
-					description = <"Det tidspunkt skjermingen startet.">
-				>
-				["at0005"] = <
-					text = <"Skjermingen opphørte">
-					description = <"Det tidspunkt skjermingen ble avsluttet.">
+					text = <"Gjennomført tidspunkt">
+					description = <"Det tidspunkt vedtaket om ernæring uten eget samtykke ble gjennomført, eventuelt startet.">
 				>
 				["at0006"] = <
 					text = <"Gjennomført av">
-					description = <"Navn og stilling på tjenesteyter som sto for gjennomføring av vedtaket om skjerming.">
+					description = <"Navn og stilling på tjenesteyter som sto for gjennomføring av vedtaket om tvangsbehandling.">
 				>
 				["at0007"] = <
 					text = <"Merknad">
 					description = <"Supplerende opplysninger.">
 				>
 				["at0009"] = <
-					text = <"Gjelder skjermingsvedtak av">
-					description = <"Referanse til det vedtaket som ligger til grunn for gjennomføring av skjermingen.">
+					text = <"Gjelder tvangsbehandlingsvedtak av">
+					description = <"Referanse til det vedtaket som ligger til grunn for gjennomføring av tvangsbehandlingen.">
 				>
 				["at0010"] = <
 					text = <"Registrering av gjennomføring nr.">
-					description = <"Løpenummer som telles opp automatisk for hver enkelt registrering av gjennomføring som er knyttet opp mot det aktuelle vedtaket.">
+					description = <"Løpenummer for hver enkelt registrering av gjennomføring som er knyttet tiltvangsbehandlingsvedtaket.">
 				>
-				["at0011"] = <
-					text = <"Om gjennomføringen av skjermingen">
-					description = <"Kort om gjennomføringen av skjermingen.">
+				["at0014"] = <
+					text = <"Avsluttet tidspunkt">
+					description = <"Det tidspunkt ernæringen uten eget samtykke ble avsluttet. Angis kun når hver enkelt gjennomføring tar minst 15 minutter.">
 				>
 			>
 		>
 		["no"] = <
 			items = <
 				["at0000"] = <
-					text = <"*Gjennomforing skjerming(nb)">
+					text = <"*Gjennomforing tvangsbeh ernæring(nb)">
 					description = <"*unknown(nb)">
 				>
 				["at0001"] = <
@@ -146,32 +137,28 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0004"] = <
-					text = <"*Skjermingen startet(nb)">
-					description = <"*Det tidspunkt skjermingen startet.(nb)">
-				>
-				["at0005"] = <
-					text = <"*Skjermingen opphørte(nb)">
-					description = <"*Det tidspunkt skjermingen ble avsluttet.(nb)">
+					text = <"*Gjennomført tidspunkt(nb)">
+					description = <"*Det tidspunkt vedtaket om ernæring uten eget samtykke ble gjennomført, eventuelt startet.(nb)">
 				>
 				["at0006"] = <
 					text = <"*Gjennomført av(nb)">
-					description = <"*Navn og stilling på tjenesteyter som sto for gjennomføring av vedtaket om skjerming.(nb)">
+					description = <"*Navn og stilling på tjenesteyter som sto for gjennomføring av vedtaket om tvangsbehandling.(nb)">
 				>
 				["at0007"] = <
 					text = <"*Merknad(nb)">
 					description = <"*Supplerende opplysninger.(nb)">
 				>
 				["at0009"] = <
-					text = <"*Gjelder skjermingsvedtak av(nb)">
-					description = <"*Referanse til det vedtaket som ligger til grunn for gjennomføring av skjermingen.(nb)">
+					text = <"*Gjelder tvangsbehandlingsvedtak av(nb)">
+					description = <"*Referanse til det vedtaket som ligger til grunn for gjennomføring av tvangsbehandlingen.(nb)">
 				>
 				["at0010"] = <
 					text = <"*Registrering av gjennomføring nr.(nb)">
-					description = <"*Løpenummer som telles opp automatisk for hver enkelt registrering av gjennomføring som er knyttet opp mot det aktuelle vedtaket.(nb)">
+					description = <"*Løpenummer for hver enkelt registrering av gjennomføring som er knyttet tiltvangsbehandlingsvedtaket.(nb)">
 				>
-				["at0011"] = <
-					text = <"*Om gjennomføringen av skjermingen(nb)">
-					description = <"*Kort om gjennomføringen av skjermingen.(nb)">
+				["at0014"] = <
+					text = <"*Avsluttet tidspunkt(nb)">
+					description = <"*Det tidspunkt ernæringen uten eget samtykke ble avsluttet. Angis kun når hver enkelt gjennomføring tar minst 15 minutter.(nb)">
 				>
 			>
 		>
@@ -180,8 +167,8 @@ ontology
 		["no"] = <
 			items = <
 				["ac0001"] = <
-					text = <"**New constraint(no)(nb)">
-					description = <"*(nb)">
+					text = <"New constraint">
+					description = <"*">
 				>
 			>
 		>
@@ -189,7 +176,7 @@ ontology
 			items = <
 				["ac0001"] = <
 					text = <"*New constraint(no)">
-					description = <"*">
+					description = <"**(no)">
 				>
 			>
 		>

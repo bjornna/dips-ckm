@@ -62,7 +62,7 @@
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report-procedure.v0" concept_name="Procedure Report">
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" path="/content">
-      <Rule path="/description[at0001]/items[at0002]">
+      <Rule path="/description[at0001]/items[at0002]" name="Operasjonstype">
         <constraint xsi:type="textConstraint">
           <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="VI-OPERASJONSTYPER" />
         </constraint>
@@ -71,55 +71,35 @@
       <Rule path="/description[at0001]/items[at0065]" max="0" />
       <Rule path="/description[at0001]/items[at0058]" max="0" />
       <Rule path="/description[at0001]/items[at0063]" max="0" />
-      <Rule path="/description[at0001]/items[at0066]" name="Prosedyre start" />
-      <Rule path="/description[at0001]/items[at0060]" name="Prosedyre slutt" />
+      <Rule path="/description[at0001]/items[at0067]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>SNOMEDCT::399455000::Hovedprosedyre</includedValues>
+          <includedValues>SNOMEDCT::262134003::Sekundærprosedyre</includedValues>
+          <includedValues>SNOMEDCT::261554009::Reoperasjon</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0001]/items[at0014]" max="0" />
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.surgery_details_dips.v1" concept_name="Operasjonsdetaljer" path="/description[at0001]/items[at0003]">
-        <Rule path="/items[at0001]" max="0" />
         <Rule path="/items[at0002]" max="0" />
         <Rule path="/items[at0003]/items[at0004]" max="0" />
-        <Rule path="/items[at0008]" max="0" />
-        <Rule path="/items[at0009]/items[at0010]">
-          <constraint xsi:type="multipleConstraint">
-            <includedTypes>Boolean</includedTypes>
-          </constraint>
-        </Rule>
-        <Rule path="/items[at0009]/items[at0012]">
-          <constraint xsi:type="textConstraint">
-            <includedValues>Infeksjon</includedValues>
-            <includedValues>Blødning</includedValues>
-            <includedValues>Mekanisk</includedValues>
-            <includedValues>Ingen</includedValues>
-          </constraint>
-        </Rule>
-      </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.complication_dips.v1" concept_name="Complication dips" path="/description[at0001]/items[at0003]">
-        <Rule path="/items[at0001]">
-          <constraint xsi:type="textConstraint">
-            <includedValues>Ja</includedValues>
-            <includedValues>Nei</includedValues>
-          </constraint>
-        </Rule>
+        <Rule path="/items[at0003]/items[at0005]" max="0" />
       </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" path="/description[at0001]/items[at0003]">
-        <Rule path="/items[at0001]" max="1">
+        <Rule path="/items[at0001]">
           <constraint xsi:type="textConstraint">
-            <termQueryId terminologyID="NCSP" terminologyLang="en-GB" queryName="NCSP" />
+            <termQueryId terminologyID="NCSP" terminologyLang="en-GB" queryName="NSCP" />
           </constraint>
         </Rule>
         <Rule path="/items[at0002]">
           <constraint xsi:type="textConstraint">
-            <includedValues>procedure_code_type::HOVED::Hovedprosedyre</includedValues>
-            <includedValues>procedure_code_type::OTHER::Annen</includedValues>
+            <includedValues>SNOMEDCT::399455000::Hovedprosedyre</includedValues>
+            <includedValues>SNOMEDCT::262134003::Sekundærprosedyre</includedValues>
           </constraint>
         </Rule>
+        <Rule path="/items[at0004]" max="1" name="Legens beskrivelse" />
       </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.reoperation_details.v1" concept_name="Reoperasjonsdetaljer" path="/description[at0001]/items[at0003]" />
     </Content>
-    <Context>
-      <Rule path="/context/other_context[at0001]/items[at0005]">
-        <constraint xsi:type="textConstraint">
-          <includedValues>2.16.578.1.12.4.1.1.9202::51::Godkjent</includedValues>
-        </constraint>
-      </Rule>
-    </Context>
+    <Context />
   </definition>
 </template>

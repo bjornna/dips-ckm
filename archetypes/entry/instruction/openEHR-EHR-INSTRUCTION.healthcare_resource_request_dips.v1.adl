@@ -1,0 +1,97 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-INSTRUCTION.healthcare_resource_request_dips.v1
+
+concept
+	[at0000]	-- Rekvirering av helsetjenesteressurser 
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Bjørn Næss">
+		["email"] = <"bna@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2017-11-09">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Benyttes for å rekvirere/bestille helsetjenesteressurser som kreves for å gjennomføre en helsetjeneste (f.eks. en operajson)">
+			use = <"Benyttes for å rekvirere/bestille helsetjenesteressurser som kreves for å gjennomføre en helsetjeneste (f.eks. en operajson)">
+			misuse = <"Brukes ikke for å bestille den faktiske prosedyren. Denne arketypen brukes for å rekvirere ressurser som skal gjennomføres. ">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <"Anca Heyd", ...>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"599467600133E7C1C8521C2FA4AA52CB">
+	>
+
+definition
+	INSTRUCTION[at0000] matches {	-- Rekvirering av helsetjenesteressurser 
+		activities cardinality matches {0..*; unordered} matches {
+			ACTIVITY[at0001] occurrences matches {0..1} matches {	-- Current Activity
+				description matches {
+					ITEM_TREE[at0002] matches {	-- Tree
+						items cardinality matches {0..*; unordered} matches {
+							ELEMENT[at0003] occurrences matches {0..1} matches {	-- Ressurstype
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0004] occurrences matches {0..*} matches {	-- Spesifikke detaljer
+								include
+									archetype_id/value matches {/.*/}
+							}
+							ELEMENT[at0005] occurrences matches {0..1} matches {	-- Status
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0006] occurrences matches {0..1} matches {	-- Kommentar
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Rekvirering av helsetjenesteressurser ">
+					description = <"Benyttes for å rekvirere/bestille helsetjenesteressurser som kreves for å gjennomføre en helsetjeneste (f.eks. en operajson)">
+				>
+				["at0001"] = <
+					text = <"Current Activity">
+					description = <"Current Activity">
+				>
+				["at0002"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Ressurstype">
+					description = <"Angir ressurstypen som f.eks. medisinsk utstyr, pleiepunkt (ponint of care) eller helsepersonell/profesjon">
+				>
+				["at0004"] = <
+					text = <"Spesifikke detaljer">
+					description = <"Strukturerte detaljer om ressursen som bestilles.">
+				>
+				["at0005"] = <
+					text = <"Status">
+					description = <"Angir status på rekvireringen.">
+				>
+				["at0006"] = <
+					text = <"Kommentar">
+					description = <"Tillegsinformasjon om rekvireringen i fritekst.">
+				>
+			>
+		>
+	>
