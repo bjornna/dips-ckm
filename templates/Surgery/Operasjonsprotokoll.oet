@@ -60,6 +60,14 @@
       </item>
     </other_details>
   </description>
+  <annotations path="[openEHR-EHR-COMPOSITION.report-procedure.v0]/content[openEHR-EHR-ACTION.procedure.v1]/description[at0001]/items[at0067]">
+    <items>
+      <item>
+        <key>Notes.Comment</key>
+        <value>brukes som radioknapp</value>
+      </item>
+    </items>
+  </annotations>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report-procedure.v0" concept_name="Procedure Report">
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" path="/content">
       <Rule path="/description[at0001]/items[at0002]" name="Operasjonstype">
@@ -71,19 +79,18 @@
       <Rule path="/description[at0001]/items[at0065]" max="0" />
       <Rule path="/description[at0001]/items[at0058]" max="0" />
       <Rule path="/description[at0001]/items[at0063]" max="0" />
+      <Rule path="/description[at0001]/items[at0048]" max="0" />
+      <Rule path="/description[at0001]/items[at0069]" max="0" />
+      <Rule path="/description[at0001]/items[at0006]" max="0" />
+      <Rule path="/description[at0001]/items[at0066]" name="Start operasjon" />
+      <Rule path="/description[at0001]/items[at0060]" name="Slutt operasjon" />
+      <Rule path="/description[at0001]/items[at0061]" max="0" />
       <Rule path="/description[at0001]/items[at0067]">
         <constraint xsi:type="textConstraint">
           <includedValues>SNOMEDCT::399455000::Hovedprosedyre</includedValues>
-          <includedValues>SNOMEDCT::262134003::Sekundærprosedyre</includedValues>
-          <includedValues>SNOMEDCT::261554009::Reoperasjon</includedValues>
         </constraint>
       </Rule>
       <Rule path="/description[at0001]/items[at0014]" max="0" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.surgery_details_dips.v1" concept_name="Operasjonsdetaljer" path="/description[at0001]/items[at0003]">
-        <Rule path="/items[at0002]" max="0" />
-        <Rule path="/items[at0003]/items[at0004]" max="0" />
-        <Rule path="/items[at0003]/items[at0005]" max="0" />
-      </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" path="/description[at0001]/items[at0003]">
         <Rule path="/items[at0001]">
           <constraint xsi:type="textConstraint">
@@ -99,6 +106,24 @@
         <Rule path="/items[at0004]" max="1" name="Legens beskrivelse" />
       </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.reoperation_details.v1" concept_name="Reoperasjonsdetaljer" path="/description[at0001]/items[at0003]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.healthcare_resource_dips.v1" concept_name="Helsetjenesteressurs" path="/description[at0001]/items[at0003]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>FE-RESSURSTYPE::1::Operasjonsstue</includedValues>
+            <includedValues>FE-RESSURSTYPE::A::Assistent (kun for oprmaler)</includedValues>
+            <includedValues>FE-RESSURSTYPE::B::Behandler/Person</includedValues>
+            <includedValues>FE-RESSURSTYPE::HK::Hovedkirurg</includedValues>
+            <includedValues>FE-RESSURSTYPE::L::Lokale</includedValues>
+            <includedValues>FE-RESSURSTYPE::OT::Operasjonsteam</includedValues>
+            <includedValues>FE-RESSURSTYPE::P::Post/Avdeling</includedValues>
+            <includedValues>FE-RESSURSTYPE::R::Røntgenlaboratorium</includedValues>
+            <includedValues>FE-RESSURSTYPE::U::Utstyr</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0004]" max="0" />
+        <Rule path="/items[at0005]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
+      </Items>
     </Content>
     <Context />
   </definition>
