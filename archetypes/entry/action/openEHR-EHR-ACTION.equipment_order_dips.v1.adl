@@ -1,0 +1,163 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ACTION.equipment_order_dips.v1
+
+concept
+	[at0000]	-- Utstyrsbestilling
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Annette Hole Sjøborg">
+		["email"] = <"ahs@dips.no">
+		["date"] = <"2017-11-02">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"CDF58636FF899DD473A0B7394D003CFC">
+	>
+
+definition
+	ACTION[at0000] matches {	-- Utstyrsbestilling
+		ism_transition matches {
+			ISM_TRANSITION[at0006] matches {	-- Planlagt
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::526]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0006]}		-- Planlagt
+					}
+				}
+			}
+			ISM_TRANSITION[at0008] matches {	-- Bestilt
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0008]}		-- Bestilt
+					}
+				}
+			}
+			ISM_TRANSITION[at0009] matches {	-- Endret
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0009]}		-- Endret
+					}
+				}
+			}
+			ISM_TRANSITION[at0010] matches {	-- Ferdig
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0010]}		-- Ferdig
+					}
+				}
+			}
+		}
+		description matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Navn på utstyr
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Beskrivelse
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Kommentar
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0011] occurrences matches {0..1} matches {	-- Type utstyr
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0004] occurrences matches {0..*} matches {	-- Detaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Utstyrsbestilling">
+					description = <"Benyttes til bestilling av utstyr i fbm utføring av en helesetjeneste.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Navn på utstyr">
+					description = <"Navn på ønsket/bestilt utstyr.">
+				>
+				["at0003"] = <
+					text = <"Beskrivelse">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Detaljer">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Kommentar">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Planlagt">
+					description = <"Utsyret er planlagt/ønsket.">
+				>
+				["at0008"] = <
+					text = <"Bestilt">
+					description = <"Utstyr er bestilt">
+				>
+				["at0009"] = <
+					text = <"Endret">
+					description = <"Bestilling er endret">
+				>
+				["at0010"] = <
+					text = <"Ferdig">
+					description = <"Oppfølging/bestilling er ferdig">
+				>
+				["at0011"] = <
+					text = <"Type utstyr">
+					description = <"Type ustyr dette gjelder for, feks utstyr som skal bestilles, er sjeldent osv.">
+				>
+			>
+		>
+	>

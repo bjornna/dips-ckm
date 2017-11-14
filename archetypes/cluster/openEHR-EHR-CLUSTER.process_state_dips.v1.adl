@@ -1,0 +1,64 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.process_state_dips.v1
+
+concept
+	[at0000]	-- Status på prosess
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"Dips ASA">
+		["date"] = <"2017-11-09">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for å definere status på en samlet  prosess. Beskriver ikke status på de enkelte komponentene i prosessen.">
+			use = <"Brukes for å definere status på en samlet prosess . Benyttes i stuasjoner hvor action ikke dekker behovene med f.eks. å angi status på en prosess som inneholder flere instruksjoner.">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <"Bjørn Næss", ...>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"9566FF8A5F81F761AC43E2CF41B0E792">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Status på prosess
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] matches {	-- Status
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Kommentar
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Status på prosess">
+					description = <"Brukes for å dokumentere tilstand/status i en klinisk prosess. Kan gjerne brukes i persistente oppføringer for å definere tilstanden på det samlede prosessen.">
+				>
+				["at0001"] = <
+					text = <"Status">
+					description = <"Status. Bruk gjerne kode tilpasset den enkelte prosesstype.">
+				>
+				["at0002"] = <
+					text = <"Kommentar">
+					description = <"Kommentar til status.">
+				>
+			>
+		>
+	>

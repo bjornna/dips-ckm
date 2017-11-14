@@ -1,23 +1,24 @@
-﻿archetype (adl_version=1.4)
+﻿archetype (adl_version=1.4; uid=22680c11-d318-4a60-95a6-83dc264dee65)
 	openEHR-EHR-CLUSTER.exclusion_exam.v1
 
 concept
-	[at0000]	-- Eksklusjon av undersøkelse
+	[at0000]	-- Exclusion of examination
 language
 	original_language = <[ISO_639-1::en]>
 	translations = <
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
 			author = <
-				["name"] = <"?">
+				["name"] = <"John Tore Valand og Silje Ljosland Bakke">
+				["organisation"] = <"Helse Bergen og Nasjonal IKT">
 			>
 		>
 	>
 description
 	original_author = <
 		["name"] = <"Heather Leslie">
-		["email"] = <"heather.leslie@oceaninformatics.com">
 		["organisation"] = <"Ocean Informatics">
+		["email"] = <"heather.leslie@oceaninformatics.com">
 		["date"] = <"2015-01-14">
 	>
 	details = <
@@ -26,58 +27,69 @@ description
 			purpose = <"To record a positive statement that the physical examination, or a specified part of the physical examination, was not performed.">
 			use = <"Use to record in a clinical examination that the physical examination, or a specified part of the physical examination, was not performed, with an optional statement about the reason for the non-performance.
 
-This archetype has been designed to be used to allow recording of 'no examination was done' at multiple levels of the examination process. Inserting this archetype into the Examination Detail' SLOT within OBSERVATION.exam allows for recording that no physical examination was performed. It follows that inserting this archeytpe into the Details SLOT of any examination-related CLUSTER archetype allows for recording that no physical examination was performed only for the part of examination specified by that archetype.
+This archetype has been designed to be used to allow recording of 'no examination was done' at multiple levels of the examination process. It will never be used as a stand-alone archetype but always inside an examination archetype that provides the context for the examination being performed. For example, insertion of this archetype into the Examination Detail' SLOT within OBSERVATION.exam allows for recording that no physical examination was performed. Similarly, insertion of this archetype into the Details SLOT of any examination-related CLUSTER archetype, such as CLUSTER.exam_eye_pupil, allows recording that no physical examination was performed only for examination of a specified pupil, perhaps because a facial injury prevented the pupil being visualised.
 
 In particular, this archetype has specifically been designed to avoid the need to use flags or terminology to express negation about a record of physical examination within the health record.
 
 It is reasonable to assume that if the examination was partially performed, then only data about the examination performed will be recorded. If the examination was difficult to perform, for example an uncooperative patient, then this information can be included in the overall 'Confounding Factors' data element in the root OBSERVATION.exam archetype or in the 'Comment' data element in each examination CLUSTER archetype.">
 			keywords = <"exclusion", "exam", "examination", "done", "performed">
-			misuse = <"Not to be used to record positive statements about findings on physical examination.
+			misuse = <"Not to be used to record positive statements about findings observed on physical examination. Use the container archetype OBSERVATION.exam and/or the family of CLUSTER examination archetypes, based on the CLUSTER.exam_XYZ pattern, for this purpose. For example: CLUSTER.exam_tympanic_membrane; CLUSTER.exam-ears; or CLUSTER.exam_heart.
 
 Not to be used to record the exclusion or absence of adverse reactions, family history, medication use, procedures, problems or diagnoses in the subject etc - use specific specialisations of this archetype for this purpose.">
-			copyright = <"">
+			copyright = <"© National E-Health Transition Authority, openEHR Foundation, Nasjonal IKT HF">
 		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"*To record a positive statement that the physical examination, or a specified part of the physical examination, was not performed.(en)">
-			use = <"*Use to record in a clinical examination that the physical examination, or a specified part of the physical examination, was not performed, with an optional statement about the reason for the non-performance.
+			purpose = <"For å registrere et eksplisitt utsagn om at en fysisk undersøkelse eller en spesifisert del av en fysisk undersøkelse ikke ble gjennomført.">
+			use = <"Brukes for å registrere et eksplisitt utsagn om at en fysisk undersøkelse eller en spesifisert del av en fysisk undersøkelse ikke ble gjennomført. Det er i tillegg ett valgfritt felt for å registrere årsak til at undersøkelsen ikke ble utført.
 
-This archetype has been designed to be used to allow recording of 'no examination was done' at multiple levels of the examination process. Inserting this archetype into the Examination Detail' SLOT within OBSERVATION.exam allows for recording that no physical examination was performed. It follows that inserting this archeytpe into the Details SLOT of any examination-related CLUSTER archetype allows for recording that no physical examination was performed only for the part of examination specified by that archetype.
+Denne arketypen er laget for å tillate registrering av at \"ingen undersøkelse ble utført\" på ulike nivå i undersøkelsesprosessen. Arketypen skal alltid brukes i en undersøkelsesarketype som gir kontekst til hvilken undersøkelse det er snakk om. For eksempel om man bruker denne arketypen i arketypen OBSERVATION.exam (Funn ved fysisk undersøkelse) i SLOTet \"Undersøkelsesdetaljer\" tillater arketypen en registrering av at ingen fysisk undersøkelse ble utført. På samme måte kan denne arketypen brukes i \"Detaljer\" SLOTet i alle undersøkelsesrelaterte CLUSTER-arketyper, som CLUSTER.exam_eye_pupil for å gi mulighet får å registrere at kun undersøkelse av den spesifikke pupillen ikke ble utført, fordi en ansiktsskade gjorde at pupillen ikke var synlig.
 
-In particular, this archetype has specifically been designed to avoid the need to use flags or terminology to express negation about a record of physical examination within the health record.
+Arketypen er utviklet for å unngå bruk av flagg eller terminologi for å uttrykke negasjon ved registrering av en fysisk i undersøkelse i pasientjournalen.
 
-It is reasonable to assume that if the examination was partially performed, then only data about the examination performed will be recorded. If the examination was difficult to perform, for example an uncooperative patient, then this information can be included in the overall 'Confounding Factors' data element in the root OBSERVATION.exam archetype or in the 'Comment' data element in each examination CLUSTER archetype.(en)">
-			keywords = <"*exclusion(en)", "*exam(en)", "*examination(en)", "*done(en)", "*performed(en)">
-			misuse = <"*Not to be used to record positive statements about findings on physical examination.
+Dersom undersøkelsen ble delvis utført vil data om undersøkelsen som ble utført registreres. Var undersøkelsen vanskelig å gjennomføre, for eksempel om pasienten ikke samarbeidet, kan denne informasjonen legges til i dataelementet \"Konfunderende faktorer\" i den overordnede OBSERVATION.exam-arketypen, eller i dataelementet \"Kommentar\" i CLUSTER-arketypen for den spesifikke undersøkelsen.">
+			keywords = <"eksklusjon", "undersøkelse", "ikke utført", "unntak">
+			misuse = <"Brukes ikke for å registrere eksplisitte utsagn om funn observert ved en fysisk undersøkelse. Bruk container-arketypen OBSERVATION.exam og/eller familien av CLUSTER-arketyper for spesifikke undersøkelser. For eksempel CLUSTER.exam_tympanic_membrane; CLUSTER.exam-ears eller CLUSTER.exam_heart.
 
-Not to be used to record the exclusion or absence of adverse reactions, family history, medication use, procedures, problems or diagnoses in the subject etc - use specific specialisations of this archetype for this purpose.(en)">
-			copyright = <"*(en)">
+Brukes ikke for å registrere eksklusjon eller fravær av overfølsomhetsreaksjoner, familieanamnese, legemiddelbruk, prosedyrer, problemer eller diagnoser etc. Bruk spesifikke EVALUATION-arketyper for dette formålet.
+
+Brukes ikke for å registrere at en pasient ikke har møtt til en konsultasjon. Dette må registreres i egne administrative arketyper eller i andre strukturer.">
 		>
 	>
-	lifecycle_state = <"AuthorDraft">
-	other_contributors = <>
+	lifecycle_state = <"published">
+	other_contributors = <"Vebjoern Arntzen, Oslo university hospital, Norway", "Koray Atalag, University of Auckland, New Zealand", "Silje Ljosland Bakke, Nasjonal IKT HF, Norway (Nasjonal IKT redaktør)", "Lars Bitsch-Larsen, Haukeland University hospital, Norway", "Heather Grain, Llewelyn Grain Informatics, Australia", "Evelyn Hovenga, EJSH Consulting, Australia", "Lars Karlsen, DIPS ASA, Norway", "Heather Leslie, Ocean Informatics, Australia (openEHR Editor)", "Ian McNicoll, freshEHR Clinical Informatics, United Kingdom (openEHR Editor)", "Bjoern Naess, DIPS ASA, Norway", "Andrej Orel, Marand d.o.o., Slovenia", "John Tore Valand, Haukeland Universitetssjukehus, Norway (Nasjonal IKT redaktør)">
 	other_details = <
+		["custodian_organisation"] = <"Nasjonal IKT">
+		["references"] = <"Derived from: http://dcm.nehta.org.au/ckm/#showArchetype_1013.1.1383
+Derived from: Exclusion of examination, Draft Archetype [Internet]. nehta, Australia, nehta Clinical Knowledge Manager [cited: 2015-11-23]. Available from: http://dcm.nehta.org.au/ckm/#showArchetype_1013.1.1383">
 		["current_contact"] = <"Heather Leslie, Ocean Informatics, heather.leslie@oceaninformatics.com">
-		["MD5-CAM-1.0.1"] = <"57338900D84FE1607AF9D3679E61A489">
+		["original_namespace"] = <"no.nasjonalikt">
+		["original_publisher"] = <"Nasjonal IKT">
+		["custodian_namespace"] = <"no.nasjonalikt">
+		["MD5-CAM-1.0.1"] = <"E9CD79F2C25A9720D6337B5290A7F718">
+		["build_uid"] = <"f1f06c3b-2bbc-4a45-96d7-4ac46824f16b">
+		["revision"] = <"1.0.0">
 	>
 
 definition
-	CLUSTER[at0000] matches {	-- Eksklusjon av undersøkelse
+	CLUSTER[at0000] matches {	-- Exclusion of examination
 		items cardinality matches {1..*; unordered} matches {
-			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Undersøkelse ikke gjennomført
+			ELEMENT[at0001] matches {	-- Examination not done
 				value matches {
 					DV_BOOLEAN matches {
 						value matches {True}
 					}
 				}
 			}
-			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Årsak
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Reason
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
 		}
 	}
+
+
 
 ontology
 	term_definitions = <
@@ -102,18 +114,18 @@ ontology
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"Eksklusjon av undersøkelse">
-					description = <"*Positive statement to record that the physical examination, or a specified part of the physical examination, was not performed.(en)">
+					text = <"Eksklusjon av en fysisk undersøkelse">
+					description = <"Eksplisitt utsagn for å registrere at en fysisk undersøkelse eller en spesifisert del av en fysisk undersøkelse ikke ble gjennomført.">
 				>
 				["at0001"] = <
-					text = <"Undersøkelse ikke gjennomført">
-					description = <"*Statement to explicity record that the examination was not performed.(en)">
-					comment = <"*Record as True if the examination was not performed.(en)">
+					text = <"Undersøkelse ikke utført">
+					description = <"Utsagn for å eksplisitt registrere at en undersøkelse ikke ble utført.">
+					comment = <"Registrer som Sann om undersøkelsen ikke ble utført.">
 				>
 				["at0002"] = <
 					text = <"Årsak">
-					description = <"*Reason for the 'not done' statement.(en)">
-					comment = <"*For example: patient factors, equipment factors, time constraints.(en)">
+					description = <"Årsak for utsagnet \"ikke utført\".">
+					comment = <"For eksempel: faktorer knyttet til pasient, utstyr eller tidsbegrensninger.">
 				>
 			>
 		>

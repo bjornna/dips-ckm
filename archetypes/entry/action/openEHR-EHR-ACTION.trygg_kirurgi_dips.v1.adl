@@ -1,0 +1,137 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ACTION.trygg_kirurgi_dips.v1
+
+concept
+	[at0000]	-- Trygg kirurgi
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anine Ramberg">
+		["email"] = <"ara@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2017-11-09">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for å kunne registrere tidspunkt/fasene for trygg kirurgi.">
+			use = <"Brukes for å kunne knytte til forberedelse, time-out og avslutning.">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <"Anine Ramberg, DIPS AS<ara@dips.no>">
+		["MD5-CAM-1.0.1"] = <"DFB7561F3B843232C1B953757DCE90B2">
+	>
+
+definition
+	ACTION[at0000] matches {	-- Trygg kirurgi
+		ism_transition matches {
+			ISM_TRANSITION[at0008] matches {	-- Forberedelse
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0008]}		-- Forberedelse
+					}
+				}
+			}
+			ISM_TRANSITION[at0009] matches {	-- Time-out
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0009]}		-- Time-out
+					}
+				}
+			}
+			ISM_TRANSITION[at0007] matches {	-- Avslutning
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0007]}		-- Avslutning
+					}
+				}
+			}
+		}
+		description matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0002] occurrences matches {0..*} matches {	-- Forberedelse
+						include
+							archetype_id/value matches {/.*/}
+					}
+					allow_archetype CLUSTER[at0003] occurrences matches {0..*} matches {	-- Time-out
+						include
+							archetype_id/value matches {/.*/}
+					}
+					allow_archetype CLUSTER[at0004] occurrences matches {0..*} matches {	-- Avslutning
+						include
+							archetype_id/value matches {/.*/}
+					}
+					allow_archetype CLUSTER[at0005] occurrences matches {0..*} matches {	-- Detaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Trygg kirurgi">
+					description = <"Benyttes for å kunne registrere tidspunktene/fasene i trygg kirurgi.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Forberedelse">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Time-out">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Avslutning">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Detaljer">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Avslutning">
+					description = <"Avslutning av operasjon">
+				>
+				["at0008"] = <
+					text = <"Forberedelse">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Time-out">
+					description = <"*">
+				>
+			>
+		>
+	>

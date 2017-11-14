@@ -27,7 +27,7 @@ description
 		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"">
+			purpose = <"Arketypen brukes i vedtaksmodulen i DIPS Arena.">
 			use = <"">
 			misuse = <"">
 			copyright = <"">
@@ -36,7 +36,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"CC48A05F7343C40CE8E8511CE1C0C4F0">
+		["MD5-CAM-1.0.1"] = <"690499BAA06FE5FD8C1894BB7EB5A328">
 	>
 
 definition
@@ -51,31 +51,62 @@ definition
 							}
 						}
 					}
-					allow_archetype CLUSTER[at0024] occurrences matches {0..*} matches {	-- Vedtakstype
-						include
-							archetype_id/value matches {/.*/}
+					ELEMENT[at0026] occurrences matches {0..1} matches {	-- Vedtakstype
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0059, 	-- Vedtak om tvungen observasjon
+									at0060, 	-- Vedtak om opphør av tvungen observasjon
+									at0061, 	-- Vedtak om å ikke etablere tvungen observasjon/tvungent psykisk helsevern
+									at0062, 	-- Vedtak om tvungent psykisk helsevern
+									at0063, 	-- Vedtak om opphør av tvungent psykisk helsevern
+									at0064, 	-- Vedtak om overføring til annen institusjon
+									at0065, 	-- Vedtak om overføring til annen tvangsform
+									at0066, 	-- Vedtak om overføring av domfelt til annen institusjon
+									at0067, 	-- Vedtak om overføring av domfelt til annen tvangsform
+									at0068, 	-- Vedtak om skjerming
+									at0069, 	-- Vedtak om bruk av mekaniske tvangsmidler
+									at0070, 	-- Vedtak om behandling uten eget samtykke
+									at0071, 	-- Vedtak om innskrenket forbindelse med omverdenen
+									at0072, 	-- Vedtak om åpning og kontroll av post
+									at0073, 	-- Vedtak om undersøkelse av rom og eiendeler og/eller kroppsvisitasjon
+									at0074, 	-- Vedtak om beslag og eventuell tilintetgjørelse
+									at0075, 	-- Vedtak om rusmiddeltesting av biologisk materiale
+									at0076, 	-- Vedtak om undersøkelse av pasientens person, rom og eiendeler
+									at0077, 	-- Vedtak om kroppslig undersøkelse
+									at0078, 	-- Vedtak om innskrenkninger i pasientens forbindelse med omverdenen
+									at0079]	-- Vedtak om nattelåsing av pasientrom
+								}
+							}
+						}
 					}
-					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Framsatt tidspunkt
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Fremsatt tidspunkt
 						value matches {
 							DV_DATE_TIME matches {
 								value matches {yyyy-mm-ddTHH:??:??}
 							}
 						}
 					}
-					ELEMENT[at0014] occurrences matches {0..1} matches {	-- Klageinstans
-						value matches {
-							0|[local::at0015], 	-- Fylkesmannen
-							1|[local::at0016]  	-- Kontrollkommisjonen
-						}
-					}
-					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Klage framsatt av
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Klage fremsatt av
 						value matches {
 							DV_CODED_TEXT matches {
 								defining_code matches {
 									[local::
 									at0025, 	-- Pasienten selv
 									at0006, 	-- Nærmeste pårørende
-									at0007]	-- Den offentlige myndighet som har fremsatt begjæring om begjæring om tvungen observasjon eller tvungent psykisk helsevern
+									at0007]	-- Den offentlige myndighet som har fremsatt begjæring om tvungen observasjon eller tvungent psykisk helsevern
+								}
+							}
+						}
+					}
+					ELEMENT[at0014] occurrences matches {0..1} matches {	-- Klageinstans
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0080, 	-- Fylkesmannen
+									at0081]	-- Kontrollkommisjonen
 								}
 							}
 						}
@@ -86,11 +117,11 @@ definition
 							1|[local::at0018], 	-- Klagen er trukket
 							2|[local::at0019], 	-- Klagen er avvist
 							3|[local::at0020], 	-- Kontrollkommisjonens leder har besluttet utsatt iverksetting av vedtak inntil klagesaken er avgjort
-							4|[local::at0021], 	-- Klager er gitt medhold
-							5|[local::at0022]  	-- Klager er ikke gitt medhold
+							4|[local::at0021], 	-- Klager er ikke gitt medhold
+							5|[local::at0022]  	-- Klager er gitt medhold
 						}
 					}
-					ELEMENT[at0023] occurrences matches {0..1} matches {	-- Resultat dato
+					ELEMENT[at0023] occurrences matches {0..1} matches {	-- Resultatdato
 						value matches {
 							DV_DATE matches {
 								value matches {yyyy-mm-dd}
@@ -116,79 +147,162 @@ ontology
 				>
 				["at0002"] = <
 					text = <"Klagen gjelder vedtak i journaldokument av">
-					description = <"Referanse til det dokument i pasientens journal som utgjør journalføringen av det vedtak som det klages på">
+					description = <"Referanse til det dokument i pasientens journal som utgjør journalføringen av det vedtak som det klages på.">
 				>
 				["at0003"] = <
-					text = <"Framsatt tidspunkt">
-					description = <"Tidspunkt klagen ble framsatt">
+					text = <"Fremsatt tidspunkt">
+					description = <"Tidspunkt klagen ble fremsatt.">
 				>
 				["at0004"] = <
-					text = <"Klage framsatt av">
-					description = <"En kode som angir hvem som har framsatt klagen. 
-Standard kodeverk: 9292 Aktører som kan fremsette klage på vedtak i de psykiske helsevernet
-">
+					text = <"Klage fremsatt av">
+					description = <"Standard kodeverk 9292 Aktører som kan fremsette klage på vedtak i de psykiske helsevernet
+.">
 				>
 				["at0006"] = <
 					text = <"Nærmeste pårørende">
-					description = <"*">
+					description = <"Nærmeste pårørende">
 				>
 				["at0007"] = <
-					text = <"Den offentlige myndighet som har fremsatt begjæring om begjæring om tvungen observasjon eller tvungent psykisk helsevern">
-					description = <"*">
+					text = <"Den offentlige myndighet som har fremsatt begjæring om tvungen observasjon eller tvungent psykisk helsevern">
+					description = <"Den offentlige myndighet som har fremsatt begjæring om tvungen observasjon eller tvungent psykisk helsevern">
 				>
 				["at0011"] = <
 					text = <"Status for klagen">
-					description = <"*">
+					description = <"Standard kodeverk 9267 Status behandling av klage.">
 				>
 				["at0014"] = <
 					text = <"Klageinstans">
-					description = <"Kode som angir hvem det er klaget til.
-Standard kodeverk: 9266 Kode som angir hvem det er klaget til.
-Standard kodeverk: 9266 ">
-				>
-				["at0015"] = <
-					text = <"Fylkesmannen">
-					description = <"*">
-				>
-				["at0016"] = <
-					text = <"Kontrollkommisjonen">
-					description = <"*">
+					description = <"
+Standard kodeverk 9266 Kode som angir hvem det er klaget til.
+">
 				>
 				["at0017"] = <
 					text = <"Klage framsatt men ikke avgjort">
-					description = <"*">
+					description = <"Klage framsatt men ikke avgjort">
 				>
 				["at0018"] = <
 					text = <"Klagen er trukket">
-					description = <"*">
+					description = <"Klagen er trukket">
 				>
 				["at0019"] = <
 					text = <"Klagen er avvist">
-					description = <"*">
+					description = <"Klagen er avvist">
 				>
 				["at0020"] = <
 					text = <"Kontrollkommisjonens leder har besluttet utsatt iverksetting av vedtak inntil klagesaken er avgjort">
-					description = <"*">
+					description = <"Kontrollkommisjonens leder har besluttet utsatt iverksetting av vedtak inntil klagesaken er avgjort">
 				>
 				["at0021"] = <
-					text = <"Klager er gitt medhold">
-					description = <"*">
+					text = <"Klager er ikke gitt medhold">
+					description = <"Klager er ikke gitt medhold">
 				>
 				["at0022"] = <
-					text = <"Klager er ikke gitt medhold">
-					description = <"*">
+					text = <"Klager er gitt medhold">
+					description = <"Klager er gitt medhold">
 				>
 				["at0023"] = <
-					text = <"Resultat dato">
-					description = <"*">
-				>
-				["at0024"] = <
-					text = <"Vedtakstype">
-					description = <"*">
+					text = <"Resultatdato">
+					description = <"Dato resultatet av klagebehandlingen forelå.">
 				>
 				["at0025"] = <
 					text = <"Pasienten selv">
-					description = <"*">
+					description = <"Pasienten selv">
+				>
+				["at0026"] = <
+					text = <"Vedtakstype">
+					description = <"Standard kodeverk 9315 Hovedtyper av vedtak etter psykisk helsevernloven.">
+				>
+				["at0059"] = <
+					text = <"Vedtak om tvungen observasjon">
+					description = <"Vedtak om tvungen observasjon">
+				>
+				["at0060"] = <
+					text = <"Vedtak om opphør av tvungen observasjon">
+					description = <"Vedtak om opphør av tvungen observasjon">
+				>
+				["at0061"] = <
+					text = <"Vedtak om å ikke etablere tvungen observasjon/tvungent psykisk helsevern">
+					description = <"Vedtak om å ikke etablere tvungen observasjon/tvungent psykisk helsevern">
+				>
+				["at0062"] = <
+					text = <"Vedtak om tvungent psykisk helsevern">
+					description = <"Vedtak om tvungent psykisk helsevern">
+				>
+				["at0063"] = <
+					text = <"Vedtak om opphør av tvungent psykisk helsevern">
+					description = <"Vedtak om opphør av tvungent psykisk helsevern">
+				>
+				["at0064"] = <
+					text = <"Vedtak om overføring til annen institusjon">
+					description = <"Vedtak om overføring til annen institusjon">
+				>
+				["at0065"] = <
+					text = <"Vedtak om overføring til annen tvangsform">
+					description = <"Vedtak om overføring til annen tvangsform">
+				>
+				["at0066"] = <
+					text = <"Vedtak om overføring av domfelt til annen institusjon">
+					description = <"Vedtak om overføring av domfelt til annen institusjon">
+				>
+				["at0067"] = <
+					text = <"Vedtak om overføring av domfelt til annen tvangsform">
+					description = <"Vedtak om overføring av domfelt til annen tvangsform">
+				>
+				["at0068"] = <
+					text = <"Vedtak om skjerming">
+					description = <"Vedtak om skjerming">
+				>
+				["at0069"] = <
+					text = <"Vedtak om bruk av mekaniske tvangsmidler">
+					description = <"Vedtak om bruk av mekaniske tvangsmidler">
+				>
+				["at0070"] = <
+					text = <"Vedtak om behandling uten eget samtykke">
+					description = <"Vedtak om behandling uten eget samtykke">
+				>
+				["at0071"] = <
+					text = <"Vedtak om innskrenket forbindelse med omverdenen">
+					description = <"Vedtak om innskrenket forbindelse med omverdenen">
+				>
+				["at0072"] = <
+					text = <"Vedtak om åpning og kontroll av post">
+					description = <"Vedtak om åpning og kontroll av post">
+				>
+				["at0073"] = <
+					text = <"Vedtak om undersøkelse av rom og eiendeler og/eller kroppsvisitasjon">
+					description = <"Vedtak om undersøkelse av rom og eiendeler og/eller kroppsvisitasjon">
+				>
+				["at0074"] = <
+					text = <"Vedtak om beslag og eventuell tilintetgjørelse">
+					description = <"Vedtak om beslag og eventuell tilintetgjørelse">
+				>
+				["at0075"] = <
+					text = <"Vedtak om rusmiddeltesting av biologisk materiale">
+					description = <"Vedtak om rusmiddeltesting av biologisk materiale">
+				>
+				["at0076"] = <
+					text = <"Vedtak om undersøkelse av pasientens person, rom og eiendeler">
+					description = <"Vedtak om undersøkelse av pasientens person, rom og eiendeler">
+				>
+				["at0077"] = <
+					text = <"Vedtak om kroppslig undersøkelse">
+					description = <"Vedtak om kroppslig undersøkelse">
+				>
+				["at0078"] = <
+					text = <"Vedtak om innskrenkninger i pasientens forbindelse med omverdenen">
+					description = <"Vedtak om innskrenkninger i pasientens forbindelse med omverdenen">
+				>
+				["at0079"] = <
+					text = <"Vedtak om nattelåsing av pasientrom">
+					description = <"Vedtak om nattelåsing av pasientrom">
+				>
+				["at0080"] = <
+					text = <"Fylkesmannen">
+					description = <"Fylkesmannen">
+				>
+				["at0081"] = <
+					text = <"Kontrollkommisjonen">
+					description = <"Kontrollkommisjonen">
 				>
 			>
 		>
@@ -203,80 +317,163 @@ Standard kodeverk: 9266 ">
 					description = <"@ internal @">
 				>
 				["at0002"] = <
-					text = <"Klagen gjelder vedtak i journaldokument av">
-					description = <"Referanse til det dokument i pasientens journal som utgjør journalføringen av det vedtak som det klages på">
+					text = <"*Klagen gjelder vedtak i journaldokument av(nb)">
+					description = <"*Referanse til det dokument i pasientens journal som utgjør journalføringen av det vedtak som det klages på.(nb)">
 				>
 				["at0003"] = <
-					text = <"Framsatt tidspunkt">
-					description = <"Tidspunkt klagen ble framsatt">
+					text = <"*Fremsatt tidspunkt(nb)">
+					description = <"*Tidspunkt klagen ble fremsatt.(nb)">
 				>
 				["at0004"] = <
-					text = <"Klage framsatt av">
-					description = <"En kode som angir hvem som har framsatt klagen. 
-Standard kodeverk: 9292 Aktører som kan fremsette klage på vedtak i de psykiske helsevernet
-">
+					text = <"*Klage fremsatt av(nb)">
+					description = <"*Standard kodeverk 9292 Aktører som kan fremsette klage på vedtak i de psykiske helsevernet
+.(nb)">
 				>
 				["at0006"] = <
-					text = <"Nærmeste pårørende">
-					description = <"*">
+					text = <"*Nærmeste pårørende(nb)">
+					description = <"*Nærmeste pårørende(nb)">
 				>
 				["at0007"] = <
-					text = <"Den offentlige myndighet som har fremsatt begjæring om begjæring om tvungen observasjon eller tvungent psykisk helsevern">
-					description = <"*">
+					text = <"*Den offentlige myndighet som har fremsatt begjæring om tvungen observasjon eller tvungent psykisk helsevern(nb)">
+					description = <"*Den offentlige myndighet som har fremsatt begjæring om tvungen observasjon eller tvungent psykisk helsevern(nb)">
 				>
 				["at0011"] = <
-					text = <"Status for klagen">
-					description = <"*">
+					text = <"*Status for klagen(nb)">
+					description = <"*Standard kodeverk 9267 Status behandling av klage.(nb)">
 				>
 				["at0014"] = <
-					text = <"Klageinstans">
-					description = <"Kode som angir hvem det er klaget til.
-Standard kodeverk: 9266 Kode som angir hvem det er klaget til.
-Standard kodeverk: 9266 ">
-				>
-				["at0015"] = <
-					text = <"Fylkesmannen">
-					description = <"*">
-				>
-				["at0016"] = <
-					text = <"Kontrollkommisjonen">
-					description = <"*">
+					text = <"*Klageinstans(nb)">
+					description = <"*
+Standard kodeverk 9266 Kode som angir hvem det er klaget til.
+(nb)">
 				>
 				["at0017"] = <
-					text = <"Klage framsatt men ikke avgjort">
-					description = <"*">
+					text = <"*Klage framsatt men ikke avgjort(nb)">
+					description = <"*Klage framsatt men ikke avgjort(nb)">
 				>
 				["at0018"] = <
-					text = <"Klagen er trukket">
-					description = <"*">
+					text = <"*Klagen er trukket(nb)">
+					description = <"*Klagen er trukket(nb)">
 				>
 				["at0019"] = <
-					text = <"Klagen er avvist">
-					description = <"*">
+					text = <"*Klagen er avvist(nb)">
+					description = <"*Klagen er avvist(nb)">
 				>
 				["at0020"] = <
-					text = <"Kontrollkommisjonens leder har besluttet utsatt iverksetting av vedtak inntil klagesaken er avgjort">
-					description = <"*">
+					text = <"*Kontrollkommisjonens leder har besluttet utsatt iverksetting av vedtak inntil klagesaken er avgjort(nb)">
+					description = <"*Kontrollkommisjonens leder har besluttet utsatt iverksetting av vedtak inntil klagesaken er avgjort(nb)">
 				>
 				["at0021"] = <
-					text = <"*Klager er gitt medhold(nb)">
-					description = <"**(nb)">
+					text = <"*Klager er ikke gitt medhold(nb)">
+					description = <"*Klager er ikke gitt medhold(nb)">
 				>
 				["at0022"] = <
-					text = <"*Klager er ikke gitt medhold(nb)">
-					description = <"**(nb)">
+					text = <"*Klager er gitt medhold(nb)">
+					description = <"*Klager er gitt medhold(nb)">
 				>
 				["at0023"] = <
-					text = <"Resultat dato">
-					description = <"*">
-				>
-				["at0024"] = <
-					text = <"Vedtakstype">
-					description = <"*">
+					text = <"*Resultatdato(nb)">
+					description = <"*Dato resultatet av klagebehandlingen forelå.(nb)">
 				>
 				["at0025"] = <
 					text = <"*Pasienten selv(nb)">
-					description = <"**(nb)">
+					description = <"*Pasienten selv(nb)">
+				>
+				["at0026"] = <
+					text = <"*Vedtakstype(nb)">
+					description = <"*Standard kodeverk 9315 Hovedtyper av vedtak etter psykisk helsevernloven.(nb)">
+				>
+				["at0059"] = <
+					text = <"*Vedtak om tvungen observasjon(nb)">
+					description = <"*Vedtak om tvungen observasjon(nb)">
+				>
+				["at0060"] = <
+					text = <"*Vedtak om opphør av tvungen observasjon(nb)">
+					description = <"*Vedtak om opphør av tvungen observasjon(nb)">
+				>
+				["at0061"] = <
+					text = <"*Vedtak om å ikke etablere tvungen observasjon/tvungent psykisk helsevern(nb)">
+					description = <"*Vedtak om å ikke etablere tvungen observasjon/tvungent psykisk helsevern(nb)">
+				>
+				["at0062"] = <
+					text = <"*Vedtak om tvungent psykisk helsevern(nb)">
+					description = <"*Vedtak om tvungent psykisk helsevern(nb)">
+				>
+				["at0063"] = <
+					text = <"*Vedtak om opphør av tvungent psykisk helsevern(nb)">
+					description = <"*Vedtak om opphør av tvungent psykisk helsevern(nb)">
+				>
+				["at0064"] = <
+					text = <"*Vedtak om overføring til annen institusjon(nb)">
+					description = <"*Vedtak om overføring til annen institusjon(nb)">
+				>
+				["at0065"] = <
+					text = <"*Vedtak om overføring til annen tvangsform(nb)">
+					description = <"*Vedtak om overføring til annen tvangsform(nb)">
+				>
+				["at0066"] = <
+					text = <"*Vedtak om overføring av domfelt til annen institusjon(nb)">
+					description = <"*Vedtak om overføring av domfelt til annen institusjon(nb)">
+				>
+				["at0067"] = <
+					text = <"*Vedtak om overføring av domfelt til annen tvangsform(nb)">
+					description = <"*Vedtak om overføring av domfelt til annen tvangsform(nb)">
+				>
+				["at0068"] = <
+					text = <"*Vedtak om skjerming(nb)">
+					description = <"*Vedtak om skjerming(nb)">
+				>
+				["at0069"] = <
+					text = <"*Vedtak om bruk av mekaniske tvangsmidler(nb)">
+					description = <"*Vedtak om bruk av mekaniske tvangsmidler(nb)">
+				>
+				["at0070"] = <
+					text = <"*Vedtak om behandling uten eget samtykke(nb)">
+					description = <"*Vedtak om behandling uten eget samtykke(nb)">
+				>
+				["at0071"] = <
+					text = <"*Vedtak om innskrenket forbindelse med omverdenen(nb)">
+					description = <"*Vedtak om innskrenket forbindelse med omverdenen(nb)">
+				>
+				["at0072"] = <
+					text = <"*Vedtak om åpning og kontroll av post(nb)">
+					description = <"*Vedtak om åpning og kontroll av post(nb)">
+				>
+				["at0073"] = <
+					text = <"*Vedtak om undersøkelse av rom og eiendeler og/eller kroppsvisitasjon(nb)">
+					description = <"*Vedtak om undersøkelse av rom og eiendeler og/eller kroppsvisitasjon(nb)">
+				>
+				["at0074"] = <
+					text = <"*Vedtak om beslag og eventuell tilintetgjørelse(nb)">
+					description = <"*Vedtak om beslag og eventuell tilintetgjørelse(nb)">
+				>
+				["at0075"] = <
+					text = <"*Vedtak om rusmiddeltesting av biologisk materiale(nb)">
+					description = <"*Vedtak om rusmiddeltesting av biologisk materiale(nb)">
+				>
+				["at0076"] = <
+					text = <"*Vedtak om undersøkelse av pasientens person, rom og eiendeler(nb)">
+					description = <"*Vedtak om undersøkelse av pasientens person, rom og eiendeler(nb)">
+				>
+				["at0077"] = <
+					text = <"*Vedtak om kroppslig undersøkelse(nb)">
+					description = <"*Vedtak om kroppslig undersøkelse(nb)">
+				>
+				["at0078"] = <
+					text = <"*Vedtak om innskrenkninger i pasientens forbindelse med omverdenen(nb)">
+					description = <"*Vedtak om innskrenkninger i pasientens forbindelse med omverdenen(nb)">
+				>
+				["at0079"] = <
+					text = <"*Vedtak om nattelåsing av pasientrom(nb)">
+					description = <"*Vedtak om nattelåsing av pasientrom(nb)">
+				>
+				["at0080"] = <
+					text = <"*Fylkesmannen(nb)">
+					description = <"*Fylkesmannen(nb)">
+				>
+				["at0081"] = <
+					text = <"*Kontrollkommisjonen(nb)">
+					description = <"*Kontrollkommisjonen(nb)">
 				>
 			>
 		>

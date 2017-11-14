@@ -27,7 +27,7 @@ description
 		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"Brukes i skjema for opphør av tph">
+			purpose = <"Arketypen brukes i vedtaksmodulen i DIPS Arena.">
 			use = <"">
 			misuse = <"">
 			copyright = <"">
@@ -36,7 +36,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"C66850AA16D806526146B4E2A41FAC85">
+		["MD5-CAM-1.0.1"] = <"0CDA9F3C6FA7AAAADA190E5CFC4C1750">
 	>
 
 definition
@@ -44,62 +44,36 @@ definition
 		data matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0002] occurrences matches {0..1} matches {	-- TPH opprinnelig vedtatt dato og tidspunkt
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Under TPH siden
 						value matches {
 							DV_DATE_TIME matches {
 								value matches {yyyy-mm-ddTHH:??:??}
 							}
 						}
 					}
-					ELEMENT[at0024] occurrences matches {0..1} matches {	-- Relevant og nødvendig begrunnelse for de ulike vilkårene i vedtaket
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak om TPH i journalnotat datert
+						value matches {
+							DV_DATE matches {
+								value matches {yyyy-mm-dd}
+							}
+						}
+					}
+					ELEMENT[at0024] occurrences matches {0..1} matches {	-- Nedenfor fremgår begrunnelse for hvilke(t) vilkår for tvungent psykisk helsevern som vurderes å ikke være oppfylt
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0026] occurrences matches {0..1} matches {	-- Begrunnelse for vedtaket er dokumentert i eget journalnotat
+					ELEMENT[at0022] occurrences matches {0..1} matches {	-- Det er fremsatt begjæring
 						value matches {
 							DV_BOOLEAN matches {
-								value matches {True, False}
-							}
-						}
-					}
-					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak om TPH i journalnotat datert
-						value matches {
-							DV_DATE matches {*}
-						}
-					}
-					ELEMENT[at0022] occurrences matches {0..1} matches {	-- Det er fremmet begjæring
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True, False}
-							}
-						}
-					}
-					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Pasienten er gitt anledning til å uttale seg
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True, False}
-							}
-						}
-					}
-					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Nærmeste pårørendes uttalerett, jf. psykisk helsevernloven § 3-9
-						value matches {
-							0|[local::at0007], 	-- Nærmeste pårørende er gitt anledning til å uttale seg
-							1|[local::at0008], 	-- Nærmeste pårørende er ikke gitt anledning til å uttale seg da dennes adresse er ukjent og ettersporing vil kreve urimelig mye tid eller arbeid
-							2|[local::at0009]  	-- Pasienten har ingen personer med status som nærmeste pårørende som kunne gis anledning til å uttale seg
-						}
-					}
-					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Den som har fremsatt begjæring etter psykisk helsevernloven § 3-6, er gitt anledning til å uttale seg, jf. psykisk helsevernloven § 3-9
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True, False}
+								value matches {True}
 							}
 						}
 					}
 					ELEMENT[at0017] occurrences matches {0..1} matches {	-- Vedtaket er påklaget og kontrollkommisjonens leder har besluttet utsatt iverksetting av vedtaket
 						value matches {
 							DV_BOOLEAN matches {
-								value matches {True, False}
+								value matches {True}
 							}
 						}
 					}
@@ -111,22 +85,13 @@ definition
 					ELEMENT[at0021] occurrences matches {0..1} matches {	-- Dato og tidspunkt vedtak fattet
 						value matches {
 							DV_DATE_TIME matches {
-								value matches {yyyy-mm-ddTHH:MM:SS}
+								value matches {yyyy-mm-ddTHH:??:??}
 							}
 						}
 					}
-					allow_archetype CLUSTER[at0023] occurrences matches {0..*} matches {	-- Vedtakstype
+					allow_archetype CLUSTER[at0023] occurrences matches {0..1} matches {	-- Vedtakstype
 						include
 							archetype_id/value matches {/openEHR-EHR-CLUSTER\.vedtakstype(-[a-zA-Z0-9_]+)*\.v1/}
-					}
-					allow_archetype CLUSTER[at0025] occurrences matches {0..*} matches {	-- Vurdering av pasientinnsyn
-						include
-							archetype_id/value matches {/.*/}
-					}
-					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak om opphør TPH i journalnotat datert
-						value matches {
-							DV_DATE matches {*}
-						}
 					}
 				}
 			}
@@ -138,52 +103,24 @@ ontology
 		["no"] = <
 			items = <
 				["at0000"] = <
-					text = <"Grunnlag opphor to tph">
-					description = <"unknown">
+					text = <"*Grunnlag opphor to tph(nb)">
+					description = <"*(nb)">
 				>
 				["at0001"] = <
 					text = <"Tree">
 					description = <"@ internal @">
 				>
 				["at0002"] = <
-					text = <"TPH opprinnelig vedtatt dato">
-					description = <"Den dato tvungent psykisk helsevern opprinnelig ble vedtatt.">
+					text = <"*Under TPH siden(nb)">
+					description = <"*Dato og tidspunkt tvungent psykisk helsevern ble opprinnelig vedtatt.(nb)">
 				>
 				["at0003"] = <
 					text = <"*Begrunnelse for vedtak om TPH i journalnotat datert(nb)">
-					description = <"*Referanse til journalnotat med nærmere begrunnelse for vedtaket.(nb)">
-				>
-				["at0004"] = <
-					text = <"*Begrunnelse for vedtak om opphør TPH i journalnotat datert(nb)">
-					description = <"*Referanse til journalnotat med nærmere begrunnelse for vedtaket.(nb)">
-				>
-				["at0005"] = <
-					text = <"Pasienten er gitt anledning til å uttale seg">
-					description = <"*">
-				>
-				["at0006"] = <
-					text = <"*Nærmeste pårørendes uttalerett, jf. psykisk helsevernloven § 3-9(nb)">
-					description = <"*Kode som angir hvorvidt nærmeste pårørende er gitt anledning til å uttale se. Kodeverk 9309(nb)">
-				>
-				["at0007"] = <
-					text = <"*Nærmeste pårørende er gitt anledning til å uttale seg(nb)">
-					description = <"**(nb)">
-				>
-				["at0008"] = <
-					text = <"*Nærmeste pårørende er ikke gitt anledning til å uttale seg da dennes adresse er ukjent og ettersporing vil kreve urimelig mye tid eller arbeid(nb)">
-					description = <"**(nb)">
-				>
-				["at0009"] = <
-					text = <"*Pasienten har ingen personer med status som nærmeste pårørende som kunne gis anledning til å uttale seg(nb)">
-					description = <"**(nb)">
-				>
-				["at0010"] = <
-					text = <"Den som har fremsatt begjæring etter psykisk helsevernloven § 3-6, er gitt anledning til å uttale seg, jf. psykisk helsevernloven § 3-9">
-					description = <"Angir om begjærende instans er gitt anledning til å uttale seg">
+					description = <"*Referanse til det dokument (vedtak) i pasienten journal som lå til grunn for etablering av tvungen observasjon.(nb)">
 				>
 				["at0017"] = <
-					text = <"Vedtaket er påklaget og kontrollkommisjonens leder har besluttet utsatt iverksetting av vedtaket">
-					description = <"*">
+					text = <"*Vedtaket er påklaget og kontrollkommisjonens leder har besluttet utsatt iverksetting av vedtaket(nb)">
+					description = <"*Vedtaket er påklaget og kontrollkommisjonens leder har besluttet utsatt iverksetting av vedtaket.(nb)">
 				>
 				["at0020"] = <
 					text = <"*Helsetjenesteenhet(nb)">
@@ -194,25 +131,16 @@ ontology
 					description = <"*Det tidspunkt (dato og klokkeslett) vedtaket ble fattet.(nb)">
 				>
 				["at0022"] = <
-					text = <"Det er fremmet begjæring">
-					description = <"Hukes av dersom det foreligger begjæring">
+					text = <"*Det er fremsatt begjæring(nb)">
+					description = <"*Det er fremsatt begjæring.(nb)">
 				>
 				["at0023"] = <
-					comment = <"*(nb)">
-					text = <"Vedtakstype">
-					description = <"*">
+					text = <"*Vedtakstype(nb)">
+					description = <"*Standard kodeverk 9275 Vedtak etter psykisk helsevernloven.(nb)">
 				>
 				["at0024"] = <
-					text = <"*Relevant og nødvendig begrunnelse for de ulike vilkårene i vedtaket(nb)">
-					description = <"*Dersom pasienten på det tidspunktet vedtaket fattes nektes innsyn i hele eller deler av begrunnelsen for vedtaket etter bestemmelsen i pasient- og brukerrettighetsloven § 3 2 tredje ledd, skal ikke begrunnelsen for vedtaket registreres i tekstfeltet under, men i et eget journalnotat. Begrunnelsen for å nekte innsyn må også fremkomme i samme journalnotat.(nb)">
-				>
-				["at0025"] = <
-					text = <"*Vurdering av pasientinnsyn(nb)">
-					description = <"*(nb)">
-				>
-				["at0026"] = <
-					text = <"*New element(nb)">
-					description = <"**(nb)">
+					text = <"*Nedenfor fremgår begrunnelse for hvilke(t) vilkår for tvungent psykisk helsevern som vurderes å ikke være oppfylt(nb)">
+					description = <"*Begrunnelse for hvilke(t) vilkår for tvungent psykisk helsevern som vurderes å ikke være oppfylt.(nb)">
 				>
 			>
 		>
@@ -220,51 +148,23 @@ ontology
 			items = <
 				["at0000"] = <
 					text = <"Grunnlag opphor to tph">
-					description = <"unknown">
+					description = <"*">
 				>
 				["at0001"] = <
 					text = <"Tree">
 					description = <"@ internal @">
 				>
 				["at0002"] = <
-					text = <"TPH opprinnelig vedtatt dato og tidspunkt">
-					description = <"Den dato tvungent psykisk helsevern opprinnelig ble vedtatt.">
+					text = <"Under TPH siden">
+					description = <"Dato og tidspunkt tvungent psykisk helsevern ble opprinnelig vedtatt.">
 				>
 				["at0003"] = <
 					text = <"Begrunnelse for vedtak om TPH i journalnotat datert">
-					description = <"Referanse til journalnotat med nærmere begrunnelse for vedtaket.">
-				>
-				["at0004"] = <
-					text = <"Begrunnelse for vedtak om opphør TPH i journalnotat datert">
-					description = <"Referanse til journalnotat med nærmere begrunnelse for vedtaket.">
-				>
-				["at0005"] = <
-					text = <"Pasienten er gitt anledning til å uttale seg">
-					description = <"*">
-				>
-				["at0006"] = <
-					text = <"Nærmeste pårørendes uttalerett, jf. psykisk helsevernloven § 3-9">
-					description = <"Kode som angir hvorvidt nærmeste pårørende er gitt anledning til å uttale se. Kodeverk 9309">
-				>
-				["at0007"] = <
-					text = <"Nærmeste pårørende er gitt anledning til å uttale seg">
-					description = <"*">
-				>
-				["at0008"] = <
-					text = <"Nærmeste pårørende er ikke gitt anledning til å uttale seg da dennes adresse er ukjent og ettersporing vil kreve urimelig mye tid eller arbeid">
-					description = <"*">
-				>
-				["at0009"] = <
-					text = <"Pasienten har ingen personer med status som nærmeste pårørende som kunne gis anledning til å uttale seg">
-					description = <"*">
-				>
-				["at0010"] = <
-					text = <"Den som har fremsatt begjæring etter psykisk helsevernloven § 3-6, er gitt anledning til å uttale seg, jf. psykisk helsevernloven § 3-9">
-					description = <"Angir om begjærende instans er gitt anledning til å uttale seg">
+					description = <"Referanse til det dokument (vedtak) i pasienten journal som lå til grunn for etablering av tvungen observasjon.">
 				>
 				["at0017"] = <
 					text = <"Vedtaket er påklaget og kontrollkommisjonens leder har besluttet utsatt iverksetting av vedtaket">
-					description = <"*">
+					description = <"Vedtaket er påklaget og kontrollkommisjonens leder har besluttet utsatt iverksetting av vedtaket.">
 				>
 				["at0020"] = <
 					text = <"Helsetjenesteenhet">
@@ -275,24 +175,16 @@ ontology
 					description = <"Det tidspunkt (dato og klokkeslett) vedtaket ble fattet.">
 				>
 				["at0022"] = <
-					text = <"Det er fremmet begjæring">
-					description = <"Hukes av dersom det foreligger begjæring">
+					text = <"Det er fremsatt begjæring">
+					description = <"Det er fremsatt begjæring.">
 				>
 				["at0023"] = <
 					text = <"Vedtakstype">
-					description = <"*">
+					description = <"Standard kodeverk 9275 Vedtak etter psykisk helsevernloven.">
 				>
 				["at0024"] = <
-					text = <"Relevant og nødvendig begrunnelse for de ulike vilkårene i vedtaket">
-					description = <"Dersom pasienten på det tidspunktet vedtaket fattes nektes innsyn i hele eller deler av begrunnelsen for vedtaket etter bestemmelsen i pasient- og brukerrettighetsloven § 3 2 tredje ledd, skal ikke begrunnelsen for vedtaket registreres i tekstfeltet under, men i et eget journalnotat. Begrunnelsen for å nekte innsyn må også fremkomme i samme journalnotat.">
-				>
-				["at0025"] = <
-					text = <"Vurdering av pasientinnsyn">
-					description = <"*">
-				>
-				["at0026"] = <
-					text = <"Begrunnelse for vedtaket er dokumentert i eget journalnotat">
-					description = <"*">
+					text = <"Nedenfor fremgår begrunnelse for hvilke(t) vilkår for tvungent psykisk helsevern som vurderes å ikke være oppfylt">
+					description = <"Begrunnelse for hvilke(t) vilkår for tvungent psykisk helsevern som vurderes å ikke være oppfylt.">
 				>
 			>
 		>

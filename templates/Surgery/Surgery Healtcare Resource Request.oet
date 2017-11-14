@@ -1,0 +1,229 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>a0254ee2-4460-4187-a8e8-03a58eb7b408</id>
+  <name>Surgery Healtcare Resource Request</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose>Bestille ressurser i forbindelse med en operasjon.</purpose>
+      <use>Brukes kun i forbindesle med bestilling av ressurser i operasjonsplanlegging.</use>
+      <misuse>Skal ikke brukes utenom operasjonsmodulen.</misuse>
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <annotations path="[openEHR-EHR-COMPOSITION.request.v1]/items[openEHR-EHR-INSTRUCTION.healthcare_resource_request_dips.v1 and name/value='Gjennomlysning peroperativt']/activities[at0001]/description[at0002]/items[openEHR-EHR-CLUSTER.healthcare_resource_dips.v1]/items[at0002]">
+    <items>
+      <item>
+        <key>Notes.Comment</key>
+        <value>dette skal vises som radiobuttons. Vi setter default på ikke behov så kan bruker klikke for behov når de trenger det:)</value>
+      </item>
+    </items>
+  </annotations>
+  <annotations path="[openEHR-EHR-COMPOSITION.request.v1]/content[openEHR-EHR-INSTRUCTION.healthcare_resource_request_dips.v1 and name/value='Gjennomlysning peroperativt']/activities[at0001]/description[at0002]/items[openEHR-EHR-CLUSTER.healthcare_resource_dips.v1]/items[at0002]">
+    <items>
+      <item>
+        <key>Notes.Comment</key>
+        <value>Skal brukes som radio button funksjon</value>
+      </item>
+    </items>
+  </annotations>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.request.v1" concept_name="Tjenesteforespørsel" name="Bestilling av utstyr for operasjon">
+    <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.healthcare_resource_request_dips.v1" concept_name="Rekvirering av helsetjenesteressurser " max="1" path="/content" name="Rekvirering av utstyr til bestilling">
+      <Rule path="/activities[at0001]/description[at0002]/items[at0003]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>FE-RESSURSTYPE::1::Operasjonsstue</includedValues>
+          <includedValues>FE-RESSURSTYPE::A::Assistent (kun for oprmaler)</includedValues>
+          <includedValues>FE-RESSURSTYPE::B::Behandler/Person</includedValues>
+          <includedValues>FE-RESSURSTYPE::HK::Hovedkirurg</includedValues>
+          <includedValues>FE-RESSURSTYPE::L::Lokale</includedValues>
+          <includedValues>FE-RESSURSTYPE::OT::Operasjonsteam</includedValues>
+          <includedValues>FE-RESSURSTYPE::P::Post/Avdeling</includedValues>
+          <includedValues>FE-RESSURSTYPE::R::R�ntgenlaboratorium</includedValues>
+          <includedValues>FE-RESSURSTYPE::U::Utstyr</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/activities[at0001]/description[at0002]/items[at0005]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0006]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.healthcare_resource_dips.v1" concept_name="Helsetjenesteressurs" path="/activities[at0001]/description[at0002]/items[at0004]">
+        <Rule path="/items[at0001]" max="0" />
+        <Rule path="/items[at0004]" max="0" />
+        <Rule path="/items[at0005]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ARENA-EQUIPMENT-STATUS::S1::Planlagt</includedValues>
+            <includedValues>ARENA-EQUIPMENT-STATUS::S2::Bestilt</includedValues>
+            <includedValues>ARENA-EQUIPMENT-STATUS::S3::Klart for operasjon</includedValues>
+            <includedValues>ARENA-EQUIPMENT-STATUS::S4::Kansellert</includedValues>
+            <includedValues>ARENA-EQUIPMENT-STATUS::S5::Ikke aktuelt</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+    </Content>
+    <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.healthcare_resource_request_dips.v1" concept_name="Rekvirering av helsetjenesteressurser " max="1" path="/content" name="Gjennomlysning peroperativt">
+      <Rule path="/activities[at0001]/description[at0002]/items[at0003]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>FE-RESSURSTYPE::1::Operasjonsstue</includedValues>
+          <includedValues>FE-RESSURSTYPE::A::Assistent (kun for oprmaler)</includedValues>
+          <includedValues>FE-RESSURSTYPE::B::Behandler/Person</includedValues>
+          <includedValues>FE-RESSURSTYPE::HK::Hovedkirurg</includedValues>
+          <includedValues>FE-RESSURSTYPE::L::Lokale</includedValues>
+          <includedValues>FE-RESSURSTYPE::OT::Operasjonsteam</includedValues>
+          <includedValues>FE-RESSURSTYPE::P::Post/Avdeling</includedValues>
+          <includedValues>FE-RESSURSTYPE::R::R�ntgenlaboratorium</includedValues>
+          <includedValues>FE-RESSURSTYPE::U::Utstyr</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/activities[at0001]/description[at0002]/items[at0005]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0006]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.healthcare_resource_dips.v1" concept_name="Helsetjenesteressurs" path="/activities[at0001]/description[at0002]/items[at0004]">
+        <Rule path="/items[at0001]" max="0" />
+        <Rule path="/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>SNOMEDCT::168505005::Peroperativ gjennomlysning</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0004]" max="0" />
+        <Rule path="/items[at0005]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ARENA-EQUIPMENT-STATUS::S1::Planlagt</includedValues>
+            <includedValues>ARENA-EQUIPMENT-STATUS::S2::Bestilt</includedValues>
+            <includedValues>ARENA-EQUIPMENT-STATUS::S3::Klart for operasjon</includedValues>
+            <includedValues>ARENA-EQUIPMENT-STATUS::S4::Kansellert</includedValues>
+            <includedValues>ARENA-EQUIPMENT-STATUS::S5::Ikke aktuelt</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0006]" max="0" />
+      </Items>
+    </Content>
+    <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.healthcare_resource_request_dips.v1" concept_name="Rekvirering av helsetjenesteressurser " max="1" path="/content" name="Spesialutstyr">
+      <Rule path="/activities[at0001]/description[at0002]/items[at0003]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>FE-RESSURSTYPE::1::Operasjonsstue</includedValues>
+          <includedValues>FE-RESSURSTYPE::A::Assistent (kun for oprmaler)</includedValues>
+          <includedValues>FE-RESSURSTYPE::B::Behandler/Person</includedValues>
+          <includedValues>FE-RESSURSTYPE::HK::Hovedkirurg</includedValues>
+          <includedValues>FE-RESSURSTYPE::L::Lokale</includedValues>
+          <includedValues>FE-RESSURSTYPE::OT::Operasjonsteam</includedValues>
+          <includedValues>FE-RESSURSTYPE::P::Post/Avdeling</includedValues>
+          <includedValues>FE-RESSURSTYPE::R::R�ntgenlaboratorium</includedValues>
+          <includedValues>FE-RESSURSTYPE::U::Utstyr</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/activities[at0001]/description[at0002]/items[at0005]" name="Overordnet status">
+        <constraint xsi:type="textConstraint">
+          <includedValues>ARENA-EQUIPMENT-STATUS::S1::Planlagt</includedValues>
+          <includedValues>ARENA-EQUIPMENT-STATUS::S2::Bestilt</includedValues>
+          <includedValues>ARENA-EQUIPMENT-STATUS::S3::Klart for operasjon</includedValues>
+          <includedValues>ARENA-EQUIPMENT-STATUS::S4::Kansellert</includedValues>
+          <includedValues>ARENA-EQUIPMENT-STATUS::S5::Ikke aktuelt</includedValues>
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.healthcare_resource_dips.v1" concept_name="Helsetjenesteressurs" path="/activities[at0001]/description[at0002]/items[at0004]">
+        <Rule path="/items[at0001]" max="0" />
+        <Rule path="/items[at0004]" max="0" />
+        <Rule path="/items[at0005]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ARENA-EQUIPMENT-STATUS::S1::Planlagt</includedValues>
+            <includedValues>ARENA-EQUIPMENT-STATUS::S2::Bestilt</includedValues>
+            <includedValues>ARENA-EQUIPMENT-STATUS::S3::Klart for operasjon</includedValues>
+            <includedValues>ARENA-EQUIPMENT-STATUS::S4::Kansellert</includedValues>
+            <includedValues>ARENA-EQUIPMENT-STATUS::S5::Ikke aktuelt</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0006]" max="0" />
+      </Items>
+    </Content>
+    <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.healthcare_resource_request_dips.v1" concept_name="Rekvirering av helsetjenesteressurser " max="1" path="/content" name="Utstyr til booking">
+      <Rule path="/activities[at0001]/description[at0002]/items[at0003]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>FE-RESSURSTYPE::1::Operasjonsstue</includedValues>
+          <includedValues>FE-RESSURSTYPE::A::Assistent (kun for oprmaler)</includedValues>
+          <includedValues>FE-RESSURSTYPE::B::Behandler/Person</includedValues>
+          <includedValues>FE-RESSURSTYPE::HK::Hovedkirurg</includedValues>
+          <includedValues>FE-RESSURSTYPE::L::Lokale</includedValues>
+          <includedValues>FE-RESSURSTYPE::OT::Operasjonsteam</includedValues>
+          <includedValues>FE-RESSURSTYPE::P::Post/Avdeling</includedValues>
+          <includedValues>FE-RESSURSTYPE::R::R�ntgenlaboratorium</includedValues>
+          <includedValues>FE-RESSURSTYPE::U::Utstyr</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/activities[at0001]/description[at0002]/items[at0005]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0006]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.healthcare_resource_dips.v1" concept_name="Helsetjenesteressurs" path="/activities[at0001]/description[at0002]/items[at0004]">
+        <Rule path="/items[at0001]" max="0" />
+        <Rule path="/items[at0004]" max="0" />
+        <Rule path="/items[at0005]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ARENA-EQUIPMENT-STATUS::S1::Planlagt</includedValues>
+            <includedValues>ARENA-EQUIPMENT-STATUS::S2::Bestilt</includedValues>
+            <includedValues>ARENA-EQUIPMENT-STATUS::S3::Klart for operasjon</includedValues>
+            <includedValues>ARENA-EQUIPMENT-STATUS::S4::Kansellert</includedValues>
+            <includedValues>ARENA-EQUIPMENT-STATUS::S5::Ikke aktuelt</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0006]" max="0" />
+      </Items>
+    </Content>
+    <Context>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.process_state_dips.v1" concept_name="Status på prosess" max="1" path="/context/other_context[at0001]/items[at0042]" name="Status">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ARENA-EQUIPMENT-STATUS::S1::Planlagt</includedValues>
+            <includedValues>ARENA-EQUIPMENT-STATUS::S2::Bestilt</includedValues>
+            <includedValues>ARENA-EQUIPMENT-STATUS::S3::Klart for operasjon</includedValues>
+            <includedValues>ARENA-EQUIPMENT-STATUS::S4::Kansellert</includedValues>
+            <includedValues>ARENA-EQUIPMENT-STATUS::S5::Ikke aktuelt</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+    </Context>
+  </definition>
+</template>

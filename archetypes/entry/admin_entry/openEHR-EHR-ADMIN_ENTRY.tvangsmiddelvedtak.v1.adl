@@ -27,7 +27,7 @@ description
 		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"">
+			purpose = <"Arketypen brukes i vedtaksmodulen i DIPS Arena.">
 			use = <"">
 			misuse = <"">
 			copyright = <"">
@@ -36,7 +36,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"78D6851A5C215683573D2F8002FD0F8B">
+		["MD5-CAM-1.0.1"] = <"75020B03AF55D6CD73CD8737AA3890DC">
 	>
 
 definition
@@ -56,16 +56,11 @@ definition
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0015] occurrences matches {0..*} matches {	-- Vurdering av lempeligere midler i journalnotat datert:
-						value matches {
-							DV_DATE matches {*}
-						}
-					}
-					allow_archetype CLUSTER[at0037] occurrences matches {0..*} matches {	-- Vedtakstype
+					allow_archetype CLUSTER[at0037] occurrences matches {0..1} matches {	-- Vedtakstype
 						include
 							archetype_id/value matches {/.*/}
 					}
-					ELEMENT[at0039] occurrences matches {0..3} matches {	-- Bruk av tvangsmidler er uomgjengelig nødvendig for å
+					ELEMENT[at0039] occurrences matches {0..3} matches {	-- Begrunnelse for tvangsmiddelvedtaket
 						value matches {
 							DV_CODED_TEXT matches {
 								defining_code matches {
@@ -77,31 +72,31 @@ definition
 							}
 						}
 					}
-					ELEMENT[at0016] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak i journalnotat datert:
-						value matches {
-							DV_DATE matches {*}
-						}
-					}
-					ELEMENT[at0043] occurrences matches {0..1} matches {	-- Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette
+					ELEMENT[at0046] occurrences matches {0..1} matches {	-- Nedenfor fremgår begrunnelsen for vedtaket
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0045] occurrences matches {0..1} matches {	-- Begrunnelse for vedtaket er dokumentert i eget journalnotat
+					ELEMENT[at0047] occurrences matches {0..1} matches {	-- Nedenfor fremgår opplysninger om hvilke lempeligere midler som har vist seg åpenbart forgjeves eller utilstrekkelige
 						value matches {
-							DV_BOOLEAN matches {
-								value matches {True, False}
-							}
+							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0017] occurrences matches {0..1} matches {	-- Det tidspunktet tiltaket ble iverksatt
+					ELEMENT[at0017] occurrences matches {0..1} matches {	-- Iverksatt tidspunkt
 						value matches {
 							DV_DATE_TIME matches {
-								value matches {yyyy-mm-ddTHH:MM:SS}
+								value matches {yyyy-mm-ddTHH:??:??}
 							}
 						}
 					}
-					ELEMENT[at0019] occurrences matches {0..1} matches {	-- Hastevedtak om bruk av tvangsmidler fattet av
+					ELEMENT[at0050] occurrences matches {0..1} matches {	-- Tidspunkt for opphør
+						value matches {
+							DV_DATE matches {
+								value matches {yyyy-mm-dd}
+							}
+						}
+					}
+					ELEMENT[at0019] occurrences matches {0..1} matches {	-- Hastevedtak fattet av
 						value matches {
 							DV_CODED_TEXT matches {
 								defining_code matches {[ac0002]}		-- New constraint
@@ -113,38 +108,40 @@ definition
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0021] occurrences matches {0..1} matches {	-- Starttidspunkt
+					ELEMENT[at0049] occurrences matches {0..1} matches {	-- Tidspunkt hastevedtak ble nedtegnet 
 						value matches {
 							DV_DATE_TIME matches {
-								value matches {yyyy-mm-ddTHH:MM:SS}
+								value matches {yyyy-mm-ddTHH:??:??}
 							}
 						}
 					}
-					ELEMENT[at0022] occurrences matches {0..1} matches {	-- Faglig ansvarlig informert
+					ELEMENT[at0022] occurrences matches {0..1} matches {	-- Tidspunkt faglig ansvarlig ble informert om hastevedtaket
 						value matches {
 							DV_DATE_TIME matches {
-								value matches {yyyy-mm-ddTHH:MM:SS}
+								value matches {yyyy-mm-ddTHH:??:??}
 							}
 						}
 					}
-					ELEMENT[at0024] occurrences matches {0..*} matches {	-- Den faglig ansvarlige har foretatt en vurdering av hastevedtaket
+					ELEMENT[at0048] occurrences matches {0..1} matches {	-- Faglig ansvarliges standpunkt til om bruken av tvangsmidlet skal fortsette, herunder beskrivelse av informasjonsgrunnlaget for beslutningen
 						value matches {
-							0|[local::at0025], 	-- På grunnlag av personlig kontakt med pasienten samt dokumentasjon i pasientens journal og eventuelt kontakt med den som fattet hastevedtaket
-							1|[local::at0026], 	-- På grunnlag av kontakt med den som fattet hastevedtaket
-							2|[local::at0027], 	-- Utelukkende på grunnlag av opplysninger i pasientens journal
-							3|[local::at0028]  	-- På grunnlag av opplysninger i pasientens journal samt kontakt med den som fattet hastevedtaket
+							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0030] occurrences matches {0..1} matches {	-- Opprettholdelse av vedtaket
+					ELEMENT[at0030] occurrences matches {0..1} matches {	-- Faglig ansvarlig har besluttet å opprettholde vedtaket
 						value matches {
-							0|[local::at0031], 	-- Den faglig ansvarlige har besluttet å opprettholde vedtaket
-							1|[local::at0032]  	-- Den faglig ansvarlige har besluttet å ikke opprettholde vedtaket
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0051, 	-- Ja
+									at0052]	-- Nei
+								}
+							}
 						}
 					}
-					ELEMENT[at0034] occurrences matches {0..1} matches {	-- Dato og tidspunkt vedtak fattet:
+					ELEMENT[at0034] occurrences matches {0..1} matches {	-- Dato og tidspunkt vedtak fattet
 						value matches {
 							DV_DATE_TIME matches {
-								value matches {yyyy-mm-ddTHH:MM:SS}
+								value matches {yyyy-mm-ddTHH:??:??}
 							}
 						}
 					}
@@ -152,10 +149,6 @@ definition
 						value matches {
 							DV_TEXT matches {*}
 						}
-					}
-					allow_archetype CLUSTER[at0044] occurrences matches {0..*} matches {	-- Vurdering av pasientinnsyn
-						include
-							archetype_id/value matches {/.*/}
 					}
 				}
 			}
@@ -183,105 +176,81 @@ ontology
 					text = <"*Helsetjenesteenhet(nb)">
 					description = <"*Identifikasjon av den enheten hvor vedtaket fattes.(nb)">
 				>
-				["at0015"] = <
-					text = <"*Vurdering av lempeligere midler i journalnotat datert:(nb)">
-					description = <"*Beskrivelse av lempeligere midler som har vist seg åpenbart forgjeves eller utilstrekkelige i journalnotat datert.(nb)">
-				>
-				["at0016"] = <
-					text = <"*Begrunnelse for vedtak i journalnotat datert:(nb)">
-					description = <"*Referanse til journalnotat med nærmere begrunnelse for vedtaket.(nb)">
-				>
 				["at0017"] = <
-					text = <"Gyldig fra">
-					description = <"Tidspunktet vedtaket er gyldig fra">
+					text = <"*Iverksatt tidspunkt(nb)">
+					description = <"*Det tidspunkt tvangsmidlet ble iverksatt.(nb)">
 				>
 				["at0019"] = <
-					text = <"Hastevedtak om bruk av tvangsmidler fattet av">
-					description = <"Den tjenesteyter som har fattet det aktuelle hastevedtaket om bruk av tvangsmidler">
-				>
-				["at0021"] = <
-					text = <"Starttidspunkt">
-					description = <"Starttidspunktet for vedtaket">
+					text = <"*Hastevedtak fattet av(nb)">
+					description = <"*Den tjenesteyter (ansvarshavende på avdelingen) som har fattet det aktuelle hastevedtaket om bruk av tvangsmidler.(nb)">
 				>
 				["at0022"] = <
-					text = <"Faglig ansvarlig informert">
-					description = <"Tidspunkt for når faglig ansvarlig ble informert om vedtaket">
-				>
-				["at0024"] = <
-					text = <"Faglig ansvarlig har foretatt en vurdering av hastevedtaket">
-					description = <"Angivelse av hvordan den faglig ansvarlige har fulgt opp hastevedtaket">
-				>
-				["at0025"] = <
-					text = <"På grunnlag av personlig kontakt med pasienten samt dokumentasjon i pasientens journal og eventuelt kontakt med den som fattet vedtaket">
-					description = <"*">
-				>
-				["at0026"] = <
-					text = <"På grunnlag av kontakt med den som fattet hastevedtaket">
-					description = <"*">
-				>
-				["at0027"] = <
-					text = <"Utelukkende på grunnlag av opplysninger i pasientens journal">
-					description = <"*">
-				>
-				["at0028"] = <
-					text = <"På grunnlag av opplysninger i pasientens journal samt kontakt med den som fattet hastevedtaket">
-					description = <"*">
+					text = <"*Tidspunkt faglig ansvarlig ble informert om hastevedtaket(nb)">
+					description = <"*Det tidspunktet den faglig ansvarlige ble informert om hastevedtaket og tok standpunkt til opprettholdelse av tvangsmidlet.(nb)">
 				>
 				["at0030"] = <
-					text = <"Beslutning">
-					description = <"Opplysning om hvorvidt den faglig ansvarlige har besluttet å opprettholde vedtaket eller ikke">
-				>
-				["at0031"] = <
-					text = <"Den faglig ansvarlige har besluttet å opprettholde vedtaket">
-					description = <"*">
-				>
-				["at0032"] = <
-					text = <"Den faglig ansvarlige har besluttet å ikke opprettholde vedtaket">
-					description = <"*">
+					text = <"*Faglig ansvarlig har besluttet å opprettholde vedtaket(nb)">
+					description = <"*Vurdering av faglig ansvarlig i forhold til om vedtaket skal opprettholdes.(nb)">
 				>
 				["at0034"] = <
-					text = <"*Dato og tidspunkt vedtak fattet:(nb)">
-					description = <"*Det tidspunkt (dato og klokkeslett) vedtaket ble fattet.(nb)">
+					text = <"*Dato og tidspunkt vedtak fattet(nb)">
+					description = <"*Det tidspunktet vedtaket ble fattet av den faglig ansvarlige.(nb)">
 				>
 				["at0035"] = <
-					text = <"Merknad">
-					description = <"Merknad">
+					text = <"*Merknad(nb)">
+					description = <"*Supplerende opplysninger.(nb)">
 				>
 				["at0037"] = <
-					text = <"Vedtakstype">
-					description = <"Kode som angir hvilken type vedtak registreringen gjelder">
+					text = <"*Vedtakstype(nb)">
+					description = <"*Standard kodeverk 9275 Vedtak etter psykisk helsevernloven.(nb)">
 				>
 				["at0038"] = <
-					text = <"Stilling">
-					description = <"Stilling til tjenesteyter som har fattet hastevedtaket">
+					text = <"*Stilling(nb)">
+					description = <"*Stilling til tjenesteyter som fattet hastevedtaket.(nb)">
 				>
 				["at0039"] = <
-					text = <"Bruk av tvangsmidler er uomgjengelig nødvendig for å">
-					description = <"Begrunnelse for tvangsmiddelvedtak basert på kode, som angir hvorfor det har vært nødvendig å treffe vedtak om tvangsmidler">
+					text = <"*Begrunnelse for tvangsmiddelvedtaket(nb)">
+					description = <"*Standard kodeverk 9258 Begrunnelse for vedtak om bruk av tvangsmidler.(nb)">
 				>
 				["at0040"] = <
 					text = <"*Bruk av tvangsmidler uomgjengelig nødvendig for å hindre pasienten i å skade seg selv(nb)">
-					description = <"**(nb)">
+					description = <"*Bruk av tvangsmidler uomgjengelig nødvendig for å hindre pasienten i å skade seg selv(nb)">
 				>
 				["at0041"] = <
 					text = <"*Bruk av tvangsmidler uomgjengelig nødvendig for å hindre pasienten i å skade andre(nb)">
-					description = <"**(nb)">
+					description = <"*Bruk av tvangsmidler uomgjengelig nødvendig for å hindre pasienten i å skade andre(nb)">
 				>
 				["at0042"] = <
 					text = <"*Bruk av tvangsmidler uomgjengelig nødvendig for å avverge betydelig skade på bygninger, klær, inventar eller andre ting(nb)">
-					description = <"**(nb)">
+					description = <"*Bruk av tvangsmidler uomgjengelig nødvendig for å avverge betydelig skade på bygninger, klær, inventar eller andre ting(nb)">
 				>
-				["at0043"] = <
-					text = <"*Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette(nb)">
-					description = <"*Dersom pasienten på det tidspunktet vedtaket fattes nektes innsyn i hele eller deler av begrunnelsen for vedtaket etter bestemmelsen i pasient- og brukerrettighetsloven § 3 2 tredje ledd, skal ikke begrunnelsen for vedtaket registreres i tekstfeltet under, men i et eget journalnotat. Begrunnelsen for å nekte innsyn må også fremkomme i samme journalnotat.(nb)">
+				["at0046"] = <
+					text = <"*Nedenfor fremgår begrunnelsen for vedtaket(nb)">
+					description = <"*Begrunnelse for vedtaket.(nb)">
 				>
-				["at0044"] = <
-					text = <"*Vurdering av pasientinnsyn(nb)">
-					description = <"**(nb)">
+				["at0047"] = <
+					text = <"*Nedenfor fremgår opplysninger om hvilke lempeligere midler som har vist seg åpenbart forgjeves eller utilstrekkelige(nb)">
+					description = <"*Opplysninger om hvilke lempeligere midler som har vist seg åpenbart forgjeves eller utilstrekkelige.(nb)">
 				>
-				["at0045"] = <
-					text = <"*Begrunnelse for vedtaket er dokumentert i eget journalnotat(nb)">
-					description = <"**(nb)">
+				["at0048"] = <
+					text = <"*Faglig ansvarliges standpunkt til om bruken av tvangsmidlet skal fortsette, herunder beskrivelse av informasjonsgrunnlaget for beslutningen(nb)">
+					description = <"*Faglige ansvarliges standpunkt til opprettholdelse av bruken av tvangsmidlet skal registreres.(nb)">
+				>
+				["at0049"] = <
+					text = <"*Tidspunkt hastevedtak ble nedtegnet (nb)">
+					description = <"*Det tidspunktet hastevedtaket ble nedtegnet.(nb)">
+				>
+				["at0050"] = <
+					text = <"*Tidspunkt for opphør(nb)">
+					description = <"*Tidspunkt for opphør. (nb)">
+				>
+				["at0051"] = <
+					text = <"*Ja(nb)">
+					description = <"*Ja(nb)">
+				>
+				["at0052"] = <
+					text = <"*Nei(nb)">
+					description = <"*Nei(nb)">
 				>
 			>
 		>
@@ -303,105 +272,81 @@ ontology
 					text = <"Helsetjenesteenhet">
 					description = <"Identifikasjon av den enheten hvor vedtaket fattes.">
 				>
-				["at0015"] = <
-					text = <"Vurdering av lempeligere midler i journalnotat datert:">
-					description = <"Beskrivelse av lempeligere midler som har vist seg åpenbart forgjeves eller utilstrekkelige i journalnotat datert.">
-				>
-				["at0016"] = <
-					text = <"Begrunnelse for vedtak i journalnotat datert:">
-					description = <"Referanse til journalnotat med nærmere begrunnelse for vedtaket.">
-				>
 				["at0017"] = <
-					text = <"Det tidspunktet tiltaket ble iverksatt">
-					description = <"Tidspunktet vedtaket er gyldig fra">
+					text = <"Iverksatt tidspunkt">
+					description = <"Det tidspunkt tvangsmidlet ble iverksatt.">
 				>
 				["at0019"] = <
-					text = <"Hastevedtak om bruk av tvangsmidler fattet av">
-					description = <"Den tjenesteyter som har fattet det aktuelle hastevedtaket om bruk av tvangsmidler">
-				>
-				["at0021"] = <
-					text = <"Starttidspunkt">
-					description = <"Starttidspunktet for vedtaket">
+					text = <"Hastevedtak fattet av">
+					description = <"Den tjenesteyter (ansvarshavende på avdelingen) som har fattet det aktuelle hastevedtaket om bruk av tvangsmidler.">
 				>
 				["at0022"] = <
-					text = <"Faglig ansvarlig informert">
-					description = <"Tidspunkt for når faglig ansvarlig ble informert om vedtaket">
-				>
-				["at0024"] = <
-					text = <"Den faglig ansvarlige har foretatt en vurdering av hastevedtaket">
-					description = <"Angivelse av hvordan den faglig ansvarlige har fulgt opp hastevedtaket">
-				>
-				["at0025"] = <
-					text = <"På grunnlag av personlig kontakt med pasienten samt dokumentasjon i pasientens journal og eventuelt kontakt med den som fattet hastevedtaket">
-					description = <"*">
-				>
-				["at0026"] = <
-					text = <"På grunnlag av kontakt med den som fattet hastevedtaket">
-					description = <"*">
-				>
-				["at0027"] = <
-					text = <"Utelukkende på grunnlag av opplysninger i pasientens journal">
-					description = <"*">
-				>
-				["at0028"] = <
-					text = <"På grunnlag av opplysninger i pasientens journal samt kontakt med den som fattet hastevedtaket">
-					description = <"*">
+					text = <"Tidspunkt faglig ansvarlig ble informert om hastevedtaket">
+					description = <"Det tidspunktet den faglig ansvarlige ble informert om hastevedtaket og tok standpunkt til opprettholdelse av tvangsmidlet.">
 				>
 				["at0030"] = <
-					text = <"Opprettholdelse av vedtaket">
+					text = <"Faglig ansvarlig har besluttet å opprettholde vedtaket">
 					description = <"Vurdering av faglig ansvarlig i forhold til om vedtaket skal opprettholdes.">
 				>
-				["at0031"] = <
-					text = <"Den faglig ansvarlige har besluttet å opprettholde vedtaket">
-					description = <"*">
-				>
-				["at0032"] = <
-					text = <"Den faglig ansvarlige har besluttet å ikke opprettholde vedtaket">
-					description = <"*">
-				>
 				["at0034"] = <
-					text = <"Dato og tidspunkt vedtak fattet:">
-					description = <"Det tidspunkt (dato og klokkeslett) vedtaket ble fattet.">
+					text = <"Dato og tidspunkt vedtak fattet">
+					description = <"Det tidspunktet vedtaket ble fattet av den faglig ansvarlige.">
 				>
 				["at0035"] = <
 					text = <"Merknad">
-					description = <"*">
+					description = <"Supplerende opplysninger.">
 				>
 				["at0037"] = <
 					text = <"Vedtakstype">
-					description = <"Kode som angir hvilken type vedtak registreringen gjelder">
+					description = <"Standard kodeverk 9275 Vedtak etter psykisk helsevernloven.">
 				>
 				["at0038"] = <
 					text = <"Stilling">
-					description = <"Stilling til tjenesteyter som har fattet hastevedtaket">
+					description = <"Stilling til tjenesteyter som fattet hastevedtaket.">
 				>
 				["at0039"] = <
-					text = <"Bruk av tvangsmidler er uomgjengelig nødvendig for å">
-					description = <"Begrunnelse for tvangsmiddelvedtak basert på kode, som angir hvorfor det har vært nødvendig å treffe vedtak om tvangsmidler">
+					text = <"Begrunnelse for tvangsmiddelvedtaket">
+					description = <"Standard kodeverk 9258 Begrunnelse for vedtak om bruk av tvangsmidler.">
 				>
 				["at0040"] = <
 					text = <"Bruk av tvangsmidler uomgjengelig nødvendig for å hindre pasienten i å skade seg selv">
-					description = <"*">
+					description = <"Bruk av tvangsmidler uomgjengelig nødvendig for å hindre pasienten i å skade seg selv">
 				>
 				["at0041"] = <
 					text = <"Bruk av tvangsmidler uomgjengelig nødvendig for å hindre pasienten i å skade andre">
-					description = <"*">
+					description = <"Bruk av tvangsmidler uomgjengelig nødvendig for å hindre pasienten i å skade andre">
 				>
 				["at0042"] = <
 					text = <"Bruk av tvangsmidler uomgjengelig nødvendig for å avverge betydelig skade på bygninger, klær, inventar eller andre ting">
-					description = <"*">
+					description = <"Bruk av tvangsmidler uomgjengelig nødvendig for å avverge betydelig skade på bygninger, klær, inventar eller andre ting">
 				>
-				["at0043"] = <
-					text = <"Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette">
-					description = <"Dersom pasienten på det tidspunktet vedtaket fattes nektes innsyn i hele eller deler av begrunnelsen for vedtaket etter bestemmelsen i pasient- og brukerrettighetsloven § 3 2 tredje ledd, skal ikke begrunnelsen for vedtaket registreres i tekstfeltet under, men i et eget journalnotat. Begrunnelsen for å nekte innsyn må også fremkomme i samme journalnotat.">
+				["at0046"] = <
+					text = <"Nedenfor fremgår begrunnelsen for vedtaket">
+					description = <"Begrunnelse for vedtaket.">
 				>
-				["at0044"] = <
-					text = <"Vurdering av pasientinnsyn">
-					description = <"*">
+				["at0047"] = <
+					text = <"Nedenfor fremgår opplysninger om hvilke lempeligere midler som har vist seg åpenbart forgjeves eller utilstrekkelige">
+					description = <"Opplysninger om hvilke lempeligere midler som har vist seg åpenbart forgjeves eller utilstrekkelige.">
 				>
-				["at0045"] = <
-					text = <"Begrunnelse for vedtaket er dokumentert i eget journalnotat">
-					description = <"*">
+				["at0048"] = <
+					text = <"Faglig ansvarliges standpunkt til om bruken av tvangsmidlet skal fortsette, herunder beskrivelse av informasjonsgrunnlaget for beslutningen">
+					description = <"Faglige ansvarliges standpunkt til opprettholdelse av bruken av tvangsmidlet skal registreres.">
+				>
+				["at0049"] = <
+					text = <"Tidspunkt hastevedtak ble nedtegnet ">
+					description = <"Det tidspunktet hastevedtaket ble nedtegnet.">
+				>
+				["at0050"] = <
+					text = <"Tidspunkt for opphør">
+					description = <"Tidspunkt for opphør. ">
+				>
+				["at0051"] = <
+					text = <"Ja">
+					description = <"Ja">
+				>
+				["at0052"] = <
+					text = <"Nei">
+					description = <"Nei">
 				>
 			>
 		>
