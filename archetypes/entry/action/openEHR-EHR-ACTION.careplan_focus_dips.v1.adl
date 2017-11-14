@@ -1,8 +1,8 @@
 archetype (adl_version=1.4)
-	openEHR-EHR-ACTION.careplan_problem_dips.v1
+	openEHR-EHR-ACTION.careplan_focus_dips.v1
 
 concept
-	[at0000]	-- Record of an evaluation performed on item/issue
+	[at0000]	-- Registrering av fokusaktivitet
 language
 	original_language = <[ISO_639-1::nb]>
 	translations = <
@@ -53,13 +53,13 @@ description
 	other_contributors = <"Ivar Yrke, DIPS AS, Norway", "Terje Sagmyr, DIPS AS, Norway", "Sindre Nordbøe Årøen, DIPS AS, Norway", "Bjørn-Petter Johannessen, DIPS AS, Norway">
 	other_details = <
 		["current_contact"] = <"Phuong Pedersen, DIPS AS <ppe@dips.no>">
-		["MD5-CAM-1.0.1"] = <"7CE10AFE54E248BB8A209D04222477F1">
+		["MD5-CAM-1.0.1"] = <"D57336A4787108E1B011FB25896D48BA">
 	>
 
 definition
-	ACTION[at0000] matches {	-- Record of an evaluation performed on item/issue
+	ACTION[at0000] matches {	-- Registrering av fokusaktivitet
 		ism_transition matches {
-			ISM_TRANSITION[at0002] matches {	-- Suggest
+			ISM_TRANSITION[at0002] matches {	-- Foreslå
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::526]}
@@ -67,11 +67,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0002]}		-- Suggest
+						defining_code matches {[local::at0002]}		-- Foreslå
 					}
 				}
 			}
-			ISM_TRANSITION[at0008] matches {	-- Cancel
+			ISM_TRANSITION[at0008] matches {	-- Kanseller
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::528]}
@@ -79,11 +79,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0008]}		-- Cancel
+						defining_code matches {[local::at0008]}		-- Kanseller
 					}
 				}
 			}
-			ISM_TRANSITION[at0003] matches {	-- Evaluate
+			ISM_TRANSITION[at0003] matches {	-- Vurder
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::245]}
@@ -91,11 +91,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0003]}		-- Evaluate
+						defining_code matches {[local::at0003]}		-- Vurder
 					}
 				}
 			}
-			ISM_TRANSITION[at0004] matches {	-- Activate
+			ISM_TRANSITION[at0004] matches {	-- Aktiver
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::245]}
@@ -103,11 +103,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0004]}		-- Activate
+						defining_code matches {[local::at0004]}		-- Aktiver
 					}
 				}
 			}
-			ISM_TRANSITION[at0005] matches {	-- Discontinue
+			ISM_TRANSITION[at0005] matches {	-- Avslutt
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::532]}
@@ -115,7 +115,7 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0005]}		-- Discontinue
+						defining_code matches {[local::at0005]}		-- Avslutt
 					}
 				}
 			}
@@ -133,12 +133,11 @@ definition
 			}
 		}
 		description matches {
-			ITEM_TREE[at0001] matches {	-- *
+			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Note
-						value matches {
-							DV_TEXT matches {*}
-						}
+					allow_archetype CLUSTER[at0010] occurrences matches {0..*} matches {	-- Tilleggsinformasjon
+						include
+							archetype_id/value matches {/openEHR-EHR-CLUSTER\.careplan_documentation_additional_info(-[a-zA-Z0-9_]+)*\.v0/}
 					}
 				}
 			}
@@ -150,8 +149,8 @@ ontology
 		["no"] = <
 			items = <
 				["at0000"] = <
-					text = <"Vurdering en aktuel problemstilling er gjort">
-					description = <"*">
+					text = <"*Registrering av fokusaktivitet(nb)">
+					description = <"**(nb)">
 				>
 				["at0001"] = <
 					text = <"Tree">
@@ -173,10 +172,6 @@ ontology
 					text = <"Avslutt">
 					description = <"Avslutt problem">
 				>
-				["at0006"] = <
-					text = <"Notat">
-					description = <"Notat tilknyttet problemstilling">
-				>
 				["at0007"] = <
 					text = <"DIPS.ARENA.SYSTEM.NEWVERSION">
 					description = <"DIPS system tilstand, som brukes når kommentar på den aktuelle problemstilling endres">
@@ -184,13 +179,17 @@ ontology
 				["at0008"] = <
 					text = <"Kanseller">
 					description = <"Kanseller problem">
+				>
+				["at0010"] = <
+					text = <"*Tilleggsinformasjon(nb)">
+					description = <"**(nb)">
 				>
 			>
 		>
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"Vurdering av problemstilling i Arena behandlingsplan">
+					text = <"Registrering av fokusaktivitet">
 					description = <"*">
 				>
 				["at0001"] = <
@@ -213,10 +212,6 @@ ontology
 					text = <"Avslutt">
 					description = <"Avslutt problem">
 				>
-				["at0006"] = <
-					text = <"Notat">
-					description = <"Notat tilknyttet problemstilling">
-				>
 				["at0007"] = <
 					text = <"DIPS.ARENA.SYSTEM.NEWVERSION">
 					description = <"DIPS system tilstand, som brukes når kommentar på den aktuelle problemstilling endres">
@@ -225,13 +220,17 @@ ontology
 					text = <"Kanseller">
 					description = <"Kanseller problem">
 				>
+				["at0010"] = <
+					text = <"Tilleggsinformasjon">
+					description = <"*">
+				>
 			>
 		>
 		["en"] = <
 			items = <
 				["at0000"] = <
-					text = <"Record of an evaluation performed on item/issue">
-					description = <"*">
+					text = <"*Registrering av fokusaktivitet(nb)">
+					description = <"**(nb)">
 				>
 				["at0001"] = <
 					text = <"*">
@@ -253,10 +252,6 @@ ontology
 					text = <"Discontinue">
 					description = <"Discontinue problem">
 				>
-				["at0006"] = <
-					text = <"Note">
-					description = <"Note/evaluation related to problem">
-				>
 				["at0007"] = <
 					text = <"DIPS.ARENA.SYSTEM.NEWVERSION">
 					description = <"DIPS system state, used when comment on item/issue is changed">
@@ -264,6 +259,10 @@ ontology
 				["at0008"] = <
 					text = <"Cancel">
 					description = <"Cancel problem">
+				>
+				["at0010"] = <
+					text = <"*Tilleggsinformasjon(nb)">
+					description = <"**(nb)">
 				>
 			>
 		>

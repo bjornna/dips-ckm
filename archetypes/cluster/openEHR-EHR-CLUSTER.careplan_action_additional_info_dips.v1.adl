@@ -1,0 +1,146 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.careplan_action_additional_info_dips.v1
+
+concept
+	[at0000]	-- Details related action performed
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Phuong Pedersen">
+		["email"] = <"ppe@dips.no">
+		["organisation"] = <"DIPS AS">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Denne er for å tilføye  DIPS spesifikke detaljer rundt registrering">
+			use = <"Denne brukes i lag med procedure.action, for å angi DIPS spesifikke detaljer rundt en registrering, f.eks. at det ikke var mulig å utføre aktiviteten.">
+			misuse = <"Den skal ikke brukes i stedet for procedure.action.">
+			copyright = <"DIPS AS">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To add DIPS spesific additiotal information related to an action performed and link to clinical documentation">
+			use = <"Use with the procedure.action to record or add DIPS specific details, like not able to perform.">
+			misuse = <"Not to be used instead of procedure.action archetype.">
+			copyright = <"DIPS AS">
+		>
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"Denne er for å tilføye  DIPS spesifikke detaljer rundt registrering">
+			use = <"Denne brukes i lag med procedure.action, for å angi DIPS spesifikke detaljer rundt en registrering, f.eks. at det ikke var mulig å utføre aktiviteten.">
+			misuse = <"Den skal ikke brukes i stedet for procedure.action.">
+			copyright = <"DIPS AS">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <"Ivar Yrke, DIPS AS, Norway, <iyr@dips.no>", "Terje Sagmyr, DIPS AS, Norway, <tsa@dips.no>">
+	other_details = <
+		["current_contact"] = <"Phuong Pedersen, DIPS AS <ppe@dips.no>">
+		["MD5-CAM-1.0.1"] = <"6F2ED4649253523FC5D5B040FC9DD416">
+		["custodian_organisation"] = <"DIPS AS">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Details related action performed
+		items cardinality matches {1; unordered} matches {
+			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Record as not performed
+				value matches {
+					DV_BOOLEAN matches {
+						value matches {True, False}
+					}
+				}
+			}
+			ELEMENT[at0004] occurrences matches {0..1} matches {	-- Link to clinical note
+				value matches {
+					DV_EHR_URI matches {*}
+				}
+			}
+			ELEMENT[at0006] occurrences matches {0..1} matches {	-- *Registrer som påbegynt(nb)
+				value matches {
+					DV_BOOLEAN matches {
+						value matches {True, False}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Registreringsdetaljer">
+					description = <"DIPS spesifikke detaljer om registreringen">
+				>
+				["at0003"] = <
+					text = <"Registrer som ikke utført">
+					description = <"For å registrere at man har tatt stilling til at forordning skal utføres, men av uvisse årsaker var gjennemføring ikke mulig">
+				>
+				["at0004"] = <
+					text = <"Link til klinisk notat">
+					description = <"Link til klinisk notat som var skrevet i forbindelse med registrering">
+				>
+				["at0006"] = <
+					text = <"Registrer som påbegynt">
+					description = <"For å registrere at registreringen er påbegynt, f.eks. behandler er begynt å fylle ut skjema, men ikke godkjent">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Details related action performed">
+					description = <"DIPS specific details related to action performed">
+				>
+				["at0003"] = <
+					text = <"Record as not performed">
+					description = <"To record that the activity was planned to be performed, but due to circumstances was not possible to execute">
+				>
+				["at0004"] = <
+					text = <"Link to clinical note">
+					description = <"Link to narrative summary related to the action performed">
+				>
+				["at0006"] = <
+					text = <"*Registrer som påbegynt(nb)">
+					description = <"*For å registrere at registreringen er påbegynt, f.eks. behandler er begynt å fylle ut skjema, men ikke godkjent(nb)">
+				>
+			>
+		>
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"Registreringsdetaljer">
+					description = <"DIPS spesifikke detaljer om registreringen">
+				>
+				["at0003"] = <
+					text = <"Registrer som ikke utført">
+					description = <"For å registrere at man har tatt stilling til at forordning skal utføres, men av uvisse årsaker var gjennemføring ikke mulig">
+				>
+				["at0004"] = <
+					text = <"Link til klinisk notat">
+					description = <"Link til klinisk notat som var skrevet i forbindelse med registrering">
+				>
+				["at0006"] = <
+					text = <"Registrer som påbegynt">
+					description = <"For å registrere at registreringen er påbegynt, f.eks. behandler er begynt å fylle ut skjema, men ikke godkjent">
+				>
+			>
+		>
+	>
