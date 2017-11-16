@@ -73,6 +73,11 @@
       <Rule path="/description[at0001]/items[at0063]" max="0" />
       <Rule path="/description[at0001]/items[at0066]" name="Prosedyre start" />
       <Rule path="/description[at0001]/items[at0060]" name="Prosedyre slutt" />
+      <Rule path="/description[at0001]/items[at0067]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>SNOMEDCT::261554009::Reoperasjon</includedValues>
+        </constraint>
+      </Rule>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" path="/description[at0001]/items[at0003]">
         <Rule path="/items[at0001]" max="1">
           <constraint xsi:type="textConstraint">
@@ -80,21 +85,75 @@
           </constraint>
         </Rule>
       </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.surgery_details_dips.v1" concept_name="Operasjonsdetaljer" path="/description[at0001]/items[at0003]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.surgery_details_dips.v1" concept_name="Operasjonsdetaljer" path="/description[at0001]/items[at0003]">
+        <Rule path="/items[at0002]" max="0" />
+        <Rule path="/items[at0003]" max="0" />
+        <Rule path="/items[at0008]" max="0" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.reoperation_details.v1" concept_name="Reoperasjonsdetaljer" path="/description[at0001]/items[at0003]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ARENA-AARSAK-REOPR::AR1::Blødning</includedValues>
+            <includedValues>ARENA-AARSAK-REOPR::AR2::Infeksjon</includedValues>
+            <includedValues>ARENA-AARSAK-REOPR::AR3::Mekanisk</includedValues>
+            <includedValues>ARENA-AARSAK-REOPR::AR4::Annet</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
     </Content>
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.infeksjonsovervakning_dips.v1" concept_name="Infeksjonsovervakning" path="/content" />
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.euroscore1_dips.v1" concept_name="EuroSCORE DIPS" path="/content" />
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.trygg_kirurgi_time_out_dips.v1" concept_name="Trygg kirurgi time out" path="/content" />
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.trygg_kirurgi_time_out_dips.v1" concept_name="Trygg kirurgi time out" path="/content">
+      <Rule path="/data[at0001]/items[at0002]" max="0" />
+      <Rule path="/data[at0001]/items[at0003]" max="0" />
+      <Rule path="/data[at0001]/items[at0004]" max="0" />
+      <Rule path="/data[at0001]/items[at0005]/items[at0039]" max="0" />
+      <Rule path="/data[at0001]/items[at0005]/items[at0034]" max="0" />
+      <Rule path="/data[at0001]/items[at0005]/items[at0038]" max="0" />
+      <Rule path="/data[at0001]/items[at0006]" max="0" />
+    </Content>
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.infeksjonsovervaaking_dips.v1" concept_name="Melding til infeksjonsregister" path="/content">
+      <Rule path="/data[at0001]/events[at0002]" name="Operasjon" />
+      <Rule path="/data[at0001]/events[at0043]" name="Utskrivning" />
+      <Rule path="/data[at0001]/events[at0046]" name="30 dager" />
+      <Rule path="/data[at0001]/events[at0047]" name="365 dager" />
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.planned_anesthesia_dips.v1" concept_name="Anestesi detaljer" path="/data[at0001]/events[at0002]/data[at0003]/items[at0044]">
-        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA-klassifikasjon" path="/items[at0007]" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA-klassifikasjon" path="/items[at0007]">
+          <Rule path="/items[at0001]">
+            <constraint xsi:type="textConstraint">
+              <excludedValues>local::at0008</excludedValues>
+              <excludedValues>local::at0009</excludedValues>
+              <excludedValues>local::at0010</excludedValues>
+              <excludedValues>local::at0011</excludedValues>
+              <excludedValues>local::at0012</excludedValues>
+              <excludedValues>local::at0013</excludedValues>
+            </constraint>
+          </Rule>
+        </Items>
       </Items>
     </Content>
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.contact_summary_dips.v1" concept_name="contact summary" path="/content">
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.reinnleggelse_dips.v1" concept_name="Reinnleggelse" path="/data[at0001]/items[at0022]" />
     </Content>
     <Context>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.person_details_dips.v1" concept_name="Person detaljer" path="/context/other_context[at0001]/items[at0002]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.person_details_dips.v1" concept_name="Person detaljer" path="/context/other_context[at0001]/items[at0002]">
+        <Rule path="/items[at0002]/items[at0012]" max="0" />
+        <Rule path="/items[at0002]/items[at0011]" max="0" />
+        <Rule path="/items[at0002]/items[at0010]" max="0" />
+        <Rule path="/items[at0002]/items[at0008]" max="0" />
+        <Rule path="/items[at0002]/items[at0014]" max="0" />
+        <Rule path="/items[at0002]/items[at0015]" max="0" />
+        <Rule path="/items[at0002]/items[at0016]" max="0" />
+        <Rule path="/items[at0003]/items[at0020]" max="0" />
+        <Rule path="/items[at0003]/items[at0019]" max="0" />
+        <Rule path="/items[at0003]/items[at0018]" max="0" />
+        <Rule path="/items[at0007]" max="0" />
+        <Rule path="/items[at0022]" max="0" />
+        <Rule path="/items[at0023]" max="0" />
+        <Rule path="/items[at0025]" max="0" />
+        <Rule path="/items[at0026]" max="0" />
+        <Rule path="/items[at0030]" max="0" />
+      </Items>
     </Context>
   </definition>
 </template>
