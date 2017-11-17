@@ -1,0 +1,141 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ACTION.surgical_safety_checklist_conclusion_dips.v1
+
+concept
+	[at0000]	-- Sjekkliste trygg kirurgi avslutning
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"Dips ASA">
+		["date"] = <"2017-11-16">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Sjekkliste trygg kirurgi avslutning er trinn 3 av sjekklisten Trygg kirurgi skal gjennomføres på alle operasjoner og rapporteres til pasientsikkerhetskampanjens database Ekstranet. Sjekklisten skal gjennomføres før innledning av anestesi.">
+			use = <"Brukes for å registrere trygg kirurgi avslutning. Registeringen skjer i forbindelse med avslutning av operasjon og gjennomføres enten på operasjonsstuen, seksjonen i operasjonsavsnittet, operasjonsavdelingen eller minste naturlige enhetsnivå.">
+			misuse = <"Brukes ikke for å dokumentere trinn 1 og 2  av sjekklisten for trygg krirugi. Det finnes engen arketyper for dette. ">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <"Anine Ramberg", "Kjetil Jørgensen">
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"E2CA1982EB6ED3B1B5359C7D01EBD4EF">
+	>
+
+definition
+	ACTION[at0000] matches {	-- Sjekkliste trygg kirurgi avslutning
+		description matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0002] matches {	-- Er sjekkliste for trygg kirurgi avslutning gjennomført?
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..*} matches {	-- Teamet gjennomgår muntlig
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0004, 	-- Hvilke inngrep er gjennomført?
+									at0005, 	-- Stemmer antall instrumenter, kompresser/duker, nåler og utstyr forøvrig?
+									at0006, 	-- Er prøvematerialet riktig, antall merking og medium? (inklusive pasientens identitet)
+									at0007]	-- Er temperatur målt?
+								}
+							}
+						}
+					}
+					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Har det vært problemer med utstyret som det skal varsles om?
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0012, 	-- Ikke aktuelt
+									at0011]	-- Ja
+								}
+							}
+						}
+					}
+					ELEMENT[at0013] occurrences matches {0..1} matches {	-- Hva er viktig for postoperativ behandling av denne pasienten?
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					allow_archetype CLUSTER[at0014] occurrences matches {0..*} matches {	-- Lokale tillegg
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Sjekkliste trygg kirurgi avslutning">
+					description = <"Brukes for å dokumentere at rutiner for Trygg kirurgi er utført. 
+Formålet med tiltakspakken trygg kirurgi fra pasientsikkerhetskampanjen er å redusere komplikasjoner i tilknytning til kirurgi, med vekt på postoperative sårinfeksjoner (POSI).">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Er sjekkliste for trygg kirurgi avslutning gjennomført?">
+					description = <"Ja indikerer at sjekkliste for trygg kirurgi avslutning er gjennomført.">
+				>
+				["at0003"] = <
+					text = <"Teamet gjennomgår muntlig">
+					description = <"Dokumentasjon av muntlig gjennomgang av teamet.">
+				>
+				["at0004"] = <
+					text = <"Hvilke inngrep er gjennomført?">
+					description = <"Bekreftelse på at spørsmål om hvilket inngrep som er gjennomført er stilt.">
+				>
+				["at0005"] = <
+					text = <"Stemmer antall instrumenter, kompresser/duker, nåler og utstyr forøvrig?">
+					description = <"Bekreftelse på at spørsmål om  antall instrumenter, kompresser/duker, nåler og utstyr forøvrig stemmer er stilt.">
+				>
+				["at0006"] = <
+					text = <"Er prøvematerialet riktig, antall merking og medium? (inklusive pasientens identitet)">
+					description = <"Bekreftelse på at spørsmål omr prøvematerial er riktig, antall merking og medium er riktig  (inklusive pasientens identitet) er stilt.">
+				>
+				["at0007"] = <
+					text = <"Er temperatur målt?">
+					description = <"Bekreftelse på at spørsmål om temperatur er målt er stilt.">
+				>
+				["at0008"] = <
+					text = <"Har det vært problemer med utstyret som det skal varsles om?">
+					description = <"Har det vært problemer med utstyret som det skal varsles om?">
+				>
+				["at0011"] = <
+					text = <"Ja">
+					description = <"Det har vært problemer med utstyret som det skal varsles om">
+				>
+				["at0012"] = <
+					text = <"Ikke aktuelt">
+					description = <"Spørmål om problemer med utstyr som skla varsles er ikke aktuelt.">
+				>
+				["at0013"] = <
+					text = <"Hva er viktig for postoperativ behandling av denne pasienten?">
+					description = <"Ja indikerer at hva som er viktig for postoperativ behandling av denne pasienten er gjennomgått?">
+				>
+				["at0014"] = <
+					text = <"Lokale tillegg">
+					description = <"Mulighet til å legge till lokale tillegg.">
+				>
+			>
+		>
+	>

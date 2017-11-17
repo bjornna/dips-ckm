@@ -80,7 +80,7 @@
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" path="/content">
       <Rule path="/description[at0001]/items[at0002]" name="Operasjonstype">
         <constraint xsi:type="textConstraint">
-          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="VI-OPERASJONSTYPER" />
+          <termQueryId terminologyID="ARK-VI-OPERASJONSTYPER" terminologyLang="en-GB" queryName="ARK-VI-OPERASJONSTYPER" />
         </constraint>
       </Rule>
       <Rule path="/description[at0001]/items[at0065]" max="0" />
@@ -94,8 +94,6 @@
       <Rule path="/description[at0001]/items[at0061]" max="0" />
       <Rule path="/description[at0001]/items[at0067]">
         <constraint xsi:type="textConstraint">
-          <includedValues>SNOMEDCT::399455000::Hovedprosedyre</includedValues>
-          <includedValues>SNOMEDCT::262134003::Sekundærprosedyre</includedValues>
           <includedValues>SNOMEDCT::261554009::Reoperasjon</includedValues>
         </constraint>
       </Rule>
@@ -117,14 +115,16 @@
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.healthcare_resource_dips.v1" concept_name="Helsetjenesteressurs" path="/description[at0001]/items[at0003]">
         <Rule path="/items[at0001]">
           <constraint xsi:type="textConstraint">
-            <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="FE-RESSURSTYPE" />
+            <includedValues>FE-RESSURSTYPE::1::Operasjonsstue</includedValues>
+            <includedValues>FE-RESSURSTYPE::A::Assistent</includedValues>
+            <includedValues>FE-RESSURSTYPE::HK::Hovedkirurg</includedValues>
+            <includedValues>FE-RESSURSTYPE::OT::Operasjonsteam</includedValues>
           </constraint>
         </Rule>
         <Rule path="/items[at0002]" name="Ønsket ressurs" />
         <Rule path="/items[at0004]">
           <constraint xsi:type="textConstraint">
-            <includedValues>2.16.578.1.12.4.1.1.1101::1::Ja</includedValues>
-            <includedValues>2.16.578.1.12.4.1.1.1101::2::Nei</includedValues>
+            <includedValues>2.16.578.1.12.4.1.1.1101::JA::Ja</includedValues>
           </constraint>
         </Rule>
       </Items>
@@ -138,13 +138,22 @@
           </constraint>
         </Rule>
       </Items>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.reoperation_details.v1" concept_name="Reoperasjonsdetaljer" path="/description[at0001]/items[at0003]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.reoperation_details.v1" concept_name="Reoperasjonsdetaljer" path="/description[at0001]/items[at0003]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ARENA-AARSAK-REOPR::AR1::Blødning</includedValues>
+            <includedValues>ARENA-AARSAK-REOPR::AR2::Infeksjon</includedValues>
+            <includedValues>ARENA-AARSAK-REOPR::AR3::Mekanisk</includedValues>
+            <includedValues>ARENA-AARSAK-REOPR::AR4::Annet</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
     </Content>
     <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.request-procedure.v1" concept_name="Prosedyrerekvirering" max="1" path="/content" name="Anestesirekvirering">
       <Rule path="/activities[at0001]" max="1" />
       <Rule path="/activities[at0001]/description[at0009]/items[at0121.1]" name="Ønsket anestesi">
         <constraint xsi:type="textConstraint">
-          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="UDS-OPR-OENSKET ANESTESI VE" />
+          <termQueryId terminologyID="ARK-ANE-OENSKET-ANESTESI" terminologyLang="en-GB" queryName="ARK-ANE-OENSKET-ANESTESI" />
         </constraint>
       </Rule>
       <Rule path="/activities[at0001]/description[at0009]/items[at0.2]" max="0" />
