@@ -389,6 +389,10 @@
             <includedValues>Svangerskapsavbrudd_0270_KV_ARK_SKG::0270-4::Ikke yrkesaktiv</includedValues>
             <includedValues>Svangerskapsavbrudd_0270_KV_ARK_SKG::0270-5::Arbeidssøkende</includedValues>
             <includedValues>Svangerskapsavbrudd_0270_KV_ARK_SKG::0270-6::Trygdet</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0003]" max="1" clone="true" name="Ikke oppgitt">
+          <constraint xsi:type="textConstraint">
             <includedValues>Svangerskapsavbrudd_0270_KV_ARK_SKG::0270-99::Ikke oppgitt</includedValues>
           </constraint>
         </Rule>
@@ -555,7 +559,6 @@
       <Rule path="/data[at0001]/items[at0138]" max="0" />
       <Rule path="/data[at0001]/items[at0139]">
         <constraint xsi:type="textConstraint">
-          <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-0::Ingen</includedValues>
           <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-1::Sikre perioder</includedValues>
           <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-2::Avbrutt samleie</includedValues>
           <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-3::Kondom</includedValues>
@@ -569,10 +572,15 @@
           <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-11::Kvinne sterilisert</includedValues>
           <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-12::Mann sterilisert</includedValues>
           <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-13::Nødprevensjon</includedValues>
-          <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-14::Ikke besvart</includedValues>
         </constraint>
       </Rule>
       <Rule path="/data[at0001]/items[at0139]" max="1" clone="true" name="Annen prevensjon, spesifikasjon" />
+      <Rule path="/data[at0001]/items[at0139]" max="1" clone="true" name="Ingen; Ikke besvart">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-0::Ingen</includedValues>
+          <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-14::Ikke besvart</includedValues>
+        </constraint>
+      </Rule>
       <Rule path="/data[at0001]/items[at0140]" max="0" />
       <Rule path="/data[at0001]/items[at0071]/items[at0072]" name="Dato for siste menstruasjon i dette svangerskapet" />
       <Rule path="/data[at0001]/items[at0071]/items[at0134]" max="0" />
@@ -791,7 +799,12 @@
       <Rule path="/data[at0001]/items[at0004]/items[at0005]" max="0" />
     </Content>
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.clinical_synopsis.v1" concept_name="Klinisk sammendrag" max="1" path="/content" name="Patologiske funn">
-      <Rule path="/data[at0001]/items[at0002]" name="Patologiske funn ved diagnostikk" />
+      <Rule path="/data[at0001]/items[at0002]" name="Patologiske funn ved diagnostikk">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Svangerskapsavbrudd_0720_PAT_FU::0720-1::Normalt</includedValues>
+          <includedValues>Svangerskapsavbrudd_0720_PAT_FU::0720-2::Patologi</includedValues>
+        </constraint>
+      </Rule>
     </Content>
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" max="1" path="/content" name="Fosterdiagnostikk">
       <Rule path="/description[at0001]/items[at0002]">
@@ -841,7 +854,6 @@
       </Rule>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" max="1" path="/description[at0001]/items[at0003]">
         <Rule path="/items[at0002]" max="0" />
-        <Rule path="/items[at0003]" max="0" />
         <Rule path="/items[at0004]" max="0" />
       </Items>
     </Content>
@@ -908,12 +920,16 @@
       <Rule path="/description[at0001]/items[at0069]" max="0" />
       <Rule path="/description[at0001]/items[at0006]">
         <constraint xsi:type="textConstraint">
-          <includedValues>Svangerskapsavbrudd_0910_IG_KOMPL_AVBR::0910-0::Ingen</includedValues>
           <includedValues>Svangerskapsavbrudd_0910_IG_KOMPL_AVBR::0910-1::Ufullstendig abort</includedValues>
           <includedValues>Svangerskapsavbrudd_0910_IG_KOMPL_AVBR::0910-2::Perforasjon</includedValues>
         </constraint>
       </Rule>
       <Rule path="/description[at0001]/items[at0006]" max="1" clone="true" name="Spesifikasjon av komplikasjoner" />
+      <Rule path="/description[at0001]/items[at0006]" max="1" clone="true" name="Ingen komplikasjon">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Svangerskapsavbrudd_0910_IG_KOMPL_AVBR::0910-0::Ingen komplikasjon</includedValues>
+        </constraint>
+      </Rule>
       <Rule path="/description[at0001]/items[at0066]" max="0" />
       <Rule path="/description[at0001]/items[at0060]" max="0" />
       <Rule path="/description[at0001]/items[at0061]" max="0" />
@@ -932,7 +948,6 @@
       </Rule>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" max="1" path="/description[at0001]/items[at0003]">
         <Rule path="/items[at0002]" max="0" />
-        <Rule path="/items[at0003]" max="0" />
         <Rule path="/items[at0004]" max="0" />
       </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.complication_dips.v1" concept_name="Complication dips" max="1" path="/description[at0001]/items[at0003]">
@@ -940,7 +955,6 @@
         <Rule path="/items[at0002]" max="0" />
         <Rule path="/items[at0005 and name/value='Tiltak']/items[at0004]">
           <constraint xsi:type="textConstraint">
-            <includedValues>Svangerskapsavbrudd_0930_IG_BEH_KOMPL::0930-0::Ingen</includedValues>
             <includedValues>Svangerskapsavbrudd_0930_IG_BEH_KOMPL::0930-1::Kirurgisk revisjon av uterinhulen</includedValues>
             <includedValues>Svangerskapsavbrudd_0930_IG_BEH_KOMPL::0930-2::Laparoskopi</includedValues>
             <includedValues>Svangerskapsavbrudd_0930_IG_BEH_KOMPL::0930-3::Laparotomi</includedValues>
@@ -950,12 +964,17 @@
         <Rule path="/items[at0005 and name/value='Tiltak']/items[at0006]" max="0" />
         <Rule path="/items[at0005 and name/value='Tiltak']/items[at0007]" max="0" />
         <Rule path="/items[at0005]" max="1" clone="true" name="Annet tiltak" />
-        <Rule path="/items[at0005 and name/value='Annet tiltak']/items[at0004]" name="Annet tiltak">
+        <Rule path="/items[at0005 and name/value='Annet tiltak']/items[at0004]" name="Annet tiltak" />
+        <Rule path="/items[at0005 and name/value='Annet tiltak']/items[at0006]" max="0" />
+        <Rule path="/items[at0005 and name/value='Annet tiltak']/items[at0007]" max="0" />
+        <Rule path="/items[at0005]" max="1" clone="true" name="Ingen tiltak" />
+        <Rule path="/items[at0005 and name/value='Ingen tiltak']/items[at0004]" name="Ingen tiltak">
           <constraint xsi:type="textConstraint">
-            <includedValues>Svangerskapsavbrudd_0930_IG_BEH_KOMPL::0930-99::Annet</includedValues>
+            <includedValues>Svangerskapsavbrudd_0930_IG_BEH_KOMPL::0930-0::Ingen</includedValues>
           </constraint>
         </Rule>
-        <Rule path="/items[at0005 and name/value='Annet tiltak']/items[at0007]" max="0" />
+        <Rule path="/items[at0005 and name/value='Ingen tiltak']/items[at0006]" max="0" />
+        <Rule path="/items[at0005 and name/value='Ingen tiltak']/items[at0007]" max="0" />
         <Rule path="/items[at0008]" max="0" />
         <Rule path="/items[at0009]" max="0" />
         <Rule path="/items[at0011]" max="0" />
@@ -995,7 +1014,6 @@
       </Rule>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" path="/description[at0001]/items[at0003]">
         <Rule path="/items[at0002]" max="0" />
-        <Rule path="/items[at0003]" max="0" />
         <Rule path="/items[at0004]" max="0" />
       </Items>
     </Content>
@@ -1030,7 +1048,6 @@
       </Rule>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" path="/description[at0001]/items[at0003]">
         <Rule path="/items[at0002]" max="0" />
-        <Rule path="/items[at0003]" max="0" />
         <Rule path="/items[at0004]">
           <constraint xsi:type="textConstraint">
             <includedValues>Svangerskapsavbrudd_0890_IG_INNGR::0890-5::Spiral satt inn</includedValues>
