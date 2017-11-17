@@ -36,7 +36,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"7B97FA76BF27C51E6466668131B912BB">
+		["MD5-CAM-1.0.1"] = <"4FB6F05DCEA72465924B5598D7286EFE">
 	>
 
 definition
@@ -44,7 +44,7 @@ definition
 		data matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0023] occurrences matches {0..1} matches {	-- Dato for etablering av TPH
+					ELEMENT[at0023] occurrences matches {0..1} matches {	-- Under TPH siden
 						value matches {
 							DV_DATE_TIME matches {
 								value matches {yyyy-mm-ddTHH:??:??}
@@ -58,12 +58,16 @@ definition
 							}
 						}
 					}
-					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Enheten pasienten skal overføres til
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Overføres til enhet
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
 					allow_archetype CLUSTER[at0019] occurrences matches {0..2} matches {	-- Hjemmel
+						include
+							archetype_id/value matches {/.*/}
+					}
+					allow_archetype CLUSTER[at0033] occurrences matches {0..2} matches {	-- Med eller uten døgnopphold
 						include
 							archetype_id/value matches {/.*/}
 					}
@@ -94,7 +98,7 @@ definition
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0014] occurrences matches {0..1} matches {	-- Iversettelse av vedtaket
+					ELEMENT[at0014] occurrences matches {0..1} matches {	-- Iverksettelse av overføring
 						value matches {
 							DV_CODED_TEXT matches {
 								defining_code matches {
@@ -149,7 +153,7 @@ ontology
 					description = <"Den dato vedtaket om tvungent psykisk helsevern, evt. den dato siste samtykke av Kontrollomisjonen til forlengelse av dette, gjelder til.">
 				>
 				["at0004"] = <
-					text = <"Enheten pasienten skal overføres til">
+					text = <"Overføres til enhet">
 					description = <"Identifikasjon av den enhet pasienten skal overføres til.">
 				>
 				["at0005"] = <
@@ -169,7 +173,7 @@ ontology
 					description = <"Vedtak om overføring fra \"med døgnopphold\" til \"uten døgnopphold\"">
 				>
 				["at0014"] = <
-					text = <"Iversettelse av vedtaket">
+					text = <"Iverksettelse av overføring">
 					description = <"Standard kodeverk 9282 gjennomføring av overføringsvedtak TPH.">
 				>
 				["at0015"] = <
@@ -201,12 +205,12 @@ ontology
 					description = <"Det tidspunkt (dato og klokkeslett) vedtaket ble fattet.">
 				>
 				["at0023"] = <
-					text = <"Dato for etablering av TPH">
+					text = <"Under TPH siden">
 					description = <"Den dato tvungent psykisk helsevern opprinnelig ble vedtatt.">
 				>
 				["at0028"] = <
 					text = <"Begrunnelse">
-					description = <"Begrunnelse for overføringen.">
+					description = <"Sett hen til for eksempel kjønn, alder, tilstand, rusproblematikk og grad av utagering.">
 				>
 				["at0029"] = <
 					text = <"Det er tatt tilbørlig hensyn til pårørende som pasienten bor sammen med, begrunnelse">
@@ -219,6 +223,10 @@ ontology
 				["at0032"] = <
 					text = <"Nedenfor fremgår begrunnelse for at umiddelbar overføring er strengt nødvendig">
 					description = <"Begrunnelse for at umiddelbar overføring er strengt nødvendig.">
+				>
+				["at0033"] = <
+					text = <"Med eller uten døgnopphold">
+					description = <"Standard kodeverk 9312 Om døgnopphold - psykisk helsevern.">
 				>
 			>
 		>
@@ -237,12 +245,12 @@ ontology
 					description = <"*Den dato vedtaket om tvungent psykisk helsevern, evt. siste samtykke av Kontrollomisjonen til forlengelse av dette, gjelder til.(nb)">
 				>
 				["at0004"] = <
-					text = <"*Enheten pasienten skal overføres til(nb)">
+					text = <"*Overføres til enhet(nb)">
 					description = <"*Identifikasjon av den enhet pasienten skal overføres til.(nb)">
 				>
 				["at0005"] = <
-					text = <"Endring av tvangsform">
-					description = <"Kode som angir om vedtaket innebærer en overføring mellom tvangsformer. Standard kodeverk: 9299 ">
+					text = <"*Endring av tvangsform(nb)">
+					description = <"*Standard kodeverk 9299 Eventuell overføring mellom tvangsformer.(nb)">
 				>
 				["at0006"] = <
 					text = <"*Vedtaket innebærer ingen endring av tvangsform(nb)">
@@ -257,7 +265,7 @@ ontology
 					description = <"*Vedtak om overføring fra \"med døgnopphold\" til \"uten døgnopphold\"(nb)">
 				>
 				["at0014"] = <
-					text = <"*Iversettelse av vedtaket(nb)">
+					text = <"*Iverksettelse av overføring(nb)">
 					description = <"*Standard kodeverk 9282 gjennomføring av overføringsvedtak TPH.(nb)">
 				>
 				["at0015"] = <
@@ -289,12 +297,12 @@ ontology
 					description = <"*Det tidspunkt (dato og klokkeslett) vedtaket ble fattet.(nb)">
 				>
 				["at0023"] = <
-					text = <"*Dato for etablering av TPH(nb)">
+					text = <"*Under TPH siden(nb)">
 					description = <"*Den dato tvungent psykisk helsevern opprinnelig ble vedtatt.(nb)">
 				>
 				["at0028"] = <
 					text = <"*Begrunnelse(nb)">
-					description = <"*Begrunnelse for overføringen.(nb)">
+					description = <"*Sett hen til for eksempel kjønn, alder, tilstand, rusproblematikk og grad av utagering.(nb)">
 				>
 				["at0029"] = <
 					text = <"*New element(nb)">
@@ -307,6 +315,10 @@ ontology
 				["at0032"] = <
 					text = <"*Nedenfor fremgår begrunnelse for at umiddelbar overføring er strengt nødvendig(nb)">
 					description = <"*Begrunnelse for at umiddelbar overføring er strengt nødvendig.(nb)">
+				>
+				["at0033"] = <
+					text = <"*Med eller uten døgnopphold(nb)">
+					description = <"*Standard kodeverk 9312 Om døgnopphold - psykisk helsevern.(nb)">
 				>
 			>
 		>

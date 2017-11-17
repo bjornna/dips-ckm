@@ -1,0 +1,82 @@
+{
+    "$type": "TASK_PLAN",
+    "description": "This is a generic definition of the task plan to follow up patients on infection after surgery. It is just pseudo-code to get an overall idea",
+    "guideline": "https://www.fhi.no/hn/helseregistre-og-registre/nois/[NOIS] ",
+    "definition": {
+        "$type": "TASK_GROUP",
+        "description": "The reusable(?) task group for follow up of this patients",
+        "execution_type": "sequence",
+        "indications": "All patients with procecures in the NOIS set",
+        "execution_time": {
+            "$type": "EVENT_LINKED_TIMING",
+            "event_type": {
+                "code": "SURGERY"
+            },
+            "event_offset": "0", // should be done after surgery
+            "event_order": "after"
+        },
+        "members": [{
+                "$type": "DEFINED_TASK",
+                "description": "Fill out form infection details after surgery",
+                "prototype": "ACTION complete or some archtypes with the details after surgery? "
+
+            },
+            {
+                "$type": "TASK_GROUP",
+                "description": "Examine patient and complete form with status of infection after survery",
+                "execution_type": "sequence",
+                "execution_time": {
+                    "$type": "EVENT_LINKED_TIMING",
+                    "event_type": {
+                        "code": "DISCHARGE"
+                    },
+                    "event_offset": 0,
+                    "event_order": "before"
+                },
+                "members": [{
+                    "$type": "DEFINED_TASK",
+                    "description": "Examine patient as described in.... ",
+                    "prototype": "ACTION procedure completed"
+                }, {
+                    "$type": "DEFINED_TASK",
+                    "description": "Complete form ",
+                    "prototype": "EVALUATOIN/OBSERVATOIN infection state at discharge"
+
+                }]
+            }, {
+                "$type": "DEFINED_TASK",
+                "description": "Fill out self registratoin about infection status after 30 days",
+                "execution_time": {
+                    "$type": "EVENT_LINKED_TIMING",
+                    "event_type": {
+                        "code": "DISCHARGE"
+                    },
+                    "event_offset": "PT30D", // 30 days after, 
+                    "event_order": "after"
+                }
+            },{
+                "$type":"DECISION_GROUP", 
+                "description":"Is patient included in one year study (Hip Replacement", 
+                "value_expression": "procedure in NOIS-Procedures"
+                , "paths": {
+                    "test_expression": "isTrue", 
+                    "members":[
+                        {
+                            "$type":"DEFINED_TASK", 
+                            "description":"Fill out self registration after 365 days", 
+                            "execution_time":{
+                                "$type":"EVENT_LINKED_TIMING", 
+                                "event_type":{
+                                    "code":"DISCHARGE"
+                                }, 
+                                "event_offset":"PT1Y", 
+                                "event_order":"after"
+                            }, "prototype":"EVALUATOIN/OBSERVATOIN infection state at discharge"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+
+}

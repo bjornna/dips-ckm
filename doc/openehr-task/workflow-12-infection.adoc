@@ -1,0 +1,109 @@
+= Follow up after surgery 
+
+== Background
+"Norwegian surveillance system for antibiotic use and healthcare related infections" (NOIS) is a registry with data about infection after surgery. 
+
+Webpage here: https://www.fhi.no/hn/helseregistre-og-registre/nois/[] 
+
+One responisibility they have is to follow up patients after surgery to see how much infections there are. This note describes how we would create an openEHR Task Plan to follow up these patients and make sure the relevant data is registered into the system.
+
+The following procedures are included in the registry: 
+
+* Heart surgery 
+* Caesarean
+* Hip replacement
+* Kolecystektomi (removeal of gallbladder)
+* Procudes on colon 
+
+NOTE: Some hospitals might include other procedures for the follow up. The set above is the minimal and required procedures defined by national authorities. 
+
+If the patient is included in the study the following registrations should be performed to be able to get some statistics about infections: 
+
+.Tasks perfomed to collect the needed data 
+[cols="^1,5,5,15", options="header"]
+|==== 
+|Step | When | Who | What
+| 1 | After surgery | Surgeon | Details about the procedyre 
+| 2 | At discharge | Surgeon | State at discharge 
+| 3 | 30 days after discharge | Patient | Questionare to identify infection 
+| 4 | 1 year after discharge | Patient | Questoinare to identify infection 
+|==== 
+
+NOTE: Only hip replacement should be followed up after one year. 
+
+== openEHR Taskplan for this use-case
+The protocol used to collect the required data is a good example on what to use openEHR Taskplan for. In the following we will lay out some considerations and propose a structure for the _TASK_PLAN_
+
+There are several topics to consider in detail. 
+
+. <<HOW_TO_START>>
+. <<HOW_DETAILED>>
+
+[[HOW_TO_START]]
+=== How to start the _TASK_PLAN_? 
+All patient in the population, having surgery with the given procedures, MUST be included in the study. This is why the system/application MUST/SHOULD be able to start the _TASK_PLAN_ automatically if the requirements are fulfilled. 
+
+There should be some kind of a "rule/workflow" engine which gets notified after surgery. The notification should have some info about what kind of procedures where performed or a way to look up data about the surgery. The pseudo-code for this agent could be like the following:
+
+.Pseudo code for "trigger" to start taskplan
+[source]
+----
+onSurgeryComplete
+if(procedure IN NOIS_PROCEDURES)
+ startTaskPlan('FOLLOW_UP_INFECTION_AFTER_SURGERY')
+----
+
+[[HOW_DETAILED]]
+=== How detailed shuold the _TASK_ITEMs_ be? 
+
+To discuss the details we will look into the second task; _the status after discharge_. This task should imply that the surgeon actually takes a look at the patient and examines different parameters. I.e. perform a physical examination, take up some history, look at some X-ray images, check blood status (lab results). The purpose of this is of course to verify that everything is ok. 
+
+In turn this tells us that the _task_ for the clinician is not specific for this infection follow up. The task is a _normal follow up after surgery_. It could be some extra steps, _TASK_ITEMs_ needed which is specific for the infection follow up. They should be added to the overall _TASK_PLAN_ .
+
+Perhaps the modelling of this specific "guideline" should be modelled as reusable _TASK_GROUPs_ that might be added into other _TASK_PLANs_ ? I think this makes sense. As the patient trajectory goes on there will be new _TASK_ITEMs_ added to the complete list of _TASKs_. Some items will be added from protocols like this, and they might have strict rules for the sequence and timing. 
+
+All _TASK_ITEMs_ added must have a "source" or, put another way, a reason why they where added. The minimum _source_ must be one openEHR INSTRUCTION . The specification should also support orders (order set) with several openEHR-INSTRUCTION and the correlation with the inital order must be taken care of. 
+
+
+== Model the Task plan 
+To model this task plan I will go through the following steps: 
+
+. <<LIST_TASKS>>
+. <<DEFINE_DECISION_POINTS>>
+. <<CREATE_GENERIC_TASK_PLAN>>
+
+[[LIST_TASKS]]
+=== Listing of all the tasks in the protocol
+First I would try to identify the primary _DEFINED_TASKs_ . 
+
+* Surgeon approves details after surgery 
+* Surgeon approves status at discharge
+* Patient approves 30 days questionare 
+* Patient approves 1 year questionare 
+
+Since there are two principal performes this must be at least two _TASK_PLANs_. 
+
+Both the Surgeon and the Patient needs an agent to be able to follow up the registration. There might also be som additional observations and evaluations to be done to be able to complete the _forms_ 
+
+[[DEFINE_DECISION_POINTS]]
+=== Define decisions points
+There are a few decisions points here: 
+
+. Is Patient in the population (the included procedures)? 
+. Is Patient included in 1 year follow up? 
+
+[[CREATE_GENERIC_TASK_PLAN]]
+=== Create a generic _TASK_PLAN_
+In the following there is an inital example on how to make a Task Plan (skeleton) of this protocoll
+
+link:tp_infection_general.json[]
+
+[source, json]
+----
+include::tp_infection_general.json[]
+----
+
+
+
+
+

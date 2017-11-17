@@ -36,7 +36,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"0ADE915B18DCE5FB9149E2BC134FEF78">
+		["MD5-CAM-1.0.1"] = <"763479421D4C6DE7567A394C92D00E54">
 	>
 
 definition
@@ -61,6 +61,47 @@ definition
 					allow_archetype CLUSTER[at0068] occurrences matches {0..1} matches {	-- Hjemmel for helsehjelp
 						include
 							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Det gjøres unntak fra konverteringsforbudet, jf. Psykisk helsevernloven § 3-4 annet ledd
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True}
+							}
+						}
+					}
+					ELEMENT[at0074] occurrences matches {0..1} matches {	-- Begrunnelse for unntak fra konverteringsforbudet
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					CLUSTER[at0085] occurrences matches {0..1} matches {	-- Begjæring
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0005] occurrences matches {0..1} matches {	-- Det er fremsatt begjæring
+								value matches {
+									DV_BOOLEAN matches {
+										value matches {True}
+									}
+								}
+							}
+							ELEMENT[at0007] occurrences matches {0..1} matches {	-- Dato begjæring ble fremmet
+								value matches {
+									DV_DATE matches {
+										value matches {yyyy-mm-dd}
+									}
+								}
+							}
+							allow_archetype CLUSTER[at0072] occurrences matches {0..1} matches {	-- Begjæring fremsatt av
+								include
+									archetype_id/value matches {/.*/}
+							}
+							ELEMENT[at0014] occurrences matches {0..1} matches {	-- Begjæring er dokumentert i journalnotat datert
+								value matches {
+									DV_DATE matches {
+										value matches {yyyy-mm-dd}
+									}
+								}
+							}
+						}
 					}
 					ELEMENT[at0017] occurrences matches {0..2} matches {	-- Vurdering av frivillighet
 						value matches {
@@ -154,8 +195,8 @@ definition
 									[local::
 									at0063, 	-- Får sin utsikt til helbredelse eller vesentlig bedring i betydelig grad redusert
 									at0064, 	-- Med stor sannsynlighet i meget nær fremtid får sin tilstand vesentlig forverret
-									at0065, 	-- Utgjør en nærliggende og alvorlig fare for eget liv og helse
-									at0066]	-- Utgjør en nærliggende og alvorlig fare for andres liv og helse
+									at0065, 	-- Utgjør en nærliggende og alvorlig fare for eget liv eller helse
+									at0066]	-- Utgjør en nærliggende og alvorlig fare for andres liv eller helse
 								}
 							}
 						}
@@ -173,43 +214,6 @@ definition
 					ELEMENT[at0083] occurrences matches {0..1} matches {	-- Helhetsvurdering, begrunnelse for at tvungent psykisk helsevern framstår som den klart beste løsningen for pasienten 
 						value matches {
 							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Det gjøres unntak fra konverteringsforbudet, jf. Psykisk helsevernloven § 3-4 annet ledd
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True}
-							}
-						}
-					}
-					ELEMENT[at0074] occurrences matches {0..1} matches {	-- Begrunnelse for unntak fra konverteringsforbudet
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Det er fremsatt begjæring
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True}
-							}
-						}
-					}
-					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Dato begjæringen ble fremmet
-						value matches {
-							DV_DATE matches {
-								value matches {yyyy-mm-dd}
-							}
-						}
-					}
-					allow_archetype CLUSTER[at0072] occurrences matches {0..1} matches {	-- Begjæring framsatt av
-						include
-							archetype_id/value matches {/.*/}
-					}
-					ELEMENT[at0014] occurrences matches {0..1} matches {	-- Begjæringen er dokumentert i journalnotat datert
-						value matches {
-							DV_DATE matches {
-								value matches {yyyy-mm-dd}
-							}
 						}
 					}
 					ELEMENT[at0050] occurrences matches {0..1} matches {	-- Dato og tidspunkt vedtak fattet
@@ -259,11 +263,11 @@ ontology
 					description = <"*Det er fremsatt begjæring.(nb)">
 				>
 				["at0007"] = <
-					text = <"*Dato begjæringen ble fremmet(nb)">
-					description = <"*Dato begjæringen ble fremmet.(nb)">
+					text = <"*Dato begjæring ble fremmet(nb)">
+					description = <"*Dato begjæring ble fremmet(nb)">
 				>
 				["at0014"] = <
-					text = <"*Begjæringen er dokumentert i journalnotat datert(nb)">
+					text = <"*Begjæring er dokumentert i journalnotat datert(nb)">
 					description = <"*Referanse til journalnotat der begjæringen er dokumentert.(nb)">
 				>
 				["at0016"] = <
@@ -335,16 +339,16 @@ ontology
 					description = <"*Med stor sannsynlighet i meget nær fremtid får sin tilstand vesentlig forverret(nb)">
 				>
 				["at0065"] = <
-					text = <"*Utgjør en nærliggende og alvorlig fare for eget liv og helse(nb)">
-					description = <"*Utgjør en nærliggende og alvorlig fare for eget liv og helse(nb)">
+					text = <"*Utgjør en nærliggende og alvorlig fare for eget liv eller helse(nb)">
+					description = <"*Utgjør en nærliggende og alvorlig fare for eget liv eller helse(nb)">
 				>
 				["at0066"] = <
-					text = <"*Utgjør en nærliggende og alvorlig fare for andres liv og helse(nb)">
-					description = <"*Utgjør en nærliggende og alvorlig fare for andres liv og helse(nb)">
+					text = <"*Utgjør en nærliggende og alvorlig fare for andres liv eller helse(nb)">
+					description = <"*Utgjør en nærliggende og alvorlig fare for andres liv eller helse(nb)">
 				>
 				["at0068"] = <
 					text = <"*Hjemmel for helsehjelp(nb)">
-					description = <"*Standard kodeverk 9275 Vedtak etter psykisk helsevernloven.(nb)">
+					description = <"*Standard kodeverk 9277 Hjemmel for helsehjelp - psykisk helsevern, TPH.(nb)">
 				>
 				["at0069"] = <
 					text = <"*Vedtakstype(nb)">
@@ -360,7 +364,7 @@ foretatt av en lege utenfor den institusjon som skal fatte vedtak.(nb)">
 					description = <"*Rekvirentsøk - navn på lege som utførte undersøkelsen.(nb)">
 				>
 				["at0072"] = <
-					text = <"*Begjæring framsatt av(nb)">
+					text = <"*Begjæring fremsatt av(nb)">
 					description = <"*Standard kodeverk 9290 Instanser som kan fremsette begjæring om tvungent psykisk helsevern.(nb)">
 				>
 				["at0074"] = <
@@ -389,7 +393,11 @@ foretatt av en lege utenfor den institusjon som skal fatte vedtak.(nb)">
 				>
 				["at0084"] = <
 					text = <"*Frivillighet er forsøkt eller er formålsløst, begrunnelse(nb)">
-					description = <"*Begrunnelse for at frivillighet er forsøkt eller vurdert som formålsløst. (nb)">
+					description = <"*Eksempel på «åpenbart formålsløst» kan være at pasienten mangler samtykkekompetanse.(nb)">
+				>
+				["at0085"] = <
+					text = <"*Begjæring(nb)">
+					description = <"*Begjæring.(nb)">
 				>
 			>
 		>
@@ -416,11 +424,11 @@ foretatt av en lege utenfor den institusjon som skal fatte vedtak.(nb)">
 					description = <"Det er fremsatt begjæring.">
 				>
 				["at0007"] = <
-					text = <"Dato begjæringen ble fremmet">
-					description = <"Dato begjæringen ble fremmet.">
+					text = <"Dato begjæring ble fremmet">
+					description = <"Dato begjæring ble fremmet">
 				>
 				["at0014"] = <
-					text = <"Begjæringen er dokumentert i journalnotat datert">
+					text = <"Begjæring er dokumentert i journalnotat datert">
 					description = <"Referanse til journalnotat der begjæringen er dokumentert.">
 				>
 				["at0016"] = <
@@ -492,16 +500,16 @@ foretatt av en lege utenfor den institusjon som skal fatte vedtak.(nb)">
 					description = <"Med stor sannsynlighet i meget nær fremtid får sin tilstand vesentlig forverret">
 				>
 				["at0065"] = <
-					text = <"Utgjør en nærliggende og alvorlig fare for eget liv og helse">
-					description = <"Utgjør en nærliggende og alvorlig fare for eget liv og helse">
+					text = <"Utgjør en nærliggende og alvorlig fare for eget liv eller helse">
+					description = <"Utgjør en nærliggende og alvorlig fare for eget liv eller helse">
 				>
 				["at0066"] = <
-					text = <"Utgjør en nærliggende og alvorlig fare for andres liv og helse">
-					description = <"Utgjør en nærliggende og alvorlig fare for andres liv og helse">
+					text = <"Utgjør en nærliggende og alvorlig fare for andres liv eller helse">
+					description = <"Utgjør en nærliggende og alvorlig fare for andres liv eller helse">
 				>
 				["at0068"] = <
 					text = <"Hjemmel for helsehjelp">
-					description = <"Standard kodeverk 9275 Vedtak etter psykisk helsevernloven.">
+					description = <"Standard kodeverk 9277 Hjemmel for helsehjelp - psykisk helsevern, TPH.">
 				>
 				["at0069"] = <
 					text = <"Vedtakstype">
@@ -517,7 +525,7 @@ foretatt av en lege utenfor den institusjon som skal fatte vedtak.">
 					description = <"Rekvirentsøk - navn på lege som utførte undersøkelsen.">
 				>
 				["at0072"] = <
-					text = <"Begjæring framsatt av">
+					text = <"Begjæring fremsatt av">
 					description = <"Standard kodeverk 9290 Instanser som kan fremsette begjæring om tvungent psykisk helsevern.">
 				>
 				["at0074"] = <
@@ -546,7 +554,11 @@ foretatt av en lege utenfor den institusjon som skal fatte vedtak.">
 				>
 				["at0084"] = <
 					text = <"Frivillighet er forsøkt eller er formålsløst, begrunnelse">
-					description = <"Begrunnelse for at frivillighet er forsøkt eller vurdert som formålsløst. ">
+					description = <"Eksempel på «åpenbart formålsløst» kan være at pasienten mangler samtykkekompetanse.">
+				>
+				["at0085"] = <
+					text = <"Begjæring">
+					description = <"Begjæring.">
 				>
 			>
 		>

@@ -1,0 +1,59 @@
+{
+    "taskplan": {
+        "name": "Nutrition Screening",
+        "description": "According to Norwegian Directorate of Health should all patients be assessed for nutritional risk at admission and then weekly, or by another professionally grounded individually scheme. To assess nutritional risk are the recommended tools <<NRS_2002, NRS 2002>>,  <<MUST, MUST>> og <<MNA, MNA>>. <<HDirNutrition>>",
+        "guideline": "http://espen.info/documents/screening.pdf",
+        "definition": {
+            "$type": "TASK_GROUP",
+            "item_id": 1,
+            "description": "Nutritional Risk Screening",
+            "execution_type": "parallell",
+            "indications": "All patients admitted to hospital",
+            "execution_time": {
+                "$type": "EVENT_LINKED_TIMING",
+                "event_type": {
+                    "code": "ADMITTED_TO_HOSPITAL",
+                    "text": "Patient admitted to hospital"
+                },
+                "event_offset": "P24H",
+                "event_order": "after"
+
+
+            },
+
+            "members": [{
+                "$type": "TASK_GROUP",
+                "members": [{
+                    "$type": "DEFINED_TASK",
+                    "item_id": 2,
+                    "description": "Is BMI < 20.5",
+                    "lifecycle_state": "planned",
+                    "prototype": "<some prototype of the BMI archetype"
+                }, {
+                    "$type": "DEFINED_TASK",
+                    "item_id": 3,
+                    "description": "Has patient lost weight within 3 months",
+                    "lifecycle_state": "planned",
+                    "prototype": "<hmm - what to add here? Some boolean simple archetype?"
+                }, {
+                    "$type": "DEFINED_TASK",
+                    "item_id": 4,
+                    "description": "Has the patient had reduced food intake during the last week?",
+                    "prototype": "<some archetype about the state of food intake?>"
+
+                }, {
+                    "$type": "DEFINED_TASK",
+                    "item_id": 5,
+                    "description": "Is the patient severely/critical ill?",
+                    "prototype": "<some archetype about the state of the patient"
+                }]
+            },{
+                "$type":"DECISION_GROUP", 
+                "item_id":100, 
+                "description": ""
+            }]
+
+
+        }
+    }
+}
