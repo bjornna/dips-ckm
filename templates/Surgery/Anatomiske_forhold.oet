@@ -5,8 +5,8 @@
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
-      <purpose />
-      <use />
+      <purpose>Dokumentasjon av anatomiske forhold som er av betydning for å gi pasienten narkose.</purpose>
+      <use>Brukes for å dokumenter informasjon om anatomiske forhold hos en pasient som  har betydning for en planalgt anestesi.  Brukes også for å gi en evaluering av betydningen av de anatomisek forholdene.</use>
       <misuse />
     </details>
     <other_details>
@@ -60,32 +60,25 @@
       </item>
     </other_details>
   </description>
-  <annotations path="[openEHR-EHR-COMPOSITION.encounter.v1]/content[openEHR-EHR-EVALUATION.precaution.v1]/data[at0001]/items[at0013]">
-    <items>
-      <item>
-        <key>Notes.Comment</key>
-        <value>Skjules i skjema. Sjekk: får vi problemer med at vi har valgt kategori?</value>
-      </item>
-    </items>
-  </annotations>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Anatomiske forhold">
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.precaution.v1" concept_name="Forholdsregel" path="/content">
-      <Rule path="/data[at0001]/items[at0002]" name="Luftvei">
-        <constraint xsi:type="textConstraint">
-          <termQueryId terminologyID="ARK-ANE-LUFTVEI" terminologyLang="en-GB" queryName="ARK-ANE-LUFTVEI" />
-        </constraint>
-      </Rule>
-      <Rule path="/data[at0001]/items[at0014]" max="0" />
-      <Rule path="/data[at0001]/items[at0003]" max="0" />
-      <Rule path="/data[at0001]/items[at0013]">
+      <Rule path="/data[at0001]/items[at0002]" hide_on_form="true" name="Luftvei">
         <constraint xsi:type="textConstraint">
           <includedValues>SNOMEDCT::89187006::Luftvei</includedValues>
         </constraint>
       </Rule>
+      <Rule path="/data[at0001]/items[at0014]" max="0" />
+      <Rule path="/data[at0001]/items[at0003]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ANE-LUFTVEI" />
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0013]" max="0" />
       <Rule path="/protocol[at0006]/items[at0022]" max="0" />
       <Rule path="/protocol[at0006]/items[at0024]" max="0" />
-      <Rule path="/protocol[at0006]/items[at0009]" max="0" />
       <Rule path="/protocol[at0006]/items[at0004]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.mallampati_classification.v1" concept_name="Modifisert Mallampati-klassifikasjon" path="/protocol[at0006]/items[at0020]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.cormack_lehane.v1" concept_name="Cormack/Lehane-klassifikasjon" path="/protocol[at0006]/items[at0020]" />
     </Content>
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.clinical_synopsis.v1" concept_name="Klinisk sammendrag" path="/content">
       <Rule path="/data[at0001]/items[at0002]" name="Evaluering luftvei">
@@ -93,10 +86,6 @@
           <termQueryId terminologyID="ARK-ANE-EVALUERINGLUFTVEI" terminologyLang="en-GB" queryName="ARK-ANE-EVALUERINGLUFTVEI" />
         </constraint>
       </Rule>
-    </Content>
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.container_dips.v1" concept_name="Container" path="/content">
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.mallampati_classification.v1" concept_name="Modifisert Mallampati-klassifikasjon" path="/data[at0001]/items[at0004]" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.cormack_lehane.v1" concept_name="Cormack/Lehane-klassifikasjon" path="/data[at0001]/items[at0004]" />
     </Content>
     <Context />
   </definition>
