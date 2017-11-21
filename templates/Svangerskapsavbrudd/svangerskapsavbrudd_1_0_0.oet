@@ -288,7 +288,6 @@
             <includedValues>Svangerskapsavbrudd_0130_BEGJ_FR_AV::0130-2::Verge</includedValues>
           </constraint>
         </Rule>
-        <Rule path="/items[at0003]" name="Signert begjæring mottatt dato" />
         <Rule path="/items[at0007]" name="Begjæring signert av kvinne og lege">
           <constraint xsi:type="multipleConstraint">
             <includedTypes>Boolean</includedTypes>
@@ -390,6 +389,10 @@
             <includedValues>Svangerskapsavbrudd_0270_KV_ARK_SKG::0270-4::Ikke yrkesaktiv</includedValues>
             <includedValues>Svangerskapsavbrudd_0270_KV_ARK_SKG::0270-5::Arbeidssøkende</includedValues>
             <includedValues>Svangerskapsavbrudd_0270_KV_ARK_SKG::0270-6::Trygdet</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0003]" max="1" clone="true" name="Ikke oppgitt">
+          <constraint xsi:type="textConstraint">
             <includedValues>Svangerskapsavbrudd_0270_KV_ARK_SKG::0270-99::Ikke oppgitt</includedValues>
           </constraint>
         </Rule>
@@ -430,10 +433,8 @@
       <Rule path="/data[at0001]/items[at0029]/items[at0064]/items[at0013]" max="0" />
       <Rule path="/data[at0001]/items[at0029]/items[at0064]/items[at0082]" max="0" />
       <Rule path="/data[at0001]/items[at0029]/items[at0064]/items[at0030]" name="Røyking">
-        <constraint xsi:type="textConstraint">
-          <includedValues>Svangerskapsavbrudd_0300_KV_UTD::0300-1::Nei</includedValues>
-          <includedValues>Svangerskapsavbrudd_0300_KV_UTD::0300-2::Av og til</includedValues>
-          <includedValues>Svangerskapsavbrudd_0300_KV_UTD::0300-3::Daglig</includedValues>
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Coded_text</includedTypes>
         </constraint>
       </Rule>
       <Rule path="/data[at0001]/items[at0029]/items[at0064]/items[at0023]" name="Antall sigaretter per dag">
@@ -533,7 +534,7 @@
         <Rule path="/items[at0115]" max="0" />
       </Items>
     </Content>
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.pregnancy_termination_dips.v1" concept_name="Svangerskapsavbrudd" max="1" path="/content" name="Svangerskapsavbrudd, medikamentstatus">
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.pregnancy_termination_dips.v1" concept_name="Svangerskapsavbrudd" max="1" path="/content">
       <Rule path="/data[at0001]/items[at0007]">
         <constraint xsi:type="textConstraint">
           <includedValues>Svangerskapsavbrudd_0460_AN_TIDL_SYK::0460-1::Hjertesykdom</includedValues>
@@ -546,7 +547,6 @@
           <includedValues>Svangerskapsavbrudd_0460_AN_TIDL_SYK::0460-8::Kronisk nyresykdom</includedValues>
           <includedValues>Svangerskapsavbrudd_0460_AN_TIDL_SYK::0460-9::Gyn. sykdom/operasjon</includedValues>
           <includedValues>Svangerskapsavbrudd_0460_AN_TIDL_SYK::0460-10::Hepatitt</includedValues>
-          <includedValues>Svangerskapsavbrudd_0460_AN_TIDL_SYK::0460-99::Annet</includedValues>
         </constraint>
       </Rule>
       <Rule path="/data[at0001]/items[at0007]" max="1" clone="true" name="Annen tidligere sykdom, spesifikasjon" />
@@ -559,7 +559,6 @@
       <Rule path="/data[at0001]/items[at0138]" max="0" />
       <Rule path="/data[at0001]/items[at0139]">
         <constraint xsi:type="textConstraint">
-          <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-0::Ingen</includedValues>
           <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-1::Sikre perioder</includedValues>
           <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-2::Avbrutt samleie</includedValues>
           <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-3::Kondom</includedValues>
@@ -573,11 +572,15 @@
           <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-11::Kvinne sterilisert</includedValues>
           <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-12::Mann sterilisert</includedValues>
           <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-13::Nødprevensjon</includedValues>
-          <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-14::Ikke besvart</includedValues>
-          <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-99::Annet</includedValues>
         </constraint>
       </Rule>
       <Rule path="/data[at0001]/items[at0139]" max="1" clone="true" name="Annen prevensjon, spesifikasjon" />
+      <Rule path="/data[at0001]/items[at0139]" max="1" clone="true" name="Ingen; Ikke besvart">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-0::Ingen</includedValues>
+          <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-14::Ikke besvart</includedValues>
+        </constraint>
+      </Rule>
       <Rule path="/data[at0001]/items[at0140]" max="0" />
       <Rule path="/data[at0001]/items[at0071]/items[at0072]" name="Dato for siste menstruasjon i dette svangerskapet" />
       <Rule path="/data[at0001]/items[at0071]/items[at0134]" max="0" />
@@ -820,7 +823,6 @@
           <includedValues>Svangerskapsavbrudd_0690_FD_DIAG::0690-6::Fostervannsprøve (amniocentese)</includedValues>
           <includedValues>Svangerskapsavbrudd_0690_FD_DIAG::0690-7::Annen føtal punksjon (thoracocentese, laparocentese, urinblærepunksjon)</includedValues>
           <includedValues>Svangerskapsavbrudd_0690_FD_DIAG::0690-8::Biopsi fra hud, lever eller annet organ</includedValues>
-          <includedValues>Svangerskapsavbrudd_0690_FD_DIAG::0690-99::Annet</includedValues>
         </constraint>
       </Rule>
       <Rule path="/description[at0001]/items[at0065]" max="1" clone="true" name="Annen fosterdiagnostikk, spesifiser" />
@@ -852,7 +854,6 @@
       </Rule>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" max="1" path="/description[at0001]/items[at0003]">
         <Rule path="/items[at0002]" max="0" />
-        <Rule path="/items[at0003]" max="0" />
         <Rule path="/items[at0004]" max="0" />
       </Items>
     </Content>
@@ -871,9 +872,8 @@
         <Rule path="/data[at0001]/items[at0072]" max="0" />
         <Rule path="/data[at0001]/items[at0030]" max="0" />
         <Rule path="/data[at0001]/items[at0073]" name="Diagnose bekreftet">
-          <constraint xsi:type="textConstraint">
-            <includedValues>Svangerskapsavbrudd_0760_FD_DIAG_BKR::0760-1::Ja, ved syning</includedValues>
-            <includedValues>Svangerskapsavbrudd_0760_FD_DIAG_BKR::0760-2::Nei</includedValues>
+          <constraint xsi:type="multipleConstraint">
+            <includedTypes>Coded_text</includedTypes>
           </constraint>
         </Rule>
         <Rule path="/data[at0001]/items[at0069]" max="0" />
@@ -920,13 +920,16 @@
       <Rule path="/description[at0001]/items[at0069]" max="0" />
       <Rule path="/description[at0001]/items[at0006]">
         <constraint xsi:type="textConstraint">
-          <includedValues>Svangerskapsavbrudd_0910_IG_KOMPL_AVBR::0910-0::Ingen</includedValues>
           <includedValues>Svangerskapsavbrudd_0910_IG_KOMPL_AVBR::0910-1::Ufullstendig abort</includedValues>
           <includedValues>Svangerskapsavbrudd_0910_IG_KOMPL_AVBR::0910-2::Perforasjon</includedValues>
-          <includedValues>Svangerskapsavbrudd_0910_IG_KOMPL_AVBR::0910-99::Annet</includedValues>
         </constraint>
       </Rule>
       <Rule path="/description[at0001]/items[at0006]" max="1" clone="true" name="Spesifikasjon av komplikasjoner" />
+      <Rule path="/description[at0001]/items[at0006]" max="1" clone="true" name="Ingen komplikasjon">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Svangerskapsavbrudd_0910_IG_KOMPL_AVBR::0910-0::Ingen komplikasjon</includedValues>
+        </constraint>
+      </Rule>
       <Rule path="/description[at0001]/items[at0066]" max="0" />
       <Rule path="/description[at0001]/items[at0060]" max="0" />
       <Rule path="/description[at0001]/items[at0061]" max="0" />
@@ -945,23 +948,33 @@
       </Rule>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" max="1" path="/description[at0001]/items[at0003]">
         <Rule path="/items[at0002]" max="0" />
-        <Rule path="/items[at0003]" max="0" />
         <Rule path="/items[at0004]" max="0" />
       </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.complication_dips.v1" concept_name="Complication dips" max="1" path="/description[at0001]/items[at0003]">
         <Rule path="/items[at0001]" max="0" />
         <Rule path="/items[at0002]" max="0" />
-        <Rule path="/items[at0005]/items[at0004]">
+        <Rule path="/items[at0005 and name/value='Tiltak']/items[at0004]">
           <constraint xsi:type="textConstraint">
-            <includedValues>Svangerskapsavbrudd_0930_IG_BEH_KOMPL::0930-0::Ingen</includedValues>
             <includedValues>Svangerskapsavbrudd_0930_IG_BEH_KOMPL::0930-1::Kirurgisk revisjon av uterinhulen</includedValues>
             <includedValues>Svangerskapsavbrudd_0930_IG_BEH_KOMPL::0930-2::Laparoskopi</includedValues>
             <includedValues>Svangerskapsavbrudd_0930_IG_BEH_KOMPL::0930-3::Laparotomi</includedValues>
             <includedValues>Svangerskapsavbrudd_0930_IG_BEH_KOMPL::0930-4::Blodtransfusjon</includedValues>
-            <includedValues>Svangerskapsavbrudd_0930_IG_BEH_KOMPL::0930-99::Annet</includedValues>
           </constraint>
         </Rule>
-        <Rule path="/items[at0005]/items[at0007]" max="0" />
+        <Rule path="/items[at0005 and name/value='Tiltak']/items[at0006]" max="0" />
+        <Rule path="/items[at0005 and name/value='Tiltak']/items[at0007]" max="0" />
+        <Rule path="/items[at0005]" max="1" clone="true" name="Annet tiltak" />
+        <Rule path="/items[at0005 and name/value='Annet tiltak']/items[at0004]" name="Annet tiltak" />
+        <Rule path="/items[at0005 and name/value='Annet tiltak']/items[at0006]" max="0" />
+        <Rule path="/items[at0005 and name/value='Annet tiltak']/items[at0007]" max="0" />
+        <Rule path="/items[at0005]" max="1" clone="true" name="Ingen tiltak" />
+        <Rule path="/items[at0005 and name/value='Ingen tiltak']/items[at0004]" name="Ingen tiltak">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Svangerskapsavbrudd_0930_IG_BEH_KOMPL::0930-0::Ingen</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0005 and name/value='Ingen tiltak']/items[at0006]" max="0" />
+        <Rule path="/items[at0005 and name/value='Ingen tiltak']/items[at0007]" max="0" />
         <Rule path="/items[at0008]" max="0" />
         <Rule path="/items[at0009]" max="0" />
         <Rule path="/items[at0011]" max="0" />
@@ -1001,7 +1014,6 @@
       </Rule>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" path="/description[at0001]/items[at0003]">
         <Rule path="/items[at0002]" max="0" />
-        <Rule path="/items[at0003]" max="0" />
         <Rule path="/items[at0004]" max="0" />
       </Items>
     </Content>
@@ -1036,12 +1048,10 @@
       </Rule>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" path="/description[at0001]/items[at0003]">
         <Rule path="/items[at0002]" max="0" />
-        <Rule path="/items[at0003]" max="0" />
         <Rule path="/items[at0004]">
           <constraint xsi:type="textConstraint">
             <includedValues>Svangerskapsavbrudd_0890_IG_INNGR::0890-5::Spiral satt inn</includedValues>
             <includedValues>Svangerskapsavbrudd_0890_IG_INNGR::0890-6::Sterilisering</includedValues>
-            <includedValues>Svangerskapsavbrudd_0890_IG_INNGR::0890-99::Annet</includedValues>
           </constraint>
         </Rule>
         <Rule path="/items[at0004]" max="1" clone="true" name="Spesifikasjon av inngrep" />
@@ -1077,6 +1087,19 @@
         <constraint xsi:type="textConstraint">
           <includedValues>Svangerskapsavbrudd_0540_ST_KLAM_TATT::0540-1::Ja</includedValues>
           <includedValues>Svangerskapsavbrudd_0540_ST_KLAM_TATT::0540-2::Nei</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0020]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Svangerskapsavbrudd_0300_KV_UTD::0300-1::Nei</includedValues>
+          <includedValues>Svangerskapsavbrudd_0300_KV_UTD::0300-2::Av og til</includedValues>
+          <includedValues>Svangerskapsavbrudd_0300_KV_UTD::0300-3::Daglig</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0021]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Svangerskapsavbrudd_0760_FD_DIAG_BKR::0760-1::Ja, ved syning</includedValues>
+          <includedValues>Svangerskapsavbrudd_0760_FD_DIAG_BKR::0760-2::Nei</includedValues>
         </constraint>
       </Rule>
     </Content>
