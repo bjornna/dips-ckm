@@ -24,11 +24,25 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <"Anine Ramberg", "Kjetil Jørgensen">
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"26F31DBD569EC03A3E2063704A5195C7">
+		["MD5-CAM-1.0.1"] = <"80064DFF9B5D4BC217393C1C5C829823">
 	>
 
 definition
 	ACTION[at0000] matches {	-- Sjekkliste trygg kirurgi time-out
+		ism_transition matches {
+			ISM_TRANSITION[at0037] matches {	-- Time-out
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0037]}		-- Time-out
+					}
+				}
+			}
+		}
 		description matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {1..*; unordered} matches {
@@ -308,6 +322,10 @@ Formålet med tiltakspakken trygg kirurgi fra pasientsikkerhetskampanjen er å r
 				["at0036"] = <
 					text = <"Tidspunkt perioperativ temperatur målt">
 					description = <"Tidspunkt når perioperativ temperatur er målt.">
+				>
+				["at0037"] = <
+					text = <"Time-out">
+					description = <"*">
 				>
 			>
 		>

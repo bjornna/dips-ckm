@@ -25,11 +25,25 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <"Anine Ramberg", "Kjetil Jørgensen">
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"1606C2ADB81B8EF6F2C134975F1139B3">
+		["MD5-CAM-1.0.1"] = <"833DFD6A87332ABCCEB02A6BA018F5AA">
 	>
 
 definition
 	ACTION[at0000] matches {	-- Sjekkliste trygg kirurgi forberedelse
+		ism_transition matches {
+			ISM_TRANSITION[at0045] matches {	-- Forberedelse
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0045]}		-- Forberedelse
+					}
+				}
+			}
+		}
 		description matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {1..*; unordered} matches {
@@ -348,6 +362,10 @@ Formålet med tiltakspakken trygg kirurgi fra pasientsikkerhetskampanjen er å r
 				["at0043"] = <
 					text = <"Tidspunkt preoperativ temperatur målt">
 					description = <"Tidspunkt når preoperativ temperatur ble målt.">
+				>
+				["at0045"] = <
+					text = <"Forberedelse">
+					description = <"*">
 				>
 			>
 		>

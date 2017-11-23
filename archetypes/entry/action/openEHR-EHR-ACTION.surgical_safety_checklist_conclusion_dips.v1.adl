@@ -24,11 +24,25 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <"Anine Ramberg", "Kjetil Jørgensen">
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"70ABBBC9276A0509598185464F5C7657">
+		["MD5-CAM-1.0.1"] = <"93315E31A46E1610AE53FCAF83CD426E">
 	>
 
 definition
 	ACTION[at0000] matches {	-- Sjekkliste trygg kirurgi avslutning
+		ism_transition matches {
+			ISM_TRANSITION[at0016] matches {	-- Avslutning
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0016]}		-- Avslutning
+					}
+				}
+			}
+		}
 		description matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {1..*; unordered} matches {
@@ -144,6 +158,10 @@ Formålet med tiltakspakken trygg kirurgi fra pasientsikkerhetskampanjen er å r
 				["at0015"] = <
 					text = <"Tidspunkt postoperativ temperatur målt">
 					description = <"Tidspunkt når postoperativ temperatur ble målt.">
+				>
+				["at0016"] = <
+					text = <"Avslutning">
+					description = <"*">
 				>
 			>
 		>
