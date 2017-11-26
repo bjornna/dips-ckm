@@ -5,9 +5,9 @@
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
-      <purpose />
-      <use />
-      <misuse />
+      <purpose>Dokumentasjon av pasientens røykevaner og vaner vedr. andre stilmulantia/rusmidler.</purpose>
+      <use>Brukes for å registrere informasjon om pasientens røykevaner og forhold til andre rusmidler/stimulantia. Skal brukes som persistent informasjon med scope pasient.</use>
+      <misuse>Brukes ikke for å registrerer aktulle bruk på en gitt dag. </misuse>
     </details>
     <other_details>
       <item>
@@ -60,34 +60,110 @@
       </item>
     </other_details>
   </description>
+  <annotations path="[openEHR-EHR-COMPOSITION.encounter.v1]/content[openEHR-EHR-EVALUATION.precaution.v1]/data[at0001]/items[at0013]">
+    <items>
+      <item>
+        <key>Notes.Comment</key>
+        <value>Skjules i skjema</value>
+      </item>
+    </items>
+  </annotations>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Røyk, stimulantia">
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.tobacco_smoking_summary.v1" concept_name="Røykeanamnese" path="/content">
-      <Rule path="/data[at0001]/items[at0029]/items[at0064]/items[at0081]">
-        <constraint xsi:type="multipleConstraint">
-          <includedTypes>Count</includedTypes>
+      <Rule path="/data[at0001]/items[at0015]" max="0" />
+      <Rule path="/data[at0001]/items[at0080]" max="0" />
+      <Rule path="/data[at0001]/items[at0029]" max="1">
+        <nameConstraint>
+          <excludedValues>local::at0055</excludedValues>
+          <excludedValues>local::at0056</excludedValues>
+          <excludedValues>local::at0066</excludedValues>
+          <excludedValues>local::at0057</excludedValues>
+          <excludedValues>local::at0062</excludedValues>
+          <excludedValues>local::at0078</excludedValues>
+          <excludedValues>local::at0088</excludedValues>
+        </nameConstraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0029]/items[at0053]" max="0" />
+      <Rule path="/data[at0001]/items[at0029]/items[at0064]/items[at0081]" max="0" />
+      <Rule path="/data[at0001]/items[at0029]/items[at0064]/items[at0013]" max="0" />
+      <Rule path="/data[at0001]/items[at0029]/items[at0064]/items[at0082]" max="0" />
+      <Rule path="/data[at0001]/items[at0029]/items[at0064]/items[at0023]">
+        <constraint xsi:type="quantityConstraint">
+          <excludedUnits>1/wk</excludedUnits>
         </constraint>
       </Rule>
-      <Rule path="/data[at0001]/items[at0029]/items[at0064]/items[at0030]">
-        <constraint xsi:type="textConstraint">
-          <includedValues>Daglig</includedValues>
-          <includedValues>Ikke daglig</includedValues>
-        </constraint>
-      </Rule>
-      <Rule path="/protocol[at0021]/items[at0072]">
-        <constraint xsi:type="multipleConstraint">
-          <includedTypes>Count</includedTypes>
-        </constraint>
-      </Rule>
+      <Rule path="/data[at0001]/items[at0029]/items[at0064]/items[at0065]" max="0" />
+      <Rule path="/data[at0001]/items[at0029]/items[at0064]/items[at0025]" max="0" />
+      <Rule path="/data[at0001]/items[at0029]/items[at0064]/items[at0087]" max="0" />
+      <Rule path="/data[at0001]/items[at0029]/items[at0017]" max="0" />
+      <Rule path="/data[at0001]/items[at0029]/items[at0069]" max="0" />
+      <Rule path="/data[at0001]/items[at0016]" max="0" />
+      <Rule path="/data[at0001]/items[at0074]" max="0" />
+      <Rule path="/data[at0001]/items[at0019]" max="0" />
+      <Rule path="/protocol[at0021]/items[at0071]" max="0" />
+      <Rule path="/protocol[at0021]/items[at0085]" max="0" />
+      <Rule path="/protocol[at0021]/items[at0075]" max="0" />
+      <Rule path="/protocol[at0021]/items[at0076]" max="0" />
+      <Rule path="/protocol[at0021]/items[at0079]" max="0" />
+      <Rule path="/protocol[at0021]/items[at0072]" max="0" />
+      <Rule path="/protocol[at0021]/items[at0022]" max="0" />
     </Content>
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.precaution.v1" concept_name="Forholdsregel" max="1" path="/content" name="Stimulantia">
       <Rule path="/data[at0001]/items[at0002]" name="Stimulantia" />
-      <Rule path="/data[at0001]/items[at0014]">
-        <constraint xsi:type="multipleConstraint">
-          <includedTypes>Coded_text</includedTypes>
+      <Rule path="/data[at0001]/items[at0014]" max="0" />
+      <Rule path="/data[at0001]/items[at0003]" max="0" />
+      <Rule path="/data[at0001]/items[at0013]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>SnomedCT::373333006::Stimulans (substans)</includedValues>
         </constraint>
       </Rule>
+      <Rule path="/data[at0001]/items[at0008]" max="0" />
+      <Rule path="/protocol[at0006]/items[at0022]" max="0" />
+      <Rule path="/protocol[at0006]/items[at0024]" max="0" />
+      <Rule path="/protocol[at0006]/items[at0009]" max="0" />
+      <Rule path="/protocol[at0006]/items[at0004]" max="0" />
     </Content>
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.smokeless_tobacco_summary_dips.v1" concept_name="Røykfri tobakkanamnese" path="/content" />
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.smokeless_tobacco_summary_dips.v1" concept_name="Røykfri tobakkanamnese" path="/content">
+      <Rule path="/data[at0001]/items[at0015]" max="0" />
+      <Rule path="/data[at0001]/items[at0080]" max="0" />
+      <Rule path="/data[at0001]/items[at0029]" max="1">
+        <nameConstraint>
+          <excludedValues>local::at0056</excludedValues>
+          <excludedValues>local::at0066</excludedValues>
+          <excludedValues>local::at0078</excludedValues>
+          <excludedValues>local::at0057</excludedValues>
+          <excludedValues>local::at0092</excludedValues>
+          <excludedValues>local::at0062</excludedValues>
+          <excludedValues>local::at0055</excludedValues>
+          <excludedValues>local::at0093</excludedValues>
+          <excludedValues>local::at0088</excludedValues>
+        </nameConstraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0029]/items[at0053]" max="0" />
+      <Rule path="/data[at0001]/items[at0029]/items[at0064]/items[at0081]" max="0" />
+      <Rule path="/data[at0001]/items[at0029]/items[at0064]/items[at0013]" max="0" />
+      <Rule path="/data[at0001]/items[at0029]/items[at0064]/items[at0082]" max="0" />
+      <Rule path="/data[at0001]/items[at0029]/items[at0064]/items[at0065]">
+        <constraint xsi:type="quantityConstraint">
+          <excludedUnits>[oz_av]/d</excludedUnits>
+          <excludedUnits>[oz_av]/wk</excludedUnits>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0029]/items[at0064]/items[at0025]" max="0" />
+      <Rule path="/data[at0001]/items[at0029]/items[at0064]/items[at0087]" max="0" />
+      <Rule path="/data[at0001]/items[at0029]/items[at0017]" max="0" />
+      <Rule path="/data[at0001]/items[at0029]/items[at0069]" max="0" />
+      <Rule path="/data[at0001]/items[at0016]" max="0" />
+      <Rule path="/data[at0001]/items[at0074]" max="0" />
+      <Rule path="/data[at0001]/items[at0019]" max="0" />
+      <Rule path="/protocol[at0021]/items[at0071]" max="0" />
+      <Rule path="/protocol[at0021]/items[at0085]" max="0" />
+      <Rule path="/protocol[at0021]/items[at0075]" max="0" />
+      <Rule path="/protocol[at0021]/items[at0076]" max="0" />
+      <Rule path="/protocol[at0021]/items[at0079]" max="0" />
+      <Rule path="/protocol[at0021]/items[at0072]" max="0" />
+      <Rule path="/protocol[at0021]/items[at0022]" max="0" />
+    </Content>
     <Context />
   </definition>
 </template>

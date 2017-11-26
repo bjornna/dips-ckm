@@ -24,11 +24,25 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <"Anine Ramberg", "Kjetil Jørgensen">
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"B07C708059DBCB1585CA5528096EA8BB">
+		["MD5-CAM-1.0.1"] = <"19512F69589A7E78DB20F88CED7B00AA">
 	>
 
 definition
 	ACTION[at0000] matches {	-- Sjekkliste trygg kirurgi time-out
+		ism_transition matches {
+			ISM_TRANSITION[at0037] matches {	-- Time-out
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0037]}		-- Time-out
+					}
+				}
+			}
+		}
 		description matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {1..*; unordered} matches {
@@ -44,6 +58,11 @@ definition
 							DV_BOOLEAN matches {
 								value matches {True, False}
 							}
+						}
+					}
+					ELEMENT[at0038] occurrences matches {0..1} matches {	-- Tidspunkt for gitt antibiotikaprofylakse
+						value matches {
+							DV_DATE_TIME matches {*}
 						}
 					}
 					ELEMENT[at0005] occurrences matches {0..*} matches {	-- Kirurg, operasjonssykepleier, anestesilege og anestesisykepleier bekrefter muntlig
@@ -114,6 +133,11 @@ definition
 									at0026]	-- Nei
 								}
 							}
+						}
+					}
+					ELEMENT[at0036] occurrences matches {0..1} matches {	-- Tidspunkt perioperativ temperatur målt
+						value matches {
+							DV_DATE_TIME matches {*}
 						}
 					}
 					ELEMENT[at0027] occurrences matches {0..1} matches {	-- Er tiltak for å forebygge hypotermi iverksatt?
@@ -299,6 +323,18 @@ Formålet med tiltakspakken trygg kirurgi fra pasientsikkerhetskampanjen er å r
 				["at0035"] = <
 					text = <"Lokale tillegg">
 					description = <"Mulighet til å legge till lokale tillegg.">
+				>
+				["at0036"] = <
+					text = <"Tidspunkt perioperativ temperatur målt">
+					description = <"Tidspunkt når perioperativ temperatur er målt.">
+				>
+				["at0037"] = <
+					text = <"Time-out">
+					description = <"*">
+				>
+				["at0038"] = <
+					text = <"Tidspunkt for gitt antibiotikaprofylakse">
+					description = <"Tidspunkt for gitt antibiotikaprofylakse.">
 				>
 			>
 		>
