@@ -164,9 +164,21 @@
       </item>
     </items>
   </annotations>
+  <annotations path="[openEHR-EHR-COMPOSITION.progress_note.v1]/content[openEHR-EHR-INSTRUCTION.request-procedure.v1]/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.procedure_details_dips.v1 and name/value='Planlagt luftveistilgang']/items[at0001]">
+    <items>
+      <item>
+        <key>Notes.Comment</key>
+        <value>sett inn kodeverk</value>
+      </item>
+    </items>
+  </annotations>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.progress_note.v1" concept_name="Progress Note" name="Anestesivurdering">
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.precaution.v1" concept_name="Forholdsregel" max="1" path="/content" name="Viktige faktorer som kan påvirke anestesi">
-      <Rule path="/data[at0001]/items[at0002]" name="Viktige faktorer som kan påvirke anestesi" />
+      <Rule path="/data[at0001]/items[at0002]" name="Anestesi prosedyre">
+        <constraint xsi:type="textConstraint">
+          <includedValues>SNOMED-CT::399248000::Anestesi prosedyre</includedValues>
+        </constraint>
+      </Rule>
       <Rule path="/data[at0001]/items[at0014]" max="0" />
       <Rule path="/data[at0001]/items[at0003]">
         <constraint xsi:type="textConstraint">
@@ -180,7 +192,6 @@
       <Rule path="/data[at0001]/items[at0008]" name="Utfyllende anestesianmerkninger" />
       <Rule path="/protocol[at0006]/items[at0022]" max="0" />
       <Rule path="/protocol[at0006]/items[at0024]" max="0" />
-      <Rule path="/protocol[at0006]/items[at0009]" max="0" />
       <Rule path="/protocol[at0006]/items[at0004]" max="0" />
     </Content>
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.container_dips.v1" concept_name="Container" max="1" path="/content" name="ASA status">
@@ -189,7 +200,7 @@
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.precaution.v1" concept_name="Forholdsregel" max="1" path="/content" name="Anatomiske forhold luftveier">
       <Rule path="/data[at0001]/items[at0002]" hide_on_form="true" name="Luftvei">
         <constraint xsi:type="textConstraint">
-          <includedValues>SNOMEDCT::89187006::Luftvei</includedValues>
+          <includedValues>SNOMED-CT::89187006::Luftvei</includedValues>
         </constraint>
       </Rule>
       <Rule path="/data[at0001]/items[at0014]" max="0" />
@@ -234,7 +245,7 @@
           <includedValues>SNOMED-CT::399248000::Anestesi prosedyre</includedValues>
         </constraint>
       </Rule>
-      <Rule path="/activities[at0001]/description[at0009]/items[at0135.1]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0135.1]" name="Overordnet beskrivelse anestesiplan" />
       <Rule path="/activities[at0001]/description[at0009]/items[at0062]" max="0" />
       <Rule path="/activities[at0001]/description[at0009]/items[at0064]" max="0" />
       <Rule path="/activities[at0001]/description[at0009]/items[at0065.1]" max="0" />
@@ -243,13 +254,14 @@
       <Rule path="/activities[at0001]/description[at0009]/items[at0145.1]" max="0" />
       <Rule path="/activities[at0001]/description[at0009]/items[at0040.1]" max="0" />
       <Rule path="/activities[at0001]/description[at0009]/items[at0144.1]" max="0" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" max="1" path="/activities[at0001]/description[at0009]/items[at0132]" name="NCMP koder">
-        <Rule path="/items[at0001]">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" path="/activities[at0001]/description[at0009]/items[at0132]">
+        <Rule path="/items[at0001]" max="1" name="NCMP koder">
           <constraint xsi:type="textConstraint">
             <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="NCMP" />
           </constraint>
         </Rule>
         <Rule path="/items[at0002]" max="0" />
+        <Rule path="/items[at0004]" max="1" name="Legens beskrivelse" />
       </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" max="1" path="/activities[at0001]/description[at0009]/items[at0132]" name="Planlagt luftveistilgang">
         <Rule path="/items[at0002]" max="0" />
@@ -260,6 +272,7 @@
         <Rule path="/items[at0004]" max="0" />
       </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" max="1" path="/activities[at0001]/description[at0009]/items[at0132]" name="Plan for innledning">
+        <Rule path="/items[at0001]" max="1" />
         <Rule path="/items[at0002]" max="0" />
         <Rule path="/items[at0004]" max="0" />
       </Items>
@@ -276,6 +289,31 @@
       <Rule path="/data[at0001]/items[at0004]/items[at0006]" max="0" />
       <Rule path="/data[at0001]/items[at0004]/items[at0007]" max="0" />
       <Rule path="/data[at0001]/items[at0004]/items[at0005]" max="1" />
+    </Content>
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" path="/content">
+      <Rule path="/description[at0001]/items[at0002]" name="Anestesitilysn">
+        <constraint xsi:type="textConstraint">
+          <includedValues>SNOMED-CT::83874006::Anestesitilsyn</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0001]/items[at0049]" max="0" />
+      <Rule path="/description[at0001]/items[at0065]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>SNOMED-CT::5880005::Pasient tilsett</includedValues>
+          <includedValues>SNOMED-CT::312853008::Journaltilsyn</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0001]/items[at0058]" max="0" />
+      <Rule path="/description[at0001]/items[at0063]" max="0" />
+      <Rule path="/description[at0001]/items[at0048]" max="0" />
+      <Rule path="/description[at0001]/items[at0069]" max="0" />
+      <Rule path="/description[at0001]/items[at0006]" max="0" />
+      <Rule path="/description[at0001]/items[at0066]" max="0" />
+      <Rule path="/description[at0001]/items[at0060]" max="0" />
+      <Rule path="/description[at0001]/items[at0061]" max="0" />
+      <Rule path="/description[at0001]/items[at0067]" max="0" />
+      <Rule path="/description[at0001]/items[at0014]" max="0" />
+      <Rule path="/description[at0001]/items[at0005]" max="0" />
     </Content>
     <Context />
   </definition>
