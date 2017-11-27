@@ -24,11 +24,25 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <"Anine Ramberg", "Kjetil Jørgensen">
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"26F31DBD569EC03A3E2063704A5195C7">
+		["MD5-CAM-1.0.1"] = <"818E89E32E16E2FCA293A82E10F3BF55">
 	>
 
 definition
 	ACTION[at0000] matches {	-- Sjekkliste trygg kirurgi time-out
+		ism_transition matches {
+			ISM_TRANSITION[at0037] matches {	-- Time-out
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0037]}		-- Time-out
+					}
+				}
+			}
+		}
 		description matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {1..*; unordered} matches {
@@ -44,6 +58,11 @@ definition
 							DV_BOOLEAN matches {
 								value matches {True, False}
 							}
+						}
+					}
+					ELEMENT[at0038] occurrences matches {0..1} matches {	-- Tidspunkt for gitt antibiotikaprofylakse
+						value matches {
+							DV_DATE_TIME matches {*}
 						}
 					}
 					ELEMENT[at0005] occurrences matches {0..*} matches {	-- Kirurg, operasjonssykepleier, anestesilege og anestesisykepleier bekrefter muntlig
@@ -146,9 +165,14 @@ definition
 									[local::
 									at0032, 	-- Ikke aktuelt
 									at0033, 	-- Ja
-									at0034]	-- Nei. Hvorfor? 
+									at0034]	-- Nei
 								}
 							}
+						}
+					}
+					ELEMENT[at0039] occurrences matches {0..1} matches {	-- Kommentar
+						value matches {
+							DV_TEXT matches {*}
 						}
 					}
 					allow_archetype CLUSTER[at0035] occurrences matches {0..*} matches {	-- Lokale tillegg
@@ -298,7 +322,7 @@ Formålet med tiltakspakken trygg kirurgi fra pasientsikkerhetskampanjen er å r
 					description = <"Tromboseprofylakse er gitt.">
 				>
 				["at0034"] = <
-					text = <"Nei. Hvorfor? ">
+					text = <"Nei">
 					description = <"Det er ikke gitt tromboseprofylakse og årsak er gjennomgått.">
 				>
 				["at0035"] = <
@@ -308,6 +332,18 @@ Formålet med tiltakspakken trygg kirurgi fra pasientsikkerhetskampanjen er å r
 				["at0036"] = <
 					text = <"Tidspunkt perioperativ temperatur målt">
 					description = <"Tidspunkt når perioperativ temperatur er målt.">
+				>
+				["at0037"] = <
+					text = <"Time-out">
+					description = <"*">
+				>
+				["at0038"] = <
+					text = <"Tidspunkt for gitt antibiotikaprofylakse">
+					description = <"Tidspunkt for gitt antibiotikaprofylakse.">
+				>
+				["at0039"] = <
+					text = <"Kommentar">
+					description = <"Brukes som kommentar">
 				>
 			>
 		>
