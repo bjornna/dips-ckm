@@ -1,0 +1,120 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.planned_anesthesia_dips.v1
+
+concept
+	[at0000]	-- Anestesi detaljer
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2015-03-01">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Å beskrive detaljer rundt anestesien i forbindelse med en prosedyre.">
+			use = <"Brukes i for å beskrive  detaljer rundt anestesi i forbindelse med en prosedyre eller undersøkelse. Feks, NCMP koder, luftvei, informasjon om luftvei.">
+			keywords = <"operasjon", "kirurgi", "overvåking", "anestesi">
+			misuse = <"Brukes ikke for å dokumentere anestesien som er gitt under en prosedyre.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <"Anca Heyd, DIPS ASA, ahe@dips.no">
+		["MD5-CAM-1.0.1"] = <"AB11F76E44BC1CEFE6F615C9E7CCACBA">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Anestesi detaljer
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {1..*} matches {	-- Anestesitype
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..*} matches {	-- Planlagt luftvei
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..*} matches {	-- Planlagt ekstra overvåking
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0008] occurrences matches {0..1} matches {	-- Plan for innledning
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			allow_archetype CLUSTER[at0007] occurrences matches {0..*} matches {	-- Detaljer
+				include
+					archetype_id/value matches {/.*/}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"*Anestesi detaljer(nb)">
+					description = <"* Anestesi detaljer i forbindelse med en prosedyre. Denne arketypen er tenkt brukt til å registrere deltaljer både i planleggingsfasen og gjennomføringsfasen. ID bør endres når dette er gjennomførbart.(nb)">
+				>
+				["at0001"] = <
+					text = <"*Anestesitype(nb)">
+					description = <"*Anestesitype som planlegges gitt. Dette kan være en eller en kombinasjon av flere f.eks. generelle anestesi og epiduralbedøvelse.(nb)">
+				>
+				["at0002"] = <
+					text = <"Planlagt luftvei">
+					description = <"Luftveistilgang som lanlegges i forbindelse med anestesi.*">
+				>
+				["at0003"] = <
+					text = <"Planlagt ekstra overvåking">
+					description = <"Planlagt ekstra overvåking  i forbindelse med anestesi.">
+				>
+				["at0007"] = <
+					text = <"*Detaljer(nb)">
+					description = <"*Strukturerte detaljer som definerer den forhold rundt anestesi f.eks. en CLUSTER-arketype beskriver utstyret benyttet ved overvåking.(nb)">
+				>
+				["at0008"] = <
+					text = <"*Plan for innledning(nb)">
+					description = <"*Brukes til å beskrive detaljer rundt plan for innledning av anestesi.(nb)">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Anestesi detaljer">
+					description = <" Anestesi detaljer i forbindelse med en prosedyre. Denne arketypen er tenkt brukt til å registrere deltaljer både i planleggingsfasen og gjennomføringsfasen. ID bør endres når dette er gjennomførbart.">
+				>
+				["at0001"] = <
+					text = <"Anestesitype">
+					description = <"Anestesitype som planlegges gitt. Dette kan være en eller en kombinasjon av flere f.eks. generelle anestesi og epiduralbedøvelse.">
+				>
+				["at0002"] = <
+					text = <"Planlagt luftvei">
+					description = <"Luftveistilgang som lanlegges i forbindelse med anestesi.*">
+				>
+				["at0003"] = <
+					text = <"Planlagt ekstra overvåking">
+					description = <"Planlagt ekstra overvåking  i forbindelse med anestesi.">
+				>
+				["at0007"] = <
+					text = <"Detaljer">
+					description = <"Strukturerte detaljer som definerer den forhold rundt anestesi f.eks. en CLUSTER-arketype beskriver utstyret benyttet ved overvåking.">
+				>
+				["at0008"] = <
+					text = <"Plan for innledning">
+					description = <"Brukes til å beskrive detaljer rundt plan for innledning av anestesi.">
+				>
+			>
+		>
+	>
