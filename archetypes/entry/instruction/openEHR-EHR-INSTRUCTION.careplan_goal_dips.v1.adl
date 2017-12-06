@@ -2,7 +2,7 @@ archetype (adl_version=1.4)
 	openEHR-EHR-INSTRUCTION.careplan_goal_dips.v1
 
 concept
-	[at0000]	-- Oppnå mål
+	[at0000]	-- Mål
 language
 	original_language = <[ISO_639-1::nb]>
 	translations = <
@@ -52,17 +52,24 @@ description
 	other_contributors = <"Ivar Yrke, DIPS AS, Norway", "Sindre Nordbøe Årøen, DIPS AS, Norway", "Terje Sagmyr, DIPS AS, Norway, Bjørn-Petter Johannessen, DIPS AS, Norway">
 	other_details = <
 		["current_contact"] = <"Phuong Pedersen, DIPS AS <ppe@dips.no>">
-		["MD5-CAM-1.0.1"] = <"BEA5D6E196B85B4FD3E9605A53C5700F">
+		["MD5-CAM-1.0.1"] = <"881F6332CD870BF07718AE3BF74772DC">
 		["custodian_organisation"] = <"DIPS AS">
 	>
 
 definition
-	INSTRUCTION[at0000] matches {	-- Oppnå mål
+	INSTRUCTION[at0000] matches {	-- Mål
 		activities cardinality matches {0..*; unordered} matches {
 			ACTIVITY[at0001] occurrences matches {1..*} matches {	-- Registrer
 				action_archetype_id matches {/openEHR-EHR-ACTION\.careplan_goal_dips\.v1/}
 				description matches {
-					ITEM_TREE[at0002] matches {*}
+					ITEM_TREE[at0002] matches {	-- Tree
+						items cardinality matches {0..*; unordered} matches {
+							allow_archetype CLUSTER[at0023] occurrences matches {0..*} matches {	-- Tilleggsinformasjon
+								include
+									archetype_id/value matches {/openEHR-EHR-CLUSTER\.careplan_documentation_additional_info(-[a-zA-Z0-9_]+)*\.v0/}
+							}
+						}
+					}
 				}
 			}
 		}
@@ -83,8 +90,8 @@ ontology
 		["no"] = <
 			items = <
 				["at0000"] = <
-					text = <"Oppnå mål">
-					description = <"Fremtidig helsetilstand som skal oppnås for pasienten.">
+					text = <"*Mål(nb)">
+					description = <"*Fremtidig helsetilstand som skal oppnås for pasienten.(nb)">
 				>
 				["at0001"] = <
 					text = <"Registrer">
@@ -101,13 +108,17 @@ ontology
 				["at0022"] = <
 					text = <"Tilleggsinformasjon">
 					description = <"Eventuell tilleggsinformasjon.">
+				>
+				["at0023"] = <
+					text = <"*Tilleggsinformasjon(nb)">
+					description = <"**(nb)">
 				>
 			>
 		>
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"Oppnå mål">
+					text = <"Mål">
 					description = <"Fremtidig helsetilstand som skal oppnås for pasienten.">
 				>
 				["at0001"] = <
@@ -126,13 +137,17 @@ ontology
 					text = <"Tilleggsinformasjon">
 					description = <"Eventuell tilleggsinformasjon.">
 				>
+				["at0023"] = <
+					text = <"Tilleggsinformasjon">
+					description = <"*">
+				>
 			>
 		>
 		["en"] = <
 			items = <
 				["at0000"] = <
-					text = <"Care Plan Goal">
-					description = <"A future health state that is agreed to be the patient.">
+					text = <"*Mål(nb)">
+					description = <"*Fremtidig helsetilstand som skal oppnås for pasienten.(nb)">
 				>
 				["at0001"] = <
 					text = <"Register">
@@ -149,6 +164,10 @@ ontology
 				["at0022"] = <
 					text = <"Additional Information">
 					description = <"Additional information that may be needed.">
+				>
+				["at0023"] = <
+					text = <"*Tilleggsinformasjon(nb)">
+					description = <"**(nb)">
 				>
 			>
 		>
