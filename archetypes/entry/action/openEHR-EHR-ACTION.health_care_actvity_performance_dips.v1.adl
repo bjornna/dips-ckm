@@ -1,0 +1,76 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ACTION.health_care_actvity_performance_dips.v1
+
+concept
+	[at0000]	-- Helsetjeneste gjennomføring
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"Dips ASA">
+		["date"] = <"2017-12-08">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for å dokumenter gjennomføring av en helsetjeneste.">
+			use = <"Denne arketypen brukes for å dokumenter på enkel måte gjennomføring av en helsetjeneste. Dette kan være en adminsitrert medisin, en prøve tatt eller en enkel prosedyre gjennomført. 
+
+Arketypen brukes når man på en enkel måte ønsker å dokumentere at tjenesten er gjennomført og man ikke ønsker å dra nytte av de mer komplekse speisliserte action arketypene hvor man kan angi detaljer.
+
+Et eksempel kan være: Anti-D gammaglobulin gitt. Chlamydiaprøve tatt. Vil man dokumenter detaljer om adminsitrasjonen av Anti-D gammaglobulin må dette gjøres i den sesifikke legemiddelhåndtering arketypen.">
+			misuse = <"Brukes ikke for å dokumnetere strukturerte detaljer om en gjennomført helstjeneste. Til dette formålet brukes de strukturerte spesifikke aarketypene.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <"Bjørn Næss", ...>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"2578902C6E47E7E95ED78B303603A4D6">
+	>
+
+definition
+	ACTION[at0000] matches {	-- Helsetjeneste gjennomføring
+		description matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Navn på helstjeneste
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Kategori på helsetjeneste
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Helsetjeneste gjennomføring">
+					description = <"Dokumenterer gjennomføring av en helsetjeneste.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Navn på helstjeneste">
+					description = <"Navn på helsetjeneste/handling som man ønsker å dokumentere.">
+				>
+				["at0003"] = <
+					text = <"Kategori på helsetjeneste">
+					description = <"Kategorien som helstjenesten hører til f.eks. ordinere medisin eller ta microbiologsik prøve. Her skal det helst brukes koder f.eks. Snomed-CT koder.">
+				>
+			>
+		>
+	>

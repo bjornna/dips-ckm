@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
-  <id>7c0b96ea-c1e6-44b8-afa2-2b9ab107c068</id>
-  <name>svangerskapsavbrudd_1_0_0_sammendrag</name>
+  <id>6c2fb940-ed89-4ab0-b983-65b5b0f8244f</id>
+  <name>svangerskapsavbrudd_1_0_0_start</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
@@ -61,7 +61,27 @@
     </other_details>
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.pregnancy_termination_dips.v1" concept_name="Pregnancy termination">
-    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.dates_for_unify.v1" concept_name="Dates for unify" path="/content" />
+    <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.trajectory.v1" concept_name="Forløp" max="1" path="/content" name="Start svangerskapsavbrudd">
+      <Rule path="/activities[at0001]/description[at0002]/items[at0003]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>SNOMED-CT::386639001::Svangerskapsavbrudd</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/activities[at0001]/description[at0002]/items[at0012]" name="Type svangerskapsavbrudd" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0004]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0005]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0011]" max="0" />
+      <Rule path="/protocol[at0007]/items[at0008]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.point_of_care_dips.v1" concept_name="Helsetjenestested" path="/activities[at0001]/description[at0002]/items[at0006]">
+        <Rule path="/items[at0002]" max="0" />
+        <Rule path="/items[at0003]" name="Lokalisering">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="ADM-LOKALISERING" />
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0001]" max="0" />
+      </Items>
+    </Content>
     <Context />
   </definition>
 </template>
