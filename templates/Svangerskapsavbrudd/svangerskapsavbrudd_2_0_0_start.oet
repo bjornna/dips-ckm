@@ -60,38 +60,6 @@
       </item>
     </other_details>
   </description>
-  <annotations path="[openEHR-EHR-COMPOSITION.pregnancy_termination_dips.v1]/content[openEHR-EHR-ACTION.medication.v1]/description[at0017]/items[at0020]">
-    <items>
-      <item>
-        <key>Notes.Comment</key>
-        <value>Vis som radio eller sjekkboks. Ta inn kodeverk i repoet. Arena - legemiddelgruppe.</value>
-      </item>
-    </items>
-  </annotations>
-  <annotations path="[openEHR-EHR-COMPOSITION.pregnancy_termination_dips.v1]/content[openEHR-EHR-ACTION.medication.v1]/description[at0017]/items[at0024]">
-    <items>
-      <item>
-        <key>Notes.Comment</key>
-        <value>sett healthcare step til completed - fullført når det er haket av for gitt</value>
-      </item>
-    </items>
-  </annotations>
-  <annotations path="[openEHR-EHR-COMPOSITION.pregnancy_termination_dips.v1]/content[openEHR-EHR-ADMIN_ENTRY.external_referance.v0]/data[at0001]/items[at0003]">
-    <items>
-      <item>
-        <key>Notes.Comment</key>
-        <value>Ta inn kodeverket </value>
-      </item>
-    </items>
-  </annotations>
-  <annotations path="[openEHR-EHR-COMPOSITION.pregnancy_termination_dips.v1]/content[openEHR-EHR-INSTRUCTION.trajectory.v1]/activities[at0001]/description[at0002]/items[at0012]">
-    <items>
-      <item>
-        <key>Notes.Comment</key>
-        <value>legg inn kodeverk</value>
-      </item>
-    </items>
-  </annotations>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.pregnancy_termination_dips.v1" concept_name="Pregnancy termination">
     <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.trajectory.v1" concept_name="Forløp" max="1" path="/content" name="Start svangerskapsavbrudd">
       <Rule path="/activities[at0001]/description[at0002]/items[at0003]">
@@ -99,7 +67,12 @@
           <includedValues>SNOMED-CT::386639001::Svangerskapsavbrudd</includedValues>
         </constraint>
       </Rule>
-      <Rule path="/activities[at0001]/description[at0002]/items[at0012]" name="Type svangerskapsavbrudd" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0012]" name="Type svangerskapsavbrudd">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Svangerskapsavbrudd_0050_M_N_BEH::0050-1::Nemndbehandlet</includedValues>
+          <includedValues>Svangerskapsavbrudd_0050_M_N_BEH::0050-2::Selvbestemt</includedValues>
+        </constraint>
+      </Rule>
       <Rule path="/activities[at0001]/description[at0002]/items[at0004]" max="0" />
       <Rule path="/activities[at0001]/description[at0002]/items[at0005]" max="0" />
       <Rule path="/activities[at0001]/description[at0002]/items[at0011]" max="0" />
@@ -113,32 +86,6 @@
         </Rule>
         <Rule path="/items[at0001]" max="0" />
       </Items>
-    </Content>
-    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.medication.v1" concept_name="Legemiddelhåndtering " path="/content">
-      <Rule path="/description[at0017]/items[at0020]" name="Anti-D gammaglobulin gitt">
-        <constraint xsi:type="textConstraint">
-          <includedValues>ARENALegemiddelgruppe::J06BB01::Ig mot Rh-immunisering</includedValues>
-        </constraint>
-      </Rule>
-      <Rule path="/description[at0017]/items[at0132]" max="0" />
-      <Rule path="/description[at0017]/items[at0133]" max="0" />
-      <Rule path="/description[at0017]/items[at0043]" max="0" />
-      <Rule path="/description[at0017]/items[at0154]" max="0" />
-      <Rule path="/description[at0017]/items[at0155]" max="0" />
-      <Rule path="/description[at0017]/items[at0021]" max="0" />
-      <Rule path="/description[at0017]/items[at0140]" max="0" />
-      <Rule path="/description[at0017]/items[at0033]" max="0" />
-      <Rule path="/description[at0017]/items[at0149]" max="0" />
-      <Rule path="/description[at0017]/items[at0025]" max="0" />
-      <Rule path="/description[at0017]/items[at0024]" max="0" />
-    </Content>
-    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.external_referance.v0" concept_name="Eskstern referanse" path="/content">
-      <Rule path="/data[at0001]/items[at0002]" name="Saks-ID" />
-      <Rule path="/data[at0001]/items[at0003]">
-        <constraint xsi:type="textConstraint">
-          <includedValues>ARENA_REFERANSEKOBLING::ARK1::FHI abortregisteret</includedValues>
-        </constraint>
-      </Rule>
     </Content>
     <Context />
   </definition>
