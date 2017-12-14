@@ -1,0 +1,365 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-EVALUATION.vedtak_om_to_tph.v1
+
+concept
+	[at0000]	-- Vedtak om to tph
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Arketypen brukes i vedtaksmodulen i DIPS Arena.">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"FE7A41F80676236277F10A17B34AF3E8">
+	>
+
+definition
+	EVALUATION[at0000] matches {	-- Vedtak om to tph
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {2..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Pasientens ankomst til institusjonen
+						value matches {
+							DV_DATE_TIME matches {
+								value matches {yyyy-mm-ddTHH:??:??}
+							}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Oppstartsdato tvungen observasjon
+						value matches {
+							DV_DATE_TIME matches {
+								value matches {yyyy-mm-ddTHH:??:??}
+							}
+						}
+					}
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Det gjøres unntak fra konverteringsforbudet
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True}
+							}
+						}
+					}
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Begrunnelse for unntak fra konverteringsforbudet
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0006] occurrences matches {0..2} matches {	-- Vurdering av frivillighet
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0007, 	-- Frivillig psykisk helsevern er blitt forsøkt uten at dette har ført frem
+									at0008]	-- Det er åpenbart formålsløst å forsøke frivillig psykisk helsevern
+								}
+							}
+						}
+					}
+					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Frivillighet er forsøkt eller er formålsløst, begrunnelse
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					CLUSTER[at0010] matches {	-- Ekstern legeundersøkelse
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0011] occurrences matches {0..1} matches {	-- Dato
+								value matches {
+									DV_DATE matches {
+										value matches {yyyy-mm-dd}
+									}
+								}
+							}
+							ELEMENT[at0012] occurrences matches {0..1} matches {	-- Utført av
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {[ac0001]}		-- New constraint
+									}
+								}
+							}
+							ELEMENT[at0013] occurrences matches {0..1} matches {	-- Utført av
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0014] occurrences matches {0..1} matches {	-- Ekstern legeundersøkelse dokumentert i journalnotat datert
+								value matches {
+									DV_DATE matches {
+										value matches {yyyy-mm-dd}
+									}
+								}
+							}
+							ELEMENT[at0015] occurrences matches {0..1} matches {	-- Pasienten har vært undersøkt av en ekstern lege
+								value matches {
+									DV_BOOLEAN matches {
+										value matches {True}
+									}
+								}
+							}
+							ELEMENT[at0016] occurrences matches {0..1} matches {	-- Den eksterne legeundersøkelsen er foretatt på bakgrunn av vedtak om tvungen legeundersøkelse
+								value matches {
+									DV_BOOLEAN matches {
+										value matches {True}
+									}
+								}
+							}
+						}
+					}
+					CLUSTER[at0017] matches {	-- Intern legeundersøkelse
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0018] occurrences matches {0..1} matches {	-- Dato
+								value matches {
+									DV_DATE matches {
+										value matches {yyyy-mm-dd}
+									}
+								}
+							}
+							ELEMENT[at0019] occurrences matches {0..1} matches {	-- Utført av
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {[ac0002]}		-- New constraint
+									}
+								}
+							}
+							ELEMENT[at0020] occurrences matches {0..1} matches {	-- Intern legeundersøkelse dokumentert i journalnotat datert
+								value matches {
+									DV_DATE matches {
+										value matches {yyyy-mm-dd}
+									}
+								}
+							}
+						}
+					}
+					ELEMENT[at0021] occurrences matches {0..1} matches {	-- Det vurderes som overveiende sannsynlig at hovedvilkåret "alvorlig sinnslidelse" er oppfylt, begrunnelse
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0022] occurrences matches {0..4} matches {	-- Tilleggsvilkår som vurderes oppfylt
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0023, 	-- Får sin utsikt til helbredelse eller vesentlig bedring i betydelig grad redusert
+									at0024, 	-- Med stor sannsynlighet i meget nær fremtid får sin tilstand vesentlig forverret
+									at0025, 	-- Utgjør en nærliggende og alvorlig fare for eget liv eller helse
+									at0026]	-- Utgjør en nærliggende og alvorlig fare for andres liv eller helse
+								}
+							}
+						}
+					}
+					ELEMENT[at0027] occurrences matches {0..1} matches {	-- Tilleggsvilkår, begrunnelse 
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0031] occurrences matches {0..1} matches {	-- Nedenfor fremgår begrunnelse for hvilke(t) vilkår for tvungen observasjon/TPH som vurderes å ikke være oppfylt 
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0028] occurrences matches {0..1} matches {	-- Institusjonen er faglig og materielt egnet for denne pasienten, begrunnelse
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0033] occurrences matches {0..1} matches {	-- Helhetsvurdering, begrunnelse for at tvungen observasjon framstår som den klart beste løsningen for pasienten
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0029] occurrences matches {0..1} matches {	-- Helhetsvurdering, begrunnelse for at tvungent psykisk helsevern framstår som den klart beste løsningen for pasienten
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0030] occurrences matches {0..*} matches {	-- Hjemmel for helsehjelp
+						include
+							archetype_id/value matches {/.*/}
+					}
+					allow_archetype CLUSTER[at0032] occurrences matches {0..*} matches {	-- Vedtakstype
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	terminologies_available = <"DIPS", ...>
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Vedtak om to tph">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Pasientens ankomst til institusjonen">
+					description = <"Dato og klokkeslett for pasientens ankomst til institusjonen.">
+				>
+				["at0003"] = <
+					text = <"Oppstartsdato tvungen observasjon">
+					description = <"Dato og tidpunkt for oppstart av tvungen observasjonen dersom pasienten har vært under tvungen observasjon.">
+				>
+				["at0004"] = <
+					text = <"Det gjøres unntak fra konverteringsforbudet">
+					description = <"Ved etableringen av tvungen observasjon/TPH gjøres det unntak fra konverteringsforbudet.">
+				>
+				["at0005"] = <
+					text = <"Begrunnelse for unntak fra konverteringsforbudet">
+					description = <"Begrunnelse for unntak fra konverteringsforbudet.">
+				>
+				["at0006"] = <
+					text = <"Vurdering av frivillighet">
+					description = <"Standard kodeverk 9279 Hovedvilkår vedtak om tvungent psykisk helsevern/tvungen observasjon.">
+				>
+				["at0007"] = <
+					text = <"Frivillig psykisk helsevern er blitt forsøkt uten at dette har ført frem">
+					description = <"Frivillig psykisk helsevern er blitt forsøkt uten at dette har ført frem">
+				>
+				["at0008"] = <
+					text = <"Det er åpenbart formålsløst å forsøke frivillig psykisk helsevern">
+					description = <"Det er åpenbart formålsløst å forsøke frivillig psykisk helsevern">
+				>
+				["at0009"] = <
+					text = <"Frivillighet er forsøkt eller er formålsløst, begrunnelse">
+					description = <"Eksempel på «åpenbart formålsløst» kan være at pasienten mangler samtykkekompetanse.">
+				>
+				["at0010"] = <
+					text = <"Ekstern legeundersøkelse">
+					description = <"Ekstern legeundersøkelse.">
+				>
+				["at0011"] = <
+					text = <"Dato">
+					description = <"Dato den eksterne legeundersøkelsen ble foretatt.">
+				>
+				["at0012"] = <
+					text = <"Utført av">
+					description = <"Rekvirentsøk - navn på lege som utførte undersøkelsen.">
+				>
+				["at0013"] = <
+					text = <"Utført av">
+					description = <"Benyttes dersom undersøkende lege ikke finnes i rekvirentsøket. Registrering bør inkludere navn, tittel og arbeidssted.">
+				>
+				["at0014"] = <
+					text = <"Ekstern legeundersøkelse dokumentert i journalnotat datert">
+					description = <"Referanse til dokumentasjon av ekstern legeundersøkelse.">
+				>
+				["at0015"] = <
+					text = <"Pasienten har vært undersøkt av en ekstern lege">
+					description = <"Undersøkelsen er 
+foretatt av en lege utenfor den institusjon som skal fatte vedtak.">
+				>
+				["at0016"] = <
+					text = <"Den eksterne legeundersøkelsen er foretatt på bakgrunn av vedtak om tvungen legeundersøkelse">
+					description = <"Den eksterne legeundersøkelsen ble foretatt etter vedtak om tvungen legeundersøkelse.">
+				>
+				["at0017"] = <
+					text = <"Intern legeundersøkelse">
+					description = <"Intern legeundersøkelse.">
+				>
+				["at0018"] = <
+					text = <"Dato">
+					description = <"Dato den interne legeundersøkelsen ble foretatt.">
+				>
+				["at0019"] = <
+					text = <"Utført av">
+					description = <"Rekvirentsøk - navn på lege som utførte undersøkelsen.">
+				>
+				["at0020"] = <
+					text = <"Intern legeundersøkelse dokumentert i journalnotat datert">
+					description = <"Referanse til dokumentasjon av intern legeundersøkelse.">
+				>
+				["at0021"] = <
+					text = <"Det vurderes som overveiende sannsynlig at hovedvilkåret \"alvorlig sinnslidelse\" er oppfylt, begrunnelse">
+					description = <"Vurdering av hovedvilkåret «alvorlig sinnslidelse».">
+				>
+				["at0022"] = <
+					text = <"Tilleggsvilkår som vurderes oppfylt">
+					description = <"Standard kodeverk 9280 Tilleggsvilkår vedtak om tvungent psykisk helsevern.">
+				>
+				["at0023"] = <
+					text = <"Får sin utsikt til helbredelse eller vesentlig bedring i betydelig grad redusert">
+					description = <"Får sin utsikt til helbredelse eller vesentlig bedring i betydelig grad redusert">
+				>
+				["at0024"] = <
+					text = <"Med stor sannsynlighet i meget nær fremtid får sin tilstand vesentlig forverret">
+					description = <"Med stor sannsynlighet i meget nær fremtid får sin tilstand vesentlig forverret">
+				>
+				["at0025"] = <
+					text = <"Utgjør en nærliggende og alvorlig fare for eget liv eller helse">
+					description = <"Utgjør en nærliggende og alvorlig fare for eget liv eller helse">
+				>
+				["at0026"] = <
+					text = <"Utgjør en nærliggende og alvorlig fare for andres liv eller helse">
+					description = <"Utgjør en nærliggende og alvorlig fare for andres liv eller helse">
+				>
+				["at0027"] = <
+					text = <"Tilleggsvilkår, begrunnelse ">
+					description = <"Begrunnelse for at minst ett av tilleggsvilkårene er oppfylt.">
+				>
+				["at0028"] = <
+					text = <"Institusjonen er faglig og materielt egnet for denne pasienten, begrunnelse">
+					description = <"Sett hen til for eksempel kjønn, alder, tilstand, rusproblematikk og grad av utagering.">
+				>
+				["at0029"] = <
+					text = <"Helhetsvurdering, begrunnelse for at tvungent psykisk helsevern framstår som den klart beste løsningen for pasienten">
+					description = <"Herunder skal fremgå fordeler og ulemper med tvangsinngrepet, som forventet behandlingsmessig effekt og risiko for varig skade, samt pasientens tidligere erfaring med bruk av tvang. Ved vurderingen skal det legges særlig vekt på hvor stor belastning det tvangsmessige inngrepet vil medføre for vedkommende. Vektleggingen av hva som er den klart beste løsningen for pasienten svekkes når pasienten utgjør en nærliggende og alvorlig fare for andre.">
+				>
+				["at0030"] = <
+					text = <"Hjemmel for helsehjelp">
+					description = <"Standard kodeverk 9276 Hjemmel for helsehjelp-psykisk helsevern og 9277 Hjemmel for helsehjelp-psykisk helsevern, TPH.">
+				>
+				["at0031"] = <
+					text = <"Nedenfor fremgår begrunnelse for hvilke(t) vilkår for tvungen observasjon/TPH som vurderes å ikke være oppfylt ">
+					description = <"Relevant og nødvendig begrunnelse for hvilke(t) vilkår for tvungen observasjon/TPH som vurderes å ikke være oppfylt.">
+				>
+				["at0032"] = <
+					text = <"Vedtakstype">
+					description = <"Standard kodeverk 9275 Vedtak etter psykisk helsevernloven.">
+				>
+				["at0033"] = <
+					text = <"Helhetsvurdering, begrunnelse for at tvungen observasjon framstår som den klart beste løsningen for pasienten">
+					description = <"Herunder skal fremgå fordeler og ulemper med tvangsinngrepet, som forventet behandlingsmessig effekt og risiko for varig skade, samt pasientens tidligere erfaring med bruk av tvang. Ved vurderingen skal det legges særlig vekt på hvor stor belastning det tvangsmessige inngrepet vil medføre for vedkommende. Vektleggingen av hva som er den klart beste løsningen for pasienten svekkes når pasienten utgjør en nærliggende og alvorlig fare for andre.">
+				>
+			>
+		>
+	>
+	constraint_definitions = <
+		["nb"] = <
+			items = <
+				["ac0001"] = <
+					text = <"New constraint">
+					description = <"*">
+				>
+				["ac0002"] = <
+					text = <"New constraint">
+					description = <"*">
+				>
+			>
+		>
+	>
+	constraint_bindings = <
+		["DIPS"] = <
+			items = <
+				["ac0001"] = <terminology:DIPS?subset=healthcareparty>
+				["ac0002"] = <terminology:DIPS?subset=healthcareparty>
+			>
+		>
+	>
