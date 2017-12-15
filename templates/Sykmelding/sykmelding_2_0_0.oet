@@ -98,11 +98,7 @@
       <Rule path="/data[at0001]/items[at0061]/items[at0064]/items[at0067]" name="6.4.3 Hva mener du skal til for at pasienten skal komme tilbake i eget eller annet arbeid?" />
       <Rule path="/data[at0001]/items[at0078]/items[at0079]" name="7.1 Tilrettelegging/hensyn som bør tas på arbeidsplassen. Beskriv (kan leses av arbeidsgiver)" />
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.health_and_public_services_dips.v1" concept_name="Kommunale helse- og sosialtjenester" path="/data[at0001]/items[at0094]/items[at0092]">
-        <Rule path="/items[at0004]">
-          <constraint xsi:type="textConstraint">
-            <includedValues>NAV-kontor</includedValues>
-          </constraint>
-        </Rule>
+        <Rule path="/items[at0004]" max="0" />
         <Rule path="/items[at0010]" max="0" />
         <Rule path="/items[at0011]" max="0" />
         <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.organisation_dips.v1" concept_name="Organisasjon" path="/items[at0013]">
@@ -111,16 +107,12 @@
               <termQueryId terminologyID="DIPS-Organization" terminologyLang="no-nb" queryName="SocialSecurityOffice" />
             </constraint>
           </Rule>
-          <Rule path="/items[at0011]">
-            <constraint xsi:type="textConstraint">
-              <includedValues>NAV-kontor</includedValues>
-            </constraint>
-          </Rule>
+          <Rule path="/items[at0011]" max="0" />
           <Rule path="/items[at0005]" max="0" />
         </Items>
       </Items>
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.occupation_summary_dips.v1" concept_name="Sysselsettingssammendrag" path="/data[at0001]/items[at0096]">
-        <Rule path="/items[at0003]" name="2.1 Pasienten har">
+        <Rule path="/items[at0003]" max="1" name="2.1 Pasienten har">
           <constraint xsi:type="textConstraint">
             <includedValues>201710-VOLVEN-OID-8130::1::Én arbeidsgiver</includedValues>
             <includedValues>201710-VOLVEN-OID-8130::2::Flere arbeidsgivere</includedValues>
@@ -141,11 +133,7 @@
           <Rule path="/items[at0014]" max="0" />
           <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.organisation_dips.v1" concept_name="Organisasjon" path="/items[at0004]">
             <Rule path="/items[at0001]" name="2.2 Arbeidsgiver for denne sykmeldingen" />
-            <Rule path="/items[at0011]">
-              <constraint xsi:type="textConstraint">
-                <includedValues>Arbeidsgiver</includedValues>
-              </constraint>
-            </Rule>
+            <Rule path="/items[at0011]" max="0" />
             <Rule path="/items[at0005]" max="0" />
           </Items>
         </Items>
@@ -154,13 +142,7 @@
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.patient_information_dips.v1" concept_name="Pasientopplysninger" path="/content">
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.telecom_details_dips.v1" concept_name="Telekommunikasjonsdetaljer" max="1" path="/data[at0001]/items[at0005]" name="Telefon">
         <Rule path="/items[at0010]" max="0" />
-        <Rule path="/items[at0001]/items[at0004]">
-          <constraint xsi:type="textConstraint">
-            <excludedValues>local::at0014</excludedValues>
-            <excludedValues>local::at0015</excludedValues>
-            <excludedValues>local::at0016</excludedValues>
-          </constraint>
-        </Rule>
+        <Rule path="/items[at0001]/items[at0004]" max="0" />
         <Rule path="/items[at0001]/items[at0002]" max="0" />
         <Rule path="/items[at0001]/items[at0003]/items[at0005]" max="0" />
         <Rule path="/items[at0001]/items[at0003]/items[at0006]" max="0" />
@@ -171,11 +153,7 @@
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.individual_professional_dips.v1" concept_name="Individuell profesjonsutøver" max="1" path="/data[at0001]/items[at0006]" name="Fastlege">
         <Rule path="/items[at0021]" max="0" />
         <Rule path="/items[at0003]/items[at0013]" max="0" />
-        <Rule path="/items[at0003]/items[at0005]">
-          <constraint xsi:type="textConstraint">
-            <includedValues>Fastlege</includedValues>
-          </constraint>
-        </Rule>
+        <Rule path="/items[at0003]/items[at0005]" max="0" />
         <Rule path="/items[at0003]/items[at0020]" max="0" />
         <Rule path="/items[at0003]/items[at0006]" max="0" />
         <Rule path="/items[at0003]/items[at0012]" max="0" />
@@ -284,7 +262,13 @@
         </Items>
       </Items>
     </Content>
-    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.hjelpefelter_sykmelding.v1" concept_name="Hjelpefelter sykmelding" path="/content" />
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.hjelpefelter_sykmelding.v1" concept_name="Hjelpefelter sykmelding" path="/content">
+      <Rule path="/data[at0001]/items[at0042]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="ICD10" terminologyLang="no-nb" queryName="ICD10" />
+        </constraint>
+      </Rule>
+    </Content>
     <Context />
   </definition>
 </template>

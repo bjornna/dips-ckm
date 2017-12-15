@@ -36,7 +36,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"A81932462A8C2CB42E1D1298E73CC3DB">
+		["MD5-CAM-1.0.1"] = <"ACA2CF8C1CC6378B356CE0A5FF1DF4A2">
 	>
 
 definition
@@ -44,6 +44,13 @@ definition
 		data matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0018] occurrences matches {0..1} matches {	-- Det er fremsatt begjæring
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True}
+							}
+						}
+					}
 					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Begjæring mottatt dato
 						value matches {
 							DV_DATE matches {
@@ -51,15 +58,37 @@ definition
 							}
 						}
 					}
-					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Begjæringen gjelder
+					ELEMENT[at0019] occurrences matches {0..1} matches {	-- Begjæring fremsatt av
 						value matches {
-							0|[local::at0016], 	-- Tvungen observasjon
-							1|[local::at0017]  	-- Tvungent psykisk helsevern
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0020, 	-- Kommunelegen
+									at0021, 	-- Den kommunale helse- og omsorgstjenesten
+									at0022, 	-- Sosialtjenesten
+									at0023, 	-- Politiet
+									at0024]	-- Ansvarlig fengselsmyndighet
+								}
+							}
 						}
 					}
-					allow_archetype CLUSTER[at0013] occurrences matches {0..1} matches {	-- Begjæring fremsatt av
-						include
-							archetype_id/value matches {/openEHR-EHR-CLUSTER\.begjaerende_instans(-[a-zA-Z0-9_]+)*\.v1/}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Begjæringen gjelder
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0025, 	-- Tvungen observasjon
+									at0026]	-- Tvungent psykisk helsevern
+								}
+							}
+						}
+					}
+					ELEMENT[at0027] occurrences matches {0..1} matches {	-- Begjæring dokumentert i journalnotat datert
+						value matches {
+							DV_DATE matches {
+								value matches {yyyy-mm-dd}
+							}
+						}
 					}
 					ELEMENT[at0011] occurrences matches {0..1} matches {	-- Kontaktinformasjon
 						value matches {
@@ -104,17 +133,47 @@ ontology
 					text = <"*Merknad(nb)">
 					description = <"*Supplerende opplysninger.(nb)">
 				>
-				["at0013"] = <
+				["at0018"] = <
+					text = <"*Det er fremsatt begjæring(nb)">
+					description = <"*Det er fremsatt begjæring.(nb)">
+				>
+				["at0019"] = <
 					text = <"*Begjæring fremsatt av(nb)">
-					description = <"*Standard kodeverk 9290 Instanser som kan fremsette begjæring om tvungent psykisk helsevern.(nb)">
+					description = <"*Standard kodeverk 9290 Instanser
+som kan fremsette begjæring om
+tvungent psykisk helsevern.(nb)">
 				>
-				["at0016"] = <
+				["at0020"] = <
+					text = <"*Kommunelegen(nb)">
+					description = <"*Kommunelegen(nb)">
+				>
+				["at0021"] = <
+					text = <"*Den kommunale helse- og omsorgstjenesten(nb)">
+					description = <"*Den kommunale helse- og omsorgstjenesten(nb)">
+				>
+				["at0022"] = <
+					text = <"*Sosialtjenesten(nb)">
+					description = <"*Sosialtjenesten(nb)">
+				>
+				["at0023"] = <
+					text = <"*Politiet(nb)">
+					description = <"*Politiet(nb)">
+				>
+				["at0024"] = <
+					text = <"*Ansvarlig fengselsmyndighet(nb)">
+					description = <"*Ansvarlig fengselsmyndighet(nb)">
+				>
+				["at0025"] = <
 					text = <"*Tvungen observasjon(nb)">
-					description = <"**(nb)">
+					description = <"*Tvungen observasjon(nb)">
 				>
-				["at0017"] = <
+				["at0026"] = <
 					text = <"*Tvungent psykisk helsevern(nb)">
 					description = <"*Tvungent psykisk helsevern(nb)">
+				>
+				["at0027"] = <
+					text = <"*Begjæring dokumentert i journalnotat datert(nb)">
+					description = <"*Begjæringen er dokumentert i journalnotat datert.(nb)">
 				>
 			>
 		>
@@ -144,17 +203,47 @@ ontology
 					text = <"Merknad">
 					description = <"Supplerende opplysninger.">
 				>
-				["at0013"] = <
-					text = <"Begjæring fremsatt av">
-					description = <"Standard kodeverk 9290 Instanser som kan fremsette begjæring om tvungent psykisk helsevern.">
+				["at0018"] = <
+					text = <"Det er fremsatt begjæring">
+					description = <"Det er fremsatt begjæring.">
 				>
-				["at0016"] = <
+				["at0019"] = <
+					text = <"Begjæring fremsatt av">
+					description = <"Standard kodeverk 9290 Instanser
+som kan fremsette begjæring om
+tvungent psykisk helsevern.">
+				>
+				["at0020"] = <
+					text = <"Kommunelegen">
+					description = <"Kommunelegen">
+				>
+				["at0021"] = <
+					text = <"Den kommunale helse- og omsorgstjenesten">
+					description = <"Den kommunale helse- og omsorgstjenesten">
+				>
+				["at0022"] = <
+					text = <"Sosialtjenesten">
+					description = <"Sosialtjenesten">
+				>
+				["at0023"] = <
+					text = <"Politiet">
+					description = <"Politiet">
+				>
+				["at0024"] = <
+					text = <"Ansvarlig fengselsmyndighet">
+					description = <"Ansvarlig fengselsmyndighet">
+				>
+				["at0025"] = <
 					text = <"Tvungen observasjon">
 					description = <"Tvungen observasjon">
 				>
-				["at0017"] = <
+				["at0026"] = <
 					text = <"Tvungent psykisk helsevern">
 					description = <"Tvungent psykisk helsevern">
+				>
+				["at0027"] = <
+					text = <"Begjæring dokumentert i journalnotat datert">
+					description = <"Begjæringen er dokumentert i journalnotat datert.">
 				>
 			>
 		>

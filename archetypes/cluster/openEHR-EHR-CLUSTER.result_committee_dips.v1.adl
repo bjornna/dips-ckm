@@ -1,0 +1,159 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.result_committee_dips.v1
+
+concept
+	[at0000]	-- Resultat av nemdbehandling
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2017-12-15">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Registrering resultat av nemndbehandling.">
+			use = <"Brukes for å registrere resultat av nemndbehandling knyttet til klinisk aktivitet. Dette Clusteret er tenkt brukt sammen med ACTION Service for å registrere detaljer om utfallet ved en behandling i nemnd.">
+			keywords = <"nemndbehandling", "primærnemnd", "klagenemnd", "klage">
+			misuse = <"Skal ikke brukes til å registrere klinisk informasjon eller data som ikke er relatert prosessen for nemndbehandling.">
+			copyright = <"DIPS AS">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <"Ingrid Skard", ...>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"C5E6C9C648F119CD7D9950B8071B5DC1">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Resultat av nemdbehandling
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0014] occurrences matches {0..1} matches {	-- Resultat av behandling i nemnd
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0015] occurrences matches {0..1} matches {	-- Grunnlag for søknad innvilget
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0012] occurrences matches {0..1} matches {	-- Spesifikk begrunnelse for innvilgning av søknad
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0013] occurrences matches {0..1} matches {	-- Spesifikk begrunnelse for avslag av søknad
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0017] occurrences matches {0..1} matches {	-- Enstemmig avslag
+				value matches {
+					DV_BOOLEAN matches {
+						value matches {True, False}
+					}
+				}
+			}
+			ELEMENT[at0006] occurrences matches {0..1} matches {	-- Dato begjæring oversendt klagenemnd
+				value matches {
+					DV_DATE matches {
+						value matches {yyyy-mm-dd}
+					}
+				}
+			}
+			CLUSTER[at0007] occurrences matches {0..*} matches {	-- Tidligere behandlet i nemnd
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Dato for nemndbehandling
+						value matches {
+							DV_DATE matches {
+								value matches {yyyy-mm-dd}
+							}
+						}
+					}
+					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Institusjon for nemndbehandling
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Saksnummer for nemndbehandling
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+			ELEMENT[at0004] occurrences matches {0..*} matches {	-- Signatur fra nemnd
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			allow_archetype CLUSTER[at0016] occurrences matches {0..*} matches {	-- Detaljer
+				include
+					archetype_id/value matches {/.*/}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Resultat av nemdbehandling">
+					description = <"Brukes for å registrere resultatet av behandling og beslutningi nemnd ">
+				>
+				["at0004"] = <
+					text = <"Signatur fra nemnd">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Dato begjæring oversendt klagenemnd">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Tidligere behandlet i nemnd">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Dato for nemndbehandling">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Institusjon for nemndbehandling">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Saksnummer for nemndbehandling">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Spesifikk begrunnelse for innvilgning av søknad">
+					description = <"En narrativ beskrivelse av hvorfor søknaden ble innvilget.">
+				>
+				["at0013"] = <
+					text = <"Spesifikk begrunnelse for avslag av søknad">
+					description = <"En narrativ beskrivelse av hvorfor søknaden ble innvilget.">
+				>
+				["at0014"] = <
+					text = <"Resultat av behandling i nemnd">
+					description = <"Angir resultate av behandlingen f.eks. innvilget, avslått eller ikke behandlet. Dette skal brukes i forbindelse med et kodeverk i template som er spesifikk for type nemnd.">
+				>
+				["at0015"] = <
+					text = <"Grunnlag for søknad innvilget">
+					description = <"Det offentlige grunnlaget som ligger i bunn for at søkanden er innvilget f.eks. en paragraf i et lovverk.">
+				>
+				["at0016"] = <
+					text = <"Detaljer">
+					description = <"Cluster for ytterliger sturkturerte detaljer ">
+				>
+				["at0017"] = <
+					text = <"Enstemmig avslag">
+					description = <"Er avgjøreslen om avlag gjort enstemmig?">
+				>
+			>
+		>
+	>
