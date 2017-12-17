@@ -69,7 +69,6 @@
             <includedValues>Svangerskapsavbrudd_0260_KV_BFHLD::0260-1::Bor alene</includedValues>
             <includedValues>Svangerskapsavbrudd_0260_KV_BFHLD::0260-2::Bor sammen med ektefelle/samboer</includedValues>
             <includedValues>Svangerskapsavbrudd_0260_KV_BFHLD::0260-3::Bor sammen med andre: Foreldre/bokollektiv</includedValues>
-            <includedValues>Svangerskapsavbrudd_0260_KV_BFHLD::0260-99::Annet/ikke oppgitt</includedValues>
           </constraint>
         </Rule>
         <Rule path="/items[at0002]" max="0" />
@@ -87,7 +86,6 @@
             <includedValues>Svangerskapsavbrudd_0280_KV_UTD::0280-1::Grunn-/ungdomsskole</includedValues>
             <includedValues>Svangerskapsavbrudd_0280_KV_UTD::0280-2::Videregående skole</includedValues>
             <includedValues>Svangerskapsavbrudd_0280_KV_UTD::0280-3::Høyskole/universitet</includedValues>
-            <includedValues>Svangerskapsavbrudd_0280_KV_UTD::0280-99::Ikke oppgitt</includedValues>
           </constraint>
         </Rule>
         <Rule path="/items[at0005]" max="0" />
@@ -113,13 +111,40 @@
             <includedValues>Svangerskapsavbrudd_0230_KV_SIV_ST::0230-2::Samboer</includedValues>
             <includedValues>Svangerskapsavbrudd_0230_KV_SIV_ST::0230-3::Ugift/enslig</includedValues>
             <includedValues>Svangerskapsavbrudd_0230_KV_SIV_ST::0230-4::Skilt/separert/enke</includedValues>
-            <includedValues>Svangerskapsavbrudd_0230_KV_SIV_ST::0230-99::Annet/ikke oppgitt</includedValues>
           </constraint>
         </Rule>
       </Items>
     </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.absence.v1" concept_name="Fravær av informasjon" max="1" path="/content" name="Fravær av informasjon om sivilstatus">
+      <Rule path="/data[at0001]/items[at0002]" name="Informasjon om sivilstatus ikke oppgitt">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Svangerskapsavbrudd_0230_KV_SIV_ST::0230-99::Annet/ikke oppgitt</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0005]" max="0" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.absence.v1" concept_name="Fravær av informasjon" max="1" path="/content" name="Fravær av informasjon om boforhold">
+      <Rule path="/data[at0001]/items[at0002]" name="Informasjon om boforhold ikke oppgitt">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Svangerskapsavbrudd_0260_KV_BFHLD::0260-99::Annet/ikke oppgitt</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0005]" max="0" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.absence.v1" concept_name="Fravær av informasjon" max="1" path="/content" name="Fravær av informasjon om høyeste fullførte utdanning">
+      <Rule path="/data[at0001]/items[at0002]" name="Informasjon om høyeste fullførte utdanning ikke oppgitt">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Svangerskapsavbrudd_0280_KV_UTD::0280-99::Ikke oppgitt</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0005]" max="0" />
+    </Content>
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.absence.v1" concept_name="Fravær av informasjon" max="1" path="/content" name="Fravær av informasjon om sysselsetting">
-      <Rule path="/data[at0001]/items[at0002]" name="Informasjon om sysselsetting ikke oppgitt" />
+      <Rule path="/data[at0001]/items[at0002]" name="Informasjon om sysselsetting ikke oppgitt">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Svangerskapsavbrudd_0270_KV_ARK_SKG::0270-99::Ikke oppgitt</includedValues>
+        </constraint>
+      </Rule>
       <Rule path="/data[at0001]/items[at0005]" max="0" />
     </Content>
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.tobacco_smoking_summary.v1" concept_name="Røykeanamnese" max="1" path="/content">
@@ -138,15 +163,11 @@
           <excludedValues>local::at0088</excludedValues>
         </nameConstraint>
       </Rule>
+      <Rule path="/data[at0001]/items[at0029]/items[at0052]" max="0" />
       <Rule path="/data[at0001]/items[at0029]/items[at0053]" max="0" />
       <Rule path="/data[at0001]/items[at0029]/items[at0064]/items[at0081]" max="0" />
       <Rule path="/data[at0001]/items[at0029]/items[at0064]/items[at0013]" max="0" />
       <Rule path="/data[at0001]/items[at0029]/items[at0064]/items[at0082]" max="0" />
-      <Rule path="/data[at0001]/items[at0029]/items[at0064]/items[at0030]">
-        <constraint xsi:type="multipleConstraint">
-          <includedTypes>Coded_text</includedTypes>
-        </constraint>
-      </Rule>
       <Rule path="/data[at0001]/items[at0029]/items[at0064]/items[at0023]" name="Antall sigaretter per dag">
         <constraint xsi:type="quantityConstraint">
           <excludedUnits>1/wk</excludedUnits>
@@ -174,8 +195,16 @@
       </Items>
     </Content>
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.absence.v1" concept_name="Fravær av informasjon" max="1" path="/content" name="Fravær av informasjon om røyking">
-      <Rule path="/data[at0001]/items[at0002]" name="Manglende informasjon om røyking" />
-      <Rule path="/data[at0001]/items[at0005]" name="Abortsøkende motsetter seg melding av røykeopplysninger" />
+      <Rule path="/data[at0001]/items[at0002]" name="Manglende informasjon om røyking">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Ja</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0005]" name="Abortsøkende motsetter seg melding av røykeopplysninger">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Abortsøkende motsetter seg melding av røykeopplysninger</includedValues>
+        </constraint>
+      </Rule>
     </Content>
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.medication_summary_dips.v1" concept_name="Medication summary" max="1" path="/content" name="Bruk av kosttilskudd">
       <Rule path="/data[at0001]/items[at0002]" name="Vitamintilskudd">
@@ -190,57 +219,98 @@
       <Rule path="/data[at0001]/items[at0008]" max="1" name="Folsyre før svangerskapet" />
       <Rule path="/data[at0001]/items[at0008 and name/value='Folsyre før svangerskapet']/items[at0021]" name="Folsyre">
         <constraint xsi:type="textConstraint">
-          <includedValues>SNOMED-CT::63718003::Folsyre</includedValues>
+          <includedValues>Svangerskapsavbrudd_0360_KOSTTILSKUDD::0360-0::Folat/folsyre</includedValues>
         </constraint>
       </Rule>
       <Rule path="/data[at0001]/items[at0008 and name/value='Folsyre før svangerskapet']/items[at0011]" max="0" />
       <Rule path="/data[at0001]/items[at0008 and name/value='Folsyre før svangerskapet']/items[at0018]" max="0" />
       <Rule path="/data[at0001]/items[at0008 and name/value='Folsyre før svangerskapet']/items[at0020]" max="0" />
-      <Rule path="/data[at0001]/items[at0008 and name/value='Folsyre før svangerskapet']/items[at0014]" name="Brukt folsyre før svangerkapet" />
+      <Rule path="/data[at0001]/items[at0008 and name/value='Folsyre før svangerskapet']/items[at0014]" name="Brukt folsyre før svangerkapet">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Svangerskapsavbrudd_0360_KOSTTILSKUDD::0360-1::Folat/folsyre før svangerskap</includedValues>
+        </constraint>
+      </Rule>
       <Rule path="/data[at0001]/items[at0008 and name/value='Folsyre før svangerskapet']/items[at0012]" max="0" />
       <Rule path="/data[at0001]/items[at0008 and name/value='Folsyre før svangerskapet']/items[at0016]" max="0" />
       <Rule path="/data[at0001]/items[at0008 and name/value='Folsyre før svangerskapet']/items[at0013]" max="0" />
       <Rule path="/data[at0001]/items[at0008]" max="1" clone="true" name="Multivitaminer før svangerskapet" />
       <Rule path="/data[at0001]/items[at0008 and name/value='Multivitaminer før svangerskapet']/items[at0021]" name="Multivitaminer">
         <constraint xsi:type="textConstraint">
-          <includedValues>SNOMED-CT::412250002::Mulitvitaminer</includedValues>
+          <includedValues>Svangerskapsavbrudd_0350_KOSTTILSKUDD::0350-0::Multivitaminer</includedValues>
         </constraint>
       </Rule>
       <Rule path="/data[at0001]/items[at0008 and name/value='Multivitaminer før svangerskapet']/items[at0011]" max="0" />
       <Rule path="/data[at0001]/items[at0008 and name/value='Multivitaminer før svangerskapet']/items[at0018]" max="0" />
       <Rule path="/data[at0001]/items[at0008 and name/value='Multivitaminer før svangerskapet']/items[at0020]" max="0" />
-      <Rule path="/data[at0001]/items[at0008 and name/value='Multivitaminer før svangerskapet']/items[at0014]" name="Brukt multivitaminer før svangerskapet" />
+      <Rule path="/data[at0001]/items[at0008 and name/value='Multivitaminer før svangerskapet']/items[at0014]" name="Brukt multivitaminer før svangerskapet">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Svangerskapsavbrudd_0350_KOSTTILSKUDD::0350-1::Multivitaminer før svangerskap</includedValues>
+        </constraint>
+      </Rule>
       <Rule path="/data[at0001]/items[at0008 and name/value='Multivitaminer før svangerskapet']/items[at0012]" max="0" />
       <Rule path="/data[at0001]/items[at0008 and name/value='Multivitaminer før svangerskapet']/items[at0016]" max="0" />
       <Rule path="/data[at0001]/items[at0008 and name/value='Multivitaminer før svangerskapet']/items[at0013]" max="0" />
       <Rule path="/data[at0001]/items[at0008]" max="1" clone="true" name="Folsyre i svangerskapet" />
       <Rule path="/data[at0001]/items[at0008 and name/value='Folsyre i svangerskapet']/items[at0021]" name="Folsyre">
         <constraint xsi:type="textConstraint">
-          <includedValues>SNOMED-CT::63718003::Folsyre</includedValues>
+          <includedValues>Svangerskapsavbrudd_0340_KOSTTILSKUDD::0340-0::Folat/folsyre</includedValues>
         </constraint>
       </Rule>
       <Rule path="/data[at0001]/items[at0008 and name/value='Folsyre i svangerskapet']/items[at0011]" max="0" />
       <Rule path="/data[at0001]/items[at0008 and name/value='Folsyre i svangerskapet']/items[at0018]" max="0" />
       <Rule path="/data[at0001]/items[at0008 and name/value='Folsyre i svangerskapet']/items[at0020]" max="0" />
-      <Rule path="/data[at0001]/items[at0008 and name/value='Folsyre i svangerskapet']/items[at0014]" name="Brukt folsyre i svangerkapet" />
+      <Rule path="/data[at0001]/items[at0008 and name/value='Folsyre i svangerskapet']/items[at0014]" name="Brukt folsyre i svangerkapet">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Svangerskapsavbrudd_0340_KOSTTILSKUDD::0340-1::Folat/folsyre i svangerskap</includedValues>
+        </constraint>
+      </Rule>
       <Rule path="/data[at0001]/items[at0008 and name/value='Folsyre i svangerskapet']/items[at0012]" max="0" />
       <Rule path="/data[at0001]/items[at0008 and name/value='Folsyre i svangerskapet']/items[at0016]" max="0" />
       <Rule path="/data[at0001]/items[at0008 and name/value='Folsyre i svangerskapet']/items[at0013]" max="0" />
       <Rule path="/data[at0001]/items[at0008]" max="1" clone="true" name="Multivitaminer i svangerskapet" />
       <Rule path="/data[at0001]/items[at0008 and name/value='Multivitaminer i svangerskapet']/items[at0021]" name="Multivitaminer">
         <constraint xsi:type="textConstraint">
-          <includedValues>SNOMED-CT::412250002::Mulitvitaminer</includedValues>
+          <includedValues>Svangerskapsavbrudd_0330_KOSTTILSKUDD::0330-0::Multivitaminer</includedValues>
         </constraint>
       </Rule>
       <Rule path="/data[at0001]/items[at0008 and name/value='Multivitaminer i svangerskapet']/items[at0011]" max="0" />
       <Rule path="/data[at0001]/items[at0008 and name/value='Multivitaminer i svangerskapet']/items[at0018]" max="0" />
       <Rule path="/data[at0001]/items[at0008 and name/value='Multivitaminer i svangerskapet']/items[at0020]" max="0" />
-      <Rule path="/data[at0001]/items[at0008 and name/value='Multivitaminer i svangerskapet']/items[at0014]" name="Brukt multivitaminer i svangerskapet" />
+      <Rule path="/data[at0001]/items[at0008 and name/value='Multivitaminer i svangerskapet']/items[at0014]" name="Brukt multivitaminer i svangerskapet">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Svangerskapsavbrudd_0330_KOSTTILSKUDD::0330-1::Multivitaminer i svangerskap</includedValues>
+        </constraint>
+      </Rule>
       <Rule path="/data[at0001]/items[at0008 and name/value='Multivitaminer i svangerskapet']/items[at0012]" max="0" />
       <Rule path="/data[at0001]/items[at0008 and name/value='Multivitaminer i svangerskapet']/items[at0016]" max="0" />
       <Rule path="/data[at0001]/items[at0008 and name/value='Multivitaminer i svangerskapet']/items[at0013]" max="0" />
       <Rule path="/data[at0001]/items[at0015]" max="0" />
       <Rule path="/data[at0001]/items[at0010]" max="0" />
+    </Content>
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.hjelpefelter_svangerskapsavbrudd.v1" concept_name="Hjelpefelter svangerskapsavbrudd" path="/content">
+      <Rule path="/data[at0001]/items[at0016]" max="0" />
+      <Rule path="/data[at0001]/items[at0037]" max="0" />
+      <Rule path="/data[at0001]/items[at0017]" max="0" />
+      <Rule path="/data[at0001]/items[at0085]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Svangerskapsavbrudd_0320_KV_KOST::0320-1::Ja</includedValues>
+          <includedValues>Svangerskapsavbrudd_0320_KV_KOST::0320-2::Nei</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0020]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Svangerskapsavbrudd_0300_KV_UTD::0300-1::Nei</includedValues>
+          <includedValues>Svangerskapsavbrudd_0300_KV_UTD::0300-2::Av og til</includedValues>
+          <includedValues>Svangerskapsavbrudd_0300_KV_UTD::0300-3::Daglig</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0021]" max="0" />
+      <Rule path="/data[at0001]/items[at0024]" max="0" />
+      <Rule path="/data[at0001]/items[at0038]" max="0" />
+      <Rule path="/data[at0001]/items[at0025]" max="0" />
+      <Rule path="/data[at0001]/items[at0026]" max="0" />
+      <Rule path="/data[at0001]/items[at0035]" max="0" />
+      <Rule path="/data[at0001]/items[at0040]" max="0" />
     </Content>
     <Context />
   </definition>
