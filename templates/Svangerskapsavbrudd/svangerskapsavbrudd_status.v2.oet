@@ -216,7 +216,12 @@
         <Rule path="/items[at0007]" max="0" />
       </Items>
     </Content>
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_dips.v1" concept_name="Laboratoriesvar" max="1" path="/content" name="Resultat Klamydia prøve">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_dips.v1" concept_name="Laboratoriesvar" max="1" path="/content" name="Resultat klamydiaprøve">
+      <Rule path="/data[at0001]/events[at0002]" max="1" name="Svangerskapsavbrudd">
+        <eventConstraint>
+          <allowedType>PointInTime</allowedType>
+        </eventConstraint>
+      </Rule>
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]" name="Klamydia">
         <constraint xsi:type="textConstraint">
           <includedValues>SNOMED-CT::16241000::Klamydia</includedValues>
@@ -230,7 +235,14 @@
         </constraint>
       </Rule>
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0100]" max="0" />
-      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0057]" name="Prøvesvar Klamydia" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0057]" name="Prøvesvar klamydia">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Svangerskapsavbrudd_0550_ST_KLAM_RES::0550-1::Positiv</includedValues>
+          <includedValues>Svangerskapsavbrudd_0550_ST_KLAM_RES::0550-2::Negativ</includedValues>
+          <includedValues>Svangerskapsavbrudd_0550_ST_KLAM_RES::0550-3::Forurenset</includedValues>
+          <includedValues>Svangerskapsavbrudd_0550_ST_KLAM_RES::0550-4::Svar foreligger ikke</includedValues>
+        </constraint>
+      </Rule>
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0098]" max="0" />
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0101]" max="0" />
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0010]" max="0" />
@@ -245,13 +257,18 @@
       <Rule path="/description[at0001]/items[at0018]" max="0" />
       <Rule path="/description[at0001]/items[at0019]">
         <constraint xsi:type="textConstraint">
-          <includedValues>Svangerskapsavbrudd</includedValues>
+          <includedValues>SNOMED-CT::386639001::Svangerskapsavbrudd</includedValues>
         </constraint>
       </Rule>
       <Rule path="/description[at0001]/items[at0020]" max="0" />
       <Rule path="/protocol[at0015]/items[at0016]" max="0" />
     </Content>
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_dips.v1" concept_name="Laboratoriesvar" max="1" path="/content" name="Resultat andre Mikrobiologiprøver">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_dips.v1" concept_name="Laboratoriesvar" max="1" path="/content" name="Resultat andre mikrobiologiprøver">
+      <Rule path="/data[at0001]/events[at0002]" max="1" name="Svangerskapsavbrudd">
+        <eventConstraint>
+          <allowedType>PointInTime</allowedType>
+        </eventConstraint>
+      </Rule>
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]" name="Andre mikrobiologiske prøver">
         <constraint xsi:type="textConstraint">
           <includedValues>SNOMED-CT::19851009::Mikrobiologisk prøve</includedValues>
@@ -280,7 +297,7 @@
       <Rule path="/description[at0001]/items[at0018]" max="0" />
       <Rule path="/description[at0001]/items[at0019]">
         <constraint xsi:type="textConstraint">
-          <includedValues>Svangerskapsavbrudd</includedValues>
+          <includedValues>SNOMED-CT::386639001::Svangerskapsavbrudd</includedValues>
         </constraint>
       </Rule>
       <Rule path="/description[at0001]/items[at0020]" max="0" />
@@ -294,7 +311,7 @@
       </Rule>
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
         <constraint xsi:type="textConstraint">
-          <includedValues>SNOMED-CT::165745004::Rhesus Blodgruppe bestemmelse</includedValues>
+          <includedValues>Svangerskapsavbrudd::RHES-0::Bestemmelse av Rhesus-blodgruppe</includedValues>
         </constraint>
       </Rule>
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0077]" max="0" />
@@ -303,8 +320,8 @@
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0078.3]" max="0" />
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0078.2]">
         <constraint xsi:type="textConstraint">
-          <includedValues>Positiv</includedValues>
-          <includedValues>Negativ</includedValues>
+          <includedValues>Svangerskapsavbrudd::RHES-1::Positiv</includedValues>
+          <includedValues>Svangerskapsavbrudd::RHES-2::Negativ</includedValues>
         </constraint>
       </Rule>
       <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0.90]" max="0" />
@@ -317,7 +334,11 @@
       <Rule path="/protocol[at0004]/items[at0075]" max="0" />
     </Content>
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.health_education_dips.v1" concept_name="Helseinformasjon" max="1" path="/content" name="Informasjon om mulighet for rådgivning ">
-      <Rule path="/description[at0001]/items[at0002]" name="Informasjon om mulighet for rådgivning " />
+      <Rule path="/description[at0001]/items[at0002]" name="Informasjon om mulighet for rådgivning gitt">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Informasjon om mulighet for rådgivning gitt? (jf. Abl. § 2.1)</includedValues>
+        </constraint>
+      </Rule>
       <Rule path="/description[at0001]/items[at0003]" max="0" />
       <Rule path="/description[at0001]/items[at0004]" max="0" />
       <Rule path="/description[at0001]/items[at0012]" max="0" />
@@ -328,7 +349,11 @@
       <Rule path="/protocol[at0021]/items[at0022]" max="0" />
     </Content>
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.health_education_dips.v1" concept_name="Helseinformasjon" max="1" path="/content" name="Informasjon om inngrepets art og virkning gitt">
-      <Rule path="/description[at0001]/items[at0002]" name="Informasjon om inngrepets art og virkning gitt" />
+      <Rule path="/description[at0001]/items[at0002]" name="Informasjon om inngrepets art og virkning gitt">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Informasjon om inngrepets art og virkning gitt? (jf. Abl. § 5)</includedValues>
+        </constraint>
+      </Rule>
       <Rule path="/description[at0001]/items[at0003]" max="0" />
       <Rule path="/description[at0001]/items[at0004]" max="0" />
       <Rule path="/description[at0001]/items[at0012]" max="0" />
@@ -339,7 +364,11 @@
       <Rule path="/protocol[at0021]/items[at0022]" max="0" />
     </Content>
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.health_education_dips.v1" concept_name="Helseinformasjon" max="1" path="/content" name="Prevensjonsveiledning gitt">
-      <Rule path="/description[at0001]/items[at0002]" name="Prevensjonsveiledning gitt" />
+      <Rule path="/description[at0001]/items[at0002]" name="Prevensjonsveiledning gitt">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Prevensjonsveiledning gitt</includedValues>
+        </constraint>
+      </Rule>
       <Rule path="/description[at0001]/items[at0003]" max="0" />
       <Rule path="/description[at0001]/items[at0004]" max="0" />
       <Rule path="/description[at0001]/items[at0012]" max="0" />
@@ -353,8 +382,6 @@
       <Rule path="/data[at0001]/items[at0002]">
         <constraint xsi:type="textConstraint">
           <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-0::Ingen</includedValues>
-          <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-1::Sikre perioder</includedValues>
-          <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-2::Avbrutt samleie</includedValues>
           <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-3::Kondom</includedValues>
           <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-4::P-pille/minipille</includedValues>
           <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-5::P-sprøyte</includedValues>
@@ -366,8 +393,6 @@
           <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-11::Kvinne sterilisert</includedValues>
           <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-12::Mann sterilisert</includedValues>
           <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-13::Nødprevensjon</includedValues>
-          <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-14::Ikke besvart</includedValues>
-          <includedValues>Svangerskapsavbrudd_0440_AN_PREV_GRA::0440-99::Annet</includedValues>
         </constraint>
       </Rule>
       <Rule path="/data[at0001]/items[at0002]" max="1" clone="true" name="Evt. annen prevensjon" />
@@ -429,6 +454,33 @@
       <Rule path="/description[at0017]/items[at0025]" max="0" />
       <Rule path="/description[at0017]/items[at0024]" max="0" />
       <Rule path="/protocol[at0030]/items[at0103]" max="0" />
+    </Content>
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.hjelpefelter_svangerskapsavbrudd.v1" concept_name="Hjelpefelter svangerskapsavbrudd" path="/content">
+      <Rule path="/data[at0001]/items[at0016]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Svangerskapsavbrudd_0540_ST_KLAM_TATT::0540-1::Ja</includedValues>
+          <includedValues>Svangerskapsavbrudd_0540_ST_KLAM_TATT::0540-2::Nei</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0017]" max="0" />
+      <Rule path="/data[at0001]/items[at0085]" max="0" />
+      <Rule path="/data[at0001]/items[at0020]" max="0" />
+      <Rule path="/data[at0001]/items[at0086]" max="0" />
+      <Rule path="/data[at0001]/items[at0087]" max="0" />
+      <Rule path="/data[at0001]/items[at0021]" max="0" />
+      <Rule path="/data[at0001]/items[at0038]" max="0" />
+      <Rule path="/data[at0001]/items[at0025]" max="0" />
+      <Rule path="/data[at0001]/items[at0088]">
+        <constraint xsi:type="durationConstraint">
+          <pattern>PW</pattern>
+          <includesMaximum>false</includesMaximum>
+          <includesMinimum>false</includesMinimum>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0090]" max="0" />
+      <Rule path="/data[at0001]/items[at0091]" max="0" />
+      <Rule path="/data[at0001]/items[at0035]" max="0" />
+      <Rule path="/data[at0001]/items[at0040]" max="0" />
     </Content>
     <Context />
   </definition>
