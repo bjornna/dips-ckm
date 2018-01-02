@@ -88,7 +88,7 @@
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/diagnose" path="/content">
       <Rule path="/data[at0001]/items[at0002]">
         <constraint xsi:type="textConstraint">
-          <includedValues>Begjæring om svangerskapsavbrudd</includedValues>
+          <includedValues>Svangerskapsavbrudd::ADMN-11::Begjæring om svangerskapsavbrudd</includedValues>
         </constraint>
       </Rule>
       <Rule path="/data[at0001]/items[at0009]" max="0" />
@@ -101,7 +101,7 @@
       <Rule path="/data[at0001]/items[at0073]" max="0" />
       <Rule path="/data[at0001]/items[at0069]" max="0" />
       <Rule path="/protocol[at0032]/items[at0070]" max="0" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.problem_diagnosis_dips.v1" concept_name="Problem/diagnose detaljer" max="1" path="/data[at0001]/items[at0043]" name="Koding svangerskapsavbrudd">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.problem_diagnosis_dips.v1" concept_name="Problem/diagnose detaljer" max="1" path="/data[at0001]/items[at0043]" name="Koding">
         <Rule path="/items[at0001]">
           <constraint xsi:type="textConstraint">
             <termQueryId terminologyID="ICD10" terminologyLang="no-nb" queryName="ICD10" />
@@ -110,24 +110,6 @@
         <Rule path="/items[at0002]" max="0" />
         <Rule path="/items[at0003]" max="0" />
       </Items>
-    </Content>
-    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.exclusion-procedure.v1" concept_name="Exclusion of a Procedure" max="1" path="/content" name="Svangerskapsavbrudd ikke gjennomført">
-      <Rule path="/data[at0001]/items[at0002.1]" max="1" name="Begrunnelse for at svangerskapsavbrudd ikke er gjennomført">
-        <constraint xsi:type="textConstraint">
-          <includedValues>Svangerskapsavbrudd_0780_IG_BGR_AVBR_IG::0780-1::Trukket tilbake</includedValues>
-          <includedValues>Svangerskapsavbrudd_0780_IG_BGR_AVBR_IG::0780-2::Spontanabort</includedValues>
-          <includedValues>Svangerskapsavbrudd_0780_IG_BGR_AVBR_IG::0780-3::Ikke gravid</includedValues>
-          <includedValues>Svangerskapsavbrudd_0780_IG_BGR_AVBR_IG::0780-4::Ikke møtt i nemnd</includedValues>
-          <includedValues>Svangerskapsavbrudd_0780_IG_BGR_AVBR_IG::0780-5::Utføres ved annen institusjon</includedValues>
-        </constraint>
-      </Rule>
-      <Rule path="/data[at0001]/items[at0003.1]">
-        <constraint xsi:type="multipleConstraint">
-          <includedTypes>Text</includedTypes>
-        </constraint>
-      </Rule>
-      <Rule path="/data[at0001]/items[at0007]" max="0" />
-      <Rule path="/protocol[at0006]/items[at0004]" max="0" />
     </Content>
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" max="1" path="/content" name="Svangerskapsavbrudd">
       <Rule path="/description[at0001]/items[at0002]">
@@ -208,7 +190,7 @@
     </Content>
     <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Tiltak ved komplikasjkoner">
       <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" max="1" path="/items" name="Kirurgisk revisjon">
-        <Rule path="/description[at0001]/items[at0002]" name="Kirurgisk revisjon">
+        <Rule path="/description[at0001]/items[at0002]">
           <constraint xsi:type="textConstraint">
             <includedValues>SNOMED-CT::118635009::Kirurgisk revisjon</includedValues>
           </constraint>
@@ -300,6 +282,7 @@
         <Rule path="/protocol[at0053]/items[at0056]" max="0" />
       </Item>
       <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" max="1" path="/items" name="Annet tiltak">
+        <Rule path="/description[at0001]/items[at0002]" name="Annet tiltak" />
         <Rule path="/description[at0001]/items[at0049]" max="0" />
         <Rule path="/description[at0001]/items[at0065]" max="0" />
         <Rule path="/description[at0001]/items[at0058]" max="0" />
@@ -318,6 +301,9 @@
       </Item>
       <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.exclusion_global.v1" concept_name="Eksklusjonsutsagn - overordnet" max="1" path="/items" name="Ingen tiltak ved komplikasjoner">
         <Rule path="/data[at0001]/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Svangerskapsavbrudd::ADMN-16::Ingen tiltak utført ved komplikasjoner</includedValues>
+          </constraint>
           <nameConstraint>
             <excludedValues>local::at0003</excludedValues>
             <excludedValues>local::at0004</excludedValues>
@@ -347,15 +333,15 @@
       <Rule path="/data[at0001]/items[at0090]" max="0" />
       <Rule path="/data[at0001]/items[at0091]">
         <constraint xsi:type="textConstraint">
-          <includedValues>Svangerskapsavbrudd_0930_IG_BEH_KOMPL::X930-1::Kirurgisk revisjon av uterinhulen</includedValues>
-          <includedValues>Svangerskapsavbrudd_0930_IG_BEH_KOMPL::X930-2::Laparoskopi</includedValues>
-          <includedValues>Svangerskapsavbrudd_0930_IG_BEH_KOMPL::X930-3::Laparotomi</includedValues>
-          <includedValues>Svangerskapsavbrudd_0930_IG_BEH_KOMPL::X930-4::Blodtransfusjon</includedValues>
+          <includedValues>Svangerskapsavbrudd_0930_IG_BEH_KOMPL::0930-1::Kirurgisk revisjon av uterinhulen</includedValues>
+          <includedValues>Svangerskapsavbrudd_0930_IG_BEH_KOMPL::0930-2::Laparoskopi</includedValues>
+          <includedValues>Svangerskapsavbrudd_0930_IG_BEH_KOMPL::0930-3::Laparotomi</includedValues>
+          <includedValues>Svangerskapsavbrudd_0930_IG_BEH_KOMPL::0930-4::Blodtransfusjon</includedValues>
         </constraint>
       </Rule>
       <Rule path="/data[at0001]/items[at0091]" max="1" clone="true" name="Ingen tiltak">
         <constraint xsi:type="textConstraint">
-          <includedValues>Svangerskapsavbrudd_0930_IG_BEH_KOMPL::X930-0::Ingen behandling</includedValues>
+          <includedValues>Svangerskapsavbrudd_0930_IG_BEH_KOMPL::0930-0::Ingen behandling</includedValues>
         </constraint>
       </Rule>
       <Rule path="/data[at0001]/items[at0091]" max="1" clone="true" name="Annet tiltak" />
@@ -369,7 +355,6 @@
         </constraint>
       </Rule>
       <Rule path="/data[at0001]/items[at0035]" max="1" clone="true" name="Svangerskapsavbrudd ikke gjennomført, annen årsak" />
-      <Rule path="/data[at0001]/items[at0040]" max="0" />
     </Content>
     <Context />
   </definition>
