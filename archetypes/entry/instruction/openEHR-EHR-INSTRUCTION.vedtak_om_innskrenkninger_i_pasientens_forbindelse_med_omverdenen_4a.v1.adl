@@ -21,7 +21,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"3489E233325F9F32BC608E4FFA9F2508">
+		["MD5-CAM-1.0.1"] = <"244AE9DA20762D71DF530E725F2D779F">
 	>
 
 definition
@@ -31,7 +31,7 @@ definition
 				description matches {
 					ITEM_TREE[at0002] matches {	-- Tree
 						items cardinality matches {0..*; unordered} matches {
-							ELEMENT[at0004] occurrences matches {0..*} matches {	-- Hvilke innskrenkninger vedtaket omfatter
+							ELEMENT[at0004] occurrences matches {0..5} matches {	-- Hvilke innskrenkninger vedtaket omfatter
 								value matches {
 									DV_CODED_TEXT matches {
 										defining_code matches {
@@ -48,11 +48,11 @@ definition
 							ELEMENT[at0023] occurrences matches {0..1} matches {	-- Dato vedtaket gjelder til
 								value matches {
 									DV_DATE matches {
-										value matches {yyyy-??-XX}
+										value matches {yyyy-mm-dd}
 									}
 								}
 							}
-							ELEMENT[at0010] occurrences matches {0..*} matches {	-- Begrunnelse for innskrenket forbindelse
+							ELEMENT[at0010] occurrences matches {0..4} matches {	-- Begrunnelse for innskrenket forbindelse
 								value matches {
 									DV_CODED_TEXT matches {
 										defining_code matches {
@@ -70,56 +70,9 @@ definition
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0016] occurrences matches {0..1} matches {	-- Helsetjenesteenhet (utgår)
-								value matches {
-									DV_CODED_TEXT matches {
-										defining_code matches {[ac0001]}		-- New constraint
-									}
-								}
-							}
-							ELEMENT[at0025] occurrences matches {0..1} matches {	-- Helsetjenesteenhet
-								value matches {
-									DV_TEXT matches {*}
-								}
-							}
-							ELEMENT[at0017] occurrences matches {0..1} matches {	-- Dato og tidspunkt vedtak fattet
-								value matches {
-									DV_DATE_TIME matches {
-										value matches {yyyy-mm-ddTHH:??:??}
-									}
-								}
-							}
 							allow_archetype CLUSTER[at0018] occurrences matches {0..*} matches {	-- Vedtakstype
 								include
 									archetype_id/value matches {/openEHR-EHR-CLUSTER\.vedtakstype(-[a-zA-Z0-9_]+)*\.v1/}
-							}
-							allow_archetype CLUSTER[at0020] occurrences matches {0..*} matches {	-- Vurdering av pasientinnsyn
-								include
-									archetype_id/value matches {/.*/}
-							}
-							ELEMENT[at0003] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak i journalnotat datert: (utgår)
-								value matches {
-									DV_DATE matches {*}
-								}
-							}
-							ELEMENT[at0019] occurrences matches {0..1} matches {	-- Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette (utgår)
-								value matches {
-									DV_TEXT matches {*}
-								}
-							}
-							ELEMENT[at0021] occurrences matches {0..1} matches {	-- Begrunnelse for vedtaket er dokumentert i eget journalnotat (utgår)
-								value matches {
-									DV_BOOLEAN matches {
-										value matches {True, False}
-									}
-								}
-							}
-							ELEMENT[at0015] occurrences matches {0..1} matches {	-- Pasienten har opphold i en regional sikkerhetsavdeling eller i enhet med særlig høyt sikkerhetsnivå (utgår)
-								value matches {
-									DV_BOOLEAN matches {
-										value matches {True}
-									}
-								}
 							}
 						}
 					}
@@ -144,33 +97,29 @@ ontology
 					text = <"Tree">
 					description = <"@ internal @">
 				>
-				["at0003"] = <
-					text = <"Begrunnelse for vedtak i journalnotat datert: (utgår)">
-					description = <"Referanse til journalnotat med nærmere begrunnelse for vedtaket.">
-				>
 				["at0004"] = <
 					text = <"Hvilke innskrenkninger vedtaket omfatter">
 					description = <"Standard kodeverk 9306 Innskrenkninger i pasientens forbindelse med omverdenen.">
 				>
 				["at0005"] = <
 					text = <"Besøk må foregå med personell til stede eller med glassvegg som skiller pasient og besøkende">
-					description = <"*">
+					description = <"Besøk må foregå med personell til stede eller med glassvegg som skiller pasient og besøkende">
 				>
 				["at0006"] = <
 					text = <"Telefonsamtaler må forhåndsgodkjennes, kan avlyttes og avbrytes">
-					description = <"*">
+					description = <"Telefonsamtaler må forhåndsgodkjennes, kan avlyttes og avbrytes">
 				>
 				["at0007"] = <
 					text = <"Bruk av elektroniske kommunikasjonsmidler må forhåndsgodkjennes, kan overvåkes og avbrytes">
-					description = <"*">
+					description = <"Bruk av elektroniske kommunikasjonsmidler må forhåndsgodkjennes, kan overvåkes og avbrytes">
 				>
 				["at0008"] = <
 					text = <"Post åpnes, kontrolleres og helt eller delvis kan inndras">
-					description = <"*">
+					description = <"Post åpnes, kontrolleres og helt eller delvis kan inndras">
 				>
 				["at0009"] = <
 					text = <"Godkjent tolk oversetter kommunikasjon, dersom denne er på et annet språk enn det personellet behersker">
-					description = <"*">
+					description = <"Godkjent tolk oversetter kommunikasjon, dersom denne er på et annet språk enn det personellet behersker">
 				>
 				["at0010"] = <
 					text = <"Begrunnelse for innskrenket forbindelse">
@@ -178,69 +127,31 @@ ontology
 				>
 				["at0011"] = <
 					text = <"Risiko for rømming">
-					description = <"*">
+					description = <"Risiko for rømming">
 				>
 				["at0012"] = <
 					text = <"Risiko for alvorlig voldsutøvelse">
-					description = <"*">
+					description = <"Risiko for alvorlig voldsutøvelse">
 				>
 				["at0013"] = <
 					text = <"Risiko for innføring av legemidler, rusmidler, skadelige stoffer, rømningshjelpemiddel eller farlig gjenstand">
-					description = <"*">
+					description = <"Risiko for innføring av legemidler, rusmidler, skadelige stoffer, rømningshjelpemiddel eller farlig gjenstand">
 				>
 				["at0014"] = <
 					text = <"Risiko for angrep mot pasienten">
-					description = <"*">
-				>
-				["at0015"] = <
-					text = <"Pasienten har opphold i en regional sikkerhetsavdeling eller i enhet med særlig høyt sikkerhetsnivå (utgår)">
-					description = <"Markering for å angi at pasienten har opphold i en regional sikkerhetsavdeling eller i enhet med særlig høyt sikkerhetsnivå. ">
-				>
-				["at0016"] = <
-					text = <"Helsetjenesteenhet (utgår)">
-					description = <"Identifikasjon av den enheten hvor vedtaket fattes.">
-				>
-				["at0017"] = <
-					text = <"Dato og tidspunkt vedtak fattet">
-					description = <"Det tidspunkt (dato og klokkeslett) vedtaket ble fattet.">
+					description = <"Risiko for angrep mot pasienten">
 				>
 				["at0018"] = <
 					text = <"Vedtakstype">
 					description = <"Standard kodeverk 9275 Vedtak etter psykisk helsevernloven.">
 				>
-				["at0019"] = <
-					text = <"Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette (utgår)">
-					description = <"Dersom pasienten på det tidspunktet vedtaket fattes nektes innsyn i hele eller deler av begrunnelsen for vedtaket etter bestemmelsen i pasient- og brukerrettighetsloven § 3 2 tredje ledd, skal ikke begrunnelsen for vedtaket registreres i tekstfeltet under, men i et eget journalnotat. Begrunnelsen for å nekte innsyn må også fremkomme i samme journalnotat.">
-				>
-				["at0020"] = <
-					text = <"Vurdering av pasientinnsyn">
-					description = <"*">
-				>
-				["at0021"] = <
-					text = <"Begrunnelse for vedtaket er dokumentert i eget journalnotat (utgår)">
-					description = <"*">
-				>
 				["at0023"] = <
 					text = <"Dato vedtaket gjelder til">
-					description = <"Den dato vedtaket gjelder til.">
+					description = <"Den dato vedtaket gjelder til, inntil 4 uker.">
 				>
 				["at0024"] = <
 					text = <"Nedenfor fremgår begrunnelse for vedtaket">
 					description = <"Begrunnelsen for vedtaket. ">
-				>
-				["at0025"] = <
-					text = <"Helsetjenesteenhet">
-					description = <"Identifikasjon av den enheten hvor vedtaket fattes">
-				>
-			>
-		>
-	>
-	constraint_definitions = <
-		["nb"] = <
-			items = <
-				["ac0001"] = <
-					text = <"New constraint">
-					description = <"*">
 				>
 			>
 		>
