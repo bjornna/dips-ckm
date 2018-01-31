@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>09f7213c-93a1-4f46-8734-461b0174f016</id>
+  <name>Operasjonsprotokoll</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose />
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt">
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" path="/content">
+      <Rule path="/description[at0001]/items[at0002]" name="Narkose">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="ARK-ANE-HOVEDTYPE" terminologyLang="en-GB" queryName="ARK-ANE-HOVEDTYPE" />
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0001]/items[at0049]" max="0" />
+      <Rule path="/description[at0001]/items[at0065]" max="0" />
+      <Rule path="/description[at0001]/items[at0058]" max="0" />
+      <Rule path="/description[at0001]/items[at0063]" max="0" />
+      <Rule path="/description[at0001]/items[at0066]" name="Prosedyre start" />
+      <Rule path="/description[at0001]/items[at0060]" name="Prosedyre slutt" />
+      <Rule path="/description[at0001]/items[at0067]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>SNOMEDCT::261554009::Reoperasjon</includedValues>
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.reoperation_details.v1" concept_name="Reoperasjonsdetaljer" path="/description[at0001]/items[at0003]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ARENA-AARSAK-REOPR::AR1::Blødning</includedValues>
+            <includedValues>ARENA-AARSAK-REOPR::AR2::Infeksjon</includedValues>
+            <includedValues>ARENA-AARSAK-REOPR::AR3::Mekanisk</includedValues>
+            <includedValues>ARENA-AARSAK-REOPR::AR4::Annet</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.infeksjonsovervaaking_dips.v1" concept_name="Melding til infeksjonsregister" path="/content">
+      <Rule path="/data[at0001]/events[at0002]" name="Operasjon" />
+      <Rule path="/data[at0001]/events[at0043]" name="Utskrivning" />
+      <Rule path="/data[at0001]/events[at0046]" name="30 dager" />
+      <Rule path="/data[at0001]/events[at0047]" name="365 dager" />
+    </Content>
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.contact_summary_dips.v1" concept_name="contact summary" path="/content">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.reinnleggelse_dips.v1" concept_name="Reinnleggelse" path="/data[at0001]/items[at0022]" />
+    </Content>
+    <Context />
+  </definition>
+</template>
