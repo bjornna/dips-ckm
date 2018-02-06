@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
-  <id>012db2e7-6d82-457c-ba00-6d44da8fe3d9</id>
-  <name>Gjennomforing_Tvangsbeh_ernaring</name>
+  <id>09f7213c-93a1-4f46-8734-461b0174f016</id>
+  <name>Operasjonsprotokoll</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
@@ -60,8 +60,14 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.gjennomforing_tvangsbehandling.v1" concept_name="Gjennomforing tvangsbehandling">
-    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.gjennomforing_tvangsbeh_ernaring.v1" concept_name="Gjennomforing tvangsbeh ernæring" path="/content" />
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.infeksjonsovervaaking_dips.v1" concept_name="Melding til infeksjonsregister" path="/content">
+      <Rule path="/data[at0001]/events[at0002]" name="Operasjon" />
+      <Rule path="/data[at0001]/events[at0043]" name="Utskrivning" />
+      <Rule path="/data[at0001]/events[at0046]" name="30 dager" />
+      <Rule path="/data[at0001]/events[at0047]" name="365 dager" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.reinnleggelse_dips.v1" concept_name="Reinnleggelse" path="/data[at0001]/events[at0046]/data[at0003]/items[at0044]" />
+    </Content>
     <Context />
   </definition>
 </template>
