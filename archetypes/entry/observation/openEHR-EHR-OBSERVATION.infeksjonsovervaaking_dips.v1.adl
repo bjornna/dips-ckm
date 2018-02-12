@@ -25,7 +25,7 @@ description
 	other_contributors = <>
 	other_details = <
 		["current_contact"] = <"Anine Ramberg, DIPS AS<ara@dips.no>">
-		["MD5-CAM-1.0.1"] = <"9966EBC4E07C1E9692D3831ED8834F1F">
+		["MD5-CAM-1.0.1"] = <"8ABD2EAE7691DD4C42A77D341EB18B69">
 	>
 
 definition
@@ -33,7 +33,7 @@ definition
 		data matches {
 			HISTORY[at0001] matches {	-- Event Series
 				events cardinality matches {1..*; unordered} matches {
-					POINT_EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+					POINT_EVENT[at0043] occurrences matches {0..1} matches {	-- Utskrivning
 						data matches {
 							ITEM_TREE[at0003] matches {	-- Tree
 								items cardinality matches {0..*; unordered} matches {
@@ -177,38 +177,18 @@ definition
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0064] occurrences matches {0..1} matches {	-- Oppfølgingsdato
-										value matches {
-											DV_DATE_TIME matches {*}
-										}
-									}
 								}
 							}
 						}
 					}
-					POINT_EVENT[at0043] occurrences matches {0..1} matches {	-- Any event
+					POINT_EVENT[at0046] occurrences matches {0..1} matches {	-- 30 dager
 						data matches {
-							use_node ITEM_TREE /data[at0001]/events[at0002]/data[at0003]	-- /data[Event Series]/events[Any event]/data[Tree]
+							use_node ITEM_TREE /data[at0001]/events[at0043]/data[at0003]	-- /data[Event Series]/events[Utskrivning]/data[Tree]
 						}
 					}
-					POINT_EVENT[at0046] occurrences matches {0..1} matches {	-- Any event
-						offset matches {
-							DV_DURATION matches {
-								value matches {|P30D|}
-							}
-						}
+					POINT_EVENT[at0047] occurrences matches {0..1} matches {	-- 365 dager
 						data matches {
-							use_node ITEM_TREE /data[at0001]/events[at0002]/data[at0003]	-- /data[Event Series]/events[Any event]/data[Tree]
-						}
-					}
-					POINT_EVENT[at0047] occurrences matches {0..1} matches {	-- Any event
-						offset matches {
-							DV_DURATION matches {
-								value matches {|P365D|}
-							}
-						}
-						data matches {
-							use_node ITEM_TREE /data[at0001]/events[at0002]/data[at0003]	-- /data[Event Series]/events[Any event]/data[Tree]
+							use_node ITEM_TREE /data[at0001]/events[at0043]/data[at0003]	-- /data[Event Series]/events[Utskrivning]/data[Tree]
 						}
 					}
 				}
@@ -227,10 +207,6 @@ ontology
 				["at0001"] = <
 					text = <"Event Series">
 					description = <"@ internal @">
-				>
-				["at0002"] = <
-					text = <"Any event">
-					description = <"Operasjon">
 				>
 				["at0003"] = <
 					text = <"Tree">
@@ -273,7 +249,7 @@ DI: Dyp postoperativ sårinfeksjon (må diagnostiseres av lege)
 					description = <"*">
 				>
 				["at0043"] = <
-					text = <"Any event">
+					text = <"Utskrivning">
 					description = <"Utskrivning">
 				>
 				["at0044"] = <
@@ -285,11 +261,11 @@ DI: Dyp postoperativ sårinfeksjon (må diagnostiseres av lege)
 					description = <"Felt for utregnet risikopoeng. Beregnes ut fra ASA, operasjonsvarighet, multiple prosedyrer.">
 				>
 				["at0046"] = <
-					text = <"Any event">
+					text = <"30 dager">
 					description = <"30 dager">
 				>
 				["at0047"] = <
-					text = <"Any event">
+					text = <"365 dager">
 					description = <"365 dager">
 				>
 				["at0048"] = <
@@ -351,10 +327,6 @@ DI: Dyp postoperativ sårinfeksjon (må diagnostiseres av lege)
 				["at0063"] = <
 					text = <"Ev. klinisk vurdering">
 					description = <"Lege besvarer spørsmål.">
-				>
-				["at0064"] = <
-					text = <"Oppfølgingsdato">
-					description = <"Dato for mottatt tilbakemelding fra pasient, enten via brev eller innhentet opplysninger via telefon.">
 				>
 				["at0065"] = <
 					text = <"IN-ingen infeksjon">

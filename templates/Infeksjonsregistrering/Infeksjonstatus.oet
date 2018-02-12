@@ -5,7 +5,7 @@
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
-      <purpose />
+      <purpose>Benyttes for hendelsesregistrering for infeksjonsovervåkningen</purpose>
       <use />
       <misuse />
     </details>
@@ -60,9 +60,9 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.trajectory.v1" concept_name="Trajectory">
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.trajectory.v1" concept_name="Trajectory" name="Infeksjonstatus">
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" path="/content">
-      <Rule path="/description[at0001]/items[at0002]">
+      <Rule path="/description[at0001]/items[at0002]" min="1">
         <constraint xsi:type="textConstraint">
           <includedValues>INFECTION-STATUS::I00::Start infeksjonsovervåkning</includedValues>
           <includedValues>INFECTION-STATUS::I01::Vurdering ved utskrivelse</includedValues>
@@ -86,6 +86,8 @@
           <includedValues>INFECTION-STATUS::IR3::Rapport feilet</includedValues>
         </constraint>
       </Rule>
+      <Rule path="/description[at0001]/items[at0014]" max="0" />
+      <Rule path="/protocol[at0011]/items[at0012]" max="0" />
     </Content>
     <Context />
   </definition>
