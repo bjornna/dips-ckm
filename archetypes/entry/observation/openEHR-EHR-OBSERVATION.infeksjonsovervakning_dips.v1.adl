@@ -1,0 +1,395 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.infeksjonsovervakning_dips.v1
+
+concept
+	[at0000]	-- Melding til infeksjonsregister
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anine Ramberg">
+		["email"] = <"ara@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2017-09-25">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes i forbindelse registrering og rapportering av infeksjonsovervåkning til NOIS/POSI.">
+			use = <"Brukes for registrering og rapportring av infeksjonsovervåkning til NOIS/POSI.">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"NotSet">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <"Anine Ramberg, DIPS AS<ara@dips.no>">
+		["MD5-CAM-1.0.1"] = <"03CAE88BAC55F03D28A7CE06A743DC2F">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Melding til infeksjonsregister
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					POINT_EVENT[at0043] occurrences matches {0..1} matches {	-- Utskrivning
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Infeksjonstype
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0072, 	-- IN - Ingen infeksjon
+													at0073, 	-- PS - Overfladisk postoperativ sårinfeksjon (diagnostisert av pasient)
+													at0074, 	-- SI - Overfladisk postoperativ sårinfeksjon (diagnostisert av lege)
+													at0075, 	-- DI -  Dyp postoperativ sårinfeksjon (må diagnostiseres av lege)
+													at0076, 	-- OS - Postoperativ sårinfeksjon i organ eller hulrom (må diagnostiseres av lege)
+													at0077, 	-- UK - Ukjent
+													at0078]	-- IA - Ikke aktuelt
+												}
+											}
+										}
+									}
+									ELEMENT[at0011] occurrences matches {0..1} matches {	-- Infeksjonsdato
+										value matches {
+											DV_DATE matches {*}
+										}
+									}
+									ELEMENT[at0031] occurrences matches {0..1} matches {	-- Narkose
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									CLUSTER[at0029] occurrences matches {0..*} matches {	-- Høstested
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0012] occurrences matches {0..1} matches {	-- Infeksjonstype høstested
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0065, 	-- IN - Ingen infeksjon
+															at0066, 	-- PS - Overfladisk postoperativ sårinfeksjon (diagnostisert av pasient)
+															at0067, 	-- SI - Overfladisk postoperativ sårinfeksjon (diagnostisert av lege)
+															at0068, 	-- DI - Dyp postoperativ sårinfeksjon (må diagnostiseres av lege)
+															at0069, 	-- OS - Postoperativ sårinfeksjon i organ eller hulrom (må diagnostiseres av lege)
+															at0070, 	-- UK - Ukjent
+															at0071]	-- IA - Ikke aktuelt
+														}
+													}
+												}
+											}
+											ELEMENT[at0017] occurrences matches {0..1} matches {	-- Infeksjonsdato høstested
+												value matches {
+													DV_DATE matches {*}
+												}
+											}
+										}
+									}
+									allow_archetype CLUSTER[at0044] occurrences matches {0..*} matches {	-- Detaljer
+										include
+											archetype_id/value matches {/.*/}
+									}
+									ELEMENT[at0045] occurrences matches {0..1} matches {	-- Risikopoeng
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									CLUSTER[at0081] occurrences matches {0..1} matches {	-- Vurdering fra pasient
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0042] occurrences matches {0..1} matches {	-- Er infeksjonen behandlet med antibiotika
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0050] occurrences matches {0..1} matches {	-- Har det kommet gulgrønn sårvæske (puss) fra operasjonssåret? 
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0051] occurrences matches {0..1} matches {	-- Har det vært unormal rødme rundt operasjonssåret (mer enn ½ cm på hver side)? 
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0052] occurrences matches {0..1} matches {	-- Har lege åpnet såret på grunn av infeksjon?
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0053] occurrences matches {0..1} matches {	-- Har du fått antibiotika på grunn av betennelse i såret? 
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0054] occurrences matches {0..1} matches {	-- Har du hatt feber (mer enn 38,5 grader) på grunn av betennelse i operasjonssåret? 
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0055] occurrences matches {0..1} matches {	-- Dato for når du ev. oppdaget infeksjonstegn
+												value matches {
+													DV_DATE_TIME matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0082] occurrences matches {0..1} matches {	-- Vurdering fra lege
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0063] occurrences matches {0..1} matches {	-- Ev. klinisk vurdering
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0062] occurrences matches {0..1} matches {	-- Dato for prøvetaking
+												value matches {
+													DV_DATE_TIME matches {*}
+												}
+											}
+											ELEMENT[at0061] occurrences matches {0..1} matches {	-- Vekst av
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0060] occurrences matches {0..1} matches {	-- Bakteriologisk prøve
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0059] occurrences matches {0..1} matches {	-- Infeksjon ble oppdaget (dato)
+												value matches {
+													DV_DATE_TIME matches {*}
+												}
+											}
+											ELEMENT[at0058] occurrences matches {0..1} matches {	-- Pasienten har/har hatt en postoperativ infeksjon i underliggende organ/hulrom 
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0057] occurrences matches {0..1} matches {	-- Pasienten har/har hatt en dyp postoperativ sårinfeksjon 
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+											ELEMENT[at0056] occurrences matches {0..1} matches {	-- Pasienten har/har hatt en overfladisk postoperativ sårinfeksjon 
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					POINT_EVENT[at0046] occurrences matches {0..1} matches {	-- 30 dager
+						data matches {
+							use_node ITEM_TREE /data[at0001]/events[at0043]/data[at0003]	-- /data[Event Series]/events[Utskrivning]/data[Tree]
+						}
+					}
+					POINT_EVENT[at0047] occurrences matches {0..1} matches {	-- 365 dager
+						data matches {
+							use_node ITEM_TREE /data[at0001]/events[at0043]/data[at0003]	-- /data[Event Series]/events[Utskrivning]/data[Tree]
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Melding til infeksjonsregister">
+					description = <"Brukes i forbindelse med infeksjonsregistrering.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0005"] = <
+					text = <"Infeksjonstype">
+					description = <"IN: Ingen infeksjon
+ PS: Overfladisk postoperativ sårinfeksjon (diagnostisert av pasient) 
+SI: Overflatisk postoperativ sårinfeksjon (diagnostisert av lege) 
+DI: Dyp postoperativ sårinfeksjon (må diagnostiseres av lege)
+ OS: Postoperativ sårinfeksjon i organ eller hulrom (må diagnostiseres av lege). UK: Ukjent. IA: Ikke aktuelt">
+				>
+				["at0011"] = <
+					text = <"Infeksjonsdato">
+					description = <"Dato for når infeksjon ble oppdaget">
+				>
+				["at0012"] = <
+					text = <"Infeksjonstype høstested">
+					description = <"Infeksjonstype høstested. Kun brukes der man transplanterer vev fra et sted til et annet.">
+				>
+				["at0017"] = <
+					text = <"Infeksjonsdato høstested">
+					description = <"Dato for vevshøsting. Kun brukes der man transplanterer vev fra et sted til et annet.">
+				>
+				["at0029"] = <
+					text = <"Høstested">
+					description = <"">
+				>
+				["at0031"] = <
+					text = <"Narkose">
+					description = <"Har pasienten fått narkose, ja, nei">
+				>
+				["at0042"] = <
+					text = <"Er infeksjonen behandlet med antibiotika">
+					description = <"*">
+				>
+				["at0043"] = <
+					text = <"Utskrivning">
+					description = <"Utskrivning">
+				>
+				["at0044"] = <
+					text = <"Detaljer">
+					description = <"Brukes for å kunne legge til detaljer">
+				>
+				["at0045"] = <
+					text = <"Risikopoeng">
+					description = <"Felt for utregnet risikopoeng. Beregnes ut fra ASA, operasjonsvarighet, multiple prosedyrer.">
+				>
+				["at0046"] = <
+					text = <"30 dager">
+					description = <"30 dager">
+				>
+				["at0047"] = <
+					text = <"365 dager">
+					description = <"365 dager">
+				>
+				["at0050"] = <
+					text = <"Har det kommet gulgrønn sårvæske (puss) fra operasjonssåret? ">
+					description = <"Pasienten må svare på spørsmål.">
+				>
+				["at0051"] = <
+					text = <"Har det vært unormal rødme rundt operasjonssåret (mer enn ½ cm på hver side)? ">
+					description = <"Pasienten må svare på spørsmål.">
+				>
+				["at0052"] = <
+					text = <"Har lege åpnet såret på grunn av infeksjon?">
+					description = <"Pasienten må svare på spørsmål.">
+				>
+				["at0053"] = <
+					text = <"Har du fått antibiotika på grunn av betennelse i såret? ">
+					description = <"Pasienten må svare på spørsmål.">
+				>
+				["at0054"] = <
+					text = <"Har du hatt feber (mer enn 38,5 grader) på grunn av betennelse i operasjonssåret? ">
+					description = <"Pasienten må svare på spørsmål.">
+				>
+				["at0055"] = <
+					text = <"Dato for når du ev. oppdaget infeksjonstegn">
+					description = <"Pasienten må svare på spørsmål.">
+				>
+				["at0056"] = <
+					text = <"Pasienten har/har hatt en overfladisk postoperativ sårinfeksjon ">
+					description = <"Lege besvarer spørsmål.">
+				>
+				["at0057"] = <
+					text = <"Pasienten har/har hatt en dyp postoperativ sårinfeksjon ">
+					description = <"Lege besvarer spørsmål.">
+				>
+				["at0058"] = <
+					text = <"Pasienten har/har hatt en postoperativ infeksjon i underliggende organ/hulrom ">
+					description = <"Lege besvarer spørsmål.">
+				>
+				["at0059"] = <
+					text = <"Infeksjon ble oppdaget (dato)">
+					description = <"Lege besvarer spørsmål.">
+				>
+				["at0060"] = <
+					text = <"Bakteriologisk prøve">
+					description = <"Lege besvarer spørsmål.">
+				>
+				["at0061"] = <
+					text = <"Vekst av">
+					description = <"Lege besvarer spørsmål.">
+				>
+				["at0062"] = <
+					text = <"Dato for prøvetaking">
+					description = <"Lege besvarer spørsmål.">
+				>
+				["at0063"] = <
+					text = <"Ev. klinisk vurdering">
+					description = <"Lege besvarer spørsmål.">
+				>
+				["at0065"] = <
+					text = <"IN - Ingen infeksjon">
+					description = <"*">
+				>
+				["at0066"] = <
+					text = <"PS - Overfladisk postoperativ sårinfeksjon (diagnostisert av pasient)">
+					description = <"Diagnostisert av pasienten etter utskrivelse">
+				>
+				["at0067"] = <
+					text = <"SI - Overfladisk postoperativ sårinfeksjon (diagnostisert av lege)">
+					description = <"Diagnostisert av pasienten etter utskrivelse">
+				>
+				["at0068"] = <
+					text = <"DI - Dyp postoperativ sårinfeksjon (må diagnostiseres av lege)">
+					description = <"*">
+				>
+				["at0069"] = <
+					text = <"OS - Postoperativ sårinfeksjon i organ eller hulrom (må diagnostiseres av lege)">
+					description = <"*">
+				>
+				["at0070"] = <
+					text = <"UK - Ukjent">
+					description = <"Benyttes dersom man ikke vet pasientens infeksjonsstatus ved utskrivelse, eller det ikke har vært mulig å få informasjon om pasientens infeksjonsstatus ved 30 dagers oppfølging">
+				>
+				["at0071"] = <
+					text = <"IA - Ikke aktuelt">
+					description = <" Denne koden brukes for eksempel dersom pasienten fortsatt er inneliggende ved 30 dagers oppfølging (da vil pasienten ha IA som infeksjonsstatus ved utskrivelse). Pasienten har allerede fått den mest alvorlige infeksjonen (OS) før utskrivelse (da er det ikke nødvendig å følge pasienten opp etter utskrivelse, og infeksjonstype ved 30 dager (1 år) vil være IA). Hvis pasienten dør før oppfølgingsperioden er fullført, vil infeksjonstype ved 30 dager (1 år) være IA. ">
+				>
+				["at0072"] = <
+					text = <"IN - Ingen infeksjon">
+					description = <"*">
+				>
+				["at0073"] = <
+					text = <"PS - Overfladisk postoperativ sårinfeksjon (diagnostisert av pasient)">
+					description = <"Diagnostisert av pasienten etter utskrivelse">
+				>
+				["at0074"] = <
+					text = <"SI - Overfladisk postoperativ sårinfeksjon (diagnostisert av lege)">
+					description = <"*">
+				>
+				["at0075"] = <
+					text = <"DI -  Dyp postoperativ sårinfeksjon (må diagnostiseres av lege)
+ ">
+					description = <"*">
+				>
+				["at0076"] = <
+					text = <"OS - Postoperativ sårinfeksjon i organ eller hulrom (må diagnostiseres av lege)">
+					description = <"*">
+				>
+				["at0077"] = <
+					text = <"UK - Ukjent">
+					description = <"Benyttes dersom man ikke vet pasientens infeksjonsstatus ved utskrivelse, eller det ikke har vært mulig å få informasjon om pasientens infeksjonsstatus ved 30 dagers oppfølging">
+				>
+				["at0078"] = <
+					text = <"IA - Ikke aktuelt">
+					description = <" Denne koden brukes for eksempel dersom pasienten fortsatt er inneliggende ved 30 dagers oppfølging (da vil pasienten ha IA som infeksjonsstatus ved utskrivelse). Pasienten har allerede fått den mest alvorlige infeksjonen (OS) før utskrivelse (da er det ikke nødvendig å følge pasienten opp etter utskrivelse, og infeksjonstype ved 30 dager (1 år) vil være IA). Hvis pasienten dør før oppfølgingsperioden er fullført, vil infeksjonstype ved 30 dager (1 år) være IA.">
+				>
+				["at0081"] = <
+					text = <"Vurdering fra pasient">
+					description = <"Spørsmål som sendes til pasient om infeksjonstatus.">
+				>
+				["at0082"] = <
+					text = <"Vurdering fra lege">
+					description = <"Spørsmål lege må besvare hvis pasienten tar kontakt pga. infeksjon under oppfølgingsperiode.">
+				>
+			>
+		>
+	>
