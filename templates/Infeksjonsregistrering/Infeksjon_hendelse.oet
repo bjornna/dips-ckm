@@ -60,42 +60,34 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt">
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.infeksjonsovervaaking_dips.v1" concept_name="Melding til infeksjonsregister" path="/content">
-      <Rule path="/data[at0001]/events[at0002]" max="0" />
-      <Rule path="/data[at0001]/events[at0043]" max="0" />
-      <Rule path="/data[at0001]/events[at0046]" name="30 dager" />
-      <Rule path="/data[at0001]/events[at0046]/data[at0003]/items[at0005]">
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.trajectory.v1" concept_name="Trajectory">
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Oppfølging av død">
+      <Rule path="/description[at0001]/items[at0002]">
         <constraint xsi:type="textConstraint">
-          <includedValues>ARENA-INFEKSJONSOVERVAKNING::II1::IN-ingen infeksjon</includedValues>
-          <includedValues>ARENA-INFEKSJONSOVERVAKNING::PO2::PS-overfladisk postoperativ sårinfeksjon (diagnostisert av pasient)</includedValues>
-          <includedValues>ARENA-INFEKSJONSOVERVAKNING::OP3::SI-overfladisk postoverativ sårinfeksjon (diagnostisert av lege)</includedValues>
-          <includedValues>ARENA-INFEKSJONSOVERVAKNING::DP4::DI-dyp postoperativ sårinfeksjon (må diagnostiseres av lege)</includedValues>
-          <includedValues>ARENA-INFEKSJONSOVERVAKNING::HU5::OS-postoperativ sårinfeksjon i organ eller hulrom (må diagnostiseres av lege)</includedValues>
-          <includedValues>ARENA-INFEKSJONSOVERVAKNING::UKJ6::UK-ukjent</includedValues>
-          <includedValues>ARENA-INFEKSJONSOVERVAKNING::IK7::IA-ikke aktuelt</includedValues>
+          <includedValues>INFECTION-STATUS::ID1::Død som følge av infeksjon</includedValues>
+          <includedValues>INFECTION-STATUS::ID2::Død-ikke på grunn av infeksjon</includedValues>
         </constraint>
       </Rule>
-      <Rule path="/data[at0001]/events[at0046]/data[at0003]/items[at0031]" max="0" />
-      <Rule path="/data[at0001]/events[at0046]/data[at0003]/items[at0029]" max="0" />
-      <Rule path="/data[at0001]/events[at0046]/data[at0003]/items[at0045]" max="0" />
-      <Rule path="/data[at0001]/events[at0046]/data[at0003]/items[at0050]" max="0" />
-      <Rule path="/data[at0001]/events[at0046]/data[at0003]/items[at0051]" max="0" />
-      <Rule path="/data[at0001]/events[at0046]/data[at0003]/items[at0052]" max="0" />
-      <Rule path="/data[at0001]/events[at0046]/data[at0003]/items[at0053]" max="0" />
-      <Rule path="/data[at0001]/events[at0046]/data[at0003]/items[at0054]" max="0" />
-      <Rule path="/data[at0001]/events[at0046]/data[at0003]/items[at0055]" max="0" />
-      <Rule path="/data[at0001]/events[at0046]/data[at0003]/items[at0056]" max="0" />
-      <Rule path="/data[at0001]/events[at0046]/data[at0003]/items[at0057]" max="0" />
-      <Rule path="/data[at0001]/events[at0046]/data[at0003]/items[at0058]" max="0" />
-      <Rule path="/data[at0001]/events[at0046]/data[at0003]/items[at0059]" max="0" />
-      <Rule path="/data[at0001]/events[at0046]/data[at0003]/items[at0060]" max="0" />
-      <Rule path="/data[at0001]/events[at0046]/data[at0003]/items[at0061]" max="0" />
-      <Rule path="/data[at0001]/events[at0046]/data[at0003]/items[at0062]" max="0" />
-      <Rule path="/data[at0001]/events[at0046]/data[at0003]/items[at0063]" max="0" />
-      <Rule path="/data[at0001]/events[at0046]/data[at0003]/items[at0064]" max="0" />
-      <Rule path="/data[at0001]/events[at0047]" max="0" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.reinnleggelse_dips.v1" concept_name="Reinnleggelse" path="/data[at0001]/events[at0046]/data[at0003]/items[at0044]" />
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Oppfølging av reinnleggelse">
+      <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/items" name="Oppfølging av reinnleggelse">
+        <Rule path="/description[at0001]/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>INFECTION-STATUS::IA1::Reinnleggelse som følge av infeksjon</includedValues>
+            <includedValues>INFECTION-STATUS::IA2::Reinnleggelse-ikke på grunn av infeksjon</includedValues>
+          </constraint>
+        </Rule>
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Oppfølging av reoperasjon">
+      <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/items" name="Oppfølging av reoperasjon">
+        <Rule path="/description[at0001]/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>INFECTION-STATUS::IS1::Reoperasjon som følge av infeksjon</includedValues>
+            <includedValues>INFECTION-STATUS::IS2::Reoperasjon-ikke på grunn av infeksjon</includedValues>
+          </constraint>
+        </Rule>
+      </Item>
     </Content>
     <Context />
   </definition>
