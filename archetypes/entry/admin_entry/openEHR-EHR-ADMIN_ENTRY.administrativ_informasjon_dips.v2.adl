@@ -1,0 +1,123 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ADMIN_ENTRY.administrativ_informasjon_dips.v2
+
+concept
+	[at0000]	-- Administrativ informasjon
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Eline Mosling">
+		["email"] = <"elm@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2018-02-21">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Vise info/beskjeder">
+			use = <"Kan benyttes i kolonne i pasientliste
+F eks til pasient i en anonym liste eller til behandler/sykepleier/sekretær">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"76268B7824C8BEA039C954DCFF5C8DDF">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {	-- Administrativ informasjon
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0015] occurrences matches {0..*} matches {	-- Mottaker
+						include
+							archetype_id/value matches {/openEHR-EHR-CLUSTER\.individual_professional_dips(-[a-zA-Z0-9_]+)*\.v1|openEHR-EHR-CLUSTER\.person_name_dips(-[a-zA-Z0-9_]+)*\.v1/}
+					}
+					CLUSTER[at0016] occurrences matches {0..*} matches {	-- Informasjon/beskjed
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0005] occurrences matches {0..1} matches {	-- Tidspunkt beskjed
+								value matches {
+									DV_DATE_TIME matches {*}
+								}
+							}
+							ELEMENT[at0002] occurrences matches {0..*} matches {	-- Informasjon/beskjed
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+						}
+					}
+					CLUSTER[at0017] occurrences matches {0..1} matches {	-- Status
+						items cardinality matches {1..*; unordered} matches {
+							allow_archetype CLUSTER[at0019] occurrences matches {0..*} matches {	-- Type behandler
+								include
+									archetype_id/value matches {/.*/}
+							}
+							ELEMENT[at0010] occurrences matches {0..*} matches {	-- Status
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0018] occurrences matches {0..1} matches {	-- Tidspunkt status
+								value matches {
+									DV_DATE_TIME matches {*}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Administrativ informasjon">
+					description = <"Kan benyttes i kolonne i pasientliste for å sende/vise beskjeder. ">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Informasjon/beskjed">
+					description = <"Innhold i beskjed">
+				>
+				["at0005"] = <
+					text = <"Tidspunkt beskjed">
+					description = <"Tidspunkt for sending av beskjed">
+				>
+				["at0010"] = <
+					text = <"Status">
+					description = <"Beskriver status hos angitt behandler. Skal om mulig angis med kodeverk.">
+				>
+				["at0015"] = <
+					text = <"Mottaker">
+					description = <"Mottaker av beskjed.">
+				>
+				["at0016"] = <
+					text = <"Informasjon/beskjed">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Status">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Tidspunkt status">
+					description = <"Tidspunkt for registrering av status">
+				>
+				["at0019"] = <
+					text = <"Type behandler">
+					description = <"Angir hvilken type behandler det dreier seg om, f eks lege, sykepleier.">
+				>
+			>
+		>
+	>
