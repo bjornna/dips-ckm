@@ -1,8 +1,8 @@
-﻿archetype (adl_version=1.4; uid=0d12bedb-6ced-4e95-ba9b-3cd3bdbd4982)
-	openEHR-EHR-OBSERVATION.waist_circumference.v0
+﻿archetype (adl_version=1.4; uid=49fdb7df-8c11-4354-8efb-0ca25999f59b)
+	openEHR-EHR-OBSERVATION.waist_circumference.v1
 
 concept
-	[at0000]	-- Midjeomkrets
+	[at0000]	-- Waist circumference
 language
 	original_language = <[ISO_639-1::en]>
 	translations = <
@@ -26,22 +26,26 @@ language
 description
 	original_author = <
 		["name"] = <"Silje Ljosland Bakke">
-		["email"] = <"silje.ljosland.bakke@nasjonalikt.no">
 		["organisation"] = <"Nasjonal IKT, Norway">
+		["email"] = <"silje.ljosland.bakke@nasjonalikt.no">
 		["date"] = <"2017-05-11">
 	>
 	details = <
 		["en"] = <
 			language = <[ISO_639-1::en]>
-			purpose = <"To record the circumference of the waist of an individual.">
-			use = <"Use to record the circumference of the waist of an individual. 
+			purpose = <"To record the measurement of the circumference of the waist.">
+			use = <"Use to record the measurement of the circumference of the waist. 
 
-Use to record change from repeated measurements. This can currently be modelled by constraining the 'any event' to an interval in a template with an associated mathematical function, as appropriate.">
-			keywords = <"anthropometry", "measurement", "estimation", "circumference">
-			misuse = <"Not to be used to record growth velocity.
+There is no clear agreement on exactly where the waist circumference should be measured. In cases where this is important to the interpretation of the results, this should be documented in the 'Method' element.
+
+Use to record change from repeated measurements. This can currently be modeled by constraining the 'any event' to an interval in a template with an associated mathematical function, as appropriate.
+
+This archetype can also be used for recording an approximation of the waist circumference measurement in a clinical scenario where it is not possible to measure an accurate waist circumference - for example, measuring an uncooperative child. This is not modelled explicitly in the archetype as the openEHR Reference model allows the attribute of Approximation for any Quantity data type. At implementation, for example, an application user interface could allow clinicians to select an appropriately labelled check box adjacent to the 'Waist circumference' data field to indicate that the recorded waist circumference is an approximation, rather than actual.">
+			keywords = <"anthropometry", "measurement", "estimation", "circumference", "waist", "girth", "abdominal">
+			misuse = <"Not to be used to record the speed of which the waist circumference is growing or decreasing. Use a growth velocity archetype for this purpose.
 
 Not to be used to record the circumference of another body part. Use OBSERVATION.body_segment in these circumstances except where more specific archetypes exist such as OBSERVATION.hip_circumference.">
-			copyright = <"© openEHR Foundation">
+			copyright = <"© openEHR Foundation, Nasjonal IKT HF">
 		>
 		["pt-br"] = <
 			language = <[ISO_639-1::pt-br]>
@@ -55,34 +59,41 @@ Usar para registar o crescimento a partir de medições repetidas. Este atualmen
 			misuse = <"Não deve ser usado para gravar a velocidade de crescimento.
 
 Não deve ser usado para gravar a circunferência de outra parte do corpo. Usar OBSERVATION.body_segment nestas circunstâncias, exceto quando existem arquétipos mais específicos tais como OBSERVATION.waist_hip.">
-			copyright = <"© openEHR Foundation">
+			copyright = <"© openEHR Foundation, Nasjonal IKT HF">
 		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"For å registrere et individs midjeomfang">
-			use = <"Bruk for å registrere et individs midjeomfang
+			purpose = <"For å registrere målingen av midjeomkrets.">
+			use = <"Bruk for å registrere målingen midjeomkrets.
 
-Denne arketypen kan også brukes for å registrere en approksimering av midjeomfange  ti et klinisk scenario der det ikke er mulig å få en nøyaktig måling, f.eks. ved måling av et barn som ikke samarbeider. Dette er ikke modellert eksplisitt inn i arketypen, siden openEHR referansemodellen tillater attributten \"Approksimering\" for datatypen \"Quantity\". Ved implementasjon kan f.eks. et brukergrensesnitt tillate klinikerne å velge en avkrysningsboks ved siden av elementet \"Midjeomfang\" for å indikere at omkretsen er en approksimering heller enn en faktisk måling. Et utsagn om at midjen ikke er fysisk intakt kan registreres i elementet \"Konfunderende faktorer\" hvis nødvendig.
+Det finnes en rekke ulike metoder for måling av midjeomkrets. I tilfeller der det er viktig for tolkningen av resultatet bør metoden dokumenteres i dataelementet \"Metode\".
 
-Brukes til å registrere vekst ved gjentatte målinger. Dette kan modelleres ved å i en templat begrense \"Uspesifisert hendelse\" til et intervall med en tilhørende matematisk funksjon for \"økning\".">
-			keywords = <"antropometri", "måling", "estimering", "omkrets">
-			misuse = <"Brukes ikke til å registrere veksthastighet.
+Brukes til å registrere endring ved gjentatte målinger. Dette kan modelleres ved å begrense \"Uspesifisert hendelse\" i en templat til et intervall med en tilhørende matematisk funksjon for \"økning\".
 
-Brukes ikke til å registrere omkretsen av andre kroppsdeler. Bruk OBSERVATION.body_segment i disse tilfellene med unntak av hvor det finnes mer spesifikke arketyper som for eksempel OBSERVATION.waist_hip.">
-			copyright = <"© openEHR Foundation">
+Denne arketypen kan også brukes for å registrere et anslag av midjeomkrets i et klinisk scenario der det ikke er mulig å få til en nøyaktig måling, f.eks. ved måling av et barn som ikke samarbeider. Dette er ikke modellert eksplisitt inn i arketypen, siden openEHR referansemodellen tillater attributten \"Approksimering\" for datatypen \"Quantity\". Ved implementasjon kan f.eks. et brukergrensesnitt tillate klinikerne å velge en avkrysningsboks ved siden av elementet \"Midjeomkrets\" for å indikere at omkretsen er en approksimering heller enn en faktisk måling.">
+			keywords = <"antropometri", "måling", "estimering", "omkrets", "livvidde", "mageomfang", "midjemål", "bukomkrets", "somatometri">
+			misuse = <"Brukes ikke til å registrere hastigheten midjeomkretsen øker eller avtar, bruk en egen arketype for veksthastighet for dette formålet.
+
+Brukes ikke til å registrere omkretsen av andre kroppsdeler. Bruk OBSERVATION.body_segment i disse tilfellene med unntak av hvor det finnes mer spesifikke arketyper som for eksempel OBSERVATION.hip_circumference.">
+			copyright = <"© openEHR Foundation, Nasjonal IKT HF">
 		>
 	>
-	lifecycle_state = <"NotSet">
-	other_contributors = <>
+	lifecycle_state = <"published">
+	other_contributors = <"Anne Pauline Anderssen, Helse Nord RHF, Norway", "Vebjørn Arntzen, Oslo universitetssykehus HF, Norway (Nasjonal IKT redaktør)", "Silje Ljosland Bakke, Nasjonal IKT HF, Norway (Nasjonal IKT redaktør)", "Malin Berg, DIPS ASA, Norway", "SB Bhattacharyya, Sudisa Consultancy Services, India", "Bjørn Christensen, Helse Bergen HF, Norway", "Lisbeth Dahlhaug, Helse Midt - Norge IT, Norway", "Hildegard Franke, freshEHR Clinical Informatics Ltd., United Kingdom", "Mikkel Gaup Grønmo, FSE, Helse Nord, Norway (Nasjonal IKT redaktør)", "Ingrid Heitmann, Oslo universitetssykehus HF, Norway", "Hilde Hollås, DIPS ASA, Norway", "Roar Holm, Helse Vest IKT A/S, Norway", "Evelyn Hovenga, EJSH Consulting, Australia", "Tom Jarl Jakobsen, Helse Bergen, Norway", "Pétur Júlíusson, Barneklinikken, HUS og K2, UIB, Norway", "Lars Morgan Karlsen, DIPS ASA, Norway", "Adriana Kitajima, CORE Consulting, Brazil", "Nils Kolstrup, Skansen Legekontor og Nasjonalt Senter for samhandling og telemedisin, Norway", "Harmony Kosola, Alberta Health Services, Canada", "Heather Leslie, Ocean Health Systems, Australia", "Siv Marie Lien, DIPS ASA, Norway", "Inge Lindseth, Balderklinikken, Norway", "Priscila Maranhão, MEDCIDS-FMUP, Portugal", "Ian McNicoll, freshEHR Clinical Informatics, United Kingdom", "Lars Ivar Mehlum, Helse Bergen HF, Norway", "Bjørn Næss, DIPS ASA, Norway", "Andrej Orel, Marand d.o.o., Slovenia", "Vladimir Pizzo, Hospital Sírio Libanês, Brazil", "Anoop Shah, University College London, United Kingdom", "Raymond Simkus, Brookswood Family Practice, Canada", "John Tore Valand, Haukeland Universitetssjukehus, Norway (Nasjonal IKT redaktør)", "Stian Torleif Varpe, Helse Bergen, Norway">
 	other_details = <
-		["revision"] = <"0.0.1-alpha">
-		["original_publisher"] = <"openEHR Foundation">
-		["build_uid"] = <"10855aae-4c24-4131-961e-d0df47a27dc3">
-		["original_namespace"] = <"org.openehr">
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
-		["MD5-CAM-1.0.1"] = <"E0CB6B90EA58F8E5CC23B75106DA4210">
-		["custodian_namespace"] = <"org.openehr">
-		["custodian_organisation"] = <"openEHR Foundation">
+		["custodian_organisation"] = <"Nasjonal IKT">
+		["references"] = <"Avgrenet fra: Waist circumference, Draft archetype [Internet]. openEHR Foundation, openEHR Clinical Knowledge Manager [cited: 2017-08-28]. Available from: http://openehr.org/ckm/#showArchetype_1013.1.2814
+
+World Health Organization. (2011). Waist circumference and waist-hip ratio: Report of a WHO expert consultation, Geneva, 8-11 December 2008 [cited 2017 oct 2]. Available from: http://apps.who.int/iris/bitstream/10665/44583/1/9789241501491_eng.pdf
+
+Júlíusson, P. B., Vinsjansen, S., Nilsen, B., Sælensminde, H., Vågset, R., & Eide, G. E. (2005). Måling av vekst og vekt: En oversikt over anbefalte teknikker. Pediatrisk Endokrinologi, 19, 23-9  [cited 2017 oct 2]. Available from: http://pediatrisk-endokrinologi.no/2005/1/Juliusson_et_al_2005_1.pdf">
+		["original_namespace"] = <"no.nasjonalikt">
+		["original_publisher"] = <"Nasjonal IKT">
+		["custodian_namespace"] = <"no.nasjonalikt">
+		["MD5-CAM-1.0.1"] = <"794D7B3758E06287B322B1A7FAC564D6">
+		["build_uid"] = <"33ba84bc-ea8a-4df5-80fa-87d15d8044db">
+		["revision"] = <"1.0.0">
 	>
 
 definition
@@ -94,20 +105,18 @@ definition
 						data matches {
 							ITEM_TREE[at0003] matches {	-- Tree
 								items cardinality matches {1..*; unordered} matches {
-									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Midjeomkrets
+									ELEMENT[at0004] matches {	-- Midjeomkrets
 										value matches {
 											C_DV_QUANTITY <
 												property = <[openehr::122]>
 												list = <
 													["1"] = <
 														units = <"cm">
-														magnitude = <|0.0..400.0|>
-														precision = <|1|>
+														magnitude = <|0.0..500.0|>
 													>
 													["2"] = <
 														units = <"[in_i]">
-														magnitude = <|0.0..150.0|>
-														precision = <|1|>
+														magnitude = <|0.0..<400.0|>
 													>
 												>
 											>
@@ -139,6 +148,11 @@ definition
 		protocol matches {
 			ITEM_TREE[at0005] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0013] occurrences matches {0..1} matches {	-- Metode
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
 					allow_archetype CLUSTER[at0006] occurrences matches {0..1} matches {	-- Måleutstyr
 						include
 							archetype_id/value matches {/openEHR-EHR-CLUSTER\.device(-[a-zA-Z0-9_]+)*\.v1/}
@@ -152,14 +166,14 @@ definition
 		}
 	}
 
+
 ontology
 	term_definitions = <
 		["en"] = <
 			items = <
 				["at0000"] = <
 					text = <"Waist circumference">
-					description = <"The measurement of the distance around the waist just above the hip bone.">
-					comment = <"The measurement is usually taken just above the hip bone.">
+					description = <"The measurement of the distance around the waist.">
 				>
 				["at0001"] = <
 					text = <"Event Series">
@@ -171,8 +185,7 @@ ontology
 				>
 				["at0004"] = <
 					text = <"Waist circumference">
-					description = <"The measurement of the distance around the waist just above the hip bone.">
-					comment = <"The measurement is usually taken just above the hip bone.">
+					description = <"The measurement of the circumference of the waist.">
 				>
 				["at0005"] = <
 					text = <"Tree">
@@ -184,7 +197,7 @@ ontology
 				>
 				["at0007"] = <
 					text = <"Comment">
-					description = <"Additional narrative about the waist circumference not captured in other fields.">
+					description = <"Additional narrative about the measurement of waist circumference not captured in other fields.">
 				>
 				["at0008"] = <
 					text = <"Tree">
@@ -192,7 +205,7 @@ ontology
 				>
 				["at0009"] = <
 					text = <"Confounding factors">
-					description = <"Narrative descripiton of any issues or factors that may impact on the measurement.">
+					description = <"Narrative description of any issues or factors that may impact on the measurement.">
 					comment = <"For example: uncooperative child.">
 				>
 				["at0010"] = <
@@ -204,14 +217,17 @@ ontology
 					description = <"Additional information required to capture local context or to align with other reference models/formalisms.">
 					comment = <"For example: Local hospital departmental infomation or additional metadata to align with FHIR or CIMI equivalents.">
 				>
+				["at0013"] = <
+					text = <"Method">
+					description = <"The method how the waist circumference was measured.">
+				>
 			>
 		>
 		["pt-br"] = <
 			items = <
 				["at0000"] = <
 					text = <"*Waist circumference(en)">
-					description = <"*The measurement of the distance around the waist just above the hip bone.(en)">
-					comment = <"*The measurement is usually taken just above the hip bone.(en)">
+					description = <"*The measurement of the circumference of the waist.(en)">
 				>
 				["at0001"] = <
 					text = <"Event Series">
@@ -223,8 +239,7 @@ ontology
 				>
 				["at0004"] = <
 					text = <"*Waist circumference(en)">
-					description = <"*The measurement of the distance around the waist just above the hip bone.(en)">
-					comment = <"*The measurement is usually taken just above the hip bone.(en)">
+					description = <"*The measurement of the circumference of the waist.(en)">
 				>
 				["at0005"] = <
 					text = <"Tree">
@@ -256,14 +271,17 @@ ontology
 					description = <"Informações adicionais, necessárias para capturar o contexto local ou para alinhar com outros modelos de referência / formalismos.">
 					comment = <"Por exemplo: departamento de informações do hospital local ou metadados adicionais para alinhar ao FHIR ou CIMI equivalentes.">
 				>
+				["at0013"] = <
+					text = <"*Method(en)">
+					description = <"*The method how and/or precise anatomical location where the waist circumference was measured.(en)">
+				>
 			>
 		>
 		["nb"] = <
 			items = <
 				["at0000"] = <
 					text = <"Midjeomkrets">
-					description = <"Målingen er avstanden rundt midjen rett over hoftekammen.">
-					comment = <"*The measurement is usually taken just above the hip bone.(en)">
+					description = <"Måling av distansen rundt midjen.">
 				>
 				["at0001"] = <
 					text = <"Event Series">
@@ -275,8 +293,7 @@ ontology
 				>
 				["at0004"] = <
 					text = <"Midjeomkrets">
-					description = <"*The measurement of the distance around the waist just above the hip bone.(en)">
-					comment = <"*The measurement is usually taken just above the hip bone.(en)">
+					description = <"Måling av midjeomkretsen">
 				>
 				["at0005"] = <
 					text = <"Tree">
@@ -288,7 +305,7 @@ ontology
 				>
 				["at0007"] = <
 					text = <"Kommentar">
-					description = <"*Additional narrative about the waist circumference not captured in other fields.(en)">
+					description = <"Ytterligere fritekst om målingen av midjeomkrets som ikke er registrert i andre felt.">
 				>
 				["at0008"] = <
 					text = <"Tree">
@@ -307,6 +324,10 @@ ontology
 					text = <"Tilleggsinformasjon">
 					description = <"Ytterligere informasjon som trengs for å kunne registrere lokalt definert innhold eller for å tilpasse til andre referansemodeller/formalismer.">
 					comment = <"For eksempel lokale informasjonsbehov eller ytterligere metadata for å kunne tilpasse til tilsvarende konsepter i FHIR eller CIMI.">
+				>
+				["at0013"] = <
+					text = <"Metode">
+					description = <"Metoden som ble brukt til målingen av midjeomkretsen.">
 				>
 			>
 		>
