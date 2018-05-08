@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
-  <id>ff1f41e8-59d1-4b8e-b05d-758a4894e204</id>
-  <name>Operasjonsprotokoll</name>
+  <id>7a33a8d1-c081-40bd-82df-1d23c200049e</id>
+  <name>Max_Manus_test</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
@@ -60,15 +60,19 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.trajectory.v1" concept_name="Trajectory">
-    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Oppfølging av død">
-      <Rule path="/description[at0001]/items[at0002]">
-        <constraint xsi:type="textConstraint">
-          <includedValues>INFECTION-STATUS::ID1::Død som følge av infeksjon</includedValues>
-          <includedValues>INFECTION-STATUS::ID2::Død - ikke på grunn av infeksjon</includedValues>
-        </constraint>
-      </Rule>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt">
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" path="/content">
+      <Item xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.pulse.v1" concept_name="Puls/Hjertefrekvens" path="/items">
+        <Rule path="/data[at0002]/events[at1036]" max="0" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.device.v1" concept_name="Medisinsk utstyr" path="/protocol[at0010]/items[at1013]" />
+      </Item>
     </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.demo.v1" concept_name="Demonstrasjon" path="/content">
+      <Rule path="/data[at0001]/events[at0033]" max="0" />
+      <Rule path="/data[at0001]/events[at0034]" max="0" />
+      <Rule path="/data[at0001]/events[at0035]" max="0" />
+    </Content>
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" path="/content" />
     <Context />
   </definition>
 </template>

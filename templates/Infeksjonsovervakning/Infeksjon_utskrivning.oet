@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
-  <id>3b745bb8-e189-4dce-a077-99ef96b16ed2</id>
+  <id>136dcb96-96f1-428d-8480-c54972bf690f</id>
   <name>Operasjonsprotokoll</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
@@ -60,7 +60,16 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.trajectory.v1" concept_name="Trajectory">
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.trajectory.v1" concept_name="Pasientforløp">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.infeksjonsovervakning_dips.v1" concept_name="Melding til infeksjonsregister" path="/content">
+      <Rule path="/data[at0001]/events[at0043]/data[at0003]/items[at0005]">
+        <constraint xsi:type="textConstraint">
+          <excludedValues>local::at0073</excludedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0046]" max="0" />
+      <Rule path="/data[at0001]/events[at0047]" max="0" />
+    </Content>
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" path="/content">
       <Rule path="/description[at0001]/items[at0002]">
         <constraint xsi:type="textConstraint">
@@ -86,11 +95,14 @@
           <includedValues>INFECTION-STATUS::IR3::Rapport feilet</includedValues>
         </constraint>
       </Rule>
-    </Content>
-    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" path="/content" />
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.infeksjonsovervakning_dips.v1" concept_name="Melding til infeksjonsregister" path="/content">
-      <Rule path="/data[at0001]/events[at0043]" max="0" />
-      <Rule path="/data[at0001]/events[at0047]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.infection_monitoring_details_dips.v1" concept_name="Infection monitoring details" path="/description[at0001]/items[at0018]">
+        <Rule path="/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>INFECTION-MONITORING-DETAILS::01::Generell</includedValues>
+            <includedValues>INFECTION-MONITORING-DETAILS::02::Aorta</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
     </Content>
     <Context />
   </definition>
