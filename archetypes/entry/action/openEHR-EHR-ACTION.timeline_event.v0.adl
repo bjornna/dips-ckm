@@ -1,0 +1,307 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ACTION.timeline_event.v0
+
+concept
+	[at0000]	-- Tidslinje hendelse 
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			author = <
+				["name"] = <"Bjørn Næss">
+				["email"] = <"bna@dips.no">
+				["organisation"] = <"DIPS AS">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Bjørn Næss">
+		["email"] = <"bna@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2018-05-12">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"Used to record general events in the patient's trajectory. The purpose is to establish a lightweight information model for events. Lightweight in the sense that it can be used in anamnesis and as part of initial mapping of the patient's history of illness.">
+			use = <"To record information about the pasients journey. ">
+			misuse = <"Do not use as primary source of data about events like: 
+
+* Administration of medication
+* Execution of procedures
+
+Use only as base for ad-hoc ACTION ">
+			copyright = <"DIPS AS">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for å registrere generelle hendelser i pasientens forløp. Formålet er å etablere en lettvekts informasjonsmodell for hendelser. Lettvekts i betydningen av at den kan benyttes i anamneser og som endel av initiell kartlegging av pasientens sykdomshistorie. ">
+			use = <"For å registrere initiell informasjon til pasientens sykehistorie. ">
+			misuse = <"Må ikke benyttes som primærkilde til hendelser som f.eks. 
+
+* Utdeling av medikamenter. 
+* Utførelse av prosedyrer 
+
+Benyttes KUN som ad-hoc ACTION registreringer. ">
+			copyright = <"DIPS AS">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"0A7F228075D0A69AE0C341561925CBD2">
+		["references"] = <"Diskusjoner på #slack https://openehrclinical.slack.com/archives/C16L4GU05/p1526099032000057 ">
+	>
+
+definition
+	ACTION[at0000] matches {	-- Tidslinje hendelse 
+		ism_transition matches {
+			ISM_TRANSITION[at0010] matches {	-- Planlagt
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::526]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0010]}		-- Planlagt
+					}
+				}
+			}
+			ISM_TRANSITION[at0015] matches {	-- Kansellert
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::528]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0015]}		-- Kansellert
+					}
+				}
+			}
+			ISM_TRANSITION[at0011] matches {	-- Tidsfastsatt
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::529]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0011]}		-- Tidsfastsatt
+					}
+				}
+			}
+			ISM_TRANSITION[at0012] matches {	-- Pågår
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0012]}		-- Pågår
+					}
+				}
+			}
+			ISM_TRANSITION[at0014] matches {	-- Avbrut
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::531]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0014]}		-- Avbrut
+					}
+				}
+			}
+			ISM_TRANSITION[at0013] matches {	-- Utført
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0013]}		-- Utført
+					}
+				}
+			}
+		}
+		description matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Hendelse
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Kategori
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Status
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0005, 	-- Utført
+									at0006, 	-- Pågår
+									at0007, 	-- Planlagt
+									at0008]	-- Kansellert
+								}
+							}
+						}
+					}
+					allow_archetype CLUSTER[at0009] occurrences matches {0..*} matches {	-- Andre detaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Tidslinje hendelse ">
+					description = <"Representerer en hendelse i pasientens tidslinje. ">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Hendelse">
+					description = <"Angir hva slags hendelse som registreres. ">
+				>
+				["at0003"] = <
+					text = <"Kategori">
+					description = <"Benyttes for kategorisering av hendelsen (f.eks. administrativ, operasjon)">
+				>
+				["at0004"] = <
+					text = <"Status">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Utført">
+					description = <"Hendelsen har skjedd. Tiden markerer NÅR hendelsen skjedde">
+				>
+				["at0006"] = <
+					text = <"Pågår">
+					description = <"Hendelsen pågår. Tiden markerer NÅR hendelsen startet. ">
+				>
+				["at0007"] = <
+					text = <"Planlagt">
+					description = <"Hendelsen er planlagt. Tiden markerer NÅR hendelsen er planlagt å starte. ">
+				>
+				["at0008"] = <
+					text = <"Kansellert">
+					description = <"Markerer at hendelsen var planlagt, men ble av ulike årsaker ikke utført. Tiden markerer nå hendelsen skulle skjedd. ">
+				>
+				["at0009"] = <
+					text = <"Andre detaljer">
+					description = <"Mulig utvidelse med strukturerte felter for hendelser som har behov for dette. ">
+				>
+				["at0010"] = <
+					text = <"Planlagt">
+					description = <"Aktiviteten er planlagt til å skje en gang i fremtiden. ">
+				>
+				["at0011"] = <
+					text = <"Tidsfastsatt">
+					description = <"Aktiviteten er satt opp i en timebok. Pasienten her eventuelt fått innkalling. ">
+				>
+				["at0012"] = <
+					text = <"Pågår">
+					description = <"Aktiviteten pågår fortsatt. Tiden representerer når aktiviteten startet. ">
+				>
+				["at0013"] = <
+					text = <"Utført">
+					description = <"Aktiviteten er utført. Tiden markerer når aktiviteten ble ferdigstilt. ">
+				>
+				["at0014"] = <
+					text = <"Avbrut">
+					description = <"Aktiviteten var i gangsatt og ble avbrutt. Tiden markerer når aktiviteten ble avbrutt.">
+				>
+				["at0015"] = <
+					text = <"Kansellert">
+					description = <"Aktivieten var planlagt men ble aldri igangsatt. ">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Timeline event">
+					description = <"Represent one event/activity in the patient journey">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Event">
+					description = <"The type of event whis is recorded.">
+				>
+				["at0003"] = <
+					text = <"Category">
+					description = <"Used to categorize the events. I.e. administrative, surgery. ">
+				>
+				["at0004"] = <
+					text = <"Status">
+					description = <"The status of the event">
+				>
+				["at0005"] = <
+					text = <"Completed">
+					description = <"The event/activity is finished. ">
+				>
+				["at0006"] = <
+					text = <"Underway">
+					description = <"The event is being performed. ">
+				>
+				["at0007"] = <
+					text = <"Planned">
+					description = <"The event is planned.">
+				>
+				["at0008"] = <
+					text = <"Cancelled">
+					description = <"The event was cancelled. ">
+				>
+				["at0009"] = <
+					text = <"Other details">
+					description = <"Opens for extensions on specific details">
+				>
+				["at0010"] = <
+					text = <"Planned">
+					description = <"*Aktiviteten er planlagt til å skje en gang i fremtiden. (nb)">
+				>
+				["at0011"] = <
+					text = <"Scheduled">
+					description = <"*Aktiviteten er satt opp i en timebok. Pasienten her eventuelt fått innkalling. (nb)">
+				>
+				["at0012"] = <
+					text = <"Underway">
+					description = <"*Aktiviteten pågår fortsatt. Tiden representerer når aktiviteten startet. (nb)">
+				>
+				["at0013"] = <
+					text = <"Completed">
+					description = <"*Aktiviteten er utført. Tiden markerer når aktiviteten ble ferdigstilt. (nb)">
+				>
+				["at0014"] = <
+					text = <"Aborted">
+					description = <"*Aktiviteten var i gangsatt og ble avbrutt. Tiden markerer når aktiviteten ble avbrutt.(nb)">
+				>
+				["at0015"] = <
+					text = <"Cancelled">
+					description = <"*Aktivieten var planlagt men ble aldri igangsatt. (nb)">
+				>
+			>
+		>
+	>
