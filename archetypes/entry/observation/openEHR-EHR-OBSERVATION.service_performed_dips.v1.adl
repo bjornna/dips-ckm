@@ -1,0 +1,115 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.service_performed_dips.v1
+
+concept
+	[at0000]	-- Tjeneste utført
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Bjørn Næss">
+		["email"] = <"bna@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2018-05-12">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Benyttes for å dokumentere om en spesifikk prosedyre/oppgave ble utført som endel av en helsetjeneste. ">
+			use = <"Benyttes for å dokumentere om en spesifikk prosedyre/oppgave ble utført som endel av en helsetjeneste. ">
+			misuse = <"Bør brukes med omhu - og bare der det ikke er naturlig å registrere dette med egne ACTION ">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"22B1EEE929D0CF6934454B88CB594398">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Tjeneste utført
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Tjeneste
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Status
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0006, 	-- Utført 
+													at0007, 	-- Ikke utført 
+													at0008]	-- Ikke aktuelt
+												}
+											}
+										}
+									}
+									allow_archetype CLUSTER[at0010] occurrences matches {0..*} matches {	-- Detaljer om tjenesten
+										include
+											archetype_id/value matches {/.*/}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Tjeneste utført">
+					description = <"Benyttes for å dokumentere om en spesifikk prosedyre/oppgave ble utført som endel av en helsetjeneste. ">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Tjeneste">
+					description = <"Definisjon av oppgaven/tjenesten som ble utført. Bør bruke terminologi for å klassifisere presist hvilken tjeneste som er vurdert. ">
+				>
+				["at0005"] = <
+					text = <"Status">
+					description = <"Angir status på den utførte tjenesten ">
+				>
+				["at0006"] = <
+					text = <"Utført ">
+					description = <"Angir at den angitte tjenesten ble utført i henhold til plan. ">
+				>
+				["at0007"] = <
+					text = <"Ikke utført ">
+					description = <"Angitt tjeneste ble ikke utført. ">
+				>
+				["at0008"] = <
+					text = <"Ikke aktuelt">
+					description = <"Angir at den aktuelle tjenesten ikke var aktuell for vurderingsområdet. ">
+				>
+				["at0010"] = <
+					text = <"Detaljer om tjenesten">
+					description = <"Benyttes for strukturerte detaljer om tjenesten. ">
+				>
+			>
+		>
+	>
