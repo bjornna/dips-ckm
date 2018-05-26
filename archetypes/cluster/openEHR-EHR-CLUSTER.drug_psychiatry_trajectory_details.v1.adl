@@ -1,0 +1,201 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.drug_psychiatry_trajectory_details.v1
+
+concept
+	[at0000]	-- Detaljer om pakkeforløp psykisk helsevern og rus
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Nasrin Amele Jamedari">
+		["email"] = <"nja@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2018-05-26">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"Use this cluster to register specific details about cancer trajectory in Norway. ">
+			use = <"Use this cluster to register specific details about cancer trajectory in Norway. ">
+			misuse = <"Not to be used for trajectories which is not part of \"Pakkeforløp kreft\"">
+			copyright = <"">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"*Use this cluster to register specific details about drug and psykiatry trajectories in Norway. (en)">
+			use = <"*Use this cluster to register specific details about drug and psykiatry trajectory in Norway. (en)">
+			misuse = <"*Not to be used for trajectories which is not part of drug and psykiatry trajectories (pakkeforløp for psykisk helsevern og rus)">
+			copyright = <"*(en)">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["references"] = <"See : https://helsedirektoratet.no/folkehelse/psykisk-helse-og-rus/pakkeforlop-for-psykisk-helse-og-rus">
+		["MD5-CAM-1.0.1"] = <"585E5B0616B19ADF8A3F141E08413E89">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Detaljer om pakkeforløp psykisk helsevern og rus
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0007] occurrences matches {0..1} matches {	-- Start eget HF
+				value matches {
+					DV_DATE matches {
+						value matches {yyyy-mm-dd}
+					}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Dager til første oppmøte
+				value matches {
+					DV_COUNT matches {
+						magnitude matches {|>=0|}
+					}
+				}
+			}
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Første oppmøte
+				value matches {
+					DV_DATE matches {
+						value matches {yyyy-mm-dd}
+					}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Dager til klinisk beslutning etter basis utredning
+				value matches {
+					DV_COUNT matches {
+						magnitude matches {|>=0|}
+					}
+				}
+			}
+			ELEMENT[at0004] occurrences matches {0..1} matches {	-- Klinisk beslutning etter basis utredning
+				value matches {
+					DV_DATE matches {
+						value matches {yyyy-mm-dd}
+					}
+				}
+			}
+			ELEMENT[at0008] occurrences matches {0..1} matches {	-- Dager til klinisk beslutning etter utvidet utredning
+				value matches {
+					DV_COUNT matches {*}
+				}
+			}
+			ELEMENT[at0009] occurrences matches {0..1} matches {	-- Klinisk beslutning etter utvidet utredning
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0005] occurrences matches {0..1} matches {	-- Dager til start behandling
+				value matches {
+					DV_COUNT matches {
+						magnitude matches {|>=0|}
+					}
+				}
+			}
+			ELEMENT[at0006] occurrences matches {0..1} matches {	-- Start behandling
+				value matches {
+					DV_DATE matches {
+						value matches {yyyy-mm-dd}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Cancer trajectory details">
+					description = <"Details about a cancer trajectory ">
+				>
+				["at0001"] = <
+					text = <"First encounter">
+					description = <"The latest date for first encounter">
+				>
+				["at0002"] = <
+					text = <"Days to first encounter">
+					description = <"Number of days from trajectory start until the first encounter should happen ">
+				>
+				["at0003"] = <
+					text = <"Days to clinical decision">
+					description = <"Number of days from first encounter til a clinical decision should be made">
+				>
+				["at0004"] = <
+					text = <"Clinical decision">
+					description = <"Approximate date when a clinical decision should have been made. This date will normally be informed with the patient. ">
+				>
+				["at0005"] = <
+					text = <"Days to start treatment">
+					description = <"Number of days from a clinical decision until treatment has started.This will normally be the firste date.  ">
+				>
+				["at0006"] = <
+					text = <"Start treatment">
+					description = <"The firste date when treatment should have started. ">
+				>
+				["at0007"] = <
+					text = <"Referal received date">
+					description = <"The date when the referral was received at the current healthcare provider. Used to distinguish between actual starttime, event time for the Instruction and the received date. ">
+				>
+				["at0008"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0009"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Detaljer om pakkeforløp psykisk helsevern og rus">
+					description = <"Detaljer om det aktuelle pakkeforløpet for psykisk helsevern og rus">
+				>
+				["at0001"] = <
+					text = <"Første oppmøte">
+					description = <"Estimert dato for første oppmøte">
+				>
+				["at0002"] = <
+					text = <"Dager til første oppmøte">
+					description = <"Estimert antall dager fra forløpet startet til første oppmøte skal gjennomføres. ">
+				>
+				["at0003"] = <
+					text = <"Dager til klinisk beslutning etter basis utredning">
+					description = <"Estimert antall dager fra første oppmøte til klinisk beslutning etter basis utredning skal være tatt ">
+				>
+				["at0004"] = <
+					text = <"Klinisk beslutning etter basis utredning">
+					description = <"Estimert dato for når klinisk beslutning skal være tatt etter basis utredning er gjennomført.">
+				>
+				["at0005"] = <
+					text = <"Dager til start behandling">
+					description = <"Estimert antall dager fra klinisk beslutning til behandling har startet">
+				>
+				["at0006"] = <
+					text = <"Start behandling">
+					description = <"Estimert dato for start behandling. ">
+				>
+				["at0007"] = <
+					text = <"Start eget HF">
+					description = <"Datoen som henvisningen ble mottatt ved gjeldende helseforetak ">
+				>
+				["at0008"] = <
+					text = <"Dager til klinisk beslutning etter utvidet utredning">
+					description = <"Estimert antall dager fra første oppmøte til klinisk beslutning etter utvidet utredning skal være tatt ">
+				>
+				["at0009"] = <
+					text = <"Klinisk beslutning etter utvidet utredning">
+					description = <"Estimert dato for når klinisk beslutning skal være tatt etter utvidet utredning er gjennomført.">
+				>
+			>
+		>
+	>
