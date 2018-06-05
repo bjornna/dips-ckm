@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
-  <id>d0099f63-597c-4d80-8383-16995fb212c8</id>
-  <name>Operasjonsprotokoll</name>
+  <id>96a7b016-f9ea-4689-99c8-f3e53aea54e3</id>
+  <name>Pasient_preoperativ_sjekkliste</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
-      <purpose />
+      <purpose>Brukes når pasienten skal angi hvilke sykdommer og risikofaktorer hun har i forkant av en planlagt operasjon</purpose>
       <use />
       <misuse />
     </details>
@@ -60,16 +60,8 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.trajectory.v1" concept_name="Pasientforløp">
-    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Oppfølging av reoperasjon">
-      <Rule path="/description[at0001]/items[at0002]">
-        <constraint xsi:type="textConstraint">
-          <includedValues>INFECTION-STATUS::IS1::Reoperasjon som følge av infeksjon</includedValues>
-          <includedValues>INFECTION-STATUS::IS2::Reoperasjon - ikke på grunn av infeksjon</includedValues>
-        </constraint>
-      </Rule>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.infection_monitoring_details_dips.v1" concept_name="Infection monitoring details" path="/description[at0001]/items[at0018]" />
-    </Content>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.patient_declaration_key_health_data_dips.v1" concept_name="Pasienterklæring">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.pasient_preoperativ_sjekkliste.v0" concept_name="Pasient preoperativ sjekkliste" path="/content" />
     <Context />
   </definition>
 </template>

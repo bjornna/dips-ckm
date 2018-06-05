@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
-  <id>d0099f63-597c-4d80-8383-16995fb212c8</id>
-  <name>Operasjonsprotokoll</name>
+  <id>e0d8d0e8-870c-4358-98fa-e792eb0aafcb</id>
+  <name>Administrasjon av pasientforløp for infeksjon</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
-      <purpose />
+      <purpose>Brukes for å avslutte og gjenpåpne en infeksjonsak som ved en feiltakelse er blitt opprettet eller lukket</purpose>
       <use />
       <misuse />
     </details>
@@ -61,13 +61,16 @@
     </other_details>
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.trajectory.v1" concept_name="Pasientforløp">
-    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Oppfølging av reoperasjon">
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" path="/content">
       <Rule path="/description[at0001]/items[at0002]">
         <constraint xsi:type="textConstraint">
-          <includedValues>INFECTION-STATUS::IS1::Reoperasjon som følge av infeksjon</includedValues>
-          <includedValues>INFECTION-STATUS::IS2::Reoperasjon - ikke på grunn av infeksjon</includedValues>
+          <includedValues>INFECTION-ADMINISTRATION::AD1::Gjenåpne</includedValues>
+          <includedValues>INFECTION-ADMINISTRATION::AD2::Kanseller</includedValues>
         </constraint>
       </Rule>
+      <Rule path="/description[at0001]/items[at0010]" hide_on_form="true" />
+      <Rule path="/description[at0001]/items[at0014]" hide_on_form="true" />
+      <Rule path="/protocol[at0011]/items[at0012]" hide_on_form="true" />
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.infection_monitoring_details_dips.v1" concept_name="Infection monitoring details" path="/description[at0001]/items[at0018]" />
     </Content>
     <Context />

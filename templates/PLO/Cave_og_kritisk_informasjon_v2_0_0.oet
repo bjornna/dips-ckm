@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
-  <id>d0099f63-597c-4d80-8383-16995fb212c8</id>
-  <name>Operasjonsprotokoll</name>
+  <id>d69b8d77-3c3a-40e5-a1e7-c56ba455ab02</id>
+  <name>Cave_og_kritisk_informasjon_2_0_0</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
@@ -60,15 +60,27 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.trajectory.v1" concept_name="Pasientforløp">
-    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Oppfølging av reoperasjon">
-      <Rule path="/description[at0001]/items[at0002]">
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.rapportering_eksternt_dips.v1" concept_name="Rapportering eksternt">
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.cave_classic_dips.v1" concept_name="Cave classic" path="/content">
+      <Rule path="/data[at0001]/items[at0002]/items[at0005]">
         <constraint xsi:type="textConstraint">
-          <includedValues>INFECTION-STATUS::IS1::Reoperasjon som følge av infeksjon</includedValues>
-          <includedValues>INFECTION-STATUS::IS2::Reoperasjon - ikke på grunn av infeksjon</includedValues>
+          <includedValues>Lav</includedValues>
+          <includedValues>Høy</includedValues>
         </constraint>
       </Rule>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.infection_monitoring_details_dips.v1" concept_name="Infection monitoring details" path="/description[at0001]/items[at0018]" />
+      <Rule path="/data[at0001]/items[at0002]/items[at0006]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="dips" terminologyLang="en-GB" queryName="HEALTCAREPARTY" />
+        </constraint>
+      </Rule>
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.kritisk_informasjon_classic_dips.v1" concept_name="Kritisk informasjon classic" path="/content">
+      <Rule path="/data[at0001]/items[at0002]/items[at0006]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Lav</includedValues>
+          <includedValues>Høy</includedValues>
+        </constraint>
+      </Rule>
     </Content>
     <Context />
   </definition>
