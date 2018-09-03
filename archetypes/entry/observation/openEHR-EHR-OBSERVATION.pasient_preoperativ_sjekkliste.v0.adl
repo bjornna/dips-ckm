@@ -1,0 +1,396 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.pasient_preoperativ_sjekkliste.v0
+
+concept
+	[at0000]	-- Pasient preoperativ sjekkliste
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2018-06-01">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes som sjekkliste som pasienten skal svare ut i forbindelse med gjennomføring av en kirurgisk prosedyre.">
+			use = <"Brukes for å samle data fra pasienten om egen helsetilstand og andre viktige forhold som kan påvirke gjennomføring av en operasjon.">
+			keywords = <"operasjon", "sjekkliste", "helsetilstand">
+			misuse = <"Brukes ikke som en generell sjekkliste for å avdekkke tidligere sykdommer. Denne arketypen er kun tenkt i forbindelse med gjennomføring av operasjon.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"2A89A8A54CD970ED898BDF7FEFAB0FCA">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Pasient preoperativ sjekkliste
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Ønsker du fortsatt operasjon som planlagt?
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									CLUSTER[at0007] occurrences matches {0..1} matches {	-- Endringer i helsetilstand
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0006] occurrences matches {0..1} matches {	-- Har det vært vesentlige endringer i din helsetilstand siden legen søkte om operasjon?
+												value matches {
+													DV_BOOLEAN matches {
+														value matches {True, False}
+													}
+												}
+											}
+											ELEMENT[at0008] occurrences matches {0..1} matches {	-- Beskrivelse av helseendringer
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									ELEMENT[at0009] occurrences matches {0..1} matches {	-- Har du noen hoste, nylig forkjølelse eller influensa?
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0010] occurrences matches {0..1} matches {	-- Har du eller har hatt hjerteproblem som infarkt, brystsmerter/angina, uregelmessig puls eller pacemaker? 
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0011] occurrences matches {0..1} matches {	-- Har du eller har hatt blodtrykksyskdom?
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0013] occurrences matches {0..1} matches {	-- Har du eller har hatt lungeproblem som astma, KOLS eller emfysem? 
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0014] occurrences matches {0..1} matches {	-- Blir du lett tungpust? 
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0012] occurrences matches {0..1} matches {	-- Har du eller har hatt hjerneslag eller drypp? 
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0019] occurrences matches {0..1} matches {	-- Har du eller har hatt sukkersyke?
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0020] occurrences matches {0..1} matches {	-- Har du eller har hatt stoffskiftesykdom?
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0021] occurrences matches {0..1} matches {	-- Har du eller har hatt revmatisk sykdom som revmatoid artritt eller Mb Bechterew?
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0022] occurrences matches {0..1} matches {	-- Har du eller har hatt magesår eller sure oppstøt?
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									CLUSTER[at0025] occurrences matches {0..1} matches {	-- Tidligere anestesiproblemer
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0024] occurrences matches {0..1} matches {	-- Har du eller har hatt reaksjon på evt lokal/ generell anestesi inkl. høy feber, kvalme og oppkast?
+												value matches {
+													DV_BOOLEAN matches {
+														value matches {True, False}
+													}
+												}
+											}
+											ELEMENT[at0026] occurrences matches {0..1} matches {	-- Beskrivelse anestesiproblemer
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									ELEMENT[at0023] occurrences matches {0..1} matches {	-- Har du lett for å blø? 
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0015] occurrences matches {0..1} matches {	-- Røyker du daglig?
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									CLUSTER[at0016] occurrences matches {0..1} matches {	-- Allergi
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0017] occurrences matches {0..1} matches {	-- Har du eller har hatt allergi?
+												value matches {
+													DV_BOOLEAN matches {
+														value matches {True, False}
+													}
+												}
+											}
+											ELEMENT[at0018] occurrences matches {0..1} matches {	-- Beskrivelse Allergi
+												value matches {
+													DV_TEXT matches {*}
+												}
+											}
+										}
+									}
+									CLUSTER[at0028] occurrences matches {0..1} matches {	-- Bruker du disse medikamentene?
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0029] occurrences matches {0..1} matches {	-- Plavix?
+												value matches {
+													DV_BOOLEAN matches {
+														value matches {True, False}
+													}
+												}
+											}
+											ELEMENT[at0030] occurrences matches {0..1} matches {	-- Marevan?
+												value matches {
+													DV_BOOLEAN matches {
+														value matches {True, False}
+													}
+												}
+											}
+											ELEMENT[at0031] occurrences matches {0..1} matches {	-- Klexane?
+												value matches {
+													DV_BOOLEAN matches {
+														value matches {True, False}
+													}
+												}
+											}
+											ELEMENT[at0032] occurrences matches {0..1} matches {	-- Albyl E
+												value matches {
+													DV_BOOLEAN matches {
+														value matches {True, False}
+													}
+												}
+											}
+											ELEMENT[at0033] occurrences matches {0..1} matches {	-- Kortison eller steroider?
+												value matches {
+													DV_BOOLEAN matches {
+														value matches {True, False}
+													}
+												}
+											}
+											CLUSTER[at0037] occurrences matches {0..1} matches {	-- Detaljer medikamenter
+												items cardinality matches {1..*; unordered} matches {
+													ELEMENT[at0035] occurrences matches {0..1} matches {	-- Navn på legemiddel
+														value matches {
+															DV_TEXT matches {*}
+														}
+													}
+													ELEMENT[at0038] occurrences matches {0..1} matches {	-- Dosering legemiddel
+														value matches {
+															DV_TEXT matches {*}
+														}
+													}
+													ELEMENT[at0039] occurrences matches {0..1} matches {	-- Styrke legemiddel
+														value matches {
+															DV_TEXT matches {*}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Pasient preoperativ sjekkliste">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0005"] = <
+					text = <"Ønsker du fortsatt operasjon som planlagt?">
+					description = <"Ønsker pasienten fortsatt operasjonen som planlagt?">
+				>
+				["at0006"] = <
+					text = <"Har det vært vesentlige endringer i din helsetilstand siden legen søkte om operasjon?">
+					description = <"Har det vært vesentlige endringer i pasientens helsetilstand siden legen søkte om operasjon?">
+				>
+				["at0007"] = <
+					text = <"Endringer i helsetilstand">
+					description = <"Endringer i helsetilstand">
+				>
+				["at0008"] = <
+					text = <"Beskrivelse av helseendringer">
+					description = <"Pasientens beskrivelse av helseendringer">
+				>
+				["at0009"] = <
+					text = <"Har du noen hoste, nylig forkjølelse eller influensa?">
+					description = <"Har pasienten noen hoste, nylig forkjølelse eller influensa?">
+				>
+				["at0010"] = <
+					text = <"Har du eller har hatt hjerteproblem som infarkt, brystsmerter/angina, uregelmessig puls eller pacemaker? ">
+					description = <"Har pasienten hatt Hjerteproblem som infarkt, brystsmerter/angina, uregelmessig puls eller pacemaker? ">
+				>
+				["at0011"] = <
+					text = <"Har du eller har hatt blodtrykksyskdom?">
+					description = <"Har pasienten eller har hatt blodtrykksyskdom?">
+				>
+				["at0012"] = <
+					text = <"Har du eller har hatt hjerneslag eller drypp? ">
+					description = <"Har pasienten eller har hatt hjerneslag eller drypp? ">
+				>
+				["at0013"] = <
+					text = <"Har du eller har hatt lungeproblem som astma, KOLS eller emfysem? ">
+					description = <"Har pasienten eller har hatt Lungeproblem som astma, KOLS eller emfysem? ">
+				>
+				["at0014"] = <
+					text = <"Blir du lett tungpust? ">
+					description = <"Blir pasienten lett tungpust? ">
+				>
+				["at0015"] = <
+					text = <"Røyker du daglig?">
+					description = <"Røyker pasienten daglig?">
+				>
+				["at0016"] = <
+					text = <"Allergi">
+					description = <"Allergi">
+				>
+				["at0017"] = <
+					text = <"Har du eller har hatt allergi?">
+					description = <"Har pasienten eller har hatt allergi?">
+				>
+				["at0018"] = <
+					text = <"Beskrivelse Allergi">
+					description = <"Beskrivelse Allergi">
+				>
+				["at0019"] = <
+					text = <"Har du eller har hatt sukkersyke?">
+					description = <"Har du eller har hatt sukkersyke? (type 1 eller type 2)">
+				>
+				["at0020"] = <
+					text = <"Har du eller har hatt stoffskiftesykdom?">
+					description = <"Har pasienten eller har hatt stoffskiftesykdom?">
+				>
+				["at0021"] = <
+					text = <"Har du eller har hatt revmatisk sykdom som revmatoid artritt eller Mb Bechterew?">
+					description = <"Har pasienten eller har hatt revmatisk sykdom som revmatoid artritt eller Mb Bechterew?">
+				>
+				["at0022"] = <
+					text = <"Har du eller har hatt magesår eller sure oppstøt?">
+					description = <"Har pasienten eller har hatt magesår eller sure oppstøt?">
+				>
+				["at0023"] = <
+					text = <"Har du lett for å blø? ">
+					description = <"Har pasienten lett for å blø? ">
+				>
+				["at0024"] = <
+					text = <"Har du eller har hatt reaksjon på evt lokal/ generell anestesi inkl. høy feber, kvalme og oppkast?">
+					description = <"Har pasienten eller har hatt reaksjon på evt lokal/ generell anestesi inkl. høy feber, kvalme og oppkast?">
+				>
+				["at0025"] = <
+					text = <"Tidligere anestesiproblemer">
+					description = <"Tidligere anestesiproblemer">
+				>
+				["at0026"] = <
+					text = <"Beskrivelse anestesiproblemer">
+					description = <"Beskrivelse anestesiproblemer">
+				>
+				["at0028"] = <
+					text = <"Bruker du disse medikamentene?">
+					description = <"Bruker pasienten disse medikamentene?">
+				>
+				["at0029"] = <
+					text = <"Plavix?">
+					description = <"Bruker pasienten Plavix?">
+				>
+				["at0030"] = <
+					text = <"Marevan?">
+					description = <"Bruker pasienten Marevan?">
+				>
+				["at0031"] = <
+					text = <"Klexane?">
+					description = <"Bruker pasienten Klexane?">
+				>
+				["at0032"] = <
+					text = <"Albyl E">
+					description = <"Bruker pasienten Albyl E?">
+				>
+				["at0033"] = <
+					text = <"Kortison eller steroider?">
+					description = <"Bruker pasienten Kortison eller andre steroider?">
+				>
+				["at0035"] = <
+					text = <"Navn på legemiddel">
+					description = <"Navn på legemiddel">
+				>
+				["at0037"] = <
+					text = <"Detaljer medikamenter">
+					description = <"Detaljer medikamenter">
+				>
+				["at0038"] = <
+					text = <"Dosering legemiddel">
+					description = <"Dosering legemiddel">
+				>
+				["at0039"] = <
+					text = <"Styrke legemiddel">
+					description = <"Styrke legemiddel">
+				>
+			>
+		>
+	>

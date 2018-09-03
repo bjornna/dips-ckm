@@ -1,0 +1,150 @@
+﻿archetype (adl_version=1.4; uid=33b256c9-2046-4b50-84ce-800a03acb72e)
+	openEHR-EHR-EVALUATION.consumer_note_dips.v1
+
+concept
+	[at0000]	-- Pasienterklæring
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Heather Leslie">
+		["email"] = <"heather.leslie@oceaninformatics.com">
+		["organisation"] = <"Ocean Informatics">
+		["date"] = <"2016-05-04">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record health-related information about an individual, as entered into a health record by that individual or their carer. 
+
+This note may include details about an individual's health status, events, and issues. The intent of this note could be for the sole use of that individual or for sharing with healthcare providers.">
+			use = <"Use to record health-related information about an individual, as entered into a health record by that individual or their carer. 
+
+If the note requires association with a physical location, then the reference model can be used for this purpose.
+If the note requires association with a healthcare provider, then participations can be used for this purpose.">
+			misuse = <"Not to be used for recording health information about an individual by a healthcare provider.">
+			copyright = <"© openEHR Foundation">
+		>
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"*To record health-related information about an individual, as entered into a health record by that individual or their carer. 
+
+This note may include details about an individual's health status, events, and issues. The intent of this note could be for the sole use of that individual or for sharing with healthcare providers.(en)">
+			use = <"*Use to record health-related information about an individual, as entered into a health record by that individual or their carer. 
+
+If the note requires association with a physical location, then the reference model can be used for this purpose.
+If the note requires association with a healthcare provider, then participations can be used for this purpose.(en)">
+			misuse = <"*Not to be used for recording health information about an individual by a healthcare provider.(en)">
+			copyright = <"*© openEHR Foundation(en)">
+		>
+	>
+	lifecycle_state = <"NotSet">
+	other_contributors = <"Heath Frankel, Ocean Informatics, Australia", ...>
+	other_details = <
+		["revision"] = <"0.0.1-alpha">
+		["original_publisher"] = <"openEHR Foundation">
+		["current_contact"] = <"Heather Leslie, Ocean Informatics<heather.leslie@oceaninformatics.com>">
+		["build_uid"] = <"716717eb-92c0-4753-a625-2e7c1638f91f">
+		["original_namespace"] = <"org.openehr">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["MD5-CAM-1.0.1"] = <"079BAB18613C59718CD6D998F4A5C25C">
+		["custodian_namespace"] = <"org.openehr">
+		["custodian_organisation"] = <"openEHR Foundation">
+	>
+
+definition
+	EVALUATION[at0000] matches {	-- Pasienterklæring
+		data matches {
+			ITEM_TREE[at0001] matches {	-- *Tree(en)
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Emne
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Beskrivelse
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Dato
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0005] occurrences matches {0..*} matches {	-- Detaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Consumer note">
+					description = <"Health related information about an individual, entered into a health record by that individual or their carer.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Topic name">
+					description = <"Identification of the topic of the note, by name.">
+				>
+				["at0003"] = <
+					text = <"Note">
+					description = <"Narrative description of information that the consumer wishes to record.">
+				>
+				["at0004"] = <
+					text = <"Date">
+					description = <"Option to make the note relevant for a specific date and/or time.">
+				>
+				["at0005"] = <
+					text = <"Details">
+					description = <"Slot for structured details about the note.">
+				>
+			>
+		>
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"Pasienterklæring">
+					description = <"*Health related information about an individual, entered into a health record by that individual or their carer.(en)">
+				>
+				["at0001"] = <
+					text = <"*Tree(en)">
+					description = <"*@ internal @(en)">
+				>
+				["at0002"] = <
+					text = <"Emne">
+					description = <"Identifikasjon av emnet til erklæringen med navn.">
+				>
+				["at0003"] = <
+					text = <"Beskrivelse">
+					description = <"En narrativ beskrivelse av informasjon som brukeren onsker å angi.">
+				>
+				["at0004"] = <
+					text = <"Dato">
+					description = <"Mulighet til å gi erklæringen relevans for et definert tidspunkt">
+				>
+				["at0005"] = <
+					text = <"Detaljer">
+					description = <"Slot for registrering av strukturerte detaljer.">
+				>
+			>
+		>
+	>
