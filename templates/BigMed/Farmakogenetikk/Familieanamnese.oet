@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>c96ba2b1-5e26-42bd-8e1b-9a44b1896b90</id>
+  <name>Familieanamnese</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose>Brukes som et persistent dokument for å samle data om en pasients familieanamnese.</purpose>
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <annotations path="[openEHR-EHR-COMPOSITION.family_history.v0]/content[openEHR-EHR-EVALUATION.family_history.v1]">
+    <items>
+      <item>
+        <key>Notes.Comment</key>
+        <value>Må diskuteres hvilken informasjon som skal inn her og hvordan bruke denne. Per familie? PEr problem. Ta bort uaktuelle elementer.</value>
+      </item>
+    </items>
+  </annotations>
+  <annotations path="[openEHR-EHR-COMPOSITION.family_history.v0]/content[openEHR-EHR-EVALUATION.exclusion_specific.v1]/data[at0001]/items[at0003]">
+    <items>
+      <item>
+        <key>Notes.Comment</key>
+        <value>Dette er snomed-CT kode: 32895009</value>
+      </item>
+    </items>
+  </annotations>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.family_history.v0" concept_name="Family history">
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.family_history.v1" concept_name="Familieanamnese" path="/content[at0001]" />
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.absence.v1" concept_name="Fravær av informasjon" path="/content[at0002]" />
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1" concept_name="Eksklusjonsutsagn - spesifikt" path="/content[at0002]">
+      <Rule path="/data[at0001]/items[at0002]" name="Ingen kjent genetisk sykdom" />
+      <Rule path="/data[at0001]/items[at0003]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>SNOMED-CT::32895009::Genetisk sykdom</includedValues>
+        </constraint>
+        <nameConstraint>
+          <excludedValues>local::at0008</excludedValues>
+          <excludedValues>local::at0006</excludedValues>
+          <excludedValues>local::at0004</excludedValues>
+          <excludedValues>local::at0007</excludedValues>
+        </nameConstraint>
+      </Rule>
+    </Content>
+    <Context />
+  </definition>
+</template>
