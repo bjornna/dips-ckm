@@ -1,0 +1,376 @@
+﻿archetype (adl_version=1.4; uid=7339050e-936a-4075-bd5e-4c3c90d4b947)
+	openEHR-EHR-EVALUATION.immunisation_summary.v0
+
+concept
+	[at0000]	-- Vaksinasjonssammendrag
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["name"] = <"Vebjørn Arntzen">
+				["organisation"] = <"Oslo universitetssykehus HF">
+				["email"] = <"varntzen@ous-hf.no">
+			>
+			accreditation = <"RN, Enterprise Architect">
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Heather Leslie">
+		["email"] = <"heather.leslie@oceaninformatics.com">
+		["organisation"] = <"Ocean Informatics">
+		["date"] = <"2012-11-23">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record summary statements about the current immunisation status for an identified infectious disease or agent.">
+			use = <"Use to record summary statements about the current immunisation status for an identified infectious disease or agent.">
+			keywords = <"immunisation", "immunization", "vaccination", "vaccine", "infectious", "disease">
+			misuse = <"">
+			copyright = <"© Nasjonal IKT HF">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for å registrere utsagn om gjeldende vaksinasjonsstatus for en identifisert infeksjonssykdom eller agens.">
+			use = <"Bruk for å registrere utsagn om den nåværende vaksinasjonsstatus for en identifisert infeksjonssykdom eller agens.">
+			keywords = <"immunisering", "vaksinasjon", "vaksine", "smittsom", "sykdom", "barnesykdom", "vaksinering">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"NotSet">
+	other_contributors = <"Merrilyn Curtis, AnalyzeIT, Australia", "Sistine Barretto-Daniels, Ocean Informatics, Australia", "Sam Heard, Ocean Informatics, Australia">
+	other_details = <
+		["revision"] = <"0.0.1-alpha">
+		["original_publisher"] = <"Nasjonal IKT">
+		["current_contact"] = <"Heather Leslie, Ocean Informatics, heather.leslie@oceaninformatics.com">
+		["build_uid"] = <"c6c05bd4-2f33-4c54-863c-5702bf65d9c7">
+		["original_namespace"] = <"no.nasjonalikt">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["MD5-CAM-1.0.1"] = <"9071B66C098BC506DEAC5A958FB91A23">
+		["custodian_namespace"] = <"no.nasjonalikt">
+		["custodian_organisation"] = <"Nasjonal IKT">
+	>
+
+definition
+	EVALUATION[at0000] matches {	-- Vaksinasjonssammendrag
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0019] occurrences matches {0..1} matches {	-- Samlet vaksinasjonsstatus
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0021, 	-- Ingen vaksinasjoner anbefalt
+									at0022, 	-- Vaksinasjoner nødvendig
+									at0023]	-- Alle vaksinasjoner avslått
+								}
+							}
+						}
+					}
+					ELEMENT[at0025] occurrences matches {0..1} matches {	-- Beskrivelse
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					CLUSTER[at0016] occurrences matches {0..*} matches {	-- Spesifikk vaksine
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0002] occurrences matches {1..*} matches {	-- Infeksjonssykdom eller agens
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0010] occurrences matches {0..1} matches {	-- Vaksinasjonsstatus
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0011, 	-- Vaksine ikke nødvendig
+											at0012, 	-- Vaksinasjon nødvendig
+											at0017, 	-- Vaksinasjon ikke indisert
+											at0018]	-- Vaksinasjon avslått
+										}
+									}
+								}
+							}
+							ELEMENT[at0003] occurrences matches {0..1} matches {	-- Status på primærvaksinasjon
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0004, 	-- Ikke påbegynt
+											at0005, 	-- Ufullstendig
+											at0006, 	-- Fullført
+											at0007]	-- Ukjent
+										}
+									}
+								}
+							}
+							ELEMENT[at0008] occurrences matches {0..1} matches {	-- Dato primærvaksinasjonen ble fullført
+								value matches {
+									DV_DATE_TIME matches {*}
+								}
+							}
+							ELEMENT[at0009] occurrences matches {0..1} matches {	-- Dato for siste påfyllingsvaksine
+								value matches {
+									DV_DATE_TIME matches {*}
+								}
+							}
+							ELEMENT[at0020] occurrences matches {0..1} matches {	-- Neste dose
+								value matches {
+									DV_DATE_TIME matches {*}
+								}
+							}
+							ELEMENT[at0024] occurrences matches {0..1} matches {	-- Kommentar
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0013] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0014] occurrences matches {0..1} matches {	-- Tidspunkt neste gjennomgang
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0015] occurrences matches {0..1} matches {	-- Sist oppdatert
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Immunisation Summary">
+					description = <"Summary statements about the current immunisation status for an identified infectious disease or agent.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Infectious Disease or Agent">
+					description = <"Identification of the infectious disease or agent.">
+					comment = <"There may be multiple diseases or agents that are vaccinated together - for example: diptheria, tetanus and pertussis or measles, mumps and rubella.">
+				>
+				["at0003"] = <
+					text = <"Primary Course Status">
+					description = <"Status of the primary course of immunisation.">
+				>
+				["at0004"] = <
+					text = <"Not commenced">
+					description = <"The primary course has not yet commenced.">
+				>
+				["at0005"] = <
+					text = <"Incomplete">
+					description = <"The primary course was not completed.">
+				>
+				["at0006"] = <
+					text = <"Complete">
+					description = <"The primary course was completed.">
+				>
+				["at0007"] = <
+					text = <"Indeterminate">
+					description = <"It is not known if the primary course was completed.">
+				>
+				["at0008"] = <
+					text = <"Date Primary Course Completed">
+					description = <"The date, or partial date, when the primary course of vaccination was completed.">
+				>
+				["at0009"] = <
+					text = <"Date of Last Booster">
+					description = <"The date, or partial date, when the last vaccination booster was administered.">
+				>
+				["at0010"] = <
+					text = <"Vaccination Status">
+					description = <"The vaccination status for the specific infectious disease or agent.">
+				>
+				["at0011"] = <
+					text = <"Vaccination Not Required">
+					description = <"Vaccination is not required.">
+				>
+				["at0012"] = <
+					text = <"Vaccination Required">
+					description = <"Vaccination is required.">
+				>
+				["at0013"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0014"] = <
+					text = <"Next Review Due">
+					description = <"The date when a review of the immunisation summary is next due.">
+				>
+				["at0015"] = <
+					text = <"Last Updated">
+					description = <"The date when the immunisation summary was last updated.">
+				>
+				["at0016"] = <
+					text = <"Specific Vaccine">
+					description = <"Details about the vaccination status for a specified vaccine.">
+				>
+				["at0017"] = <
+					text = <"Vaccination Not Indicated">
+					description = <"Vaccination is not indicated.">
+				>
+				["at0018"] = <
+					text = <"Vaccination Declined">
+					description = <"Vaccination for this infectious disease or agent has been declined by the subject or carer.">
+				>
+				["at0019"] = <
+					text = <"Overall Vaccination Status">
+					description = <"Statement about the status for all vaccines.">
+				>
+				["at0020"] = <
+					text = <"Next Due">
+					description = <"Date when the next vaccination is due.">
+				>
+				["at0021"] = <
+					text = <"No Vaccinations Required">
+					description = <"No vaccinations have been identified that require administration.">
+				>
+				["at0022"] = <
+					text = <"Vaccinations Required">
+					description = <"Vaccinations have been identified that need to be administered.">
+				>
+				["at0023"] = <
+					text = <"All Vaccinations Declined">
+					description = <"The subject, or carer, has declined all vaccination administration.">
+				>
+				["at0024"] = <
+					text = <"Comment">
+					description = <"Additional narrative about a specific vaccine that is not captured in structured fields.">
+				>
+				["at0025"] = <
+					text = <"Description">
+					description = <"Narrative description about the vaccination status.">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Vaksinasjonssammendrag">
+					description = <"Sammendrag av utsagn om den nåværende vaksinasjonsstatus for en identifisert infeksjonssykdom eller agens.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Infeksjonssykdom eller agens">
+					description = <"Identifikasjon av en infeksjonssykdom eller agens.">
+					comment = <"Det kan vaksineres mot flere sykdommer eller agenser i samme preparat, for eksempel DTP (difteri, stivkrampe og kikhoste) eller MMR (meslinger, kusma og røde hunder).">
+				>
+				["at0003"] = <
+					text = <"Status på primærvaksinasjon">
+					description = <"Status på primærvaksinasjon, dvs første immuniseringsforløp. Dette kan gjelde en serie der en trenger flere injeksjoner før individet er fullimmunisert, eller en enkelt dose i de tilfeller full immunisering oppnås ved en enkelt injeksjon.">
+				>
+				["at0004"] = <
+					text = <"Ikke påbegynt">
+					description = <"Primærvaksinasjon er ennå ikke startet.">
+				>
+				["at0005"] = <
+					text = <"Ufullstendig">
+					description = <"Primærvaksinasjonen er eller ble ikke fullført.">
+				>
+				["at0006"] = <
+					text = <"Fullført">
+					description = <"Primærvaksinasjonen er fullført.">
+				>
+				["at0007"] = <
+					text = <"Ukjent">
+					description = <"Det er ikke kjent om primærvaksinasjonen ble fullført eller ikke.">
+				>
+				["at0008"] = <
+					text = <"Dato primærvaksinasjonen ble fullført">
+					description = <"Dato, eller deler av tidspunkt - som årstall, da primærvaksinasjonen ble fullført.">
+				>
+				["at0009"] = <
+					text = <"Dato for siste påfyllingsvaksine">
+					description = <"Dato, eller deler av tidspunkt - som årstall, da siste påfyllingsvaksine (booster, revaksinering) ble gitt.">
+				>
+				["at0010"] = <
+					text = <"Vaksinasjonsstatus">
+					description = <"Vaksinasjonsstatusen for en spesifikk infeksjonssykdom eller agens.">
+				>
+				["at0011"] = <
+					text = <"Vaksine ikke nødvendig">
+					description = <"Vaksinasjon er ikke nødvendig.">
+				>
+				["at0012"] = <
+					text = <"Vaksinasjon nødvendig">
+					description = <"Vaksinasjon er nødvendig.">
+				>
+				["at0013"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0014"] = <
+					text = <"Tidspunkt neste gjennomgang">
+					description = <"Tidspunkt når en gjennomgang av immuniseringsstatusen skal gjøres.">
+				>
+				["at0015"] = <
+					text = <"Sist oppdatert">
+					description = <"Tidspunkt når immuniseringsstatusen sist ble oppdatert.">
+				>
+				["at0016"] = <
+					text = <"Spesifikk vaksine">
+					description = <"Detaljer om vaksinasjonsstatus for en spesifikk, angitt vaksine.">
+				>
+				["at0017"] = <
+					text = <"Vaksinasjon ikke indisert">
+					description = <"Vaksinasjon er ikke indisiert.">
+				>
+				["at0018"] = <
+					text = <"Vaksinasjon avslått">
+					description = <"Individet eller dets omsorgsperson har motsatt seg å få vaksinasjon for denne infeksjonssykdommen eller agensen.">
+				>
+				["at0019"] = <
+					text = <"Samlet vaksinasjonsstatus">
+					description = <"Utsagn om status for alle vaksiner.">
+				>
+				["at0020"] = <
+					text = <"Neste dose">
+					description = <"Dato når neste vaksinasjonsdose skal gis.">
+				>
+				["at0021"] = <
+					text = <"Ingen vaksinasjoner anbefalt">
+					description = <"Det er ikke identifisert at noen vaksiner må gis.">
+				>
+				["at0022"] = <
+					text = <"Vaksinasjoner nødvendig">
+					description = <"Det er identifisert vaksiner som må gis.">
+				>
+				["at0023"] = <
+					text = <"Alle vaksinasjoner avslått">
+					description = <"Individet eller vergen har motsatt seg all vaksinasjon.">
+				>
+				["at0024"] = <
+					text = <"Kommentar">
+					description = <"Fritekstinformasjon om en spesifikk vaksine som ikke er fanget opp i strukturerte felter.">
+				>
+				["at0025"] = <
+					text = <"Beskrivelse">
+					description = <"Fritekstbeskrivelse av vaksinasjonsstatus.">
+				>
+			>
+		>
+	>
