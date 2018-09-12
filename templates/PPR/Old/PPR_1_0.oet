@@ -1,0 +1,259 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>2cc2eeec-4fda-4c2d-ada1-367639cd821c</id>
+  <name>PPR_1_0_0</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose>Benyttes for å registrere koder for Pakkeforløp for psykisk helsevern og rus </purpose>
+      <keywords>
+        <item>Pakkeforløp psykisk helsevern og rus</item>
+      </keywords>
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value>Bjørn Næss</value>
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.trajectory.v1" concept_name="Pasientforløp" name="Pakkeforløp for rus og psykiatri">
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Iverksett pakkeforløp PPR">
+      <Item xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.trajectory.v1" concept_name="Forløp" max="1" path="/items" name="Start pakkeforløp">
+        <Rule path="/activities[at0001]/description[at0002]/items[at0003]" min="1">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Kreftpakke::D01::Tverrfaglig spesialisert rusbehandling (TSB) og oppfølging i kommunen</includedValues>
+            <includedValues>Kreftpakke::D02::Utredning av psykiske lidelser - barn og unge</includedValues>
+            <includedValues>Kreftpakke::D03::Utredning av psykiske lidelser - voksne</includedValues>
+            <includedValues>Kreftpakke::D04::Behandling i psykisk helsevern - barn og unge</includedValues>
+            <includedValues>Kreftpakke::D05::Behandling i psykisk helsevern - voksne</includedValues>
+            <includedValues>Kreftpakke::D06::Psykoselidelser - inkludert debuterende psykose</includedValues>
+            <includedValues>Kreftpakke::D07::Tvangslidelse (OCD)</includedValues>
+            <includedValues>Kreftpakke::D08::Spiseforstyrrelser - barn og unge</includedValues>
+            <includedValues>Kreftpakke::D09::Gravide - rusmidler - kvinne</includedValues>
+            <includedValues>Kreftpakke::D10::Gravide - rusmidler - nyfødt barn</includedValues>
+            <includedValues>Kreftpakke::D11::Utredning og behandling i psykisk helsevern, voksne</includedValues>
+            <includedValues>Kreftpakke::D12::Utredning og behandling i psykisk helsevern, barn og unge</includedValues>
+          </constraint>
+        </Rule>
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.drug_psychiatry_trajectory_details.v1" concept_name="Detaljer om pakkeforløp psykisk helsevern og rus" path="/activities[at0001]/description[at0002]/items[at0006]" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.cancer_trajectory_details.v1" concept_name="Detaljer om pakkeforløp kreft" path="/activities[at0001]/description[at0002]/items[at0006]" />
+      </Item>
+      <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/items" name="Hendelse start pakkeforløp">
+        <Rule path="/description[at0001]/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>2.16.578.1.12.4.1.1.9322::A::Pakkeforløp start</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/description[at0001]/items[at0010]" max="0" />
+        <Rule path="/description[at0001]/items[at0014]" max="0" />
+        <Rule path="/protocol[at0011]" hide_on_form="true" />
+        <Rule path="/protocol[at0011]/items[at0012]" max="0" />
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Første fremmøte">
+      <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" path="/items">
+        <Rule path="/description[at0001]/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>2.16.578.1.12.4.1.1.9322::M::Første fremmøte i pakkeforløpet</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/description[at0001]/items[at0014]" max="0" />
+        <Rule path="/protocol[at0011]" hide_on_form="true" />
+        <Rule path="/protocol[at0011]/items[at0012]" max="0" />
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Avrusning avsluttet">
+      <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" path="/items">
+        <Rule path="/description[at0001]/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>2.16.578.1.12.4.1.1.9322::D::Avrusning døgn avsluttet</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/description[at0001]/items[at0014]" max="0" />
+        <Rule path="/protocol[at0011]" hide_on_form="true" />
+        <Rule path="/protocol[at0011]/items[at0012]" max="0" />
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Klinisk beslutning">
+      <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/items" name="Klinisk beslutning">
+        <Rule path="/description[at0001]/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>2.16.578.1.12.4.1.1.9322::C::Klinisk beslutning</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/protocol[at0011]" hide_on_form="true" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.clinical_decision_details.v1" concept_name="Detaljer om klinisk beslutning" path="/description[at0001]/items[at0018]">
+          <Rule path="/items[at0001]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>2.16.578.1.12.4.1.1.9323::U::Behov for utvidet utredning</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.9323::P::Behov for behandling innen psykisk helsevern</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.9323::T::Behov for behandling innen TSB</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.9323::S::Behov for behandling fra annen spesialisthelsetjeneste (ikke Psykisk helsevern eller TSB)</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.9323::K::Behov for behandling og/eller oppfølging fra fastlege, kommunal helse- og omsorgstjeneste</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.9323::A::Behov for oppfølging fra andre instanser som NAV, PPT, arbeidsgiver, skole, barnevern mm.</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0001]" max="1" clone="true" name="Ikke behov for videre behandling og/eller oppfølging ">
+            <constraint xsi:type="textConstraint">
+              <includedValues>2.16.578.1.12.4.1.1.9323::I::Ikke behov for videre behandling og/eller oppfølging</includedValues>
+            </constraint>
+          </Rule>
+        </Items>
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.trajectory_activity_details.v1" concept_name="Detaljer om aktivitet i et pakkeforløp" max="1" path="/description[at0001]/items[at0018]" name="Detaljer om avslutning">
+          <Rule path="/items[at0001]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>2.16.578.1.12.4.1.1.9326::P::Avbrudd etter pasientens/foresattes eget ønske</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.9326::A::Avbrudd av andre årsaker</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.9326::G::Avslutning av gjennomført pakkeforløp</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.9326::R::Rett til helsehjelp ikke innvilget</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.9326::M::Avbrudd fordi pasienten ikke har møtt</includedValues>
+            </constraint>
+          </Rule>
+        </Items>
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Tilbakemelding fastlege">
+      <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" path="/items">
+        <Rule path="/description[at0001]/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>2.16.578.1.12.4.1.1.9322::F::Tilbakemelding til fastlege sendt underveis i pakkeforløpet</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/description[at0001]/items[at0014]" max="0" />
+        <Rule path="/protocol[at0011]" hide_on_form="true" />
+        <Rule path="/protocol[at0011]/items[at0012]" max="0" />
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Utført aktivitet">
+      <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" path="/items">
+        <Rule path="/description[at0001]/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>2.16.578.1.12.4.1.1.9322::U::Utført aktivitet</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/description[at0001]/items[at0014]" max="0" />
+        <Rule path="/protocol[at0011]" hide_on_form="true" />
+        <Rule path="/protocol[at0011]/items[at0012]" max="0" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.trajectory_activity_details.v1" concept_name="Detaljer om aktivitet i et pakkeforløp" max="1" path="/description[at0001]/items[at0018]" name="Detaljer om utført aktivitet">
+          <Rule path="/items[at0001]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>2.16.578.1.12.4.1.1.9325::F::Brukt feedbackverktøy</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.9325::S::Familiebasert behandling spesifikt for spiseforstyrrelser</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.9325::E::Eksponeringsterapi for tvangslidelse</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.9325::M::Medikamentell behandling for tvangslidelse</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.9325::V::Standardisert verktøy for møling av symptom og/eller funksjon</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.9325::U::Pasienter/ foresatte/pårørende er involvert i utarbeidelse av utredningsplan og/eller behandlingsplan</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.9325::B::Pasienten/pårørende er informert om de ulike behandlingsformer enheten tilbyr for aktuell lidelse</includedValues>
+            </constraint>
+          </Rule>
+        </Items>
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Samarbeidsmøte">
+      <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" path="/items">
+        <Rule path="/description[at0001]/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>2.16.578.1.12.4.1.1.9322::S::Samarbeidsmøte med relevante instanser</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/description[at0001]/items[at0014]" max="0" />
+        <Rule path="/protocol[at0011]" hide_on_form="true" />
+        <Rule path="/protocol[at0011]/items[at0012]" max="0" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.trajectory_activity_details.v1" concept_name="Detaljer om aktivitet i et pakkeforløp" max="1" path="/description[at0001]/items[at0018]" name="Detaljer om samarbeidsmøte">
+          <Rule path="/items[at0001]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>2.16.578.1.12.4.1.1.9324::M::Gjennomført møte</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.9324::I::Vurdert ikke behov for møte</includedValues>
+            </constraint>
+          </Rule>
+        </Items>
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.drug_psychiatry_trajectory_details.v1" concept_name="Detaljer om pakkeforløp psykisk helsevern og rus" path="/description[at0001]/items[at0018]" />
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Evalueringspunkt">
+      <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" path="/items">
+        <Rule path="/description[at0001]/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>2.16.578.1.12.4.1.1.9322::E::Evalueringspunkt</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/description[at0001]/items[at0014]" max="0" />
+        <Rule path="/protocol[at0011]" hide_on_form="true" />
+        <Rule path="/protocol[at0011]/items[at0012]" max="0" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.drug_psychiatry_trajectory_details.v1" concept_name="Detaljer om pakkeforløp psykisk helsevern og rus" path="/description[at0001]/items[at0018]" />
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Overført_Avslutning">
+      <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" path="/items">
+        <Rule path="/description[at0001]/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>2.16.578.1.12.4.1.1.9322::O::Overført til annet helseforetak/ privat behandlingssted</includedValues>
+            <includedValues>2.16.578.1.12.4.1.1.9322::X::Avslutning av pakkeforløp</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/protocol[at0011]" hide_on_form="true" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.trajectory_activity_details.v1" concept_name="Detaljer om aktivitet i et pakkeforløp" max="1" path="/description[at0001]/items[at0018]" name="Detaljer om avslutning">
+          <Rule path="/items[at0001]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>2.16.578.1.12.4.1.1.9326::P::Avbrudd etter pasientens/foresattes eget ønske</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.9326::A::Avbrudd av andre årsaker</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.9326::G::Avslutning av gjennomført pakkeforløp</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.9326::R::Rett til helsehjelp ikke innvilget</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.9326::M::Avbrudd fordi pasienten ikke har møtt</includedValues>
+            </constraint>
+          </Rule>
+        </Items>
+      </Item>
+    </Content>
+    <Context>
+      <hide_on_form>true</hide_on_form>
+    </Context>
+  </definition>
+</template>
