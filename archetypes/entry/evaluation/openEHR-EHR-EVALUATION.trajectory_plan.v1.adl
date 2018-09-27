@@ -21,7 +21,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"C6417B7C10F92B5C36C497EE421AB4C9">
+		["MD5-CAM-1.0.1"] = <"16A896FA051A14EB0214535CAF84AD6B">
 	>
 
 definition
@@ -36,15 +36,38 @@ definition
 					}
 					CLUSTER[at0003] occurrences matches {0..*} matches {	-- Målepunkter
 						items cardinality matches {1..*; unordered} matches {
-							ELEMENT[at0004] occurrences matches {0..*} matches {	-- Målepunkt
+							ELEMENT[at0004] occurrences matches {0..1} matches {	-- Målepunkt
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0005] occurrences matches {0..*} matches {	-- Neste måling
+							ELEMENT[at0005] occurrences matches {0..1} matches {	-- Neste måling
 								value matches {
 									DV_DATE_TIME matches {
 										value matches {yyyy-mm-ddTHH:??:??}
+									}
+								}
+							}
+							ELEMENT[at0006] occurrences matches {0..1} matches {	-- Neste måling iht veileder
+								value matches {
+									DV_DATE_TIME matches {*}
+								}
+							}
+							ELEMENT[at0008] occurrences matches {0..1} matches {	-- Planlagt iht veileder
+								value matches {
+									DV_BOOLEAN matches {
+										value matches {True, False}
+									}
+								}
+							}
+							ELEMENT[at0009] occurrences matches {0..1} matches {	-- Status
+								value matches {
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0010, 	-- Pågående
+											at0011]	-- På vent
+										}
 									}
 								}
 							}
@@ -53,6 +76,11 @@ definition
 					allow_archetype CLUSTER occurrences matches {0..*} matches {
 						include
 							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Sist oppdatert
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
 					}
 				}
 			}
@@ -86,6 +114,30 @@ ontology
 				["at0005"] = <
 					text = <"Neste måling">
 					description = <"Tidspunkt for den planlagte hendelsen.">
+				>
+				["at0006"] = <
+					text = <"Neste måling iht veileder">
+					description = <"Frist iht veileder">
+				>
+				["at0007"] = <
+					text = <"Sist oppdatert">
+					description = <"Tidspunkt hvor siste planlegging ble utført.">
+				>
+				["at0008"] = <
+					text = <"Planlagt iht veileder">
+					description = <"Angir om man planla tidspunkt iht frister i veileder">
+				>
+				["at0009"] = <
+					text = <"Status">
+					description = <"Angir om man har en pågående måling eller om den er satt på vent inntil evt replanlegging.">
+				>
+				["at0010"] = <
+					text = <"Pågående">
+					description = <"Måling pågår">
+				>
+				["at0011"] = <
+					text = <"På vent">
+					description = <"Måling satt på vent">
 				>
 			>
 		>
