@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
-  <id>e16281f4-b55f-423b-98d6-cb29989f0b58</id>
-  <name>Generell_merknad_v1_0_0</name>
+  <id>79449fda-de79-477f-90ad-e15ff64dcd9c</id>
+  <name>Tidligere sykdommer registrering v2</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
@@ -60,9 +60,13 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.trajectory.v1" concept_name="Pasientforløp">
-    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" path="/content">
-      <Rule path="/description[at0001]/items[at0010]" name="Generell merknad" />
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.diagnosis_list_entry_dips.v1" concept_name="Tidligere sykdommer registrering">
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/diagnose" path="/content[at0001]">
+      <Rule path="/data[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="ICD10" terminologyLang="en-GB" queryName="ICD10" />
+        </constraint>
+      </Rule>
     </Content>
     <Context />
   </definition>
