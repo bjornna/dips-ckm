@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>f45cc028-b485-4647-babc-97cb6c7c8180</id>
+  <name>PPR_startpakkeforlop_v1_1_0</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose>Benyttes for å starte pakkeforløp for rus og psykiatri</purpose>
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.trajectory.v1" concept_name="Pasientforløp">
+    <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.trajectory.v1" concept_name="Forløp" path="/content">
+      <Rule path="/activities[at0001]/description[at0002]/items[at0003]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>DIPS_Trajectory_PPR_9321::D01::Tverrfaglig spesialisert rusbehandling (TSB) og oppfølging i kommunen</includedValues>
+          <includedValues>DIPS_Trajectory_PPR_9321::D11::Utredning og behandling i psykisk helsevern, voksne</includedValues>
+          <includedValues>DIPS_Trajectory_PPR_9321::D12::Utredning og behandling i psykisk helsevern, barn og unge</includedValues>
+        </constraint>
+      </Rule>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Pakkeforløp start">
+      <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" path="/items">
+        <Rule path="/description[at0001]/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>DIPS_Trajectory_PPR_9322::A::Pakkeforløp start</includedValues>
+          </constraint>
+        </Rule>
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Ekstern første fremmøte">
+      <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" path="/items">
+        <Rule path="/description[at0001]/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>DIPS_Trajectory_PPR_9322::M::Første fremmøte i pakkeforløpet</includedValues>
+          </constraint>
+        </Rule>
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Ekstern klinisk beslutning">
+      <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" path="/items">
+        <Rule path="/description[at0001]/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>DIPS_Trajectory_PPR_9322::C::Klinisk beslutning</includedValues>
+          </constraint>
+        </Rule>
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.clinical_decision_details.v1" concept_name="Detaljer om klinisk beslutning" path="/description[at0001]/items[at0018]">
+          <Rule path="/items[at0001]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>DIPS_Trajectory_PPR_9323::U::Behov for utvidet utredning</includedValues>
+              <includedValues>DIPS_Trajectory_PPR_9323::P::Behov for behandling innen psykisk helsevern</includedValues>
+              <includedValues>DIPS_Trajectory_PPR_9323::T::Behov for behandling innen TSB</includedValues>
+              <includedValues>DIPS_Trajectory_PPR_9323::S::Behov for behandling fra annen spesialisthelsetjeneste (ikke Psykisk helsevern eller TSB)</includedValues>
+              <includedValues>DIPS_Trajectory_PPR_9323::K::Behov for behandling og/eller oppfølging fra fastlege, kommunal helse- og omsorgstjeneste</includedValues>
+              <includedValues>DIPS_Trajectory_PPR_9323::A::Behov for oppfølging fra andre instanser som NAV, PPT, arbeidsgiver, skole, barnevern mm.</includedValues>
+            </constraint>
+          </Rule>
+        </Items>
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Ekstern samarbeidsmøte">
+      <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" path="/items">
+        <Rule path="/description[at0001]/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>DIPS_Trajectory_PPR_9322::S::Samarbeidsmøte med relevante instanser</includedValues>
+          </constraint>
+        </Rule>
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.trajectory_activity_details.v1" concept_name="Detaljer om aktivitet i et pakkeforløp" path="/description[at0001]/items[at0018]">
+          <Rule path="/items[at0001]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>DIPS_Trajectory_PPR_9324::M::Gjennomført møte</includedValues>
+              <includedValues>DIPS_Trajectory_PPR_9324::I::Vurdert ikke behov for møte</includedValues>
+            </constraint>
+          </Rule>
+        </Items>
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Ekstern evalueringspunkt">
+      <Item xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" path="/items">
+        <Rule path="/description[at0001]/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>DIPS_Trajectory_PPR_9322::E::Evalueringspunkt</includedValues>
+          </constraint>
+        </Rule>
+      </Item>
+    </Content>
+    <Context />
+  </definition>
+</template>
