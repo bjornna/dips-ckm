@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>f482cb3f-5efe-4651-9799-a84cd65279fa</id>
+  <name>PPR_planlegging_v2_0_0</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose>Benyttes for å planlegge fremtidige aktiviteter i et pakkeforløp</purpose>
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.trajectory.v1" concept_name="Pasientforløp">
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Planlagt første fremmøte">
+      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.trajectory_plan.v1" concept_name="Trajectory plan" max="1" path="/items" name="Planlagt første fremmøte ">
+        <Rule path="/data[at0001]/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>DIPS_Trajectory_PPR_9321::D01::Tverrfaglig spesialisert rusbehandling (TSB) og oppfølging i kommunen</includedValues>
+            <includedValues>DIPS_Trajectory_PPR_9321::D11::Utredning og behandling i psykisk helsevern, voksne</includedValues>
+            <includedValues>DIPS_Trajectory_PPR_9321::D12::Utredning og behandling i psykisk helsevern, barn og unge</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0001]/items[at0003]/items[at0004]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>PPR_Ekstern_hendelse::FF::Første fremmøte gjennomført</includedValues>
+          </constraint>
+        </Rule>
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.health_care_level_dips.v1" concept_name="Omsorgsnivå " path="/data[at0001]/items">
+          <Rule path="/items[at0001]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>PPR_Omsorgsniva::D::Døgnenhet</includedValues>
+              <includedValues>PPR_Omsorgsniva::P::Poliklinikk</includedValues>
+            </constraint>
+          </Rule>
+        </Items>
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Planlagt klinisk beslutning">
+      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.trajectory_plan.v1" concept_name="Trajectory plan" max="1" path="/items" name="Planlagt klinisk beslutning">
+        <Rule path="/data[at0001]/items[at0003]/items[at0004]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>PPR_Ekstern_hendelse::KB::Klinisk beslutning gjennomført</includedValues>
+          </constraint>
+        </Rule>
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.health_care_level_dips.v1" concept_name="Omsorgsnivå " path="/data[at0001]/items">
+          <Rule path="/items[at0001]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>PPR_Omsorgsniva::D::Døgnenhet</includedValues>
+              <includedValues>PPR_Omsorgsniva::P::Poliklinikk</includedValues>
+            </constraint>
+          </Rule>
+        </Items>
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Planlagt første samarbeidsmøte">
+      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.trajectory_plan.v1" concept_name="Trajectory plan" max="1" path="/items" name="Planlagt første samarbeidsmøte">
+        <Rule path="/data[at0001]/items[at0003]/items[at0004]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>PPR_Ekstern_hendelse::SM::Samarbeidsmøte gjennomført</includedValues>
+          </constraint>
+        </Rule>
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.health_care_level_dips.v1" concept_name="Omsorgsnivå " path="/data[at0001]/items">
+          <Rule path="/items[at0001]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>PPR_Omsorgsniva::D::Døgnenhet</includedValues>
+              <includedValues>PPR_Omsorgsniva::P::Poliklinikk</includedValues>
+            </constraint>
+          </Rule>
+        </Items>
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Planlagt neste samarbeidsmøte">
+      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.trajectory_plan.v1" concept_name="Trajectory plan" max="1" path="/items" name="Planlagt neste samarbeidsmøte">
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.health_care_level_dips.v1" concept_name="Omsorgsnivå " path="/data[at0001]/items">
+          <Rule path="/items[at0001]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>PPR_Omsorgsniva::D::Døgnenhet</includedValues>
+              <includedValues>PPR_Omsorgsniva::P::Poliklinikk</includedValues>
+            </constraint>
+          </Rule>
+        </Items>
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Planlagt første evalueringspunkt">
+      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.trajectory_plan.v1" concept_name="Trajectory plan" max="1" path="/items" name="Planlagt første evalueringspunkt">
+        <Rule path="/data[at0001]/items[at0003]/items[at0004]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>PPR_Ekstern_hendelse::EP::Evalueringspunkt gjennomført</includedValues>
+          </constraint>
+        </Rule>
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.health_care_level_dips.v1" concept_name="Omsorgsnivå " path="/data[at0001]/items">
+          <Rule path="/items[at0001]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>PPR_Omsorgsniva::D::Døgnenhet</includedValues>
+              <includedValues>PPR_Omsorgsniva::P::Poliklinikk</includedValues>
+            </constraint>
+          </Rule>
+        </Items>
+      </Item>
+    </Content>
+    <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Planlagt neste evalueringspunkt">
+      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.trajectory_plan.v1" concept_name="Trajectory plan" max="1" path="/items" name="Planlagt neste evalueringspunkt">
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.health_care_level_dips.v1" concept_name="Omsorgsnivå " path="/data[at0001]/items">
+          <Rule path="/items[at0001]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>PPR_Omsorgsniva::D::Døgnenhet</includedValues>
+              <includedValues>PPR_Omsorgsniva::P::Poliklinikk</includedValues>
+            </constraint>
+          </Rule>
+        </Items>
+      </Item>
+    </Content>
+    <Context />
+  </definition>
+</template>
