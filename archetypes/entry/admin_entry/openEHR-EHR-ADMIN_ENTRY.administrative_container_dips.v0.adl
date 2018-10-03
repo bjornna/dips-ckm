@@ -1,0 +1,93 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ADMIN_ENTRY.administrative_container_dips.v0
+
+concept
+	[at0000]	-- Administrativ kontainer dips
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2018-10-03">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Viktig administrativ informasjon.
+">
+			use = <"Denne arketypen brukes for å dokumentere detaljert informasjon om adminsitrative forrhold som er av betydning i en klinisk sammenheng. Det kan for eksempel være informasjon om anavrlig behandler i et pasientforløp. 
+
+Arketypen inneholder et minimum av felter som skal gjøre det mulig å a registrere noen vesentlige egenskaper ved den informasjonen som dokumenteres som type informasjon (kategorisering) og gyldighetsdato (der det er aktuell). Men den kan også brukes som container for amdinsitrative informasjon.">
+			keywords = <"admin", ...>
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <"Nasrin Amele Jamedari", ...>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"340DA0E804328246E36DF261730E46D8">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {	-- Administrativ kontainer dips
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Type informasjon
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Gyldighetsdato fra
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Gyldighetsdato til
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0005] occurrences matches {0..*} matches {	-- Strukturerte detaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Administrativ kontainer dips">
+					description = <"Brukes som plassholder for administrative clustere.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Type informasjon">
+					description = <"Anigir type adminitrativ informasjon som dokumenteres i journalen. f.eks. ansvarlig behandler. Bruk helst kodeverk.">
+				>
+				["at0003"] = <
+					text = <"Gyldighetsdato fra">
+					description = <"Angir tidspunkt for start av gyldighet for registrert informasjon.">
+				>
+				["at0004"] = <
+					text = <"Gyldighetsdato til">
+					description = <"Angir tidspunkt for slutt av gyldighet for registrert informasjon.">
+				>
+				["at0005"] = <
+					text = <"Strukturerte detaljer">
+					description = <"Strukturerte detaljer. ">
+				>
+			>
+		>
+	>
