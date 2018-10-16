@@ -61,18 +61,19 @@
     </other_details>
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Rapport">
+    <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.trajectory.v1" concept_name="Forløp" path="/content" />
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Start pakkeforløp" />
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Første fremmøte" />
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Klinisk beslutning">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.clinical_decision_details.v1" concept_name="Detaljer om klinisk beslutning" path="/description[at0001]/items[at0018]" />
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.trajectory_activity_details.v1" concept_name="Detaljer om aktivitet i et pakkeforløp" path="/description[at0001]/items[at0018]" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.clinical_decision_details.v1" concept_name="Detaljer om klinisk beslutning" max="1" path="/description[at0001]/items[at0018]" name="Detaljer om avslutning" />
     </Content>
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Evalueringspunkt" />
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Samarbeidsmøte">
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.trajectory_activity_details.v1" concept_name="Detaljer om aktivitet i et pakkeforløp" max="1" path="/description[at0001]/items[at0018]" name="Detaljer om samarbeidsmøte" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.trajectory_activity_details.v1" concept_name="Detaljer om aktivitet i et pakkeforløp" path="/description[at0001]/items[at0018]" />
     </Content>
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Avslutt overført">
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.trajectory_activity_details.v1" concept_name="Detaljer om aktivitet i et pakkeforløp" max="1" path="/description[at0001]/items[at0018]" name="Detaljer om avslutning">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.trajectory_activity_details.v1" concept_name="Detaljer om aktivitet i et pakkeforløp" path="/description[at0001]/items[at0018]">
         <Rule path="/items[at0001]">
           <constraint xsi:type="textConstraint">
             <includedValues>DIPS_Trajectory_PPR_9326::P::Avbrudd etter pasientens/foresattes eget ønske</includedValues>
@@ -84,21 +85,19 @@
         </Rule>
       </Items>
     </Content>
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" path="/content">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.trajectory_activity_details.v1" concept_name="Detaljer om aktivitet i et pakkeforløp" path="/description[at0001]/items[at0018]" />
+    </Content>
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Avrusning avsluttet" />
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.trajectory_plan.v1" concept_name="Trajectory plan" path="/content">
       <Rule path="/data[at0001]/items[at0003]" max="1" name="Første fremmøte" />
       <Rule path="/data[at0001]/items[at0003]" max="1" clone="true" name="Klinisk beslutning" />
       <Rule path="/data[at0001]/items[at0003]" max="1" clone="true" name="Evalueringspunkt" />
+      <Rule path="/data[at0001]/items[at0003]" max="1" clone="true" name="Samarbeidsmøte" />
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.health_care_level_dips.v1" concept_name="Omsorgsnivå " path="/data[at0001]/items" />
     </Content>
     <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.trajectory_manager.v1" concept_name="Forløpsansvarlig" path="/content" />
-    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Melding fastlege">
-      <Rule path="/description[at0001]/items[at0002]">
-        <constraint xsi:type="textConstraint">
-          <includedValues>DIPS_Trajectory_PPR_9322::F::Tilbakemelding til fastlege sendt underveis i pakkeforløpet</includedValues>
-        </constraint>
-      </Rule>
-    </Content>
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Melding fastlege" />
     <Context />
   </definition>
 </template>
