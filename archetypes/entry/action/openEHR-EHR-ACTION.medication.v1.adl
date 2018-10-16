@@ -1,16 +1,18 @@
-﻿archetype (adl_version=1.4; uid=7195cd2b-dc23-4504-9fb2-95f2bf53c522)
+﻿archetype (adl_version=1.4; uid=c39e9b1e-4ea7-4b4e-98a4-c29904828591)
 	openEHR-EHR-ACTION.medication.v1
 
 concept
-	[at0000]	-- Legemiddelhåndtering
+	[at0000]	-- Medication management
 language
 	original_language = <[ISO_639-1::en]>
 	translations = <
-		["ar-sy"] = <
-			language = <[ISO_639-1::ar-sy]>
+		["ru"] = <
+			language = <[ISO_639-1::ru]>
 			author = <
-				["name"] = <"Mona Saleh">
+				["name"] = <"Art Latyp; Артур Латыпов">
+				["organisation"] = <"RusBITech; Русбитех, Москва">
 			>
+			accreditation = <"hmm">
 		>
 		["es-ar"] = <
 			language = <[ISO_639-1::es-ar]>
@@ -34,13 +36,11 @@ language
 			>
 			accreditation = <"MD, PhD">
 		>
-		["ru"] = <
-			language = <[ISO_639-1::ru]>
+		["ar-sy"] = <
+			language = <[ISO_639-1::ar-sy]>
 			author = <
-				["name"] = <"Art Latyp; Артур Латыпов">
-				["organisation"] = <"RusBITech; Русбитех, Москва">
+				["name"] = <"Mona Saleh">
 			>
-			accreditation = <"hmm">
 		>
 		["sl"] = <
 			language = <[ISO_639-1::sl]>
@@ -54,8 +54,8 @@ language
 description
 	original_author = <
 		["name"] = <"Ian McNicoll">
-		["email"] = <"ian@freshehr.com">
 		["organisation"] = <"freshEHR Clinical Informatics UK">
+		["email"] = <"ian@freshehr.com">
 		["date"] = <"2017-05-29">
 	>
 	details = <
@@ -69,6 +69,42 @@ Such a record may be made to indicate the administration of a dose, dispensing o
 There is a date and time at which this ACTION took place (as there is for all ACTIONs)  and use of this archetype indicates that some action has actually occurred.(en)">
 			keywords = <"лекарство", "медикамент", "введение", "прием">
 			misuse = <"*Do not use when recording an instruction or order (use INSTRUCTION.medication).(en)">
+			copyright = <"© openEHR Foundation">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For å registrere detaljer om enhver legemiddelrelatert oppgave som utføres fra et legemiddel er ordinert eller rekvirert til det er utdelt eller eventuelt kassert, for eksempel bestilling, istandgjøring, administrering, ekspedering eller seponering.">
+			use = <"Brukes til å registrere detaljer om enhver legemiddelrelatert oppgave som utføres fra et legemiddel er ordinert eller rekvirert til det er utdelt eller eventuelt kassert, for eksempel bestilling, istandgjøring, administrering eller ekspedering. Dette gjøres ved å registrere data i sammenheng med spesifikke aktiviteter, som definert av \"Pathway\" prosesstrinnene i arketypen.
+
+Denne arketypen er ment for å brukes til en hvilken som helst type legemiddel og tilhørende ordinering, enten den er ordinert av en kliniker eller tilgjengelig uten resept. Den er ment å også dekke vaksiner, parenterale væsker, ernæringsprodukter eller medisinsk forbruksmateriell. Innenfor en legemiddelliste eller vaksinasjonsliste brukes denne arketypen for å registrere hva som er ordinert eller administrert.
+
+Ytterligere strukturerte detaljer om aktiviteten kan ved behov registreres ved hjelp av spesifikke arketyper som settes inn i SLOTene \"Legemiddeldetaljer\", \"Legemiddelmengde\", \"Strukturert anatomisk lokalisering\", \"Administreringsutstyr\" eller \"Ytterligere detaljer\".
+
+Timing i forbindelse med legemiddelhåndtering kan gjøres på to forskjellige måter:
+- Ved å bruke referansemodellen: Tidspunktet for utførelsen av en aktivitet bruker \"ACTION time\"-attributten for hvert prosesstrinn, for eksempel når en dose ble administrert eller når legemiddelet ble seponert.
+- Ved hjelp av informasjonselementer i arketyper: Elementet \"Opprinnelig planlagt tid\" er ment for å registrere tidspunktet da legemiddelet ifølge ordineringen skulle vært administrert. Merk: Den korresponderende \"ACTION time\"-attributten for prosesstrinn av typen \"scheduled\" vil registrere tidspunktet da planleggings-steget ble lagt inn i systemet, ikke tidspunktet når aktiviteten er planlagt å bli utført.
+
+I praksis vil noen legemidler, for eksempel under gjenoppliving, administreres på bakgrunn av en prosedyre eller verbal ordinering, og ikke bli registrert på forhånd. Detaljer om legemiddelet vil i disse tilfellene bli registrert i sammenheng med prosesstrinnet \"Legemiddel administrert\". Når det skal gjøres flere administreringer, blir informasjon om legemiddelet bli registrert i sammenheng med prosesstrinnet \"Legemiddel administrert\" for hver administrering, og instruksjonen beholder statusen \"active\". Når siste administrering er utført, settes prosesstrinnet \"Medisinering fullført\".
+
+I andre situasjoner, som for eksempel vanlig ordinering i sykehus, kan det eksistere en formell ordinering for hvert legemiddel i form av en \"INSTRUCTION.medication_order\"-arketype. Denne ACTION-arketypen kan da brukes for å registrere arbeidsflyten for når og hvordan ordineringen ble utført.
+
+Å registrere informasjon ved hjelp av denne ACTION-arketypen indikerer at en aktivitet faktisk har blitt utført. Dette vil vanligvis være administrering av legemiddelet, me kan også være forsinket levering fra apotek eller andre aktiviteter som å nulle ut legemiddelet i forkant av en operasjon. Dersom det finnes en formell ordinering av legemiddelet, representeres status for ordineringen ved prosesstrinnet informasjonen er registrert i sammenheng med. For eksempel kan arketypen brukes for å registrere den pågående statusen for en paracetamol-ordinering gjennom en serie registreringer i journalen som hver har sitt prosesstrinn. Man kan bruke elementet \"Årsak\" dersom man trenger å registrere begrunnelsen for at en aktivitet ble utført eller et prosesstrinn ble valgt, for eksempel hvorfor en enkeltdose ble nullet eller legemiddelet ble seponert.
+
+Når denne ACTION-arketypen brukes sammen med den korresponderende INSTRUCTION.medication_order-arketypen, vil man generelt ikke gjenta informasjon som ikke er endret fra ordineringen. Det regnes som god praksis, men ikke obligatorisk, å registrere legemiddelnavnet også i ACTION-arketypen.
+
+Navnene på prosesstrinnene skiller mellom dem som har direkte sammenheng med utførelse av ordineringen, som autorisering, istandgjøring eller administrering, og dem som har med resepthåndtering å gjøre, som utstedelse eller ekspedering. I noen myndighetsområder er dette regnet som én prosess, mens det i andre kan være nyttig å håndtere dem separat.
+
+I noen myndighetsområder kan en resept reautoriseres for å fortsette en pågående ordinering, mens det i andre må utstedes en helt ny resept. For sistnevnte områder er ikke prosesstrinnene \"Reautorisering av resept satt på vent\" eller \"Resept reautorisert\" relevante.">
+			keywords = <"medikasjon", "utdeling", "administrasjon", "utsettelse", "seponering", "terapeutisk vare", "medisinsk vare", "tilførsel", "medisin", "apotekervare", "legemiddel", "legemiddellogistikk", "istandgjøring", "opptrekking", "utblanding", "apotekvare", "administrere", "gi", "preparat", "resept", "e-resept", "ekspedering">
+			misuse = <"Skal ikke brukes for å registrere ordinering av legemidler. Bruk arketypen INSTRUCTION.medication_order for dette formålet.
+
+Skal ikke brukes for å registrere administrering eller utlevering av blodkomponenter, da dette er en grunnleggende annerledes prosess som krever annen informasjon. Bruk en annen, passende ACTION-arketype til dette formålet.
+
+Skal ikke brukes for å registrere detaljer om adheranse, sekundæreffekter eller toksisitet. Bruk andre arketyper for disse formålene.
+
+Skal ikke brukes for legemiddelsamstemming. Bruk andre arketyper for dette formålet.
+
+Skal ikke brukes for en formell gjennomgang av en hel legemiddelliste, for eksempel av farmasøyt. Bruk andre arketyper for dette formålet.">
 			copyright = <"© openEHR Foundation">
 		>
 		["es-ar"] = <
@@ -157,51 +193,12 @@ There is a date and time at which this ACTION took place (as there is for all AC
 			misuse = <"*Do not use when recording an instruction or order (use INSTRUCTION.medication).(en)">
 			copyright = <"© openEHR Foundation">
 		>
-		["nb"] = <
-			language = <[ISO_639-1::nb]>
-			purpose = <"For å registrere detaljer om enhver legemiddelrelatert oppgave som utføres fra et legemiddel er ordinert eller rekvirert til det er utdelt eller eventuelt kassert, for eksempel bestilling, istandgjøring, administrering, ekspedering eller seponering.">
-			use = <"Brukes til å registrere detaljer om enhver legemiddelrelatert oppgave som utføres fra et legemiddel er ordinert eller rekvirert til det er utdelt eller eventuelt kassert, for eksempel bestilling, istandgjøring, administrering eller ekspedering. Dette gjøres ved å registrere data i sammenheng med spesifikke aktiviteter, som definert av \"Pathway\" prosesstrinnene i arketypen.
-
-Denne arketypen er ment for å brukes til en hvilken som helst type legemiddel og tilhørende ordinering, enten den er ordinert av en kliniker eller tilgjengelig uten resept. Den er ment å også dekke vaksiner, parenterale væsker, ernæringsprodukter eller medisinsk forbruksmateriell. Innenfor en legemiddelliste eller vaksinasjonsliste brukes denne arketypen for å registrere hva som er ordinert eller administrert.
-
-Ytterligere strukturerte detaljer om aktiviteten kan ved behov registreres ved hjelp av spesifikke arketyper som settes inn i SLOTene \"Legemiddeldetaljer\", \"Legemiddelmengde\", \"Strukturert anatomisk lokalisering\", \"Administreringsutstyr\" eller \"Ytterligere detaljer\".
-
-Timing i forbindelse med legemiddelhåndtering kan gjøres på to forskjellige måter:
-- Ved å bruke referansemodellen: Tidspunktet for utførelsen av en aktivitet bruker \"ACTION time\"-attributten for hvert prosesstrinn, for eksempel når en dose ble administrert eller når legemiddelet ble seponert.
-- Ved hjelp av informasjonselementer i arketyper: Elementet \"Opprinnelig planlagt tid\" er ment for å registrere tidspunktet da legemiddelet ifølge ordineringen skulle vært administrert. Merk: Den korresponderende \"ACTION time\"-attributten for prosesstrinn av typen \"scheduled\" vil registrere tidspunktet da planleggings-steget ble lagt inn i systemet, ikke tidspunktet når aktiviteten er planlagt å bli utført.
-
-I praksis vil noen legemidler, for eksempel under gjenoppliving, administreres på bakgrunn av en prosedyre eller verbal ordinering, og ikke bli registrert på forhånd. Detaljer om legemiddelet vil i disse tilfellene bli registrert i sammenheng med prosesstrinnet \"Legemiddel administrert\". Når det skal gjøres flere administreringer, blir informasjon om legemiddelet bli registrert i sammenheng med prosesstrinnet \"Legemiddel administrert\" for hver administrering, og instruksjonen beholder statusen \"active\". Når siste administrering er utført, settes prosesstrinnet \"Medisinering fullført\".
-
-I andre situasjoner, som for eksempel vanlig ordinering i sykehus, kan det eksistere en formell ordinering for hvert legemiddel i form av en \"INSTRUCTION.medication_order\"-arketype. Denne ACTION-arketypen kan da brukes for å registrere arbeidsflyten for når og hvordan ordineringen ble utført.
-
-Å registrere informasjon ved hjelp av denne ACTION-arketypen indikerer at en aktivitet faktisk har blitt utført. Dette vil vanligvis være administrering av legemiddelet, me kan også være forsinket levering fra apotek eller andre aktiviteter som å nulle ut legemiddelet i forkant av en operasjon. Dersom det finnes en formell ordinering av legemiddelet, representeres status for ordineringen ved prosesstrinnet informasjonen er registrert i sammenheng med. For eksempel kan arketypen brukes for å registrere den pågående statusen for en paracetamol-ordinering gjennom en serie registreringer i journalen som hver har sitt prosesstrinn. Man kan bruke elementet \"Årsak\" dersom man trenger å registrere begrunnelsen for at en aktivitet ble utført eller et prosesstrinn ble valgt, for eksempel hvorfor en enkeltdose ble nullet eller legemiddelet ble seponert.
-
-Når denne ACTION-arketypen brukes sammen med den korresponderende INSTRUCTION.medication_order-arketypen, vil man generelt ikke gjenta informasjon som ikke er endret fra ordineringen. Det regnes som god praksis, men ikke obligatorisk, å registrere legemiddelnavnet også i ACTION-arketypen.
-
-Navnene på prosesstrinnene skiller mellom dem som har direkte sammenheng med utførelse av ordineringen, som autorisering, istandgjøring eller administrering, og dem som har med resepthåndtering å gjøre, som utstedelse eller ekspedering. I noen myndighetsområder er dette regnet som én prosess, mens det i andre kan være nyttig å håndtere dem separat.
-
-I noen myndighetsområder kan en resept reautoriseres for å fortsette en pågående ordinering, mens det i andre må utstedes en helt ny resept. For sistnevnte områder er ikke prosesstrinnene \"Reautorisering av resept satt på vent\" eller \"Resept reautorisert\" relevante.">
-			keywords = <"medikasjon", "utdeling", "administrasjon", "utsettelse", "seponering", "terapeutisk vare", "medisinsk vare", "tilførsel", "medisin", "apotekervare", "legemiddel", "legemiddellogistikk", "istandgjøring", "opptrekking", "utblanding", "apotekvare", "administrere", "gi", "preparat", "resept", "e-resept", "ekspedering">
-			misuse = <"Skal ikke brukes for å registrere ordinering av legemidler. Bruk arketypen INSTRUCTION.medication_order for dette formålet.
-
-Skal ikke brukes for å registrere administrering eller utlevering av blodkomponenter, da dette er en grunnleggende annerledes prosess som krever annen informasjon. Bruk en annen, passende ACTION-arketype til dette formålet.
-
-Skal ikke brukes for å registrere detaljer om adheranse, sekundæreffekter eller toksisitet. Bruk andre arketyper for disse formålene.
-
-Skal ikke brukes for legemiddelsamstemming. Bruk andre arketyper for dette formålet.
-
-Skal ikke brukes for en formell gjennomgang av en hel legemiddelliste, for eksempel av farmasøyt. Bruk andre arketyper for dette formålet.">
-			copyright = <"© openEHR Foundation">
-		>
 	>
-	lifecycle_state = <"NotSet">
+	lifecycle_state = <"published">
 	other_contributors = <"Morten Aas, Oslo Universitetssykehus, Norway", "Ole Andreas Bjordal, Webmed, Norway", "Erling Are Hole, Helse Bergen, Norway", "Vebjørn Arntzen, Oslo University Hospital, Norway (openEHR Editor)", "Silje Ljosland Bakke, Nasjonal IKT HF, Norway (openEHR Editor)", "SB Bhattacharyya, Sudisa Consultancy Services, India", "Dionizio Brentano, UFRGS - Universidade Federal do Rio Grande do Sul, Brazil", "Laila Bruun, Oslo universitetssykehus HF, Norway", "Ady Angelica Castro Acosta, CIBERES-Hospital 12 de Octubre, Spain", "Ruth Caudwell, retired, United Kingdom", "Bjørn Christensen, Helse Bergen HF, Norway", "Stephen Chu, NEHTA, Australia (Editor)", "Lisbeth Dahlhaug, Helse Midt - Norge IT, Norway", "Inderjit Daphu, Helse Bergen, Norway", "Samo Drnovšek, Marand, Slovenia (Editor)", "Robert Eager, Healthways, Australia", "Tone Engen, Norway", "Peter Fedorcsak, Oslo universitetssykehus, Norway", "Samuel Frade, Marand, Portugal", "Hildegard Franke, freshEHR Clinical Informatics Ltd., United Kingdom", "Jacquie Garton-Smith, Royal Perth Hospital and DoHWA, Australia", "Mikkel Gaup Grønmo, FSE, Helse Nord, Norway", "Heather Grain, Llewelyn Grain Informatics, Australia", "Sam Heard, Ocean Health Systems, Australia", "Geir Hoff, Sykehuset Telemark HF, Norway", "Annette Hole Sjøborg, DIPS ASA, Norway", "Hilde Hollås, DIPS AS, Norway", "Roar Holm, Helse Vest IKT A/S, Norway", "Alfred Honore, Haukeland, Norway", "Evelyn Hovenga, EJSH Consulting, Australia", "Lars Ivar Mehlum, Helse Bergen HF, Norway", "Tom Jarl Jakobsen, Helse Bergen, Norway", "Gunnar Jårvik, Nasjonal IKT HF, Norway", "Hilde Karen Ofte, Nordlandssykehuset HF, Norway", "Nils Kolstrup, Skansen Legekontor og Nasjonalt Senter for samhandling og telemedisin, Norway", "Harmony Kosola, Alberta Health Services, Canada", "Anne Kristin Strand, Sykehuspartner HF, Norway", "Robert L'egan, NEHTA, Australia", "Heather Leslie, Ocean Health Systems, Australia (openEHR Editor)", "Marit Ludvigsen, St Olavs Hospital, Norway", "Colin Macfarlane, Elsevier, United Kingdom", "Siv Marie Lien, DIPS ASA, Norway", "James McClay, University of Nebraska Medical Center, United States", "Ian McNicoll, freshEHR Clinical Informatics, United Kingdom (openEHR Editor)", "Jude Michel, Queensland Health, Australia", "Chris Mitchell, RACGP, Australia", "Lars Morgan Karlsen, DIPS ASA, Norway", "Andrej Orel, Marand d.o.o., Slovenia", "Doug Pankoski, Alberta Health Services, Canada", "Vladimir Pizzo, Hospital Sírio Libanês, Brazil", "Jodie Pycroft, Adelaide Northern Division of General Practice Ltd, Australia", "Jussara Rotzsch, UNB, Brazil", "Danielle Santos Alves, Federal University of Pernambuco, Brazil", "Anoop Shah, University College London, United Kingdom", "Line Silsand, Universitetssykehuset i Nord-Norge, Norway", "Sam Stokes, Citizen Scientist, United States", "Iztok Stotl, UKCLJ, Slovenia", "Nyree Taylor, Ocean Informatics, Australia", "Tesfay Teame, Folkehelseinstituttet, Norway", "Rowan Thomas, St. Vincent's Hospital Melbourne, Australia", "Anders Thurin, SU, Sweden", "Gordon Tomes, Australian Institute of Health and Welfare, Australia", "Stian Torleif Varpe, Helse Bergen, Norway", "Richard Townley-O'Neill, NEHTA, Australia (Editor)", "Karl Trygve Kalleberg, Oslo Universitetssykehus, Norway", "Gro-Hilde Ulriksen, Norwegian center for ehealthresearch, Norway", "John Tore Valand, Helse Bergen, Norway (openEHR Editor)", "Ines Vaz, UFN, Portugal", "Kylie Young, The Royal Australian College of General Practitioners, Australia">
 	other_details = <
-		["revision"] = <"0.0.1-alpha">
-		["original_publisher"] = <"openEHR Foundation">
-		["build_uid"] = <"4b1bb703-929a-42d5-9a32-076c82097deb">
-		["original_namespace"] = <"org.openehr">
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"openEHR Foundation">
 		["references"] = <"Based on Medication Action, Published Archetype [Internet]. Australian Digital Health Agency, Australian Digital Health Agency Clinical Knowledge Manager [cited: 2017-08-10]. Available from: http://dcm.nehta.org.au/ckm/#showArchetype_1013.1.876
 
 Medication statement, [Internet]. Intermountain Healthcare. Available from http://www.opencem.org/#/20170613/Intermountain/MedicationStatement
@@ -211,455 +208,560 @@ Messaging Implementation Manual (GP2GP messages) [Internet], NHS Digital England
 Standards for the clinical structure and content of patient records (Complete document) [Internet]. PRSB London. [cited 2017 Aug 29]. Available from: http://theprsb.org/download/document/7-standards-for-the-clinical-structure-and-content-of-patient-records
 
 Norwegian regulations for medication management (Forskrift om legemiddelhåndtering for virksomheter og helsepersonell som yter helsehjelp) [Internet]. Government of Norway. [cited 2017-10-26]. Available from: https://lovdata.no/forskrift/2008-04-03-320">
-		["MD5-CAM-1.0.1"] = <"97A71A753B5E2762C8D9CB96C815783A">
+		["original_namespace"] = <"org.openehr">
+		["original_publisher"] = <"openEHR Foundation">
 		["custodian_namespace"] = <"org.openehr">
-		["custodian_organisation"] = <"openEHR Foundation">
+		["MD5-CAM-1.0.1"] = <"DEA097EC003124A862F87F889E0F34CF">
+		["build_uid"] = <"dc0ea62e-72a4-4f54-b696-b032069f39c7">
+		["revision"] = <"1.0.1">
 	>
 
 definition
-	ACTION[at0000] matches {	-- Legemiddelhåndtering
-		ism_transition matches {
-			ISM_TRANSITION[at0109] matches {	-- Anbefalt medisinering
-				current_state matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[openehr::526]}
-					}
-				}
-				careflow_step matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0109]}		-- Anbefalt medisinering
-					}
-				}
-			}
-			ISM_TRANSITION[at0145] matches {	-- Resept avventer autorisering
-				current_state matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {
-							[openehr::
-							526, 
-							245]
-						}
-					}
-				}
-				careflow_step matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0145]}		-- Resept avventer autorisering
-					}
-				}
-			}
-			ISM_TRANSITION[at0013] matches {	-- Planlagt medisinering satt på vent
-				current_state matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[openehr::527]}
-					}
-				}
-				careflow_step matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0013]}		-- Planlagt medisinering satt på vent
-					}
-				}
-			}
-			ISM_TRANSITION[at0012] matches {	-- Planlagt medisinering avbrutt
-				current_state matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[openehr::528]}
-					}
-				}
-				careflow_step matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0012]}		-- Planlagt medisinering avbrutt
-					}
-				}
-			}
-			ISM_TRANSITION[at0150] matches {	-- Resept avbrutt
-				current_state matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[openehr::528]}
-					}
-				}
-				careflow_step matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0150]}		-- Resept avbrutt
-					}
-				}
-			}
-			ISM_TRANSITION[at0016] matches {	-- Oppstartsdato satt
-				current_state matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[openehr::529]}
-					}
-				}
-				careflow_step matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0016]}		-- Oppstartsdato satt
-					}
-				}
-			}
-			ISM_TRANSITION[at0153] matches {	-- Legemiddel autorisert
-				current_state matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[openehr::529]}
-					}
-				}
-				careflow_step matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0153]}		-- Legemiddel autorisert
-					}
-				}
-			}
-			ISM_TRANSITION[at0002] matches {	-- Resept utstedt
-				current_state matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[openehr::245]}
-					}
-				}
-				careflow_step matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0002]}		-- Resept utstedt
-					}
-				}
-			}
-			ISM_TRANSITION[at0003] matches {	-- Resept ekspedert
-				current_state matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[openehr::245]}
-					}
-				}
-				careflow_step matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0003]}		-- Resept ekspedert
-					}
-				}
-			}
-			ISM_TRANSITION[at0106] matches {	-- Resept reautorisert
-				current_state matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[openehr::245]}
-					}
-				}
-				careflow_step matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0106]}		-- Resept reautorisert
-					}
-				}
-			}
-			ISM_TRANSITION[at0010] matches {	-- Resept fornyet
-				current_state matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[openehr::245]}
-					}
-				}
-				careflow_step matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0010]}		-- Resept fornyet
-					}
-				}
-			}
-			ISM_TRANSITION[at0148] matches {	-- Legemiddel istandgjort
-				current_state matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[openehr::245]}
-					}
-				}
-				careflow_step matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0148]}		-- Legemiddel istandgjort
-					}
-				}
-			}
-			ISM_TRANSITION[at0004] matches {	-- Medisinering startet
-				current_state matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[openehr::245]}
-					}
-				}
-				careflow_step matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0004]}		-- Medisinering startet
-					}
-				}
-			}
-			ISM_TRANSITION[at0041] matches {	-- Mindre endring av ordinering
-				current_state matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[openehr::245]}
-					}
-				}
-				careflow_step matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0041]}		-- Mindre endring av ordinering
-					}
-				}
-			}
-			ISM_TRANSITION[at0005] matches {	-- Legemiddel revurdert
-				current_state matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[openehr::245]}
-					}
-				}
-				careflow_step matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0005]}		-- Legemiddel revurdert
-					}
-				}
-			}
-			ISM_TRANSITION[at0006] matches {	-- Legemiddel administrert
-				current_state matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[openehr::245]}
-					}
-				}
-				careflow_step matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0006]}		-- Legemiddel administrert
-					}
-				}
-			}
-			ISM_TRANSITION[at0018] matches {	-- Enkeltdose ikke administrert
-				current_state matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[openehr::245]}
-					}
-				}
-				careflow_step matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0018]}		-- Enkeltdose ikke administrert
-					}
-				}
-			}
-			ISM_TRANSITION[at0044] matches {	-- Administrering utsatt
-				current_state matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[openehr::245]}
-					}
-				}
-				careflow_step matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0044]}		-- Administrering utsatt
-					}
-				}
-			}
-			ISM_TRANSITION[at0008] matches {	-- Forsinket levering
-				current_state matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[openehr::530]}
-					}
-				}
-				careflow_step matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0008]}		-- Forsinket levering
-					}
-				}
-			}
-			ISM_TRANSITION[at0009] matches {	-- Administrering satt på vent
-				current_state matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[openehr::530]}
-					}
-				}
-				careflow_step matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0009]}		-- Administrering satt på vent
-					}
-				}
-			}
-			ISM_TRANSITION[at0011] matches {	-- Reautorisering av resept satt på vent
-				current_state matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[openehr::530]}
-					}
-				}
-				careflow_step matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0011]}		-- Reautorisering av resept satt på vent
-					}
-				}
-			}
-			ISM_TRANSITION[at0015] matches {	-- Legemiddel seponert
-				current_state matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[openehr::531]}
-					}
-				}
-				careflow_step matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0015]}		-- Legemiddel seponert
-					}
-				}
-			}
-			ISM_TRANSITION[at0039] matches {	-- Omfattende endring av ordinering
-				current_state matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[openehr::531]}
-					}
-				}
-				careflow_step matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0039]}		-- Omfattende endring av ordinering
-					}
-				}
-			}
-			ISM_TRANSITION[at0151] matches {	-- Resept ugyldig eller utgått
-				current_state matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[openehr::531]}
-					}
-				}
-				careflow_step matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0151]}		-- Resept ugyldig eller utgått
-					}
-				}
-			}
-			ISM_TRANSITION[at0007] matches {	-- Medisinering fullført
-				current_state matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[openehr::532]}
-					}
-				}
-				careflow_step matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0007]}		-- Medisinering fullført
-					}
-				}
-			}
-			ISM_TRANSITION[at0152] matches {	-- Resept ferdig ekspedert
-				current_state matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[openehr::532]}
-					}
-				}
-				careflow_step matches {
-					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0152]}		-- Resept ferdig ekspedert
-					}
-				}
-			}
-		}
-		description matches {
-			ITEM_TREE[at0017] matches {	-- Tree
-				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0020] occurrences matches {0..1} matches {	-- Legemiddel
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					allow_archetype CLUSTER[at0104] occurrences matches {0..1} matches {	-- Legemiddeldetaljer
-						include
-							archetype_id/value matches {/openEHR-EHR-CLUSTER\.medication_substance(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.medication_substance(-[a-zA-Z0-9_]+)*\.v1/}
-					}
-					allow_archetype CLUSTER[at0131] occurrences matches {0..1} matches {	-- Mengde
-						include
-							archetype_id/value matches {/openEHR-EHR-CLUSTER\.medication_supply_amount(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.medication_supply_amount(-[a-zA-Z0-9_]+)*\.v1|openEHR-EHR-CLUSTER\.dosage(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.dosage(-[a-zA-Z0-9_]+)*\.v1/}
-					}
-					ELEMENT[at0132] occurrences matches {0..1} matches {	-- Generisk bytte
-						value matches {
-							DV_CODED_TEXT matches {
-								defining_code matches {
-									[local::
-									at0138, 	-- Generisk bytte utført
-									at0139]	-- Generisk bytte ikke utført
-								}
-							}
-						}
-					}
-					ELEMENT[at0133] occurrences matches {0..1} matches {	-- Årsak for bytte/ikke bytte
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0043] occurrences matches {0..1} matches {	-- Opprinnelig planlagt tid
-						value matches {
-							DV_DATE_TIME matches {*}
-						}
-					}
-					ELEMENT[at0154] occurrences matches {0..1} matches {	-- Dato/tid for ny oppstart
-						value matches {
-							DV_DATE_TIME matches {*}
-						}
-					}
-					ELEMENT[at0155] occurrences matches {0..1} matches {	-- Kriterium for ny oppstart
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0021] occurrences matches {0..*} matches {	-- Årsak
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					CLUSTER[at0140] occurrences matches {0..1} matches {	-- Administreringsdetaljer
-						items cardinality matches {1..*; unordered} matches {
-							ELEMENT[at0147] occurrences matches {0..1} matches {	-- Administreringsvei
-								value matches {
-									DV_TEXT matches {*}
-								}
-							}
-							ELEMENT[at0141] occurrences matches {0..1} matches {	-- Anatomisk lokalisering
-								value matches {
-									DV_TEXT matches {*}
-								}
-							}
-							allow_archetype CLUSTER[at0142] occurrences matches {0..1} matches {	-- Strukturert anatomisk lokalisering
-								include
-									archetype_id/value matches {/openEHR-EHR-CLUSTER\.anatomical_location(-[a-zA-Z0-9_]+)*\.v1|openEHR-EHR-CLUSTER\.anatomical_location_clock(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.anatomical_location_relative(-[a-zA-Z0-9_]+)*\.v1/}
-							}
-							ELEMENT[at0143] occurrences matches {0..*} matches {	-- Administreringsmetode
-								value matches {
-									DV_TEXT matches {*}
-								}
-							}
-							allow_archetype CLUSTER[at0144] occurrences matches {0..*} matches {	-- Administreringsutstyr
-								include
-									archetype_id/value matches {/openEHR-EHR-CLUSTER\.device(-[a-zA-Z0-9_]+)*\.v1/}
-							}
-						}
-					}
-					allow_archetype CLUSTER[at0053] occurrences matches {0..*} matches {	-- Ytterligere detaljer
-						include
-							archetype_id/value matches {/openEHR-EHR-CLUSTER\.medication_authorisation(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.medication_authorisation(-[a-zA-Z0-9_]+)*\.v1/}
-					}
-					ELEMENT[at0033] occurrences matches {0..*} matches {	-- Pasientinstruksjoner
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0149] occurrences matches {0..1} matches {	-- Dobbeltkontrollert?
-						value matches {
-							DV_BOOLEAN matches {
-								value matches {True, False}
-							}
-						}
-					}
-					ELEMENT[at0025] occurrences matches {0..1} matches {	-- Sekvensnummer
-						value matches {
-							DV_COUNT matches {*}
-						}
-					}
-					ELEMENT[at0024] occurrences matches {0..1} matches {	-- Kommentar
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-				}
-			}
-		}
-		protocol matches {
-			ITEM_TREE[at0030] matches {	-- Tree
-				items cardinality matches {1..*; unordered} matches {
-					ELEMENT[at0103] occurrences matches {0..*} matches {	-- OrdineringsID
-						value matches {
-							DV_IDENTIFIER matches {*}
-						}
-					}
-					allow_archetype CLUSTER[at0085] occurrences matches {0..*} matches {	-- Tilleggsinformasjon
-						include
-							archetype_id/value matches {/.*/}
-					}
-				}
-			}
-		}
-	}
+    ACTION[at0000] matches {
+        ism_transition matches {
+            ISM_TRANSITION[at0109] matches {
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::526]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0109]
+                        }
+                    }
+                }
+            }
+            ISM_TRANSITION[at0145] matches {
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::
+                            526,
+                            245]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0145]
+                        }
+                    }
+                }
+            }
+            ISM_TRANSITION[at0013] matches {
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::527]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0013]
+                        }
+                    }
+                }
+            }
+            ISM_TRANSITION[at0012] matches {
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::528]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0012]
+                        }
+                    }
+                }
+            }
+            ISM_TRANSITION[at0150] matches {
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::528]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0150]
+                        }
+                    }
+                }
+            }
+            ISM_TRANSITION[at0016] matches {
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::529]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0016]
+                        }
+                    }
+                }
+            }
+            ISM_TRANSITION[at0153] matches {
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::529]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0153]
+                        }
+                    }
+                }
+            }
+            ISM_TRANSITION[at0002] matches {
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::245]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0002]
+                        }
+                    }
+                }
+            }
+            ISM_TRANSITION[at0003] matches {
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::245]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0003]
+                        }
+                    }
+                }
+            }
+            ISM_TRANSITION[at0106] matches {
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::245]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0106]
+                        }
+                    }
+                }
+            }
+            ISM_TRANSITION[at0010] matches {
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::245]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0010]
+                        }
+                    }
+                }
+            }
+            ISM_TRANSITION[at0148] matches {
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::245]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0148]
+                        }
+                    }
+                }
+            }
+            ISM_TRANSITION[at0004] matches {
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::245]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0004]
+                        }
+                    }
+                }
+            }
+            ISM_TRANSITION[at0041] matches {
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::245]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0041]
+                        }
+                    }
+                }
+            }
+            ISM_TRANSITION[at0005] matches {
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::245]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0005]
+                        }
+                    }
+                }
+            }
+            ISM_TRANSITION[at0006] matches {
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::245]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0006]
+                        }
+                    }
+                }
+            }
+            ISM_TRANSITION[at0018] matches {
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::245]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0018]
+                        }
+                    }
+                }
+            }
+            ISM_TRANSITION[at0044] matches {
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::245]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0044]
+                        }
+                    }
+                }
+            }
+            ISM_TRANSITION[at0008] matches {
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::530]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0008]
+                        }
+                    }
+                }
+            }
+            ISM_TRANSITION[at0009] matches {
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::530]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0009]
+                        }
+                    }
+                }
+            }
+            ISM_TRANSITION[at0011] matches {
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::530]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0011]
+                        }
+                    }
+                }
+            }
+            ISM_TRANSITION[at0015] matches {
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::531]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0015]
+                        }
+                    }
+                }
+            }
+            ISM_TRANSITION[at0039] matches {
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::531]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0039]
+                        }
+                    }
+                }
+            }
+            ISM_TRANSITION[at0151] matches {
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::531]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0151]
+                        }
+                    }
+                }
+            }
+            ISM_TRANSITION[at0007] matches {
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::532]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0007]
+                        }
+                    }
+                }
+            }
+            ISM_TRANSITION[at0152] matches {
+                current_state matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [openehr::532]
+                        }
+                    }
+                }
+                careflow_step matches {
+                    DV_CODED_TEXT matches {
+                        defining_code matches {
+                            [local::at0152]
+                        }
+                    }
+                }
+            }
+        }
+        description matches {
+            ITEM_TREE[at0017] matches {
+                items cardinality matches {0..*; unordered} matches {
+                    ELEMENT[at0020] occurrences matches {0..1} matches {
+                        value matches {
+                            DV_TEXT matches {*}
+                        }
+                    }
+                    allow_archetype CLUSTER[at0104] occurrences matches {0..1} matches {
+                        include
+                            archetype_id/value matches {/openEHR-EHR-CLUSTER\.medication(-[a-zA-Z0-9_]+)*\.v1/}
+                    }
+                    allow_archetype CLUSTER[at0131] occurrences matches {0..1} matches {
+                        include
+                            archetype_id/value matches {/openEHR-EHR-CLUSTER\.medication_supply_amount(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.medication_supply_amount(-[a-zA-Z0-9_]+)*\.v1|openEHR-EHR-CLUSTER\.dosage(-[a-zA-Z0-9_]+)*\.v1/}
+                    }
+                    ELEMENT[at0132] occurrences matches {0..1} matches {
+                        value matches {
+                            DV_CODED_TEXT matches {
+                                defining_code matches {
+                                    [local::
+                                    at0138,
+                                    at0139]
+                                }
+                            }
+                        }
+                    }
+                    ELEMENT[at0133] occurrences matches {0..1} matches {
+                        value matches {
+                            DV_TEXT matches {*}
+                        }
+                    }
+                    ELEMENT[at0043] occurrences matches {0..1} matches {
+                        value matches {
+                            DV_DATE_TIME matches {*}
+                        }
+                    }
+                    ELEMENT[at0154] occurrences matches {0..1} matches {
+                        value matches {
+                            DV_DATE_TIME matches {*}
+                        }
+                    }
+                    ELEMENT[at0155] occurrences matches {0..1} matches {
+                        value matches {
+                            DV_TEXT matches {*}
+                        }
+                    }
+                    ELEMENT[at0021] occurrences matches {0..*} matches {
+                        value matches {
+                            DV_TEXT matches {*}
+                        }
+                    }
+                    CLUSTER[at0140] occurrences matches {0..1} matches {
+                        items cardinality matches {1..*; unordered} matches {
+                            ELEMENT[at0147] occurrences matches {0..1} matches {
+                                value matches {
+                                    DV_TEXT matches {*}
+                                }
+                            }
+                            ELEMENT[at0141] occurrences matches {0..1} matches {
+                                value matches {
+                                    DV_TEXT matches {*}
+                                }
+                            }
+                            allow_archetype CLUSTER[at0142] occurrences matches {0..1} matches {
+                                include
+                                    archetype_id/value matches {/openEHR-EHR-CLUSTER\.anatomical_location(-[a-zA-Z0-9_]+)*\.v1|openEHR-EHR-CLUSTER\.anatomical_location_clock(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.anatomical_location_clock(-[a-zA-Z0-9_]+)*\.v1|openEHR-EHR-CLUSTER\.anatomical_location_relative(-[a-zA-Z0-9_]+)*\.v1/}
+                            }
+                            ELEMENT[at0143] occurrences matches {0..*} matches {
+                                value matches {
+                                    DV_TEXT matches {*}
+                                }
+                            }
+                            allow_archetype CLUSTER[at0144] occurrences matches {0..*} matches {
+                                include
+                                    archetype_id/value matches {/openEHR-EHR-CLUSTER\.device(-[a-zA-Z0-9_]+)*\.v1/}
+                            }
+                        }
+                    }
+                    allow_archetype CLUSTER[at0053] occurrences matches {0..*} matches {
+                        include
+                            archetype_id/value matches {/openEHR-EHR-CLUSTER\.medication_authorisation(-[a-zA-Z0-9_]+)*\.v0|openEHR-EHR-CLUSTER\.medication_authorisation(-[a-zA-Z0-9_]+)*\.v1/}
+                    }
+                    ELEMENT[at0033] occurrences matches {0..*} matches {
+                        value matches {
+                            DV_TEXT matches {*}
+                        }
+                    }
+                    ELEMENT[at0149] occurrences matches {0..1} matches {
+                        value matches {
+                            DV_BOOLEAN matches {*}
+                        }
+                    }
+                    ELEMENT[at0025] occurrences matches {0..1} matches {
+                        value matches {
+                            DV_COUNT matches {*}
+                        }
+                    }
+                    ELEMENT[at0024] occurrences matches {0..1} matches {
+                        value matches {
+                            DV_TEXT matches {*}
+                        }
+                    }
+                }
+            }
+        }
+        protocol matches {
+            ITEM_TREE[at0030] matches {
+                items cardinality matches {1..*; unordered} matches {
+                    ELEMENT[at0103] occurrences matches {0..*} matches {
+                        value matches {
+                            DV_IDENTIFIER matches {*}
+                        }
+                    }
+                    allow_archetype CLUSTER[at0085] occurrences matches {0..*} matches {
+                        include
+                            archetype_id/value matches {/.*/}
+                    }
+                }
+            }
+        }
+    }
+
+
 
 ontology
 	terminologies_available = <"ar-sy", "sl", "es-ar", "ru", "en", "nb", "pt-br">
