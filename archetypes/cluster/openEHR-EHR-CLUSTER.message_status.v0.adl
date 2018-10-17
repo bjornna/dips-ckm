@@ -1,5 +1,5 @@
 archetype (adl_version=1.4)
-	openEHR-EHR-ADMIN_ENTRY.message_status.v0
+	openEHR-EHR-CLUSTER.message_status.v0
 
 concept
 	[at0000]	-- Meldingsstatus
@@ -25,29 +25,25 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"D6774A3B3E7A0FFED6973568D9A4C613">
+		["MD5-CAM-1.0.1"] = <"27FA8DC207E5418BA942FAA5D0AFB663">
 	>
 
 definition
-	ADMIN_ENTRY[at0000] matches {	-- Meldingsstatus
-		data matches {
-			ITEM_TREE[at0001] matches {	-- Tree
-				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Type melding
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Status
-						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Dato 
-						value matches {
-							DV_DATE_TIME matches {*}
-						}
-					}
+	CLUSTER[at0000] matches {	-- Meldingsstatus
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Type melding
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Status
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Dato
+				value matches {
+					DV_DATE_TIME matches {*}
 				}
 			}
 		}
@@ -62,20 +58,16 @@ ontology
 					description = <"Brukes for å registrere status på en melding.">
 				>
 				["at0001"] = <
-					text = <"Tree">
-					description = <"@ internal @">
+					text = <"Type melding">
+					description = <"Meldingstype som sendes eller mottas f.eks. pasientskjema, PLO melding osv. Bør brukes med kodeverk.">
 				>
 				["at0002"] = <
-					text = <"Type melding">
-					description = <"Meldingstype som sendes eller mottas f.eks. pasientskjema, PLO melding osv.">
-				>
-				["at0003"] = <
 					text = <"Status">
 					description = <"Status på melding. Bør fortrinnsvis brukes med ed kodeverk.">
 				>
-				["at0004"] = <
-					text = <"Dato ">
-					description = <"Dato når status er registrert.">
+				["at0003"] = <
+					text = <"Dato">
+					description = <"Dato når status er registrert/endret.">
 				>
 			>
 		>
