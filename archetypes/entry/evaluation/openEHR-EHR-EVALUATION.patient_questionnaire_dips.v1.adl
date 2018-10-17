@@ -1,0 +1,110 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-EVALUATION.patient_questionnaire_dips.v1
+
+concept
+	[at0000]	-- Pasient spørreskjema
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2018-09-26">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes i for registrering av viktige helsefaktorer i pasient spørreskjemaer.">
+			use = <"Denne arketypen brukes for å registrerer viktige faktorer knyttet til en planlagt eller gjennomført helsetjeneste. Arketypen skla brukes i spørreskjemaer som pasienten fyller  og skal fange opp informasjon om tidligere sykdommer, symptomer, tilstander, medikamentbruk osv. Eksempler på slike spørreskjemaer kan være: egenmeldingsskjema før oppmøte til operasjon, spørreskjema før gjennomføring av beintettehetsmåling osv.">
+			keywords = <"spørreskjema", "pasient", "risikofaktor", "helsefaktor">
+			misuse = <"Brukes ikke når en kliniker skal registrere pasientens risikofaktorer eller porblemer/diagnoser. Disse skal registreres i arketyper laget til dette formålet : openEHR-EHR-EVALUATION.problem_diagnosis.v1, openEHR-EHR-EVALUATION.precaution.v1.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <"Kjetil Jørgensen, Dips AS", ...>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"DD70713ABAEB848B29D9BD6051B7C5F7">
+	>
+
+definition
+	EVALUATION[at0000] matches {	-- Pasient spørreskjema
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					CLUSTER[at0003] occurrences matches {0..*} matches {	-- Helsefaktor
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0002] occurrences matches {0..1} matches {	-- Helsefaktor
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0006] occurrences matches {0..1} matches {	-- Beskrivelse
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0004] occurrences matches {0..1} matches {	-- Til stede/status?
+								value matches {
+									DV_BOOLEAN matches {
+										value matches {True, False}
+									}
+									DV_TEXT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0005] occurrences matches {0..*} matches {	-- Detaljer
+								include
+									archetype_id/value matches {/.*/}
+							}
+						}
+					}
+					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Kommentar
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Pasient spørreskjema">
+					description = <"Brukes i for registrering av viktige helsefaktorer i pasient spørreskjemaer.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Helsefaktor">
+					description = <"Navn på Helsefaktor som det spørres om.">
+				>
+				["at0003"] = <
+					text = <"Helsefaktor">
+					description = <"Helsefaktoren som det samles data om.">
+				>
+				["at0004"] = <
+					text = <"Til stede/status?">
+					description = <"Brukes enten som boolean som angir om helsetilstanden er til stede eller ikke, eller som tekstfelt hvor man kan angi en status, fortrinnsvis med koder f.eks. god, middels, dprlig for å beskrive helsefaktoren almenntilstand.">
+				>
+				["at0005"] = <
+					text = <"Detaljer">
+					description = <"Strukturerte detaljer vedrørende helsefaktoren">
+				>
+				["at0006"] = <
+					text = <"Beskrivelse">
+					description = <"En tekstlig beskrivelse av helsefaktoren det samles data om.">
+				>
+				["at0007"] = <
+					text = <"Kommentar">
+					description = <"Teksfelt for relevant informasjon som ikke er dekket av de andre elementene.">
+				>
+			>
+		>
+	>
