@@ -1,0 +1,82 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ADMIN_ENTRY.message_status.v0
+
+concept
+	[at0000]	-- Meldingsstatus
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2018-10-17">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for å registrere status på en melding.">
+			use = <"Brukes i forbindelse med meldinger/dokumenter sendt mellom forksjellige helsefaktører eller mellom helseaktør, pasient eller andre instanser. Brukes for å angi status på meldingen f.eks. sendt, svar mottatt osv.">
+			keywords = <"melding", "sending", "mottak", "status">
+			misuse = <"Brukes ikke for å registrere selve sending av dokumentet. ">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"D6774A3B3E7A0FFED6973568D9A4C613">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {	-- Meldingsstatus
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Type melding
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Status
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Dato 
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Meldingsstatus">
+					description = <"Brukes for å registrere status på en melding.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Type melding">
+					description = <"Meldingstype som sendes eller mottas f.eks. pasientskjema, PLO melding osv.">
+				>
+				["at0003"] = <
+					text = <"Status">
+					description = <"Status på melding. Bør fortrinnsvis brukes med ed kodeverk.">
+				>
+				["at0004"] = <
+					text = <"Dato ">
+					description = <"Dato når status er registrert.">
+				>
+			>
+		>
+	>
