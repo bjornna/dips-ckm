@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
   <id>72a12125-48b6-4aea-bbff-16224ec7cd8f</id>
-  <name>PPR_utskrift_v1_0_0</name>
+  <name>PPR_sammendrag_v1_0_0</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
@@ -85,10 +85,17 @@
         </Rule>
       </Items>
     </Content>
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Avrusning avsluttet" />
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" path="/content">
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.trajectory_activity_details.v1" concept_name="Detaljer om aktivitet i et pakkeforløp" path="/description[at0001]/items[at0018]" />
     </Content>
-    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Avrusning avsluttet" />
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Melding fastlege">
+      <Rule path="/description[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>DIPS_Trajectory_PPR_9322::F::Tilbakemelding til fastlege sendt underveis i pakkeforløpet</includedValues>
+        </constraint>
+      </Rule>
+    </Content>
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.trajectory_plan.v1" concept_name="Trajectory plan" path="/content">
       <Rule path="/data[at0001]/items[at0003]" max="1" name="Første fremmøte" />
       <Rule path="/data[at0001]/items[at0003]" max="1" clone="true" name="Klinisk beslutning" />
@@ -96,8 +103,22 @@
       <Rule path="/data[at0001]/items[at0003]" max="1" clone="true" name="Samarbeidsmøte" />
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.health_care_level_dips.v1" concept_name="Omsorgsnivå " path="/data[at0001]/items" />
     </Content>
-    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.trajectory_manager.v1" concept_name="Forløpsansvarlig" path="/content" />
-    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Melding fastlege" />
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.administrative_container_dips.v1" concept_name="Administrativ kontainer dips" path="/content">
+      <Rule path="/data[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>2.16.578.1.12.4.1.1-9034::3::Behandlingsansvarlig lege</includedValues>
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.individual_professional_dips.v1" concept_name="Individuell profesjonsutøver" path="/data[at0001]/items[at0005]">
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.person_name_dips.v1" concept_name="Person navn" path="/items[at0015]">
+          <Rule path="/items[at0001]">
+            <constraint xsi:type="textConstraint">
+              <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="HEALTHCAREPARTY" />
+            </constraint>
+          </Rule>
+        </Items>
+      </Items>
+    </Content>
     <Context />
   </definition>
 </template>
