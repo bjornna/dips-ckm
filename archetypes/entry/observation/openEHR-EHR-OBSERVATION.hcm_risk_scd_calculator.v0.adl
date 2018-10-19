@@ -1,0 +1,212 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.hcm_risk_scd_calculator.v0
+
+concept
+	[at0000]	-- HCM Risk-SCD Kalkulator
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Bjørn Næss">
+		["email"] = <"bna@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2018-10-19">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"HCM Risk-SCD should not be used in: 
+
+Paed">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"2E5323618994BA06D580FBABE0799805">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- HCM Risk-SCD Kalkulator
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Alder
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|1..154|}
+											}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Maksimum LV veggtykkelse
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::122]>
+												list = <
+													["1"] = <
+														units = <"mm">
+														magnitude = <|3.0..35.0|>
+														precision = <|0|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {	-- Venstre atriell størrelse
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::122]>
+												list = <
+													["1"] = <
+														units = <"mm">
+														magnitude = <|28.0..67.0|>
+														precision = <|0|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Maks LVOT gradient
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::122]>
+												list = <
+													["1"] = <
+														units = <"mm">
+														magnitude = <|2.0..154.0|>
+														precision = <|0|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0008] occurrences matches {0..1} matches {	-- SCD i familien
+										value matches {
+											0|[local::at0009], 	-- Nei
+											1|[local::at0010]  	-- Ja
+										}
+									}
+									ELEMENT[at0011] occurrences matches {0..1} matches {	-- Non-sustained VT
+										value matches {
+											0|[local::at0015], 	-- Nei
+											1|[local::at0016]  	-- Ja
+										}
+									}
+									ELEMENT[at0012] occurrences matches {0..1} matches {	-- Unexplained syncope
+										value matches {
+											0|[local::at0017], 	-- Nei
+											1|[local::at0018]  	-- Ja
+										}
+									}
+									ELEMENT[at0013] occurrences matches {0..1} matches {	-- Risk of SCD at 5 years (%)
+										value matches {
+											DV_PROPORTION matches {
+												denominator matches {|100.0|}
+												is_integral matches {True}
+											}
+										}
+									}
+									ELEMENT[at0014] occurrences matches {0..1} matches {	-- ESC Recommendation
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"HCM Risk-SCD Kalkulator">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Alder">
+					description = <"Alder ved vurdering.">
+				>
+				["at0005"] = <
+					text = <"Maksimum LV veggtykkelse">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Venstre atriell størrelse">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Maks LVOT gradient">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"SCD i familien">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Nei">
+					description = <"Ingen kjent SCD i familie">
+				>
+				["at0010"] = <
+					text = <"Ja">
+					description = <"Det er kjent familiær SCD">
+				>
+				["at0011"] = <
+					text = <"Non-sustained VT">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Unexplained syncope">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Risk of SCD at 5 years (%)">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"ESC Recommendation">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0016"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Nei">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Ja">
+					description = <"*">
+				>
+			>
+		>
+	>
