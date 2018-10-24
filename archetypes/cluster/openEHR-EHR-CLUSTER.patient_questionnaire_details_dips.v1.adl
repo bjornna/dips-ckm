@@ -1,0 +1,100 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.patient_questionnaire_details_dips.v1
+
+concept
+	[at0000]	-- Pasient spørreskjema detaljer
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for å utfdype detaljer ved registrering av viktige helsefaktorer i pasientspørreskjemaer.
+">
+			use = <"Denne arketypen brukes for å utdype detaljer i spørreskjemaer hvor pasienten angir egen helseinformasjon.">
+			keywords = <"spørreskjema", "pasient", "risikofaktor", "detaljer", "helsefaktor">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"A6C54A0C5BF6D1F20747B5C6038F7F48">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Pasient spørreskjema detaljer
+		items cardinality matches {1..*; unordered} matches {
+			CLUSTER[at0001] occurrences matches {0..1} matches {	-- Detaljer
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Tekstboks
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Tekstboks
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Svar
+						value matches {
+							DV_TEXT matches {*}
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Dato/klokkeslett
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0006] occurrences matches {0..*} matches {	-- Detaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Pasient spørreskjema detaljer">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Detaljer">
+					description = <"Cluster som inkuderer alle svar.">
+				>
+				["at0002"] = <
+					text = <"Tekstboks">
+					description = <"Brukes for å oppgi svar.">
+				>
+				["at0003"] = <
+					text = <"Tekstboks">
+					description = <"Brukes for å oppgi svar.">
+				>
+				["at0005"] = <
+					text = <"Dato/klokkeslett">
+					description = <"Brukes for å angi tid.">
+				>
+				["at0006"] = <
+					text = <"Detaljer">
+					description = <"Brukes for å bygge ut cluster ved behov for ytterligere svar.">
+				>
+				["at0008"] = <
+					text = <"Svar">
+					description = <"Brukes for å angi svar.">
+				>
+			>
+		>
+	>
