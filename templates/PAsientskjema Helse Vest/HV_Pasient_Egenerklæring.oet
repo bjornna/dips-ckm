@@ -71,6 +71,11 @@
       <Rule path="/protocol[at0007]/items[at0028]" max="0" />
     </Content>
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.body_weight.v1" concept_name="Kroppsvekt" path="/content">
+      <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0004]">
+        <constraint xsi:type="quantityConstraint">
+          <excludedUnits>g</excludedUnits>
+        </constraint>
+      </Rule>
       <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0038]" max="0" />
       <Rule path="/data[at0002]/events[at0003]/data[at0001]/items[at0024]" max="0" />
       <Rule path="/data[at0002]/events[at0003]/state[at0008]/items[at0009]" max="0" />
@@ -1423,7 +1428,7 @@
             <includedValues>Bruker du faste medisiner (også p-pille eller astmamedisiner)?</includedValues>
           </constraint>
         </Rule>
-        <Rule path="/data[at0001]/items[at0003]/items[at0006]" max="0" />
+        <Rule path="/data[at0001]/items[at0003]/items[at0006]" name="Hvilke?" />
         <Rule path="/data[at0001]/items[at0003]/items[at0004]">
           <constraint xsi:type="textConstraint">
             <includedValues>SMOMED-CT::373066001::Ja</includedValues>
@@ -1623,10 +1628,13 @@
       </Item>
     </Content>
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.tobacco_use_summary.v1" concept_name="Tobakksbrukssammendrag" path="/content">
+      <Rule path="/data[at0001]/items[at0029]/items[at0028]" max="0" />
+      <Rule path="/data[at0001]/items[at0029]/items[at0030]" max="0" />
       <Rule path="/data[at0001]/items[at0029]/items[at0015]" max="0" />
       <Rule path="/data[at0001]/items[at0029]/items[at0016]" max="0" />
       <Rule path="/data[at0001]/items[at0029]/items[at0017]" max="0" />
       <Rule path="/data[at0001]/items[at0029]/items[at0025]" max="0" />
+      <Rule path="/data[at0001]/items[at0034]/items[at0039]" max="0" />
       <Rule path="/data[at0001]/items[at0024]" max="0" />
       <Rule path="/data[at0001]/items[at0019]" max="0" />
     </Content>
@@ -1928,11 +1936,7 @@
             <includedValues>Har du fått narkose, spinal/epiduralbedøvelse eller lokalbedøvelse tidligere?</includedValues>
           </constraint>
         </Rule>
-        <Rule path="/data[at0001]/items[at0003]/items[at0006]">
-          <constraint xsi:type="textConstraint">
-            <includedValues>SNOMED-CT::33211000::Komplikasjoner ved anestesi</includedValues>
-          </constraint>
-        </Rule>
+        <Rule path="/data[at0001]/items[at0003]/items[at0006]" name="Hvilket inngrep?" />
         <Rule path="/data[at0001]/items[at0003]/items[at0004]">
           <constraint xsi:type="textConstraint">
             <includedValues>SMOMED-CT::373066001::Ja</includedValues>
@@ -1959,6 +1963,17 @@
             </constraint>
           </Rule>
           <Rule path="/items[at0001]/items[at0005]" max="0" />
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.patient_questionnaire_details_dips.v1" concept_name="Pasient spørreskjema detaljer" max="1" path="/items[at0001]/items[at0006]" name="Kodeverk komplikasjon">
+            <Rule path="/items[at0001]/items[at0002]">
+              <constraint xsi:type="textConstraint">
+                <includedValues>SNOMED-CT::33211000::Komplikasjoner ved anestesi</includedValues>
+              </constraint>
+            </Rule>
+            <Rule path="/items[at0001]/items[at0003]" max="0" />
+            <Rule path="/items[at0001]/items[at0008]" max="0" />
+            <Rule path="/items[at0001]/items[at0005]" max="0" />
+            <Rule path="/items[at0001]/items[at0009]" max="0" />
+          </Items>
         </Items>
         <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.patient_questionnaire_details_dips.v1" concept_name="Pasient spørreskjema detaljer" max="1" path="/data[at0001]/items[at0003]/items[at0005]" name="Komplikasjoner ved spinal-edipural">
           <Rule path="/items[at0001]/items[at0002]">
@@ -1979,6 +1994,17 @@
             </constraint>
           </Rule>
           <Rule path="/items[at0001]/items[at0005]" max="0" />
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.patient_questionnaire_details_dips.v1" concept_name="Pasient spørreskjema detaljer" max="1" path="/items[at0001]/items[at0006]" name="Kodeverk komplikasjon">
+            <Rule path="/items[at0001]/items[at0002]">
+              <constraint xsi:type="textConstraint">
+                <includedValues>SNOMED-CT::33211000::Komplikasjoner ved anestesi</includedValues>
+              </constraint>
+            </Rule>
+            <Rule path="/items[at0001]/items[at0003]" max="0" />
+            <Rule path="/items[at0001]/items[at0008]" max="0" />
+            <Rule path="/items[at0001]/items[at0005]" max="0" />
+            <Rule path="/items[at0001]/items[at0009]" max="0" />
+          </Items>
         </Items>
         <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.patient_questionnaire_details_dips.v1" concept_name="Pasient spørreskjema detaljer" max="1" path="/data[at0001]/items[at0003]/items[at0005]" name="Komplikasjoner ved narkose">
           <Rule path="/items[at0001]/items[at0002]">
@@ -1999,6 +2025,17 @@
             </constraint>
           </Rule>
           <Rule path="/items[at0001]/items[at0005]" max="0" />
+          <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.patient_questionnaire_details_dips.v1" concept_name="Pasient spørreskjema detaljer" max="1" path="/items[at0001]/items[at0006]" name="Kodeverk komplikasjon">
+            <Rule path="/items[at0001]/items[at0002]">
+              <constraint xsi:type="textConstraint">
+                <includedValues>SNOMED-CT::33211000::Komplikasjoner ved anestesi</includedValues>
+              </constraint>
+            </Rule>
+            <Rule path="/items[at0001]/items[at0003]" max="0" />
+            <Rule path="/items[at0001]/items[at0008]" max="0" />
+            <Rule path="/items[at0001]/items[at0005]" max="0" />
+            <Rule path="/items[at0001]/items[at0009]" max="0" />
+          </Items>
         </Items>
       </Item>
     </Content>
