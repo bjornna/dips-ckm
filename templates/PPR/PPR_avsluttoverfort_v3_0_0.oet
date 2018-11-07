@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
-  <id>fe23f2d7-b778-4e6c-b344-88a9fafa3051</id>
-  <name>Trajectory_seksjon_v1_0_0</name>
+  <id>eb7d0e96-d7f0-4f61-9f17-f72141cdb960</id>
+  <name>PPR_avsluttoverfort_v3_0_0</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
@@ -61,16 +61,23 @@
     </other_details>
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.trajectory.v1" concept_name="Pasientforløp">
-    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.administrative_container_dips.v1" concept_name="Administrativ kontainer dips" path="/content">
-      <Rule path="/data[at0001]/items[at0002]">
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Avslutning av forlop">
+      <Rule path="/description[at0001]/items[at0002]">
         <constraint xsi:type="textConstraint">
-          <includedValues>2.16.578.1.12.4.1.1.8624::06::Seksjon</includedValues>
+          <includedValues>DIPS_Trajectory_PPR_9322::X::Avslutning av pakkeforløp</includedValues>
         </constraint>
       </Rule>
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.organisasjonsstruktur_dips.v1" concept_name="Organisasjonsstruktur dips" path="/data[at0001]/items[at0005]">
-        <Rule path="/items[at0006]">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.trajectory_activity_details.v1" concept_name="Detaljer om aktivitet i et pakkeforløp" max="1" path="/description[at0001]/items[at0018]" name="Detaljer om avslutning">
+        <Rule path="/items[at0001]">
           <constraint xsi:type="textConstraint">
-            <termQueryId terminologyID="DIPS-SECTION" terminologyLang="en-GB" queryName="DIPS-SECTION" />
+            <includedValues>DIPS_Trajectory_PPR_9326::G::Avslutning av gjennomført pakkeforløp</includedValues>
+            <includedValues>DIPS_Trajectory_PPR_9326::L::Skal ikke i pakkeforløp</includedValues>
+            <includedValues>DIPS_Trajectory_PPR_9326::M::Avbrudd fordi pasienten ikke har møtt</includedValues>
+            <includedValues>DIPS_Trajectory_PPR_9326::N::Overført til annet pakkeforløp innen psykisk helse eller rus</includedValues>
+            <includedValues>DIPS_Trajectory_PPR_9326::O::Overført til annet helseforetak/ privat behandlingssted for videreføring av pågående pakkeforløp</includedValues>
+            <includedValues>DIPS_Trajectory_PPR_9326::P::Avbrudd etter pasientens/foresattes eget ønske</includedValues>
+            <includedValues>DIPS_Trajectory_PPR_9326::R::Rett til helsehjelp ikke innvilget</includedValues>
+            <includedValues>DIPS_Trajectory_PPR_9326::A::Avslutning av andre årsaker</includedValues>
           </constraint>
         </Rule>
       </Items>
