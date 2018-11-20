@@ -1,0 +1,183 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ADMIN_ENTRY.surgery_administrative_planning_dips.v1
+
+concept
+	[at0000]	-- Preoperativ administrativ planlegging
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2018-11-20">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Administrativ planlegging av operasjon">
+			use = <"Brukes for å angi administrativ informasjon i forbindelse med planlegging av en operasjon. F. eks. hvor skal pasienten møte, om han kan komme på kort varsel osv.">
+			keywords = <"administrativ", "operasjon", "planlegging">
+			misuse = <"Brukes ikke for den kliniske planleggingen eller for å dokumentere gjennomførte tiltak under operasjonen. Bruke egne arketyper til disse formålene.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <"Anca Heyd, DIPS AS<ahe@dips.no>">
+		["MD5-CAM-1.0.1"] = <"DBBEA88E994295067926DF7D053AD729">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {	-- Preoperativ administrativ planlegging
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Oppmøte
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Turnuslege skal ta innkomst
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True}
+							}
+						}
+					}
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Type anestesiklarering
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Ønsker rehab opphold
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True}
+							}
+						}
+					}
+					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Kort varsel
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True}
+							}
+						}
+					}
+					CLUSTER[at0010] occurrences matches {0..1} matches {	-- Medisink vurdering
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0009] occurrences matches {0..1} matches {	-- Er henvist medisink vurdering
+								value matches {
+									DV_BOOLEAN matches {
+										value matches {True}
+									}
+								}
+							}
+							ELEMENT[at0011] occurrences matches {0..1} matches {	-- Utført dato
+								value matches {
+									DV_DATE_TIME matches {*}
+								}
+							}
+						}
+					}
+					CLUSTER[at0013] occurrences matches {0..1} matches {	-- Preoperativ røntgen
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0012] occurrences matches {0..1} matches {	-- Er henvist rtg. preop.
+								value matches {
+									DV_BOOLEAN matches {
+										value matches {True}
+									}
+								}
+							}
+							ELEMENT[at0014] occurrences matches {0..1} matches {	-- Time til røntgen
+								value matches {
+									DV_DATE_TIME matches {*}
+								}
+							}
+						}
+					}
+					ELEMENT[at0015] occurrences matches {0..1} matches {	-- Pasientbestilt avbestilling
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0016] occurrences matches {0..1} matches {	-- Beskjed til koordinator
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Preoperativ administrativ planlegging">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Oppmøte">
+					description = <"Hvor skal pasienten møte? Bruk gjerne intenre kodeverk.">
+				>
+				["at0004"] = <
+					text = <"Turnuslege skal ta innkomst">
+					description = <"Turnuslege skal ta innkomst">
+				>
+				["at0005"] = <
+					text = <"Type anestesiklarering">
+					description = <"Angir type anestesiklarering f.eks. ved journalinnsyn eller ved poliklinisk kontakt">
+				>
+				["at0007"] = <
+					text = <"Ønsker rehab opphold">
+					description = <"Pasienten ønsker rehab opphold.">
+				>
+				["at0008"] = <
+					text = <"Kort varsel">
+					description = <"Pasienten kan komme på kort varsel">
+				>
+				["at0009"] = <
+					text = <"Er henvist medisink vurdering">
+					description = <"Pasienten er henvist medisink vurdering.">
+				>
+				["at0010"] = <
+					text = <"Medisink vurdering">
+					description = <"Infomrasjon om pasienten er henvist medisink vurdering.">
+				>
+				["at0011"] = <
+					text = <"Utført dato">
+					description = <"Dato for når medisinsk vurdering er utført.">
+				>
+				["at0012"] = <
+					text = <"Er henvist rtg. preop.">
+					description = <"Pasienten er henvist til preoperativ røntgen.">
+				>
+				["at0013"] = <
+					text = <"Preoperativ røntgen">
+					description = <"Informasjon om preoperativ røntgen.">
+				>
+				["at0014"] = <
+					text = <"Time til røntgen">
+					description = <"Dato for når pasienten har fått time til preoperativ røntgen.">
+				>
+				["at0015"] = <
+					text = <"Pasientbestilt avbestilling">
+					description = <"Pasienten selv har avbestilt operasjonen.">
+				>
+				["at0016"] = <
+					text = <"Beskjed til koordinator">
+					description = <"Fritekst beskjed til koordinator.">
+				>
+			>
+		>
+	>
