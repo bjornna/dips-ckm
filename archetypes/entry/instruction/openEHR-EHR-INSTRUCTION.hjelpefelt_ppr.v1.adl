@@ -1,0 +1,274 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-INSTRUCTION.hjelpefelt_ppr.v1
+
+concept
+	[at0000]	-- Hjelpefelt PPR
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["name"] = <"">
+				["email"] = <"">
+				["organisation"] = <"">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Siv fauchald">
+		["email"] = <"sfa@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2018-11-19">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"Use to initiate a clinical pathway (trajectory) for the given patient. ">
+			use = <"When a patient should follow a clinical pathway. ">
+			misuse = <"">
+			copyright = <"">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for sammendragsutskrift av Pakkeforløp psykisk helse og rus og sakssammendrag i Classic.">
+			use = <"Brukes for sammendragsutskrift av Pakkeforløp psykisk helse og rus og sakssammendrag i Classic.">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["references"] = <"Why trajectory? 
+Trajectory is the path followed by a projectile flying or an object moving under the action of given forces.
+
+This Instruction should be used to initiate plans that should facilitate a specific pathway for the patient. The purpose of the Instruction is to give enough information for the healthcare provider to follow up the treament as a trajectory. ">
+		["current_contact"] = <"Bjørn Næss, DIPS ASA<bna@dips.no>">
+		["MD5-CAM-1.0.1"] = <"FB522E022253F7E77CDBD8EC8A3FF668">
+	>
+
+definition
+	INSTRUCTION[at0000] matches {	-- Hjelpefelt PPR
+		activities cardinality matches {0..*; unordered} matches {
+			ACTIVITY[at0001] occurrences matches {0..1} matches {	-- Nåværende aktivitet
+				action_archetype_id matches {/openEHR-EHR-ACTION\.trajectory_follow_up\.v1/}
+				description matches {
+					ITEM_TREE[at0002] matches {	-- Tre
+						items cardinality matches {0..*; unordered} matches {
+							ELEMENT[at0003] occurrences matches {0..1} matches {	-- Forløp
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0012] occurrences matches {0..1} matches {	-- Spesifikt forløp
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0004] occurrences matches {0..1} matches {	-- Start første HF
+								value matches {
+									DV_DATE matches {
+										value matches {yyyy-mm-dd}
+									}
+								}
+							}
+							ELEMENT[at0013] occurrences matches {0..1} matches {	-- Start eget HF
+								value matches {
+									DV_DATE matches {
+										value matches {yyyy-mm-dd}
+									}
+								}
+							}
+							ELEMENT[at0016] occurrences matches {0..1} matches {	-- Tekst1
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0017] occurrences matches {0..1} matches {	-- Tekst2
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0005] occurrences matches {0..1} matches {	-- Beskrivelse
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0011] occurrences matches {0..1} matches {	-- Ekstern start
+								value matches {
+									DV_BOOLEAN matches {
+										value matches {True}
+									}
+								}
+							}
+							allow_archetype CLUSTER[at0006] occurrences matches {0..*} matches {	-- Detaljer
+								include
+									archetype_id/value matches {/.*/}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0007] matches {	-- Tre
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Ansvarlig
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0009] occurrences matches {0..*} matches {	-- Detaljer om ansvarlig
+						include
+							archetype_id/value matches {/.*/}
+					}
+					allow_archetype CLUSTER[at0010] occurrences matches {0..*} matches {	-- Utvidelse
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Trajectory">
+					description = <"Base instruction to start a clinical pathway. ">
+				>
+				["at0001"] = <
+					text = <"Current Activity">
+					description = <"Current Activity">
+				>
+				["at0002"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Trajectory">
+					description = <"Defines the current trajectory ">
+				>
+				["at0004"] = <
+					text = <"Start">
+					description = <"Defines when this activity was actually started. Some trajectories may have started before and outside of the current healthcare provider. Other trajectories is started within the context of the current healthcare provider.">
+				>
+				["at0005"] = <
+					text = <"Description">
+					description = <"Narrative description of the activity">
+				>
+				["at0006"] = <
+					text = <"Details">
+					description = <"Other details about the trajectory ">
+				>
+				["at0007"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0008"] = <
+					text = <"Responsible">
+					description = <"Local ID of the healthcare provider or organisation who started the trajectory.Most of the time this will be the author of the composition, but some trajectories have started outside of the current healthcare provider. ">
+				>
+				["at0009"] = <
+					text = <"Responsible details">
+					description = <"Details about the healthcare provider or organisation who started the trajectory.">
+				>
+				["at0010"] = <
+					text = <"Extension">
+					description = <"Additional information required to capture local content or to align with other reference models/formalisms.">
+				>
+				["at0011"] = <
+					text = <"External start?">
+					description = <"Used to mark if the trajectory was started outside of the current healthcare provider. If started outside there could be need for follow up activities to gather information. ">
+				>
+				["at0012"] = <
+					text = <"Specific trajectory">
+					description = <"Use to define a more specific definition of this trajectory. ">
+				>
+				["at0013"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0016"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+				["at0017"] = <
+					text = <"*New element(en)">
+					description = <"**(en)">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Hjelpefelt PPR">
+					description = <"Brukes for sammendragsutskrift av Pakkeforløp psykisk helse og rus og sakssammendrag i Classic.">
+				>
+				["at0001"] = <
+					text = <"Nåværende aktivitet">
+					description = <"Nåværende aktivitet">
+				>
+				["at0002"] = <
+					text = <"Tre">
+					description = <"*@ internal @(en)">
+				>
+				["at0003"] = <
+					text = <"Forløp">
+					description = <"Angir hvilket forløp som igangsettes">
+				>
+				["at0004"] = <
+					text = <"Start første HF">
+					description = <"Definerer når dette forløpet faktisk startet ">
+				>
+				["at0005"] = <
+					text = <"Beskrivelse">
+					description = <"Nærmere beskrivelse av og om forløpet">
+				>
+				["at0006"] = <
+					text = <"Detaljer">
+					description = <"Benytt CLUSTER for å gi strukturerte detaljer om forløpet">
+				>
+				["at0007"] = <
+					text = <"Tre">
+					description = <"*@ internal @(en)">
+				>
+				["at0008"] = <
+					text = <"Ansvarlig">
+					description = <"Lokal ID for helsetjenestetilbyder som startet forløpet. Ofte vil dette være samme organisasjon som registrerer bestillingen. ">
+				>
+				["at0009"] = <
+					text = <"Detaljer om ansvarlig">
+					description = <"Strukturerte detaljer om helsetjenestetilbyderen. ">
+				>
+				["at0010"] = <
+					text = <"Utvidelse">
+					description = <"Tilleggsinformasjon for å registrere lokalt innhold om bestillingen. ">
+				>
+				["at0011"] = <
+					text = <"Ekstern start">
+					description = <"Benyttes for å markere om forløpet startet utenfor nåværende helsetjenestetilbyder.">
+				>
+				["at0012"] = <
+					text = <"Spesifikt forløp">
+					description = <"Angir et mer spesifikt forløp. F.eks. kan forløp \"tykk-/endetarmskreft\" gjøes mer spesifikk gjennom behandlingslinjen Ca. Recti">
+				>
+				["at0013"] = <
+					text = <"Start eget HF">
+					description = <"Datoen som henvisningen ble mottatt ved gjeldende helseforetak">
+				>
+				["at0016"] = <
+					text = <"Tekst1">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Tekst2">
+					description = <"*">
+				>
+			>
+		>
+	>
