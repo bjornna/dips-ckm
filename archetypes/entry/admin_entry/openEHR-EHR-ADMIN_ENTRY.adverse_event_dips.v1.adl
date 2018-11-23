@@ -1,0 +1,94 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ADMIN_ENTRY.adverse_event_dips.v1
+
+concept
+	[at0000]	-- Uønsket hendelse
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2018-11-23">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for å dokumentere uønskede hendelser i forbindelse med utføring av en helsetjeneste.">
+			use = <"Brukes for å dokumentere uønskede hendelser i forbindelse med utføring av en helsetjeneste. Denne arketypen ska brukes for å dokumentere at hendelsen har funnet sted og type hendelse. ">
+			keywords = <"hendelse", "uønsket", "utilsiktet">
+			misuse = <"Skal ikke brukes for å dokumentere detaljer for eksempel ved en kirurgisk komplikajson. Bruk egen arketyper for det formålet.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <"Anca Heyd, DIPS AS<ahe@dips.no>">
+		["MD5-CAM-1.0.1"] = <"0AB7055A65535528E6B24695E527F35D">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {	-- Uønsket hendelse
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Navn uønsket hendelse
+						value matches {
+							DV_TEXT matches {*}
+							DV_BOOLEAN matches {
+								value matches {True}
+							}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Beskrivelse
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Tidspunkt
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0005] occurrences matches {0..*} matches {	-- Detaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Uønsket hendelse">
+					description = <"Dokumentasjon av uønskede hendelser.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Beskrivelse">
+					description = <"Tekstlige beskrivelse/kommentar til hendelsen.">
+				>
+				["at0004"] = <
+					text = <"Tidspunkt">
+					description = <"Tidspunkt for hendelsen.">
+				>
+				["at0005"] = <
+					text = <"Detaljer">
+					description = <"Strukturerte detaljer.">
+				>
+				["at0006"] = <
+					text = <"Navn uønsket hendelse">
+					description = <"Navnet på den uønskete hendelsen. Dette elementet kan enten brukes som et tekstfelt, helst i kobinasjon med et kodeverk, eller som bools felt.">
+				>
+			>
+		>
+	>
