@@ -1,0 +1,83 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.diathermy_properties_dips.v1
+
+concept
+	[at0000]	-- Diatermi egenskaper
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2018-11-25">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Detaljerte egenskaper av diatermiapparat.">
+			use = <"Brkes for å angi egenskapene til et diatermiapparat brukt ved en prosedyre. Arketypen er tenkt brukt i arketypen openEHR-EHR-CLUSTER.device.v1 for åp angi egenskaper som er spsifikke for diatermi apparat.">
+			keywords = <"diatermi", "utstyr">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <"Anca Heyd, DIPS AS<ahe@dips.no>">
+		["MD5-CAM-1.0.1"] = <"84C031F46424F20D801CD6FDC585B84C">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Diatermi egenskaper
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..*} matches {	-- Plassering diatermiplate
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Kommentar
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..*} matches {	-- Styrke
+				value matches {
+					C_DV_QUANTITY <
+						property = <[openehr::374]>
+						list = <
+							["1"] = <
+								units = <"V">
+								magnitude = <|0.0..1000.0|>
+							>
+						>
+					>
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Diatermi egenskaper">
+					description = <"Detaljerte egenskaper av diatermiapparat.">
+				>
+				["at0001"] = <
+					text = <"Plassering diatermiplate">
+					description = <"Plassering av diatermiplate.">
+				>
+				["at0002"] = <
+					text = <"Kommentar">
+					description = <"Ytterligere informasjon/kommentar.">
+				>
+				["at0003"] = <
+					text = <"Styrke">
+					description = <"Styrke diatermi.">
+				>
+			>
+		>
+	>
