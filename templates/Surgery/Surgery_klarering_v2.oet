@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
-  <id>27c219e9-a397-4210-ac23-e611378c83f6</id>
+  <id>1859da6c-6021-417e-851f-257bfb62ea86</id>
   <name>Surgery_klarering</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
@@ -62,27 +62,40 @@
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Klarering for operasjon og anestesi">
     <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Operasjonsklarering">
-      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.recommendation.v1" concept_name="Anbefaling" max="1" path="/items" name="Klarert for operasjon">
-        <Rule path="/data[at0001]/items[at0002]" max="1" name="Klarert for operasjon">
+      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.clearing_dips.v1" concept_name="Klarering" max="1" path="/items" name="Klarert for operasjon">
+        <Rule path="/data[at0001]/items[at0003]" name="Operasjon" />
+        <Rule path="/data[at0001]/items[at0004]" name="Kirurg" />
+        <Rule path="/data[at0001]/items[at0006]">
           <constraint xsi:type="textConstraint">
-            <includedValues>2.16.578.1.12.4.1.1.1101::JA::Ja</includedValues>
-            <includedValues>2.16.578.1.12.4.1.1.1101::NEI::Nei</includedValues>
+            <includedValues>SNOMED-CT::84989007::klarert av</includedValues>
+            <includedValues>SNOMED-CT::21157008::uavklart</includedValues>
+            <includedValues>SNOMED-CT::385647007::avvist av</includedValues>
           </constraint>
         </Rule>
+        <Rule path="/data[at0001]/items[at0007]" max="0" />
       </Item>
-      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.clearing_dips.v1" concept_name="Klarering" path="/items" />
     </Content>
     <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Anestesiklarering">
-      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.recommendation.v1" concept_name="Anbefaling" max="1" path="/items" name="Klarert for anestesi">
-        <Rule path="/data[at0001]/items[at0002]" max="1" name="Klarert for anestesi">
+      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.clearing_dips.v1" concept_name="Klarering" max="1" path="/items" name="Klarert for anestesi">
+        <Rule path="/data[at0001]/items[at0003]" name="Anestesi">
           <constraint xsi:type="textConstraint">
-            <includedValues>SNOMED-CT::260245000::Ubestemt</includedValues>
-            <includedValues>SNOMED-CT::373066001::Ja</includedValues>
-            <includedValues>SNOMED-CT::373067005::Nei</includedValues>
+            <includedValues>SNOMED-CT::399097000::Gjennomføring av anestesiprosedyre</includedValues>
           </constraint>
         </Rule>
+        <Rule path="/data[at0001]/items[at0004]" name="Anestesilege">
+          <constraint xsi:type="textConstraint">
+            <includedValues>SNOMED-CT::88189002::Anestesilege</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0001]/items[at0006]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>SNOMED-CT::84989007::klarert av</includedValues>
+            <includedValues>SNOMED-CT::21157008::uavklart</includedValues>
+            <includedValues>SNOMED-CT::385647007::avvist av</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0001]/items[at0007]" max="0" />
       </Item>
-      <Item xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.clearing_dips.v1" concept_name="Klarering" path="/items" />
     </Content>
     <Context />
   </definition>
