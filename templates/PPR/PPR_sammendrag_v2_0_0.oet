@@ -61,7 +61,7 @@
     </other_details>
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report.v1" concept_name="Rapport">
-    <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.hjelpefelt_ppr.v1" concept_name="Hjelpefelt PPR" path="/content">
+    <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.hjelpefelt_ppr_dips.v1" concept_name="Hjelpefelt PPR dips" path="/content">
       <Rule path="/activities[at0001]/description[at0002]/items[at0003]">
         <constraint xsi:type="textConstraint">
           <includedValues>DIPS_Trajectory_PPR_9321::D01::Tverrfaglig spesialisert rusbehandling (TSB)</includedValues>
@@ -89,7 +89,6 @@
         </Items>
       </Items>
     </Content>
-    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Start pakkeforløp" />
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Første fremmøte" />
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Klinisk beslutning">
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.clinical_decision_details.v1" concept_name="Detaljer om klinisk beslutning" path="/description[at0001]/items[at0018]" />
@@ -97,7 +96,14 @@
     </Content>
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Evalueringspunkt" />
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Samarbeidsmøte">
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.trajectory_activity_details.v1" concept_name="Detaljer om aktivitet i et pakkeforløp" path="/description[at0001]/items[at0018]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.trajectory_activity_details.v1" concept_name="Detaljer om aktivitet i et pakkeforløp" path="/description[at0001]/items[at0018]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>DIPS_Trajectory_PPR_9324::M::Gjennomført møte</includedValues>
+            <includedValues>DIPS_Trajectory_PPR_9324::I::Vurdert ikke behov for møte</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
     </Content>
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Avslutt overført">
       <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.trajectory_activity_details.v1" concept_name="Detaljer om aktivitet i et pakkeforløp" path="/description[at0001]/items[at0018]">
@@ -114,21 +120,26 @@
     </Content>
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Avrusning avsluttet" />
     <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" path="/content">
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.trajectory_activity_details.v1" concept_name="Detaljer om aktivitet i et pakkeforløp" path="/description[at0001]/items[at0018]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.trajectory_activity_details.v1" concept_name="Detaljer om aktivitet i et pakkeforløp" path="/description[at0001]/items[at0018]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>DIPS_Trajectory_PPR_9325::B::Pasient og/eller foreldre og eventuelt pårørende er informert om de ulike behandlingsformer enheten tilbyr for aktuell lidelse</includedValues>
+            <includedValues>DIPS_Trajectory_PPR_9325::F::Brukt feedbackverktøy</includedValues>
+            <includedValues>DIPS_Trajectory_PPR_9325::U::Pasient og/eller foreldre og eventuelt pårørende er involvert i utarbeidelse av utredningsplan og/eller behandlingsplan</includedValues>
+            <includedValues>DIPS_Trajectory_PPR_9325::V::Brukt standardisert verktøy for måling av symptom og/eller funksjon</includedValues>
+            <includedValues>DIPS_Trajectory_PPR_9325::S::Familiebasert behandling spesifikt for spiseforstyrrelser</includedValues>
+            <includedValues>DIPS_Trajectory_PPR_9325::E::Eksponeringsterapi for tvangslidelse (OCD)</includedValues>
+            <includedValues>DIPS_Trajectory_PPR_9325::M::Legemiddelbehandling for tvangslidelse (OCD)</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
     </Content>
-    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Melding fastlege">
-      <Rule path="/description[at0001]/items[at0002]">
-        <constraint xsi:type="textConstraint">
-          <includedValues>DIPS_Trajectory_PPR_9322::F::Tilbakemelding til fastlege sendt underveis i pakkeforløpet</includedValues>
-        </constraint>
-      </Rule>
-    </Content>
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Melding fastlege" />
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.trajectory_plan.v1" concept_name="Trajectory plan" path="/content">
       <Rule path="/data[at0001]/items[at0003]" max="1" name="Første fremmøte" />
       <Rule path="/data[at0001]/items[at0003]" max="1" clone="true" name="Klinisk beslutning" />
       <Rule path="/data[at0001]/items[at0003]" max="1" clone="true" name="Evalueringspunkt" />
       <Rule path="/data[at0001]/items[at0003]" max="1" clone="true" name="Samarbeidsmøte" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.health_care_level_dips.v1" concept_name="Omsorgsnivå " path="/data[at0001]/items" />
     </Content>
     <Context />
   </definition>
