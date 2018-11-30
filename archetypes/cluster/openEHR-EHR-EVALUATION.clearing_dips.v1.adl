@@ -1,0 +1,112 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-EVALUATION.clearing_dips.v1
+
+concept
+	[at0000]	-- Klarering
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2018-11-27">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for å anig hvorvidt en pasient er klarert for en helsetjeneste.">
+			use = <"Brukes for å anig hvorvidt en pasient er klarert for en helsetjeneste. For eksempel når det planlegges en operasjon kan pasienten i løpet av planleggingsfasen bli klarert av forskjellige helseprsonell og for forksjellige formål: klarert for operasjon, klarert for anestesi osv.">
+			keywords = <"klarert", "prosedyre", "helsetjeneste">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <"Anca Heyd, DIPS AS<ahe@dips.no>">
+		["MD5-CAM-1.0.1"] = <"2B8E710C3D875C3DB6B317DF8EEE0B36">
+	>
+
+definition
+	EVALUATION[at0000] matches {	-- Klarering
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Navn
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Klarert av
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Status
+						value matches {
+							DV_TEXT matches {*}
+							DV_BOOLEAN matches {
+								value matches {True}
+							}
+						}
+					}
+					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Gyldig til
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Kommentar
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0009] occurrences matches {0..*} matches {	-- Detaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Klarering">
+					description = <"Klarering for en helstjeneste.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Navn">
+					description = <"Navn på helsetjeneste som pasienten er klarert for, for eksempel klarert for operasjon">
+				>
+				["at0004"] = <
+					text = <"Klarert av">
+					description = <"Hvem har klarert paienten.">
+				>
+				["at0006"] = <
+					text = <"Status">
+					description = <"Status på klarering. Kan brukes både som boolsk felt eller med kodverdier  f.eks. klarert, uavklart, avvist. ">
+				>
+				["at0007"] = <
+					text = <"Gyldig til">
+					description = <"Tidspunkt når klarering opphører.">
+				>
+				["at0008"] = <
+					text = <"Kommentar">
+					description = <"Ytterliger informasjon/kommentar.">
+				>
+				["at0009"] = <
+					text = <"Detaljer">
+					description = <"Slot for strukturerte detaljer f.eks. navn og rolle på helseperosnell som klarer eller detaljer om bakgrunn for klareringen.">
+				>
+			>
+		>
+	>

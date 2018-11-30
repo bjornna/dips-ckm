@@ -171,6 +171,7 @@
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.clinical_synopsis.v1" concept_name="Klinisk sammendrag" max="1" path="/content" name="Tannstatus">
       <Rule path="/data[at0001]/items[at0002]" name="Tannstatus" />
     </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.clinical_synopsis.v1" concept_name="Klinisk sammendrag" max="1" path="/content" name="Sammendrag/kommentar anestesivurdering" />
     <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.clinical_synopsis.v1" concept_name="Klinisk sammendrag" max="1" path="/content" name="Allmenntilstand">
       <Rule path="/data[at0001]/items[at0002]" name="Allmenntilstand" />
     </Content>
@@ -327,16 +328,6 @@
       <Rule path="/description[at0001]/items[at0067]" max="0" />
       <Rule path="/description[at0001]/items[at0014]" max="0" />
       <Rule path="/description[at0001]/items[at0005]" max="0" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.cleared_for_procedure_dips.v1" concept_name="Klarert for prodedyre" max="1" path="/description[at0001]/items[at0003]" name="Klarert av anestesisykepleier">
-        <Rule path="/items[at0001]" name="Klarert for anestesi" />
-        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.professional_role_dips.v1" concept_name="Profesjonsrolle" path="/items[at0003]">
-          <Rule path="/items[at0001]" name="anestesisykepleier">
-            <constraint xsi:type="textConstraint">
-              <includedValues>SNOMED-CT::309445003::anestesisykepleier</includedValues>
-            </constraint>
-          </Rule>
-        </Items>
-      </Items>
     </Content>
     <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.asa_status.v1" concept_name="ASA-klassifikasjon" path="/content">
       <Rule path="/data[at0015]/events[at0016]/data[at0017]/items[at0001]">
@@ -350,6 +341,25 @@
           <excludedValues>local::at0013</excludedValues>
         </constraint>
       </Rule>
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.clearing_dips.v1" concept_name="Klarering" max="1" path="/content" name="Klarert for anestesi av anestesisykepleier">
+      <Rule path="/data[at0001]/items[at0003]" name="Anestesi">
+        <constraint xsi:type="textConstraint">
+          <includedValues>SNOMED-CT::399097000::Gjennomføring av anestesiprosedyre</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0004]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>SNOMED-CT::309445003::Anestesisykepleier</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0006]">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Boolean</includedTypes>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0007]" max="0" />
+      <Rule path="/data[at0001]/items[at0008]" max="0" />
     </Content>
     <Context />
   </definition>

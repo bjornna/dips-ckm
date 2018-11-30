@@ -1,11 +1,17 @@
 ﻿archetype (adl_version=1.4; uid=9317921a-4591-40c2-b798-abbd350dec45)
-	openEHR-EHR-CLUSTER.specimen.v0
+	openEHR-EHR-CLUSTER.specimen_dips.v1
 
 concept
-	[at0000]	-- Specimen
+	[at0000]	-- Laboratorieprøve
 language
 	original_language = <[ISO_639-1::en]>
 	translations = <
+		["ar-sy"] = <
+			language = <[ISO_639-1::ar-sy]>
+			author = <
+				["name"] = <"Mona Saleh">
+			>
+		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
 			author = <
@@ -15,18 +21,12 @@ language
 			>
 			accreditation = <"*">
 		>
-		["ar-sy"] = <
-			language = <[ISO_639-1::ar-sy]>
-			author = <
-				["name"] = <"Mona Saleh">
-			>
-		>
 	>
 description
 	original_author = <
 		["name"] = <"Dr Ian McNicoll">
-		["organisation"] = <"freshEHR Clinical Informatics">
 		["email"] = <"ian.mcnicoll@oceaninformatics.com">
+		["organisation"] = <"freshEHR Clinical Informatics">
 		["date"] = <"2009-01-27">
 	>
 	details = <
@@ -38,6 +38,7 @@ CLUSTERet vil også kunne brukes i \"Laboratoriesvar\"-arketypen for å beskrive
 			use = <"Generelt brukes denne CLUSTER-arketypen i en OBSERVATION.laboratory_test og andre laboratorierelaterte INSTRUCTION og ACTION-arketyper.">
 			keywords = <"laboratorium", "prøve", "prøvetaking", "laboratorieprøve", "prøvemateriale", "prøveeksemplar", "preparat", "prøvesamling">
 			misuse = <"">
+			copyright = <"">
 		>
 		["ar-sy"] = <
 			language = <[ISO_639-1::ar-sy]>
@@ -61,155 +62,155 @@ It will finally be used within a laboratory result archetype to describe the spe
 			copyright = <"© Nasjonal IKT HF">
 		>
 	>
-	lifecycle_state = <"in_development">
+	lifecycle_state = <"NotSet">
 	other_contributors = <"Koray Atalag University of Auckland", "Silje Ljosland Bakke, Helse Bergen HF, Norway (Editor)", "Sam Heard Ocean Informatics", "Heather Leslie Ocean Informatics", "John Tore Valand, Haukeland Universitetssjukehus, Norway (Editor)">
 	other_details = <
+		["revision"] = <"0.0.1-alpha">
+		["original_publisher"] = <"Nasjonal IKT">
+		["build_uid"] = <"7f78038f-359d-4e31-93e1-1ee0b4875c6e">
+		["original_namespace"] = <"no.nasjonalikt">
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
-		["custodian_organisation"] = <"Nasjonal IKT">
 		["references"] = <"Hl7 FHIR Specimen resource: HL7 FHIR; Available from http://www.hl7.org/implement/standards/fhir/specimen.html
 
 Laboratory Technical Framework, Volume 3: Content, Revision 3.0 [Internet]. USA: IHE International; 2011 May 19; [cited 2011 Jul 11]. Available from: http://www.ihe.net/Technical_Framework/index.cfm#laboratory">
-		["original_namespace"] = <"no.nasjonalikt">
-		["original_publisher"] = <"Nasjonal IKT">
+		["MD5-CAM-1.0.1"] = <"3EED6825805B9FC212FA36F9EBA63545">
 		["custodian_namespace"] = <"no.nasjonalikt">
-		["MD5-CAM-1.0.1"] = <"B671A2721B8373AC67734BFA18AC5B11">
-		["build_uid"] = <"7f78038f-359d-4e31-93e1-1ee0b4875c6e">
-		["revision"] = <"0.0.1-alpha">
+		["custodian_organisation"] = <"Nasjonal IKT">
 	>
 
 definition
-	CLUSTER[at0000] matches {	-- Specimen
+	CLUSTER[at0000] matches {	-- Laboratorieprøve
 		items cardinality matches {1..*; unordered} matches {
-			ELEMENT[at0029] occurrences matches {0..1} matches {	-- Specimen type
+			ELEMENT[at0029] occurrences matches {0..1} matches {	-- Type prøvemateriale
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0015] occurrences matches {0..1} matches {	-- Datetime collected
+			ELEMENT[at0015] occurrences matches {0..1} matches {	-- Tidspunkt for prøvetaking
 				value matches {
 					DV_DATE_TIME matches {*}
 				}
 			}
-			ELEMENT[at0008] occurrences matches {0..*} matches {	-- Sampling conditions
+			ELEMENT[at0008] occurrences matches {0..*} matches {	-- Prøvetakingsforhold
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			allow_archetype CLUSTER[at0013] occurrences matches {0..*} matches {	-- Source site
+			allow_archetype CLUSTER[at0013] occurrences matches {0..*} matches {	-- Anatomisk lokalisering
 				include
 					archetype_id/value matches {/openEHR-EHR-CLUSTER\.anatomical_location(-[a-zA-Z0-9_]+)*\.v1/}
 			}
-			allow_archetype CLUSTER[at0027] occurrences matches {0..*} matches {	-- Physical properties
+			allow_archetype CLUSTER[at0027] occurrences matches {0..*} matches {	-- Fysiske egenskaper
 				include
 					archetype_id/value matches {/openEHR-EHR-CLUSTER\.physical_properties(-[a-zA-Z0-9_]+)*\.v1/}
 			}
-			ELEMENT[at0007] occurrences matches {0..1} matches {	-- Collection method
+			ELEMENT[at0007] occurrences matches {0..1} matches {	-- Prøvetakingsmetode
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0079] occurrences matches {0..1} matches {	-- Collection method description
+			ELEMENT[at0079] occurrences matches {0..1} matches {	-- Beskrivelse av prøvetakingsmetode
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			allow_archetype CLUSTER[at0083] occurrences matches {0..*} matches {	-- Additional collection details
+			allow_archetype CLUSTER[at0083] occurrences matches {0..*} matches {	-- Ytterlige detaljer om prøvetakingsmetode
 				include
 					archetype_id/value matches {/.*/}
 			}
-			ELEMENT[at0005] occurrences matches {0..1} matches {	-- Potential risk
+			ELEMENT[at0005] occurrences matches {0..1} matches {	-- Potensiell risiko
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0067] occurrences matches {0..1} matches {	-- Collection setting
+			ELEMENT[at0067] occurrences matches {0..1} matches {	-- Prøvetakingssituasjonen
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0070] occurrences matches {0..1} matches {	-- Specimen collector identifier
+			ELEMENT[at0070] occurrences matches {0..1} matches {	-- Prøvetaker ID
 				value matches {
 					DV_IDENTIFIER matches {*}
 				}
 			}
-			allow_archetype CLUSTER[at0071] occurrences matches {0..*} matches {	-- Specimen collector details
+			allow_archetype CLUSTER[at0071] occurrences matches {0..*} matches {	-- Detaljer om prøvetaker
 				include
 					archetype_id/value matches {/.*/}
 			}
-			ELEMENT[at0080] occurrences matches {0..1} matches {	-- Number of containers
+			ELEMENT[at0080] occurrences matches {0..1} matches {	-- Antall beholdere
 				value matches {
 					DV_COUNT matches {
 						magnitude matches {|>=0|}
 					}
 				}
 			}
-			allow_archetype CLUSTER[at0085] occurrences matches {0..*} matches {	-- Container details
+			allow_archetype CLUSTER[at0085] occurrences matches {0..*} matches {	-- Detaljer om beholder
 				include
 					archetype_id/value matches {/.*/}
 			}
-			CLUSTER[at0039] occurrences matches {0..1} matches {	-- Specimen quality
+			CLUSTER[at0039] occurrences matches {0..1} matches {	-- Prøvekvalitet
 				items cardinality matches {1..*; unordered} matches {
-					ELEMENT[at0042] occurrences matches {0..*} matches {	-- Specimen received issues
+					ELEMENT[at0042] occurrences matches {0..*} matches {	-- Problemer med mottatt prøve
 						value matches {
 							DV_CODED_TEXT matches {
 								defining_code matches {
 									[local::
-									at0052, 	-- Haemolysed
-									at0053, 	-- Lipaemic
-									at0054, 	-- Incorrect transport medium
-									at0055]	-- Insufficient sample
+									at0052, 	-- Hemolysert
+									at0053, 	-- Lipemisk
+									at0054, 	-- Feil transportmedium
+									at0055]	-- Utilstrekkelig mengde
 								}
 							}
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0044] occurrences matches {0..*} matches {	-- Laboratory handling issues
+					ELEMENT[at0044] occurrences matches {0..*} matches {	-- Problemer ved håndtering i laboratoriet
 						value matches {
 							DV_CODED_TEXT matches {
 								defining_code matches {
 									[local::
-									at0056, 	-- Handling error
-									at0057, 	-- Age
-									at0058, 	-- Laboratory accident
-									at0059]	-- Technical failure
+									at0056, 	-- Håndteringsfeil
+									at0057, 	-- Alder
+									at0058, 	-- Laboratorieuhell
+									at0059]	-- Teknisk feil
 								}
 							}
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0041] occurrences matches {0..1} matches {	-- Adequacy for testing
+					ELEMENT[at0041] occurrences matches {0..1} matches {	-- Analyserbarhet
 						value matches {
 							DV_CODED_TEXT matches {
 								defining_code matches {
 									[local::
-									at0062, 	-- Satisfactory
-									at0063, 	-- Unsatisfactory - processed
-									at0064]	-- Unsatisfactory - not processed
+									at0062, 	-- Tilfredstillende
+									at0063, 	-- Utilfredstillende - behandlet
+									at0064]	-- Utilfredstillende - ikke behandlet
 								}
 							}
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0045] occurrences matches {0..1} matches {	-- Comment
+					ELEMENT[at0045] occurrences matches {0..1} matches {	-- Kommentar
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
 				}
 			}
-			CLUSTER[at0046] occurrences matches {0..1} matches {	-- Processing
+			CLUSTER[at0046] occurrences matches {0..1} matches {	-- Håndtering
 				items cardinality matches {1..*; unordered} matches {
-					ELEMENT[at0034] occurrences matches {0..1} matches {	-- Datetime received
+					ELEMENT[at0034] occurrences matches {0..1} matches {	-- Tidspunkt for mottak
 						value matches {
 							DV_DATE_TIME matches {*}
 						}
 					}
-					ELEMENT[at0001] occurrences matches {0..1} matches {	-- Laboratory specimen identifier
+					ELEMENT[at0001] occurrences matches {0..1} matches {	-- Prøveidentifikator
 						value matches {
 							DV_IDENTIFIER matches {*}
 						}
 					}
-					allow_archetype CLUSTER[at0068] occurrences matches {0..*} matches {	-- Processing details
+					allow_archetype CLUSTER[at0068] occurrences matches {0..*} matches {	-- Håndteringsdetaljer
 						include
 							archetype_id/value matches {/openEHR-EHR-CLUSTER\.specimen_preparation(-[a-zA-Z0-9_]+)*\.v1/}
 						exclude
@@ -217,9 +218,9 @@ definition
 					}
 				}
 			}
-			CLUSTER[at0081] occurrences matches {0..*} matches {	-- Related specimen
+			CLUSTER[at0081] occurrences matches {0..*} matches {	-- Relatert prøve
 				items cardinality matches {1..*; unordered} matches {
-					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Parent specimen identifier
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Identifikator av overordnet prøve
 						value matches {
 							DV_IDENTIFIER matches {*}
 						}
@@ -228,7 +229,6 @@ definition
 			}
 		}
 	}
-
 
 ontology
 	term_definitions = <
