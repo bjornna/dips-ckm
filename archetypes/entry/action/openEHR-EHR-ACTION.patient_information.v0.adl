@@ -1,0 +1,144 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ACTION.patient_information.v0
+
+concept
+	[at0000]	-- Pasientinformasjon
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2018-12-18">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Innhenting av informasjon fra pasient.">
+			use = <"Brukes når det skal innhentes informasjon fra pasient for  registrere informasjon om innhentingsprosessen som type informasjon som skal innhentes, status på innhentingen osv. 
+
+Brukes sammen med instruction openEHR-EHR-INSTRUCTION.patient_information_request.v0.">
+			keywords = <"pasientinformasjon", "bestilling", "anmodning", "innhenting">
+			misuse = <"Brukes ikke for å registrere svarene fra pasient. Disse registreres i egne arketyper laget til det formålet.
+">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <"Kjetil Jørgensen, Dips AS, kjo@dips.no", ...>
+	other_details = <
+		["current_contact"] = <"Anca Heyd, DIPS AS<ahe@dips.no>">
+		["MD5-CAM-1.0.1"] = <"A0B6812993B102463F0E37F05EC8972F">
+	>
+
+definition
+	ACTION[at0000] matches {	-- Pasientinformasjon
+		ism_transition matches {
+			ISM_TRANSITION[at0006] matches {	-- Planned
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::526]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0006]}		-- Planned
+					}
+				}
+			}
+			ISM_TRANSITION[at0007] matches {	-- Active
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0007]}		-- Active
+					}
+				}
+			}
+			ISM_TRANSITION[at0008] matches {	-- Completed
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0008]}		-- Completed
+					}
+				}
+			}
+		}
+		description matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Navn
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Type
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0005] occurrences matches {0..*} matches {	-- Detaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Kommentar
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Pasientinformasjon">
+					description = <"Innhenting av informasjon fra pasient.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Navn">
+					description = <"Navn på informasjonen som bestilles/ skal hentes inn f.eks. skjema beintettehetsmåling.">
+				>
+				["at0003"] = <
+					text = <"Type">
+					description = <"Type informasjon som skal bestilles/innhentes f.eks. pasientspørreskjema, paseintnære undersøkelser, osv.">
+				>
+				["at0004"] = <
+					text = <"Kommentar">
+					description = <"Kommentar til bestillingen/informasjonsinnhenting.">
+				>
+				["at0005"] = <
+					text = <"Detaljer">
+					description = <"Slot for evt. strukturerte detaljer.">
+				>
+				["at0006"] = <
+					text = <"Planned">
+					description = <"Planlagt">
+				>
+				["at0007"] = <
+					text = <"Active">
+					description = <"Sendt">
+				>
+				["at0008"] = <
+					text = <"Completed">
+					description = <"Mottatt">
+				>
+			>
+		>
+	>

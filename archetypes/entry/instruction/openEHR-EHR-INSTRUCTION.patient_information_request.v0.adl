@@ -1,0 +1,110 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-INSTRUCTION.patient_information_request.v0
+
+concept
+	[at0000]	-- Pasientinformasjon forespørsel
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2018-12-18">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for å bestille informasjon fra pasient.">
+			use = <"Arketypen skal brukes når det er nødvendig å innhente informasjon fra pasient for å bestille informajsonen som man trenger. Det kan være et spørreskjema som pasienten skal svare eller pasientnære undersøkelser som skal hentes inn. 
+
+Arketypen er tenkt brukt sammen med en tilsvarende action arketype som kan angi status på bestillingen.">
+			keywords = <"pasientinformasjon", "bestilling", "anmodning", "innhenting">
+			misuse = <"Brukes ikke for å registrere svarene fra pasient. Disse registreres i egne arketyper laget til det formålet.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"Initial">
+	other_contributors = <"Kjetil Jørgensen, Dips AS, kjo@dips.no", ...>
+	other_details = <
+		["current_contact"] = <"Anca Heyd, DIPS AS<ahe@dips.no>">
+		["MD5-CAM-1.0.1"] = <"9AE74F58BEB05B30D62233F64EDDA020">
+	>
+
+definition
+	INSTRUCTION[at0000] matches {	-- Pasientinformasjon forespørsel
+		activities cardinality matches {0..*; unordered} matches {
+			ACTIVITY[at0001] matches {	-- Current Activity
+				description matches {
+					ITEM_TREE[at0002] matches {	-- Tree
+						items cardinality matches {0..*; unordered} matches {
+							ELEMENT[at0003] occurrences matches {0..*} matches {	-- Navn
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0004] occurrences matches {0..1} matches {	-- Type
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0005] occurrences matches {0..1} matches {	-- Frist
+								value matches {
+									DV_DATE_TIME matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0006] occurrences matches {0..*} matches {	-- Detaljer
+								include
+									archetype_id/value matches {/.*/}
+							}
+							ELEMENT[at0007] occurrences matches {0..1} matches {	-- Kommentar
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Pasientinformasjon forespørsel">
+					description = <"Bestilling om å innheting av informasjon fra pasient.">
+				>
+				["at0001"] = <
+					text = <"Current Activity">
+					description = <"Current Activity">
+				>
+				["at0002"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Navn">
+					description = <"Navn på informasjonen som bestilles/ skal hentes inn f.eks. skjema beintettehetsmåling.">
+				>
+				["at0004"] = <
+					text = <"Type">
+					description = <"Type informasjon som skal bestilles/innhentes f.eks. pasientspørreskjema, paseintnære undersøkelser, osv.">
+				>
+				["at0005"] = <
+					text = <"Frist">
+					description = <"Frist for når informajsonen skal være innhentet.">
+				>
+				["at0006"] = <
+					text = <"Detaljer">
+					description = <"Slot for evt. strukturerte detaljer.">
+				>
+				["at0007"] = <
+					text = <"Kommentar">
+					description = <"Kommentar til bestillingen/informasjonsinnhenting.">
+				>
+			>
+		>
+	>
