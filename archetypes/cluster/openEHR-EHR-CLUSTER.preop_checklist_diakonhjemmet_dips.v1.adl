@@ -24,23 +24,43 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"F6AFD20246CC2C19638AD3EC5080A6B9">
+		["MD5-CAM-1.0.1"] = <"6AA785C729C76EB38CB20EC766C75B0B">
 	>
 
 definition
 	CLUSTER[at0000] matches {	-- Sjekkliste preopr Diakonhjemmet
 		items cardinality matches {1..*; unordered} matches {
-			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Pasient har ren seng
+			ELEMENT[at0004] occurrences matches {0..1} matches {	-- Dusj utført
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0004] occurrences matches {0..1} matches {	-- Pasient er ren
+			ELEMENT[at0032] occurrences matches {0..1} matches {	-- Munnstell utført
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0033] occurrences matches {0..1} matches {	-- Hårfjerning utført
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
 			ELEMENT[at0005] occurrences matches {0..1} matches {	-- Sminke, neglelakk, smykker og klokke er fjernet
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Ren seng merket med navn
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0021] occurrences matches {0..1} matches {	-- Operasjonsfelt markert av kirurg
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0019] occurrences matches {0..1} matches {	-- Premedikasjon gitt
 				value matches {
 					DV_TEXT matches {*}
 				}
@@ -60,22 +80,12 @@ definition
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0021] occurrences matches {0..1} matches {	-- Operasjonsfelt markert av kirurg
+			ELEMENT[at0034] occurrences matches {0..1} matches {	-- Innlagt PVK
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0023] occurrences matches {0..1} matches {	-- Temperatur tatt
-				value matches {
-					DV_TEXT matches {*}
-				}
-			}
-			ELEMENT[at0019] occurrences matches {0..1} matches {	-- Premedikasjon gitt
-				value matches {
-					DV_TEXT matches {*}
-				}
-			}
-			ELEMENT[at0022] occurrences matches {0..1} matches {	-- Blærekateter innlagt
+			ELEMENT[at0022] occurrences matches {0..1} matches {	-- Innlagt blærekateter
 				value matches {
 					DV_TEXT matches {*}
 				}
@@ -97,17 +107,20 @@ definition
 					DV_DATE_TIME matches {*}
 				}
 			}
-			ELEMENT[at0025] occurrences matches {0..1} matches {	-- Armbånd kontrollert, riktig pasient
+			ELEMENT[at0023] occurrences matches {0..1} matches {	-- Temperatur
 				value matches {
-					DV_TEXT matches {*}
+					C_DV_QUANTITY <
+						property = <[openehr::127]>
+						list = <
+							["1"] = <
+								units = <"°C">
+								precision = <|1|>
+							>
+						>
+					>
 				}
 			}
-			ELEMENT[at0028] occurrences matches {0..1} matches {	-- Pårørende registrert
-				value matches {
-					DV_TEXT matches {*}
-				}
-			}
-			ELEMENT[at0029] occurrences matches {0..1} matches {	-- Pårørende informert
+			ELEMENT[at0015] occurrences matches {0..1} matches {	-- Antibiotikaprofylakse gitt
 				value matches {
 					DV_TEXT matches {*}
 				}
@@ -122,32 +135,47 @@ definition
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0015] occurrences matches {0..1} matches {	-- Antibiotikaprofylakse gitt
-				value matches {
-					DV_TEXT matches {*}
-				}
-			}
 			ELEMENT[at0017] occurrences matches {0..1} matches {	-- Pretransfusjonsprøve tatt
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0018] occurrences matches {0..1} matches {	-- INR tatt
+			ELEMENT[at0018] occurrences matches {0..1} matches {	-- INR tatt på operasjonsdag
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0020] occurrences matches {0..1} matches {	-- Fastende glucose tatt
+			ELEMENT[at0020] occurrences matches {0..1} matches {	-- Retningslinje for diabetes er fulgt
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0026] occurrences matches {0..1} matches {	-- Har tilsyn hjemme
+			ELEMENT[at0028] occurrences matches {0..1} matches {	-- Navle rengjort (gastro)
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0027] occurrences matches {0..1} matches {	-- Transport
+			ELEMENT[at0029] occurrences matches {0..1} matches {	-- Tilbudt deponi av verdisaker
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0030] occurrences matches {0..1} matches {	-- Deponert verdisaker
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0031] occurrences matches {0..1} matches {	-- Merknader
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0026] occurrences matches {0..1} matches {	-- Tilsyn operasjonsdøgn
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0027] occurrences matches {0..1} matches {	-- Transport hjem
 				value matches {
 					DV_TEXT matches {*}
 				}
@@ -172,11 +200,11 @@ ontology
 					description = <"Pasientens siste inntak av væske før operasjon.">
 				>
 				["at0003"] = <
-					text = <"Pasient har ren seng">
+					text = <"Ren seng merket med navn">
 					description = <"*">
 				>
 				["at0004"] = <
-					text = <"Pasient er ren">
+					text = <"Dusj utført">
 					description = <"*">
 				>
 				["at0005"] = <
@@ -212,7 +240,7 @@ ontology
 					description = <"*">
 				>
 				["at0018"] = <
-					text = <"INR tatt">
+					text = <"INR tatt på operasjonsdag">
 					description = <"*">
 				>
 				["at0019"] = <
@@ -220,7 +248,7 @@ ontology
 					description = <"Avhuking betyr at premedikasjon er gitt preoperativt.">
 				>
 				["at0020"] = <
-					text = <"Fastende glucose tatt">
+					text = <"Retningslinje for diabetes er fulgt">
 					description = <"*">
 				>
 				["at0021"] = <
@@ -228,35 +256,51 @@ ontology
 					description = <"Avhuking betyr at operasjonsfelt er markert av kirurg.">
 				>
 				["at0022"] = <
-					text = <"Blærekateter innlagt">
+					text = <"Innlagt blærekateter">
 					description = <"*">
 				>
 				["at0023"] = <
-					text = <"Temperatur tatt">
+					text = <"Temperatur">
 					description = <"*">
 				>
 				["at0024"] = <
 					text = <"Ventrikkel tømt">
 					description = <"*">
 				>
-				["at0025"] = <
-					text = <"Armbånd kontrollert, riktig pasient">
-					description = <"*">
-				>
 				["at0026"] = <
-					text = <"Har tilsyn hjemme">
+					text = <"Tilsyn operasjonsdøgn">
 					description = <"*">
 				>
 				["at0027"] = <
-					text = <"Transport">
+					text = <"Transport hjem">
 					description = <"*">
 				>
 				["at0028"] = <
-					text = <"Pårørende registrert">
+					text = <"Navle rengjort (gastro)">
 					description = <"*">
 				>
 				["at0029"] = <
-					text = <"Pårørende informert">
+					text = <"Tilbudt deponi av verdisaker">
+					description = <"*">
+				>
+				["at0030"] = <
+					text = <"Deponert verdisaker">
+					description = <"*">
+				>
+				["at0031"] = <
+					text = <"Merknader">
+					description = <"*">
+				>
+				["at0032"] = <
+					text = <"Munnstell utført">
+					description = <"*">
+				>
+				["at0033"] = <
+					text = <"Hårfjerning utført">
+					description = <"*">
+				>
+				["at0034"] = <
+					text = <"Innlagt PVK">
 					description = <"*">
 				>
 			>
