@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<VaqmConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Id="0c83a2ce-c569-4c06-9a11-83f0b2f56ac9" Oid="vaqm.morten.surgery.venteliste" Name="Morten-Operasjonventeliste-test" Version="1.0.0" Approved="true" CreatedByAuthor="mho" Created="2019-01-17T11:28:11" Imported="false" VersionComment="forsøk på adm info til venteliste" BasedOnVersion="0.3.0" xmlns="http://www.dips.no/vaqmconfig">
+  <AqlBindings>
+    <AqlBinding Id="a70b3c02-ef12-4592-9874-ed55491e017c" Oid="oid" Name="Operatørvurdering-administrativt" DefaultArchetypeId="openEHR-EHR-ADMIN_ENTRY.surgery_administrative_planning_dips.v1">
+      <BaseAql>select a, c from composition c contains (admin_entry a[openEHR-EHR-ADMIN_ENTRY.surgery_administrative_planning_dips.v1] or action a_a[openEHR-EHR-ACTION.procedure.v1])</BaseAql>
+      <Paths>
+        <Path Id="SurgeryDocumentID" IdentifierRef="c" Value="/name/value" DataType="String" />
+        <Path Id="RequestRehabilitation" IdentifierRef="a" Value="/data[at0001]/items[at0007]/value/value" AdminDescription="" DataType="" />
+        <Path Id="ShortNoticeAdmission" IdentifierRef="a" Value="/data[at0001]/items[at0008]/value/value" AdminDescription="" DataType="" />
+        <Path Id="AttendanceType" IdentifierRef="a" Value="/data[at0001]/items[at0002]/value/value" AdminDescription="" DataType="" />
+        <Path Id="AnestesiaClearingType" IdentifierRef="a" Value="/data[at0001]/items[at0005]/value/value" AdminDescription="" DataType="" />
+        <Path Id="MessageToCoordinator" IdentifierRef="a" Value="/data[at0001]/items[at0016]/value/value" AdminDescription="" DataType="" />
+        <Path Id="PatientRequestedCancelation" IdentifierRef="a" Value="/data[at0001]/items[at0015]/value/value" AdminDescription="" DataType="" />
+        <Path Id="PreopXrayRequested" IdentifierRef="a" Value="/data[at0001]/items[at0013]/items[at0012]/value/value" AdminDescription="" DataType="" />
+        <Path Id="PreopXrayRequestedTime" IdentifierRef="a" Value="/data[at0001]/items[at0013]/items[at0014]/value/value" AdminDescription="" DataType="" />
+        <Path Id="MedicalEvaluationRequested" IdentifierRef="a" Value="/data[at0001]/items[at0010]/items[at0009]/value/value" AdminDescription="" DataType="" />
+        <Path Id="MedicalEvaluationRequestedTime" IdentifierRef="a" Value="/data[at0001]/items[at0010]/items[at0011]/value/value" AdminDescription="" DataType="" />
+        <Path Id="ContextStartTime" IdentifierRef="c" Value="/context/start_time/value" AdminDescription="" DataType="String" />
+        <Path Id="InternDoctor" IdentifierRef="a" Value="/data[at0001]/items[at0004]/value/value" AdminDescription="" DataType="" />
+      </Paths>
+      <WhereExpressions>
+        <WhereExpression Id="WhereIsOperatorEvaluation" Path="$SurgeryDocumentID" Operator="EQ" Value="'Operatørvurdering'" AdminDescription="" />
+      </WhereExpressions>
+      <OrderByExpressions>
+        <OrderByExpression Id="SortByContextStartTime" Value="$ContextStartTime" Ascending="false" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="IsSurgerySortByContext" WhereRef="$WhereIsOperatorEvaluation" OrderByRef="$SortByContextStartTime" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+  </AqlBindings>
+  <DataElements>
+    <DataElement Id="45ec85fa-96ac-442c-88a3-188162ee2752" Oid="OnsketRehabilitering" Name="Ønsket Rehabilitering" AdminName="Ønsket Rehabilitering" Description="Beskrivelse" Categories="Operasjon-Administrativt" DisplayFormat="{ifnull(If(True=$IsSurgerySortByContext.RequestRehabilitation,&quot;Ja&quot;,&quot;&quot;),&quot;&quot;)}" SortFormat="" IsEditable="false" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues />
+    </DataElement>
+    <DataElement Id="37e78350-25f0-46eb-ad24-f4cbb22c581e" Oid="OppmoteKortVarsel" Name="Oppmøte Kort Varsel" AdminName="Oppmøte Kort Varsel" Description="" Categories="Operasjon-Administrativt" DisplayFormat="{ifnull(If(True=$IsSurgerySortByContext.ShortNoticeAdmission,&quot;Ja&quot;,&quot;&quot;),&quot;&quot;)}" SortFormat="" IsEditable="false" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues />
+    </DataElement>
+    <DataElement Id="dcaa775f-2c4c-4aec-9f32-4d48e7b8dbc5" Oid="Oppmotetype" Name="Oppmøtetype" AdminName="Oppmøtetype" Description="" Categories="Operasjon-Administrativt" DisplayFormat="{ifnull($IsSurgerySortByContext.AttendanceType,&quot;&quot;)}" SortFormat="" IsEditable="false" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues />
+    </DataElement>
+    <DataElement Id="527b63c9-cbb3-435e-ac74-4ac5c71f25d1" Oid="TypeAnestesiklarering" Name="Type anestesiklarering" AdminName="Type anestesiklarering" Description="" Categories="Operasjon-Administrativt" DisplayFormat="{ifnull($IsSurgerySortByContext.AnestesiaClearingType,&quot;&quot;)}" SortFormat="" IsEditable="false" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues />
+    </DataElement>
+    <DataElement Id="0e0534b4-de5c-4da3-8db4-887906fa4acb" Oid="BeskjedTilKoordinator" Name="Beskjed til koordinator" AdminName="Beskjed til koordinator" Description="" Categories="Operasjon-Administrativt" DisplayFormat=" {ifnull($IsSurgerySortByContext.MessageToCoordinator,&quot;&quot;)}" SortFormat="" IsEditable="false" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues />
+    </DataElement>
+    <DataElement Id="555e1a90-6c03-461c-837f-c74befac8e43" Oid="PreoperativRTG" Name="Preoperativ RTG" AdminName="Preoperativ RTG" Description="" Categories="Operasjon-Administrativt" DisplayFormat="&quot;&quot;" SortFormat="" IsEditable="false" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions>
+        <FormatExpression Id="a3ebfd5a-f099-4a78-a784-9ec478156c19">
+          <WhenExpression Value="If(True=$IsSurgerySortByContext.PreopXrayRequested ,True,False)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M12,2A10,10,0,0,1,22,12A10,10,0,0,1,12,22A10,10,0,0,1,2,12A10,10,0,0,1,12,2 M12,4A8,8,0,0,0,4,12A8,8,0,0,0,12,20A8,8,0,0,0,20,12A8,8,0,0,0,12,4 M11,16.5L6.5,12 7.91,10.59 11,13.67 16.59,8.09 18,9.5 11,16.5z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF346A3B</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Pasienten er henvist til Preoperativt RTG</Description>
+        </FormatExpression>
+      </FormatExpressions>
+      <KeyValues />
+    </DataElement>
+    <DataElement Id="91115ce9-f695-4571-a2d0-294724977248" Oid="HenvistTilMedisinskTilsyn" Name="Henvist til medisinsk tilsyn" AdminName="Henvist til medisinsk tilsyn" Description="" Categories="Operasjon-Administrativt" DisplayFormat="&quot;&quot;" SortFormat="" IsEditable="false" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions>
+        <FormatExpression Id="9d7b6b70-59b4-4547-8ff0-f57bca4eb331">
+          <WhenExpression Value="If(True=$IsSurgerySortByContext.MedicalEvaluationRequested,True,False)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M12,2A10,10,0,0,1,22,12A10,10,0,0,1,12,22A10,10,0,0,1,2,12A10,10,0,0,1,12,2 M12,4A8,8,0,0,0,4,12A8,8,0,0,0,12,20A8,8,0,0,0,20,12A8,8,0,0,0,12,4 M11,16.5L6.5,12 7.91,10.59 11,13.67 16.59,8.09 18,9.5 11,16.5z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF346A3B</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Pasienten er henvist til medisinsk tilsyn</Description>
+        </FormatExpression>
+      </FormatExpressions>
+      <KeyValues />
+    </DataElement>
+    <DataElement Id="b12e56e1-d29a-4c14-95a0-348f2037bdc0" Oid="InnkomstTurnusLege" Name="Turnuslege innkomst" AdminName="Turnuslege innkomst" Description="" Categories="Operasjon-Administrativt" DisplayFormat="$IsSurgerySortByContext.InternDoctor" SortFormat="" IsEditable="false" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues />
+    </DataElement>
+  </DataElements>
+  <KeyValues />
+</VaqmConfiguration>
