@@ -2,7 +2,7 @@ archetype (adl_version=1.4)
 	openEHR-EHR-ACTION.careplan_goal_dips.v1
 
 concept
-	[at0000]	-- Registrering av målaktivitet
+	[at0000]	-- Registration of goal activity
 language
 	original_language = <[ISO_639-1::nb]>
 	translations = <
@@ -52,14 +52,14 @@ description
 	other_contributors = <"Bjørn-Petter Johannessen, DIPS AS, Norway", ...>
 	other_details = <
 		["current_contact"] = <"Phuong Pedersen, DIPS AS <ppe@dips.no>">
-		["MD5-CAM-1.0.1"] = <"B38AE85371F5C9B9AFBA1FB081B7BBDE">
+		["MD5-CAM-1.0.1"] = <"968A6C8F5CA4CB11B5038DF5300E6A94">
 		["custodian_organisation"] = <"DIPS AS">
 	>
 
 definition
-	ACTION[at0000] matches {	-- Registrering av målaktivitet
+	ACTION[at0000] matches {	-- Registration of goal activity
 		ism_transition matches {
-			ISM_TRANSITION[at0002] matches {	-- Foreslå
+			ISM_TRANSITION[at0002] matches {	-- Suggest
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::526]}
@@ -67,11 +67,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0002]}		-- Foreslå
+						defining_code matches {[local::at0002]}		-- Suggest
 					}
 				}
 			}
-			ISM_TRANSITION[at0007] matches {	-- Kanseller
+			ISM_TRANSITION[at0007] matches {	-- Cancel
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::528]}
@@ -79,11 +79,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0007]}		-- Kanseller
+						defining_code matches {[local::at0007]}		-- Cancel
 					}
 				}
 			}
-			ISM_TRANSITION[at0003] matches {	-- Aktiver
+			ISM_TRANSITION[at0003] matches {	-- Activate
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::245]}
@@ -91,11 +91,11 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0003]}		-- Aktiver
+						defining_code matches {[local::at0003]}		-- Activate
 					}
 				}
 			}
-			ISM_TRANSITION[at0006] matches {	-- Vurder
+			ISM_TRANSITION[at0006] matches {	-- Evaluate
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::245]}
@@ -103,11 +103,35 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0006]}		-- Vurder
+						defining_code matches {[local::at0006]}		-- Evaluate
 					}
 				}
 			}
-			ISM_TRANSITION[at0004] matches {	-- Avslutt
+			ISM_TRANSITION[at0013] matches {	-- Resume
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0013]}		-- Resume
+					}
+				}
+			}
+			ISM_TRANSITION[at0012] matches {	-- Suspend
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::530]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0012]}		-- Suspend
+					}
+				}
+			}
+			ISM_TRANSITION[at0004] matches {	-- Discontinue
 				current_state matches {
 					DV_CODED_TEXT matches {
 						defining_code matches {[openehr::532]}
@@ -115,15 +139,15 @@ definition
 				}
 				careflow_step matches {
 					DV_CODED_TEXT matches {
-						defining_code matches {[local::at0004]}		-- Avslutt
+						defining_code matches {[local::at0004]}		-- Discontinue
 					}
 				}
 			}
 		}
 		description matches {
-			ITEM_TREE[at0001] matches {	-- Tree
+			ITEM_TREE[at0001] matches {	-- *
 				items cardinality matches {0..*; unordered} matches {
-					allow_archetype CLUSTER[at0011] occurrences matches {0..*} matches {	-- Tillegsdetaljer
+					allow_archetype CLUSTER[at0011] occurrences matches {0..*} matches {	-- Additional information
 						include
 							archetype_id/value matches {/openEHR-EHR-CLUSTER\.careplan_documentation_additional_info(-[a-zA-Z0-9_]+)*\.v0/}
 					}
@@ -137,8 +161,8 @@ ontology
 		["no"] = <
 			items = <
 				["at0000"] = <
-					text = <"*Registrering av målaktivitet(nb)">
-					description = <"*Arketypen brukes for å registrere detaljer på ønsket behandlingsmål.(nb)">
+					text = <"Registrering av målaktivitet">
+					description = <"Registrering av målaktivitet">
 				>
 				["at0001"] = <
 					text = <"Tree">
@@ -165,8 +189,16 @@ ontology
 					description = <"Kansellerer målet">
 				>
 				["at0011"] = <
-					text = <"*Tillegsdetaljer(nb)">
-					description = <"**(nb)">
+					text = <"Tillegsdetaljer">
+					description = <"Tillegsdetaljer">
+				>
+				["at0012"] = <
+					text = <"Sett på vent">
+					description = <"Sett målet på vent">
+				>
+				["at0013"] = <
+					text = <"Gjenoppta">
+					description = <"Gjenoppta målet">
 				>
 			>
 		>
@@ -204,13 +236,21 @@ ontology
 					text = <"Tillegsdetaljer">
 					description = <"*">
 				>
+				["at0012"] = <
+					text = <"Sett på vent">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Gjenoppta">
+					description = <"*">
+				>
 			>
 		>
 		["en"] = <
 			items = <
 				["at0000"] = <
-					text = <"*Registrering av målaktivitet(nb)">
-					description = <"*Arketypen brukes for å registrere detaljer på ønsket behandlingsmål.(nb)">
+					text = <"Registration of goal activity">
+					description = <"Registration of goal activity">
 				>
 				["at0001"] = <
 					text = <"*">
@@ -237,8 +277,16 @@ ontology
 					description = <"Cancel goal">
 				>
 				["at0011"] = <
-					text = <"*Tillegsdetaljer(nb)">
-					description = <"**(nb)">
+					text = <"Additional information">
+					description = <"Additional information">
+				>
+				["at0012"] = <
+					text = <"Suspend">
+					description = <"Suspend goal">
+				>
+				["at0013"] = <
+					text = <"Resume">
+					description = <"Resume goal">
 				>
 			>
 		>
