@@ -1,0 +1,312 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ACTION.ppr_sammendrag_dips.v1
+
+concept
+	[at0000]	-- PPR sammendrag
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"DIPS AS">
+		["organisation"] = <"DIPS AS">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Skal brukes kun i Arena Pakkeforløp psykisk helse og rus.">
+			use = <"Skal brukes kun i Arena Pakkeforløp psykisk helse og rus.">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"27A6710C716E11EA26E707E6EFC91EA6">
+	>
+
+definition
+	ACTION[at0000] matches {	-- PPR sammendrag
+		ism_transition matches {
+			ISM_TRANSITION[at0020] matches {	-- Planned
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::526]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0020]}		-- Planned
+					}
+				}
+			}
+			ISM_TRANSITION[at0018] matches {	-- Postponed
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::527]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0018]}		-- Postponed
+					}
+				}
+			}
+			ISM_TRANSITION[at0025] matches {	-- Cancelled
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::528]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0025]}		-- Cancelled
+					}
+				}
+			}
+			ISM_TRANSITION[at0021] matches {	-- Scheduled
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::529]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0021]}		-- Scheduled
+					}
+				}
+			}
+			ISM_TRANSITION[at0024] matches {	-- Active
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0024]}		-- Active
+					}
+				}
+			}
+			ISM_TRANSITION[at0019] matches {	-- Suspended
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::530]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0019]}		-- Suspended
+					}
+				}
+			}
+			ISM_TRANSITION[at0026] matches {	-- Abort
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::531]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0026]}		-- Abort
+					}
+				}
+			}
+			ISM_TRANSITION[at0017] matches {	-- Completed
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0017]}		-- Completed
+					}
+				}
+			}
+		}
+		description matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Første fremmøte
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Klinisk beslutning
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0010] occurrences matches {0..*} matches {	-- Klinisk beslutning
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Evalueringspunkt
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Samarbeidsmøte
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0011] occurrences matches {0..*} matches {	-- Samarbeidsmøte
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Utført aktivitet
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0012] occurrences matches {0..*} matches {	-- Utført aktivitet
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Psykose start
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Avrusning avsluttet
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Melding fastlege
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0013] occurrences matches {0..1} matches {	-- Avslutning overføring
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0014] occurrences matches {0..*} matches {	-- Avslutning
+						include
+							archetype_id/value matches {/.*/}
+					}
+					ELEMENT[at0015] occurrences matches {0..1} matches {	-- Hjelpebehov
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0016] occurrences matches {0..*} matches {	-- Hjelpebehov
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"PPR sammendrag">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Første fremmøte">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Klinisk beslutning">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Evalueringspunkt">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Samarbeidsmøte">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Psykose start">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Avrusning avsluttet">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Melding fastlege">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Utført aktivitet">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Klinisk beslutning">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Samarbeidsmøte">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Utført aktivitet">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Avslutning overføring">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Avslutning">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Hjelpebehov">
+					description = <"*">
+				>
+				["at0016"] = <
+					text = <"Hjelpebehov">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Completed">
+					description = <"Completed">
+				>
+				["at0018"] = <
+					text = <"Postponed">
+					description = <"Postponed">
+				>
+				["at0019"] = <
+					text = <"Suspended">
+					description = <"Suspended">
+				>
+				["at0020"] = <
+					text = <"Planned">
+					description = <"Planned">
+				>
+				["at0021"] = <
+					text = <"Scheduled">
+					description = <"Scheduled">
+				>
+				["at0024"] = <
+					text = <"Active">
+					description = <"Active">
+				>
+				["at0025"] = <
+					text = <"Cancelled">
+					description = <"Cancelled">
+				>
+				["at0026"] = <
+					text = <"Abort">
+					description = <"Abort">
+				>
+			>
+		>
+	>
