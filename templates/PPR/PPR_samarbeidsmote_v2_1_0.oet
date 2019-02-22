@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>dbe449e7-bf9c-48d5-8597-c667281a82cd</id>
+  <name>PPR_samarbeidsmote_v2_1_0</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose>Benyttes for å registrere om det er gjennomført eller at det ikke er behov for samarbeidsmøter i rus og psykiatri</purpose>
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.trajectory.v1" concept_name="Pasientforløp">
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Samarbeidsmøte">
+      <Rule path="/description[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>DIPS_Trajectory_PPR_9322::S::Samarbeidsmøte med relevante instanser</includedValues>
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.trajectory_activity_details_dips.v1" concept_name="Detaljer om aktivitet i et pakkeforløp" max="1" path="/description[at0001]/items[at0018]" name="Detaljer om samarbeidsmøte">
+        <Rule path="/items[at0001]" max="1">
+          <constraint xsi:type="textConstraint">
+            <includedValues>DIPS_Trajectory_PPR_9324::M::Gjennomført møte</includedValues>
+            <includedValues>DIPS_Trajectory_PPR_9324::I::Vurdert ikke behov for møte</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.trajectory_plan.v1" concept_name="Trajectory plan" path="/content">
+      <Rule path="/data[at0001]/items[at0003]" max="1" name="Samarbeidsmøte" />
+      <Rule path="/data[at0001]/items[at0003]/items[at0004]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>DIPS_Trajectory_PPR_9322::S::Samarbeidsmøte med relevante instanser</includedValues>
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.health_care_level_dips.v1" concept_name="Omsorgsnivå " path="/data[at0001]/items">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ARK-VI-NPROMSNIVAA::1::Heldøgn</includedValues>
+            <includedValues>ARK-VI-NPROMSNIVAA::3::Poliklinisk omsorg</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+    </Content>
+    <Context />
+  </definition>
+</template>
