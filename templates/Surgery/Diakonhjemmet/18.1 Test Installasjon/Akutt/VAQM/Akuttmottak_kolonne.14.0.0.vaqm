@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<VaqmConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Id="a023c620-4257-46f4-8768-05b8a55eecba" Oid="vaqm.akuttmottak.kolonne" Name="Akuttmottak_kolonne" Version="14.0.0" Approved="true" CreatedByAuthor="lmj" Created="2019-01-23T15:21:47" Imported="false" VersionComment="Utviklet for Diakonhjemmets akuttmottak" BasedOnVersion="13.1.0" xmlns="http://www.dips.no/vaqmconfig">
+  <AqlBindings>
+    <AqlBinding Id="dbffd7ef-8d1a-40b1-91a4-97f132b9860e" Oid="vaqm.akuttmottak.kolonne" Name="Kolonne" DefaultArchetypeId="openEHR-EHR-ADMIN_ENTRY.administrativ_informasjon_dips.v2">
+      <BaseAql>select a, c from composition c[openEHR-EHR-COMPOSITION.encounter.v1] contains ADMIN_ENTRY a[openEHR-EHR-ADMIN_ENTRY.administrativ_informasjon_dips.v2]</BaseAql>
+      <Paths>
+        <Path Id="verdi" IdentifierRef="a" Value="/data[at0001]/items[at0016]/items[at0002]/value/value" DataType="String" />
+        <Path Id="time" IdentifierRef="c" Value="/context/start_time/value" AdminDescription="" DataType="DV_DATE_TIME" />
+        <Path Id="info" IdentifierRef="c" Value="/name/value" AdminDescription="" DataType="String" />
+        <Path Id="hvor" IdentifierRef="a" Value="/name/value" AdminDescription="" DataType="String" />
+      </Paths>
+      <WhereExpressions>
+        <WhereExpression Id="legeWhere" Path="$hvor" Operator="EQ" Value="'Lege'" AdminDescription="" />
+        <WhereExpression Id="infoReg" Path="$info" Operator="EQ" Value="'Informasjon for post'" AdminDescription="" />
+        <WhereExpression Id="splWhere" Path="$hvor" Operator="EQ" Value="'Sykepleier'" AdminDescription="" />
+        <WhereExpression Id="postWhere" Path="$hvor" Operator="EQ" Value="'Post'" AdminDescription="" />
+        <WhereExpression Id="postklarWhere" Path="$hvor" Operator="EQ" Value="'Klar til post'" AdminDescription="" />
+        <WhereExpression Id="røntgenWhere" Path="$hvor" Operator="EQ" Value="'Røntgen'" AdminDescription="" />
+      </WhereExpressions>
+      <OrderByExpressions>
+        <OrderByExpression Id="Latest" Value="$time" Ascending="false" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="predLege" WhereRef="$infoReg AND $legeWhere" OrderByRef="$Latest" />
+        <Predicate Id="predSpl" WhereRef="$infoReg AND $splWhere" OrderByRef="$Latest" AdminDescription="" />
+        <Predicate Id="predPost" WhereRef="$infoReg AND $postWhere" OrderByRef="$Latest" AdminDescription="" />
+        <Predicate Id="predPosklar" WhereRef="$infoReg AND $postklarWhere" OrderByRef="$Latest" AdminDescription="" />
+        <Predicate Id="predRøntgen" WhereRef="$infoReg AND $røntgenWhere" OrderByRef="$Latest" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="672bcfec-5648-4bfa-b431-68c3b05d35cc" Oid="vaqm.akuttmottak.kolonne.smitte" Name="Kolonne smitte" DefaultArchetypeId="e[openEHR-EHR-EVALUATION.precaution.v1]">
+      <BaseAql>select e, c from composition c[openEHR-EHR-COMPOSITION.encounter.v1] contains EVALUATION e[openEHR-EHR-EVALUATION.precaution.v1]</BaseAql>
+      <Paths>
+        <Path Id="infoSmitte" IdentifierRef="c" Value="/name/value" AdminDescription="" DataType="String" />
+        <Path Id="timeSmitte" IdentifierRef="c" Value="/context/start_time/value" AdminDescription="" DataType="DV_DATE_TIME" />
+        <Path Id="verdiSmitte" IdentifierRef="e" Value="/data[at0001]/items[at0002]/value/value" AdminDescription="" DataType="String" />
+        <Path Id="verdiStatus" IdentifierRef="e" Value="/data[at0001]/items[at0014]/value/value" AdminDescription="" DataType="String" />
+        <Path Id="infoSmitte2" IdentifierRef="e" Value="/name/value" AdminDescription="" DataType="String" />
+      </Paths>
+      <WhereExpressions>
+        <WhereExpression Id="infoRegSmitte" Path="$infoSmitte" Operator="EQ" Value="'Informasjon for post'" AdminDescription="" />
+        <WhereExpression Id="infoRegSmitte2" Path="$infoSmitte2" Operator="EQ" Value="'Mistanke om smittefare'" AdminDescription="" />
+      </WhereExpressions>
+      <OrderByExpressions>
+        <OrderByExpression Id="LatestSmitte" Value="$timeSmitte" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="predSmitte" WhereRef="$infoRegSmitte AND $infoRegSmitte2" OrderByRef="$LatestSmitte" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+  </AqlBindings>
+  <DataElements>
+    <DataElement Id="25250336-98c7-4348-82cc-4e5323802bbb" Oid="vaqm.akuttmottak.kolonne.lege" Name="Lege" AdminName="AdminLege" Description="Viser oppsatt lege" Categories="Akuttmottak_kolonne" DisplayFormat="$predLege.verdi" SortFormat="$predLege.verdi" SortFormatDataType="string" IsEditable="true" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues>
+        <KeyValue Key="DocumentCreateConceptId" Value="$ARENA-HEALTHRECORD-DOCUMENTCONCEPT/AKUTTMOTTAK_VAQM_KOLONNE_LEGE" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="61fa0d5b-ef22-4b81-b8f2-25c7ac031f4e" Oid="vaqm.akuttmottak.kolonne.sykepleier" Name="Sykepleier" AdminName="AdminSykepleier" Description="Viser oppsatt sykepleier" Categories="Akuttmottak_kolonne" DisplayFormat="$predSpl.verdi" SortFormat="$predSpl.verdi" SortFormatDataType="string" IsEditable="true" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues>
+        <KeyValue Key="DocumentCreateConceptId" Value="$ARENA-HEALTHRECORD-DOCUMENTCONCEPT/AKUTTMOTTAK_VAQM_KOLONNE_SYKEPLEIER" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="952e2054-4285-4e33-be64-5cfa3c535c9b" Oid="vaqm.akuttmottak.kolonne.røntgen" Name="Røntgen" AdminName="AdminRøntgen" Description="Viser status på røntgen" Categories="Akuttmottak_kolonne" DisplayFormat="$predRøntgen.verdi" SortFormat="$predRøntgen.verdi" SortFormatDataType="string" IsEditable="true" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues>
+        <KeyValue Key="DocumentCreateConceptId" Value="$ARENA-HEALTHRECORD-DOCUMENTCONCEPT/AKUTTMOTTAK_VAQM_KOLONNE_RØNTGEN" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="cd0decec-3d21-4d88-9e35-5f6894cd557c" Oid="vaqm.akuttmottak.kolonne.post" Name="Post" AdminName="AdminPost" Description="Viser hvilken sengepost pasienten er meldt til" Categories="Akuttmottak_kolonne" DisplayFormat="$predPost.verdi" SortFormat="$predPost.verdi" SortFormatDataType="string" IsEditable="true" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues>
+        <KeyValue Key="DocumentCreateConceptId" Value="$ARENA-HEALTHRECORD-DOCUMENTCONCEPT/AKUTTMOTTAK_VAQM_KOLONNE_POST" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="98f7ff5f-648a-411d-93c8-73788194bcde" Oid="vaqm.akuttmottak.kolonne.postklar" Name="Postklar" AdminName="AdminPostklar" Description="Viser om pasienten er klar til å overflyttes til sengepost" Categories="Akuttmottak_kolonne" DisplayFormat="$predPosklar.verdi" SortFormat="$predPosklar.verdi" SortFormatDataType="string" IsEditable="true" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues>
+        <KeyValue Key="DocumentCreateConceptId" Value="$ARENA-HEALTHRECORD-DOCUMENTCONCEPT/AKUTTMOTTAK_VAQM_KOLONNE_POSTKLAR" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="fdb14def-01cc-475b-a67c-8f93c9af5f59" Oid="vaqm.akuttmottak.kolonne.smitte" Name="Smitte" AdminName="AdminSmitte" Description="Angir om det er iverksatt smittevernstiltak rundt pasienten" Categories="Akuttmottak_kolonne" DisplayFormat="&quot;&quot;" SortFormat="" SortFormatDataType="string" IsEditable="true" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions>
+        <FormatExpression Id="a84f4415-be7c-4dd5-a225-27e9f0f35c26">
+          <WhenExpression Value="IFNULL(IF(&quot;Aktiv&quot; = $predSmitte.verdiStatus, TRUE, FALSE), FALSE)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>F1 M 58.5832,55.4172L 17.4169,55.4171C 15.5619,53.5621 15.5619,50.5546 17.4168,48.6996L 35.201,15.8402C 37.056,13.9852 40.0635,13.9852 41.9185,15.8402L 58.5832,48.6997C 60.4382,50.5546 60.4382,53.5622 58.5832,55.4172 Z M 34.0417,25.7292L 36.0208,41.9584L 39.9791,41.9583L 41.9583,25.7292L 34.0417,25.7292 Z M 38,44.3333C 36.2511,44.3333 34.8333,45.7511 34.8333,47.5C 34.8333,49.2489 36.2511,50.6667 38,50.6667C 39.7489,50.6667 41.1666,49.2489 41.1666,47.5C 41.1666,45.7511 39.7489,44.3333 38,44.3333 Z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FFD69600</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Mistanke om smitte</Description>
+        </FormatExpression>
+      </FormatExpressions>
+      <KeyValues>
+        <KeyValue Key="DocumentCreateConceptId" Value="$ARENA-HEALTHRECORD-DOCUMENTCONCEPT/AKUTTMOTTAK_VAQM_KOLONNE_SMITTE" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+  </DataElements>
+  <KeyValues />
+</VaqmConfiguration>

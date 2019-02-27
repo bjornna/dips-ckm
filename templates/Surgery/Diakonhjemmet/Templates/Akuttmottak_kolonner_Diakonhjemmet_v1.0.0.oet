@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>4114237d-d612-4fc2-bda8-abe7b29ef0f0</id>
+  <name>Informasjon for post</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose />
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Informasjon for post">
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.precaution.v1" concept_name="Forholdsregel" max="1" path="/content" name="Mistanke om smittefare">
+      <Rule path="/data[at0001]/items[at0002]" name="Smittevernstiltak">
+        <constraint xsi:type="textConstraint">
+          <includedValues>SNOMED-CT::409529001::Kontaktsmitte</includedValues>
+          <includedValues>SNOMED-CT::409525007::Dråpesmitte</includedValues>
+          <includedValues>SNOMED-CT::409524006::Luftsmitte</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0014]">
+        <constraint xsi:type="textConstraint">
+          <excludedValues>local::at0019</excludedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0003]" max="1" name="Mistanke om">
+        <constraint xsi:type="textConstraint">
+          <includedValues>SNOMED-CT::725894000::Influensavirus</includedValues>
+          <includedValues>SNOMED-CT::115329001::MRSA</includedValues>
+          <includedValues>SNOMED-CT::407359000::NORO-virus</includedValues>
+          <includedValues>SNOMED-CT::74964007::Annet</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0013]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>SNOMED-CT::170497006::Isolasjon grunnet infeksjon</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/protocol[at0006]/items[at0009]" max="0" />
+      <Rule path="/protocol[at0006]/items[at0004]" max="0" />
+    </Content>
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.administrativ_informasjon_dips.v2" concept_name="Administrativ informasjon" max="1" path="/content" name="Lege">
+      <Rule path="/data[at0001]/items[at0016]/items[at0005]" max="0" />
+      <Rule path="/data[at0001]/items[at0016]/items[at0002]" max="1" name="Lege" />
+      <Rule path="/data[at0001]/items[at0017]" max="0" />
+    </Content>
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.administrativ_informasjon_dips.v2" concept_name="Administrativ informasjon" max="1" path="/content" name="Sykepleier">
+      <Rule path="/data[at0001]/items[at0016]/items[at0005]" max="0" />
+      <Rule path="/data[at0001]/items[at0016]/items[at0002]" max="1" name="Sykepleier" />
+      <Rule path="/data[at0001]/items[at0017]" max="0" />
+    </Content>
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.administrativ_informasjon_dips.v2" concept_name="Administrativ informasjon" max="1" path="/content" name="Røntgen">
+      <Rule path="/data[at0001]/items[at0016]/items[at0002]" max="1" name="Røntgen">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Bestilt</includedValues>
+          <includedValues>Utført</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0017]" max="0" />
+    </Content>
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.administrativ_informasjon_dips.v2" concept_name="Administrativ informasjon" max="1" path="/content" name="Post">
+      <Rule path="/data[at0001]/items[at0016]/items[at0002]" max="1" name="Post">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Intern::1::OBS</includedValues>
+          <includedValues>Intern::2::POIVA</includedValues>
+          <includedValues>Intern::3::KirS</includedValues>
+          <includedValues>Intern::4::MedSA</includedValues>
+          <includedValues>Intern::5::MedSB</includedValues>
+          <includedValues>Intern::6::MedSC</includedValues>
+          <includedValues>Intern::7::OrtoSA</includedValues>
+          <includedValues>Intern::8::OrtoSB</includedValues>
+          <includedValues>Intern::9::RevS</includedValues>
+        </constraint>
+      </Rule>
+    </Content>
+    <Content xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.administrativ_informasjon_dips.v2" concept_name="Administrativ informasjon" max="1" path="/content" name="Klar til post">
+      <Rule path="/data[at0001]/items[at0016]/items[at0002]" max="1" name="Klar til post">
+        <constraint xsi:type="textConstraint">
+          <includedValues>Klar til post</includedValues>
+        </constraint>
+      </Rule>
+    </Content>
+    <Context />
+  </definition>
+</template>

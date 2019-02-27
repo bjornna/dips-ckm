@@ -1,0 +1,610 @@
+﻿archetype (adl_version=1.4; uid=1328b960-c559-4328-bf38-b87eff13b35b)
+	openEHR-EHR-OBSERVATION.berg_balance_scale.v0
+
+concept
+	[at0000]	-- Bergs balanseskala
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Arild Stangeland">
+		["organisation"] = <"Helse Bergen University Hospital">
+		["email"] = <"arild.stangeland@helse-bergen.no">
+		["date"] = <"2018-07-23">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For å bestemme eldre pasienters evne til å balansere sikkert under en rekke forhåndsbestemte oppgaver.">
+			use = <"Brukes for å bestemme eldre pasienters evne til å balansere sikkert under en rekke forhåndsbestemte oppgaver, eller hos pasienter med akutt hjerneslag. 
+
+Skalaen består av 14 punkt hvor hvert element består av en fempunktsskala som varierer fra 0 til 4, der  0 angir laveste funksjonsnivå og 4 høyeste funksjonsnivå.">
+			keywords = <"ferdighetstester", "aldring", "fysisk fungering">
+			misuse = <"Testen vurderer ikke ganglag.">
+			copyright = <"© Nasjonal IKT HF">
+		>
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <"John Tore Valand", ...>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["custodian_organisation"] = <"Nasjonal IKT">
+		["references"] = <"Berg, Katherine, et al. \"Measuring balance in the elderly: preliminary development of an instrument.\" Physiotherapy Canada 41.6 (1989): 304-311. Hentet 24.7.18 fra https://www.researchgate.net/publication/244941396_Measuring_balance_in_the_elderly_Preliminary_development_of_an_instrument.
+
+Norsk geriatrisk forening, tester og registreringsskjema.  Bergs balanseskala (BBS). Hentet 24.7.18 fra http://legeforeningen.no/Fagmed/Norsk-geriatrisk-forening/Geriatrisk-test--og-undervisningsmateriell/tester-og-registreringsskjemaer/bergs-balanseskala-bbs/">
+		["original_namespace"] = <"no.nasjonalikt">
+		["original_publisher"] = <"Nasjonal IKT">
+		["custodian_namespace"] = <"no.nasjonalikt">
+		["MD5-CAM-1.0.1"] = <"4D930B5F7F3EE4875E1EAA064EFA7158">
+		["build_uid"] = <"7b5f92b2-3ed3-4a4d-ad10-b55c51f8cbf6">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Bergs balanseskala
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Uspesifisert hendelse
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {4..*; unordered} matches {
+									ELEMENT[at0004] matches {	-- 1. Sittende til stående
+										value matches {
+											0|[local::at0009], 	-- Trenger middels eller maksimal hjelp av en eller flere personer for å reise seg opp.
+											1|[local::at0008], 	-- Trenger minimal hjelp av en person for å reise seg opp eller for å finne balansen.
+											2|[local::at0007], 	-- Kan reise seg opp med hjelp av hendene etter flere forsøk.
+											3|[local::at0006], 	-- Kan reise seg opp på egen hånd med hjelp av hendene.
+											4|[local::at0005]  	-- Kan reise seg opp uten å bruke hendene og finner selv balansen.
+										}
+									}
+									ELEMENT[at0010] matches {	-- 2. Stående uten støtte
+										value matches {
+											0|[local::at0015], 	-- Kan ikke stå i 30 sekunder uten støtte.
+											1|[local::at0014], 	-- Trenger flere forsøk for å stå i 30 sekunder, uten støtte.
+											2|[local::at0013], 	-- Kan stå i 30 sekunder uten støtte.
+											3|[local::at0012], 	-- Kan stå i 2 minutter med tilsyn.
+											4|[local::at0011]  	-- Kan stå stødig i 2 minutter.
+										}
+									}
+									ELEMENT[at0016] matches {	-- 3. Sitte uten ryggstøtte med føttene på golvet eller på en skammel.
+										value matches {
+											0|[local::at0021], 	-- Kan ikke sitte i 10 sekunder uten støtte.
+											1|[local::at0020], 	-- Kan sitte i 10 sekunder.
+											2|[local::at0019], 	-- Kan sitte i 30 sekunder.
+											3|[local::at0018], 	-- Kan sitte i 2 minutter med tilsyn.
+											4|[local::at0017]  	-- Kan sitte trygt og sikkert i 2 minutter.
+										}
+									}
+									ELEMENT[at0022] matches {	-- 4. Stående til sittende
+										value matches {
+											0|[local::at0027], 	-- Trenger hjelp av en person for å sette seg.
+											1|[local::at0026], 	-- Setter seg selvstendig men ukontrollert.
+											2|[local::at0025], 	-- Bruker baksiden av bena mot stolen for å kontrollere det å sette seg.
+											3|[local::at0024], 	-- Kontrollerer det å sette seg ved hjelp av hendene.
+											4|[local::at0023]  	-- Setter seg på en trygg måte med minimal hjelp av hendene.
+										}
+									}
+									ELEMENT[at0028] occurrences matches {0..1} matches {	-- 5. Fra sittende på en stol med armlene til en annen uten armlen og vice versa
+										value matches {
+											0|[local::at0047], 	-- Trenger hjelp av to personer (for å støtte eller veilede for å være trygg).
+											1|[local::at0048], 	-- Trenger hjelp av en person.
+											2|[local::at0049], 	-- Kan forflytte seg ved hjelp av muntlige ledetråder og/eller tilsyn.
+											3|[local::at0050], 	-- Kan forflytte seg på en trygg måte med mye hjelp av hendene.
+											4|[local::at0051]  	-- Kan forflytte seg på en trygg måte med minimal hjelp av hendene.
+										}
+									}
+									ELEMENT[at0029] occurrences matches {0..1} matches {	-- 6. Stå uten støtte med lukkede øyne
+										value matches {
+											0|[local::at0052], 	-- Trenger hjelp for ikke å falle.
+											1|[local::at0053], 	-- Står stille, men må åpne øynene i løpet av 3 sekunder.
+											2|[local::at0054], 	-- Kan stå i 3 sekunder.
+											3|[local::at0055], 	-- Kan stå i 10 sekunder med tilsyn.
+											4|[local::at0056]  	-- Kan stå sikkert i 10 sekunder.
+										}
+									}
+									ELEMENT[at0030] occurrences matches {0..1} matches {	-- 7. Stående med føttene inntil hverandre
+										value matches {
+											0|[local::at0057], 	-- Trenger hjelp for å innta stillingen og kan ikke stå i stillingen i 15 sekunder.
+											1|[local::at0058], 	-- Trenger hjelp for å innta stillingen, men kan stå i 15 sekunder med føttene inntil hverandre.
+											2|[local::at0059], 	-- Kan selv sette føttene inntil hverandre, men kan ikke stå slik i 1 minutt.
+											3|[local::at0060], 	-- Kan selv sette føttene inntil hverandre og stå i 1 minutt med tilsyn.
+											4|[local::at0061]  	-- Kan selv sette føttene inntil hverandre og stå sikkert i 1 minutt.
+										}
+									}
+									ELEMENT[at0031] occurrences matches {0..1} matches {	-- 8. Stå og strekke seg fremover med utstrakt arm
+										value matches {
+											0|[local::at0062], 	-- Mister balansen ved forsøket/trenger ytre støtte.
+											1|[local::at0063], 	-- Strekker seg fremover men trenger tilsyn.
+											2|[local::at0064], 	-- Kan strekke seg fremover mer enn 5 centimeter på en sikker måte.
+											3|[local::at0065], 	-- Kan strekke seg fremover mer enn 12 centimeter på en sikker måte.
+											4|[local::at0066]  	-- Kan strekke seg fremover mer enn 25 centimeter på en sikker måte.
+										}
+									}
+									ELEMENT[at0032] occurrences matches {0..1} matches {	-- 9. Ta opp noe fra gulvet
+										value matches {
+											0|[local::at0067], 	-- Mister balansen ved forsøket/trenger ytre støtte.
+											1|[local::at0068], 	-- Kan ikke ta opp skoen og trenger tilsyn under forsøket.
+											2|[local::at0069], 	-- Kan ikke ta opp skoen, men når 2,5 – 5 cm fra skoen og vedlikeholder balansen.
+											3|[local::at0070], 	-- Kan ta opp skoen men trenger tilsyn.
+											4|[local::at0071]  	-- Kan ta opp skoen på en enkelt og sikker måte.
+										}
+									}
+									ELEMENT[at0033] occurrences matches {0..1} matches {	-- 10. Vri seg og se bak over høyre og venstre skulder
+										value matches {
+											0|[local::at0072], 	-- Trenger støtte for ikke å miste balansen eller falle.
+											1|[local::at0073], 	-- Trenger tilsyn under utførelsen.
+											2|[local::at0074], 	-- Vrir seg bare til siden, men opprettholder balansen.
+											3|[local::at0075], 	-- Ser bak seg til den ene siden, har mindre rotasjon til den andre siden.
+											4|[local::at0076]  	-- Ser bak seg til begge sider og roterer i hele kroppen og det foregår “tyngdeoverføring”.
+										}
+									}
+									ELEMENT[at0034] occurrences matches {0..1} matches {	-- 11. Snu seg 360 grader
+										value matches {
+											0|[local::at0077], 	-- Trenger støtte under vendingen.
+											1|[local::at0078], 	-- Trenger tilsyn eller muntlige ledetråder.
+											2|[local::at0079], 	-- Kan snu seg sikkert 360 grader, men trenger mer enn 4 sek.
+											3|[local::at0080], 	-- Kan snu seg sikkert 360 grader på 4 sek. eller mindre kun en retning..
+											4|[local::at0081]  	-- Kan snu seg sikkert 360 grader på 4 sek. eller mindre.
+										}
+									}
+									ELEMENT[at0035] occurrences matches {0..1} matches {	-- 12. Sette en og en fot vekselvis på et trappetrinn
+										value matches {
+											0|[local::at0082], 	-- Trenger hjelp for ikke å falle/er ikke i stand til å prøve.
+											1|[local::at0083], 	-- Kan klare mer enn 1 gang på hver fot med minimal hjelp.
+											2|[local::at0084], 	-- Kan klare å sette opp hver fot 2 ganger på trinnet uten hjelp men med tilsyn.
+											3|[local::at0085], 	-- Kan stå selvstendig og klarer å sette hver fot på trinnet på mer enn 20 sek.
+											4|[local::at0086]  	-- Kan stå selvstendig og trygt og greier (eller klarer) å sette hver fot 4 ganger på trinnet i løpetav 20 sek.
+										}
+									}
+									ELEMENT[at0036] occurrences matches {0..1} matches {	-- 13. Stå med en fot fremfor den andre
+										value matches {
+											0|[local::at0087], 	-- Mister balansen under steget eller i stillingen.
+											1|[local::at0088], 	-- Trenger hjelp med å flytte en fot fram, men kan stå i stillingen i 15 sek.
+											2|[local::at0089], 	-- Kan selv flytte en fot et lite skritt fram og stå der i 30 sek.
+											3|[local::at0090], 	-- Kan selv sette en fot foran den andre og stå der i 30 sek.
+											4|[local::at0091]  	-- Kan selv plassere føttene i tandemstilling og stå der i 30 sek.
+										}
+									}
+									ELEMENT[at0037] occurrences matches {0..1} matches {	-- 14. Stå på ett ben
+										value matches {
+											0|[local::at0092], 	-- Kan ikke eller forsøker ikke å løfte benet, eller trenger hjelp for ikke å falle.
+											1|[local::at0093], 	-- Forsøker å løfte benet, men kan ikke stå på ett ben i 3 sekunder, men kan likevel stå på egenhånd.
+											2|[local::at0094], 	-- Kan selv løfte benet og stå der i 3 sek.
+											3|[local::at0095], 	-- Kan selv løfte benet og stå der i 5 sek.
+											4|[local::at0096]  	-- Kan selv løfte benet og stå der i 10 sek.
+										}
+									}
+									ELEMENT[at0038] occurrences matches {0..1} matches {	-- Totalskår
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|0..56|}
+											}
+										}
+									}
+									ELEMENT[at0039] occurrences matches {0..1} matches {	-- Kommentar
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+						state matches {
+							ITEM_TREE[at0098] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0099] occurrences matches {0..1} matches {	-- Konfunderende faktorer
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0040] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0046] occurrences matches {0..*} matches {	-- Tilleggsinformasjon
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Bergs balanseskala">
+					description = <"En 14 punktsskala som brukes for å vurdere pasientens evne til å balansere sikkert under en rekke forhåndsbestemte oppgaver.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Uspesifisert hendelse">
+					description = <"Standard, uspesifisert tidspunkt eller tidsintervall som kan defineres mer eksplisitt i en template eller i en applikasjon.">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"1. Sittende til stående">
+					description = <"Reis deg opp. Forsøk å ikke bruke hendene som støtte.">
+					comment = <"For å få 2 poeng kan pasienten gjøre flere enn ett forsøk på oppgaven.">
+				>
+				["at0005"] = <
+					text = <"Kan reise seg opp uten å bruke hendene og finner selv balansen.">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Kan reise seg opp på egen hånd med hjelp av hendene.">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Kan reise seg opp med hjelp av hendene etter flere forsøk.">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Trenger minimal hjelp av en person for å reise seg opp eller for å finne balansen.">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Trenger middels eller maksimal hjelp av en eller flere personer for å reise seg opp.">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"2. Stående uten støtte">
+					description = <"Stå i 2 minutter uten støtte.">
+					comment = <"For å få 1 poeng får pasienten flere enn et forsøk på
+denne oppgaven.">
+				>
+				["at0011"] = <
+					text = <"Kan stå stødig i 2 minutter.">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Kan stå i 2 minutter med tilsyn.">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Kan stå i 30 sekunder uten støtte.">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Trenger flere forsøk for å stå i 30 sekunder, uten støtte.">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Kan ikke stå i 30 sekunder uten støtte.">
+					description = <"*">
+				>
+				["at0016"] = <
+					text = <"3. Sitte uten ryggstøtte med føttene på golvet eller på en skammel.">
+					description = <"Sitt med armene i kors i 2 minutter.">
+					comment = <"Sitt med armene i kors i 2 minutter. (Hvis pasienten ikke forstår at han/hun ikke skal lene seg mot ryggstøtten bør oppgaven utføres uten ryggstøtte, for eksempel på sengen eller sengekanten).">
+				>
+				["at0017"] = <
+					text = <"Kan sitte trygt og sikkert i 2 minutter.">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Kan sitte i 2 minutter med tilsyn.">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"Kan sitte i 30 sekunder.">
+					description = <"*">
+				>
+				["at0020"] = <
+					text = <"Kan sitte i 10 sekunder.">
+					description = <"*">
+				>
+				["at0021"] = <
+					text = <"Kan ikke sitte i 10 sekunder uten støtte.">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"4. Stående til sittende">
+					description = <"Sett deg ned.">
+				>
+				["at0023"] = <
+					text = <"Setter seg på en trygg måte med minimal hjelp av hendene.">
+					description = <"*">
+				>
+				["at0024"] = <
+					text = <"Kontrollerer det å sette seg ved hjelp av hendene.">
+					description = <"*">
+				>
+				["at0025"] = <
+					text = <"Bruker baksiden av bena mot stolen for å kontrollere det å sette seg.">
+					description = <"*">
+				>
+				["at0026"] = <
+					text = <"Setter seg selvstendig men ukontrollert.">
+					description = <"*">
+				>
+				["at0027"] = <
+					text = <"Trenger hjelp av en person for å sette seg.">
+					description = <"*">
+				>
+				["at0028"] = <
+					text = <"5. Fra sittende på en stol med armlene til en annen uten armlen og vice versa">
+					description = <"Flytt deg fra stolen med armlene til stolen uten armlene/sengen. Bruk hendene.">
+				>
+				["at0029"] = <
+					text = <"6. Stå uten støtte med lukkede øyne">
+					description = <"Lukk øynene og stå stille i 10 sekunder.">
+				>
+				["at0030"] = <
+					text = <"7. Stående med føttene inntil hverandre">
+					description = <"Sett føttene inntil hverandre og stå uten støtte.">
+				>
+				["at0031"] = <
+					text = <"8. Stå og strekke seg fremover med utstrakt arm">
+					description = <"Løft armen opp til 90 grader. Strekk fingrene. Strekk deg framover så langt du kan.">
+				>
+				["at0032"] = <
+					text = <"9. Ta opp noe fra gulvet">
+					description = <"Ta opp skoen/tøffelen som ligger foran føttene dine.">
+				>
+				["at0033"] = <
+					text = <"10. Vri seg og se bak over høyre og venstre skulder">
+					description = <"Vri kroppen og se bak deg over venstre skulder. Gjør det samme mot høyre.">
+				>
+				["at0034"] = <
+					text = <"11. Snu seg 360 grader">
+					description = <"Snu deg rundt en hel omgang. Stans. Snu deg så rundt en hel omgang den
+ andre veien.">
+				>
+				["at0035"] = <
+					text = <"12. Sette en og en fot vekselvis på et trappetrinn">
+					description = <"Sett vekselvis høyre og venstre fot opp på trinnet/skammelen. Fortsett til hver fot har berørt trinnet/ skammelen 4 ganger.">
+				>
+				["at0036"] = <
+					text = <"13. Stå med en fot fremfor den andre">
+					description = <"Sett den ene foten rett foran den andre (tandemstilling). Hvis du ikke greier å sette foten rett foran den andre, prøv å sette foten så langt frem at hælen på den forreste foten er lenger fram enn den bakerste fotens tær.">
+				>
+				["at0037"] = <
+					text = <"14. Stå på ett ben">
+					description = <"Stå på ett ben så lenge du kan uten støtte.">
+				>
+				["at0038"] = <
+					text = <"Totalskår">
+					description = <"Sum av verdiene som er registrert for hver enkelt av de 14 undersøkelsesdelene.">
+				>
+				["at0039"] = <
+					text = <"Kommentar">
+					description = <"Ytterligere fritekst om målingen som ikke er fanget i andre felt.">
+					comment = <"Hvis hele eller deler av testen ikke var gjennomførbar, skal årsak til dette registreres i dataelementet \"Konfunderende faktorer\".">
+				>
+				["at0040"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0046"] = <
+					text = <"Tilleggsinformasjon">
+					description = <"Ytterligere informasjon som trengs for å kunne registrere lokalt definert innhold eller for å tilpasse til andre referansemodeller/formalismer.">
+					comment = <"For eksempel lokale informasjonsbehov eller ytterligere metadata for å kunne tilpasse til tilsvarende konsepter i FHIR eller CIMI.">
+				>
+				["at0047"] = <
+					text = <"Trenger hjelp av to personer (for å støtte eller veilede for å være trygg).">
+					description = <"*">
+				>
+				["at0048"] = <
+					text = <"Trenger hjelp av en person.">
+					description = <"*">
+				>
+				["at0049"] = <
+					text = <"Kan forflytte seg ved hjelp av muntlige ledetråder og/eller tilsyn.">
+					description = <"*">
+				>
+				["at0050"] = <
+					text = <"Kan forflytte seg på en trygg måte med mye hjelp av hendene.">
+					description = <"*">
+				>
+				["at0051"] = <
+					text = <"Kan forflytte seg på en trygg måte med minimal hjelp av hendene.">
+					description = <"*">
+				>
+				["at0052"] = <
+					text = <"Trenger hjelp for ikke å falle.">
+					description = <"*">
+				>
+				["at0053"] = <
+					text = <"Står stille, men må åpne øynene i løpet av 3 sekunder.">
+					description = <"*">
+				>
+				["at0054"] = <
+					text = <"Kan stå i 3 sekunder.">
+					description = <"*">
+				>
+				["at0055"] = <
+					text = <"Kan stå i 10 sekunder med tilsyn.">
+					description = <"*">
+				>
+				["at0056"] = <
+					text = <"Kan stå sikkert i 10 sekunder.">
+					description = <"*">
+				>
+				["at0057"] = <
+					text = <"Trenger hjelp for å innta stillingen og kan ikke stå i stillingen i 15 sekunder.">
+					description = <"*">
+				>
+				["at0058"] = <
+					text = <"Trenger hjelp for å innta stillingen, men kan stå i 15 sekunder med føttene inntil hverandre.">
+					description = <"*">
+				>
+				["at0059"] = <
+					text = <"Kan selv sette føttene inntil hverandre, men kan ikke stå slik i 1 minutt.">
+					description = <"*">
+				>
+				["at0060"] = <
+					text = <"Kan selv sette føttene inntil hverandre og stå i 1 minutt med tilsyn.">
+					description = <"*">
+				>
+				["at0061"] = <
+					text = <"Kan selv sette føttene inntil hverandre og stå sikkert i 1 minutt.">
+					description = <"*">
+				>
+				["at0062"] = <
+					text = <"Mister balansen ved forsøket/trenger ytre støtte.">
+					description = <"*">
+				>
+				["at0063"] = <
+					text = <"Strekker seg fremover men trenger tilsyn.">
+					description = <"*">
+				>
+				["at0064"] = <
+					text = <"Kan strekke seg fremover mer enn 5 centimeter på en sikker måte.">
+					description = <"*">
+				>
+				["at0065"] = <
+					text = <"Kan strekke seg fremover mer enn 12 centimeter på en sikker måte.">
+					description = <"*">
+				>
+				["at0066"] = <
+					text = <"Kan strekke seg fremover mer enn 25 centimeter på en sikker måte.">
+					description = <"*">
+				>
+				["at0067"] = <
+					text = <"Mister balansen ved forsøket/trenger ytre støtte.">
+					description = <"*">
+				>
+				["at0068"] = <
+					text = <"Kan ikke ta opp skoen og trenger tilsyn under forsøket.">
+					description = <"*">
+				>
+				["at0069"] = <
+					text = <"Kan ikke ta opp skoen, men når 2,5 – 5 cm fra skoen og vedlikeholder balansen.">
+					description = <"*">
+				>
+				["at0070"] = <
+					text = <"Kan ta opp skoen men trenger tilsyn.">
+					description = <"*">
+				>
+				["at0071"] = <
+					text = <"Kan ta opp skoen på en enkelt og sikker måte.">
+					description = <"*">
+				>
+				["at0072"] = <
+					text = <"Trenger støtte for ikke å miste balansen eller falle.">
+					description = <"*">
+				>
+				["at0073"] = <
+					text = <"Trenger tilsyn under utførelsen.">
+					description = <"*">
+				>
+				["at0074"] = <
+					text = <"Vrir seg bare til siden, men opprettholder balansen.">
+					description = <"*">
+				>
+				["at0075"] = <
+					text = <"Ser bak seg til den ene siden, har mindre rotasjon til den andre siden.">
+					description = <"*">
+				>
+				["at0076"] = <
+					text = <"Ser bak seg til begge sider og roterer i hele kroppen og det foregår “tyngdeoverføring”.">
+					description = <"*">
+				>
+				["at0077"] = <
+					text = <"Trenger støtte under vendingen.">
+					description = <"*">
+				>
+				["at0078"] = <
+					text = <"Trenger tilsyn eller muntlige ledetråder.">
+					description = <"*">
+				>
+				["at0079"] = <
+					text = <"Kan snu seg sikkert 360 grader, men trenger mer enn 4 sek.">
+					description = <"*">
+				>
+				["at0080"] = <
+					text = <"Kan snu seg sikkert 360 grader på 4 sek. eller mindre kun en retning..">
+					description = <"*">
+				>
+				["at0081"] = <
+					text = <"Kan snu seg sikkert 360 grader på 4 sek. eller mindre.">
+					description = <"*">
+				>
+				["at0082"] = <
+					text = <"Trenger hjelp for ikke å falle/er ikke i stand til å prøve.">
+					description = <"*">
+				>
+				["at0083"] = <
+					text = <"Kan klare mer enn 1 gang på hver fot med minimal hjelp.">
+					description = <"*">
+				>
+				["at0084"] = <
+					text = <"Kan klare å sette opp hver fot 2 ganger på trinnet uten hjelp men med tilsyn.">
+					description = <"*">
+				>
+				["at0085"] = <
+					text = <"Kan stå selvstendig og klarer å sette hver fot på trinnet på mer enn 20 sek.">
+					description = <"*">
+				>
+				["at0086"] = <
+					text = <"Kan stå selvstendig og trygt og greier (eller klarer) å sette hver fot 4 ganger på trinnet i løpetav 20 sek.">
+					description = <"*">
+				>
+				["at0087"] = <
+					text = <"Mister balansen under steget eller i stillingen.">
+					description = <"*">
+				>
+				["at0088"] = <
+					text = <"Trenger hjelp med å flytte en fot fram, men kan stå i stillingen i 15 sek.">
+					description = <"*">
+				>
+				["at0089"] = <
+					text = <"Kan selv flytte en fot et lite skritt fram og stå der i 30 sek.">
+					description = <"*">
+				>
+				["at0090"] = <
+					text = <"Kan selv sette en fot foran den andre og stå der i 30 sek.">
+					description = <"*">
+				>
+				["at0091"] = <
+					text = <"Kan selv plassere føttene i tandemstilling og stå der i 30 sek.">
+					description = <"*">
+				>
+				["at0092"] = <
+					text = <"Kan ikke eller forsøker ikke å løfte benet, eller trenger hjelp for ikke å falle.">
+					description = <"*">
+				>
+				["at0093"] = <
+					text = <"Forsøker å løfte benet, men kan ikke stå på ett ben i 3 sekunder, men kan likevel stå på egenhånd.">
+					description = <"*">
+				>
+				["at0094"] = <
+					text = <"Kan selv løfte benet og stå der i 3 sek.">
+					description = <"*">
+				>
+				["at0095"] = <
+					text = <"Kan selv løfte benet og stå der i 5 sek.">
+					description = <"*">
+				>
+				["at0096"] = <
+					text = <"Kan selv løfte benet og stå der i 10 sek.">
+					description = <"*">
+				>
+				["at0098"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0099"] = <
+					text = <"Konfunderende faktorer">
+					description = <"Fritekst om faktorer som kan ha bidratt til skåringen av Bergs balanseskala.">
+				>
+			>
+		>
+	>

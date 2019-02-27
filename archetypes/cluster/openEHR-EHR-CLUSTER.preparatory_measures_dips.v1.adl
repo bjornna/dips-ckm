@@ -1,0 +1,96 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.preparatory_measures_dips.v1
+
+concept
+	[at0000]	-- Forberedelser 
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2018-11-23">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for å dokumentere nødvendige forberedelser i forkant av en planlagt prosedyre/helsetjeneste.">
+			use = <"Brukes for å dokumentere nødvendige forberedelser i forkant av en planlagt prosedyre, f.eks. i forkant ev en narkoses skal det gjøres EKG, pasienten skal seponere medisiner osv. Arketypen er i første omgang laget for bruk i operasjonsmodulen med da aktuelle faktorer, men den kan på sikt utvides med flere nødvendige elementer. Arketypen kan brukes som et Cluster i en beskrivelse av en planlagt helsetjeneste men også f.ek.s i en anbefaling.">
+			keywords = <"forberedelser", "tiltak", "undersøkelser", "preoperativ">
+			misuse = <"Skal ikke brukes for å dokumentere gjennomføring av nødvendige undersøkelser eller tiltak, bruk action arketyper til det formålet.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <"Anca Heyd, DIPS AS<ahe@dips.no>">
+		["MD5-CAM-1.0.1"] = <"CB550EEE10937602A496B4D91070E2E9">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Forberedelser 
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- EKG
+				value matches {
+					DV_TEXT matches {*}
+					DV_BOOLEAN matches {
+						value matches {True}
+					}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Premedikasjon
+				value matches {
+					DV_TEXT matches {*}
+					DV_BOOLEAN matches {
+						value matches {True}
+					}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Skal ta egne medisiner
+				value matches {
+					DV_TEXT matches {*}
+					DV_BOOLEAN matches {
+						value matches {True}
+					}
+				}
+			}
+			ELEMENT[at0008] occurrences matches {0..1} matches {	-- INR
+				value matches {
+					DV_TEXT matches {*}
+					DV_BOOLEAN matches {
+						value matches {True}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Forberedelser ">
+					description = <"Forberedelser i forkant av en planalgt prosedyre.">
+				>
+				["at0001"] = <
+					text = <"EKG">
+					description = <"Skal det gjøres en EKG? Kan angis ved hjelp av et kodeverk (ja, nei, ikke aktuelt) eller som boolsk verdi.">
+				>
+				["at0002"] = <
+					text = <"Premedikasjon">
+					description = <"Skal pasienten få premedikasjon i forkant av en prosedyre? Kan angis ved hjelp av et kodeverk (ja, nei, ikke aktuelt) eller som boolsk verdi.">
+				>
+				["at0003"] = <
+					text = <"Skal ta egne medisiner">
+					description = <"Skal pasienten ta egen morgenmedisiner? Kan angis ved hjelp av et kodeverk (ja, nei, ikke aktuelt) eller som boolsk verdi.">
+				>
+				["at0008"] = <
+					text = <"INR">
+					description = <"Skal pasienten ta egen morgenmedisiner? Kan angis ved hjelp av et kodeverk (ja, nei, ikke aktuelt) eller som boolsk verdi.">
+				>
+			>
+		>
+	>

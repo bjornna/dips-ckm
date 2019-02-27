@@ -1,0 +1,130 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-EVALUATION.patient_preferences_dips.v1
+
+concept
+	[at0000]	-- Pasientpreferanser
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2018-11-19">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for å angi pasientens preferanser i forbindelse med en helsetjeneste.">
+			use = <"Brukes for å angi pasientens preferanser i forbindelse med en helsetjeneste. Dette kan preferanser i forhold til prosdryrer, type behandling, administrative forhold osv. F.eks. \"ønkser rehab. opphold\", kan komme på kort varsel osv.">
+			keywords = <"preferanser", "ønske", "føretrekke">
+			misuse = <"Brukes ikke for å angi pasientens reservasjoner eller ønske om livsforlengende behandling. Bruk egen arketyper til dette formålet.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <"Anca Heyd, DIPS AS<ahe@dips.no>">
+		["MD5-CAM-1.0.1"] = <"04FBD41C1DA7CF777C1584C989D4207B">
+	>
+
+definition
+	EVALUATION[at0000] matches {	-- Pasientpreferanser
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Preferansenavn
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Beskrivelse
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Status
+						value matches {
+							DV_TEXT matches {*}
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					allow_archetype CLUSTER[at0005] occurrences matches {0..*} matches {	-- Strukturerte detaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0006] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Sist oppdatert
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0008] occurrences matches {0..1} matches {	-- Gyldig til
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0009] occurrences matches {0..*} matches {	-- Ytterligere informasjon
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Pasientpreferanser">
+					description = <"Brukes for å angi pasientens preferanser i forbindelse med en helsetjeneste.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Preferansenavn">
+					description = <"Navn på preferansen.">
+				>
+				["at0003"] = <
+					text = <"Beskrivelse">
+					description = <"Tekstlig beskrivelse av angitt preferanse.">
+				>
+				["at0004"] = <
+					text = <"Status">
+					description = <"Angir hvorvidt pasienten ønsker den angitte preferansen eller ikke. Kan enten angis som ja/nei, men kan også angis med kodeverk f.eks. ja/nei/usikker eller et sted hvor man foretrekker at en behandling finner sted.">
+				>
+				["at0005"] = <
+					text = <"Strukturerte detaljer">
+					description = <"Slot for å angi strukturerte detaljer. ">
+				>
+				["at0006"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0007"] = <
+					text = <"Sist oppdatert">
+					description = <"Dator for site oppdatering av informasjonen.">
+				>
+				["at0008"] = <
+					text = <"Gyldig til">
+					description = <"Gyldighetsdator for informasjonen.">
+				>
+				["at0009"] = <
+					text = <"Ytterligere informasjon">
+					description = <"Slot for ytterligere informasjon.">
+				>
+			>
+		>
+	>

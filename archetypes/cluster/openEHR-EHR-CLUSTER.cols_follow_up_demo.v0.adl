@@ -1,0 +1,114 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.cols_follow_up_demo.v0
+
+concept
+	[at0000]	-- Oppfølging KOLS
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2018-11-02">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Denne arketypen er laget for EHIN 2018 og skal kun brukes til demonstrasjonsformål. ">
+			use = <"Bruke sfor å angi oppfølging av KOLS pasienter. Denne arketypen er laget for EHIN 2018 og skal kun brukes til demonstrasjonsformål. ">
+			keywords = <"demo", "oppfølging", "KOLS">
+			misuse = <"Skal ikke brukes i produksjon">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"F9051D7A76B84A607534346A1B10D7CA">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Oppfølging KOLS
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Egenevaluering
+				value matches {
+					DV_BOOLEAN matches {
+						value matches {True}
+					}
+				}
+			}
+			CLUSTER[at0002] occurrences matches {0..1} matches {	-- Kontroll hos fastlege
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Kontroll hos fastlege
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True}
+							}
+						}
+					}
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Dato for kontroll hos fastlege
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+				}
+			}
+			CLUSTER[at0006] occurrences matches {0..1} matches {	-- Oppfølging i kommune
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Oppfølging i kommune
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True}
+							}
+						}
+					}
+					ELEMENT[at0007] occurrences matches {0..*} matches {	-- Type oppfølging
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Oppfølging KOLS">
+					description = <"Oppfølging av KOLS for demomnstrasjonformål">
+				>
+				["at0001"] = <
+					text = <"Egenevaluering">
+					description = <"Sann indikerer at pasientenskal fylle ut skjema for egenevaluering">
+				>
+				["at0002"] = <
+					text = <"Kontroll hos fastlege">
+					description = <"Skal pasienten ha kontroll hos fastlege? Når?">
+				>
+				["at0003"] = <
+					text = <"Kontroll hos fastlege">
+					description = <"Angir om apsienten skal ha kontroll hos fastlege.">
+				>
+				["at0004"] = <
+					text = <"Dato for kontroll hos fastlege">
+					description = <"Tidspunkt for kontroll">
+				>
+				["at0005"] = <
+					text = <"Oppfølging i kommune">
+					description = <"Sann angir at apsienten skal ha oppfølging i kommune">
+				>
+				["at0006"] = <
+					text = <"Oppfølging i kommune">
+					description = <"Skal pasienten ha oppfølging i kommune?">
+				>
+				["at0007"] = <
+					text = <"Type oppfølging">
+					description = <"Type oppfølging pasienten skal ha f.eks ernæringsråd, fysioterpi osv. Bør helst brukes med et kodeverk.">
+				>
+			>
+		>
+	>

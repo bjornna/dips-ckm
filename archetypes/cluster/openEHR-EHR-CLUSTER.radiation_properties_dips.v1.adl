@@ -1,0 +1,67 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.radiation_properties_dips.v1
+
+concept
+	[at0000]	-- Stråling detaljer
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2018-11-26">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Bekrivelse av detaljer ved stråling med røntgenstråler.">
+			use = <"Brukes for å anig detaljer ved stråling med røntgenstråler, enten i tearpuetisk eller diagnostisk øyemed. Clusteret er tenkt brukt i forbindelse med openEHR-EHR-CLUSTER.device.v1.">
+			keywords = <"stråling", "røntgen">
+			misuse = <"Skal ikke brukes for å angi kliniske funn ved f.eks. strålebehandling. Bruke egen arketyper til det formålet.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <"Anca Heyd, DIPS AS<ahe@dips.no>">
+		["MD5-CAM-1.0.1"] = <"61E5988C25D83733D06107FBFF2D02CF">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Stråling detaljer
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Stråledose
+				value matches {
+					C_DV_QUANTITY <
+						property = <[openehr::508]>
+						list = <
+							["1"] = <
+								units = <"mGy.cm2">
+							>
+							["2"] = <
+								units = <"mGy.m2">
+							>
+						>
+					>
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Stråling detaljer">
+					description = <"Bekrivelse av detaljer ved stråling med røntgenstråler.">
+				>
+				["at0001"] = <
+					text = <"Stråledose">
+					description = <"Stråledose">
+				>
+			>
+		>
+	>
