@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<VaqmConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Id="91bb77b5-8166-4a60-bf21-c1803364ef1f" Oid="vaqm.vitalsigns.bodymassindex" Name="KMI" Version="14.0.0" Approved="true" CreatedByAuthor="tmf" Created="2019-03-08T12:45:31" Imported="false" VersionComment="Enkel visning KMI" BasedOnVersion="13.0.0" xmlns="http://www.dips.no/vaqmconfig">
+  <AqlBindings>
+    <AqlBinding Id="085bab18-fda8-4c1a-8b6d-de64a7e37b2a" Oid="vaqm.vitalsigns.bodymassindex" Name="KMI" DefaultArchetypeId="openEHR-EHR-OBSERVATION.body_mass_index.v1">
+      <BaseAql>select a, a_a from composition a contains observation a_a[openEHR-EHR-OBSERVATION.body_mass_index.v1]</BaseAql>
+      <Paths>
+        <Path Id="compositionid" IdentifierRef="a" Value="uid/value" DataType="" />
+        <Path Id="archetypeid" IdentifierRef="a_a" Value="archetype_details/archetype_id/value" AdminDescription="" DataType="" />
+        <Path Id="time" IdentifierRef="a_a" Value="data[at0001]/events[at0002]/time" AdminDescription="" DataType="" />
+        <Path Id="value" IdentifierRef="a_a" Value="data[at0001]/events[at0002]/data[at0003]/items[at0004]/value/magnitude" AdminDescription="" DataType="" />
+        <Path Id="author" IdentifierRef="a" Value="composer/name" AdminDescription="" DataType="" />
+        <Path Id="documentid" IdentifierRef="a" Value="tag(a, 'documentId')" AdminDescription="" DataType="" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="Sort" Value="$time" Ascending="false" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="latest" WhereRef="" OrderByRef="$Sort" />
+      </Predicates>
+      <KeyValues>
+        <KeyValue Key="Limit" Value="vaqm.vitalsigns.bodymassindex.limit" AdminDescription="" />
+        <KeyValue Key="FractionalPartSize" Value="vaqm.vitalsigns.bodymassindex.fractionalpartsize" AdminDescription="" />
+        <KeyValue Key="DecimalSeparator" Value="vaqm.vitalsigns.bodymassindex.decimalseparator" AdminDescription="" />
+        <KeyValue Key="OldMeasurement" Value="vaqm.vitalsigns.bodymassindex.oldmeasurement" AdminDescription="" />
+      </KeyValues>
+    </AqlBinding>
+  </AqlBindings>
+  <DataElements>
+    <DataElement Id="a28a0f45-95a2-4d72-972c-de6607aad61f" Oid="vaqm.vitalsigns.bodymassindex" Name="KMI" AdminName="KMI" Description="" Categories="" DisplayFormat="$latest.value" SortFormat="" IsEditable="true" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues>
+        <KeyValue Key="DocumentCreateConceptId" Value="$ARENA-HEALTHRECORD-DOCUMENTCONCEPT/Kroppsmasseindex" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+  </DataElements>
+  <KeyValues />
+</VaqmConfiguration>
