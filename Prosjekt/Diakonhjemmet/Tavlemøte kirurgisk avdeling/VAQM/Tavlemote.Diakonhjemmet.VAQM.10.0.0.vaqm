@@ -1,0 +1,501 @@
+<?xml version="1.0"?>
+<VaqmConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Id="20cb0eb5-28e2-433c-b91f-f9680b6804ec" Oid="vaqm.Tavlemote.Diakonhjemmet" Name="Tavlemote.Diakonhjemmet.VAQM" Version="10.0.0" Approved="true" CreatedByAuthor="mho" Created="2019-03-05T14:50:35" Imported="false" VersionComment="Tavlemote kolonner Diakonhjemmet" BasedOnVersion="9.0.0" xmlns="http://www.dips.no/vaqmconfig">
+  <AqlBindings>
+    <AqlBinding Id="509579e5-60a2-4673-a8c7-783c8f509118" Oid="Decubitus risiko" Name="Decubitus risiko" DefaultArchetypeId="openEHR-EHR-OBSERVATION.decubitus_risk_npsp.v1">
+      <BaseAql>select a, a_a from composition a contains OBSERVATION a_a[openEHR-EHR-OBSERVATION.decubitus_risk_npsp.v1]</BaseAql>
+      <Paths>
+        <Path Id="Pastdecubitus" IdentifierRef="a_a" Value="/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value/value" DataType="" />
+        <Path Id="Mobility" IdentifierRef="a_a" Value="/data[at0001]/events[at0002]/data[at0003]/items[at0005]/value/value" AdminDescription="" DataType="" />
+        <Path Id="EvaluatedRisk" IdentifierRef="a_a" Value="/data[at0001]/events[at0002]/data[at0003]/items[at0006]/value/value" AdminDescription="" DataType="" />
+        <Path Id="scoretime" IdentifierRef="a_a" Value="/data[at0001]/events[at0002]/time/value" AdminDescription="" DataType="" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="sortbytime" Value="$scoretime" Ascending="false" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="Decubitus" WhereRef="" OrderByRef="$sortbytime" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="d4dc95ac-68aa-4d6c-8b0e-6e3b6ad1b577" Oid="NRS-2002" Name="NRS-2002" DefaultArchetypeId="openEHR-EHR-OBSERVATION.nutritional_risk_screening.v1">
+      <BaseAql>select a, a_a from composition a contains OBSERVATION a_a[openEHR-EHR-OBSERVATION.nutritional_risk_screening.v1]</BaseAql>
+      <Paths>
+        <Path Id="scoretime" IdentifierRef="a_a" Value="/data[at0001]/events[at0002]/time/value" AdminDescription="" DataType="" />
+        <Path Id="totalscore" IdentifierRef="a_a" Value="/data[at0001]/events[at0002]/data[at0003]/items[at0032]/items[at0030]/value/magnitude" AdminDescription="" DataType="" />
+        <Path Id="BMI_belove_20" IdentifierRef="a_a" Value="/data[at0001]/events[at0002]/data[at0003]/items[at0031]/items[at0004]/value/value" AdminDescription="" DataType="" />
+        <Path Id="lost_weight" IdentifierRef="a_a" Value="/data[at0001]/events[at0002]/data[at0003]/items[at0031]/items[at0005]/value/value" AdminDescription="" DataType="" />
+        <Path Id="redused_intake" IdentifierRef="a_a" Value="/data[at0001]/events[at0002]/data[at0003]/items[at0031]/items[at0006]/value/value" AdminDescription="" DataType="" />
+        <Path Id="serious_ilness" IdentifierRef="a_a" Value="/data[at0001]/events[at0002]/data[at0003]/items[at0031]/items[at0007]/value/value" AdminDescription="" DataType="" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="sortbytime" Value="$scoretime" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="NRS2002" WhereRef="" OrderByRef="$sortbytime" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="d490f723-8bf5-4a53-aef9-5879c3bb99ed" Oid="Risiko for fall" Name="Risiko for fall" DefaultArchetypeId="openEHR-EHR-OBSERVATION.stratify_no.v1">
+      <BaseAql>select a, a_a from composition a contains OBSERVATION a_a[openEHR-EHR-OBSERVATION.stratify_no.v1]</BaseAql>
+      <Paths>
+        <Path Id="totalScore" IdentifierRef="a_a" Value="/data[at0001]/events[at0002]/data[at0003]/items[at0009]/value/magnitude" AdminDescription="" DataType="" />
+        <Path Id="timeScoring" IdentifierRef="a_a" Value="/data[at0001]/events[at0002]/time/value" AdminDescription="" DataType="" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="sortebytime" Value="$timeScoring" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="Risk_for_Falling" WhereRef="" OrderByRef="$sortebytime" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="b7293b0e-e305-404b-a481-b77920781476" Oid="Ressurspersoner" Name="Ressurspersoner" DefaultArchetypeId="openEHR-EHR-ADMIN_ENTRY.administrativ_informasjon_dips.v2">
+      <BaseAql>select a, c from composition c[openEHR-EHR-COMPOSITION.encounter.v1] contains ADMIN_ENTRY a[openEHR-EHR-ADMIN_ENTRY.administrativ_informasjon_dips.v2]</BaseAql>
+      <Paths>
+        <Path Id="verdi" IdentifierRef="a" Value="/data[at0001]/items[at0016]/items[at0002]/value/value" AdminDescription="" DataType="String" />
+        <Path Id="info" IdentifierRef="c" Value="/name/value" AdminDescription="" DataType="String" />
+        <Path Id="time" IdentifierRef="c" Value="/context/start_time/value" AdminDescription="" DataType="DV_DATE_TIME" />
+        <Path Id="hvor" IdentifierRef="a" Value="/name/value" AdminDescription="" DataType="" />
+      </Paths>
+      <WhereExpressions>
+        <WhereExpression Id="infoReg" Path="$info" Operator="EQ" Value="'Informasjon for post'" AdminDescription="" />
+        <WhereExpression Id="sykepleierReg" Path="$hvor" Operator="EQ" Value="'Ansvarlig sykepleier'" AdminDescription="" />
+        <WhereExpression Id="fysioReg" Path="$hvor" Operator="EQ" Value="'Ansvarlig fysioterapeut'" AdminDescription="" />
+      </WhereExpressions>
+      <OrderByExpressions>
+        <OrderByExpression Id="Latest" Value="$time" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="predSykepleier" WhereRef="$infoReg AND $sykepleierReg" OrderByRef="$Latest" AdminDescription="" />
+        <Predicate Id="predFysio" WhereRef="$infoReg AND $fysioReg" OrderByRef="$Latest" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="d82384cf-5323-473a-8257-5ac89b161b36" Oid="Forholdsregel Diabetes" Name="Forholdsregel Diabetes" DefaultArchetypeId="openEHR-EHR-EVALUATION.precaution.v1">
+      <BaseAql>select c, e from composition c[openEHR-EHR-COMPOSITION.encounter.v1] contains EVALUATION e[openEHR-EHR-EVALUATION.precaution.v1]</BaseAql>
+      <Paths>
+        <Path Id="info" IdentifierRef="c" Value="/name/value" AdminDescription="" DataType="String" />
+        <Path Id="time" IdentifierRef="c" Value="/context/start_time/value" AdminDescription="" DataType="DV_DATE_TIME" />
+        <Path Id="verdi" IdentifierRef="e" Value="/name/value" AdminDescription="" DataType="String" />
+        <Path Id="hvor" IdentifierRef="e" Value="/archetype_details/template_id/value" AdminDescription="" DataType="String" />
+        <Path Id="aktiv" IdentifierRef="e" Value="/data[at0001]/items[at0014]/value/value" AdminDescription="" DataType="" />
+      </Paths>
+      <WhereExpressions>
+        <WhereExpression Id="infoReg" Path="$info" Operator="EQ" Value="'Informasjon for post'" AdminDescription="" />
+        <WhereExpression Id="hvorDiabetes" Path="$hvor" Operator="EQ" Value="'Forholdsregel_diabetes_V1'" AdminDescription="" />
+      </WhereExpressions>
+      <OrderByExpressions>
+        <OrderByExpression Id="latest" Value="$time" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="predDiabetes" WhereRef="$infoReg AND $hvorDiabetes" OrderByRef="$latest" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="625b8156-0cff-4b2d-bcfc-cd158a700ff5" Oid="Forholdsregel Fastende" Name="Forholdsregel Fastende" DefaultArchetypeId="openEHR-EHR-EVALUATION.precaution.v1">
+      <BaseAql>select c, e from composition c[openEHR-EHR-COMPOSITION.encounter.v1] contains EVALUATION e[openEHR-EHR-EVALUATION.precaution.v1]</BaseAql>
+      <Paths>
+        <Path Id="info" IdentifierRef="c" Value="/name/value" AdminDescription="" DataType="String" />
+        <Path Id="time" IdentifierRef="c" Value="/context/start_time/value" AdminDescription="" DataType="DV_DATE_TIME" />
+        <Path Id="verdi" IdentifierRef="e" Value="/data[at0001]/items[at0002]/value/value" AdminDescription="" DataType="String" />
+        <Path Id="hvor" IdentifierRef="e" Value="/archetype_details/template_id/value" AdminDescription="" DataType="String" />
+      </Paths>
+      <WhereExpressions>
+        <WhereExpression Id="infoReg" Path="$info" Operator="EQ" Value="'Informasjon for post'" AdminDescription="" />
+        <WhereExpression Id="hvorFastende" Path="$hvor" Operator="EQ" Value="'Forholdsregel_fastende_V1'" AdminDescription="" />
+      </WhereExpressions>
+      <OrderByExpressions>
+        <OrderByExpression Id="latest" Value="$time" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="predFastende" WhereRef="$infoReg AND $hvorFastende" OrderByRef="$latest" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="ac9c3187-2bfa-4147-aa04-0b6ea9cd855f" Oid="Legemiddelsamstemming risiko" Name="Legemiddelsamstemming risiko" DefaultArchetypeId="openEHR-EHR-EVALUATION.precaution.v1">
+      <BaseAql>select c, e from composition c[openEHR-EHR-COMPOSITION.encounter.v1] contains EVALUATION e[openEHR-EHR-EVALUATION.precaution.v1]</BaseAql>
+      <Paths>
+        <Path Id="where" IdentifierRef="e" Value="/name/value" AdminDescription="" DataType="String" />
+        <Path Id="time" IdentifierRef="c" Value="/context/start_time" AdminDescription="" DataType="DateTime" />
+        <Path Id="where2" IdentifierRef="c" Value="/name/value" AdminDescription="" DataType="String" />
+        <Path Id="status" IdentifierRef="e" Value="/data[at0001]/items[at0002]/value/value" AdminDescription="" DataType="" />
+      </Paths>
+      <WhereExpressions>
+        <WhereExpression Id="LMSRisk" Path="$where" Operator="EQ" Value="'Faste medisiner'" AdminDescription="" />
+        <WhereExpression Id="LMSComp" Path="$where2" Operator="EQ" Value="'Legemiddelsamstemming'" AdminDescription="" />
+      </WhereExpressions>
+      <OrderByExpressions>
+        <OrderByExpression Id="latest" Value="$time" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="predLMSRisk" WhereRef="$LMSRisk AND $LMSComp" OrderByRef="$latest" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="2ca63c9a-6422-4415-80cd-a8710817bd71" Oid="Decubitus tiltak" Name="Decubitus tiltak" DefaultArchetypeId="openEHR-EHR-ACTION.procedure.v1">
+      <BaseAql>select a from composition c contains ACTION a[openEHR-EHR-ACTION.procedure.v1]</BaseAql>
+      <Paths>
+        <Path Id="hvor" IdentifierRef="a" Value="/name/value" AdminDescription="" DataType="String" />
+        <Path Id="status" IdentifierRef="a" Value="/ism_transition/careflow_step/value" AdminDescription="" DataType="String" />
+        <Path Id="tid" IdentifierRef="a" Value="/time/value" AdminDescription="" DataType="DateTime" />
+      </Paths>
+      <WhereExpressions>
+        <WhereExpression Id="ActionReg" Path="$hvor" Operator="EQ" Value="'Iverksatt tiltak mot trykksår'" AdminDescription="" />
+      </WhereExpressions>
+      <OrderByExpressions>
+        <OrderByExpression Id="latest" Value="$tid" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="predDecibitusAction" WhereRef="$ActionReg" OrderByRef="$latest" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="493bad1c-86c5-4dce-a45a-81700c59954d" Oid="Legemiddelsamstemming tiltak" Name="Legemiddelsamstemming tiltak" DefaultArchetypeId="openEHR-EHR-ACTION.procedure.v1">
+      <BaseAql>select c, a from composition c[openEHR-EHR-COMPOSITION.encounter.v1] contains ACTION a[openEHR-EHR-ACTION.procedure.v1]</BaseAql>
+      <Paths>
+        <Path Id="where" IdentifierRef="a" Value="/name/value" AdminDescription="" DataType="String" />
+        <Path Id="where2" IdentifierRef="c" Value="/name/value" AdminDescription="" DataType="String" />
+        <Path Id="time" IdentifierRef="c" Value="/context/start_time" AdminDescription="" DataType="DateTime" />
+        <Path Id="status" IdentifierRef="a" Value="/ism_transition/careflow_step/value" AdminDescription="" DataType="String" />
+      </Paths>
+      <WhereExpressions>
+        <WhereExpression Id="LMSAction" Path="$where" Operator="EQ" Value="'Legemiddelsamstemming'" AdminDescription="" />
+        <WhereExpression Id="LMSComp" Path="$where2" Operator="EQ" Value="'Legemiddelsamstemming'" AdminDescription="" />
+      </WhereExpressions>
+      <OrderByExpressions>
+        <OrderByExpression Id="latest" Value="$time" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="predLMSAction" WhereRef="$LMSAction AND $LMSComp" OrderByRef="$latest" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="9f41a4af-cf95-495f-af22-d4ebdace8958" Oid="Kommentar utreise" Name="Kommentar utreise" DefaultArchetypeId="openEHR-EHR-ADMIN_ENTRY.administrativ_informasjon_dips.v2">
+      <BaseAql>select c, a from composition c[openEHR-EHR-COMPOSITION.encounter.v1] contains ADMIN_ENTRY a[openEHR-EHR-ADMIN_ENTRY.administrativ_informasjon_dips.v2]</BaseAql>
+      <Paths>
+        <Path Id="where" IdentifierRef="a" Value="/name/value" AdminDescription="" DataType="String" />
+        <Path Id="time" IdentifierRef="c" Value="/context/start_time" AdminDescription="" DataType="DateTime" />
+        <Path Id="comment" IdentifierRef="a" Value="/data[at0001]/items[at0016]/items[at0002]/value/value" AdminDescription="" DataType="String" />
+      </Paths>
+      <WhereExpressions>
+        <WhereExpression Id="regWhere" Path="$where" Operator="EQ" Value="'Kommentar utreise'" AdminDescription="" />
+      </WhereExpressions>
+      <OrderByExpressions>
+        <OrderByExpression Id="latest" Value="$time" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="predUtreiseKommentar" WhereRef="$regWhere" OrderByRef="$latest" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+  </AqlBindings>
+  <DataElements>
+    <DataElement Id="29084b2d-5a8d-4b32-bd7b-16b596547ace" Oid="Decubitus risiko" Name="Decubitus risiko" AdminName="Decubitus risiko-PASLISTE" Description="" Categories="Tavlemoter" DisplayFormat="{IFNULL(IF(or(&quot;Ja&quot;=IFNULL($Decubitus.Pastdecubitus,&quot;&quot;),&quot;Ja&quot;=IFNULL($Decubitus.Mobility,&quot;&quot;), &quot;Ja&quot;=IFNULL($Decubitus.EvaluatedRisk,&quot;&quot;)),&quot;Høy Risiko&quot;, IF(and(&quot;Nei&quot;=IFNULL($Decubitus.Pastdecubitus,&quot;Nei&quot;),&quot;Nei&quot;=IFNULL($Decubitus.Mobility,&quot;Nei&quot;), &quot;Nei&quot;=IFNULL($Decubitus.EvaluatedRisk,&quot;Nei&quot;), ifnull(if(1&gt;DATEVALUE($Decubitus.scoretime),FALSE,TRUE),FALSE)),&quot;Lav Risiko&quot;,&quot;&quot;)),&quot;&quot;)}" SortFormat="" IsEditable="true" XFormat="" XFormatDataType="datetime" YFormat="" YFormatDataType="double" RangeFormat="">
+      <FormatExpressions>
+        <FormatExpression Id="7d591769-6a5b-433a-a168-09ce98ae1cea">
+          <WhenExpression Value="IFNULL(IF(or(&quot;Ja&quot;=IFNULL($Decubitus.Pastdecubitus,&quot;&quot;),&quot;Ja&quot;=IFNULL($Decubitus.Mobility,&quot;&quot;), &quot;Ja&quot;=IFNULL($Decubitus.EvaluatedRisk,&quot;&quot;)),TRUE,FALSE),FALSE)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>F1 M 58.5832,55.4172L 17.4169,55.4171C 15.5619,53.5621 15.5619,50.5546 17.4168,48.6996L 35.201,15.8402C 37.056,13.9852 40.0635,13.9852 41.9185,15.8402L 58.5832,48.6997C 60.4382,50.5546 60.4382,53.5622 58.5832,55.4172 Z M 34.0417,25.7292L 36.0208,41.9584L 39.9791,41.9583L 41.9583,25.7292L 34.0417,25.7292 Z M 38,44.3333C 36.2511,44.3333 34.8333,45.7511 34.8333,47.5C 34.8333,49.2489 36.2511,50.6667 38,50.6667C 39.7489,50.6667 41.1666,49.2489 41.1666,47.5C 41.1666,45.7511 39.7489,44.3333 38,44.3333 Z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF980707</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Denne pasienten er å anse som en pasient med høy risiko for å utvikle trykksår basert på siste risikoevaluering</Description>
+        </FormatExpression>
+        <FormatExpression Id="f1db020d-efe0-40b1-9623-f7b89fa6c001">
+          <WhenExpression Value="IFNULL(IF(or(&quot;Ja&quot;= $Decubitus.Pastdecubitus,&quot;Ja&quot;= $Decubitus.Mobility, &quot;Ja&quot;= $Decubitus.EvaluatedRisk),FALSE, TRUE),FALSE)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M12,2A10,10,0,0,1,22,12A10,10,0,0,1,12,22A10,10,0,0,1,2,12A10,10,0,0,1,12,2 M12,4A8,8,0,0,0,4,12A8,8,0,0,0,12,20A8,8,0,0,0,20,12A8,8,0,0,0,12,4 M11,16.5L6.5,12 7.91,10.59 11,13.67 16.59,8.09 18,9.5 11,16.5z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF346A3B</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Denne pasienten er å anse som en pasient med lav risiko for utvikling av trykksår</Description>
+        </FormatExpression>
+        <FormatExpression Id="28a661a6-5415-47a3-8596-dc081dc85f63">
+          <WhenExpression Value="ifnull(if(1&gt;DATEVALUE($Decubitus.scoretime),TRUE,FALSE),TRUE)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M11,18L13,18 13,16 11,16 11,18 M12,2A10,10,0,0,0,2,12A10,10,0,0,0,12,22A10,10,0,0,0,22,12A10,10,0,0,0,12,2 M12,20C7.59,20 4,16.41 4,12 4,7.59 7.59,4 12,4 16.41,4 20,7.59 20,12 20,16.41 16.41,20 12,20 M12,6A4,4,0,0,0,8,10L10,10A2,2,0,0,1,12,8A2,2,0,0,1,14,10C14,12,11,11.75,11,15L13,15C13,12.75,16,12.5,16,10A4,4,0,0,0,12,6z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF648690</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Det er ikke evaluert trykksår risiko på denne innleggelsen.</Description>
+        </FormatExpression>
+      </FormatExpressions>
+      <KeyValues>
+        <KeyValue Key="DocumentCreateConceptId" Value="$ARENA-HEALTHRECORD-DOCUMENTCONCEPT/TAVLEMOTE_DECUBITUS" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="a89e12b7-dcac-4843-ab61-89dc493c00a6" Oid="NRS-2002" Name="NRS-2002" AdminName="NRS-2002-PASLISTE" Description="" Categories="Tavlemoter" DisplayFormat="{Ifnull(IF(and(&quot;Nei&quot;=$NRS2002.BMI_belove_20, &quot;Nei&quot;=$NRS2002.lost_weight,&quot;Nei&quot;=$NRS2002.redused_intake, &quot;Nei&quot;=$NRS2002.serious_ilness),&quot;Ingen risiko&quot;,$NRS2002.totalscore),&quot;&quot;)}" SortFormat="" IsEditable="true" AdminDescription="" XFormat="" XFormatDataType="datetime" YFormat="" YFormatDataType="double" RangeFormat="">
+      <FormatExpressions>
+        <FormatExpression Id="60480ec8-b59b-41ab-967e-1aafb1c11577">
+          <WhenExpression Value="IFNULL(IF(3&lt;=$NRS2002.totalscore,TRUE,FALSE),FALSE)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>F1 M 58.5832,55.4172L 17.4169,55.4171C 15.5619,53.5621 15.5619,50.5546 17.4168,48.6996L 35.201,15.8402C 37.056,13.9852 40.0635,13.9852 41.9185,15.8402L 58.5832,48.6997C 60.4382,50.5546 60.4382,53.5622 58.5832,55.4172 Z M 34.0417,25.7292L 36.0208,41.9584L 39.9791,41.9583L 41.9583,25.7292L 34.0417,25.7292 Z M 38,44.3333C 36.2511,44.3333 34.8333,45.7511 34.8333,47.5C 34.8333,49.2489 36.2511,50.6667 38,50.6667C 39.7489,50.6667 41.1666,49.2489 41.1666,47.5C 41.1666,45.7511 39.7489,44.3333 38,44.3333 Z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF980707</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Pasienten har over 3 i NRS 2002 score og er da en risikopasient for underernæring. Det skal derfor være igangsatt en ernæringsplan.</Description>
+        </FormatExpression>
+        <FormatExpression Id="5cc57430-ac87-4f77-8882-c3ddb711cb41">
+          <WhenExpression Value="ifnull(IF(OR(AND(3&gt;=ifnull($NRS2002.totalscore,999),4320000000000&gt;NOWTICKS ()-DATEVALUE($NRS2002.scoretime)),AND(&quot;Nei&quot;=$NRS2002.BMI_belove_20, &quot;Nei&quot;=$NRS2002.lost_weight,&quot;Nei&quot;=$NRS2002.redused_intake, &quot;Nei&quot;=$NRS2002.serious_ilness,4320000000000&gt;NOWTICKS ()-DATEVALUE($NRS2002.scoretime))),TRUE,FALSE),FALSE)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M12,2A10,10,0,0,1,22,12A10,10,0,0,1,12,22A10,10,0,0,1,2,12A10,10,0,0,1,12,2 M12,4A8,8,0,0,0,4,12A8,8,0,0,0,12,20A8,8,0,0,0,20,12A8,8,0,0,0,12,4 M11,16.5L6.5,12 7.91,10.59 11,13.67 16.59,8.09 18,9.5 11,16.5z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF346A3B</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Pasienten har under 3 i NRS 2002 score eller kvalifiserer ikke til scoring og er da ikke en risikopasient for underernæring. Det burde screenes på nytt innen en uke.</Description>
+        </FormatExpression>
+        <FormatExpression Id="39213375-7de5-491e-8c0f-d40db2174d59">
+          <WhenExpression Value="ifnull(IF(OR(and(3&gt;=ifnull($NRS2002.totalscore,999),6048000000000&lt;NOWTICKS ()-DATEVALUE($NRS2002.scoretime)),AND(&quot;Nei&quot;=$NRS2002.BMI_belove_20, &quot;Nei&quot;=$NRS2002.lost_weight,&quot;Nei&quot;=$NRS2002.redused_intake, &quot;Nei&quot;=$NRS2002.serious_ilness,6048000000000&lt;NOWTICKS ()-DATEVALUE($NRS2002.scoretime))),TRUE,FALSE),FALSE)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M12,2C6.47,2,2,6.5,2,12A10,10,0,0,0,12,22C14.25,22,16.33,21.24,18,20L18,17.28C16.53,18.94,14.39,20,12,20A8,8,0,0,1,4,12A8,8,0,0,1,12,4C15.36,4,18.23,6.07,19.41,9L21.54,9C20.27,4.94,16.5,2,12,2 M11,7L11,13 16.25,16.15 17,14.92 12.5,12.25 12.5,7 11,7 M20,11L20,18 22,18 22,11 20,11 M20,20L20,22 22,22 22,20 20,20z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF980707</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Pasienten burde screenes på nytt med NRS 2002 da det er mere enn en uke siden sist scoring.</Description>
+        </FormatExpression>
+        <FormatExpression Id="36ceda78-ef1f-41f8-a226-bb22edc6f03f">
+          <WhenExpression Value="ifnull(IF(OR(and(3&gt;=ifnull($NRS2002.totalscore,999),4320000000000&lt;NOWTICKS ()-DATEVALUE($NRS2002.scoretime)),AND(&quot;Nei&quot;=$NRS2002.BMI_belove_20, &quot;Nei&quot;=$NRS2002.lost_weight,&quot;Nei&quot;=$NRS2002.redused_intake, &quot;Nei&quot;=$NRS2002.serious_ilness,4320000000000&lt;NOWTICKS ()-DATEVALUE($NRS2002.scoretime))),TRUE,FALSE),FALSE)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M12,2C6.47,2,2,6.5,2,12A10,10,0,0,0,12,22C14.25,22,16.33,21.24,18,20L18,17.28C16.53,18.94,14.39,20,12,20A8,8,0,0,1,4,12A8,8,0,0,1,12,4C15.36,4,18.23,6.07,19.41,9L21.54,9C20.27,4.94,16.5,2,12,2 M11,7L11,13 16.25,16.15 17,14.92 12.5,12.25 12.5,7 11,7 M20,11L20,18 22,18 22,11 20,11 M20,20L20,22 22,22 22,20 20,20z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FFD69600</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Det er 2 dager eller mindre til pasienten burde scores med NRS 2002 på nytt.</Description>
+        </FormatExpression>
+        <FormatExpression Id="70042770-fb85-4761-bd8a-21ac31010edc">
+          <WhenExpression Value="IFNULL(IF(&quot;1&quot;&gt;$NRS2002.scoretime,TRUE,FALSE),TRUE)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M11,18L13,18 13,16 11,16 11,18 M12,2A10,10,0,0,0,2,12A10,10,0,0,0,12,22A10,10,0,0,0,22,12A10,10,0,0,0,12,2 M12,20C7.59,20 4,16.41 4,12 4,7.59 7.59,4 12,4 16.41,4 20,7.59 20,12 20,16.41 16.41,20 12,20 M12,6A4,4,0,0,0,8,10L10,10A2,2,0,0,1,12,8A2,2,0,0,1,14,10C14,12,11,11.75,11,15L13,15C13,12.75,16,12.5,16,10A4,4,0,0,0,12,6z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF648690</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Det er ikke utført NRS 2002 screening</Description>
+        </FormatExpression>
+      </FormatExpressions>
+      <KeyValues>
+        <KeyValue Key="DocumentCreateConceptId" Value="$ARENA-HEALTHRECORD-DOCUMENTCONCEPT/TAVLEMOTE_NRS" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="b6339ec2-ee75-4a83-abf0-d3bbfcb304a1" Oid="Risiko for fall" Name="Risiko for fall" AdminName="Risiko for fall-PASLISTE" Description="Risiko for fall" Categories="Tavlemoter" DisplayFormat="$Risk_for_Falling.totalScore" SortFormat="" IsEditable="true" AdminDescription="" XFormat="" XFormatDataType="datetime" YFormat="" YFormatDataType="double" RangeFormat="">
+      <FormatExpressions>
+        <FormatExpression Id="d7ca9023-d274-4aa3-950a-8e18ca7e37a8">
+          <WhenExpression Value="IFNULL(IF(1=$Risk_for_Falling.totalScore,TRUE,FALSE),FALSE)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M11,15L13,15 13,17 11,17 11,15 M11,7L13,7 13,13 11,13 11,7 M12,2C6.47,2,2,6.5,2,12A10,10,0,0,0,12,22A10,10,0,0,0,22,12A10,10,0,0,0,12,2 M12,20A8,8,0,0,1,4,12A8,8,0,0,1,12,4A8,8,0,0,1,20,12A8,8,0,0,1,12,20z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FFD69600</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Pasienten har STRATIFY score 1 og har moderat risiko for fall</Description>
+        </FormatExpression>
+        <FormatExpression Id="f4185168-603a-4523-8f1c-68290be7d95f">
+          <WhenExpression Value="IFNULL(IF(2=$Risk_for_Falling.totalScore,TRUE,FALSE),FALSE)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>F1 M 58.5832,55.4172L 17.4169,55.4171C 15.5619,53.5621 15.5619,50.5546 17.4168,48.6996L 35.201,15.8402C 37.056,13.9852 40.0635,13.9852 41.9185,15.8402L 58.5832,48.6997C 60.4382,50.5546 60.4382,53.5622 58.5832,55.4172 Z M 34.0417,25.7292L 36.0208,41.9584L 39.9791,41.9583L 41.9583,25.7292L 34.0417,25.7292 Z M 38,44.3333C 36.2511,44.3333 34.8333,45.7511 34.8333,47.5C 34.8333,49.2489 36.2511,50.6667 38,50.6667C 39.7489,50.6667 41.1666,49.2489 41.1666,47.5C 41.1666,45.7511 39.7489,44.3333 38,44.3333 Z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF980707</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Pasienten har STRATIFY score 2 og har høy risiko for fall</Description>
+        </FormatExpression>
+        <FormatExpression Id="671b72d7-81ee-45bb-8cf9-c5f3dc725aad">
+          <WhenExpression Value="IFNULL(IF(3=$Risk_for_Falling.totalScore,TRUE,FALSE),FALSE)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>F1 M 58.5832,55.4172L 17.4169,55.4171C 15.5619,53.5621 15.5619,50.5546 17.4168,48.6996L 35.201,15.8402C 37.056,13.9852 40.0635,13.9852 41.9185,15.8402L 58.5832,48.6997C 60.4382,50.5546 60.4382,53.5622 58.5832,55.4172 Z M 34.0417,25.7292L 36.0208,41.9584L 39.9791,41.9583L 41.9583,25.7292L 34.0417,25.7292 Z M 38,44.3333C 36.2511,44.3333 34.8333,45.7511 34.8333,47.5C 34.8333,49.2489 36.2511,50.6667 38,50.6667C 39.7489,50.6667 41.1666,49.2489 41.1666,47.5C 41.1666,45.7511 39.7489,44.3333 38,44.3333 Z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF980707</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Pasienten har STRATIFY score 3 og har høy risiko for fall</Description>
+        </FormatExpression>
+        <FormatExpression Id="c1c0ec3d-a260-4f41-9102-c5b2908c4b94">
+          <WhenExpression Value="IFNULL(IF(4=$Risk_for_Falling.totalScore,TRUE,FALSE),FALSE)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>F1 M 58.5832,55.4172L 17.4169,55.4171C 15.5619,53.5621 15.5619,50.5546 17.4168,48.6996L 35.201,15.8402C 37.056,13.9852 40.0635,13.9852 41.9185,15.8402L 58.5832,48.6997C 60.4382,50.5546 60.4382,53.5622 58.5832,55.4172 Z M 34.0417,25.7292L 36.0208,41.9584L 39.9791,41.9583L 41.9583,25.7292L 34.0417,25.7292 Z M 38,44.3333C 36.2511,44.3333 34.8333,45.7511 34.8333,47.5C 34.8333,49.2489 36.2511,50.6667 38,50.6667C 39.7489,50.6667 41.1666,49.2489 41.1666,47.5C 41.1666,45.7511 39.7489,44.3333 38,44.3333 Z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF980707</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Pasienten har STRATIFY score 4 og har høy risiko for fall</Description>
+        </FormatExpression>
+        <FormatExpression Id="600c9680-238c-41c0-89bd-cbf5876319b8">
+          <WhenExpression Value="IFNULL(IF(5=$Risk_for_Falling.totalScore,TRUE,FALSE),FALSE)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>F1 M 58.5832,55.4172L 17.4169,55.4171C 15.5619,53.5621 15.5619,50.5546 17.4168,48.6996L 35.201,15.8402C 37.056,13.9852 40.0635,13.9852 41.9185,15.8402L 58.5832,48.6997C 60.4382,50.5546 60.4382,53.5622 58.5832,55.4172 Z M 34.0417,25.7292L 36.0208,41.9584L 39.9791,41.9583L 41.9583,25.7292L 34.0417,25.7292 Z M 38,44.3333C 36.2511,44.3333 34.8333,45.7511 34.8333,47.5C 34.8333,49.2489 36.2511,50.6667 38,50.6667C 39.7489,50.6667 41.1666,49.2489 41.1666,47.5C 41.1666,45.7511 39.7489,44.3333 38,44.3333 Z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF980707</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Pasienten har STRATIFY score 5 og har høy risiko for fall</Description>
+        </FormatExpression>
+        <FormatExpression Id="c0ca1369-04f0-4622-a110-ccbf2724c2c2">
+          <WhenExpression Value="IFNULL(IF(0=$Risk_for_Falling.totalScore,TRUE,FALSE),FALSE)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M12,2A10,10,0,0,1,22,12A10,10,0,0,1,12,22A10,10,0,0,1,2,12A10,10,0,0,1,12,2 M12,4A8,8,0,0,0,4,12A8,8,0,0,0,12,20A8,8,0,0,0,20,12A8,8,0,0,0,12,4 M11,16.5L6.5,12 7.91,10.59 11,13.67 16.59,8.09 18,9.5 11,16.5z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF346A3B</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Pasienten har STRATIFY score 0 og har lav risiko for fall</Description>
+        </FormatExpression>
+      </FormatExpressions>
+      <KeyValues>
+        <KeyValue Key="DocumentCreateConceptId" Value="$ARENA-HEALTHRECORD-DOCUMENTCONCEPT/TAVLEMOTE_STRATIFY" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="e89ed4d6-bc25-4140-af8c-36af8586f252" Oid="NRS-2002-Timewarning" Name="NRS neste maaling" AdminName="NRS neste maaling-PASLISTE" Description="NRS varsling på ny maaling" Categories="Tavlemoter" DisplayFormat="{ifnull(IF(AND(3&gt;=ifnull($NRS2002.totalscore,999)),(DATEVALUE(DURATION_ADD($NRS2002.scoretime,&quot;P7D&quot;))-NOWTICKS ())\864000000000,&quot;&quot;),&quot;&quot;)} {If(-1&lt;ifnull($NRS2002.totalscore,-2),&quot;dager til neste NRS&quot;,&quot;&quot;)} " SortFormat="" IsEditable="false" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions>
+        <FormatExpression Id="4a3ff91b-2148-4131-9ed8-7fe495a96cfe">
+          <WhenExpression Value="ifnull(IF(OR(and(3&gt;=ifnull($NRS2002.totalscore,999),6048000000000&lt;NOWTICKS ()-DATEVALUE($NRS2002.scoretime)),AND(&quot;Nei&quot;=$NRS2002.BMI_belove_20, &quot;Nei&quot;=$NRS2002.lost_weight,&quot;Nei&quot;=$NRS2002.redused_intake, &quot;Nei&quot;=$NRS2002.serious_ilness,6048000000000&lt;NOWTICKS ()-DATEVALUE($NRS2002.scoretime))),TRUE,FALSE),FALSE)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M12,2C6.47,2,2,6.5,2,12A10,10,0,0,0,12,22C14.25,22,16.33,21.24,18,20L18,17.28C16.53,18.94,14.39,20,12,20A8,8,0,0,1,4,12A8,8,0,0,1,12,4C15.36,4,18.23,6.07,19.41,9L21.54,9C20.27,4.94,16.5,2,12,2 M11,7L11,13 16.25,16.15 17,14.92 12.5,12.25 12.5,7 11,7 M20,11L20,18 22,18 22,11 20,11 M20,20L20,22 22,22 22,20 20,20z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF980707</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Pasienten burde screenes på nytt med NRS 2002 da det er mere enn en uke siden sist scoring.</Description>
+        </FormatExpression>
+        <FormatExpression Id="30be92ae-7585-4726-b092-6cf91409c057">
+          <WhenExpression Value="ifnull(IF(OR(and(3&gt;=ifnull($NRS2002.totalscore,999),4320000000000&lt;NOWTICKS ()-DATEVALUE($NRS2002.scoretime)),AND(&quot;Nei&quot;=$NRS2002.BMI_belove_20, &quot;Nei&quot;=$NRS2002.lost_weight,&quot;Nei&quot;=$NRS2002.redused_intake, &quot;Nei&quot;=$NRS2002.serious_ilness,4320000000000&lt;NOWTICKS ()-DATEVALUE($NRS2002.scoretime))),TRUE,FALSE),FALSE)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M12,2C6.47,2,2,6.5,2,12A10,10,0,0,0,12,22C14.25,22,16.33,21.24,18,20L18,17.28C16.53,18.94,14.39,20,12,20A8,8,0,0,1,4,12A8,8,0,0,1,12,4C15.36,4,18.23,6.07,19.41,9L21.54,9C20.27,4.94,16.5,2,12,2 M11,7L11,13 16.25,16.15 17,14.92 12.5,12.25 12.5,7 11,7 M20,11L20,18 22,18 22,11 20,11 M20,20L20,22 22,22 22,20 20,20z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FFD69600</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Det er 2 dager eller mindre til pasienten burde scores med NRS 2002 på nytt.</Description>
+        </FormatExpression>
+      </FormatExpressions>
+      <KeyValues />
+    </DataElement>
+    <DataElement Id="2ad106b3-520b-41b5-a9b5-27dc463d68bc" Oid="Ansvarlig sykepleier" Name="Ansvarlig sykepleier" AdminName="Ansvarlig sykepleier-PASLISTE" Description="Ansvarlig sykepleier" Categories="Tavlemoter" DisplayFormat="$predSykepleier.verdi" SortFormat="" IsEditable="true" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues>
+        <KeyValue Key="DocumentCreateConceptId" Value="$ARENA-HEALTHRECORD-DOCUMENTCONCEPT/TAVLEMOTE_ANSVARLIG_SYKEPLEIER" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="583587b5-7e18-4b51-aca7-17886521133c" Oid="Ansvarlig fysioterapeut" Name="Ansvarlig fysioterapeut" AdminName="Ansvarlig fysioterapeut-PASLISTE" Description="Ansvarlig fysioterapeut" Categories="Tavlemoter" DisplayFormat="$predFysio.verdi" SortFormat="" IsEditable="true" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues>
+        <KeyValue Key="DocumentCreateConceptId" Value="$ARENA-HEALTHRECORD-DOCUMENTCONCEPT/TAVLEMOTE_ANSVARLIG_FYSIOTERAPEUT" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="3c9a8111-b7c3-4790-ad12-b8df3418f502" Oid="Forholdsregel Diabetes" Name="Forholdsregel Diabetes" AdminName="Forholdsregel Diabetes-PASLISTE" Description="Forholdsregel Diabetes" Categories="Tavlemoter" DisplayFormat="{IFNULL(if(&quot;Aktiv&quot; = $predDiabetes.aktiv, &quot;Diabetes&quot;, &quot;&quot;), &quot;&quot;)}" SortFormat="" IsEditable="true" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions>
+        <FormatExpression Id="4ae9571f-f098-4de8-bbd5-25676112d73e">
+          <WhenExpression Value="IFNULL(IF(&quot;Aktiv&quot; = $predDiabetes.aktiv,TRUE,FALSE), FALSE)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>F1 M 58.5832,55.4172L 17.4169,55.4171C 15.5619,53.5621 15.5619,50.5546 17.4168,48.6996L 35.201,15.8402C 37.056,13.9852 40.0635,13.9852 41.9185,15.8402L 58.5832,48.6997C 60.4382,50.5546 60.4382,53.5622 58.5832,55.4172 Z M 34.0417,25.7292L 36.0208,41.9584L 39.9791,41.9583L 41.9583,25.7292L 34.0417,25.7292 Z M 38,44.3333C 36.2511,44.3333 34.8333,45.7511 34.8333,47.5C 34.8333,49.2489 36.2511,50.6667 38,50.6667C 39.7489,50.6667 41.1666,49.2489 41.1666,47.5C 41.1666,45.7511 39.7489,44.3333 38,44.3333 Z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF980707</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Det bør gjenomføres tiltak for å hindre komplikasjoner på grunn av Diabetes.</Description>
+        </FormatExpression>
+      </FormatExpressions>
+      <KeyValues>
+        <KeyValue Key="DocumentCreateConceptId" Value="$ARENA-HEALTHRECORD-DOCUMENTCONCEPT/TAVLEMOTE_DIABETES" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="ea54d191-3f63-4538-a01d-3060d8db00c5" Oid="Forholdsregel Fastende" Name="Forholdsregel Fastende" AdminName="Forholdsregel Fastende-PASLISTE" Description="Forholdsregel Fastende" Categories="Tavlemoter" DisplayFormat="{IFNULL(if(&quot;Fastende&quot; = $predFastende.verdi, &quot;Fastende&quot;, &quot;&quot;), &quot;&quot;)}" SortFormat="" IsEditable="true" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions>
+        <FormatExpression Id="6b82dbf7-5506-4aac-9545-59b7810f67f8">
+          <WhenExpression Value="IFNULL(IF(&quot;Fastende&quot; = $predFastende.verdi, TRUE, FALSE), FALSE)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>F1 M 58.5832,55.4172L 17.4169,55.4171C 15.5619,53.5621 15.5619,50.5546 17.4168,48.6996L 35.201,15.8402C 37.056,13.9852 40.0635,13.9852 41.9185,15.8402L 58.5832,48.6997C 60.4382,50.5546 60.4382,53.5622 58.5832,55.4172 Z M 34.0417,25.7292L 36.0208,41.9584L 39.9791,41.9583L 41.9583,25.7292L 34.0417,25.7292 Z M 38,44.3333C 36.2511,44.3333 34.8333,45.7511 34.8333,47.5C 34.8333,49.2489 36.2511,50.6667 38,50.6667C 39.7489,50.6667 41.1666,49.2489 41.1666,47.5C 41.1666,45.7511 39.7489,44.3333 38,44.3333 Z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF980707</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Pasienten er fastende</Description>
+        </FormatExpression>
+      </FormatExpressions>
+      <KeyValues>
+        <KeyValue Key="DocumentCreateConceptId" Value="$ARENA-HEALTHRECORD-DOCUMENTCONCEPT/TAVLEMOTE_FASTENDE" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="f27790a8-7223-4542-a4a2-e3de5b487199" Oid="Decubitus tiltak" Name="Decubitus tiltak" AdminName="Decubitus tiltak-PASLISTE" Description="" Categories="Tavlemoter" DisplayFormat="{IFNULL(IF(&quot;Prosedyre planlagt&quot; = $predDecibitusAction.status, &quot;Ikke utført&quot;, IF(&quot;Prosedyre fullført&quot; = $predDecibitusAction.status, &quot;Utført&quot;)), &quot;&quot;)}" SortFormat="" IsEditable="true" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions>
+        <FormatExpression Id="156a40ed-c5b4-4c0f-92b2-7c6ea2b9d568">
+          <WhenExpression Value="IFNULL(IF(&quot;Prosedyre planlagt&quot; = $predDecibitusAction.status,TRUE, FALSE), FALSE)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>F1 M 58.5832,55.4172L 17.4169,55.4171C 15.5619,53.5621 15.5619,50.5546 17.4168,48.6996L 35.201,15.8402C 37.056,13.9852 40.0635,13.9852 41.9185,15.8402L 58.5832,48.6997C 60.4382,50.5546 60.4382,53.5622 58.5832,55.4172 Z M 34.0417,25.7292L 36.0208,41.9584L 39.9791,41.9583L 41.9583,25.7292L 34.0417,25.7292 Z M 38,44.3333C 36.2511,44.3333 34.8333,45.7511 34.8333,47.5C 34.8333,49.2489 36.2511,50.6667 38,50.6667C 39.7489,50.6667 41.1666,49.2489 41.1666,47.5C 41.1666,45.7511 39.7489,44.3333 38,44.3333 Z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF980707</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Tiltak mot trykksår er ikke utført.</Description>
+        </FormatExpression>
+        <FormatExpression Id="7414a9ef-fb1f-4823-8df6-8931d8ff5825">
+          <WhenExpression Value="IFNULL(IF(&quot;Prosedyre fullført&quot; = $predDecibitusAction.status,TRUE, FALSE), FALSE)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M12,2A10,10,0,0,1,22,12A10,10,0,0,1,12,22A10,10,0,0,1,2,12A10,10,0,0,1,12,2 M12,4A8,8,0,0,0,4,12A8,8,0,0,0,12,20A8,8,0,0,0,20,12A8,8,0,0,0,12,4 M11,16.5L6.5,12 7.91,10.59 11,13.67 16.59,8.09 18,9.5 11,16.5z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF346A3B</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Tiltak mot trykksår er utført.</Description>
+        </FormatExpression>
+      </FormatExpressions>
+      <KeyValues>
+        <KeyValue Key="DocumentCreateConceptId" Value="$ARENA-HEALTHRECORD-DOCUMENTCONCEPT/TAVLEMOTE_DECUBITUS_TILTAK" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="579ae6a6-645f-4d50-830c-5927ebba7702" Oid="Legemiddelsamstemming" Name="Legemiddelsamstemming" AdminName="Legemiddelsamstemming-PASLISTE" Description="" Categories="Tavlemoter" DisplayFormat="{IFNULL(IF($predLMSRisk.status = &quot;Bruker ikke faste medisiner&quot;, &quot;Ingen faste medisiner&quot;, IF(and($predLMSRisk.status = &quot;Bruker faste medisiner&quot;, $predLMSAction.status = &quot;Prosedyre planlagt&quot;), &quot;LMS nødvendig&quot;, IF(and($predLMSRisk.status = &quot;Bruker faste medisiner&quot;, $predLMSAction.status = &quot;Prosedyre fullført&quot;), &quot;LMS utført&quot;))),&quot;&quot;)}" SortFormat="" IsEditable="true" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions>
+        <FormatExpression Id="4dd0c8a0-3534-47f4-806a-901935307b2b">
+          <WhenExpression Value="IFNULL(IF(and($predLMSRisk.status = &quot;Bruker faste medisiner&quot;, $predLMSAction.status = &quot;Prosedyre planlagt&quot;), TRUE, FALSE), FALSE)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>F1 M 58.5832,55.4172L 17.4169,55.4171C 15.5619,53.5621 15.5619,50.5546 17.4168,48.6996L 35.201,15.8402C 37.056,13.9852 40.0635,13.9852 41.9185,15.8402L 58.5832,48.6997C 60.4382,50.5546 60.4382,53.5622 58.5832,55.4172 Z M 34.0417,25.7292L 36.0208,41.9584L 39.9791,41.9583L 41.9583,25.7292L 34.0417,25.7292 Z M 38,44.3333C 36.2511,44.3333 34.8333,45.7511 34.8333,47.5C 34.8333,49.2489 36.2511,50.6667 38,50.6667C 39.7489,50.6667 41.1666,49.2489 41.1666,47.5C 41.1666,45.7511 39.7489,44.3333 38,44.3333 Z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF980707</SymbolForegroundColor>
+          <AdminDescription />
+          <Description />
+        </FormatExpression>
+      </FormatExpressions>
+      <KeyValues>
+        <KeyValue Key="DocumentCreateConceptId" Value="$ARENA-HEALTHRECORD-DOCUMENTCONCEPT/TAVLEMOTE_LMS" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="45d8ea3f-e32c-4eac-b71c-e50deba8c2ae" Oid="Kommentar utreise" Name="Kommentar utreise" AdminName="Kommentar utreise-PASLISTE" Description="" Categories="Tavlemoter" DisplayFormat="$predUtreiseKommentar.comment" SortFormat="" IsEditable="true" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues>
+        <KeyValue Key="DocumentCreateConceptId" Value="$ARENA-HEALTHRECORD-DOCUMENTCONCEPT/TAVLEMOTE_UTREISE_KOMMENTAR" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+  </DataElements>
+  <KeyValues />
+</VaqmConfiguration>
