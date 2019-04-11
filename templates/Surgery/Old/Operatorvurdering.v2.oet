@@ -1,0 +1,278 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>43e416d2-db3f-4c08-8cad-791dce0f5053</id>
+  <name>Operatørvurdering_v2</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose>Benyttes av bestiller eller operatør for å angi spesifikke detaljer i forberedelse til operasjon. </purpose>
+      <use>Brukes som deldokument i et sammensatt dokument etter at den initielle bestillingen er godkjent. Kan også oppdateres som selvstendig deldokument. </use>
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <annotations path="[openEHR-EHR-COMPOSITION.encounter.v1]/content[openEHR-EHR-EVALUATION.precaution.v1]/data[at0001]/items[at0013]">
+    <items>
+      <item>
+        <key>Notes.Comment</key>
+        <value>Skjules i skjema og settes om standard til medikasjon pause</value>
+      </item>
+    </items>
+  </annotations>
+  <annotations path="[openEHR-EHR-COMPOSITION.encounter.v1]/content[openEHR-EHR-ACTION.procedure.v1]/description[at0001]/items[openEHR-EHR-CLUSTER.healthcare_resource_dips.v1]/items[at0002]">
+    <items>
+      <item>
+        <key>Notes.Comment</key>
+        <value>Legge til kodeverk Healthcare party for å finne ressurs</value>
+      </item>
+    </items>
+  </annotations>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Operatørvurdering">
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/diagnose" path="/content">
+      <Rule path="/data[at0001]/items[at0002]" name="Indikasjon" />
+      <Rule path="/data[at0001]/items[at0009]" max="0" />
+      <Rule path="/data[at0001]/items[at0012]" max="0" />
+      <Rule path="/data[at0001]/items[at0077]" max="0" />
+      <Rule path="/data[at0001]/items[at0003]" max="0" />
+      <Rule path="/data[at0001]/items[at0005]" max="0" />
+      <Rule path="/data[at0001]/items[at0072]" max="0" />
+      <Rule path="/data[at0001]/items[at0030]" max="0" />
+      <Rule path="/data[at0001]/items[at0073]" max="0" />
+      <Rule path="/data[at0001]/items[at0069]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.problem_diagnosis_dips.v1" concept_name="Problem/diagnose detaljer" path="/data[at0001]/items[at0043]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="ICD10" terminologyLang="en-GB" queryName="ICD10" />
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>SNOMED-CT::8319008::Hoveddiagnose</includedValues>
+            <includedValues>SNOMED-CT::85097005::Sekundærdiagnose</includedValues>
+            <includedValues>SNOMED-CT::148006::Foreløpig diagnose</includedValues>
+            <includedValues>SNOMED-CT::5558000::Arbeidsdiagnose</includedValues>
+            <includedValues>SNOMED-CT::47965005::Differensialdiagnose</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+    </Content>
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" path="/content">
+      <Rule path="/description[at0001]/items[at0002]" name="Operasjonstype">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="ARK-VI-OPERASJONSTYPER" terminologyLang="en-GB" queryName="ARK-VI-OPERASJONSTYPER" />
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0001]/items[at0065]" max="0" />
+      <Rule path="/description[at0001]/items[at0058]" max="0" />
+      <Rule path="/description[at0001]/items[at0063]" max="0" />
+      <Rule path="/description[at0001]/items[at0048]" max="0" />
+      <Rule path="/description[at0001]/items[at0069]" max="0" />
+      <Rule path="/description[at0001]/items[at0006]" max="0" />
+      <Rule path="/description[at0001]/items[at0066]" max="0" />
+      <Rule path="/description[at0001]/items[at0060]" max="0" />
+      <Rule path="/description[at0001]/items[at0061]" max="0" />
+      <Rule path="/description[at0001]/items[at0067]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>SNOMED-CT::387713003::Kirurgi prosedyre</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0001]/items[at0014]" max="0" />
+      <Rule path="/description[at0001]/items[at0005]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.surgery_details_dips.v1" concept_name="Operasjonsdetaljer" path="/description[at0001]/items[at0003]">
+        <Rule path="/items[at0003]/items[at0005]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Høyre</includedValues>
+            <includedValues>Venstre</includedValues>
+            <includedValues>Begge</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" path="/description[at0001]/items[at0003]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="NCSP" terminologyLang="en-GB" queryName="NCSP" />
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>SNOMED-CT::399455000::Hovedprosedyre</includedValues>
+            <includedValues>SNOMED-CT::262134003::Sekundærprosedyre</includedValues>
+            <includedValues>SNOMED-CT::261554009::Reoperasjon</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0004]" max="1" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.healthcare_resource_dips.v1" concept_name="Helsetjenesteressurs" path="/description[at0001]/items[at0003]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>FE-RESSURSTYPE::HK::Hovedkirurg</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0002]" name="Ønsket ressurs">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="DIPS" terminologyLang="en-GB" queryName="HEALTHCAREPARTY" />
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0004]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>2.16.578.1.12.4.1.1.1101::JA::Ja</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0005]" max="0" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.estimated_surgery_time_dips.v1" concept_name="Estimert knivtid" path="/description[at0001]/items[at0003]" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.reoperation_details.v1" concept_name="Reoperasjonsdetaljer" path="/description[at0001]/items[at0003]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ARENA-AARSAK-REOPR::AR1::Blødning</includedValues>
+            <includedValues>ARENA-AARSAK-REOPR::AR2::Infeksjon</includedValues>
+            <includedValues>ARENA-AARSAK-REOPR::AR3::Mekanisk</includedValues>
+            <includedValues>ARENA-AARSAK-REOPR::AR4::Annet</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0002]" max="0" />
+      </Items>
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.precaution.v1" concept_name="Forholdsregel" path="/content">
+      <Rule path="/data[at0001]/items[at0002]" name="Medikasjon pause">
+        <constraint xsi:type="textConstraint">
+          <includedValues>SNOMED-CT::274512008::Medikasjon pause</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0014]" max="0" />
+      <Rule path="/data[at0001]/items[at0003]" max="1" name="Medisiner som skal seponeres" />
+      <Rule path="/data[at0001]/items[at0013]" max="0" />
+      <Rule path="/data[at0001]/items[at0008]" max="0" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.container_dips.v1" concept_name="Container" max="1" path="/content" name="ASA kirurg">
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.asa_status.v1" concept_name="ASA-klassifikasjon" path="/data[at0001]/items[at0004]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <excludedValues>local::at0008</excludedValues>
+            <excludedValues>local::at0009</excludedValues>
+            <excludedValues>local::at0010</excludedValues>
+            <excludedValues>local::at0011</excludedValues>
+            <excludedValues>local::at0012</excludedValues>
+            <excludedValues>local::at0013</excludedValues>
+          </constraint>
+        </Rule>
+      </Items>
+    </Content>
+    <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.request-procedure.v1" concept_name="Prosedyrerekvirering" max="1" path="/content" name="Anestesirekvirering">
+      <Rule path="/activities[at0001]" max="1" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0121.1]" name="Ønsket anestesi">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="ARK-ANE-OENSKET-ANESTESI" terminologyLang="en-GB" queryName="ARK-ANE-OENSKET-ANESTESI" />
+        </constraint>
+      </Rule>
+      <Rule path="/activities[at0001]/description[at0009]/items[at0.2]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>SNOMED-CT::399248000::Anestesi prosedyre</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/activities[at0001]/description[at0009]/items[at0135.1]" name="Kommentar" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0062]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0064]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0065.1]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0068]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0146.1]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0145.1]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0040.1]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0144.1]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0076]" max="0" />
+      <Rule path="/activities[at0001]/description[at0009]/items[at0078]" max="0" />
+      <Rule path="/protocol[at0008]/items[at0010.1]" max="0" />
+      <Rule path="/protocol[at0008]/items[at0011]" max="0" />
+      <Rule path="/protocol[at0008]/items[at0127.1]" max="0" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.recommendation.v1" concept_name="Anbefaling" max="1" path="/content" name="Antibiotikaprofylakse under operasjon">
+      <Rule path="/data[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>SNOMED-CT::422181004::Antibiotikaprofylakse</includedValues>
+        </constraint>
+      </Rule>
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.recommendation.v1" concept_name="Anbefaling" max="1" path="/content" name="Tromboseprofylakse under operasjon">
+      <Rule path="/data[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>SNOMED-CT::421728001::Tromboseprofylakse</includedValues>
+        </constraint>
+      </Rule>
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.recommendation.v1" concept_name="Anbefaling" max="1" path="/content" name="Annen profylakse under operasjon">
+      <Rule path="/data[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>SNOMED-CT::182929008::Annen profylakse under operasjon</includedValues>
+        </constraint>
+      </Rule>
+    </Content>
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.health_education_dips.v1" concept_name="Health education" max="1" path="/content" name="Informasjon gitt">
+      <Rule path="/description[at0001]/items[at0002]" name="Informasjon gitt">
+        <constraint xsi:type="textConstraint">
+          <includedValues>2.16.578.1.12.4.1.1.1101::JA::Ja</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0001]/items[at0003]" name="Beskrivelse" />
+      <Rule path="/description[at0001]/items[at0004]" max="0" />
+      <Rule path="/description[at0001]/items[at0012]" max="1" name="Informasjon gitt">
+        <constraint xsi:type="textConstraint">
+          <includedValues>SNOMED-CT::171035004::Informasjon gitt</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0001]/items[at0005]" max="0" />
+      <Rule path="/description[at0001]/items[at0020]" max="0" />
+      <Rule path="/description[at0001]/items[at0010]" max="0" />
+      <Rule path="/description[at0001]/items[at0019]" max="0" />
+    </Content>
+    <Context />
+  </definition>
+</template>

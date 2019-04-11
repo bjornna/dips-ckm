@@ -27,7 +27,7 @@ description
 		>
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"">
+			purpose = <"Arketypen brukes i vedtaksmodulen i DIPS Arena.">
 			use = <"">
 			misuse = <"">
 			copyright = <"">
@@ -36,7 +36,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"F2306181F4DCC4BB591662C8C68424F5">
+		["MD5-CAM-1.0.1"] = <"D38A74C10E85ECD9F6DDF5A6AA62813A">
 	>
 
 definition
@@ -46,48 +46,7 @@ definition
 				description matches {
 					ITEM_TREE[at0002] matches {	-- Tree
 						items cardinality matches {0..*; unordered} matches {
-							ELEMENT[at0004] occurrences matches {0..1} matches {	-- Helsetjenesteenhet
-								value matches {
-									DV_TEXT matches {*}
-								}
-							}
-							ELEMENT[at0024] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak i journalnotat datert:
-								value matches {
-									DV_DATE matches {*}
-								}
-							}
-							ELEMENT[at0025] occurrences matches {0..1} matches {	-- Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette
-								value matches {
-									DV_TEXT matches {*}
-								}
-							}
-							ELEMENT[at0027] occurrences matches {0..1} matches {	-- Begrunnelse for vedtaket er dokumentert i eget journalnotat
-								value matches {
-									DV_BOOLEAN matches {
-										value matches {True, False}
-									}
-								}
-							}
-							ELEMENT[at0005] occurrences matches {0..1} matches {	-- Dato og tidspunkt vedtak fattet:
-								value matches {
-									DV_DATE_TIME matches {
-										value matches {yyyy-mm-ddTHH:MM:SS}
-									}
-								}
-							}
-							ELEMENT[at0007] occurrences matches {0..*} matches {	-- Begrunnelse for innskrenket forbindelse
-								value matches {
-									DV_CODED_TEXT matches {
-										defining_code matches {
-											[local::
-											at0012, 	-- Sterke behandlingsmessige hensyn
-											at0013, 	-- Sterke velferdsmessige hensyn
-											at0014]	-- Sterke hensyn til nærstående person
-										}
-									}
-								}
-							}
-							ELEMENT[at0011] occurrences matches {0..*} matches {	-- Hvilke innskrenkninger vedtaket omfatter
+							ELEMENT[at0011] occurrences matches {0..4} matches {	-- Innskrenkningen omfatter
 								value matches {
 									DV_CODED_TEXT matches {
 										defining_code matches {
@@ -103,31 +62,37 @@ definition
 							ELEMENT[at0019] occurrences matches {0..1} matches {	-- Vedtak gjelder fra og med
 								value matches {
 									DV_DATE_TIME matches {
-										value matches {yyyy-mm-ddTHH:MM:SS}
+										value matches {yyyy-mm-ddTHH:??:??}
 									}
 								}
 							}
 							ELEMENT[at0021] occurrences matches {0..1} matches {	-- Vedtak gjelder til og med
 								value matches {
 									DV_DATE_TIME matches {
-										value matches {yyyy-mm-ddTHH:MM:SS}
+										value matches {yyyy-mm-ddTHH:??:??}
 									}
 								}
 							}
-							ELEMENT[at0020] occurrences matches {0..1} matches {	-- Pasienten er under tvungent psykisk helsevern i form av døgnopphold i institusjon
+							ELEMENT[at0007] occurrences matches {0..3} matches {	-- Begrunnelse for innskrenket forbindelse
 								value matches {
-									DV_BOOLEAN matches {
-										value matches {True}
+									DV_CODED_TEXT matches {
+										defining_code matches {
+											[local::
+											at0012, 	-- Sterke behandlingsmessige hensyn
+											at0013, 	-- Sterke velferdsmessige hensyn
+											at0014]	-- Sterke hensyn til nærstående person
+										}
 									}
+								}
+							}
+							ELEMENT[at0028] occurrences matches {0..1} matches {	-- Nedenfor fremgår begrunnelse for vedtaket
+								value matches {
+									DV_TEXT matches {*}
 								}
 							}
 							allow_archetype CLUSTER[at0022] occurrences matches {0..*} matches {	-- Vedtakstype
 								include
 									archetype_id/value matches {/openEHR-EHR-CLUSTER\.vedtakstype(-[a-zA-Z0-9_]+)*\.v1/}
-							}
-							allow_archetype CLUSTER[at0026] occurrences matches {0..*} matches {	-- Vurdering av pasientinnsyn
-								include
-									archetype_id/value matches {/.*/}
 							}
 						}
 					}
@@ -152,83 +117,57 @@ ontology
 					text = <"Tree">
 					description = <"@ internal @">
 				>
-				["at0004"] = <
-					text = <"Helsetjenesteenhet">
-					description = <"Identifikasjon av den enheten hvor vedtaket fattes.">
-				>
-				["at0005"] = <
-					text = <"Dato og tidspunkt vedtak fattet:">
-					description = <"Det tidspunkt (dato og klokkeslett) vedtaket ble fattet.">
-				>
 				["at0007"] = <
 					text = <"Begrunnelse for innskrenket forbindelse">
-					description = <"Standard kodeverk: 9284 Begrunnelse for Innskrenket forbindelse med omverdenen - psykisk helsevern">
+					description = <"Standard kodeverk 9284 Begrunnelse for Innskrenket forbindelse med omverdenen - psykisk helsevern.">
 				>
 				["at0011"] = <
-					text = <"Hvilke innskrenkninger vedtaket omfatter">
-					description = <"Benyttes for å angi hvilke innskrenkninger i kontakten med omverdenen som er vedtatt.
-Standard kodeverk: 9283 Innskrenket forbindelse med omverdenen
-">
+					text = <"Innskrenkningen omfatter">
+					description = <"Standard kodeverk 9283 Innskrenket forbindelse med omverdenen.">
 				>
 				["at0012"] = <
 					text = <"Sterke behandlingsmessige hensyn">
-					description = <"*">
+					description = <"Sterke behandlingsmessige hensyn">
 				>
 				["at0013"] = <
 					text = <"Sterke velferdsmessige hensyn">
-					description = <"*">
+					description = <"Sterke velferdsmessige hensyn">
 				>
 				["at0014"] = <
 					text = <"Sterke hensyn til nærstående person">
-					description = <"*">
+					description = <"Sterke hensyn til nærstående person">
 				>
 				["at0015"] = <
 					text = <"Innskrenkninger i retten til å motta besøk">
-					description = <"*">
+					description = <"Innskrenkninger i retten til å motta besøk">
 				>
 				["at0016"] = <
 					text = <"Innskrenkninger i retten til å benytte telefon">
-					description = <"*">
+					description = <"Innskrenkninger i retten til å benytte telefon">
 				>
 				["at0017"] = <
 					text = <"Innskrenkninger i retten til å motta brev og pakker">
-					description = <"*">
+					description = <"Innskrenkninger i retten til å motta brev og pakker">
 				>
 				["at0018"] = <
 					text = <"Innskrenkninger i retten til å sende brev og pakker">
-					description = <"*">
+					description = <"Innskrenkninger i retten til å sende brev og pakker">
 				>
 				["at0019"] = <
 					text = <"Vedtak gjelder fra og med">
-					description = <"*">
-				>
-				["at0020"] = <
-					text = <"Pasienten er under tvungent psykisk helsevern i form av døgnopphold i institusjon">
-					description = <"Sett hake dersom pasienten er er under tvungent psykisk helsevern i form av døgnopphold i institusjon, la stå tom ellers.">
+					description = <"Dato og klokkeslett vedtaket gjelder fra.">
 				>
 				["at0021"] = <
 					text = <"Vedtak gjelder til og med">
-					description = <"*">
+					description = <"Dato og klokkeslett vedtaket gjelder til.">
 				>
 				["at0022"] = <
 					text = <"Vedtakstype">
-					description = <"*">
+					description = <"Standard kodeverk 9275 Vedtak etter psykisk helsevernloven.">
 				>
-				["at0024"] = <
-					text = <"Begrunnelse for vedtak i journalnotat datert:">
-					description = <"Referanse til journalnotat med nærmere begrunnelse for vedtaket.">
-				>
-				["at0025"] = <
-					text = <"Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette">
-					description = <"Dersom pasienten på det tidspunktet vedtaket fattes nektes innsyn i hele eller deler av begrunnelsen for vedtaket etter bestemmelsen i pasient- og brukerrettighetsloven § 3 2 tredje ledd, skal ikke begrunnelsen for vedtaket registreres i tekstfeltet under, men i et eget journalnotat. Begrunnelsen for å nekte innsyn må også fremkomme i samme journalnotat.">
-				>
-				["at0026"] = <
-					text = <"Vurdering av pasientinnsyn">
-					description = <"*">
-				>
-				["at0027"] = <
-					text = <"Begrunnelse for vedtaket er dokumentert i eget journalnotat">
-					description = <"*">
+				["at0028"] = <
+					text = <"Nedenfor fremgår begrunnelse for vedtaket">
+					description = <"Begrunnelsen for vedtaket.">
 				>
 			>
 		>
@@ -246,83 +185,57 @@ Standard kodeverk: 9283 Innskrenket forbindelse med omverdenen
 					text = <"Tree">
 					description = <"@ internal @">
 				>
-				["at0004"] = <
-					text = <"*Helsetjenesteenhet(nb)">
-					description = <"*Identifikasjon av den enheten hvor vedtaket fattes.(nb)">
-				>
-				["at0005"] = <
-					text = <"*Dato og tidspunkt vedtak fattet:(nb)">
-					description = <"*Det tidspunkt (dato og klokkeslett) vedtaket ble fattet.(nb)">
-				>
 				["at0007"] = <
 					text = <"*Begrunnelse for innskrenket forbindelse(nb)">
-					description = <"*Standard kodeverk: 9284 Begrunnelse for Innskrenket forbindelse med omverdenen - psykisk helsevern(nb)">
+					description = <"*Standard kodeverk 9284 Begrunnelse for Innskrenket forbindelse med omverdenen - psykisk helsevern.(nb)">
 				>
 				["at0011"] = <
-					text = <"*Hvilke innskrenkninger vedtaket omfatter(nb)">
-					description = <"*Benyttes for å angi hvilke innskrenkninger i kontakten med omverdenen som er vedtatt.
-Standard kodeverk: 9283 Innskrenket forbindelse med omverdenen
-(nb)">
+					text = <"*Innskrenkningen omfatter(nb)">
+					description = <"*Standard kodeverk 9283 Innskrenket forbindelse med omverdenen.(nb)">
 				>
 				["at0012"] = <
-					text = <"Sterke behandlingsmessige hensyn">
-					description = <"*">
+					text = <"*Sterke behandlingsmessige hensyn(nb)">
+					description = <"*Sterke behandlingsmessige hensyn(nb)">
 				>
 				["at0013"] = <
-					text = <"Sterke velferdsmessige hensyn">
-					description = <"*">
+					text = <"*Sterke velferdsmessige hensyn(nb)">
+					description = <"*Sterke velferdsmessige hensyn(nb)">
 				>
 				["at0014"] = <
-					text = <"Sterke hensyn til nærstående person">
-					description = <"*">
+					text = <"*Sterke hensyn til nærstående person(nb)">
+					description = <"*Sterke hensyn til nærstående person(nb)">
 				>
 				["at0015"] = <
-					text = <"Innskrenkninger i retten til å motta besøk">
-					description = <"*">
+					text = <"*Innskrenkninger i retten til å motta besøk(nb)">
+					description = <"*Innskrenkninger i retten til å motta besøk(nb)">
 				>
 				["at0016"] = <
-					text = <"Innskrenkninger i retten til å benytte telefon">
-					description = <"*">
+					text = <"*Innskrenkninger i retten til å benytte telefon(nb)">
+					description = <"*Innskrenkninger i retten til å benytte telefon(nb)">
 				>
 				["at0017"] = <
-					text = <"Innskrenkninger i retten til å motta brev og pakker">
-					description = <"*">
+					text = <"*Innskrenkninger i retten til å motta brev og pakker(nb)">
+					description = <"*Innskrenkninger i retten til å motta brev og pakker(nb)">
 				>
 				["at0018"] = <
-					text = <"Innskrenkninger i retten til å sende brev og pakker">
-					description = <"*">
+					text = <"*Innskrenkninger i retten til å sende brev og pakker(nb)">
+					description = <"*Innskrenkninger i retten til å sende brev og pakker(nb)">
 				>
 				["at0019"] = <
 					text = <"*Vedtak gjelder fra og med(nb)">
-					description = <"**(nb)">
-				>
-				["at0020"] = <
-					text = <"*Pasienten er under tvungent psykisk helsevern i form av døgnopphold i institusjon(nb)">
-					description = <"*Sett hake dersom pasienten er er under tvungent psykisk helsevern i form av døgnopphold i institusjon, la stå tom ellers.(nb)">
+					description = <"*Dato og klokkeslett vedtaket gjelder fra.(nb)">
 				>
 				["at0021"] = <
 					text = <"*Vedtak gjelder til og med(nb)">
-					description = <"**(nb)">
+					description = <"*Dato og klokkeslett vedtaket gjelder til.(nb)">
 				>
 				["at0022"] = <
 					text = <"*Vedtakstype(nb)">
-					description = <"**(nb)">
+					description = <"*Standard kodeverk 9275 Vedtak etter psykisk helsevernloven.(nb)">
 				>
-				["at0024"] = <
-					text = <"*Begrunnelse for vedtak i journalnotat datert:(nb)">
-					description = <"*Referanse til journalnotat med nærmere begrunnelse for vedtaket.(nb)">
-				>
-				["at0025"] = <
-					text = <"*Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette(nb)">
-					description = <"*Dersom pasienten på det tidspunktet vedtaket fattes nektes innsyn i hele eller deler av begrunnelsen for vedtaket etter bestemmelsen i pasient- og brukerrettighetsloven § 3 2 tredje ledd, skal ikke begrunnelsen for vedtaket registreres i tekstfeltet under, men i et eget journalnotat. Begrunnelsen for å nekte innsyn må også fremkomme i samme journalnotat.(nb)">
-				>
-				["at0026"] = <
-					text = <"*Vurdering av pasientinnsyn(nb)">
-					description = <"**(nb)">
-				>
-				["at0027"] = <
-					text = <"*Begrunnelse for vedtaket er dokumentert i eget journalnotat(nb)">
-					description = <"**(nb)">
+				["at0028"] = <
+					text = <"*Nedenfor fremgår begrunnelse for vedtaket(nb)">
+					description = <"*Begrunnelsen for vedtaket.(nb)">
 				>
 			>
 		>

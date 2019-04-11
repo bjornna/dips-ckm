@@ -1,0 +1,245 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ACTION.careplan_focus_dips.v1
+
+concept
+	[at0000]	-- Registrering av fokusaktivitet
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Phuong Pedersen">
+		["email"] = <"ppe@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2017-03-27">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"The recording of activities undertaken with regard to an item/issue">
+			use = <"DIPS internal use">
+			misuse = <"">
+			copyright = <"DIPS AS">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Denne arketypen brukes for å dokumentere vurderingen av en problemstilling med tidspunkt og et valgfritt notat.">
+			use = <"DIPS intern bruk">
+			misuse = <"">
+			copyright = <"DIPS AS">
+		>
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"For vurdering av en problemstilling med tidspunkt og et valgfritt notat i Arena behandlingsplan">
+			use = <"DIPS intern bruk">
+			misuse = <"">
+			copyright = <"DIPS AS">
+		>
+	>
+	lifecycle_state = <"Initial">
+	other_contributors = <"Ivar Yrke, DIPS AS, Norway", "Terje Sagmyr, DIPS AS, Norway", "Sindre Nordbøe Årøen, DIPS AS, Norway", "Bjørn-Petter Johannessen, DIPS AS, Norway">
+	other_details = <
+		["current_contact"] = <"Phuong Pedersen, DIPS AS <ppe@dips.no>">
+		["MD5-CAM-1.0.1"] = <"CB3D39D1750E037EEA63A4E5A580D182">
+	>
+
+definition
+	ACTION[at0000] matches {	-- Registrering av fokusaktivitet
+		ism_transition matches {
+			ISM_TRANSITION[at0002] matches {	-- Foreslå
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::526]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0002]}		-- Foreslå
+					}
+				}
+			}
+			ISM_TRANSITION[at0008] matches {	-- Kanseller
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::528]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0008]}		-- Kanseller
+					}
+				}
+			}
+			ISM_TRANSITION[at0003] matches {	-- Vurder
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0003]}		-- Vurder
+					}
+				}
+			}
+			ISM_TRANSITION[at0004] matches {	-- Aktiver
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0004]}		-- Aktiver
+					}
+				}
+			}
+			ISM_TRANSITION[at0005] matches {	-- Avslutt
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::532]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0005]}		-- Avslutt
+					}
+				}
+			}
+		}
+		description matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0010] occurrences matches {0..*} matches {	-- Tilleggsinformasjon
+						include
+							archetype_id/value matches {/openEHR-EHR-CLUSTER\.careplan_documentation_additional_info(-[a-zA-Z0-9_]+)*\.v0/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"*Registrering av fokusaktivitet(nb)">
+					description = <"**(nb)">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Foreslå">
+					description = <"Legg til som foreslått problem">
+				>
+				["at0003"] = <
+					text = <"Vurder">
+					description = <"Gjør en vurdering av problemet">
+				>
+				["at0004"] = <
+					text = <"Aktiver">
+					description = <"Legg til som aktivt problem">
+				>
+				["at0005"] = <
+					text = <"Avslutt">
+					description = <"Avslutt problem">
+				>
+				["at0008"] = <
+					text = <"Kanseller">
+					description = <"Kanseller problem">
+				>
+				["at0010"] = <
+					text = <"*Tilleggsinformasjon(nb)">
+					description = <"**(nb)">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Registrering av fokusaktivitet">
+					description = <"*">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Foreslå">
+					description = <"Legg til som foreslått problem">
+				>
+				["at0003"] = <
+					text = <"Vurder">
+					description = <"Gjør en vurdering av problemet">
+				>
+				["at0004"] = <
+					text = <"Aktiver">
+					description = <"Legg til som aktivt problem">
+				>
+				["at0005"] = <
+					text = <"Avslutt">
+					description = <"Avslutt problem">
+				>
+				["at0008"] = <
+					text = <"Kanseller">
+					description = <"Kanseller problem">
+				>
+				["at0010"] = <
+					text = <"Tilleggsinformasjon">
+					description = <"*">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"*Registrering av fokusaktivitet(nb)">
+					description = <"**(nb)">
+				>
+				["at0001"] = <
+					text = <"*">
+					description = <"*">
+				>
+				["at0002"] = <
+					text = <"Suggest">
+					description = <"Suggest problem">
+				>
+				["at0003"] = <
+					text = <"Evaluate">
+					description = <"Evaluate problem">
+				>
+				["at0004"] = <
+					text = <"Activate">
+					description = <"Activate problem">
+				>
+				["at0005"] = <
+					text = <"Discontinue">
+					description = <"Discontinue problem">
+				>
+				["at0008"] = <
+					text = <"Cancel">
+					description = <"Cancel problem">
+				>
+				["at0010"] = <
+					text = <"*Tilleggsinformasjon(nb)">
+					description = <"**(nb)">
+				>
+			>
+		>
+	>

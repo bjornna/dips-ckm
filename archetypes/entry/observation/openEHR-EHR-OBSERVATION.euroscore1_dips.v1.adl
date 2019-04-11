@@ -1,0 +1,123 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.euroscore1_dips.v1
+
+concept
+	[at0000]	-- EuroSCORE DIPS
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			author = <
+				["name"] = <"Ingrid Skard">
+				["email"] = <"ins@dips.no">
+				["organisation"] = <"DIPS AS">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Anine Ramberg">
+		["email"] = <"ara@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2017-09-25">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"EuroSCORE is a method of calculating predicted operative mortality for patients undergoing cardiac surgery.">
+			use = <"Single archetype for recording EuroSCORE. Suffix _dips should be removed by the time the archetype is approved. In the meantime, this archetype is put into use in Norway (DIPS AS).">
+			keywords = <"euroscore", "euroscore ii">
+			misuse = <"Not to be used for any other purpose than recording EuroSCORE, ref. http://www.euroscore.org/what_is_euroscore">
+			copyright = <"DIPS AS">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"EuroSCORE er en internasjonal standard for kalkulasjon av mortalitetsrisiko for pasienter som skal gjennom en hjerteoperasjon.">
+			use = <"Brukes for registrering av EuroSCORE. Suffiks _dips skal fjernes ved godkjenning av arketypen. I mellomtiden settes arketypen i produksjon i Norge.">
+			misuse = <"Skal ikke brukes til andre formål enn registrering av EuroSCORE.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["references"] = <"Norsk oversettelse av EuroSCORE ved Ullevål Universitetssykehus.">
+		["current_contact"] = <"Anine Ramberg, DIPS AS<ara@dips.no>">
+		["MD5-CAM-1.0.1"] = <"19E445331D30FF8580BAB827E2668C25">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- EuroSCORE DIPS
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0024] occurrences matches {0..1} matches {	-- EuroSCORE
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"EuroSCORE DIPS">
+					description = <"Registrering av EuroSCORE.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0024"] = <
+					text = <"EuroSCORE">
+					description = <"EuroSCORE sum.">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"EuroSCORE DIPS">
+					description = <"*Registrering av EuroSCORE.(nb)">
+				>
+				["at0001"] = <
+					text = <"*Event Series(nb)">
+					description = <"*@ internal @(nb)">
+				>
+				["at0002"] = <
+					text = <"*Any event(nb)">
+					description = <"**(nb)">
+				>
+				["at0003"] = <
+					text = <"*Tree(nb)">
+					description = <"*@ internal @(nb)">
+				>
+				["at0024"] = <
+					text = <"*EuroSCORE(nb)">
+					description = <"*EuroSCORE sum.(nb)">
+				>
+			>
+		>
+	>

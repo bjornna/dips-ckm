@@ -1,0 +1,96 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ADMIN_ENTRY.trajectory_plan_midlertidig.v1
+
+concept
+	[at0000]	-- Trajectory plan midlertidig
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Benytters for å registrere tidspunkt for planlagte hendelser i et pakkeforløp.">
+			use = <"Utviklet for registrering av tidspunkt for planlagte hendelser i et pakkeforløp.">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"1EF05CF569FD328D99F3802DCC9CE605">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {	-- Trajectory plan midlertidig
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Type forløp
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					CLUSTER[at0006] occurrences matches {0..1} matches {	-- Målepunkter
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0007] occurrences matches {0..1} matches {	-- Målepunkt
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0008] occurrences matches {0..1} matches {	-- Neste måling
+								value matches {
+									DV_DATE matches {
+										value matches {yyyy-??-XX}
+									}
+								}
+							}
+						}
+					}
+					allow_archetype CLUSTER[at0005] occurrences matches {0..*} matches {	-- Cluster
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Trajectory plan midlertidig">
+					description = <"Angivelse av planlagte hendelser i et pakkeforløp.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Type forløp">
+					description = <"Type pakkeforløp hendelsene skal planlegges for.">
+				>
+				["at0005"] = <
+					text = <"Cluster">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Målepunkter">
+					description = <"Hendelsene det skal planlegges for i et pakkeforløp.">
+				>
+				["at0007"] = <
+					text = <"Målepunkt">
+					description = <"Den aktuelle hendelsen det skal planlegges for.">
+				>
+				["at0008"] = <
+					text = <"Neste måling">
+					description = <"Tidspunkt for den planlagte hendelsen.">
+				>
+			>
+		>
+	>

@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>0039b122-dd5f-4d8f-8f6b-29eb3b2f129a</id>
+  <name>FamHyperkolesterolemi</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose>Brukes for å registrere klinisk informason i forbindelse med Gentesting ved familjær hyperkolesterolemi</purpose>
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <annotations path="[openEHR-EHR-COMPOSITION.health_summary.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v0]/data[at0001]/events[at0002]/data[at0003]/items[openEHR-EHR-CLUSTER.laboratory_test_panel.v0]/items[at0002]/items[at0003]">
+    <items>
+      <item>
+        <key>Notes.Comment</key>
+        <value>Bør dette være et kodeverk?</value>
+      </item>
+    </items>
+  </annotations>
+  <annotations path="[openEHR-EHR-COMPOSITION.health_summary.v1]/content[openEHR-EHR-OBSERVATION.laboratory_test_result.v0]/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
+    <items>
+      <item>
+        <key>Notes.Comment</key>
+        <value>Finn Snomed Koden</value>
+      </item>
+    </items>
+  </annotations>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.health_summary.v1" concept_name="Sammendrag av helseinformasjon">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.laboratory_test_result.v0" concept_name="Laboratoriesvar" path="/content">
+      <Rule path="/data[at0001]/events[at0002]" max="1" name="Før kolesterolsenkende behandling" />
+      <Rule path="/data[at0001]/events[at0002 and name/value='Før kolesterolsenkende behandling']/data[at0003]/items[at0005]" name="Lipide" />
+      <Rule path="/data[at0001]/events[at0002 and name/value='Før kolesterolsenkende behandling']/data[at0003]/items[at0073]">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Coded_text</includedTypes>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0002 and name/value='Før kolesterolsenkende behandling']/data[at0003]/items[at0075]" name="Årstall" />
+      <Rule path="/data[at0001]/events[at0002 and name/value='Før kolesterolsenkende behandling']/data[at0003]/items[at0077]" max="0" />
+      <Rule path="/data[at0001]/events[at0002 and name/value='Før kolesterolsenkende behandling']/data[at0003]/items[at0100]" max="0" />
+      <Rule path="/data[at0001]/events[at0002 and name/value='Før kolesterolsenkende behandling']/data[at0003]/items[at0057]" max="0" />
+      <Rule path="/data[at0001]/events[at0002 and name/value='Før kolesterolsenkende behandling']/data[at0003]/items[at0098]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]" max="1" clone="true" name="Sist målte verdier" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.laboratory_test_panel.v0" concept_name="Laboratoriesvargruppe" path="/data[at0001]/events[at0002 and name/value='Før kolesterolsenkende behandling']/data[at0003]/items[at0097]">
+        <Rule path="/items[at0002]" max="1" name="Totalkolesterol" />
+        <Rule path="/items[at0002 and name/value='Totalkolesterol']/items[at0001]">
+          <constraint xsi:type="multipleConstraint">
+            <includedTypes>Quantity</includedTypes>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0002 and name/value='Totalkolesterol']/items[at0003]" max="1" name="Fastende prøve?">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Ja</includedValues>
+            <includedValues>Nei</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0002 and name/value='Totalkolesterol']/items[at0004]" max="0" />
+        <Rule path="/items[at0002 and name/value='Totalkolesterol']/items[at0005]" max="0" />
+        <Rule path="/items[at0002 and name/value='Totalkolesterol']/items[at0006]" max="0" />
+        <Rule path="/items[at0002]" max="1" clone="true" name="Triglycerider" />
+        <Rule path="/items[at0002 and name/value='Triglycerider']/items[at0001]">
+          <constraint xsi:type="multipleConstraint">
+            <includedTypes>Quantity</includedTypes>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0002 and name/value='Triglycerider']/items[at0003]" max="1" name="Fastende prøve?" />
+        <Rule path="/items[at0002 and name/value='Triglycerider']/items[at0004]" max="0" />
+        <Rule path="/items[at0002 and name/value='Triglycerider']/items[at0005]" max="0" />
+        <Rule path="/items[at0002 and name/value='Triglycerider']/items[at0006]" max="0" />
+        <Rule path="/items[at0002]" max="1" clone="true" name="HDL_Kolesterol" />
+        <Rule path="/items[at0002 and name/value='HDL_Kolesterol']/items[at0001]">
+          <constraint xsi:type="multipleConstraint">
+            <includedTypes>Quantity</includedTypes>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0002 and name/value='HDL_Kolesterol']/items[at0003]" max="1" name="Fastende prøve?" />
+        <Rule path="/items[at0002 and name/value='HDL_Kolesterol']/items[at0004]" max="0" />
+        <Rule path="/items[at0002 and name/value='HDL_Kolesterol']/items[at0005]" max="0" />
+        <Rule path="/items[at0002 and name/value='HDL_Kolesterol']/items[at0006]" max="0" />
+        <Rule path="/items[at0002]" max="1" clone="true" name="LDS-Kolesterol" />
+        <Rule path="/items[at0002 and name/value='LDS-Kolesterol']/items[at0001]">
+          <constraint xsi:type="multipleConstraint">
+            <includedTypes>Quantity</includedTypes>
+            <includedTypes>Coded_text</includedTypes>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0002 and name/value='LDS-Kolesterol']/items[at0003]" max="1" name="Fastende prøve?" />
+        <Rule path="/items[at0002 and name/value='LDS-Kolesterol']/items[at0004]" max="0" />
+        <Rule path="/items[at0002 and name/value='LDS-Kolesterol']/items[at0005]" max="0" />
+        <Rule path="/items[at0002 and name/value='LDS-Kolesterol']/items[at0006]" max="0" />
+      </Items>
+    </Content>
+    <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.medication_order.v2" concept_name="Legemiddelordinering" path="/content">
+      <Rule path="/activities[at0001]/description[at0002]/items[at0070]" name="Medikament" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0091]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0092]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0094]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0009]" name="Dosering" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0047]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0173]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0174]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0062]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0044]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0105]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0107]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0018]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0148]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0113]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0129]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0167]" max="0" />
+    </Content>
+    <Context />
+  </definition>
+</template>

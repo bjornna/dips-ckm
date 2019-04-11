@@ -1,0 +1,148 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-EVALUATION.infeksjonsovervakning_dips.v1
+
+concept
+	[at0000]	-- Infeksjonsovervåkning
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"189EC9172E4B60E845383F5E65E167A0">
+	>
+
+definition
+	EVALUATION[at0000] matches {	-- Infeksjonsovervåkning
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Infeksjonstype
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Narkose
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Er infeksjon behandlet med antibiotika
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Infekjsjonsdato
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Sårets renhetsgrad
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Reoperert grunnet infeksjon
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					CLUSTER[at0007] occurrences matches {0..1} matches {	-- Høstested
+						items cardinality matches {1..*; unordered} matches {
+							ELEMENT[at0009] occurrences matches {0..1} matches {	-- Infeksjonsdato høstested
+								value matches {
+									DV_DATE_TIME matches {*}
+								}
+							}
+							ELEMENT[at0008] occurrences matches {0..1} matches {	-- Infeksjonstype høstested
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+						}
+					}
+					allow_archetype CLUSTER[at0011] occurrences matches {0..*} matches {	-- Detaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Infeksjonsovervåkning">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Infeksjonstype">
+					description = <"*IN: ingen infeksjon
+PS: Overflatisk postoperativ sårinfeksjon (diagnostisert av pasient)
+SI: Overflatisk postoperativ sårinfeksjon (diagnostisert av lege)
+DI: Dyp postoperativ sårinfeksjon (må diagnostiseres av lege)
+OS: Postoperativ sårinfeksjon i organ eller hulrom (må diagnostiseres av lege)">
+				>
+				["at0003"] = <
+					text = <"Er infeksjon behandlet med antibiotika">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Infekjsjonsdato">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Sårets renhetsgrad">
+					description = <"Rene sår
+. Rene-kontaminerte sår.
+Kontaminerte sår.  
+Urene og infiserte sår.">
+				>
+				["at0006"] = <
+					text = <"Reoperert grunnet infeksjon">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Høstested">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Infeksjonstype høstested">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Infeksjonsdato høstested">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Narkose">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Detaljer">
+					description = <"Brukes for å kunne legge til detaljer.">
+				>
+			>
+		>
+	>

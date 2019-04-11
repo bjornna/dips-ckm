@@ -22,6 +22,12 @@ language
 			>
 			accreditation = <"MD, DEAA, MBA, specialist in tropical medic">
 		>
+		["ar-sy"] = <
+			language = <[ISO_639-1::ar-sy]>
+			author = <
+				["name"] = <"Mona Saleh">
+			>
+		>
 		["es-ar"] = <
 			language = <[ISO_639-1::es-ar]>
 			author = <
@@ -29,12 +35,6 @@ language
 				["organisation"] = <"VinculoMedico">
 			>
 			accreditation = <"Medical Doctor">
-		>
-		["ar-sy"] = <
-			language = <[ISO_639-1::ar-sy]>
-			author = <
-				["name"] = <"Mona Saleh">
-			>
 		>
 	>
 description
@@ -80,7 +80,7 @@ Examples of detailed CLUSTER examination archetypes include those that describe 
 
 Narrative descriptions of clinical findings from existing clinical systems may be captured using the 'Description' data element.
 
-Clinicians may sometimes want to record a summative phrase such as 'chronic otitis media' as an Interpretation of the physical examination. In the context of the physical examination archetype this should only be understood  as 'physical signs are consistent with chronic otitis media'. While the summative phrase may appear to represent a diagnosis, safe and consistent querying requires a diagnosis to be recorded using the EVALUATION.problem_diagnosis archetype, even if the phrases are identical.">
+Clinicians may sometimes want to record a summative phrase such as 'chronic otitis media' as an Interpretation of the physical examination. In the context of the physical examination archetype this should only be understood as 'physical signs are consistent with chronic otitis media'. While the summative phrase may appear to represent a diagnosis, safe and consistent querying requires a diagnosis to be recorded using the EVALUATION.problem_diagnosis archetype, even if the phrases are identical.">
 			keywords = <"examination", "physical", "exam", "findings", "clinical">
 			misuse = <"Not to be used for recording history-taking observations - use specific OBSERVATION and CLUSTER archetypes. For example OBSERVATION.story and CLUSTER.symptom.
 
@@ -115,41 +115,41 @@ Skal ikke anvendes til å registrere satte diagnoser, til dette brukes EVALUATIO
 	lifecycle_state = <"published">
 	other_contributors = <"Sheryl Alexander, NT Department of Health, Australia", "Tomas Alme, DIPS ASA, Norway", "Nadim Anani, Karolinska Institutet, Sweden", "Anne Pauline Anderssen, Helse Nord RHF, Norway", "Rita Apelt, Department of Health,NT, Australia", "Vebjørn Arntzen, Oslo universitetssykehus HF, Norway", "Silje Ljosland Bakke, Helse Bergen HF, Norway (Editor)", "Lars Bitsch-Larsen, Haukeland University Hospital, Bergen, Norway", "Margaret Campbell, Queensland Health, Australia", "Rong Chen, Cambio Healthcare Systems, Sweden", "B Christensen, HUS, Norway", "Stephen Chu, NeHTA, Australia", "Margaret Cotter, AMSANT, Australia", "Lisbeth Dahlhaug, Helse Midt - Norge IT, Norway", "Michelle Dowden, Miwatj Health Ngalkanbuy Health, Australia", "Samo Drnovsek, Marand ltd, Slovenia", "Einar Fosse, UNN HF, Norwegian Centre for Integrated Care and Telemedicine, Norway", "Tim Garden, NTG Department of Health, Australia", "Tanya Gardner, CAAC, Australia", "Sam Heard, Ocean Informatics, Australia (Editor)", "Ingrid Heitmann, Oslo universitetssykehus HF, Norway", "Andreas Hering, Helse Bergen HF, Haukeland universitetssjukehus, Norway", "Anca Heyd, DIPS ASA, Norway", "Lars Morgan Karlsen, DIPS ASA, Norway", "Russell Leftwich, Russell B Leftwich MD, United States", "Sabine Leh, Helse-Bergen, Norway", "Heather Leslie, Ocean Informatics, Australia", "Hallvard Lærum, Oslo Universitetssykehus HF, Norway", "Ian McNicoll, freshEHR Clinical Informatics, United Kingdom (Editor)", "Bjørn Næss, DIPS ASA, Norway", "Jeremy Oats, NT Health, Australia", "Rune Pedersen, Universitetssykehuset i Nord Norge, Norway", "Steven Schatz, Department of Health (Northern Territory), Australia", "Anoop Shah, University College London, United Kingdom", "Line Sæle, Nasjonal IKT, Norway", "John Tore Valand, Haukeland Universitetssjukehus, Norway (Editor, Translation Editor)", "Cherie Whitbread, Royal Darwin Hospital, Australia", "Jo Wright, NT Dept of Health, Australia (Editor)", "Lin Zhang, BIPH, China">
 	other_details = <
-		["current_contact"] = <"Heather Leslie, Ocean Informatics, heather.leslie@oceaninformatics.com">
 		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
-		["revision"] = <"1.0.0">
-		["build_uid"] = <"b53663b0-b736-4678-b993-4fae41500f97">
+		["custodian_organisation"] = <"Nasjonal IKT">
+		["current_contact"] = <"Heather Leslie, Ocean Informatics, heather.leslie@oceaninformatics.com">
 		["original_namespace"] = <"no.nasjonalikt">
 		["original_publisher"] = <"Nasjonal IKT">
-		["MD5-CAM-1.0.1"] = <"477EA6F272A71EAD46B5E4A66065A449">
 		["custodian_namespace"] = <"no.nasjonalikt">
-		["custodian_organisation"] = <"Nasjonal IKT">
+		["MD5-CAM-1.0.1"] = <"2C300A214811804EEB160CAFCB6DE4D5">
+		["build_uid"] = <"6209bc9b-fe62-40ab-8d12-949a1c64e992">
+		["revision"] = <"1.1.0">
 	>
 
 definition
-	OBSERVATION[at0000] matches {	-- Funn ved fysisk undersøkelse
+	OBSERVATION[at0000] matches {	-- Physical examination findings
 		data matches {
 			HISTORY[at0001] matches {	-- Event Series
 				events cardinality matches {1..*; unordered} matches {
-					EVENT[at0002] occurrences matches {0..*} matches {	-- Uspesifisert hendelse
+					EVENT[at0002] occurrences matches {0..*} matches {	-- Any event
 						data matches {
 							ITEM_TREE[at0003] matches {	-- Tree
 								items cardinality matches {0..*; unordered} matches {
-									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Beskrivelse
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Description
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									allow_archetype CLUSTER[at0005] occurrences matches {0..*} matches {	-- Undersøkelsesdetaljer
+									allow_archetype CLUSTER[at0005] occurrences matches {0..*} matches {	-- Examination detail
 										include
 											archetype_id/value matches {/.*/}
 									}
-									ELEMENT[at0006] occurrences matches {0..*} matches {	-- Fortolkning
+									ELEMENT[at0006] occurrences matches {0..*} matches {	-- Interpretation
 										value matches {
 											DV_TEXT matches {*}
 										}
 									}
-									ELEMENT[at0011] occurrences matches {0..1} matches {	-- Kommentar
+									ELEMENT[at0011] occurrences matches {0..1} matches {	-- Comment
 										value matches {
 											DV_TEXT matches {*}
 										}
@@ -160,7 +160,12 @@ definition
 						state matches {
 							ITEM_TREE[at0009] matches {	-- Tree
 								items cardinality matches {0..*; unordered} matches {
-									ELEMENT[at0008] occurrences matches {0..*} matches {	-- Konfunderende faktorer
+									ELEMENT[at0008] occurrences matches {0..*} matches {	-- Confounding factors
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0013] occurrences matches {0..1} matches {	-- Position
 										value matches {
 											DV_TEXT matches {*}
 										}
@@ -175,11 +180,11 @@ definition
 		protocol matches {
 			ITEM_TREE[at0007] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
-					allow_archetype CLUSTER[at0010] occurrences matches {0..*} matches {	-- Detaljer om medisinsk utstyr
+					allow_archetype CLUSTER[at0010] occurrences matches {0..*} matches {	-- Device Details
 						include
 							archetype_id/value matches {/openEHR-EHR-CLUSTER\.device(-[a-zA-Z0-9_]+)*\.v1/}
 					}
-					allow_archetype CLUSTER[at0012] occurrences matches {0..*} matches {	-- Tilleggsinformasjon
+					allow_archetype CLUSTER[at0012] occurrences matches {0..*} matches {	-- Extension
 						include
 							archetype_id/value matches {/.*/}
 					}
@@ -248,6 +253,10 @@ ontology
 					text = <"*Cluster(en)">
 					description = <"**(en)">
 				>
+				["at0013"] = <
+					text = <"*Position(en)">
+					description = <"*The position of the subject at the time of examination.(en)">
+				>
 			>
 		>
 		["sl"] = <
@@ -306,6 +315,10 @@ ontology
 				["at0012"] = <
 					text = <"*Cluster(en)">
 					description = <"**(en)">
+				>
+				["at0013"] = <
+					text = <"*Position(en)">
+					description = <"*The position of the subject at the time of examination.(en)">
 				>
 			>
 		>
@@ -366,6 +379,10 @@ ontology
 					text = <"*Cluster(en)">
 					description = <"**(en)">
 				>
+				["at0013"] = <
+					text = <"*Position(en)">
+					description = <"*The position of the subject at the time of examination.(en)">
+				>
 			>
 		>
 		["en"] = <
@@ -394,12 +411,12 @@ ontology
 				["at0005"] = <
 					text = <"Examination detail">
 					description = <"Structured details of the physical examination.">
-					comment = <"Detailed clinical findings will be recorded as CLUSTER archetypes which can be nested within this SLOT to represent the fractal nature of clinical examination and allow for variation in clinician's requirements for examination documentation. For example: CLUSTER.palpation_of_uterus, CLUSTER.palpation_of_cervix and CLUSTER.palpation_of_fetus can be nested in this slot or within each other to represent the specific  requirements of clinicians working in the obstetric domains - content, priorities and level of detail will differ depending on clinical context, professional background and specialty.">
+					comment = <"Detailed clinical findings will be recorded as CLUSTER archetypes which can be nested within this SLOT to represent the fractal nature of clinical examination and allow for variation in clinician's requirements for examination documentation. For example: CLUSTER.palpation_of_uterus, CLUSTER.palpation_of_cervix and CLUSTER.palpation_of_fetus can be nested in this slot or within each other to represent the specific requirements of clinicians working in the obstetric domains - content, priorities and level of detail will differ depending on clinical context, professional background and specialty.">
 				>
 				["at0006"] = <
 					text = <"Interpretation">
 					description = <"Single word, phrase or brief description which represents the clinical meaning and significance of the physical examination findings.">
-					comment = <"Coding with a terminology is preferred, if possible. For example, 'normal examination' or 'tympanic membrane perforation'. ">
+					comment = <"Coding with a terminology is preferred, if possible. For example, 'normal examination' or 'tympanic membrane perforation'.">
 				>
 				["at0007"] = <
 					text = <"Tree">
@@ -426,6 +443,10 @@ ontology
 					description = <"Additional information required to capture local content or to align with other reference models/formalisms.">
 					comment = <"e.g. Local information requirements or additional metadata to align with FHIR or CIMI equivalents.">
 				>
+				["at0013"] = <
+					text = <"Position">
+					description = <"The body position of the subject during the examination.">
+				>
 			>
 		>
 		["nb"] = <
@@ -449,7 +470,7 @@ ontology
 				["at0004"] = <
 					text = <"Beskrivelse">
 					description = <"En narrativ beskrivelse av funn ved en klinisk undersøkelse av et individ.">
-					comment = <"Kan anvendes til å registrere en tekstlig sammenfatning av en komplett klinisk undersøkelse eller nøkkelfunn ved den kliniske undersøkelsen, som vil bli understøttet av strukturerte data. Dette dataelementet kan brukes for å fange opp \"legacy data\" som ikke er tilgjengelig i et strukturert format. Detaljer om spesifikt strukturert funn inkluderes ved å bruke CLUSTER-arketyper i \"Examination Detail\" SLOT. ">
+					comment = <"Kan anvendes til å registrere en tekstlig sammenfatning av en komplett klinisk undersøkelse eller nøkkelfunn ved den kliniske undersøkelsen, som vil bli understøttet av strukturerte data. Dette dataelementet kan brukes for å fange opp \"legacy data\" som ikke er tilgjengelig i et strukturert format. Detaljer om spesifikt strukturert funn inkluderes ved å bruke CLUSTER-arketyper i \"Examination Detail\" SLOT.">
 				>
 				["at0005"] = <
 					text = <"Undersøkelsesdetaljer">
@@ -488,6 +509,10 @@ For eksempel kan CLUSTER.palpation_of_uterus, CLUSTER.palpation_of Cervix, CLUST
 					text = <"Tilleggsinformasjon">
 					description = <"Ytterligere informasjon som er nødvendig for å registrere lokalt innhold/kontekst, eller for å sammenstille med andre referansemodeller/formalismer.">
 					comment = <"F.eks lokale informasjonskrav eller ekstra metadata for å tilpasse med FHIR eller CIMI ekvivalenter.">
+				>
+				["at0013"] = <
+					text = <"Stilling">
+					description = <"Individets kroppsstilling under undersøkelsen.">
 				>
 			>
 		>

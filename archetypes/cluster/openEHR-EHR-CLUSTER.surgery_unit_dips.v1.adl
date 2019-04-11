@@ -1,0 +1,104 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.surgery_unit_dips.v1
+
+concept
+	[at0000]	-- Operasjonssted
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"Dips ASA">
+		["date"] = <"2017-11-06">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for å definerer operasjonssted.">
+			use = <"Brukes ved bestilling og planlegging av operasjon til å angi hvilken helsetjenestetilbyder som skal utføre operasjon, og hvor operasjon skal utføres. 
+
+Kan også brukes for å angi tilsvarende informasjon etter operasjon. 
+
+Se forøvrig nærmere beskrivelse under referanser/andre detaljer. ">
+			keywords = <"operasjon", "helsetjenestetilbyder", "behandlingssted">
+			misuse = <"Skal ikke brukes for å angi anatomisk lokalisering. Dette er admin informasjon.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <"Bjørn Næss", ...>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"CF5AE048D1E0A9249BEBF8EEE61185BB">
+		["references"] = <"En bestilt operasjon er en helsetjeneste som utføres av en helsetjenestetilbyder. Det er denne helsetjenestetilbyderen som er adressat for bestillingen, og som gjennom dette er ansvarlig for oppfølging og gjennomføring av tjenesten.
+
+Det vil være helsetjenestetilbyderen som er ansvarlig for helsepersonellet som utfører aktivitetene i tjenesten. F.eks. gjelder dette å sikre at personell har fått den nødvendige opplæring, at prosedyrer er utformet og at de nødvendige arbeidsprosesser er etablert for å sikre en trygg gjennomføring av operasjonen.
+
+Helsetjenestetilbyderen defineres i denne arketypen gjennom feltene Sykehus og Avdeling. 
+
+Operasjoner utføres på et behandlingssted. Dette vil ofte være et bygg, campus eller sykehus. I mange tilfeller vil samme helsetjenestetilbyder disponere flere behandlingssted. Da er det nødvendig at bestilleren velger rett behandlingssted.
+
+Behandlingssted defineres i denne arketypen gjennom feltet Operasjonssted. ">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Operasjonssted
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Helseforetak
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Avdeling
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0005] occurrences matches {0..1} matches {	-- Fagområde
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Operasjonssted
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			allow_archetype CLUSTER[at0004] occurrences matches {0..*} matches {	-- Detaljer
+				include
+					archetype_id/value matches {/.*/}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Operasjonssted">
+					description = <"Angir hvilken helsetjenestetilbyder som skal utføre operasjonen og eventuelt hvor operasjonen skal utføres. ">
+				>
+				["at0001"] = <
+					text = <"Operasjonssted">
+					description = <"Angir behandlingsstedet som operasjonen skal utføres ved. Dette blir oppmøtestedet for helsepersonell og pasient som skal være med på operasjonen.">
+				>
+				["at0002"] = <
+					text = <"Helseforetak">
+					description = <"Helseforetak som er ansvarlig for gjennomføring av operasjonen. ">
+				>
+				["at0003"] = <
+					text = <"Avdeling">
+					description = <"Angir den organisatoriske avdelingen som er ansvarlig for gjennomføring av operasjonen.  Dersom avdeling er gitt vil implisitt sykehus/helseforetak også være gitt. ">
+				>
+				["at0004"] = <
+					text = <"Detaljer">
+					description = <"Evt. strukturerte detaljer.">
+				>
+				["at0005"] = <
+					text = <"Fagområde">
+					description = <"Valgfritt felt for å angi hvilket fagområde aktiviteten utføres under. Dette feltet kan brukes i kombinasjon med avdeling, eller som en selvstendig angivelse. Det er ulike bruk av dette i foretakene i dag. ">
+				>
+			>
+		>
+	>

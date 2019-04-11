@@ -1,0 +1,214 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-EVALUATION.exclusion-problem_diagnosis_dips.v1
+specialize
+	openEHR-EHR-EVALUATION.exclusion.v1
+
+concept
+	[at0000.1]	-- Eksklusjon av problem/diagnose
+language
+	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["name"] = <"Lars Bitsch-Larsen">
+				["organisation"] = <"Haukeland University Hospital of Bergen, Norway">
+			>
+			accreditation = <"MD, DEAA, MBA, spec in anesthesia, spec in tropical medicine.">
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Heather Leslie">
+		["email"] = <"heather.leslie@oceaninformatics.com">
+		["organisation"] = <"Ocean Informatics">
+		["date"] = <"2010-03-02">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To positively record statement/s about problems or diagnoses that need to be clinically excluded from the health record at a specific point in time.">
+			use = <"Use to record positive statement/s about the absence or exclusion of problems or diagnoses within the health record at a specific point in time. For example: to record that the subject has not ever had any significant problems or diagnoses; or that the subject has never been diagnosed with diabetes.
+
+This archetype has specifically been designed to avoid the need to use flags or terminology to express negation about any problems or diagnoses within the health record. 
+
+Exclusion statements can only be considered to be current and accurate at the time of recording. For example: recording an exclusion of the previous diagnosis of diabetes during a consultation is only relevant at the time and is effectively obsolete after if the results of a blood glucose test is above diagnostic levels.">
+			keywords = <"exclusion", "problem", "diagnosis">
+			misuse = <"Not to be used to record exclusion statements about adverse reactions, medications or procedures - use other specific specialisations of the EVALUATION.exclusion archetype for this purpose.">
+			copyright = <"© Nasjonal IKT HF">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For dokumentasjon av problemer eller diagnoser som er ekskluderte på et bestemt tidspunkt.">
+			use = <"Brukes til å registrere positiv uttalelse(r) om fravær eller utelukkelse av problemer eller diagnoser i pasientjournalen på et bestemt tidspunkt. For eksempel: å registrere at personen ikke har hatt vesentlige problemer eller diagnoser; eller at personen aldri er blitt diagnostisert med diabetes.
+
+Denne arketypen har blitt designet spesielt for å unngå behovet for å bruke flagg eller terminologi for å uttrykke negasjon om eventuelle problemer eller diagnoser i pasientjournalen. 
+
+Eksklusjonsuttalelser kan bare anses å være oppdatert og nøyaktig på registreringstidspunktet. For eksempel: å registrere utelukkelse av den tidligere diagnostisering av diabetes under en konsultasjon er bare aktuelt på det tidspunkt og er avleggs, dersom resultatene av en senere blodsukkermåling viser forhøyde verdier.">
+			keywords = <"eksklusjon", "problem", "diagnose">
+			misuse = <"Skal ikke brukes til å registrere eksklusjonsuttalelser om uønskede reaksjoner, medisiner eller prosedyrer - bruk andre spesifikke spesialiseringer av EVALUATION.exclusion arketypen for dette formålet.">
+			copyright = <"© Nasjonal IKT HF">
+		>
+	>
+	lifecycle_state = <"AuthorDraft">
+	other_contributors = <"Sam Heard, Ocean Informatics, Australia", "Ian McNicoll, Ocean Informatics, Australia", "Stephen Chu, NEHTA, Australia", "Stephen Royce, NEHTA, Australia">
+	other_details = <
+		["references"] = <"Exclusion of Problem/Diagnosis, draft archetype, NEHTA Clinical Knowledge Manager [Internet]. NEHTA. Authored: 02 Mar 2010. Available at: 
+http://dcm.nehta.org.au/ckm/#showArchetype_1013.1.1304_2(accessed 3 Sept 2013)">
+		["current_contact"] = <"Heather Leslie, Ocean Informatics, heather.leslie@oceaninformatics.com">
+		["MD5-CAM-1.0.1"] = <"9B7A26BB1671FC85DC9382C05EA44E0E">
+	>
+
+definition
+	EVALUATION[at0000.1] matches {	-- Eksklusjon av problem/diagnose
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0002.1] occurrences matches {1..*} matches {	-- Eksklusjonsutsagn
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0003.1] occurrences matches {0..*} matches {	-- Problem/diagnose
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {[ac0.1]}		-- Problem eller diagnose
+							}
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Kommentar
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0006] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Dato for oppdatering
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Exclusion Statement">
+					description = <"Generic, positive statement/s that need to be recorded as clinically excluded from the health record at a specific point in time.">
+				>
+				["at0000.1"] = <
+					text = <"Exclusion of a Problem/Diagnosis">
+					description = <"Positive statement/s about problems or diagnoses that need to be recorded as clinically excluded from the health record at a specific point in time.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Exclusion Statement">
+					description = <"The statement about an exclusion in the health record.">
+					comment = <"Use to capture any information that is needed to be positively recorded as being excluded within the record. The statement can support recording global statements or statements about a specified object. See specialisations for Medications, Adverse Reactions, Problem/Diagnosis and Procedures as common examples that have been explicitly modelled.">
+				>
+				["at0002.1"] = <
+					text = <"Exclusion Statement">
+					description = <"A statement about exclusion of use of known problems or diagnoses in the health record.">
+					comment = <"For example: \"No known significant problems or diagnoses\"; or \"No evidence of\" or \"Never diagnosed with\" (diabetes).">
+				>
+				["at0003"] = <
+					text = <"Specific Object">
+					description = <"Identification of the specific object/s to which the Exclusion Statement applies.">
+				>
+				["at0003.1"] = <
+					text = <"Problem/Diagnosis">
+					description = <"Identification of the specific problems/diagnoses to which the Exclusion Statement applies.">
+					comment = <"Coding of the Problem or Diagnosis with a terminology is desirable, where possible.">
+				>
+				["at0004"] = <
+					text = <"Date Last Updated">
+					description = <"The date at which the exclusion was last clinically asserted, affirmed or confirmed.">
+				>
+				["at0006"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0007"] = <
+					text = <"Comment">
+					description = <"Additional narrative about the Exclusion not captured in other fields.">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"*Exclusion Statement(en)">
+					description = <"*Generic, positive statement/s that need to be recorded as clinically excluded from the health record at a specific point in time.(en)">
+				>
+				["at0000.1"] = <
+					text = <"Eksklusjon av problem/diagnose">
+					description = <"Et positivt utsagn om problemer eller diagnoser som klinisk ekskluderes på et bestemt tidspunkt.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"*Exclusion Statement(en)">
+					description = <"*The statement about an exclusion in the health record.(en)">
+				>
+				["at0002.1"] = <
+					text = <"Eksklusjonsutsagn">
+					description = <"Et utsagn om eksklusjon av et kjent problem eller diagnose i pasientjournalen.">
+					comment = <"For eksempel: \"Ingen kjente signifikante problemer eller diagnoser\" eller \"Ingen evidens for \" eller \"Aldri blitt diagnostisert med\".... (diabetes)">
+				>
+				["at0003"] = <
+					text = <"*Specific Object(en)">
+					description = <"*Identification of the specific object/s to which the Exclusion Statement applies.(en)">
+				>
+				["at0003.1"] = <
+					text = <"Problem/diagnose">
+					description = <"Identifikasjon av problem(er)/diagnose(r) som eksklusjonen vedrører.">
+					comment = <"Koding av problem eller diagnose med terminologi foretrekkes når mulig.">
+				>
+				["at0004"] = <
+					text = <"Dato for oppdatering">
+					description = <"Dato for siste gang eksklusjonen ble bekreftet eller vurdert.">
+				>
+				["at0006"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0007"] = <
+					text = <"Kommentar">
+					description = <"Ytterligere narrativ tekst om eksklusjon som ikke fanges opp i andre felter.">
+				>
+			>
+		>
+	>
+	constraint_definitions = <
+		["en"] = <
+			items = <
+				["ac0.1"] = <
+					text = <"Problem or Diagnosis">
+					description = <"All possible problems or diagnoses.">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["ac0.1"] = <
+					text = <"Problem eller diagnose">
+					description = <"Alle mulige problemer eller diagnoser.">
+				>
+			>
+		>
+	>

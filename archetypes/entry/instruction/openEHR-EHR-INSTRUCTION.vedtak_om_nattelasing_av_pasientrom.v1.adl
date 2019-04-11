@@ -12,7 +12,7 @@ description
 	details = <
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
-			purpose = <"">
+			purpose = <"Arketypen brukes i vedtaksmodulen i DIPS Arena.">
 			use = <"">
 			misuse = <"">
 			copyright = <"">
@@ -21,7 +21,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"4970602C6852ADC5F84313A1ADCB5E8B">
+		["MD5-CAM-1.0.1"] = <"AECF9A4759FDC0D5FF42FE6E0FF972AD">
 	>
 
 definition
@@ -31,45 +31,21 @@ definition
 				description matches {
 					ITEM_TREE[at0002] matches {	-- Tree
 						items cardinality matches {0..*; unordered} matches {
-							ELEMENT[at0003] occurrences matches {0..1} matches {	-- Det foreligger tillatelse fra departementet til å låse dør til pasienten i tiden fra kl. 23.00 til kl. 06.00 etter en individuell vurdering av pasientens tilstand
+							ELEMENT[at0003] occurrences matches {0..1} matches {	-- Det foreligger tillatelse fra departementet til å låse dør til pasientrom i tiden fra kl. 23.00 til kl. 06.00
 								value matches {
 									DV_BOOLEAN matches {
 										value matches {True}
 									}
 								}
 							}
-							ELEMENT[at0004] occurrences matches {0..1} matches {	-- Dato tiltaket senest skal avsluttes
+							ELEMENT[at0004] occurrences matches {0..1} matches {	-- Tiltaket skal senest avsluttes
 								value matches {
 									DV_DATE_TIME matches {
-										value matches {yyyy-mm-ddTHH:MM:SS}
+										value matches {yyyy-mm-ddTHH:??:??}
 									}
 								}
 							}
-							ELEMENT[at0005] occurrences matches {0..1} matches {	-- Begrunnelse for vedtak i journalnotat datert:
-								value matches {
-									DV_DATE matches {*}
-								}
-							}
-							ELEMENT[at0018] occurrences matches {0..1} matches {	-- Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette
-								value matches {
-									DV_TEXT matches {*}
-								}
-							}
-							ELEMENT[at0020] occurrences matches {0..1} matches {	-- Begrunnelse for vedtaket er dokumentert i eget journalnotat
-								value matches {
-									DV_BOOLEAN matches {
-										value matches {True, False}
-									}
-								}
-							}
-							ELEMENT[at0006] occurrences matches {0..1} matches {	-- Det er foretatt en individuell vurdering av pasientens tilstand
-								value matches {
-									DV_BOOLEAN matches {
-										value matches {True}
-									}
-								}
-							}
-							ELEMENT[at0007] occurrences matches {0..*} matches {	-- Begrunnelse for nattelåsing
+							ELEMENT[at0007] occurrences matches {0..2} matches {	-- Begrunnelsen for vedtak om nattelåsing av pasientrom
 								value matches {
 									DV_CODED_TEXT matches {
 										defining_code matches {
@@ -80,10 +56,15 @@ definition
 									}
 								}
 							}
-							ELEMENT[at0010] occurrences matches {0..1} matches {	-- Pasienten har opphold i en regional sikkerhetsavdeling eller i enhet med særlig høyt sikkerhetsnivå
+							ELEMENT[at0023] occurrences matches {0..1} matches {	-- Nedenfor fremgår begrunnelse for vedtaket, herunder en individuell vurdering av pasientens tilstand
 								value matches {
-									DV_BOOLEAN matches {
-										value matches {True}
+									DV_TEXT matches {*}
+								}
+							}
+							ELEMENT[at0017] occurrences matches {0..*} matches {	-- Vurdering av lempeligere midler dokumentert i journalnotat datert
+								value matches {
+									DV_DATE matches {
+										value matches {yyyy-mm-dd}
 									}
 								}
 							}
@@ -97,27 +78,6 @@ definition
 							allow_archetype CLUSTER[at0014] occurrences matches {0..*} matches {	-- Vedtakstype
 								include
 									archetype_id/value matches {/openEHR-EHR-CLUSTER\.vedtakstype(-[a-zA-Z0-9_]+)*\.v1/}
-							}
-							ELEMENT[at0015] occurrences matches {0..1} matches {	-- Dato og tidspunkt vedtak fattet:
-								value matches {
-									DV_DATE_TIME matches {
-										value matches {yyyy-mm-ddTHH:MM:SS}
-									}
-								}
-							}
-							ELEMENT[at0016] occurrences matches {0..1} matches {	-- Helsetjenesteenhet
-								value matches {
-									DV_TEXT matches {*}
-								}
-							}
-							ELEMENT[at0017] occurrences matches {0..*} matches {	-- Vurdering av lempeligere midler dokumentert i journalnotat datert:
-								value matches {
-									DV_DATE matches {*}
-								}
-							}
-							allow_archetype CLUSTER[at0019] occurrences matches {0..*} matches {	-- Vurdering av pasientinnsyn
-								include
-									archetype_id/value matches {/.*/}
 							}
 						}
 					}
@@ -143,68 +103,40 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0003"] = <
-					text = <"Det foreligger tillatelse fra departementet til å låse dør til pasienten i tiden fra kl. 23.00 til kl. 06.00 etter en individuell vurdering av pasientens tilstand">
-					description = <"Markering for å angi at det foreligger tillatelse fra departementet til å låse dør til pasientrom i tiden fra kl. 23.00 til kl. 06.00 etter en individuell vurdering av pasientens tilstand.">
+					text = <"Det foreligger tillatelse fra departementet til å låse dør til pasientrom i tiden fra kl. 23.00 til kl. 06.00">
+					description = <"Departementet har gitt tillatelse til nattelåsing.">
 				>
 				["at0004"] = <
-					text = <"Dato tiltaket senest skal avsluttes">
+					text = <"Tiltaket skal senest avsluttes">
 					description = <"Den dato tiltaket senest skal avsluttes">
 				>
-				["at0005"] = <
-					text = <"Begrunnelse for vedtak i journalnotat datert:">
-					description = <"Referanse til journalnotat med nærmere begrunnelse for vedtaket.">
-				>
-				["at0006"] = <
-					text = <"Det er foretatt en individuell vurdering av pasientens tilstand">
-					description = <"Markering for å angi at det er foretatt en individuell vurdering av pasientens tilstand. ">
-				>
 				["at0007"] = <
-					text = <"Begrunnelse for nattelåsing">
-					description = <"Hva vedtaket er begrunnet i. ">
+					text = <"Begrunnelsen for vedtak om nattelåsing av pasientrom">
+					description = <"Standard kodeverk 9307 Begrunnelse for vedtak om nattelåsing av pasientrom.">
 				>
 				["at0008"] = <
 					text = <"Tiltaket er uomgjengelig nødvendig for å hindre pasienten i å skade andre">
-					description = <"*">
+					description = <"Tiltaket er uomgjengelig nødvendig for å hindre pasienten i å skade andre">
 				>
 				["at0009"] = <
 					text = <"Tiltaket er uomgjengelig nødvendig for å avverge betydelig skade på bygninger, inventar eller andre ting">
-					description = <"*">
-				>
-				["at0010"] = <
-					text = <"Pasienten har opphold i en regional sikkerhetsavdeling eller i enhet med særlig høyt sikkerhetsnivå">
-					description = <"Markering for å angi at pasienten har opphold i en regional sikkerhetsavdeling eller i enhet med særlig høyt sikkerhetsnivå">
+					description = <"Tiltaket er uomgjengelig nødvendig for å avverge betydelig skade på bygninger, inventar eller andre ting">
 				>
 				["at0013"] = <
 					text = <"Pasienten vil bli gitt forsvarlig tilsyn av pleiepersonale mens pasientrommet er nattelåst">
-					description = <"Markering for å angi at pasienten vil bli gitt forsvarlig tilsyn av pleiepersonale mens pasientrommet er nattelåst. ">
+					description = <"Pasienten vil bli gitt forsvarlig tilsyn av pleiepersonale mens pasientrommet er nattelåst.">
 				>
 				["at0014"] = <
 					text = <"Vedtakstype">
-					description = <"*">
-				>
-				["at0015"] = <
-					text = <"Dato og tidspunkt vedtak fattet:">
-					description = <"Det tidspunkt (dato og klokkeslett) vedtaket ble fattet.">
-				>
-				["at0016"] = <
-					text = <"Helsetjenesteenhet">
-					description = <"Identifikasjon av den enheten hvor vedtaket fattes.">
+					description = <"Standard kodeverk 9275 Vedtak etter psykisk helsevernloven.">
 				>
 				["at0017"] = <
-					text = <"Vurdering av lempeligere midler dokumentert i journalnotat datert:">
-					description = <"Beskrivelse av lempeligere midler som har vist seg åpenbart forgjeves eller utilstrekkelige i journalnotat datert.">
+					text = <"Vurdering av lempeligere midler dokumentert i journalnotat datert">
+					description = <"Referanse til dokument(er) i pasienten journal som dokumenterer hvilke lempeligere midler som har vist seg åpenbart forgjeves eller utilstrekkelige.">
 				>
-				["at0018"] = <
-					text = <"Nødvendige, detaljerte opplysninger om vedtaket og begrunnelsen for dette">
-					description = <"Dersom pasienten på det tidspunktet vedtaket fattes nektes innsyn i hele eller deler av begrunnelsen for vedtaket etter bestemmelsen i pasient- og brukerrettighetsloven § 3 2 tredje ledd, skal ikke begrunnelsen for vedtaket registreres i tekstfeltet under, men i et eget journalnotat. Begrunnelsen for å nekte innsyn må også fremkomme i samme journalnotat.">
-				>
-				["at0019"] = <
-					text = <"Vurdering av pasientinnsyn">
-					description = <"*">
-				>
-				["at0020"] = <
-					text = <"Begrunnelse for vedtaket er dokumentert i eget journalnotat">
-					description = <"*">
+				["at0023"] = <
+					text = <"Nedenfor fremgår begrunnelse for vedtaket, herunder en individuell vurdering av pasientens tilstand">
+					description = <"Begrunnelse for vedtaket.">
 				>
 			>
 		>

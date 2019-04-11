@@ -1,0 +1,73 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-ADMIN_ENTRY.external_referance_dips.v1
+
+concept
+	[at0000]	-- Ekstern referanse
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"Dips ASA">
+		["date"] = <"2017-12-08">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for å dokumentere eksterne referanser, som det referes til, i pasientens journal.">
+			use = <"Brukes når man trenger å angi en esktern referanse i et jorunaldokument for å kunne identifisere en rapport eller en melding. F.eks. saksnummeret til MFR ved provosert abort.">
+			keywords = <"reference", "eksternal">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <"Bjørn Næss", ...>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"04779B4DA181917428603C830B93F5AB">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {	-- Ekstern referanse
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Referansenummer
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Referansekobling
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Ekstern referanse">
+					description = <"Dokumenter eksterne referanser som det referes til i apsientens journal.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Referansenummer">
+					description = <"Angir referansenummeret.">
+				>
+				["at0003"] = <
+					text = <"Referansekobling">
+					description = <"Angir den eskterne instansen som referansen skal kobles til f.eks. MFR.">
+				>
+			>
+		>
+	>

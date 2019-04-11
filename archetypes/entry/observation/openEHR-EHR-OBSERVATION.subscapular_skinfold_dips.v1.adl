@@ -1,0 +1,140 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.subscapular_skinfold_dips.v1
+
+concept
+	[at0000]	-- Subscapulær hudfold
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			author = <
+				["name"] = <"">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Malin Berg">
+		["email"] = <"mab@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2017-08-29">
+	>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"Used to record the thickness of the subscapular skinfold.">
+			use = <"">
+			misuse = <"">
+			copyright = <"DIPS AS">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"DIPS AS">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <"Bjørn-Petter Johannessen, DIPS AS, Norway", ...>
+	other_details = <
+		["references"] = <"http://tidsskriftet.no/2016/11/kronikk/nye-referansekurver-vektrelaterte-kroppsmal-hos-barn">
+		["MD5-CAM-1.0.1"] = <"009F6969A9F23C8919310B5103CC01C2">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Subscapulær hudfold
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Subskapulær hudfold
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::122]>
+												list = <
+													["1"] = <
+														units = <"mm">
+														magnitude = <|0.0..500.0|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Kommentar
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Subscapulær hudfold">
+					description = <"Brukes for å måle subskapulær hudfold.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Subskapulær hudfold">
+					description = <"Landemerket angulus inferior scapulae blir funnet og merket. Et punkt plassert to centimeter i 45 graders retning inferiørt og medialt ved angulus blir merket med et kryss. En griper så i krysset med tommelfinger og pekefinger og drar ut en hudfold. Hudfolden måles ca 1 cm nedenfor krysset. Hudfoldmåleren skal holdes omtrent 90 grader på hudoverflaten. Den som måler holder taket med venstre hånd, mens høyre hånd slipper taket på måleren forsiktig. Nærmeste 0,1 cm registreres.">
+				>
+				["at0005"] = <
+					text = <"Kommentar">
+					description = <"Kommentar til målingen av subscapulær hudfold.">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Subscapular skinfold">
+					description = <"Used to record the thickness of the subscapular skinfold.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Subscapular skinfold">
+					description = <"Find the inferior angle of the scapula. Mark a point 2 cm in 45 degrees angle inferiorly and medially. Pinch this point between the first and second finger and pull out a skinfold. The skinfold is measured 1 cm inferiorly to the marked point. The caliper is held at 90 degrees to the surface of the skin. The closest 0.1 cm is registered.">
+				>
+				["at0005"] = <
+					text = <"Comment">
+					description = <"Comment to the measurement of the subscapular skinfold.">
+				>
+			>
+		>
+	>

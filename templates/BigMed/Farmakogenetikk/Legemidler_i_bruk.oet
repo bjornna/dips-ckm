@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>7ae04bba-dcf0-41d3-a36c-a2544ad16f68</id>
+  <name>Legemidler_i_bruk</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose>Brukes som et persistent dokument som skal vise hvilke medsiner pasienten bruker til enhver tid</purpose>
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <annotations path="[openEHR-EHR-COMPOSITION.medication_list.v0]/content[openEHR-EHR-EVALUATION.exclusion_specific.v1]/data[at0001]/items[at0003]">
+    <items>
+      <item>
+        <key>Notes.Comment</key>
+        <value>Brukt SNOMED-CT kode 394802001 - medicine</value>
+      </item>
+    </items>
+  </annotations>
+  <annotations path="[openEHR-EHR-COMPOSITION.medication_list.v0]/content[openEHR-EHR-EVALUATION.exclusion_specific.v1]">
+    <items>
+      <item>
+        <key>Notes.Comment</key>
+        <value>Trenger vi denne? PAsienten bruker som minimum det som skal undersøkes?</value>
+      </item>
+    </items>
+  </annotations>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.medication_list.v0" concept_name="Legemiddelliste">
+    <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.medication_order.v2" concept_name="Legemiddelordinering" path="/content">
+      <Rule path="/activities[at0001]/description[at0002]/items[at0092]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0094]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0173]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0174]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0062]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0044]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0105]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0107]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0018]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0148]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0113]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0129]" max="0" />
+      <Rule path="/activities[at0001]/description[at0002]/items[at0167]" max="0" />
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.exclusion_specific.v1" concept_name="Eksklusjonsutsagn - spesifikt" path="/content">
+      <Rule path="/data[at0001]/items[at0002]" name="Bruker ingen legemidler" />
+      <Rule path="/data[at0001]/items[at0003]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>SNOMED-CT::394802001::Legemiddel</includedValues>
+        </constraint>
+        <nameConstraint>
+          <excludedValues>local::at0008</excludedValues>
+          <excludedValues>local::at0005</excludedValues>
+          <excludedValues>local::at0004</excludedValues>
+          <excludedValues>local::at0007</excludedValues>
+        </nameConstraint>
+      </Rule>
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.absence.v1" concept_name="Fravær av informasjon" path="/content" />
+    <Context />
+  </definition>
+</template>

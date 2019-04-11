@@ -1,0 +1,350 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ACTION.surgical_safety_checklist_time_out_dips.v1
+
+concept
+	[at0000]	-- Sjekkliste trygg kirurgi time-out
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"Dips ASA">
+		["date"] = <"2017-11-16">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Sjekkliste trygg kirurgi time-out er trinn 2 av sjekklisten Trygg kirurgi. Den skal gjennomføres på alle operasjoner og rapporteres til pasientsikkerhetskampanjens database Ekstranet. Sjekklisten skal gjennomføres før operasjonsstart.">
+			use = <"Brukes for å registrere trygg kirurgi time-out. Registeringen skjer før operasjon og gjennomføres enten på operasjonsstuen, seksjonen i operasjonsavsnittet og operasjonsavdelingen.">
+			misuse = <"Brukes ikke for å dokumentere trinn1 og 3 av sjekklisten for trygg krirugi. Det finnes engen arketyper for dette. ">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <"Anine Ramberg", "Kjetil Jørgensen">
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"287A5C32ECA64DF597A0F2A70768B344">
+	>
+
+definition
+	ACTION[at0000] matches {	-- Sjekkliste trygg kirurgi time-out
+		ism_transition matches {
+			ISM_TRANSITION[at0037] matches {	-- Time-out
+				current_state matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[openehr::245]}
+					}
+				}
+				careflow_step matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {[local::at0037]}		-- Time-out
+					}
+				}
+			}
+		}
+		description matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0003] matches {	-- Er sjekkliste for trygg kirurgi time-out gjennomført?
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Er alle i teamet presentert for hverandre med navn og funksjon?
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True, False}
+							}
+						}
+					}
+					ELEMENT[at0038] occurrences matches {0..1} matches {	-- Tidspunkt for gitt antibiotikaprofylakse
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0005] occurrences matches {0..*} matches {	-- Kirurg, operasjonssykepleier, anestesilege og anestesisykepleier bekrefter muntlig
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0006, 	-- Hva er pasientens navn?
+									at0007, 	-- Hva er planlagt prosedyre, operasjonsfelt og -side?
+									at0008]	-- Er pasienten i rett leie?
+								}
+							}
+						}
+					}
+					ELEMENT[at0009] occurrences matches {0..*} matches {	-- Kirurgens gjennomgang av potensielt risikofylte hendelser 
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0010, 	-- Hva er forventet blodtap?
+									at0011, 	-- Er det noen risikofaktorer teamet bør kjenne til?
+									at0012, 	-- Er det behov for spesielt utstyr eller ekstra undersøkelser?
+									at0013]	-- Hva er forventet varighet av operasjonen?
+								}
+							}
+						}
+					}
+					ELEMENT[at0014] occurrences matches {0..*} matches {	-- Anestesiens gjennomgang av potensielt risikofylte hendelser 
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0015, 	-- Hva er pasientens ASA-klassifikasjon?
+									at0016]	-- Er det særlige risikofaktorer ved anestesien som teamet bør kjenne til?
+								}
+							}
+						}
+					}
+					ELEMENT[at0017] occurrences matches {0..*} matches {	-- Operasjonssykepleierens gjennomgang av potensielt risikofylte hendelser 
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0018, 	-- Er steriliteten på instrumentene bekreftet (inkludert indikatorer)?
+									at0019]	-- Er det utfordringer knyttet til bruken av utstyret?
+								}
+							}
+						}
+					}
+					ELEMENT[at0020] occurrences matches {0..1} matches {	-- Er antibiotikaprofylakse gitt i henhold til prosedyrer for operasjonen som skal gjennomføres? Særlig mht tidspunkt
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0021, 	-- Ja
+									at0022, 	-- Nei
+									at0023]	-- Ikke aktuelt
+								}
+							}
+						}
+					}
+					ELEMENT[at0024] occurrences matches {0..1} matches {	-- Er temperatur målt?
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0025, 	-- Ja
+									at0026]	-- Nei
+								}
+							}
+						}
+					}
+					ELEMENT[at0036] occurrences matches {0..1} matches {	-- Tidspunkt perioperativ temperatur målt
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0027] occurrences matches {0..1} matches {	-- Er tiltak for å forebygge hypotermi iverksatt?
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0028, 	-- Ja
+									at0029]	-- Ikke aktuelt
+								}
+							}
+						}
+					}
+					ELEMENT[at0030] occurrences matches {0..1} matches {	-- For pasienter med diabetes. Er blodsukkeret innenfor normalområdet?
+						value matches {
+							DV_BOOLEAN matches {
+								value matches {True}
+							}
+						}
+					}
+					ELEMENT[at0031] occurrences matches {0..1} matches {	-- Er trombolyseprofylakse gitt?
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0032, 	-- Ikke aktuelt
+									at0033, 	-- Ja
+									at0034]	-- Nei
+								}
+							}
+						}
+					}
+					ELEMENT[at0039] occurrences matches {0..1} matches {	-- Kommentar
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0035] occurrences matches {0..*} matches {	-- Lokale tillegg
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Sjekkliste trygg kirurgi time-out">
+					description = <"Brukes for å dokumentere at rutiner for Trygg kirurgi time-out er utført. 
+Formålet med tiltakspakken trygg kirurgi fra pasientsikkerhetskampanjen er å redusere komplikasjoner i tilknytning til kirurgi, med vekt på postoperative sårinfeksjoner (POSI).">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Er alle i teamet presentert for hverandre med navn og funksjon?">
+					description = <"Avhuking indikerer at alle i teamet er presentert for hverandre med navn og funksjon.">
+				>
+				["at0003"] = <
+					text = <"Er sjekkliste for trygg kirurgi time-out gjennomført?">
+					description = <"Avhuking indikerer at sjekkliste for trygg kirurgi time-out er gjennomført.">
+				>
+				["at0005"] = <
+					text = <"Kirurg, operasjonssykepleier, anestesilege og anestesisykepleier bekrefter muntlig">
+					description = <"Dokumentasjon av hva kirurg, operasjonssykepleier, anestesilege og anestesisykepleier bekrefter muntlig.">
+				>
+				["at0006"] = <
+					text = <"Hva er pasientens navn?">
+					description = <"Bekreftelse på at spørsmål om pasientens navn er stilt.">
+				>
+				["at0007"] = <
+					text = <"Hva er planlagt prosedyre, operasjonsfelt og -side?">
+					description = <"Bekreftelse på at spørsmål om hva som er er planlagt prosedyre, operasjonsfelt og -side er stilt.">
+				>
+				["at0008"] = <
+					text = <"Er pasienten i rett leie?">
+					description = <"Bekreftelse på at spørsmål  om pasienten er i rett leie er stilt.">
+				>
+				["at0009"] = <
+					text = <"Kirurgens gjennomgang av potensielt risikofylte hendelser ">
+					description = <"Dokumenterer kirurgens gjennomgang av potensielt risikofylte hendelser.">
+				>
+				["at0010"] = <
+					text = <"Hva er forventet blodtap?">
+					description = <"Bekreftelse på at spørsmål om forventet blodtap er stilt.">
+				>
+				["at0011"] = <
+					text = <"Er det noen risikofaktorer teamet bør kjenne til?">
+					description = <"Bekreftelse på at spørsmål om det er noen risikofaktorer teamet bør kjenne til er stilt.">
+				>
+				["at0012"] = <
+					text = <"Er det behov for spesielt utstyr eller ekstra undersøkelser?">
+					description = <"Bekreftelse på at spørsmål om det er behov for spesielt utstyr eller ekstra undersøkelser er stilt.">
+				>
+				["at0013"] = <
+					text = <"Hva er forventet varighet av operasjonen?">
+					description = <"Bekreftelse på at spørsmål om foventet varighet av operasjonen er stilt.">
+				>
+				["at0014"] = <
+					text = <"Anestesiens gjennomgang av potensielt risikofylte hendelser ">
+					description = <"Dokumenterer anestesiens gjennomgang av potensielt risikofylte hendelser.">
+				>
+				["at0015"] = <
+					text = <"Hva er pasientens ASA-klassifikasjon?">
+					description = <"Bekreftelse på at spørsmål om pasientens ASA-klassifikasjon er stilt.">
+				>
+				["at0016"] = <
+					text = <"Er det særlige risikofaktorer ved anestesien som teamet bør kjenne til?">
+					description = <"Bekreftelse på at spørsmål om det er særlige risikofaktorer ved anestesien som teamet bør kjenne til er stilt.">
+				>
+				["at0017"] = <
+					text = <"Operasjonssykepleierens gjennomgang av potensielt risikofylte hendelser ">
+					description = <"Dokumenterer operasjonssykepleierens gjennomgang av potensielt risikofylte hendelser.">
+				>
+				["at0018"] = <
+					text = <"Er steriliteten på instrumentene bekreftet (inkludert indikatorer)?">
+					description = <"Bekreftelse på at spørsmål om steriliteten på instrumentene er stilt.">
+				>
+				["at0019"] = <
+					text = <"Er det utfordringer knyttet til bruken av utstyret?">
+					description = <"Bekreftelse på at det er stilt spørsmål om utfordringer knyttet til bruken av utstyret.">
+				>
+				["at0020"] = <
+					text = <"Er antibiotikaprofylakse gitt i henhold til prosedyrer for operasjonen som skal gjennomføres? Særlig mht tidspunkt">
+					description = <"Dokumentasjon av gjennomgang av hvorvidt antibiotikaprofylakse er gitt i henhold til prosedyrer for operasjonen som skal gjennomføres. Særlig mht tidspunkt.">
+				>
+				["at0021"] = <
+					text = <"Ja">
+					description = <"Antibiotikaprofylakse er gitt i henhold til prosedyrer for operasjonen som skal gjennomføres. Særlig mht tidspunkt.">
+				>
+				["at0022"] = <
+					text = <"Nei">
+					description = <"Antibiotikaprofylakse er ikke gitt i henhold til prosedyrer for operasjonen som skal gjennomføres.">
+				>
+				["at0023"] = <
+					text = <"Ikke aktuelt">
+					description = <"Det er ikke aktuelt med antibiotikaprofylakse.">
+				>
+				["at0024"] = <
+					text = <"Er temperatur målt?">
+					description = <"Er temperatur målt?">
+				>
+				["at0025"] = <
+					text = <"Ja">
+					description = <"Temperatur er målt.">
+				>
+				["at0026"] = <
+					text = <"Nei">
+					description = <"Temperatur er ikke målt.">
+				>
+				["at0027"] = <
+					text = <"Er tiltak for å forebygge hypotermi iverksatt?">
+					description = <"Er tiltak for hypotermi iverksatt?">
+				>
+				["at0028"] = <
+					text = <"Ja">
+					description = <"Tiltak for å forebygge hypotermi er iverksatt.">
+				>
+				["at0029"] = <
+					text = <"Ikke aktuelt">
+					description = <"Tiltak for å forebygge hypotermi er ikke aktuelle.">
+				>
+				["at0030"] = <
+					text = <"For pasienter med diabetes. Er blodsukkeret innenfor normalområdet?">
+					description = <"For pasienter med diabetes. Avhuking indikerer at blodsukkeret er innenfor normalområdet.">
+				>
+				["at0031"] = <
+					text = <"Er trombolyseprofylakse gitt?">
+					description = <"Er trombolyseprofylakse gitt?">
+				>
+				["at0032"] = <
+					text = <"Ikke aktuelt">
+					description = <"Det er ikke aktuelt med tromboseprofylakse hos denne pasienten.">
+				>
+				["at0033"] = <
+					text = <"Ja">
+					description = <"Tromboseprofylakse er gitt.">
+				>
+				["at0034"] = <
+					text = <"Nei">
+					description = <"Det er ikke gitt tromboseprofylakse og årsak er gjennomgått.">
+				>
+				["at0035"] = <
+					text = <"Lokale tillegg">
+					description = <"Mulighet til å legge til lokale tillegg.">
+				>
+				["at0036"] = <
+					text = <"Tidspunkt perioperativ temperatur målt">
+					description = <"Tidspunkt når perioperativ temperatur er målt.">
+				>
+				["at0037"] = <
+					text = <"Time-out">
+					description = <"*">
+				>
+				["at0038"] = <
+					text = <"Tidspunkt for gitt antibiotikaprofylakse">
+					description = <"Tidspunkt for gitt antibiotikaprofylakse.">
+				>
+				["at0039"] = <
+					text = <"Kommentar">
+					description = <"Brukes som kommentar">
+				>
+			>
+		>
+	>

@@ -1,0 +1,177 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-INSTRUCTION.careplan_focus_dips.v1
+
+concept
+	[at0000]	-- Fokusområde
+language
+	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			author = <
+				["name"] = <"">
+			>
+		>
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			author = <
+				["name"] = <"">
+			>
+		>
+	>
+description
+	original_author = <
+		["name"] = <"Phuong Pedersen">
+		["email"] = <"ppe@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2017-04-06">
+	>
+	details = <
+		["no"] = <
+			language = <[ISO_639-1::no]>
+			purpose = <"For å registrere detaljer om problemer eller hindringer som påvirker fysisk, mentalt og/eller sosial helsetilstand på en person.">
+			use = <"Registrere detaljer om problemer eller hindringer som påvirker fysisk, mentalt og/eller sosial helsetilstand på en person.">
+			misuse = <"">
+			copyright = <"DIPS AS">
+		>
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Denne arketypen er modellert slik at Classic funksjonalitet, ved å ha prossess rundt det å ha en problemstilling som man jobber med. 
+
+Narrative på instruction er brukt for å lagre den aktuelle problemstilling og koden">
+			use = <"Intern bruk i DIPS.">
+			misuse = <"">
+			copyright = <"DIPS AS">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"DIPS AS">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <"Ivar Yrke, DIPS AS, Norway", "Sindre Nordbøe Årøen, DIPS AS, Norway", "Terje Sagmyr, DIPS AS, Norway", "Bjørn-Petter Johannessen, DIPS AS, Norway">
+	other_details = <
+		["current_contact"] = <"Phuong Pedersen, DIPS AS <ppe@dips.no>">
+		["MD5-CAM-1.0.1"] = <"DA262DEAAAC8C38E7B611CDF26D61257">
+		["custodian_organisation"] = <"DIPS AS">
+	>
+
+definition
+	INSTRUCTION[at0000] matches {	-- Fokusområde
+		activities cardinality matches {0..*; unordered} matches {
+			ACTIVITY[at0006] occurrences matches {0..1} matches {	-- Registrer
+				action_archetype_id matches {/openEHR-EHR-ACTION\.careplan_problem_dips\.v1/}
+				description matches {
+					ITEM_TREE[at0007] matches {	-- Tree
+						items cardinality matches {0..*; unordered} matches {
+							allow_archetype CLUSTER[at0017] occurrences matches {0..*} matches {	-- Tilleggsinformasjon
+								include
+									archetype_id/value matches {/openEHR-EHR-CLUSTER\.careplan_documentation_additional_info(-[a-zA-Z0-9_]+)*\.v0/}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0014] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0016] occurrences matches {0..*} matches {	-- Tilleggsinformasjon
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["no"] = <
+			items = <
+				["at0000"] = <
+					text = <"*Fokusområde(nb)">
+					description = <"*Støtter opp omkring Classic funksjonalitet ved å ha prossess rundt det å ha en problemstilling som man jobber med.(nb)">
+				>
+				["at0006"] = <
+					text = <"Registrer">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0014"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0016"] = <
+					text = <"Tilleggsinformasjon">
+					description = <"Placeholder for å kunne legge inn detaljer som er felles for alle behandlingsplanelementtyper på instruksjonsnivå.">
+				>
+				["at0017"] = <
+					text = <"*Tilleggsinformasjon(nb)">
+					description = <"**(nb)">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Fokusområde">
+					description = <"Støtter opp omkring Classic funksjonalitet ved å ha prossess rundt det å ha en problemstilling som man jobber med.">
+				>
+				["at0006"] = <
+					text = <"Registrer">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0014"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0016"] = <
+					text = <"Tilleggsinformasjon">
+					description = <"Placeholder for å kunne legge inn detaljer som er felles for alle behandlingsplanelementtyper på instruksjonsnivå.">
+				>
+				["at0017"] = <
+					text = <"Tilleggsinformasjon">
+					description = <"*">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"*Fokusområde(nb)">
+					description = <"*Støtter opp omkring Classic funksjonalitet ved å ha prossess rundt det å ha en problemstilling som man jobber med.(nb)">
+				>
+				["at0006"] = <
+					text = <"Register">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0014"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0016"] = <
+					text = <"Tilleggsinformasjon">
+					description = <"Placeholder for å kunne legge detaljer som er felles for alle behandlingsplanelementtyper på instruksjonsnivå.">
+				>
+				["at0017"] = <
+					text = <"*Tilleggsinformasjon(nb)">
+					description = <"**(nb)">
+				>
+			>
+		>
+	>

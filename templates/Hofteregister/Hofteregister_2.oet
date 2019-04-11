@@ -1,0 +1,208 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>3817c3e7-442d-4e85-b167-ab05471fc51a</id>
+  <name>Hofteregister-2</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose />
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.report-procedure.v1" concept_name="Prosedyrerapport">
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.problem_diagnosis.v1" concept_name="Problem/diagnose" path="/content">
+      <Rule path="/data[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>HoftebruddPrimarbrudd::001::Lårhalsbrudd udislokert</includedValues>
+          <includedValues>HoftebruddPrimarbrudd::002::Lårhalsbrudd dislokert</includedValues>
+          <includedValues>HoftebruddPrimarbrudd::003::Lateralt lårhalsbrudd</includedValues>
+          <includedValues>HoftebruddPrimarbrudd::004::Pertrokantært tofragment</includedValues>
+          <includedValues>HoftebruddPrimarbrudd::005::Pertrokantært flerfragment</includedValues>
+          <includedValues>HoftebruddPrimarbrudd::009::Intertrokantært</includedValues>
+          <includedValues>HoftebruddPrimarbrudd::006::Subtrokantært</includedValues>
+          <includedValues>HoftebruddPrimarbrudd::007::Annet</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0009]" max="0" />
+      <Rule path="/data[at0001]/items[at0077]" name="Bruddtidspunkt" />
+      <Rule path="/data[at0001]/items[at0003]" name="Brudd bekreftet" />
+    </Content>
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" max="1" path="/content" name="Anestesi" />
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.precaution.v1" concept_name="Forholdsregel" path="/content">
+      <Rule path="/data[at0001]/items[at0014]">
+        <constraint xsi:type="multipleConstraint">
+          <includedTypes>Coded_text</includedTypes>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0003]" max="0" />
+      <Rule path="/data[at0001]/items[at0013]" max="0" />
+      <Rule path="/data[at0001]/items[at0008]" max="0" />
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.asa_status.v1" concept_name="ASA-klassifikasjon" path="/content">
+      <Rule path="/data[at0015]/events[at0016]/data[at0017]/items[at0001]">
+        <constraint xsi:type="textConstraint">
+          <excludedValues>local::at0008</excludedValues>
+          <excludedValues>local::at0009</excludedValues>
+          <excludedValues>local::at0010</excludedValues>
+          <excludedValues>local::at0011</excludedValues>
+          <excludedValues>local::at0012</excludedValues>
+          <excludedValues>local::at0013</excludedValues>
+        </constraint>
+      </Rule>
+    </Content>
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" path="/content">
+      <Rule path="/description[at0001]/items[at0002]" name="Operasjonstype">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="ARK-VI-OPERASJONSTYPER" terminologyLang="en-GB" queryName="ARK-VI-OPERASJONSTYPER" />
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0001]/items[at0049]" max="0" />
+      <Rule path="/description[at0001]/items[at0065]" max="1">
+        <constraint xsi:type="textConstraint">
+          <includedValues>HoftebruddPrimaroperasjon::001::To skruer eller pinner</includedValues>
+          <includedValues>HoftebruddPrimaroperasjon::002::Tre skruer eller pinner</includedValues>
+          <includedValues>HoftebruddPrimaroperasjon::003::Bipolar hemiprotese</includedValues>
+          <includedValues>HoftebruddPrimaroperasjon::004::Unipolar hemiprotese</includedValues>
+          <includedValues>HoftebruddPrimaroperasjon::005::Glideskrue og plate</includedValues>
+          <includedValues>HoftebruddPrimaroperasjon::006::Glideskrue og plate med trokantær støtteplate</includedValues>
+          <includedValues>HoftebruddPrimaroperasjon::007::Vinkelplate</includedValues>
+          <includedValues>HoftebruddPrimaroperasjon::008::Kort margnagle uten distal sperre</includedValues>
+          <includedValues>HoftebruddPrimaroperasjon::009::Kort margnagle med distal sperre</includedValues>
+          <includedValues>HoftebruddPrimaroperasjon::010::Lang margnagle uten distal sperre</includedValues>
+          <includedValues>HoftebruddPrimaroperasjon::011::Lang margnagle med distal sperre</includedValues>
+          <includedValues>HoftebruddPrimaroperasjon::012::Annet</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0001]/items[at0065]" max="1" clone="true" name="Annet" />
+      <Rule path="/description[at0001]/items[at0058]" max="0" />
+      <Rule path="/description[at0001]/items[at0063]" max="0" />
+      <Rule path="/description[at0001]/items[at0048]" max="0" />
+      <Rule path="/description[at0001]/items[at0069]" max="0" />
+      <Rule path="/description[at0001]/items[at0006]" max="0" />
+      <Rule path="/description[at0001]/items[at0066]" name="Start operasjon" />
+      <Rule path="/description[at0001]/items[at0060]" name="Slutt operasjon" />
+      <Rule path="/description[at0001]/items[at0061]">
+        <constraint xsi:type="durationConstraint">
+          <pattern>PTHM</pattern>
+          <includesMaximum>false</includesMaximum>
+          <includesMinimum>false</includesMinimum>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0001]/items[at0067]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>SNOMED-CT::387713003::Kirurgi prosedyre</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0001]/items[at0014]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.procedure_details_dips.v1" concept_name="Prosedyredetaljer" path="/description[at0001]/items[at0003]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="NCSP" terminologyLang="en-GB" queryName="NSCP" />
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>SNOMED-CT::399455000::Hovedprosedyre</includedValues>
+            <includedValues>SNOMED-CT::262134003::Sekundærprosedyre</includedValues>
+            <includedValues>SNOMED-CT::261554009::Reoperasjon</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0004]" max="1" name="Legens beskrivelse" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.reoperation_details.v1" concept_name="Reoperasjonsdetaljer" path="/description[at0001]/items[at0003]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ARENA-AARSAK-REOPR::AR0::Ny operasjon</includedValues>
+            <includedValues>ARENA-AARSAK-REOPR::AR1::Reop. pga. Blødning</includedValues>
+            <includedValues>ARENA-AARSAK-REOPR::AR2::Reop. pga. Infeksjon</includedValues>
+            <includedValues>ARENA-AARSAK-REOPR::AR3::Reop. pga. Mekanisk</includedValues>
+            <includedValues>ARENA-AARSAK-REOPR::AR4::Reop. annen årsak</includedValues>
+            <includedValues>ARENA-AARSAK-REOPR::AR5::Ukjent om det er reoperasjon</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.surgery_details_dips.v1" concept_name="Operasjonsdetaljer" path="/description[at0001]/items[at0003]">
+        <Rule path="/items[at0003]/items[at0005]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>SNOMED-CT::7771000::Venstre</includedValues>
+            <includedValues>SNOMED-CT::24028007::Høyre</includedValues>
+            <includedValues>SNOMED-CT::51440002::Bilateral</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0009]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>SURGICAL-WOUND-CLASSIFICATION::SR1::Rene sår</includedValues>
+            <includedValues>SURGICAL-WOUND-CLASSIFICATION::SR2::Rene-kontaminerte sår</includedValues>
+            <includedValues>SURGICAL-WOUND-CLASSIFICATION::SR3::Kontaminerte sår</includedValues>
+            <includedValues>SURGICAL-WOUND-CLASSIFICATION::SR4::Urene og infiserte sår</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.device.v1" concept_name="Medisinsk utstyr" path="/description[at0001]/items[at0003]">
+        <Rule path="/items[at0021]" max="0" />
+        <Rule path="/items[at0004]" max="0" />
+        <Rule path="/items[at0005]" max="0" />
+        <Rule path="/items[at0020]" max="0" />
+        <Rule path="/items[at0023]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
+        <Rule path="/items[at0025]" max="0" />
+        <Rule path="/items[at0007]" max="0" />
+        <Rule path="/items[at0024]" max="0" />
+        <Rule path="/items[at0008]" max="0" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.fixation_details_dips.v0" concept_name="Fixation details dips" path="/description[at0001]/items[at0003]" />
+    </Content>
+    <Context />
+  </definition>
+</template>

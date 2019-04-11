@@ -36,7 +36,7 @@ description
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"3C3FDA929AFD0E62152801076AAEBAE5">
+		["MD5-CAM-1.0.1"] = <"D81EE27FF8EBD04C4AB26907D6D64874">
 	>
 
 definition
@@ -44,28 +44,37 @@ definition
 		data matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Startdato og tidspunkt rettslig grunnlag
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Hjemmel psykisk helsevern
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Helsetjenesteenhet
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0007] occurrences matches {0..1} matches {	-- Døgnstatus
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0008, 	-- Behandling med døgnopphold
+									at0009]	-- Behandling uten døgnopphold
+								}
+							}
+						}
+					}
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Dato for etablering av psykisk helsevern/behandlingsstart
 						value matches {
 							DV_DATE_TIME matches {
 								value matches {yyyy-mm-ddTHH:??:??}
 							}
 						}
 					}
-					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Hjemmel fra rettslig grunnlag
+					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Løpenummer
 						value matches {
-							DV_TEXT matches {*}
-						}
-					}
-					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Tidspunkt fra gjennomføring av tvangsmiddelvedtak
-						value matches {
-							DV_DATE_TIME matches {
-								value matches {yyyy-mm-ddTHH:??:??}
-							}
-						}
-					}
-					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Hjemmel fra TO/TPH vedtak
-						value matches {
-							DV_TEXT matches {*}
+							DV_COUNT matches {*}
 						}
 					}
 				}
@@ -86,20 +95,33 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0002"] = <
-					text = <"Startdato rettslig grunnlag">
-					description = <"*">
+					text = <"*Dato for etablering av psykisk helsevern/behandlingsstart(nb)">
+					description = <"*Dato for etablering av psykisk helsevern/behandlingsstart.(nb)">
 				>
 				["at0003"] = <
-					text = <"Hjemmel fra rettslig grunnlag">
-					description = <"*">
-				>
-				["at0005"] = <
-					text = <"*Tidspunkt fra gjennomføring av tvangsmiddelvedtak(nb)">
-					description = <"**(nb)">
+					text = <"*Hjemmel psykisk helsevern(nb)">
+					description = <"*Standard kodeverk 9300 Rettslig
+grunnlag.(nb)">
 				>
 				["at0006"] = <
-					text = <"*Hjemmel fra TO/TPH vedtak(nb)">
-					description = <"*Hjemmel fra vedtak om etablering av tvungen observasjon eller tvungent psykisk helsevern.(nb)">
+					text = <"*Helsetjenesteenhet(nb)">
+					description = <"*Identifikasjon av den enhet hvor vedtaket fattes.(nb)">
+				>
+				["at0007"] = <
+					text = <"*Døgnstatus(nb)">
+					description = <"*Standard kodeverk 9312 Om døgnopphold - psykisk helsevern.(nb)">
+				>
+				["at0008"] = <
+					text = <"*Behandling med døgnopphold(nb)">
+					description = <"**(nb)">
+				>
+				["at0009"] = <
+					text = <"*Behandling uten døgnopphold(nb)">
+					description = <"**(nb)">
+				>
+				["at0010"] = <
+					text = <"*New element(nb)">
+					description = <"**(nb)">
 				>
 			>
 		>
@@ -114,20 +136,33 @@ ontology
 					description = <"@ internal @">
 				>
 				["at0002"] = <
-					text = <"Startdato og tidspunkt rettslig grunnlag">
-					description = <"*">
+					text = <"Dato for etablering av psykisk helsevern/behandlingsstart">
+					description = <"Dato for etablering av psykisk helsevern/behandlingsstart.">
 				>
 				["at0003"] = <
-					text = <"Hjemmel fra rettslig grunnlag">
-					description = <"*">
-				>
-				["at0005"] = <
-					text = <"Tidspunkt fra gjennomføring av tvangsmiddelvedtak">
-					description = <"*">
+					text = <"Hjemmel psykisk helsevern">
+					description = <"Standard kodeverk 9300 Rettslig
+grunnlag.">
 				>
 				["at0006"] = <
-					text = <"Hjemmel fra TO/TPH vedtak">
-					description = <"Hjemmel fra vedtak om etablering av tvungen observasjon eller tvungent psykisk helsevern.">
+					text = <"Helsetjenesteenhet">
+					description = <"Identifikasjon av den enhet hvor vedtaket fattes.">
+				>
+				["at0007"] = <
+					text = <"Døgnstatus">
+					description = <"Standard kodeverk 9312 Om døgnopphold - psykisk helsevern.">
+				>
+				["at0008"] = <
+					text = <"Behandling med døgnopphold">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Behandling uten døgnopphold">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Løpenummer">
+					description = <"Løpenummer">
 				>
 			>
 		>

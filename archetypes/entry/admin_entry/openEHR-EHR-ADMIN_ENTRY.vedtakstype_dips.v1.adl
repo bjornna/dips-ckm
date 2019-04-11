@@ -1,0 +1,62 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ADMIN_ENTRY.vedtakstype_dips.v1
+
+concept
+	[at0000]	-- Vedtakstype
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Astrid Askeland">
+		["email"] = <"ask@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2019-02-28">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Arketypen brukes i vedtaksmodulen i DIPS Arena.">
+			use = <"Inneholder en slot for å koble på cluster for vedtakstype. Ble tatt i bruk fra og med februar 2019, Arena versjon 19.1.">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"E170C521E2F21938AC1932623C173B75">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {	-- Vedtakstype
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0002] occurrences matches {0..*} matches {	-- Vedtakstype
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Vedtakstype">
+					description = <"Arketype for vedtak med slot for vedtakstype.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Vedtakstype">
+					description = <"Vedtakstype">
+				>
+			>
+		>
+	>

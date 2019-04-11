@@ -1,0 +1,112 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.exsanguination_details_dips.v1
+
+concept
+	[at0000]	-- Blodtomhet detaljer
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2018-11-20">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Beskrivelse av detaljer ved bruk av boldtomhet.">
+			use = <"Brukes for å beskrive detaljer ved bruk av boldtomhet i forbindelse med en operasjon/medisinsk prosedyre.">
+			keywords = <"exsanguination", "surgery", "procedure">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <"Anca Heyd, DIPS AS<ahe@dips.no>">
+		["MD5-CAM-1.0.1"] = <"FF3B9E5A2F4EB5D4C4D147D1AF7BCF68">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Blodtomhet detaljer
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Plassering mansjett
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Trykk
+				value matches {
+					C_DV_QUANTITY <
+						property = <[openehr::125]>
+						list = <
+							["1"] = <
+								units = <"mm[Hg]">
+								magnitude = <|0.0..1000.0|>
+							>
+						>
+					>
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Varighet
+				value matches {
+					DV_DURATION matches {
+						value matches {|>=PT0M|}
+					}
+				}
+			}
+			ELEMENT[at0004] occurrences matches {0..1} matches {	-- Oppstart
+				value matches {
+					DV_DATE_TIME matches {*}
+				}
+			}
+			ELEMENT[at0005] occurrences matches {0..1} matches {	-- Avsluttet
+				value matches {
+					DV_DATE_TIME matches {*}
+				}
+			}
+			ELEMENT[at0006] occurrences matches {0..1} matches {	-- Kommentar
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Blodtomhet detaljer">
+					description = <"Beskrivelse av detaljer ved bruk av boldtomhet i forbindelse med en operasjon/medisinsk prosedyre.">
+				>
+				["at0001"] = <
+					text = <"Trykk">
+					description = <"Trykket ved blodtomhet.">
+				>
+				["at0002"] = <
+					text = <"Varighet">
+					description = <"Varighet for blodtomheten">
+				>
+				["at0003"] = <
+					text = <"Plassering mansjett">
+					description = <"Mansjettens plassering i fbm blodtomhet. ">
+				>
+				["at0004"] = <
+					text = <"Oppstart">
+					description = <"Tidspunkt start blodtomhet.">
+				>
+				["at0005"] = <
+					text = <"Avsluttet">
+					description = <"Tidspunkt avsluttet blodtomhet.">
+				>
+				["at0006"] = <
+					text = <"Kommentar">
+					description = <"Ytterligere informasjon/kommentar.">
+				>
+			>
+		>
+	>
