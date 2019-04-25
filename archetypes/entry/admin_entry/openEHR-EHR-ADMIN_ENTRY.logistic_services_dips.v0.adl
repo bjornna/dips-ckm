@@ -1,0 +1,100 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ADMIN_ENTRY.logistic_services_dips.v0
+
+concept
+	[at0000]	-- Logistikktjenester
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2019-04-25">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for å angi informasjon om logistikktjenester i forbindelse med utøvelse av helsehjelp.">
+			use = <"Brukes for å angi informasjon om logistikktjenester i forbindelse med utøvelse av helsehjelp. Hvis en pasient f.eks. har behov for en portør i forbindelse med en røntgenundersøkelse skal denne arketypen bruke sfor å angi at portør er bestilt, på vei osv.">
+			keywords = <"logistikk", "tjenester">
+			misuse = <"Skal ikke brukes for å registrere selve gjennomføringen av tjenesten.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"CD01A67DEEB3469A22AF2CCF1CF2F007">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {	-- Logistikktjenester
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Type tjenste
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0005] occurrences matches {0..1} matches {	-- Beskrivelse
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Status
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Sist oppdatert
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0006] occurrences matches {0..*} matches {	-- Detaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Logistikktjenester">
+					description = <"Brukes for å angi informasjon om logistikktjenester i forbindelse med utøvelse av helsehjelp.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Type tjenste">
+					description = <"Angir type tjeneste. ">
+				>
+				["at0003"] = <
+					text = <"Status">
+					description = <"Status på tjenester f.eks. bestilt, ringt etter osv.">
+					comment = <"Bør om  mulig brukes med et kodeverk for å lette inegrasjon mot andre systemer.">
+				>
+				["at0004"] = <
+					text = <"Sist oppdatert">
+					description = <"Tidspunkt for sist oppdatert.">
+				>
+				["at0005"] = <
+					text = <"Beskrivelse">
+					description = <"Tekstlig beskrivelse av tjenesten">
+				>
+				["at0006"] = <
+					text = <"Detaljer">
+					description = <"Slot for ytterligere strukturerte detaljer.">
+				>
+			>
+		>
+	>
