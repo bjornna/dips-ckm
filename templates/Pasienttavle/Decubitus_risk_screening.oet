@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
-  <id>9a346a2a-0637-4182-b792-250b0e274300</id>
-  <name>PVC</name>
+  <id>242e7ffc-09bc-4369-87c7-8d0cdbcd2a5f</id>
+  <name>Decubitus_risk_screening</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
-      <purpose>Brukes i pasienttavle for å registrere informasjon om perifert venekateter.</purpose>
+      <purpose>Brukes i pasienttavle for å registrere informasjon om risiko for trykksår.</purpose>
       <use />
       <misuse />
     </details>
@@ -61,35 +61,32 @@
     </other_details>
   </description>
   <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt">
-    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" max="1" path="/content" name="Perifert venekateter">
-      <Rule path="/description[at0001]/items[at0002]" name="Innleggelse av perifert venekateter.">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.decubitus_risk_npsp.v1" concept_name="Risiko for trykksår Pasientsikkerhetsprogrammet" path="/content" />
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" max="1" path="/content" name="Iverksatt tiltak mot trykksår">
+      <Rule path="/description[at0001]/items[at0002]">
         <constraint xsi:type="textConstraint">
-          <includedValues>SNOMED-CT::735414004::innføring av perifert venekateter (prosedyre)</includedValues>
+          <includedValues>Iverksatt tiltak mot trykksår</includedValues>
         </constraint>
       </Rule>
-      <Rule path="/description[at0001]/items[at0049]" max="0" />
+      <Rule path="/description[at0001]/items[at0049]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>SNOMED-CT::225996006::Forebygging av trykksår</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0001]/items[at0065]" max="0" />
       <Rule path="/description[at0001]/items[at0058]" max="0" />
       <Rule path="/description[at0001]/items[at0063]" max="0" />
       <Rule path="/description[at0001]/items[at0048]" max="0" />
       <Rule path="/description[at0001]/items[at0069]" max="0" />
       <Rule path="/description[at0001]/items[at0006]" max="0" />
       <Rule path="/description[at0001]/items[at0066]" max="0" />
+      <Rule path="/description[at0001]/items[at0060]" max="0" />
       <Rule path="/description[at0001]/items[at0061]" max="0" />
+      <Rule path="/description[at0001]/items[at0067]" max="0" />
       <Rule path="/description[at0001]/items[at0014]" max="0" />
-      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.device.v1" concept_name="Medisinsk utstyr" max="1" path="/description[at0001]/items[at0003]" name="PVK">
-        <Rule path="/items[at0001]" name="Perifert venekateter" />
-        <Rule path="/items[at0002]" max="0" />
-        <Rule path="/items[at0004]" max="0" />
-        <Rule path="/items[at0005]" max="0" />
-        <Rule path="/items[at0020]" max="0" />
-        <Rule path="/items[at0022]" max="0" />
-        <Rule path="/items[at0023]" max="0" />
-        <Rule path="/items[at0006]" max="0" />
-        <Rule path="/items[at0025]" max="0" />
-        <Rule path="/items[at0007]" max="0" />
-        <Rule path="/items[at0024]" max="0" />
-        <Rule path="/items[at0008]" max="0" />
-      </Items>
+      <Rule path="/description[at0001]/items[at0005]" max="0" />
+      <Rule path="/protocol[at0053]/items[at0054]" max="0" />
+      <Rule path="/protocol[at0053]/items[at0056]" max="0" />
     </Content>
     <Context />
   </definition>
