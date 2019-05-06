@@ -1,0 +1,105 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ADMIN_ENTRY.patient_contact.v0
+
+concept
+	[at0000]	-- Kontakt
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Bjørn Næss">
+		["email"] = <"bna@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2017-03-22">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Modellerer kontakt mellom helsetjenesteyter og pasient. Gjerne i form av en poliklinikk eller innleggelse ">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"51EFF8C4818BA1076F28A0683FA720EF">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {	-- Kontakt
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Kontakttype
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0005, 	-- Innleggelse
+									at0006, 	-- Poliklinikk
+									at0007, 	-- Ikke-relevant
+									at0008]	-- Ukjent
+								}
+							}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Starttid
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Anonym id
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Kontakt">
+					description = <"Modellerer kontakt mellom helsetjenesteyter og pasient. Gjerne i form av en poliklinikk eller innleggelse ">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Kontakttype">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Starttid">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Anonym id">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Innleggelse">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Poliklinikk">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Ikke-relevant">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Ukjent">
+					description = <"*">
+				>
+			>
+		>
+	>

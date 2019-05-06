@@ -1,0 +1,143 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-EVALUATION.patient_support_summary.v0
+
+concept
+	[at0000]	-- Pasientstøtte sammendrag
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Bjørn Næss">
+		["email"] = <"bna@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2017-03-20">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For å registrere informasjon om pasientens behov for støtte i forbindelse med oppmøte/opphold hos helsetjenesteyter (sykehus). ">
+			use = <"Benyttes for å f.eks. registrere behov for hjelp med forflytning. ">
+			misuse = <"Arketypen slik den foreligger er kun eksperimentell. ">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"AuthorDraft">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"26F3D1A0C793FD3564ED9DD98DC72D30">
+	>
+
+definition
+	EVALUATION[at0000] matches {	-- Pasientstøtte sammendrag
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Støtteområde
+						value matches {
+							DV_TEXT matches {*}
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0011, 	-- Forflytning
+									at0012, 	-- Språk
+									at0013, 	-- Orientering
+									at0014, 	-- Ernæring
+									at0015]	-- Allergier
+								}
+							}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Støttebehov
+						value matches {
+							0|[local::at0004], 	-- Ingen hjelp
+							1|[local::at0005], 	-- Litt hjelp
+							2|[local::at0006], 	-- Moderat hjelp
+							4|[local::at0007], 	-- Betydelig hjelp
+							5|[local::at0008]  	-- Må ha assistanse
+						}
+					}
+					ELEMENT[at0009] occurrences matches {0..1} matches {	-- Beskrivelse
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0010] occurrences matches {0..*} matches {	-- Detaljerte opplysninger
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Pasientstøtte sammendrag">
+					description = <"Sammendrag av pasientens behov for støtte i forbindelse med ulike områder (forflytning, språk, orientering). ">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Støtteområde">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Støttebehov">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Ingen hjelp">
+					description = <"Er selvhjulpen på området">
+				>
+				["at0005"] = <
+					text = <"Litt hjelp">
+					description = <"Trenger noe hjelp">
+				>
+				["at0006"] = <
+					text = <"Moderat hjelp">
+					description = <"Trenger endel hjelp">
+				>
+				["at0007"] = <
+					text = <"Betydelig hjelp">
+					description = <"Trenger betydelig hjelp på området">
+				>
+				["at0008"] = <
+					text = <"Må ha assistanse">
+					description = <"Trenger person til å hjelpe seg">
+				>
+				["at0009"] = <
+					text = <"Beskrivelse">
+					description = <"Beskrivelse av hva slags hjelp som må gis. ">
+				>
+				["at0010"] = <
+					text = <"Detaljerte opplysninger">
+					description = <"Utvidelsesmulighet for detaljerte målinger eller beskrivelser av enkelte områder. ">
+				>
+				["at0011"] = <
+					text = <"Forflytning">
+					description = <"Vurderer behovet for assitasne ved forflytning">
+				>
+				["at0012"] = <
+					text = <"Språk">
+					description = <"Angir for eksempel om det er behov for tolk">
+				>
+				["at0013"] = <
+					text = <"Orientering">
+					description = <"Angir om det er behov for hjelp med å finne frem ">
+				>
+				["at0014"] = <
+					text = <"Ernæring">
+					description = <"Angir om pasienten har spesielle behov knyttet til ernæring">
+				>
+				["at0015"] = <
+					text = <"Allergier">
+					description = <"Er det kjente allergier som må ivaretas">
+				>
+			>
+		>
+	>

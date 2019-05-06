@@ -1,0 +1,126 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-ADMIN_ENTRY.activity_event.v0
+
+concept
+	[at0000]	-- Aktivitets hendelse
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Bjørn Næss">
+		["email"] = <"bna@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2017-03-22">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Dokumenterer en administrativ hendelse eller status i forbindelse med gjennomføringen av kliniske aktiviteter. ">
+			use = <"Brukes for bokholderi av administrative hendelser som LAB, RTG, LEGE, PORTØR bestilt, utført, pågår, ferdig">
+			misuse = <"Ikke for produksjon nå. Må utrede om det skal brukes ACTION registreringer ">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <"Bjørn Næss, DIPS ASA<bna@dips.no>">
+		["MD5-CAM-1.0.1"] = <"697676639AE5FD1FF833CF507BB32AF8">
+	>
+
+definition
+	ADMIN_ENTRY[at0000] matches {	-- Aktivitets hendelse
+		data matches {
+			ITEM_TREE[at0001] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					ELEMENT[at0002] occurrences matches {0..1} matches {	-- Hendelsestid
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0024] occurrences matches {0..1} matches {	-- Planlagt start
+						value matches {
+							DV_DATE_TIME matches {*}
+						}
+					}
+					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Status
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0010] occurrences matches {0..1} matches {	-- Aktivitet
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0026] occurrences matches {0..1} matches {	-- Detaljer om aktivitet
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0016] occurrences matches {0..1} matches {	-- Sted
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					ELEMENT[at0023] occurrences matches {0..1} matches {	-- Beskrivelse
+						value matches {
+							DV_TEXT matches {*}
+						}
+					}
+					allow_archetype CLUSTER[at0022] occurrences matches {0..*} matches {	-- Detaljer
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Aktivitets hendelse">
+					description = <"Dokumenterer en administrativ hendelse eller status i forbindelse med gjennomføringen av kliniske aktiviteter. ">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Hendelsestid">
+					description = <"Tidspunktet som aktiviteten ble utført på.">
+				>
+				["at0003"] = <
+					text = <"Status">
+					description = <"Angir status på aktiviteten. Benytt kodeverk i templaten for å definere presist hvilken status.">
+				>
+				["at0010"] = <
+					text = <"Aktivitet">
+					description = <"Fritekst eller kodeverk som definerer hvilken aktivitet som gjelder (LAB, RAD, PORTØR)">
+				>
+				["at0016"] = <
+					text = <"Sted">
+					description = <"Valgfri beskrivelse av geografisk lokalisering som hendelse fant sted (resepsjon, stue 4, rom 303)">
+				>
+				["at0022"] = <
+					text = <"Detaljer">
+					description = <"Slot for eventuelle strukturerte utvidelser av hendelsen.">
+				>
+				["at0023"] = <
+					text = <"Beskrivelse">
+					description = <"Gi er nærmere beskrivelse av hendelsen. ">
+				>
+				["at0024"] = <
+					text = <"Planlagt start">
+					description = <"Angir tidspunktet som den underliggende kliniske prosessen skal starte. F.eks. når pasienten skal inn til lege eller når prøve skal tas. ">
+				>
+				["at0026"] = <
+					text = <"Detaljer om aktivitet">
+					description = <"Utvidert beskrivelse av aktivitet">
+				>
+			>
+		>
+	>

@@ -60,8 +60,14 @@
       </item>
     </other_details>
   </description>
-  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt">
-    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.qsofa_score.v0" concept_name="qSOFA-skår" path="/content" />
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="qSOFA">
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.qsofa_score.v0" concept_name="qSOFA-skår" max="1" path="/content">
+      <Rule path="/data[at0001]/events[at0002]" max="1" min="1">
+        <eventConstraint>
+          <allowedType>PointInTime</allowedType>
+        </eventConstraint>
+      </Rule>
+    </Content>
     <Context />
   </definition>
 </template>
