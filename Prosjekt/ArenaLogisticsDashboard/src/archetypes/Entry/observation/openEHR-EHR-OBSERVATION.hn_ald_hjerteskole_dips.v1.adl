@@ -1,0 +1,108 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.hn_ald_hjerteskole_dips.v1
+
+concept
+	[at0000]	-- Hn ald hjerteskole dips
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Lars Morgan Karlsen">
+		["email"] = <"LMK@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2019-03-13">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes i pasienttavle for å angi om pasienten skal ha hjerteskole">
+			use = <"Brukes i pasienttavle for å angi om pasienten skal ha hjerteskole">
+			misuse = <"All annen bruk">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <"Lars Morgan Karlsen, DIPS AS<LMK@dips.no>">
+		["MD5-CAM-1.0.1"] = <"1809F1A1D3530573B7438DA4ECA256D5">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Hn ald hjerteskole dips
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Hjerteskole
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Skal pasienten ha hjerteskole?
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0006, 	-- Ja
+													at0007, 	-- Nei
+													at0008]	-- Ikke avklart
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Hn ald hjerteskole dips">
+					description = <"Brukes i pasienttavle for å angi om pasienten skal ha hjerteskole">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Hjerteskole">
+					description = <"Hjerteskole">
+				>
+				["at0005"] = <
+					text = <"Skal pasienten ha hjerteskole?">
+					description = <"Angi om pasienten skal ha hjerteskole?">
+				>
+				["at0006"] = <
+					text = <"Ja">
+					description = <"Pasienten skal ha hjerteskole">
+				>
+				["at0007"] = <
+					text = <"Nei">
+					description = <"Pasienten skal ikke ha hjerteskole">
+				>
+				["at0008"] = <
+					text = <"Ikke avklart">
+					description = <"Det er ikke avklart om pasienten skal ha hjerteskole">
+				>
+			>
+		>
+	>

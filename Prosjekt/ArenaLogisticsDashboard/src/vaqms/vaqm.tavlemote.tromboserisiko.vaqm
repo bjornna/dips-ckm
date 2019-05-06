@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<VaqmConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Id="3d176f0f-bff7-431d-902c-a84f3eb39b6b" Oid="vaqm.tavlemote.tromboserisiko" Name="HV TM Tromboserisiko" Version="1.0.0" Approved="true" CreatedByAuthor="lmk" Created="2019-03-06T12:38:34" Imported="true" VersionComment="ny" BasedOnVersion="0.1.0" xmlns="http://www.dips.no/vaqmconfig">
+  <AqlBindings>
+    <AqlBinding Id="06294da9-7afb-4f56-a560-62609e7f5e1f" Oid="openEHR-EHR-OBSERVATION.tr.v2" Name="Tromboserisiko" DefaultArchetypeId="openEHR-EHR-OBSERVATION.tr.v2">
+      <BaseAql>select c, o from composition c contains observation o[openEHR-EHR-OBSERVATION.tr.v2]</BaseAql>
+      <Paths>
+        <Path Id="PathContextSt" IdentifierRef="c" Value="/context/start_time/value" DataType="String" />
+        <Path Id="PathTromboserisiko" IdentifierRef="o" Value="/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value/value" AdminDescription="" DataType="" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="OrderByContextSt" Value="$PathContextSt" Ascending="false" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="PredicateContextSt" WhereRef="" OrderByRef="$OrderByContextSt" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+  </AqlBindings>
+  <DataElements>
+    <DataElement Id="2de33a96-5a8e-493b-b964-bed694c02c18" Oid="openEHR-EHR-OBSERVATION.tr.v2" Name="Tromboserisiko" AdminName="HV TM Tromboserisiko" Description="Brukes for å registrere tilstedeværelse av tromboserisiko og medikamentell profylakse" Categories="Tavlemøte" DisplayFormat="{if(isnull($PredicateContextSt.PathContextSt), &quot;&quot;, if(isnull($PredicateContextSt.PathTromboserisiko), &quot;&quot;, $PredicateContextSt.PathTromboserisiko))}" SortFormat="$PredicateContextSt.PathContextSt" IsEditable="true" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues>
+        <KeyValue Key="DocumentTemplateId" Value="$ARENA-VAQM-SYSTEMCONFIG/hv_tm_tromboserisiko_document_template_id" AdminDescription="" />
+        <KeyValue Key="DocumentTypeId" Value="$ARENA-VAQM-SYSTEMCONFIG/hv_tm_tromboserisiko_document_type_id" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+  </DataElements>
+  <KeyValues />
+</VaqmConfiguration>

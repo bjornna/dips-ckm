@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<VaqmConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Id="083d606c-2ad2-44e0-b4a2-864c9cbdc9e7" Oid="vaqm.tavlemote.kad" Name="HV TM KAD" Version="1.0.0" Approved="true" CreatedByAuthor="lmk" Created="2019-02-26T20:14:19" Imported="true" VersionComment="Ny" BasedOnVersion="0.1.0" xmlns="http://www.dips.no/vaqmconfig">
+  <AqlBindings>
+    <AqlBinding Id="91767acd-128c-41eb-9cff-326f0bb481b0" Oid="openEHR-EHR-OBSERVATION.hv_tm_kad_dips.v1" Name="KAD" DefaultArchetypeId="openEHR-EHR-OBSERVATION.hv_tm_kad_dips.v1">
+      <BaseAql>select c, o from composition c contains observation o[openEHR-EHR-OBSERVATION.hv_tm_kad_dips.v1]</BaseAql>
+      <Paths>
+        <Path Id="PathContextSt" IdentifierRef="c" Value="/context/start_time/value" DataType="String" />
+        <Path Id="PathStatus" IdentifierRef="o" Value="/data[at0001]/events[at0002]/data[at0003]/items[at0014]/value/value" AdminDescription="" DataType="" />
+        <Path Id="PathDato" IdentifierRef="o" Value="/data[at0001]/events[at0002]/data[at0003]/items[at0018]/value/value" AdminDescription="" DataType="" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="OrderByContextSt" Value="$PathContextSt" Ascending="false" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="PredicateContextSt" WhereRef="" OrderByRef="$OrderByContextSt" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+  </AqlBindings>
+  <DataElements>
+    <DataElement Id="7fda60c8-951a-4bd9-b4b2-d9cabf011620" Oid="openEHR-EHR-OBSERVATION.hv_tm_kad_dips.v1" Name="KAD" AdminName="HV TM KAD" Description="Brukes for å angi status på kater, type, indikasjon og daglig observasjon" Categories="Tavlemøte" DisplayFormat="{ IF(AND(NOT(ISNULL($PredicateContextSt.PathContextSt)), AND(ISNULL($PredicateContextSt.PathDato), ISNULL($PredicateContextSt.PathStatus))),&quot;&quot;, &quot;&quot;) }{IF(ISNULL(formatdatetime(datevalue($PredicateContextSt.PathDato), &quot;dd.MM.yy&quot;, &quot;nb-no&quot;)), &quot;&quot;, CONCATENATE(&quot;Lagt inn: &quot;,CONCATENATE(T(formatdatetime(datevalue($PredicateContextSt.PathDato),&quot;dd.MM.yy&quot;, &quot;nb-no&quot;))), &quot;&quot;))} {IF(ISNULL($PredicateContextSt.PathStatus), &quot;&quot;, $PredicateContextSt.PathStatus)}" SortFormat="$PredicateContextSt.PathContextSt/value" IsEditable="true" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues>
+        <KeyValue Key="DocumentTemplateId" Value="$ARENA-VAQM-SYSTEMCONFIG/hv_tm_kad_document_template_id" AdminDescription="" />
+        <KeyValue Key="DocumentTypeId" Value="$ARENA-VAQM-SYSTEMCONFIG/hv_tm_kad_document_type_id" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+  </DataElements>
+  <KeyValues />
+</VaqmConfiguration>

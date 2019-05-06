@@ -1,0 +1,130 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.diathermy_properties_dips.v2
+
+concept
+	[at0000]	-- Diatermi egenskaper
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2018-11-25">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Detaljerte egenskaper av diatermiapparat.">
+			use = <"Brukes for å angi egenskapene til et diatermiapparat brukt ved en prosedyre. Arketypen er tenkt brukt i arketypen openEHR-EHR-CLUSTER.device.v1 for å angi egenskaper som er spesifikke for diatermiapparat.">
+			keywords = <"diatermi", "utstyr">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <"Lars Martin Jensvoll, DIPS AS", ...>
+	other_details = <
+		["current_contact"] = <"Anca Heyd, DIPS AS<ahe@dips.no>">
+		["MD5-CAM-1.0.1"] = <"C4139C1D5973033DB0D40C66DE17BA63">
+		["references"] = <"Revidert 03.05.19. Det differensieres nå mellom styrkeinnstillingene (spenningen) på diatermiapparatets bipolar og monopolar modus. Monopolar modus også har to ulike innstillinger, cut og coagulation, som nå lagres i hver sine elementer. 
+
+--Lars Martin Jensvoll, DIPS AS--">
+		["review_date"] = <"03.05.19">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Diatermi egenskaper
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..*} matches {	-- Plassering diatermiplate
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Kommentar
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..*} matches {	-- Styrke bipolar
+				value matches {
+					C_DV_QUANTITY <
+						property = <[openehr::374]>
+						list = <
+							["1"] = <
+								units = <"V">
+								magnitude = <|0.0..1000.0|>
+							>
+						>
+					>
+				}
+			}
+			ELEMENT[at0004] occurrences matches {0..1} matches {	-- Type
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0005] occurrences matches {0..1} matches {	-- Styrke monopolar cut
+				value matches {
+					C_DV_QUANTITY <
+						property = <[openehr::374]>
+						list = <
+							["1"] = <
+								units = <"V">
+								magnitude = <|0.0..1000.0|>
+							>
+						>
+					>
+				}
+			}
+			ELEMENT[at0006] occurrences matches {0..1} matches {	-- Styrke monopolar coag
+				value matches {
+					C_DV_QUANTITY <
+						property = <[openehr::374]>
+						list = <
+							["1"] = <
+								units = <"V">
+								magnitude = <|0.0..1000.0|>
+							>
+						>
+					>
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Diatermi egenskaper">
+					description = <"Detaljerte egenskaper av diatermiapparat.">
+				>
+				["at0001"] = <
+					text = <"Plassering diatermiplate">
+					description = <"Plassering av diatermiplate.">
+				>
+				["at0002"] = <
+					text = <"Kommentar">
+					description = <"Ytterligere informasjon/kommentar.">
+				>
+				["at0003"] = <
+					text = <"Styrke bipolar">
+					description = <"Angir spenningen på bipolar diatermi.">
+				>
+				["at0004"] = <
+					text = <"Type">
+					description = <"For registrering av type diatermi.">
+				>
+				["at0005"] = <
+					text = <"Styrke monopolar cut">
+					description = <"Angir spenningen på monopolar cut diatermi.">
+				>
+				["at0006"] = <
+					text = <"Styrke monopolar coag">
+					description = <"Angir spenningen på monopolar coag diatermi.">
+				>
+			>
+		>
+	>
