@@ -1,0 +1,240 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.hv_tm_kad_dips.v1
+
+concept
+	[at0000]	-- Hv tm kad dips
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Lars Morgan Karlsen">
+		["email"] = <"lmk@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2017-07-19">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Status på urinveiskateter">
+			use = <"Status på urinveiskateter">
+			misuse = <"All annen bruk">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <"Lars Morgan Karlsen, DIPS ASA<lmk@dips.no>">
+		["MD5-CAM-1.0.1"] = <"21B0A4E344EAC3FE9B4F823E01B58C24">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Hv tm kad dips
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0014] occurrences matches {0..1} matches {	-- KAD
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0015, 	-- Ja
+													at0016, 	-- Nei
+													at0017]	-- Fjernet
+												}
+											}
+										}
+									}
+									ELEMENT[at0023] occurrences matches {0..*} matches {	-- Katetertype
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0024, 	-- Blærekateter
+													at0025, 	-- Nefrodren
+													at0026]	-- Pyelostomi
+												}
+											}
+										}
+									}
+									ELEMENT[at0018] occurrences matches {0..1} matches {	-- Kateter innlagt dato
+										value matches {
+											DV_DATE matches {*}
+										}
+									}
+									ELEMENT[at0027] occurrences matches {0..1} matches {	-- Sist observert KAD
+										value matches {
+											DV_DATE matches {*}
+										}
+									}
+									ELEMENT[at0019] occurrences matches {0..1} matches {	-- Indikasjon
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0020, 	-- Ja
+													at0021, 	-- Nei
+													at0022]	-- Ikke avklart
+												}
+											}
+										}
+									}
+									ELEMENT[at0004] occurrences matches {0..*} matches {	-- Type indikasjon
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0005, 	-- 1. Behov for diuresemåling hos kritisk syke
+													at0006, 	-- 2. Akutt urinretensjon/urethra-/blæreobstruksjon
+													at0007, 	-- 3. Blæretømmingsproblemer
+													at0008, 	-- 4. Behov for kontinuerlig gjennomskylling
+													at0009, 	-- 5. Peroperativt ved visse inngrep
+													at0010, 	-- 6. Ved sakrale/perineale sår og inkontinens
+													at0011, 	-- 7. Langvarig immobilisering
+													at0012, 	-- 8. Nevrogene/ikke-nevrogene blæreforst.
+													at0013]	-- 9. Bedret komfort ved terminal pleie
+												}
+											}
+										}
+									}
+									ELEMENT[at0028] occurrences matches {0..1} matches {	-- Sist kontrollert indikasjon
+										value matches {
+											DV_DATE matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Hv tm kad dips">
+					description = <"Status på urinveiskateter">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Type indikasjon">
+					description = <"Indikasjon">
+				>
+				["at0005"] = <
+					text = <"1. Behov for diuresemåling hos kritisk syke">
+					description = <"1. Behov for diuresemåling hos kritisk syke">
+				>
+				["at0006"] = <
+					text = <"2. Akutt urinretensjon/urethra-/blæreobstruksjon">
+					description = <"2. Akutt urinretensjon/urethra-/blæreobstruksjon">
+				>
+				["at0007"] = <
+					text = <"3. Blæretømmingsproblemer">
+					description = <"3. Blæretømmingsproblemer">
+				>
+				["at0008"] = <
+					text = <"4. Behov for kontinuerlig gjennomskylling">
+					description = <"4. Behov for kontinuerlig gjennomskylling">
+				>
+				["at0009"] = <
+					text = <"5. Peroperativt ved visse inngrep">
+					description = <"5. Peroperativt ved visse inngrep">
+				>
+				["at0010"] = <
+					text = <"6. Ved sakrale/perineale sår og inkontinens">
+					description = <"6. Ved sakrale/perineale sår og inkontinens">
+				>
+				["at0011"] = <
+					text = <"7. Langvarig immobilisering">
+					description = <"7. Langvarig immobilisering">
+				>
+				["at0012"] = <
+					text = <"8. Nevrogene/ikke-nevrogene blæreforst.">
+					description = <"8. Nevrogene/ikke-nevrogene blæreforst.">
+				>
+				["at0013"] = <
+					text = <"9. Bedret komfort ved terminal pleie">
+					description = <"9. Bedret komfort ved terminal pleie">
+				>
+				["at0014"] = <
+					text = <"KAD">
+					description = <"Status på innlagt KAD">
+				>
+				["at0015"] = <
+					text = <"Ja">
+					description = <"Urinveiskateter er innlagt - sjekk indikasjon">
+				>
+				["at0016"] = <
+					text = <"Nei">
+					description = <"Pasienten har ikke urinveiskateter">
+				>
+				["at0017"] = <
+					text = <"Fjernet">
+					description = <"Urinveiskateter er fjernet">
+				>
+				["at0018"] = <
+					text = <"Kateter innlagt dato">
+					description = <"Angi dato for kateterinnleggelse">
+				>
+				["at0019"] = <
+					text = <"Indikasjon">
+					description = <"Angi om det er indikasjon for kateter">
+				>
+				["at0020"] = <
+					text = <"Ja">
+					description = <"Det er indikasjon for urinveiskateter">
+				>
+				["at0021"] = <
+					text = <"Nei">
+					description = <"Det er ikke indikasjon for urinveiskateter">
+				>
+				["at0022"] = <
+					text = <"Ikke avklart">
+					description = <"Indikasjon er uavklart">
+				>
+				["at0023"] = <
+					text = <"Katetertype">
+					description = <"Angi type kateter, flere valg er mulig">
+				>
+				["at0024"] = <
+					text = <"Blærekateter">
+					description = <"Blærekateter">
+				>
+				["at0025"] = <
+					text = <"Nefrodren">
+					description = <"Nefrodren">
+				>
+				["at0026"] = <
+					text = <"Pyelostomi">
+					description = <"Pyelostomi">
+				>
+				["at0027"] = <
+					text = <"Sist observert KAD">
+					description = <"Sist observert KAD">
+				>
+				["at0028"] = <
+					text = <"Sist kontrollert indikasjon">
+					description = <"Sist kontrollert indikasjon">
+				>
+			>
+		>
+	>

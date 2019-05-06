@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<VaqmConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Id="e65746f8-c16f-4647-aeff-c6058b8a23e0" Oid="vaqm.vitalsigns.GCS" Name="GCS" Version="2.0.0" Approved="true" CreatedByAuthor="tsa" Created="2018-09-19T14:32:42" Imported="false" VersionComment="Første utkast" BasedOnVersion="1.0.0" xmlns="http://www.dips.no/vaqmconfig">
+  <AqlBindings>
+    <AqlBinding Id="e24e9e35-d3a7-4524-9aec-9dcf8928458e" Oid="vaqm.vitalsigns.GCS" Name="GCS" DefaultArchetypeId="openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1">
+      <BaseAql>select a, a_a from composition a contains observation a_a[openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1]</BaseAql>
+      <Paths>
+        <Path Id="compositionid" IdentifierRef="a" Value="uid/value" DataType="" />
+        <Path Id="archetypeid" IdentifierRef="a_a" Value="archetype_details/archetype_id/value" AdminDescription="" DataType="" />
+        <Path Id="time" IdentifierRef="a_a" Value="/data[at0001]/events[at0002]/time/value" AdminDescription="" DataType="" />
+        <Path Id="value" IdentifierRef="a_a" Value="/data[at0001]/events[at0002]/data[at0003]/items[at0026]/value/magnitude" AdminDescription="" DataType="" />
+        <Path Id="author" IdentifierRef="a" Value="composer/name" AdminDescription="" DataType="" />
+        <Path Id="documentid" IdentifierRef="a" Value="tag(a, 'documentId')" AdminDescription="" DataType="" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="OrderBy1" Value="$time" Ascending="false" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="latest" WhereRef="" OrderByRef="$OrderBy1" />
+      </Predicates>
+      <KeyValues>
+        <KeyValue Key="Limit" Value="vaqm.vitalsigns.GCS.limit" AdminDescription="" />
+        <KeyValue Key="FractionalPartSize" Value="vaqm.vitalsigns.GCS.fractionalpartsize" AdminDescription="" />
+        <KeyValue Key="DecimalSeparator" Value="vaqm.vitalsigns.GCS.decimalseparator" AdminDescription="" />
+        <KeyValue Key="OldMeasurement" Value="vaqm.vitalsigns.GCS.oldmeasurement" AdminDescription="" />
+      </KeyValues>
+    </AqlBinding>
+  </AqlBindings>
+  <DataElements>
+    <DataElement Id="84237df4-ef79-4adc-baa4-33588dacec83" Oid="vaqm.vitalsigns.GCS" Name="GCS" AdminName="GCS" Description="Beskrivelse" Categories="vitalsigns" DisplayFormat="$latest.value" SortFormat="" IsEditable="false" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues />
+    </DataElement>
+  </DataElements>
+  <KeyValues />
+</VaqmConfiguration>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<VaqmConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Id="0bf9ae8d-7563-4e0d-93d4-09399e287ea8" Oid="vaqm.tavlemote.hn_test_aktuelt_dips" Name="HN TEST Aktuelt DIPS" Version="1.0.0" Approved="true" CreatedByAuthor="mho" Created="2018-03-13T15:50:05" Imported="true" VersionComment="Ny" xmlns="http://www.dips.no/vaqmconfig">
+  <AqlBindings>
+    <AqlBinding Id="9cfa440b-48d7-4881-8462-9f3687d71d48" Oid="openEHR-EHR-OBSERVATION.hn_test_aktuelt_dips.v1" Name="Aktuelt" DefaultArchetypeId="openEHR-EHR-OBSERVATION.hn_test_aktuelt_dips.v1">
+      <BaseAql>select c, o from composition c contains observation o[openEHR-EHR-OBSERVATION.hn_test_aktuelt_dips.v1]</BaseAql>
+      <Paths>
+        <Path Id="PathContextSt" IdentifierRef="c" Value="/context/start_time/value" DataType="String" />
+        <Path Id="PathAktuelt" IdentifierRef="o" Value="/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value/value" AdminDescription="" DataType="" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="OrderByContextSt" Value="$PathContextSt" Ascending="false" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="PredContextSt" WhereRef="" OrderByRef="$OrderByContextSt" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+  </AqlBindings>
+  <DataElements>
+    <DataElement Id="5af3bfd3-4e9f-4660-bdc8-7327d89d985e" Oid="openEHR-EHR-OBSERVATION.hn_test_aktuelt_dips.v1" Name="HN Aktuelt" AdminName="HN TEST Aktuelt" Description="Registrer hva som er aktuelt" Categories="Tavlemøte" DisplayFormat="{if(isnull($PredContextSt.PathContextSt), &quot;&quot;, if(isnull($PredContextSt.PathAktuelt), &quot;&quot;, $PredContextSt.PathAktuelt))}" SortFormat="$PredContextSt.PathAktuelt" IsEditable="true" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues>
+        <KeyValue Key="DocumentTemplateId" Value="$ARENA-VAQM-SYSTEMCONFIG/hn_test_aktuelt_document_template_id" AdminDescription="" />
+        <KeyValue Key="DocumentTypeId" Value="$ARENA-VAQM-SYSTEMCONFIG/hn_test_aktuelt_document_type_id" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+  </DataElements>
+  <KeyValues />
+</VaqmConfiguration>

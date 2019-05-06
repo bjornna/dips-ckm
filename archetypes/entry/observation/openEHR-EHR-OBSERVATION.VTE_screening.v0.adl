@@ -1,0 +1,522 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.vte_screening.v0
+
+concept
+	[at0000]	-- Screening for tromboserisiko
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Anca Heyd">
+		["email"] = <"ahe@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2019-05-02">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes for å gjøre en vurdering av thromboserisiko for pasienter som er innlagt på sykehuset.">
+			use = <"Brukes når tromboserisiko skal vurderes hos pasienter somEr innlagt på sykehuset. Arketypen brukes for å kartlegge risiko for å utvikle venøs trombose på et gitt tidspunkt. Typiske tidspunkt vil være ved innleggelse, etter en operasjon eller når pasientens tilstand forandrer seg. Arketypen brukes som et screeningsverktøy.">
+			keywords = <"profylakse", "trombose", "bldning", "risiko", "screening">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <"Kjetil Jørgensen, DIPS AS", ...>
+	other_details = <
+		["references"] = <"https://www.nice.org.uk/guidance/ng89/resources/department-of-health-vte-risk-assessment-tool-pdf-4787149213
+">
+		["MD5-CAM-1.0.1"] = <"2F620340A3351FE7A6402A50AB8906AF">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Screening for tromboserisiko
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									CLUSTER[at0007] occurrences matches {0..1} matches {	-- Innledende screening
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0004] occurrences matches {0..1} matches {	-- Kirurgisk pasient
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0046, 	-- Ja
+															at0047]	-- Nei
+														}
+													}
+												}
+											}
+											ELEMENT[at0008] occurrences matches {0..1} matches {	-- Medisinsk pasient med forventet nedsatt mobilitet
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0048, 	-- Ja
+															at0049]	-- Nei
+														}
+													}
+												}
+											}
+											ELEMENT[at0009] occurrences matches {0..1} matches {	-- Medisinsk pasient uten forventet nedsatt mobilitet
+												value matches {
+													DV_CODED_TEXT matches {
+														defining_code matches {
+															[local::
+															at0050, 	-- Ja
+															at0051]	-- Nei
+														}
+													}
+												}
+											}
+										}
+									}
+									CLUSTER[at0010] occurrences matches {0..1} matches {	-- Tromsboserisiko
+										items cardinality matches {1..*; unordered} matches {
+											CLUSTER[at0091] occurrences matches {0..1} matches {	-- Pasientrelatert
+												items cardinality matches {1..*; unordered} matches {
+													ELEMENT[at0013] occurrences matches {0..1} matches {	-- Alder > 60
+														value matches {
+															0|[local::at0054], 	-- Nei
+															1|[local::at0055]  	-- Ja
+														}
+													}
+													ELEMENT[at0012] occurrences matches {0..1} matches {	-- Aktiv kreft eller pågående kreftbehandling
+														value matches {
+															0|[local::at0052], 	-- Nei
+															1|[local::at0053]  	-- Ja
+														}
+													}
+													ELEMENT[at0014] occurrences matches {0..1} matches {	-- Dehydrert
+														value matches {0|[local::at0056]}		-- Nei
+													}
+													ELEMENT[at0016] occurrences matches {0..1} matches {	-- Kjent trombofili
+														value matches {
+															0|[local::at0057], 	-- Nei
+															1|[local::at0058]  	-- Ja
+														}
+													}
+													ELEMENT[at0017] occurrences matches {0..1} matches {	-- Sykelig overvekt
+														value matches {
+															0|[local::at0059], 	-- Nei
+															1|[local::at0060]  	-- Ja
+														}
+													}
+													ELEMENT[at0018] occurrences matches {0..1} matches {	-- En eller flere medisinsk relevante komorbiditeter 
+														value matches {
+															0|[local::at0061], 	-- Nei
+															1|[local::at0062]  	-- Ja
+														}
+													}
+													ELEMENT[at0019] occurrences matches {0..1} matches {	-- Førstegradsslektning med tidligere venøs trombose
+														value matches {
+															0|[local::at0063], 	-- Nei
+															1|[local::at0064]  	-- Ja
+														}
+													}
+													ELEMENT[at0020] occurrences matches {0..1} matches {	-- Bruker hormontilskudd (HRT)
+														value matches {
+															0|[local::at0065], 	-- Nei
+															1|[local::at0066]  	-- Ja
+														}
+													}
+													ELEMENT[at0021] occurrences matches {0..1} matches {	-- Bruker antikonsepsjonsmiddel som inneholder østrogen
+														value matches {
+															0|[local::at0069], 	-- Nei
+															1|[local::at0070]  	-- Ja
+														}
+													}
+													ELEMENT[at0022] occurrences matches {0..1} matches {	-- Varicer med thrombophlebitt
+														value matches {
+															0|[local::at0071], 	-- Nei
+															1|[local::at0072]  	-- Ja
+														}
+													}
+													ELEMENT[at0023] occurrences matches {0..1} matches {	-- Gravid eller < 6 uker post partum
+														value matches {
+															0|[local::at0073], 	-- Nei
+															1|[local::at0074]  	-- Ja
+														}
+													}
+												}
+											}
+											CLUSTER[at0092] occurrences matches {0..1} matches {	-- Innleggelsesrelatert
+												items cardinality matches {1..*; unordered} matches {
+													ELEMENT[at0026] occurrences matches {0..1} matches {	-- Betydelig redusert mobilitet > 3 dager
+														value matches {
+															0|[local::at0075], 	-- Nei
+															1|[local::at0076]  	-- Ja
+														}
+													}
+													ELEMENT[at0027] occurrences matches {0..1} matches {	-- Hofte eller kneoperasjon
+														value matches {
+															0|[local::at0077], 	-- Nei
+															1|[local::at0078]  	-- Ja
+														}
+													}
+													ELEMENT[at0028] occurrences matches {0..1} matches {	-- Hoftebrudd
+														value matches {
+															0|[local::at0079], 	-- Nei
+															1|[local::at0080]  	-- Ja
+														}
+													}
+													ELEMENT[at0029] occurrences matches {0..1} matches {	-- Total operasjonstid (anestesi + kirurgi) > 90 min
+														value matches {
+															0|[local::at0081], 	-- Nei
+															1|[local::at0082]  	-- Ja
+														}
+													}
+													ELEMENT[at0030] occurrences matches {0..1} matches {	-- Kirurgi på nedre ekstremitet med operasjonstid (anestesi + kirurgi) >60 min 
+														value matches {
+															0|[local::at0083], 	-- Nei
+															1|[local::at0084]  	-- Ja
+														}
+													}
+													ELEMENT[at0031] occurrences matches {0..1} matches {	-- Akutt kirurgisk innleggelse med betennelsestilstand eller intra-abdominell tilstand
+														value matches {
+															0|[local::at0085], 	-- Nei
+															1|[local::at0086]  	-- Ja
+														}
+													}
+													ELEMENT[at0032] occurrences matches {0..1} matches {	-- Innleggelse på intensivavdelingen
+														value matches {
+															0|[local::at0087], 	-- Nei
+															1|[local::at0088]  	-- Ja
+														}
+													}
+													ELEMENT[at0033] occurrences matches {0..1} matches {	-- Kirurgi som medfører betydelig reduksjon i mobilitet
+														value matches {
+															0|[local::at0089], 	-- Nei
+															1|[local::at0090]  	-- Ja
+														}
+													}
+												}
+											}
+										}
+									}
+									ELEMENT[at0093] occurrences matches {0..1} matches {	-- Poengsum
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|0..19|}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Screening for tromboserisiko">
+					description = <"Vurdering av risiko for venøs tromboembolisme.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Kirurgisk pasient">
+					description = <"Er pasienten kirurgisk pasient?">
+				>
+				["at0007"] = <
+					text = <"Innledende screening">
+					description = <"Dersom svaret er \"Ja\" på et av de første to innledende spørsmålene, gjennomføres hovedscreeningen.
+">
+				>
+				["at0008"] = <
+					text = <"Medisinsk pasient med forventet nedsatt mobilitet">
+					description = <"Er pasienten medisink pasient hvor mobiliteten forventes å være nedsatt i forhold til vanlig tilstand?">
+				>
+				["at0009"] = <
+					text = <"Medisinsk pasient uten forventet nedsatt mobilitet">
+					description = <"Er pasienten medisinsk pasient uten forventet nedsatt mobilitet?">
+				>
+				["at0010"] = <
+					text = <"Tromsboserisiko">
+					description = <"Screening for tromboserisiko.">
+				>
+				["at0012"] = <
+					text = <"Aktiv kreft eller pågående kreftbehandling">
+					description = <"Har pasienten  aktiv kreft eller pågående kreftbehandling?">
+				>
+				["at0013"] = <
+					text = <"Alder > 60">
+					description = <"Er pasienten er eldre enn 60 år?">
+				>
+				["at0014"] = <
+					text = <"Dehydrert">
+					description = <"Er pasieneten er dehydrert">
+				>
+				["at0016"] = <
+					text = <"Kjent trombofili">
+					description = <"Har pasienten kjent trombofili?">
+				>
+				["at0017"] = <
+					text = <"Sykelig overvekt">
+					description = <"Har pasienten sykelig overvekt med en BMI >30 kg/m2?">
+				>
+				["at0018"] = <
+					text = <"En eller flere medisinsk relevante komorbiditeter ">
+					description = <"Har pasienten en eller flere medisinsk relevante komorbiditeter f.eks. hjertesykdom, metabolisk, hormonelle eller respiratrisk sykdom?">
+				>
+				["at0019"] = <
+					text = <"Førstegradsslektning med tidligere venøs trombose">
+					description = <"Har pasienten førstegradsslektningmed tidligere venøs trombose? ">
+				>
+				["at0020"] = <
+					text = <"Bruker hormontilskudd (HRT)">
+					description = <"Bruker pasienten hormontilskudd (HRT)?">
+				>
+				["at0021"] = <
+					text = <"Bruker antikonsepsjonsmiddel som inneholder østrogen">
+					description = <"Bruker pasienten antikonsepsjonsmiddel som inneholder østrogen?">
+				>
+				["at0022"] = <
+					text = <"Varicer med thrombophlebitt">
+					description = <"Har pasienten pasienten varicer med thrombophlebitt?">
+				>
+				["at0023"] = <
+					text = <"Gravid eller < 6 uker post partum">
+					description = <"Er pasienten er gravid eller < 6 uker post partum?">
+				>
+				["at0026"] = <
+					text = <"Betydelig redusert mobilitet > 3 dager">
+					description = <"Har pasienten betydelig redusert mobilitet > 3 dager?">
+				>
+				["at0027"] = <
+					text = <"Hofte eller kneoperasjon">
+					description = <"Er pasienten innlagt for hofte eller kneoperasjon?">
+				>
+				["at0028"] = <
+					text = <"Hoftebrudd">
+					description = <"Har pasienten hoftebrudd?">
+				>
+				["at0029"] = <
+					text = <"Total operasjonstid (anestesi + kirurgi) > 90 min">
+					description = <"Er den totale operasjonstiden (anestesi + kirurgi) lengre enn    90 min?">
+				>
+				["at0030"] = <
+					text = <"Kirurgi på nedre ekstremitet med operasjonstid (anestesi + kirurgi) >60 min ">
+					description = <"Har pasienten hatt kirurgi på nedre ekstremitet med operasjonstid (anestesi + kirurgi) >60 min? ">
+				>
+				["at0031"] = <
+					text = <"Akutt kirurgisk innleggelse med betennelsestilstand eller intra-abdominell tilstand">
+					description = <"Ble pasienten akutt innlagt på kirurgi med en betennelsestilstand eller en  intra-abdominell tilstand?">
+				>
+				["at0032"] = <
+					text = <"Innleggelse på intensivavdelingen">
+					description = <"Er pasienten innlagt på intensivavdelingen?">
+				>
+				["at0033"] = <
+					text = <"Kirurgi som medfører betydelig reduksjon i mobilitet">
+					description = <"Har/skal pasienten ha kirurgi som medfører betydelig reduksjon i mobilitet?">
+				>
+				["at0046"] = <
+					text = <"Ja">
+					description = <"Pasienten er kirurgisk pasient.">
+				>
+				["at0047"] = <
+					text = <"Nei">
+					description = <"Pasienten er ikke kirurgisk pasient.">
+				>
+				["at0048"] = <
+					text = <"Ja">
+					description = <"Pasienten er medisink pasient hvor mobiliteten forventes å være nedsatt i forhold til vanlig tilstand">
+				>
+				["at0049"] = <
+					text = <"Nei">
+					description = <"Pasienten er ikke medisink pasient hvor mobiliteten forventes å være nedsatt i forhold til vanlig tilstand.">
+				>
+				["at0050"] = <
+					text = <"Ja">
+					description = <"Pasienten er medisinsk pasient uten forventet nedsatt mobilitet.">
+				>
+				["at0051"] = <
+					text = <"Nei">
+					description = <"Pasienten er ikke medisinsk pasient uten forventet nedsatt mobilitet.">
+				>
+				["at0052"] = <
+					text = <"Nei">
+					description = <"Pasienten har ikke aktiv kreft eller pågående kreftbehandling.">
+				>
+				["at0053"] = <
+					text = <"Ja">
+					description = <"Pasienten har aktiv kreft eller pågående kreftbehandling.">
+				>
+				["at0054"] = <
+					text = <"Nei">
+					description = <"Pasienten er 60 år eller yngre.">
+				>
+				["at0055"] = <
+					text = <"Ja">
+					description = <"Pasienten er  pasienten er eldre enn 60 år.">
+				>
+				["at0056"] = <
+					text = <"Nei">
+					description = <"Pasienten er ikke dehydrert.">
+				>
+				["at0057"] = <
+					text = <"Nei">
+					description = <"Pasienten har ingen  kjent trombofili.">
+				>
+				["at0058"] = <
+					text = <"Ja">
+					description = <"Pasienten har kjent trombofili.">
+				>
+				["at0059"] = <
+					text = <"Nei">
+					description = <"Pasienten har ikke sykelig overvekt med en BMI >30 kg/m2.">
+				>
+				["at0060"] = <
+					text = <"Ja">
+					description = <"Pasienten har sykelig overvekt med en BMI >30 kg/m2.">
+				>
+				["at0061"] = <
+					text = <"Nei">
+					description = <"Pasienten har ingen medisinsk relevante komorbiditeter f.eks. hjertesykdom, metabolisk, hormonelle eller respiratrisk sykdom.">
+				>
+				["at0062"] = <
+					text = <"Ja">
+					description = <"PAsienten har en eller flere medisinsk relevante komorbiditeter f.eks. hjertesykdom, metabolisk, hormonelle eller respiratrisk sykdom.">
+				>
+				["at0063"] = <
+					text = <"Nei">
+					description = <"Pasienten har ingen førstegradsslektning med tidligere venøs trombose.">
+				>
+				["at0064"] = <
+					text = <"Ja">
+					description = <"Pasienten har førstegradsslektning med tidligere venøs trombose.">
+				>
+				["at0065"] = <
+					text = <"Nei">
+					description = <"Pasienten bruker ikke hormontilskudd (HRT).">
+				>
+				["at0066"] = <
+					text = <"Ja">
+					description = <"Pasienten bruker hormontilskudd (HRT).">
+				>
+				["at0069"] = <
+					text = <"Nei">
+					description = <"Pasienten bruker ikke antikonsepsjonsmiddel som inneholder østrogen.">
+				>
+				["at0070"] = <
+					text = <"Ja">
+					description = <"Pasienten bruker antikonsepsjonsmiddel som inneholder østrogen.">
+				>
+				["at0071"] = <
+					text = <"Nei">
+					description = <"Pasienten har ikke varicer med thrombophlebitt.">
+				>
+				["at0072"] = <
+					text = <"Ja">
+					description = <"Pasienten har varicer med thrombophlebitt.">
+				>
+				["at0073"] = <
+					text = <"Nei">
+					description = <"Pasienten er ikke gravid eller < 6 uker post partum.">
+				>
+				["at0074"] = <
+					text = <"Ja">
+					description = <"Pasienten er gravid eller < 6 uker post partum.">
+				>
+				["at0075"] = <
+					text = <"Nei">
+					description = <"Pasienten har ikke betydelig redusert mobilitet > 3 dager.">
+				>
+				["at0076"] = <
+					text = <"Ja">
+					description = <"Pasienten har betydelig redusert mobilitet > 3 dager.">
+				>
+				["at0077"] = <
+					text = <"Nei">
+					description = <"Pasienten er ikke innlagt for hofte eller kneoperasjon.">
+				>
+				["at0078"] = <
+					text = <"Ja">
+					description = <"Pasienten er innlagt for hofte eller kneoperasjon.">
+				>
+				["at0079"] = <
+					text = <"Nei">
+					description = <"Pasienten har ikke hoftebrudd.">
+				>
+				["at0080"] = <
+					text = <"Ja">
+					description = <"Pasienten har hoftebrudd.">
+				>
+				["at0081"] = <
+					text = <"Nei">
+					description = <"Den totale operasjonstiden (anestesi + kirurgi) er  90 min. eller kortere.">
+				>
+				["at0082"] = <
+					text = <"Ja">
+					description = <"Den totale operasjonstiden (anestesi + kirurgi) er lengre enn   90 min?">
+				>
+				["at0083"] = <
+					text = <"Nei">
+					description = <"Pasienten har ikke hatt kirurgi på nedre ekstremitet med operasjonstid (anestesi + kirurgi) >60 min.">
+				>
+				["at0084"] = <
+					text = <"Ja">
+					description = <"Pasienten har hatt kirurgi på nedre ekstremitet med operasjonstid (anestesi + kirurgi) >60 min.">
+				>
+				["at0085"] = <
+					text = <"Nei">
+					description = <"Pasienten ble ikke  akutt innlagt på kirurgi med en betennelsestilstand eller en  intra-abdominell tilstand.">
+				>
+				["at0086"] = <
+					text = <"Ja">
+					description = <"Pasienten ble  akutt innlagt på kirurgi med en betennelsestilstand eller en  intra-abdominell tilstand.">
+				>
+				["at0087"] = <
+					text = <"Nei">
+					description = <"Pasienten er ikke innlagt på intensivavdelingen.">
+				>
+				["at0088"] = <
+					text = <"Ja">
+					description = <"Pasienten er innlagt på intensivavdelingen.">
+				>
+				["at0089"] = <
+					text = <"Nei">
+					description = <"Pasienten har ikke/skal ikke ha kirurgi som medfører betydelig reduksjon i mobilitet.">
+				>
+				["at0090"] = <
+					text = <"Ja">
+					description = <"Pasienten har/skal ha kirurgi som medfører betydelig reduksjon i mobilitet.">
+				>
+				["at0091"] = <
+					text = <"Pasientrelatert">
+					description = <"Pasientrelatert informasjon vedrørende tromboserisiko.">
+				>
+				["at0092"] = <
+					text = <"Innleggelsesrelatert">
+					description = <"Informasjon relatert til innleggelse vedrørende tromboserisiko.">
+				>
+				["at0093"] = <
+					text = <"Poengsum">
+					description = <"Sum av poeng fra alle elementene.">
+					comment = <"0 = Ingen risiko, >0 = Risiko ">
+				>
+			>
+		>
+	>
