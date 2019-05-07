@@ -26,8 +26,8 @@ description
 	other_contributors = <"Lars Martin Jensvoll, DIPS AS", ...>
 	other_details = <
 		["current_contact"] = <"Anca Heyd, DIPS AS<ahe@dips.no>">
-		["MD5-CAM-1.0.1"] = <"C4139C1D5973033DB0D40C66DE17BA63">
-		["references"] = <"Revidert 03.05.19. Det differensieres nå mellom styrkeinnstillingene (spenningen) på diatermiapparatets bipolar og monopolar modus. Monopolar modus også har to ulike innstillinger, cut og coagulation, som nå lagres i hver sine elementer. 
+		["MD5-CAM-1.0.1"] = <"2548129EFA44371471B8251588A38E3D">
+		["references"] = <"Revidert 03.05.19. Det differensieres nå mellom styrkeinnstillingene (spenningen) på diatermiapparatets bipolar og monopolar modus. Monopolar modus også har to ulike innstillinger, cut og coagulation, som nå lagres i hver sine elementer. Det tidligere elementet \"Styrke\" er slettet, og tre nye er opprettet (bipolar, monopolar cut og monopolar coag) for å sikre nye elementadresser. 
 
 --Lars Martin Jensvoll, DIPS AS--">
 		["review_date"] = <"03.05.19">
@@ -46,7 +46,12 @@ definition
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0003] occurrences matches {0..*} matches {	-- Styrke bipolar
+			ELEMENT[at0004] occurrences matches {0..1} matches {	-- Type
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0007] occurrences matches {0..1} matches {	-- Styrke bipolar
 				value matches {
 					C_DV_QUANTITY <
 						property = <[openehr::374]>
@@ -57,11 +62,6 @@ definition
 							>
 						>
 					>
-				}
-			}
-			ELEMENT[at0004] occurrences matches {0..1} matches {	-- Type
-				value matches {
-					DV_TEXT matches {*}
 				}
 			}
 			ELEMENT[at0005] occurrences matches {0..1} matches {	-- Styrke monopolar cut
@@ -109,10 +109,6 @@ ontology
 					text = <"Kommentar">
 					description = <"Ytterligere informasjon/kommentar.">
 				>
-				["at0003"] = <
-					text = <"Styrke bipolar">
-					description = <"Angir spenningen på bipolar diatermi.">
-				>
 				["at0004"] = <
 					text = <"Type">
 					description = <"For registrering av type diatermi.">
@@ -124,6 +120,10 @@ ontology
 				["at0006"] = <
 					text = <"Styrke monopolar coag">
 					description = <"Angir spenningen på monopolar coag diatermi.">
+				>
+				["at0007"] = <
+					text = <"Styrke bipolar">
+					description = <"Angir spenningen på bipolar diatermi.">
 				>
 			>
 		>
