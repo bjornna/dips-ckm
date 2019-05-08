@@ -2,17 +2,47 @@
 	openEHR-EHR-EVALUATION.device_summary.v0
 
 concept
-	[at0000]	-- Device summary
+	[at0000]	-- Medical Device summary
 language
 	original_language = <[ISO_639-1::en]>
+	translations = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			author = <
+				["name"] = <"John Tore Valand">
+				["organisation"] = <"Helse Bergen HF">
+				["email"] = <"john.tore.valand@helse-bergen.no">
+			>
+		>
+	>
 description
 	original_author = <
 		["name"] = <"Heather Leslie">
-		["email"] = <"heather.leslie@oceaninformatics.com">
 		["organisation"] = <"Ocean Informatics">
+		["email"] = <"heather.leslie@oceaninformatics.com">
 		["date"] = <"2015-10-05">
 	>
 	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For å registrere en pågående og persistent oversikt over medisinsk utstyr som er tilpasset eller implantert.">
+			use = <"For å registrere en oversikt over medisinsk utstyr som er tilpasset eller implantert.
+For eksempel:
+- ortoser eller kunstige lemmer.
+- tannpoteser eller tannimplantater.
+- briller eller kontaktlinser.
+
+Denne arketypen er spesifikt utviklet for å bidra til en administrert oversikt over medisinsk utstyr over tid. Den kan benyttes som et sammendrag i meldinger eller mellom ulike kliniske systemer hvor detaljer ikke er påkrevd. Har en benyttet høreapparat tidligere kan man registrere tilgjengelig informasjon om dette for å skape kontekst som kan ha betydning for valg av nåværende eller framtidig utstyr.
+
+I praksis vil noen kliniske systemer måtte registrere spesifikke og detaljerte INSTRUCTION og ACTION arketyper for å gjenspeile en forespørsel for et høreapparat og etterfølgende aktiviteter må registreres etter hvert som forespørselen er utført. Det er uunngåelig at det vil bli overlapp i dette sammendraget og i de detaljerte arketypene. Alle er nødvendige i ulike situasjoner.
+
+Om klinikere registrerer hele prosessen fra en forespørsel og fram til utstyret framskaffes, skal dette sammendraget avledes fra disse registreringene for å sikre at duplisering av kliniske registreringer ikke forekommer.">
+			misuse = <"Brukes ikke for å rekvirere høreapparat - Bruk INSTRUCTION.request arketypene for dette formålet.
+
+Brukes ikke for å rekvirere aktiviteter som forekommer under planlegging og tilbassing av medisinsk utstyr - bruk passende ACTION arketype for dette formålet.
+
+Brukes ikke for å registrere aktiviteter som forekommer under planlegging og tilpassing av et implantat - bruk arketypen ACTION.procedure for dette formålet.">
+		>
 		["en"] = <
 			language = <[ISO_639-1::en]>
 			purpose = <"To record an ongoing and persistent overview about devices that have been fitted or implanted.">
@@ -35,25 +65,25 @@ Not to be used to record the activities that occur in the planning and fitting o
 			copyright = <"© Northern Territory Department of Health, Australia, Nasjonal IKT HF">
 		>
 	>
-	lifecycle_state = <"NotSet">
+	lifecycle_state = <"in_development">
 	other_contributors = <"Kathy Currie, NT Hearing Health Program Leader, Australia", ...>
 	other_details = <
-		["revision"] = <"0.0.1-alpha">
-		["original_publisher"] = <"Nasjonal IKT">
-		["build_uid"] = <"b7b2c343-e483-4464-aef7-0e43f2d622ba">
-		["original_namespace"] = <"no.nasjonalikt">
-		["references"] = <"Avgrenet fra: Device summary, Draft Archetype [Internet]. openEHR Foundation, openEHR Clinical Knowledge Manager [cited: 2016-05-30]. Available from: http://openehr.org/ckm/#showArchetype_1013.1.2381">
-		["MD5-CAM-1.0.1"] = <"805AFFA8A6C4C85B2CEEDEDAD9B75E71">
-		["custodian_namespace"] = <"no.nasjonalikt">
 		["custodian_organisation"] = <"Nasjonal IKT">
+		["references"] = <"Avgrenet fra: Device summary, Draft Archetype [Internet]. openEHR Foundation, openEHR Clinical Knowledge Manager [cited: 2016-05-30]. Available from: http://openehr.org/ckm/#showArchetype_1013.1.2381">
+		["original_namespace"] = <"no.nasjonalikt">
+		["original_publisher"] = <"Nasjonal IKT">
+		["custodian_namespace"] = <"no.nasjonalikt">
+		["MD5-CAM-1.0.1"] = <"B978EDAC97ABC52E0456ACADB26177EF">
+		["build_uid"] = <"b45f3946-9b10-4e0d-bd64-120b643d98d0">
+		["revision"] = <"0.0.1-alpha">
 	>
 
 definition
-	EVALUATION[at0000] matches {	-- Device summary
+	EVALUATION[at0000] matches {	-- Sammendrag av medisinsk utstyr
 		data matches {
 			ITEM_TREE[at0001] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0020] occurrences matches {0..1} matches {	-- Device type
+					ELEMENT[at0020] occurrences matches {0..1} matches {	-- Type
 						value matches {
 							DV_TEXT matches {*}
 						}
@@ -63,45 +93,44 @@ definition
 							DV_CODED_TEXT matches {
 								defining_code matches {
 									[local::
-									at0003, 	-- Never
-									at0004, 	-- Current
-									at0005]	-- Previous
+									at0004, 	-- Nåværende
+									at0005]	-- Tidligere
 								}
 							}
 						}
 					}
-					ELEMENT[at0015] occurrences matches {0..1} matches {	-- Description
+					ELEMENT[at0015] occurrences matches {0..1} matches {	-- Beskrivelse
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					CLUSTER[at0022] occurrences matches {0..*} matches {	-- Device details
+					CLUSTER[at0022] occurrences matches {0..*} matches {	-- Detaljer
 						items cardinality matches {1..*; unordered} matches {
-							ELEMENT[at0007] occurrences matches {0..1} matches {	-- Device name
+							ELEMENT[at0007] occurrences matches {0..1} matches {	-- Navn på medisinsk utstyr
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							ELEMENT[at0008] occurrences matches {0..1} matches {	-- Start date
+							ELEMENT[at0008] occurrences matches {0..1} matches {	-- Start dato
 								value matches {
 									DV_DATE_TIME matches {*}
 								}
 							}
-							ELEMENT[at0012] occurrences matches {0..1} matches {	-- Body site
+							ELEMENT[at0012] occurrences matches {0..1} matches {	-- Anatomisk lokalisering
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							allow_archetype CLUSTER[at0013] occurrences matches {0..*} matches {	-- Structured body site
+							allow_archetype CLUSTER[at0013] occurrences matches {0..*} matches {	-- Strukturert anatomisk lokalisering
 								include
 									archetype_id/value matches {/openEHR-EHR-CLUSTER\.anatomical_location(-[a-zA-Z0-9_]+)*\.v1/}
 							}
-							ELEMENT[at0014] occurrences matches {0..1} matches {	-- Description
+							ELEMENT[at0014] occurrences matches {0..1} matches {	-- Beskrivelse
 								value matches {
 									DV_TEXT matches {*}
 								}
 							}
-							allow_archetype CLUSTER[at0010] occurrences matches {0..*} matches {	-- Structured detail
+							allow_archetype CLUSTER[at0010] occurrences matches {0..*} matches {	-- Strukturerte detaljer
 								include
 									archetype_id/value matches {/openEHR-EHR-CLUSTER\.device(-[a-zA-Z0-9_]+)*\.v1/}
 							}
@@ -109,17 +138,17 @@ definition
 								include
 									archetype_id/value matches {/openEHR-EHR-CLUSTER\.multimedia(-[a-zA-Z0-9_]+)*\.v1/}
 							}
-							ELEMENT[at0009] occurrences matches {0..1} matches {	-- End date
+							ELEMENT[at0009] occurrences matches {0..1} matches {	-- Stopp dato
 								value matches {
 									DV_DATE_TIME matches {*}
 								}
 							}
-							ELEMENT[at0023] occurrences matches {0..1} matches {	-- URI to original data
+							ELEMENT[at0023] occurrences matches {0..1} matches {	-- URI til original data
 								value matches {
 									DV_URI matches {*}
 								}
 							}
-							ELEMENT[at0019] occurrences matches {0..1} matches {	-- Next review due
+							ELEMENT[at0019] occurrences matches {0..1} matches {	-- Dato for neste gjennomgang
 								value matches {
 									DV_DATE_TIME matches {*}
 								}
@@ -132,11 +161,11 @@ definition
 		protocol matches {
 			ITEM_TREE[at0016] matches {	-- Tree
 				items cardinality matches {0..*; unordered} matches {
-					allow_archetype CLUSTER[at0018] occurrences matches {0..*} matches {	-- Extension
+					allow_archetype CLUSTER[at0018] occurrences matches {0..*} matches {	-- Utvidelse
 						include
 							archetype_id/value matches {/.*/}
 					}
-					ELEMENT[at0017] occurrences matches {0..1} matches {	-- Last updated
+					ELEMENT[at0017] occurrences matches {0..1} matches {	-- Sist oppdatert
 						value matches {
 							DV_DATE_TIME matches {*}
 						}
@@ -146,12 +175,13 @@ definition
 		}
 	}
 
+
 ontology
 	term_definitions = <
 		["en"] = <
 			items = <
 				["at0000"] = <
-					text = <"Device summary">
+					text = <"Medical Device summary">
 					description = <"An ongoing and persistent overview about devices that have been fitted or implanted.">
 				>
 				["at0001"] = <
@@ -161,10 +191,6 @@ ontology
 				["at0002"] = <
 					text = <"Status">
 					description = <"Assertion about the fitting or implanting of devices, as at the date 'Last updated'.">
-				>
-				["at0003"] = <
-					text = <"Never">
-					description = <"The device type has never been fitted or implanted.">
 				>
 				["at0004"] = <
 					text = <"Current">
@@ -240,6 +266,97 @@ ontology
 					text = <"URI to original data">
 					description = <"Link to the original data about the fitting or insertion.">
 					comment = <"Commonly, this will be an ACTION archetype that contains the details about the fitting or insertion of the device.">
+				>
+			>
+		>
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Sammendrag av medisinsk utstyr">
+					description = <"En pågående og persistent oversikt over medisinsk utstyr som er tilpasset eller implantert.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Status">
+					description = <"Utsagn om tilpasning eller implantering av utstyr ved dato for \"Sist oppdatert\".">
+				>
+				["at0004"] = <
+					text = <"Nåværende">
+					description = <"Utstyret for øyeblikket i bruk eller implantert.">
+				>
+				["at0005"] = <
+					text = <"Tidligere">
+					description = <"Utstyret har tidligere vært tilpasset eller implantert.">
+				>
+				["at0007"] = <
+					text = <"Navn på medisinsk utstyr">
+					description = <"Identifisering av det medisinske utstyret ved navn.">
+				>
+				["at0008"] = <
+					text = <"Start dato">
+					description = <"Dato for tilpasning eller implantering av det medisinske utstyret.">
+				>
+				["at0009"] = <
+					text = <"Stopp dato">
+					description = <"Datoen da bruk av det medisinske utstyret opphørte eller ble fjernet.">
+				>
+				["at0010"] = <
+					text = <"Strukturerte detaljer">
+					description = <"Ytterligere strukturerte detaljer om det medisinske utstyret.">
+				>
+				["at0012"] = <
+					text = <"Anatomisk lokalisering">
+					description = <"Identifisering av kroppsstedet hvor det medisinske utstyret er tilpasset/ implantert.">
+				>
+				["at0013"] = <
+					text = <"Strukturert anatomisk lokalisering">
+					description = <"Strukturert anatomisk lokalisering av stedet på kroppen hvor det medisinske utstyret er tilpasset/implantert.">
+				>
+				["at0014"] = <
+					text = <"Beskrivelse">
+					description = <"Fritekstbeskrivelse om det medisinske utstyret.">
+				>
+				["at0015"] = <
+					text = <"Beskrivelse">
+					description = <"Fritekstbeskrivelse om bruken av det tilpassede eller implanterte utstyret.">
+				>
+				["at0016"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0017"] = <
+					text = <"Sist oppdatert">
+					description = <"Dato da dette sammendraget sist ble oppdatert.">
+				>
+				["at0018"] = <
+					text = <"Utvidelse">
+					description = <"Ytterligere informasjon som trengs for å kunne registrere lokalt definert innhold eller for å tilpasse til andre referansemodeller/formalismer.">
+					comment = <"For eksempel lokale informasjonsbehov eller ytterligere metadata for å kunne tilpasse til tilsvarende konsepter i FHIR eller CIMI.">
+				>
+				["at0019"] = <
+					text = <"Dato for neste gjennomgang">
+					description = <"Dato da det medisinske utstyret skal gjennomgås på nytt.">
+				>
+				["at0020"] = <
+					text = <"Type">
+					description = <"Kategori eller type medisinsk utstyr.">
+					comment = <"For eksempel: Høreapparat, briller, kontaktlinser, tannregulering, tannprotese, ortoser eller kunstige lemmer.">
+				>
+				["at0021"] = <
+					text = <"Multimedia">
+					description = <"Digitalt bilde, video eller diagram om det medisinske utstyret.">
+				>
+				["at0022"] = <
+					text = <"Detaljer">
+					description = <"Detaljer om hvert enkelt medisinsk utstyr.">
+				>
+				["at0023"] = <
+					text = <"URI til original data">
+					description = <"Lenke til opprinnelig data om tilpassing eller implantering.">
+					comment = <"Vanligvis vil en ACTION-arketype inneholde detaljer om tilpasning eller implantering av det medisinske utstyret.">
 				>
 			>
 		>
