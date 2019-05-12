@@ -1,0 +1,555 @@
+<?xml version="1.0"?>
+<VaqmConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Id="b467ac72-3167-47cd-bf7c-9fd7f270a771" Oid="vaqm.ALD.akuttmodul" Name="Akuttfunksjonalitet_ALD" Version="6.0.0" Approved="true" CreatedByAuthor="mho" Created="2019-03-19T22:52:13" Imported="false" VersionComment="test" BasedOnVersion="5.0.0" xmlns="http://www.dips.no/vaqmconfig">
+  <AqlBindings>
+    <AqlBinding Id="c9b723f8-7205-4761-a83d-559bd4b4ba33" Oid="openEHR-EHR-EVALUATION.triage2.v0" Name="triagescore" DefaultArchetypeId="openEHR-EHR-EVALUATION.triage3.v0">
+      <BaseAql>select a, a_a from composition a contains evaluation a_a[openEHR-EHR-EVALUATION.triage3.v0]</BaseAql>
+      <Paths>
+        <Path Id="Triagetimeset" IdentifierRef="a_a" Value="/data[at0001]/items[at0034]/items[at0033]/value/value" DataType="String" />
+        <Path Id="triagescore" IdentifierRef="a_a" Value="/data[at0001]/items[at0034]/items[at0009]/value/value" AdminDescription="" DataType="" />
+        <Path Id="waitinglimit" IdentifierRef="a_a" Value="/data[at0001]/items[at0034]/items[at0038]/value/symbol/value" AdminDescription="" DataType="" />
+      </Paths>
+      <WhereExpressions>
+        <WhereExpression Id="triagescorenotnull" Path="$triagescore" Operator="GTE" Value="0" AdminDescription="" />
+      </WhereExpressions>
+      <OrderByExpressions>
+        <OrderByExpression Id="sortbyvalue" Value="$Triagetimeset" Ascending="false" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="triagescoring" WhereRef="$triagescorenotnull" OrderByRef="$sortbyvalue" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="0c5aa0f3-e521-4687-99a8-77909f65c6a8" Oid="Triage Tilsyn" Name="Tilsyn" DefaultArchetypeId="openEHR-EHR-ACTION.procedure.v1">
+      <BaseAql>select a, a_a from composition a contains action a_a[openEHR-EHR-ACTION.procedure.v1]</BaseAql>
+      <Paths>
+        <Path Id="startimeinspection" IdentifierRef="a_a" Value="/time/value" AdminDescription="" DataType="String" />
+        <Path Id="Procedurename" IdentifierRef="a_a" Value="/description[at0001]/items[at0002]/value/value" AdminDescription="" DataType="" />
+        <Path Id="Comments" IdentifierRef="a_a" Value="/description[at0001]/items[at0048]/value/value" AdminDescription="" DataType="" />
+        <Path Id="AuthorID" IdentifierRef="a" Value="/content[openEHR-EHR-EVALUATION.triage3.v0]/data[at0001]/items[at0034]/items[at0036]/value/value" AdminDescription="" DataType="" />
+      </Paths>
+      <WhereExpressions>
+        <WhereExpression Id="DoctorNotNurse" Path="$Procedurename" Operator="EQ" Value="'Legetilsyn'" AdminDescription="" />
+        <WhereExpression Id="NurseNotDoctor" Path="$Procedurename" Operator="EQ" Value="'Sykepleiertilsyn'" AdminDescription="" />
+      </WhereExpressions>
+      <OrderByExpressions>
+        <OrderByExpression Id="DoctorLast" Value="$startimeinspection" Ascending="false" AdminDescription="" />
+        <OrderByExpression Id="DoctorFirst" Value="$startimeinspection" Ascending="true" AdminDescription="" />
+        <OrderByExpression Id="NurseFirst" Value="$startimeinspection" Ascending="true" AdminDescription="" />
+        <OrderByExpression Id="NurseLast" Value="$startimeinspection" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="DoctorFirstPred" WhereRef="$DoctorNotNurse" OrderByRef="$DoctorFirst" AdminDescription="" />
+        <Predicate Id="DoctorLastPred" WhereRef="$DoctorNotNurse" OrderByRef="$DoctorLast" AdminDescription="" />
+        <Predicate Id="NurseFirstPred" WhereRef="$NurseNotDoctor" OrderByRef="$NurseFirst" AdminDescription="" />
+        <Predicate Id="NurseLastPred" WhereRef="$NurseNotDoctor" OrderByRef="$NurseLast" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="96bb2ed1-bf56-4e10-8a0c-1e58afc66a2f" Oid="SepsisVarsel" Name="SepsisVarsel" DefaultArchetypeId="openEHR-EHR-EVALUATION.sirs_varsel.v0">
+      <BaseAql>select a, a_a from composition a contains EVALUATION a_a [openEHR-EHR-EVALUATION.sirs_varsel.v0]</BaseAql>
+      <Paths>
+        <Path Id="SIRSSCORE" IdentifierRef="a_a" Value="/data[at0001]/items[at0012]/value/magnitude" AdminDescription="" DataType="" />
+        <Path Id="contextstart" IdentifierRef="a" Value="/context/start_time/value" AdminDescription="" DataType="String" />
+        <Path Id="QSOFASCORE" IdentifierRef="a_a" Value="/data[at0001]/items[at0009]/value/magnitude" AdminDescription="" DataType="" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="Starttime" Value="$contextstart" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="SpesisWarning" WhereRef="" OrderByRef="$Starttime" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="88e02bfd-9416-4625-a343-ae2d49688022" Oid="pulse-chart" Name="pulse-chartvalues" DefaultArchetypeId="openEHR-EHR-OBSERVATION.pulse.v1">
+      <BaseAql>select a_a from composition contains observation a_a[openEHR-EHR-OBSERVATION.pulse.v1]</BaseAql>
+      <Paths>
+        <Path Id="pulsfrequency" IdentifierRef="a_a" Value="/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/magnitude" AdminDescription="" DataType="" />
+        <Path Id="timeregistered" IdentifierRef="a_a" Value="data[at0002]/events[at0003]/time/value" AdminDescription="" DataType="" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="sortbytime" Value="$timeregistered" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="Pulse" WhereRef="" OrderByRef="$sortbytime" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="d2fcdfad-d43f-4b32-9840-2b26f0136992" Oid="Bloodpressure-chartvalues" Name="Bloodpressure-chartvalues" DefaultArchetypeId="openEHR-EHR-OBSERVATION.blood_pressure.v1">
+      <BaseAql>select a_a from composition contains observation a_a[openEHR-EHR-OBSERVATION.blood_pressure.v1]</BaseAql>
+      <Paths>
+        <Path Id="Systolic" IdentifierRef="a_a" Value="/data[at0001]/events[at0006]/data[at0003]/items[at0004]/value/magnitude" AdminDescription="" DataType="" />
+        <Path Id="Diastolic" IdentifierRef="a_a" Value="/data[at0001]/events[at0006]/data[at0003]/items[at0005]/value/magnitude" AdminDescription="" DataType="" />
+        <Path Id="Meassurmenttime" IdentifierRef="a_a" Value="/data[at0001]/events[at0006]/time/value" AdminDescription="" DataType="" />
+      </Paths>
+      <WhereExpressions>
+        <WhereExpression Id="Systolicnotnull" Path="$Systolic" Operator="GT" Value="0" AdminDescription="" />
+        <WhereExpression Id="Diastolicnotnull" Path="$Diastolic" Operator="GT" Value="0" AdminDescription="" />
+      </WhereExpressions>
+      <OrderByExpressions>
+        <OrderByExpression Id="sortbytime" Value="$Meassurmenttime" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="Bloodpressuresystolic" WhereRef="$Systolicnotnull" OrderByRef="$sortbytime" AdminDescription="" />
+        <Predicate Id="Bloodpressurediastolic" WhereRef="$Diastolicnotnull" OrderByRef="$sortbytime" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="ae1eed8d-ee32-4680-bd93-99ec171cd6b2" Oid="Respirationfrequency-chartvalues" Name="Respirationfrequency-chartvalues" DefaultArchetypeId="OpenEHR-EHR-OBSERVATION.respiration.v1">
+      <BaseAql>select c, a_a, from composition c contains observation a_a[openEHR-EHR-OBSERVATION.respiration.v1]</BaseAql>
+      <Paths>
+        <Path Id="respiration" IdentifierRef="a_a" Value="/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value/magnitude" AdminDescription="" DataType="" />
+        <Path Id="meassurmenttime" IdentifierRef="a_a" Value="/data[at0001]/events[at0002]/time/value" AdminDescription="" DataType="" />
+        <Path Id="patientage" IdentifierRef="c" Value="/context/other_context[at0001]/items[openEHR-EHR-CLUSTER.individual_personal.v0]/items[at0007]/value/value" AdminDescription="" DataType="" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="sortbytime" Value="$meassurmenttime" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="respirationfrequency" WhereRef="" OrderByRef="$sortbytime" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="d39fd789-e336-466d-ba8a-e1d456335da2" Oid="Temperatur-chartvalues" Name="Temperatur-chartvalues" DefaultArchetypeId="[openEHR-EHR-OBSERVATION.body_temperature.v2]">
+      <BaseAql>select a_a from composition contains observation a_a[openEHR-EHR-OBSERVATION.body_temperature.v2]</BaseAql>
+      <Paths>
+        <Path Id="bodytemperature" IdentifierRef="a_a" Value="/data[at0002]/events[at0003]/data[at0001]/items[at0004]/value/magnitude" AdminDescription="" DataType="" />
+        <Path Id="meassurmenttime" IdentifierRef="a_a" Value="/data[at0002]/events[at0003]/time/value" AdminDescription="" DataType="" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="sortbytime" Value="$meassurmenttime" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="bodytemperaturchart" WhereRef="" OrderByRef="$sortbytime" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="5d687829-99ee-433a-a97d-5ca59f236568" Oid="Newscoresjekk" Name="Newscoresjekk" DefaultArchetypeId="openEHR-EHR-OBSERVATION.news_uk_rcp.v1">
+      <BaseAql>select a_a from composition contains observation a_a[openEHR-EHR-OBSERVATION.news_uk_rcp.v1]</BaseAql>
+      <Paths>
+        <Path Id="lastnews" IdentifierRef="a_a" Value="/data[at0001]/events[at0002]/data[at0003]/items[at0028]/value/magnitude" AdminDescription="" DataType="" />
+        <Path Id="scoretime" IdentifierRef="a_a" Value="/data[at0001]/origin/value" AdminDescription="" DataType="" />
+        <Path Id="newsresp" IdentifierRef="a_a" Value="/data[at0001]/events[at0002]/data[at0003]/items[at0006]/value/value" AdminDescription="" DataType="" />
+        <Path Id="newsspo2" IdentifierRef="a_a" Value="/data[at0001]/events[at0002]/data[at0003]/items[at0029]/value/value" AdminDescription="" DataType="" />
+        <Path Id="newsO2" IdentifierRef="a_a" Value="/data[at0001]/events[at0002]/data[at0003]/items[at0034]/value/value" AdminDescription="" DataType="" />
+        <Path Id="newstemp" IdentifierRef="a_a" Value="/data[at0001]/events[at0002]/data[at0003]/items[at0007]/value/value" AdminDescription="" DataType="" />
+        <Path Id="newsystolic" IdentifierRef="a_a" Value="/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value/value" AdminDescription="" DataType="" />
+        <Path Id="newspuls" IdentifierRef="a_a" Value="/data[at0001]/events[at0002]/data[at0003]/items[at0005]/value/value" AdminDescription="" DataType="" />
+        <Path Id="newsGSC" IdentifierRef="a_a" Value="/data[at0001]/events[at0002]/data[at0003]/items[at0008]/value/value" AdminDescription="" DataType="" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="sortbytime" Value="$scoretime" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="sistenews" WhereRef="" OrderByRef="$sortbytime" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="bee4995a-d199-40d1-97bc-23e44aabdeef" Oid="GCS scoringer" Name="GCS scoringer" DefaultArchetypeId="">
+      <BaseAql>select c, a_a from composition c contains observation a_a[openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1]</BaseAql>
+      <Paths>
+        <Path Id="PathGCSscore" IdentifierRef="a_a" Value="/data[at0001]/events[at0002]/data[at0003]/items[at0026]/value/magnitude" AdminDescription="" DataType="" />
+        <Path Id="Pathcontextst" IdentifierRef="c" Value="/context/start_time/value" AdminDescription="" DataType="String" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="sortbytime" Value="$Pathcontextst" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="GCSscore" WhereRef="" OrderByRef="$sortbytime" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="7e6bb568-0667-4412-a4c0-f864acbb32ca" Oid="NIHSS" Name="NIHSS" DefaultArchetypeId="">
+      <BaseAql>select a_a, a, c from composition c contains (observation a_a[openEHR-EHR-OBSERVATION.nhiss_score.v0] or admin_entry a[openEHR-EHR-ADMIN_ENTRY.document_reminder_a_and_e.v0])</BaseAql>
+      <Paths>
+        <Path Id="pathcontextst" IdentifierRef="c" Value="/context/start_time/value" AdminDescription="" DataType="String" />
+        <Path Id="pathNIHSSboolean" IdentifierRef="a" Value="/data[at0001]/items[at0002]/value/value" AdminDescription="" DataType="" />
+        <Path Id="pathNIHSSscore" IdentifierRef="a_a" Value="/data[at0001]/events[at0002]/data[at0003]/items[at0077]/value/magnitude" AdminDescription="" DataType="" />
+      </Paths>
+      <WhereExpressions>
+        <WhereExpression Id="NIHSSbooleanCheck" Path="$pathNIHSSboolean" Operator="EQ" Value="'True'" AdminDescription="" />
+        <WhereExpression Id="NIHSSbooleanNull" Path="$pathNIHSSboolean" Operator="NEQ" Value="'True'" AdminDescription="" />
+      </WhereExpressions>
+      <OrderByExpressions>
+        <OrderByExpression Id="startime" Value="$pathcontextst" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="NIHSStrue" WhereRef="$NIHSSbooleanCheck" OrderByRef="$startime" AdminDescription="" />
+        <Predicate Id="NIHSSnull" WhereRef="$NIHSSbooleanNull" OrderByRef="$startime" AdminDescription="" />
+        <Predicate Id="NIHSSscore" WhereRef="" OrderByRef="$startime" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+  </AqlBindings>
+  <DataElements>
+    <DataElement Id="d4db6138-11c9-4f8d-b27e-2d0df2201ff7" Oid="SepsisVarselTrige" Name="Sepsisvarsling" AdminName="SepsisVarselTrige" Description="" Categories="Triage-ny" DisplayFormat="{IFNULL(IF(and($SpesisWarning.contextstart&gt;ifnull($DoctorLastPred.startimeinspection,&quot;1&quot;),Or(2&lt;=$SpesisWarning.SIRSSCORE,2&lt;=$SpesisWarning.QSOFASCORE)),&quot;Burde tilses for å utelukke sepsis&quot;,&quot;&quot;),&quot;&quot;)}" SortFormat="" IsEditable="true" AdminDescription="" XFormat="$SpesisWarning.contextstart" XFormatDataType="datetime" YFormat="$SpesisWarning.QSOFASCORE" YFormatDataType="double" RangeFormat="">
+      <FormatExpressions>
+        <FormatExpression Id="889d7d17-c191-47c4-a6ee-3eee04b3ab9c">
+          <WhenExpression Value="IFNULL(IF(and($SpesisWarning.contextstart&gt;ifnull($DoctorLastPred.startimeinspection,&quot;1&quot;),Or(2&lt;=$SpesisWarning.SIRSSCORE,2&lt;=$SpesisWarning.QSOFASCORE)), True,False),False)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>F1 M 58.5832,55.4172L 17.4169,55.4171C 15.5619,53.5621 15.5619,50.5546 17.4168,48.6996L 35.201,15.8402C 37.056,13.9852 40.0635,13.9852 41.9185,15.8402L 58.5832,48.6997C 60.4382,50.5546 60.4382,53.5622 58.5832,55.4172 Z M 34.0417,25.7292L 36.0208,41.9584L 39.9791,41.9583L 41.9583,25.7292L 34.0417,25.7292 Z M 38,44.3333C 36.2511,44.3333 34.8333,45.7511 34.8333,47.5C 34.8333,49.2489 36.2511,50.6667 38,50.6667C 39.7489,50.6667 41.1666,49.2489 41.1666,47.5C 41.1666,45.7511 39.7489,44.3333 38,44.3333 Z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FFD69600</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Pasienten kan ha begynende sepsis</Description>
+        </FormatExpression>
+        <FormatExpression Id="ce7cac96-ee93-4f42-aff1-c947cd13adb2">
+          <WhenExpression Value="IFNULL(IF(Or(2&gt;$SpesisWarning.SIRSSCORE,2&gt;$SpesisWarning.QSOFASCORE),True,False),False)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M12,2A10,10,0,0,1,22,12A10,10,0,0,1,12,22A10,10,0,0,1,2,12A10,10,0,0,1,12,2 M12,4A8,8,0,0,0,4,12A8,8,0,0,0,12,20A8,8,0,0,0,20,12A8,8,0,0,0,12,4 M11,16.5L6.5,12 7.91,10.59 11,13.67 16.59,8.09 18,9.5 11,16.5z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF346A3B</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Pasienten er negativ på SIRS og QSOFA</Description>
+        </FormatExpression>
+        <FormatExpression Id="63e4966a-7028-4581-a9c7-14d590abd375">
+          <WhenExpression Value="ifnull(IFNULL(Or($SpesisWarning.SIRSSCORE,$SpesisWarning.QSOFASCORE),True),false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M10,19L13,19 13,22 10,22 10,19 M12,2C17.35,2.22 19.68,7.62 16.5,11.67 15.67,12.67 14.33,13.33 13.67,14.17 13,15 13,16 13,17L10,17C10,15.33 10,13.92 10.67,12.92 11.33,11.92 12.67,11.33 13.5,10.67 15.92,8.43 15.32,5.26 12,5A3,3,0,0,0,9,8L6,8A6,6,0,0,1,12,2z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF648690</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Det er ikke utført tilstrekkelige målinger i skjema for mottak til å beregne score for sepsis</Description>
+        </FormatExpression>
+      </FormatExpressions>
+      <KeyValues>
+        <KeyValue Key="DocumentTemplateId" Value="$ARENA-VAQM-SYSTEMCONFIG/sepsiswarning_document_template_ID" AdminDescription="" />
+        <KeyValue Key="DocumentTypeId" Value="$ARENA-VAQM-SYSTEMCONFIG/sepsiswarning_document_type_ID" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="b409c7c0-a8e9-45f4-a2a1-188e41fd30eb" Oid="pulse-chart" Name="Siste Puls" AdminName="pulse-chart" Description="brukes som verdi i chart og kan brukes som siste puls i pas liste" Categories="Triage-ny" DisplayFormat="{ifnull($Pulse.pulsfrequency,&quot;&quot;)}" SortFormat="" IsEditable="true" AdminDescription="" XFormat="$Pulse.timeregistered" XFormatDataType="datetime" YFormat="$Pulse.pulsfrequency" YFormatDataType="double" RangeFormat="">
+      <FormatExpressions>
+        <FormatExpression Id="03b802e4-2f9c-4503-ba24-7b0e616f7935">
+          <WhenExpression Value="ifnull(if(and(2&gt;=$sistenews.newspuls,or(40&gt;$Pulse.pulsfrequency,131&lt;$Pulse.pulsfrequency)),False,True),false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M149.59112,13.381747L152.38112,13.381747 156.69112,5.1717477 157.87112,14.131747 161.09112,10.041747 164.42112,13.381747 167.59112,13.381747 167.59112,15.381747 163.59112,15.381747 161.26112,13.051747 156.51112,19.111747 155.53112,11.691747 153.59112,15.381747 149.59112,15.381747 149.59112,13.381747z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF346A3B</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Pulsfrekvens er målt</Description>
+        </FormatExpression>
+        <FormatExpression Id="52392598-3015-44e9-85ba-952ecf0ac942">
+          <WhenExpression Value="ifnull(if(and(2&gt;=$sistenews.newspuls,or(40&gt;$Pulse.pulsfrequency,131&lt;$Pulse.pulsfrequency)),True,false),false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M11,15L13,15 13,17 11,17 11,15 M11,7L13,7 13,13 11,13 11,7 M12,2C6.47,2,2,6.5,2,12A10,10,0,0,0,12,22A10,10,0,0,0,22,12A10,10,0,0,0,12,2 M12,20A8,8,0,0,1,4,12A8,8,0,0,1,12,4A8,8,0,0,1,20,12A8,8,0,0,1,12,20z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF980707</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Ny NEWS anbefales på bagrunn av siste målte pulsfrekvens</Description>
+        </FormatExpression>
+        <FormatExpression Id="49923f32-f255-475f-ba91-aff92204a6ac">
+          <WhenExpression Value="if(&quot;true&quot;=ifnull($Pulse.pulsfrequency,true),true,false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M149.59112,13.381747L152.38112,13.381747 156.69112,5.1717477 157.87112,14.131747 161.09112,10.041747 164.42112,13.381747 167.59112,13.381747 167.59112,15.381747 163.59112,15.381747 161.26112,13.051747 156.51112,19.111747 155.53112,11.691747 153.59112,15.381747 149.59112,15.381747 149.59112,13.381747z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF648690</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Pulsfrekvens er ikke målt</Description>
+        </FormatExpression>
+      </FormatExpressions>
+      <KeyValues>
+        <KeyValue Key="DocumentTemplateId" Value="$ARENA-VAQM-SYSTEMCONFIG/pulse_document_template_ID" AdminDescription="" />
+        <KeyValue Key="DocumentTypeId" Value="$ARENA-VAQM-SYSTEMCONFIG/pulse_document_type_ID" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="6f84ad30-b757-4fb6-96e4-77cb28afb1fb" Oid="Bloodpressure-systolic-chart" Name="Siste systoliske blodtrykk" AdminName="Bloodpressure-systolic-chart" Description="brukes som verdi i chart og kan brukes som siste Systoliskei pas liste" Categories="Triage-ny" DisplayFormat="{ifnull($Bloodpressuresystolic.Systolic,&quot;&quot;)}" SortFormat="" IsEditable="true" AdminDescription="" XFormat="$Bloodpressuresystolic.Meassurmenttime" XFormatDataType="datetime" YFormat="$Bloodpressuresystolic.Systolic" YFormatDataType="double" RangeFormat="">
+      <FormatExpressions>
+        <FormatExpression Id="79cbf9b8-4512-48f9-a1fb-4622f65f772c">
+          <WhenExpression Value="ifnull(if(and(2&gt;=$sistenews.newsystolic,or(90&gt;$Bloodpressuresystolic.Systolic,220&lt;$Bloodpressuresystolic.Systolic)),False,True),false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M17.3,18C19,16.5,20,14.4,20,12A8,8,0,0,0,12,4A8,8,0,0,0,4,12C4,14.4 5,16.5 6.7,18 8.2,16.7 10,16 12,16 14,16 15.9,16.7 17.3,18 M12,2A10,10,0,0,1,22,12A10,10,0,0,1,12,22A10,10,0,0,1,2,12A10,10,0,0,1,12,2 M7,9A1,1,0,0,1,8,10A1,1,0,0,1,7,11A1,1,0,0,1,6,10A1,1,0,0,1,7,9 M10,6A1,1,0,0,1,11,7A1,1,0,0,1,10,8A1,1,0,0,1,9,7A1,1,0,0,1,10,6 M17,9A1,1,0,0,1,18,10A1,1,0,0,1,17,11A1,1,0,0,1,16,10A1,1,0,0,1,17,9 M14.4,6.1C14.9,6.3,15.1,6.9,15,7.4L13.6,10.8C13.8,11.1,14,11.5,14,12A2,2,0,0,1,12,14A2,2,0,0,1,10,12C10,11,10.7,10.1,11.7,10L13.1,6.7C13.3,6.1,13.9,5.9,14.4,6.1z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF346A3B</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Systolisk blodtrykk er målt</Description>
+        </FormatExpression>
+        <FormatExpression Id="f3899ab4-0ce4-4b95-ba36-11bcaa672804">
+          <WhenExpression Value="ifnull(if(and(2&gt;=$sistenews.newsystolic,or(90&gt;$Bloodpressuresystolic.Systolic,220&lt;$Bloodpressuresystolic.Systolic)),True,false),false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M11,15L13,15 13,17 11,17 11,15 M11,7L13,7 13,13 11,13 11,7 M12,2C6.47,2,2,6.5,2,12A10,10,0,0,0,12,22A10,10,0,0,0,22,12A10,10,0,0,0,12,2 M12,20A8,8,0,0,1,4,12A8,8,0,0,1,12,4A8,8,0,0,1,20,12A8,8,0,0,1,12,20z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF980707</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Ny NEWS anbefales på bagrunn av siste målte systoliske blodtrykk</Description>
+        </FormatExpression>
+        <FormatExpression Id="be21dfb5-17ed-4bad-88b3-416e1158e47a">
+          <WhenExpression Value="if(&quot;true&quot;=ifnull($Bloodpressuresystolic.Systolic,true),true,false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M17.3,18C19,16.5,20,14.4,20,12A8,8,0,0,0,12,4A8,8,0,0,0,4,12C4,14.4 5,16.5 6.7,18 8.2,16.7 10,16 12,16 14,16 15.9,16.7 17.3,18 M12,2A10,10,0,0,1,22,12A10,10,0,0,1,12,22A10,10,0,0,1,2,12A10,10,0,0,1,12,2 M7,9A1,1,0,0,1,8,10A1,1,0,0,1,7,11A1,1,0,0,1,6,10A1,1,0,0,1,7,9 M10,6A1,1,0,0,1,11,7A1,1,0,0,1,10,8A1,1,0,0,1,9,7A1,1,0,0,1,10,6 M17,9A1,1,0,0,1,18,10A1,1,0,0,1,17,11A1,1,0,0,1,16,10A1,1,0,0,1,17,9 M14.4,6.1C14.9,6.3,15.1,6.9,15,7.4L13.6,10.8C13.8,11.1,14,11.5,14,12A2,2,0,0,1,12,14A2,2,0,0,1,10,12C10,11,10.7,10.1,11.7,10L13.1,6.7C13.3,6.1,13.9,5.9,14.4,6.1z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF648690</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Systolisk blodtrykk er ikke målt</Description>
+        </FormatExpression>
+      </FormatExpressions>
+      <KeyValues>
+        <KeyValue Key="DocumentTemplateId" Value="$ARENA-VAQM-SYSTEMCONFIG/systolicbloodpressure_document_template_ID" AdminDescription="" />
+        <KeyValue Key="DocumentTypeId" Value="$ARENA-VAQM-SYSTEMCONFIG/systolicbloodpressure_document_type_ID" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="743cc19a-c7a2-4354-9fdc-50bbdb7e686b" Oid="Respirationfrequency-chart" Name="Siste respirasjonsfrekvens" AdminName="Respirationfrequency-chart" Description="brukes som verdi i chart og kan brukes som siste resp frekvens i pas liste" Categories="Triage-ny" DisplayFormat="{ifnull($respirationfrequency.respiration,&quot;&quot;)}" SortFormat="" IsEditable="true" AdminDescription="" XFormat="$respirationfrequency.meassurmenttime" XFormatDataType="datetime" YFormat="$respirationfrequency.respiration" YFormatDataType="double" RangeFormat="">
+      <FormatExpressions>
+        <FormatExpression Id="2115b07f-3ed5-4a98-91e0-b03b17c7bac5">
+          <WhenExpression Value="ifnull(if(or(12&gt;$respirationfrequency.respiration,20&lt;$respirationfrequency.respiration),false,True),false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M4,10A1,1,0,0,1,3,9A1,1,0,0,1,4,8L12,8A2,2,0,0,0,14,6A2,2,0,0,0,12,4C11.45,4 10.95,4.22 10.59,4.59 10.2,5 9.56,5 9.17,4.59 8.78,4.2 8.78,3.56 9.17,3.17 9.9,2.45 10.9,2 12,2A4,4,0,0,1,16,6A4,4,0,0,1,12,10L4,10 M19,12A1,1,0,0,0,20,11A1,1,0,0,0,19,10C18.72,10 18.47,10.11 18.29,10.29 17.9,10.68 17.27,10.68 16.88,10.29 16.5,9.9 16.5,9.27 16.88,8.88 17.42,8.34 18.17,8 19,8A3,3,0,0,1,22,11A3,3,0,0,1,19,14L5,14A1,1,0,0,1,4,13A1,1,0,0,1,5,12L19,12 M18,18L4,18A1,1,0,0,1,3,17A1,1,0,0,1,4,16L18,16A3,3,0,0,1,21,19A3,3,0,0,1,18,22C17.17,22 16.42,21.66 15.88,21.12 15.5,20.73 15.5,20.1 15.88,19.71 16.27,19.32 16.9,19.32 17.29,19.71 17.47,19.89 17.72,20 18,20A1,1,0,0,0,19,19A1,1,0,0,0,18,18z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF346A3B</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Respirasjonsfrekvens er målt innenfor referanseområde</Description>
+        </FormatExpression>
+        <FormatExpression Id="d34e7be4-4876-4d7f-abbf-300c8d8118bd">
+          <WhenExpression Value="ifnull(if(and(2&gt;=$sistenews.newsresp,or(8&gt;$respirationfrequency.respiration,25&lt;$respirationfrequency.respiration)),True,False),false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M11,15L13,15 13,17 11,17 11,15 M11,7L13,7 13,13 11,13 11,7 M12,2C6.47,2,2,6.5,2,12A10,10,0,0,0,12,22A10,10,0,0,0,22,12A10,10,0,0,0,12,2 M12,20A8,8,0,0,1,4,12A8,8,0,0,1,12,4A8,8,0,0,1,20,12A8,8,0,0,1,12,20z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF980707</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Ny NEWS anbefales på bagrunn av siste målte repsirasjonsfrekvens</Description>
+        </FormatExpression>
+        <FormatExpression Id="7584cf23-82d7-4e1e-b603-73e34c5e2836">
+          <WhenExpression Value="if(&quot;true&quot;=ifnull($respirationfrequency.respiration,true),true,false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M4,10A1,1,0,0,1,3,9A1,1,0,0,1,4,8L12,8A2,2,0,0,0,14,6A2,2,0,0,0,12,4C11.45,4 10.95,4.22 10.59,4.59 10.2,5 9.56,5 9.17,4.59 8.78,4.2 8.78,3.56 9.17,3.17 9.9,2.45 10.9,2 12,2A4,4,0,0,1,16,6A4,4,0,0,1,12,10L4,10 M19,12A1,1,0,0,0,20,11A1,1,0,0,0,19,10C18.72,10 18.47,10.11 18.29,10.29 17.9,10.68 17.27,10.68 16.88,10.29 16.5,9.9 16.5,9.27 16.88,8.88 17.42,8.34 18.17,8 19,8A3,3,0,0,1,22,11A3,3,0,0,1,19,14L5,14A1,1,0,0,1,4,13A1,1,0,0,1,5,12L19,12 M18,18L4,18A1,1,0,0,1,3,17A1,1,0,0,1,4,16L18,16A3,3,0,0,1,21,19A3,3,0,0,1,18,22C17.17,22 16.42,21.66 15.88,21.12 15.5,20.73 15.5,20.1 15.88,19.71 16.27,19.32 16.9,19.32 17.29,19.71 17.47,19.89 17.72,20 18,20A1,1,0,0,0,19,19A1,1,0,0,0,18,18z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF648690</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Respirasjonsfrekvens er ikke målt</Description>
+        </FormatExpression>
+      </FormatExpressions>
+      <KeyValues>
+        <KeyValue Key="DocumentTemplateId" Value="$ARENA-VAQM-SYSTEMCONFIG/respirationfrequency_document_template_ID" AdminDescription="" />
+        <KeyValue Key="DocumentTypeId" Value="$ARENA-VAQM-SYSTEMCONFIG/respirationfrequency_document_type_ID" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="a1f58129-b3bb-4662-9a0d-b933cefc3fcc" Oid="Temperatur-chart" Name="Siste tempereatur" AdminName="Temperatur-chart" Description="brukes som verdi i chart og kan brukes som siste temperaturi pas liste" Categories="Triage-ny" DisplayFormat="{ifnull($bodytemperaturchart.bodytemperature,&quot;&quot;)}" SortFormat="" IsEditable="true" AdminDescription="" XFormat="$bodytemperaturchart.meassurmenttime" XFormatDataType="datetime" YFormat="$bodytemperaturchart.bodytemperature" YFormatDataType="double" RangeFormat="">
+      <FormatExpressions>
+        <FormatExpression Id="596c6d73-132b-4c63-a44f-036d46eb35ae">
+          <WhenExpression Value="ifnull(if(and(2&gt;=$sistenews.newstemp,or(35&gt;$bodytemperaturchart.bodytemperature,&quot;39,1&quot;&lt;$bodytemperaturchart.bodytemperature)),False,True),false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M17,17A5,5,0,0,1,12,22A5,5,0,0,1,7,17C7,15.36,7.79,13.91,9,13L9,5A3,3,0,0,1,12,2A3,3,0,0,1,15,5L15,13C16.21,13.91,17,15.36,17,17 M11,8L11,14.17C9.83,14.58,9,15.69,9,17A3,3,0,0,0,12,20A3,3,0,0,0,15,17C15,15.69,14.17,14.58,13,14.17L13,8 11,8z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF346A3B</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Temperaturmåling er utført</Description>
+        </FormatExpression>
+        <FormatExpression Id="daa952d1-1668-4dc5-a330-357a313c7710">
+          <WhenExpression Value="ifnull(if(and(2&gt;=$sistenews.newstemp,or(35&gt;$bodytemperaturchart.bodytemperature,&quot;39,1&quot;&lt;$bodytemperaturchart.bodytemperature)),True,False),false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M11,15L13,15 13,17 11,17 11,15 M11,7L13,7 13,13 11,13 11,7 M12,2C6.47,2,2,6.5,2,12A10,10,0,0,0,12,22A10,10,0,0,0,22,12A10,10,0,0,0,12,2 M12,20A8,8,0,0,1,4,12A8,8,0,0,1,12,4A8,8,0,0,1,20,12A8,8,0,0,1,12,20z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF980707</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Ny NEWS anbefales på bagrunn av siste målte temperatur</Description>
+        </FormatExpression>
+        <FormatExpression Id="45df0c95-d307-4535-9089-0e4744001fd6">
+          <WhenExpression Value="if(&quot;true&quot;=ifnull($bodytemperaturchart.bodytemperature,true),true,false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M17,17A5,5,0,0,1,12,22A5,5,0,0,1,7,17C7,15.36,7.79,13.91,9,13L9,5A3,3,0,0,1,12,2A3,3,0,0,1,15,5L15,13C16.21,13.91,17,15.36,17,17 M11,8L11,14.17C9.83,14.58,9,15.69,9,17A3,3,0,0,0,12,20A3,3,0,0,0,15,17C15,15.69,14.17,14.58,13,14.17L13,8 11,8z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF648690</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Temperaturmåling er ikke utført</Description>
+        </FormatExpression>
+      </FormatExpressions>
+      <KeyValues>
+        <KeyValue Key="DocumentTemplateId" Value="$ARENA-VAQM-SYSTEMCONFIG/bodytemperature_document_template_ID" AdminDescription="" />
+        <KeyValue Key="DocumentTypeId" Value="$ARENA-VAQM-SYSTEMCONFIG/bodytemperature_document_type_ID" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="d111ea53-9e3d-48ab-83b0-a6f6ea5dd708" Oid="NewsAnbefalt" Name="NEWS" AdminName="NewsAnbefalt" Description="anbefaler neste news på basis av respons på sist satte news score" Categories="ALD" DisplayFormat="{IFNULL(IF(0=$sistenews.lastnews,FORMATDATETIME(DATEVALUE(DURATION_ADD($sistenews.scoretime,&quot;PT720M&quot;)),&quot;kl. HH:mm&quot;, &quot;nb-no&quot;),IF(and(1&lt;=$sistenews.lastnews,4&gt;=$sistenews.lastnews),FORMATDATETIME(DATEVALUE(DURATION_ADD($sistenews.scoretime,&quot;PT240M&quot;)),&quot;kl. HH:mm&quot;, &quot;nb-no&quot;),IF(or(3=$sistenews.newsresp,3=$sistenews.newsspo2,3=$sistenews.newsO2,3=$sistenews.newstemp,3=$sistenews.newsystolic,3=$sistenews.newspuls,3=$sistenews.newsGSC,and(5&lt;=$sistenews.lastnews,6&gt;=$sistenews.lastnews)),FORMATDATETIME(DATEVALUE(DURATION_ADD($sistenews.scoretime,&quot;PT60M&quot;)),&quot;kl. HH:mm&quot;, &quot;nb-no&quot;),IF(and(7&lt;=$sistenews.lastnews,4&gt;=$sistenews.lastnews),&quot;Vitale parametere burde overvåkes kontinuerlig&quot;,&quot;&quot;)))),&quot;&quot;)}" SortFormat="" IsEditable="true" AdminDescription="" XFormat="" XFormatDataType="datetime" YFormat="" YFormatDataType="double" RangeFormat="">
+      <FormatExpressions>
+        <FormatExpression Id="7a225509-b360-4a03-aece-a9349d6912a7">
+          <WhenExpression Value="IFNULL(IF(0=$sistenews.lastnews,true,false),false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M19,1L17.74,3.75 15,5 17.74,6.26 19,9 20.25,6.26 23,5 20.25,3.75 M9,4L6.5,9.5 1,12 6.5,14.5 9,20 11.5,14.5 17,12 11.5,9.5 M19,15L17.74,17.74 15,19 17.74,20.25 19,23 20.25,20.25 23,19 20.25,17.74</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF008000</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Pasienten er scoret til NEWS med grønn respons</Description>
+        </FormatExpression>
+        <FormatExpression Id="0c82b605-df96-45f7-8323-340172937168">
+          <WhenExpression Value="IFNULL(IF(and(1&lt;=$sistenews.lastnews,4&gt;=$sistenews.lastnews),true,false),false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M19,1L17.74,3.75 15,5 17.74,6.26 19,9 20.25,6.26 23,5 20.25,3.75 M9,4L6.5,9.5 1,12 6.5,14.5 9,20 11.5,14.5 17,12 11.5,9.5 M19,15L17.74,17.74 15,19 17.74,20.25 19,23 20.25,20.25 23,19 20.25,17.74</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FFFFFF00</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Pasienten er scoret til NEWS med gul respons</Description>
+        </FormatExpression>
+        <FormatExpression Id="d99be7c1-e67d-48e7-8f66-2f38a20adfc4">
+          <WhenExpression Value="IFNULL(IF(or(3=$sistenews.newsresp,3=$sistenews.newsspo2,3=$sistenews.newsO2,3=$sistenews.newstemp,3=$sistenews.newsystolic,3=$sistenews.newspuls,3=$sistenews.newsGSC,and(5&lt;=$sistenews.lastnews,6&gt;=$sistenews.lastnews)),true,false),false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M19,1L17.74,3.75 15,5 17.74,6.26 19,9 20.25,6.26 23,5 20.25,3.75 M9,4L6.5,9.5 1,12 6.5,14.5 9,20 11.5,14.5 17,12 11.5,9.5 M19,15L17.74,17.74 15,19 17.74,20.25 19,23 20.25,20.25 23,19 20.25,17.74</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FFD69600</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Pasienten er scoret til NEWS med orange respons</Description>
+        </FormatExpression>
+        <FormatExpression Id="21285a52-ea3e-41d1-a083-960732f0877a">
+          <WhenExpression Value="IFNULL(IF(and(7&lt;=$sistenews.lastnews,4&gt;=$sistenews.lastnews),true,false),false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M19,1L17.74,3.75 15,5 17.74,6.26 19,9 20.25,6.26 23,5 20.25,3.75 M9,4L6.5,9.5 1,12 6.5,14.5 9,20 11.5,14.5 17,12 11.5,9.5 M19,15L17.74,17.74 15,19 17.74,20.25 19,23 20.25,20.25 23,19 20.25,17.74</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF980707</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Pasienten er scoret til NEWS med rød respons</Description>
+        </FormatExpression>
+        <FormatExpression Id="cc836383-ce9a-4fbc-8a92-47e5f5206f6e">
+          <WhenExpression Value="if(&quot;true&quot;=ifnull($bodytemperaturchart.bodytemperature,true),true,false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M10,19L13,19 13,22 10,22 10,19 M12,2C17.35,2.22 19.68,7.62 16.5,11.67 15.67,12.67 14.33,13.33 13.67,14.17 13,15 13,16 13,17L10,17C10,15.33 10,13.92 10.67,12.92 11.33,11.92 12.67,11.33 13.5,10.67 15.92,8.43 15.32,5.26 12,5A3,3,0,0,0,9,8L6,8A6,6,0,0,1,12,2z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF648690</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>NEWS er ikke utført</Description>
+        </FormatExpression>
+      </FormatExpressions>
+      <KeyValues>
+        <KeyValue Key="DocumentTemplateId" Value="$ARENA-VAQM-SYSTEMCONFIG/NEWS_document_template_ID" AdminDescription="" />
+        <KeyValue Key="DocumentTypeId" Value="$ARENA-VAQM-SYSTEMCONFIG/NEWS_document_type_ID" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="19faad9f-e65a-4256-95f2-98549fbb6be9" Oid="Bloodpressure-diastolic-chart" Name="Siste diastoliske blodtrykk" AdminName="Bloodpressure-diastolic-chart" Description="brukes som verdi i chart og kan brukes som siste diastoliske i pas liste" Categories="Triage-ny" DisplayFormat="{ifnull($Bloodpressurediastolic.Diastolic,&quot;&quot;)}" SortFormat="" IsEditable="true" AdminDescription="" XFormat="$Bloodpressurediastolic.Meassurmenttime" XFormatDataType="datetime" YFormat="$Bloodpressurediastolic.Diastolic" YFormatDataType="double" RangeFormat="">
+      <FormatExpressions>
+        <FormatExpression Id="0ae8d134-58b6-4995-8631-594749076f31">
+          <WhenExpression Value="if(&quot;true&quot;=ifnull($Bloodpressuresystolic.Diastolic,true),true,false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M17.3,18C19,16.5,20,14.4,20,12A8,8,0,0,0,12,4A8,8,0,0,0,4,12C4,14.4 5,16.5 6.7,18 8.2,16.7 10,16 12,16 14,16 15.9,16.7 17.3,18 M12,2A10,10,0,0,1,22,12A10,10,0,0,1,12,22A10,10,0,0,1,2,12A10,10,0,0,1,12,2 M7,9A1,1,0,0,1,8,10A1,1,0,0,1,7,11A1,1,0,0,1,6,10A1,1,0,0,1,7,9 M10,6A1,1,0,0,1,11,7A1,1,0,0,1,10,8A1,1,0,0,1,9,7A1,1,0,0,1,10,6 M17,9A1,1,0,0,1,18,10A1,1,0,0,1,17,11A1,1,0,0,1,16,10A1,1,0,0,1,17,9 M14.4,6.1C14.9,6.3,15.1,6.9,15,7.4L13.6,10.8C13.8,11.1,14,11.5,14,12A2,2,0,0,1,12,14A2,2,0,0,1,10,12C10,11,10.7,10.1,11.7,10L13.1,6.7C13.3,6.1,13.9,5.9,14.4,6.1z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF648690</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Det er ikke registrert diastolisk blodtrykk</Description>
+        </FormatExpression>
+        <FormatExpression Id="4098d39a-d946-447d-b5b1-9ad4a771d4b6">
+          <WhenExpression Value="if(&quot;true&quot;=ifnull($Bloodpressuresystolic.Diastolic,true),false,true)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M17.3,18C19,16.5,20,14.4,20,12A8,8,0,0,0,12,4A8,8,0,0,0,4,12C4,14.4 5,16.5 6.7,18 8.2,16.7 10,16 12,16 14,16 15.9,16.7 17.3,18 M12,2A10,10,0,0,1,22,12A10,10,0,0,1,12,22A10,10,0,0,1,2,12A10,10,0,0,1,12,2 M7,9A1,1,0,0,1,8,10A1,1,0,0,1,7,11A1,1,0,0,1,6,10A1,1,0,0,1,7,9 M10,6A1,1,0,0,1,11,7A1,1,0,0,1,10,8A1,1,0,0,1,9,7A1,1,0,0,1,10,6 M17,9A1,1,0,0,1,18,10A1,1,0,0,1,17,11A1,1,0,0,1,16,10A1,1,0,0,1,17,9 M14.4,6.1C14.9,6.3,15.1,6.9,15,7.4L13.6,10.8C13.8,11.1,14,11.5,14,12A2,2,0,0,1,12,14A2,2,0,0,1,10,12C10,11,10.7,10.1,11.7,10L13.1,6.7C13.3,6.1,13.9,5.9,14.4,6.1z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF346A3B</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Det er registrert diastolisk blodtrykk</Description>
+        </FormatExpression>
+      </FormatExpressions>
+      <KeyValues />
+    </DataElement>
+    <DataElement Id="c2ef2c61-8387-403e-8171-9d7f8ec989b8" Oid="Akutt-GCS-CHART" Name="GCS" AdminName="ALD GCS-CHART" Description="siste verdi GCS og chart visning" Categories="ALD" DisplayFormat="{IFNULL($GCSscore.PathGCSscore,&quot;&quot;)}" SortFormat="" IsEditable="true" AdminDescription="" XFormat="$GCSscore.Pathcontextst" XFormatDataType="datetime" YFormat="$GCSscore.PathGCSscore" YFormatDataType="double" RangeFormat="">
+      <FormatExpressions>
+        <FormatExpression Id="a8e7fca5-bbbf-4aad-a390-5855b84f940e">
+          <WhenExpression Value="ifnull(if(and(2&gt;=$sistenews.newsGSC,13&lt;$GCSscore.PathGCSscore),False,True),false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M11,15L13,15 13,17 11,17 11,15 M11,7L13,7 13,13 11,13 11,7 M12,2C6.47,2,2,6.5,2,12A10,10,0,0,0,12,22A10,10,0,0,0,22,12A10,10,0,0,0,12,2 M12,20A8,8,0,0,1,4,12A8,8,0,0,1,12,4A8,8,0,0,1,20,12A8,8,0,0,1,12,20z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF980707</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Ny NEWS anbefales på bagrunn av siste målte GCS</Description>
+        </FormatExpression>
+        <FormatExpression Id="2125a125-61f1-4407-b141-f50a7fafd812">
+          <WhenExpression Value="ifnull(if(and(2&gt;=$sistenews.newsGSC,13&lt;$GCSscore.PathGCSscore),True,False),false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M10,4A4,4,0,0,1,14,8A4,4,0,0,1,10,12A4,4,0,0,1,6,8A4,4,0,0,1,10,4 M10,14C14.42,14,18,15.79,18,18L18,20 2,20 2,18C2,15.79,5.58,14,10,14 M20,12L20,7 22,7 22,12 20,12 M20,16L20,14 22,14 22,16 20,16z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF346A3B</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>GCS er utført</Description>
+        </FormatExpression>
+        <FormatExpression Id="ebb78a93-69cc-4e31-a457-eb5ab262759c">
+          <WhenExpression Value="if(&quot;true&quot;=ifnull($sistenews.newsGSC,true),true,false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M10,4A4,4,0,0,1,14,8A4,4,0,0,1,10,12A4,4,0,0,1,6,8A4,4,0,0,1,10,4 M10,14C14.42,14,18,15.79,18,18L18,20 2,20 2,18C2,15.79,5.58,14,10,14 M20,12L20,7 22,7 22,12 20,12 M20,16L20,14 22,14 22,16 20,16z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF648690</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>GCS er ikke utført</Description>
+        </FormatExpression>
+      </FormatExpressions>
+      <KeyValues>
+        <KeyValue Key="DocumentTemplateId" Value="$ARENA-VAQM-SYSTEMCONFIG/GCS_document_template_ID" AdminDescription="" />
+        <KeyValue Key="DocumentTypeId" Value="$ARENA-VAQM-SYSTEMCONFIG/GCS_document_type_ID" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="372c80ad-edec-4e12-853e-a2e51d3fb5db" Oid="NIHSS" Name="NIHSS reminder" AdminName="NIHSS reminder" Description="" Categories="" DisplayFormat="{ifnull($NIHSStrue.pathNIHSSscore,&quot;&quot;)}" SortFormat="" IsEditable="true" AdminDescription="" XFormat="" XFormatDataType="datetime" YFormat="" YFormatDataType="double" RangeFormat="">
+      <FormatExpressions>
+        <FormatExpression Id="1d66274a-0353-4705-9d3c-bac1feddbc94">
+          <WhenExpression Value="ifnull(IF($NIHSStrue.pathcontextst&gt;ifnull($NIHSSnull.pathcontextst,1),true,false),false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M1200.5598,1408.699L1244.2099,1408.699 1200.5598,1365.049z M1248.1783,1424.5718L1184.687,1424.5718 1184.687,1361.0805 1105.3229,1361.0805 1105.3229,1535.6765 1089.4501,1551.5494 1089.4501,1345.2077 1204.528,1345.2077 1264.0512,1404.7308 1264.0512,1551.5544 1089.4548,1551.5547 1105.3274,1535.6821 1248.1783,1535.6816z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF980707</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>NIHSS er ikke utfylt av lege etter innleggelse med hjerneslag</Description>
+        </FormatExpression>
+      </FormatExpressions>
+      <KeyValues>
+        <KeyValue Key="DocumentTemplateId" Value="$ARENA-VAQM-SYSTEMCONFIG/NIHSS_document_template_ID" AdminDescription="" />
+        <KeyValue Key="DocumentTypeId" Value="$ARENA-VAQM-SYSTEMCONFIG/NIHSS_document_type_ID" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="b30a197e-cb49-4ebc-804d-d5daadd25f74" Oid="Akutt-NEWS-CHART" Name="NEWS chart" AdminName="ALD-NEWS-CHART" Description="Chart visning av NEWS score" Categories="ALD" DisplayFormat="{ifnull($sistenews.lastnews,&quot;&quot;)}" SortFormat="" IsEditable="false" AdminDescription="" XFormat="$sistenews.scoretime" XFormatDataType="datetime" YFormat="$sistenews.lastnews" YFormatDataType="double" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues />
+    </DataElement>
+    <DataElement Id="1a47f87b-ee48-407e-9933-6cbcc768f114" Oid="Akutt-QSOFA-CHART" Name="Akutt-QSOFA-CHART" AdminName="Akutt-QSOFA-CHART" Description="Chart visning av QSOFA score" Categories="" DisplayFormat="{ifnull($SpesisWarning.QSOFASCORE,&quot;&quot;)}" SortFormat="" IsEditable="false" AdminDescription="" XFormat="$SpesisWarning.contextstart" XFormatDataType="datetime" YFormat="$SpesisWarning.QSOFASCORE" YFormatDataType="double" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues />
+    </DataElement>
+  </DataElements>
+  <KeyValues />
+</VaqmConfiguration>

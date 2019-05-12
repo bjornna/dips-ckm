@@ -1,0 +1,160 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.crb_65_scoring.v0
+
+concept
+	[at0000]	-- Crb 65 scoring
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Morten Pavicevic Hørthe">
+		["email"] = <"mho@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2018-05-03">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Scoring til bruk på samfunnservervet pneumoni (SAP) for å risikovurdere pasienter">
+			use = <"Scoring som er en enklere versjon av CURB-65. Scoringen er lik med unntak av at man ikke med blodprøvesvar. Brukes på SAP pasienter for å hjelpe klinikere å plukke opp pasienter som er i risiko for økt dødlighet og dermed økt behov for overvåkning.">
+			misuse = <"Skal ikke brukes for å vurdere økt risiko for dødlighet og behhov for overvåkning på andre tilstander enn SAP. ">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"F69EC70B6ED36F76030E400A0D508CBF">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Crb 65 scoring
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Forvirring
+										value matches {
+											0|[local::at0020], 	-- Ingen nylig oppstått forvirring eller endret forvirring
+											1|[local::at0021]  	-- Nylig oppstått forvirring
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Respirasjon
+										value matches {
+											0|[local::at0017], 	--  respirasjonsfrekvens <30/min
+											1|[local::at0012]  	--  respirasjonsfrekvens ≥30/min
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {	-- Blodtrykk
+										value matches {
+											0|[local::at0018], 	-- systolisk over 90 mmHg og diastolisk over 60 mmHg
+											1|[local::at0010]  	-- systolisk under 90 mmHg eller diastolisk under 60 mmHg
+										}
+									}
+									ELEMENT[at0007] occurrences matches {0..1} matches {	-- Alder
+										value matches {
+											0|[local::at0019], 	-- under 65 år
+											1|[local::at0009]  	-- 65 år eller eldre
+										}
+									}
+									ELEMENT[at0014] occurrences matches {0..1} matches {	-- Totalscore
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0015] occurrences matches {0..1} matches {	-- Tidspunkt for score
+										value matches {
+											DV_DATE_TIME matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Crb 65 scoring">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Forvirring">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Respirasjon">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Blodtrykk">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Alder">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"65 år eller eldre">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"systolisk under 90 mmHg eller diastolisk under 60 mmHg">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <" respirasjonsfrekvens ≥30/min">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Totalscore">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Tidspunkt for score">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <" respirasjonsfrekvens <30/min">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"systolisk over 90 mmHg og diastolisk over 60 mmHg">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"under 65 år">
+					description = <"*">
+				>
+				["at0020"] = <
+					text = <"Ingen nylig oppstått forvirring eller endret forvirring">
+					description = <"*">
+				>
+				["at0021"] = <
+					text = <"Nylig oppstått forvirring">
+					description = <"*">
+				>
+			>
+		>
+	>

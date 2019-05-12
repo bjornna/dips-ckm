@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<VaqmConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Id="b8ecc8be-d770-42a2-b55f-6bc60bd47fe8" Oid="vaqm.tavlemote.plan" Name="HV TM Plan" Version="1.0.0" Approved="true" CreatedByAuthor="lmk" Created="2019-02-25T11:53:57" Imported="true" VersionComment="Ny vaqm, erstatter ehr" xmlns="http://www.dips.no/vaqmconfig">
+  <AqlBindings>
+    <AqlBinding Id="80cc0182-26e8-4f0b-bb9c-6c15ad96644d" Oid="openEHR-EHR-OBSERVATION.plan_tavlemote.v0" Name="HV TM Plan" DefaultArchetypeId="openEHR-EHR-OBSERVATION.plan_tavlemote.v0">
+      <BaseAql>select c, o from composition c contains observation o[openEHR-EHR-OBSERVATION.plan_tavlemote.v0]</BaseAql>
+      <Paths>
+        <Path Id="PathContextSt" IdentifierRef="c" Value="/context/start_time/value" DataType="String" />
+        <Path Id="PathValue" IdentifierRef="o" Value="/data[at0001]/events[at0002]/data[at0003]/items[at0004]/value/value" AdminDescription="" DataType="" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="OrderByContextSt" Value="$PathContextSt" Ascending="false" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="PredContextSt" WhereRef="" OrderByRef="$OrderByContextSt" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+  </AqlBindings>
+  <DataElements>
+    <DataElement Id="bcde67fe-857e-4462-9771-7f675006589a" Oid="openEHR-EHR-OBSERVATION.plan_tavlemote.v0" Name="Plan" AdminName="HV TM Plan" Description="Bruker for å angi fritekstlig plan for oppholdet, legg inn og fjern elementer etter behov, ikke erstatning for behandlingsplan" Categories="Tavlemøte" DisplayFormat="{if(isnull($PredContextSt.PathContextSt), &quot;&quot;, if(isnull($PredContextSt.PathValue), &quot;&quot;, $PredContextSt.PathValue))}" SortFormat="$PredContextSt.PathValue" IsEditable="true" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues>
+        <KeyValue Key="DocumentTypeId" Value="$ARENA-VAQM-SYSTEMCONFIG/hv_tm_plan_document_type_id" AdminDescription="" />
+        <KeyValue Key="DocumentTemplateId" Value="$ARENA-VAQM-SYSTEMCONFIG/hv_tm_plan_document_template_id" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+  </DataElements>
+  <KeyValues />
+</VaqmConfiguration>
