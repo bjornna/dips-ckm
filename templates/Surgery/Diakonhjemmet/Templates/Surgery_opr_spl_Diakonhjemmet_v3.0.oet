@@ -1,0 +1,460 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>5c305246-c9e8-46de-ab0f-3a34d7bc868c</id>
+  <name>Surgery_opr_spl</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose />
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <annotations path="[openEHR-EHR-COMPOSITION.encounter.v1]/content[openEHR-EHR-ACTION.procedure.v1]/description[at0001]/items[openEHR-EHR-CLUSTER.device.v1 and name/value='Røykeavsug']/items[at0001]">
+    <items>
+      <item>
+        <key>Notes.Comment</key>
+        <value>Skal både røyk og avsug ha samme kode?</value>
+      </item>
+    </items>
+  </annotations>
+  <annotations path="[openEHR-EHR-COMPOSITION.encounter.v1]/content[openEHR-EHR-ACTION.procedure.v1]/description[at0001]/items[openEHR-EHR-CLUSTER.device.v1 and name/value='Rtg gjennomlysning']/items[openEHR-EHR-CLUSTER.radiation_properties_dips.v1]/items[at0001]">
+    <items>
+      <item>
+        <key>Notes.Comment</key>
+        <value>Enhet må endres før vi går i produksjon!</value>
+      </item>
+    </items>
+  </annotations>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Dokumentasjon operasjonssykepleie">
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.procedure.v1" concept_name="Prosedyre" path="/content">
+      <Rule path="/description[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="ARK-VI-OPERASJONSTYPER" terminologyLang="en-GB" queryName="ARK-VI-OPERASJONSTYPER" />
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.operasjonssykepleie_dips.v1" concept_name="Operasjonssykepleie" path="/description[at0001]/items[at0003]">
+        <Rule path="/items[at0001]" max="0" />
+        <Rule path="/items[at0083]" name="Sterilt utøvende operasjonssykepleier klar" />
+        <Rule path="/items[at0004]">
+          <constraint xsi:type="textConstraint" limitToList="false">
+            <termQueryId terminologyID="ARK-OPR-ARENA OPRSPL-LEIRING" terminologyLang="en-GB" queryName="ARK-OPR-ARENA OPRSPL-LEIRING" />
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0076]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="ARK-OPR-ARENA OPRSPL-TRYKKAVLASTING" terminologyLang="en-GB" queryName="ARK-OPR-ARENA OPRSPL-TRYKKAVLASTING" />
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0006]">
+          <constraint xsi:type="textConstraint" limitToList="false">
+            <termQueryId terminologyID="ARK-OPR-ARENA OPRSPL-HYPOTERMIFOREB" terminologyLang="en-GB" queryName="ARK-OPR-ARENA OPRSPL-HYPOTERMIFOREB" />
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0007]" max="0" />
+        <Rule path="/items[at0019]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="ARK-OPR-ARENA OPRSPL-DESINFEKSJON" terminologyLang="en-GB" queryName="ARK-OPR-ARENA OPRSPL-DESINFEKSJON" />
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0047]/items[at0074]" max="0" />
+        <Rule path="/items[at0047]/items[at0021]" max="0" />
+        <Rule path="/items[at0047]/items[at0020]" max="0" />
+        <Rule path="/items[at0047]/items[at0022]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="ARK-OPR-ARENA OPRSPL-URINKATETER" terminologyLang="en-GB" queryName="ARK-OPR-ARENA OPRSPL-URINKATETER" />
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0047]/items[at0023]" max="0" />
+        <Rule path="/items[at0053]/items[at0052]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Kompresser</includedValues>
+            <includedValues>Nåler</includedValues>
+            <includedValues>Tupfere</includedValues>
+            <includedValues>Knivblad</includedValues>
+            <includedValues>Instrumenter</includedValues>
+            <includedValues>Duker</includedValues>
+            <includedValues>Disarp</includedValues>
+            <includedValues>Karstrikk</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0055]/items[at0061]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="ARK-OPR-ARENA OPRSPL-TYPE DREN" terminologyLang="en-GB" queryName="ARK-OPR-ARENA OPRSPL-TYPE DREN" />
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0055]/items[at0062]" max="0" />
+        <Rule path="/items[at0055]/items[at0060]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="ARK-OPR-ARENA OPRSPL-EGENSKAP DREN" terminologyLang="en-GB" queryName="ARK-OPR-ARENA OPRSPL-EGENSKAP DREN" />
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0056]/items[at0063]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="ARK-OPR-ARENA OPRSPL-SKYLLEVÆSKE" terminologyLang="en-GB" queryName="ARK-OPR-ARENA OPRSPL-SKYLLEVÆSKE" />
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0057]/items[at0068]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="ARK-OPR-ARENA OPRSPL-HUDLUKKING" terminologyLang="en-GB" queryName="ARK-OPR-ARENA OPRSPL-HUDLUKKING" />
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0058]/items[at0069]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="ARK-OPR-ARENA OPRSPL-BANDASJE" terminologyLang="en-GB" queryName="ARK-OPR-ARENA OPRSPL-BANDASJE" />
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0066]" max="0" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.device.v1" concept_name="Medisinsk utstyr" max="1" path="/description[at0001]/items[at0003]" name="Diatermi">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>SNOMED-CT::281817001::Diatermi</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0003]" max="0" />
+        <Rule path="/items[at0002]" max="0" />
+        <Rule path="/items[at0021]" max="0" />
+        <Rule path="/items[at0004]" max="0" />
+        <Rule path="/items[at0005]" max="0" />
+        <Rule path="/items[at0020]" max="0" />
+        <Rule path="/items[at0022]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
+        <Rule path="/items[at0025]" max="0" />
+        <Rule path="/items[at0007]" max="0" />
+        <Rule path="/items[at0024]" max="0" />
+        <Rule path="/items[at0008]" max="0" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.diathermy_properties_dips.v1" concept_name="Diatermi egenskaper" path="/items[at0009]">
+          <Rule path="/items[at0001]" max="0" />
+          <Rule path="/items[at0002]" name="Metode">
+            <constraint xsi:type="textConstraint">
+              <includedValues>DIPSUnipolarDiathermy::1::Cut</includedValues>
+              <includedValues>DIPSUnipolarDiathermy::2::Coag</includedValues>
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0004]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>SNOMED-CT::257797008::Bipolar diatermi</includedValues>
+              <includedValues>SNOMED-CT::257798003::Monopolar diatermi</includedValues>
+            </constraint>
+          </Rule>
+        </Items>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.device.v1" concept_name="Medisinsk utstyr" max="1" path="/description[at0001]/items[at0003]" name="Røykavsug">
+        <Rule path="/items[at0001]" name="Røykvasug">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Benyttet røykavsug</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0003]" max="0" />
+        <Rule path="/items[at0002]" max="0" />
+        <Rule path="/items[at0021]" max="0" />
+        <Rule path="/items[at0004]" max="0" />
+        <Rule path="/items[at0005]" max="0" />
+        <Rule path="/items[at0020]" max="0" />
+        <Rule path="/items[at0022]" max="0" />
+        <Rule path="/items[at0023]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
+        <Rule path="/items[at0025]" max="0" />
+        <Rule path="/items[at0007]" max="0" />
+        <Rule path="/items[at0024]" max="0" />
+        <Rule path="/items[at0008]" max="0" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.device.v1" concept_name="Medisinsk utstyr" max="1" path="/description[at0001]/items[at0003]" name="Nøytral plate">
+        <Rule path="/items[at0001]" name="Nøytral plate">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Benyttet nøytral plate</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0003]" max="0" />
+        <Rule path="/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="ARK-OPR-ARENA OPRSPL-DIATERMIPL" terminologyLang="en-GB" queryName="ARK-OPR-ARENA OPRSPL-DIATERMIPL" />
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0021]" max="0" />
+        <Rule path="/items[at0004]" max="0" />
+        <Rule path="/items[at0005]" max="0" />
+        <Rule path="/items[at0020]" max="0" />
+        <Rule path="/items[at0022]" max="0" />
+        <Rule path="/items[at0023]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
+        <Rule path="/items[at0025]" max="0" />
+        <Rule path="/items[at0007]" max="0" />
+        <Rule path="/items[at0024]" max="0" />
+        <Rule path="/items[at0008]" max="0" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.device.v1" concept_name="Medisinsk utstyr" max="1" path="/description[at0001]/items[at0003]" name="Sug">
+        <Rule path="/items[at0001]" name="Sug">
+          <constraint xsi:type="textConstraint">
+            <includedValues>SNOMED-CT::706092000::Sug</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0003]" max="0" />
+        <Rule path="/items[at0002]" max="0" />
+        <Rule path="/items[at0021]" max="0" />
+        <Rule path="/items[at0004]" max="0" />
+        <Rule path="/items[at0005]" max="0" />
+        <Rule path="/items[at0020]" max="0" />
+        <Rule path="/items[at0022]" max="0" />
+        <Rule path="/items[at0023]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="ARK-OPR-ARENA OPRSPL-SUG" terminologyLang="en-GB" queryName="ARK-OPR-ARENA OPRSPL-SUG" />
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0006]" max="0" />
+        <Rule path="/items[at0025]" max="0" />
+        <Rule path="/items[at0007]" max="0" />
+        <Rule path="/items[at0024]" max="0" />
+        <Rule path="/items[at0008]" max="0" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.device.v1" concept_name="Medisinsk utstyr" max="1" path="/description[at0001]/items[at0003]" name="Blodtomhet">
+        <Rule path="/items[at0001]" name="Mekanisk blodtomhet">
+          <constraint xsi:type="textConstraint">
+            <includedValues>SNOMED-CT::261939005::Blodtomhet</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0003]" max="0" />
+        <Rule path="/items[at0002]" max="0" />
+        <Rule path="/items[at0021]" max="0" />
+        <Rule path="/items[at0004]" max="0" />
+        <Rule path="/items[at0005]" max="0" />
+        <Rule path="/items[at0020]" max="0" />
+        <Rule path="/items[at0022]" max="0" />
+        <Rule path="/items[at0023]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
+        <Rule path="/items[at0025]" max="0" />
+        <Rule path="/items[at0007]" max="0" />
+        <Rule path="/items[at0024]" max="0" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.exsanguination_details_dips.v1" concept_name="Blodtomhet detaljer" path="/items[at0009]">
+          <Rule path="/items[at0003]">
+            <constraint xsi:type="textConstraint">
+              <termQueryId terminologyID="ARK-OPR-ARENA OPRSPL-BLODTOMHET PL MANSJETT" terminologyLang="en-GB" queryName="ARK-OPR-ARENA OPRSPL-BLODTOMHET PL MANSJETT" />
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0002]">
+            <constraint xsi:type="durationConstraint">
+              <pattern>PTM</pattern>
+              <includesMaximum>false</includesMaximum>
+              <includesMinimum>false</includesMinimum>
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0004]" max="0" />
+          <Rule path="/items[at0005]" max="0" />
+          <Rule path="/items[at0006]" max="0" />
+        </Items>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.device.v1" concept_name="Medisinsk utstyr" max="1" path="/description[at0001]/items[at0003]" name="Røntgen gjennomlysning">
+        <Rule path="/items[at0001]" name="Røntgen gjennomlysning" />
+        <Rule path="/items[at0002]" max="0" />
+        <Rule path="/items[at0021]" max="0" />
+        <Rule path="/items[at0004]" max="0" />
+        <Rule path="/items[at0005]" max="0" />
+        <Rule path="/items[at0020]" max="0" />
+        <Rule path="/items[at0022]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
+        <Rule path="/items[at0025]" max="0" />
+        <Rule path="/items[at0007]" max="0" />
+        <Rule path="/items[at0024]" max="0" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.specimen_dips.v1" concept_name="Laboratorieprøve" path="/description[at0001]/items[at0003]">
+        <Rule path="/items[at0029]" name="Prøve">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="ARK-OPR-ARENA OPRSPL-PREPARAT" terminologyLang="en-GB" queryName="ARK-OPR-ARENA OPRSPL-PREPARAT" />
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0015]" max="0" />
+        <Rule path="/items[at0008]" max="0" />
+        <Rule path="/items[at0007]" max="0" />
+        <Rule path="/items[at0079]" max="0" />
+        <Rule path="/items[at0005]" max="0" />
+        <Rule path="/items[at0067]" max="0" />
+        <Rule path="/items[at0070]" max="0" />
+        <Rule path="/items[at0039]" max="0" />
+        <Rule path="/items[at0046]" max="0" />
+        <Rule path="/items[at0081]" max="0" />
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.device.v1" concept_name="Medisinsk utstyr" path="/description[at0001]/items[at0003]">
+        <Rule path="/items[at0001]" name="Medisinsk teknisk utstyr">
+          <constraint xsi:type="textConstraint">
+            <includedValues>SNOMED-CT::63653004::Medisinsk teknisk utstyr</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0003]">
+          <constraint xsi:type="textConstraint">
+            <termQueryId terminologyID="ARK-OPR-ARENA OPRSPL-MEDTEKN UTSTYR" terminologyLang="en-GB" queryName="ARK-OPR-ARENA OPRSPL-MEDTEKN UTSTYR" />
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0002]" max="0" />
+        <Rule path="/items[at0021]" max="0" />
+        <Rule path="/items[at0004]" max="0" />
+        <Rule path="/items[at0005]" max="0" />
+        <Rule path="/items[at0020]" max="0" />
+        <Rule path="/items[at0022]" max="0" />
+        <Rule path="/items[at0023]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
+        <Rule path="/items[at0025]" max="0" />
+        <Rule path="/items[at0007]" max="0" />
+        <Rule path="/items[at0024]" max="0" />
+      </Items>
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.exam.v1" concept_name="Funn ved fysisk undersøkelse" max="1" path="/content" name="Hud preoperativ">
+      <Rule path="/data[at0001]/events[at0002]" max="1" name="Preoperativ" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]" name="Hud">
+        <constraint xsi:type="textConstraint">
+          <includedValues>SNOMED-CT::39937001::Hud</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0011]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.exam_skin_dips.v1" concept_name="Hudundersøkelse" path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
+        <Rule path="/items[at0005]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
+      </Items>
+    </Content>
+    <Content xsi:type="OBSERVATION" archetype_id="openEHR-EHR-OBSERVATION.exam.v1" concept_name="Funn ved fysisk undersøkelse" max="1" path="/content" name="Hud postoperativ">
+      <Rule path="/data[at0001]/events[at0002]" max="1" name="Postoperativ" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0004]" name="Hud">
+        <constraint xsi:type="textConstraint">
+          <includedValues>SNOMED-CT::39937001::Hud</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0006]" max="0" />
+      <Rule path="/data[at0001]/events[at0002]/data[at0003]/items[at0011]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.exam_skin_dips.v1" concept_name="Hudundersøkelse" path="/data[at0001]/events[at0002]/data[at0003]/items[at0005]">
+        <Rule path="/items[at0005]" max="0" />
+        <Rule path="/items[at0006]" max="0" />
+      </Items>
+    </Content>
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.medication.v1" concept_name="Legemiddelhåndtering" path="/content">
+      <Rule path="/description[at0017]/items[at0020]" name="Lokalanestesi">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="ARK-OPR-ARENA OPRSPL-LOKALANESTESI" terminologyLang="en-GB" queryName="ARK-OPR-ARENA OPRSPL-LOKALANESTESI" />
+        </constraint>
+      </Rule>
+      <Rule path="/description[at0017]/items[at0132]" max="0" />
+      <Rule path="/description[at0017]/items[at0133]" max="0" />
+      <Rule path="/description[at0017]/items[at0043]" max="0" />
+      <Rule path="/description[at0017]/items[at0154]" max="0" />
+      <Rule path="/description[at0017]/items[at0155]" max="0" />
+      <Rule path="/description[at0017]/items[at0140]/items[at0147]" max="0" />
+      <Rule path="/description[at0017]/items[at0140]/items[at0141]" max="0" />
+      <Rule path="/description[at0017]/items[at0140]/items[at0143]" max="0" />
+      <Rule path="/description[at0017]/items[at0033]" max="0" />
+      <Rule path="/description[at0017]/items[at0149]" max="0" />
+      <Rule path="/description[at0017]/items[at0025]" max="0" />
+      <Rule path="/description[at0017]/items[at0024]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.dosage.v1" concept_name="Dosering" path="/description[at0017]/items[at0131]">
+        <Rule path="/items[at0164]" max="0" />
+        <Rule path="/items[at0144]">
+          <constraint xsi:type="multipleConstraint">
+            <includedTypes>Quantity (Qualified real)</includedTypes>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0145]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>SNOMED-CT::258773002::Milliliter</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0135]" max="0" />
+        <Rule path="/items[at0178]" max="0" />
+        <Rule path="/items[at0134]" max="0" />
+        <Rule path="/items[at0102]" max="0" />
+        <Rule path="/items[at0176]" max="0" />
+        <Rule path="/items[at0177]" max="0" />
+      </Items>
+    </Content>
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.medication.v1" concept_name="Legemiddelhåndtering" max="1" path="/content" name="Lokalanestesi tilsatt i skyllevæske">
+      <Rule path="/description[at0017]/items[at0020]" name="Lokalanestesi tilsatt i skyllevæske" />
+      <Rule path="/description[at0017]/items[at0132]" max="0" />
+      <Rule path="/description[at0017]/items[at0133]" max="0" />
+      <Rule path="/description[at0017]/items[at0043]" max="0" />
+      <Rule path="/description[at0017]/items[at0154]" max="0" />
+      <Rule path="/description[at0017]/items[at0155]" max="0" />
+      <Rule path="/description[at0017]/items[at0140]/items[at0147]" max="0" />
+      <Rule path="/description[at0017]/items[at0140]/items[at0141]" max="0" />
+      <Rule path="/description[at0017]/items[at0140]/items[at0143]" max="1" name="Tilsatt i skyllevæske" />
+      <Rule path="/description[at0017]/items[at0033]" max="0" />
+      <Rule path="/description[at0017]/items[at0149]" max="0" />
+      <Rule path="/description[at0017]/items[at0025]" max="0" />
+      <Rule path="/description[at0017]/items[at0024]" max="0" />
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.dosage.v1" concept_name="Dosering" path="/description[at0017]/items[at0131]">
+        <Rule path="/items[at0164]" max="0" />
+        <Rule path="/items[at0144]">
+          <constraint xsi:type="multipleConstraint">
+            <includedTypes>Quantity (Qualified real)</includedTypes>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0145]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>SNOMED-CT::258773002::Milliliter</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0135]" max="0" />
+        <Rule path="/items[at0178]" max="0" />
+        <Rule path="/items[at0134]" max="0" />
+        <Rule path="/items[at0102]" max="0" />
+        <Rule path="/items[at0176]" max="0" />
+        <Rule path="/items[at0177]" max="0" />
+      </Items>
+    </Content>
+    <Context />
+  </definition>
+  <view>
+    <constraints path="[openEHR-EHR-COMPOSITION.encounter.v1]/content[openEHR-EHR-ACTION.procedure.v1]/other_participations">
+      <items id="VisibleInView">
+        <value>other_participations</value>
+      </items>
+    </constraints>
+  </view>
+</template>

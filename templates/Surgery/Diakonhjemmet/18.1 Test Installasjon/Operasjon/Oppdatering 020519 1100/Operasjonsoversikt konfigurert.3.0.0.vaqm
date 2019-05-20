@@ -1,0 +1,402 @@
+<?xml version="1.0"?>
+<VaqmConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Id="e40d61c2-26f8-4319-a814-5552a0494672" Oid="vaqm.konfigurert.surgery.operasjonsoversikt" Name="Operasjonsoversikt konfigurert" Version="3.0.0" Approved="true" CreatedByAuthor="smb" Created="2019-05-01T22:29:40" Imported="false" VersionComment="Konfigurert for Diakonhjemmet" BasedOnVersion="2.0.0" xmlns="http://www.dips.no/vaqmconfig">
+  <AqlBindings>
+    <AqlBinding Id="7db27e9e-4e4d-4769-b4ac-1fb6c687f317" Oid="operasjonsbestilling" Name="Operasjonsbestilling" DefaultArchetypeId="openEHR-EHR-INSTRUCTION.request-procedure.v1">
+      <BaseAql>select c, i, a from composition c contains (instruction i[openEHR-EHR-INSTRUCTION.request-procedure.v1] or (action a[openEHR-EHR-ACTION.procedure.v1] and cluster cl[openEHR-EHR-CLUSTER.estimated_surgery_time_dips.v1]))</BaseAql>
+      <Paths>
+        <Path Id="start_time" IdentifierRef="c" Value="/context/start_time/value" AdminDescription="" DataType="String" />
+        <Path Id="prosedyrenavn" IdentifierRef="i" Value="/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.procedure_details_dips.v1]/items[at0001]/value/value" AdminDescription="" DataType="String" />
+        <Path Id="oenskes_utfoert" IdentifierRef="i" Value="/protocol[at0008]/items[openEHR-EHR-CLUSTER.priority_details_dips.v1]/items[at0009]/value/defining_code/code_string" AdminDescription="" DataType="String" />
+        <Path Id="hastegrad" IdentifierRef="i" Value="/protocol[at0008]/items[openEHR-EHR-CLUSTER.priority_details_dips.v1]/items[at0009]/value/value" AdminDescription="" DataType="" />
+        <Path Id="maks_ventetid" IdentifierRef="i" Value="/protocol[at0008]/items[openEHR-EHR-CLUSTER.priority_details_dips.v1]/items[at0010]/value/value" AdminDescription="" DataType="String" />
+        <Path Id="prosedyrekode" IdentifierRef="i" Value="/activities[at0001]/description[at0009]/items[at0.2]/value/defining_code/code_string" AdminDescription="" DataType="String" />
+        <Path Id="utfort_innen" IdentifierRef="i" Value="/protocol[at0008]/items[openEHR-EHR-CLUSTER.service_time_planning_dips.v1]/items[at0001]/value" AdminDescription="" DataType="" />
+        <Path Id="tidligest_dato_operasjon" IdentifierRef="i" Value="/protocol[at0008]/items[openEHR-EHR-CLUSTER.service_time_planning_dips.v1]/items[at0002]/value" AdminDescription="" DataType="" />
+      </Paths>
+      <WhereExpressions>
+        <WhereExpression Id="prosedyrekode" Path="$prosedyrekode" Operator="EQ" Value="'387713003'" AdminDescription="" />
+      </WhereExpressions>
+      <OrderByExpressions>
+        <OrderByExpression Id="sort_start_time" Value="$start_time" Ascending="false" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="operasjonsbestilling" WhereRef="$prosedyrekode" OrderByRef="$sort_start_time" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="c5eedcbb-f435-428e-af53-f698cd06c8d5" Oid="anestesiplan" Name="Anestesiplan" DefaultArchetypeId="openEHR-EHR-INSTRUCTION.request-procedure.v1">
+      <BaseAql>select c, i from composition c contains instruction i[openEHR-EHR-INSTRUCTION.request-procedure.v1]</BaseAql>
+      <Paths>
+        <Path Id="start_time" IdentifierRef="c" Value="/context/start_time/value" AdminDescription="" DataType="String" />
+        <Path Id="anestesitype" IdentifierRef="i" Value="/activities[at0001]/description[at0009]/items[at0121.1]/value/value" AdminDescription="" DataType="String" />
+        <Path Id="postoperativ_overvåkning" IdentifierRef="i" Value="/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.procedure_details_dips.v1 and name/value = 'Postoperativ overvåking']/items[at0001]/value/value" AdminDescription="" DataType="String" />
+        <Path Id="plan_innledning" IdentifierRef="i" Value="/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.procedure_details_dips.v1 and name/value = 'Plan for innledning']/items[at0001]/value/value" AdminDescription="" DataType="String" />
+        <Path Id="planlagt_luftvei" IdentifierRef="i" Value="/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.procedure_details_dips.v1 and name/value = 'Planlagt luftveistilgang']/items[at0001]/value/value" AdminDescription="" DataType="String" />
+        <Path Id="plan_innledning_kode" IdentifierRef="i" Value="/activities[at0001]/description[at0009]/items[openEHR-EHR-CLUSTER.procedure_details_dips.v1 and name/value = 'Plan for innledning']/items[at0001]/value/defining_code/code_string" AdminDescription="" DataType="" />
+        <Path Id="code_string" IdentifierRef="i" Value="/activities[at0001]/description[at0009]/items[at0.2]/value/defining_code/code_string" AdminDescription="" DataType="" />
+        <Path Id="anestesinummer" IdentifierRef="i" Value="/name/value" AdminDescription="" DataType="String" />
+      </Paths>
+      <WhereExpressions>
+        <WhereExpression Id="anestesiplan_code" Path="$code_string" Operator="EQ" Value="'399248000'" AdminDescription="" />
+        <WhereExpression Id="plan1" Path="$anestesinummer" Operator="EQ" Value="'Hovedprosedyre'" AdminDescription="" />
+        <WhereExpression Id="plan2" Path="$anestesinummer" Operator="EQ" Value="'Andre anestesitype'" AdminDescription="" />
+      </WhereExpressions>
+      <OrderByExpressions>
+        <OrderByExpression Id="sortering" Value="$start_time" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="anestesiplan1" WhereRef="$anestesiplan_code AND $plan1" OrderByRef="$sortering" AdminDescription="" />
+        <Predicate Id="anestesiplan2" WhereRef="$anestesiplan_code AND $plan2" OrderByRef="" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="1707cde0-2417-408b-937f-7c5aceca0add" Oid="operasjonsdetaljer" Name="Operasjonsdetaljer" DefaultArchetypeId="openEHR-EHR-ACTION.procedure.v1">
+      <BaseAql>select a, c from composition c contains action a[openEHR-EHR-ACTION.procedure.v1]</BaseAql>
+      <Paths>
+        <Path Id="operasjonsleie" IdentifierRef="a" Value="/description[at0001]/items[openEHR-EHR-CLUSTER.surgery_details_dips.v1]/items[at0002]/value/value" AdminDescription="" DataType="" />
+        <Path Id="side" IdentifierRef="a" Value="/description[at0001]/items[openEHR-EHR-CLUSTER.surgery_details_dips.v1]/items[at0003]/items[at0005]/value/value" AdminDescription="" DataType="" />
+        <Path Id="start_time" IdentifierRef="c" Value="/context/start_time/value" AdminDescription="" DataType="String" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="sortering" Value="$start_time" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="operasjonsdetaljer" WhereRef="" OrderByRef="$sortering" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="15d9b509-2546-44fe-ba95-e0fcf63eee39" Oid="viktig_info" Name="Viktig informasjon" DefaultArchetypeId="openEHR-EHR-EVALUATION.precaution.v1">
+      <BaseAql>select c, ev from composition c contains evaluation ev[openEHR-EHR-EVALUATION.precaution.v1]</BaseAql>
+      <Paths>
+        <Path Id="viktig_info" IdentifierRef="ev" Value="/data[at0001]/items[at0002 and name/value = 'Viktig informasjon relatert til operasjon']/value/value" AdminDescription="" DataType="" />
+        <Path Id="start_time" IdentifierRef="c" Value="/context/start_time/value" AdminDescription="" DataType="String" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="sortering" Value="$start_time" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="viktig_info" WhereRef="" OrderByRef="$sortering" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="32908bec-215f-4a6b-b286-c5f1e621d460" Oid="klarert_for_operasjon_anestesi" Name="Klarert for operasjon/anestesi" DefaultArchetypeId="openEHR-EHR-ACTION.procedure.v1">
+      <BaseAql>select c, ev from COMPOSITION c contains ACTION ev[openEHR-EHR-ACTION.procedure.v1]</BaseAql>
+      <Paths>
+        <Path Id="klarert" IdentifierRef="ev" Value="/description[at0001]/items[at0048]/value/value" AdminDescription="" DataType="" />
+        <Path Id="type_klarering" IdentifierRef="ev" Value="/name/value" AdminDescription="" DataType="" />
+        <Path Id="tidspunkt" IdentifierRef="c" Value="/context/start_time/value" AdminDescription="" DataType="" />
+        <Path Id="utførende" IdentifierRef="ev" Value="/provider/name" AdminDescription="" DataType="" />
+        <Path Id="kommentar_ane" IdentifierRef="ev" Value="/description[at0001]/items[at0005]/value/value" AdminDescription="" DataType="" />
+      </Paths>
+      <WhereExpressions>
+        <WhereExpression Id="operasjon" Path="$type_klarering" Operator="EQ" Value="'Klarering operatør'" AdminDescription="" />
+        <WhereExpression Id="anestesi" Path="$type_klarering" Operator="EQ" Value="'Vurdering av anestesilege'" AdminDescription="" />
+      </WhereExpressions>
+      <OrderByExpressions>
+        <OrderByExpression Id="sortering" Value="$tidspunkt" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="klarert_for_operasjon" WhereRef="$operasjon" OrderByRef="$sortering" AdminDescription="" />
+        <Predicate Id="klarert_for_anestesi" WhereRef="$anestesi" OrderByRef="$sortering" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="780b2905-a5cc-4d06-8171-796d8af11850" Oid="spesialutstyr" Name="Spesialutstyr" DefaultArchetypeId="openEHR-EHR-CLUSTER.process_state_dips.v1">
+      <BaseAql>select c from composition c contains cluster cl[openEHR-EHR-CLUSTER.process_state_dips.v1]</BaseAql>
+      <Paths>
+        <Path Id="overordnet_status" IdentifierRef="c" Value="/context/other_context[at0001]/items[name/value = 'Status']/items[at0001]/value/value" AdminDescription="" DataType="" />
+        <Path Id="siste" IdentifierRef="c" Value="/context/start_time/value" AdminDescription="" DataType="String" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="sortering" Value="$siste" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="spesialutstyr" WhereRef="" OrderByRef="$sortering" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="024596e2-a2fa-4b0b-b43d-51578eaa9364" Oid="asa_status" Name="ASA-status" DefaultArchetypeId="">
+      <BaseAql>select c, ev, o from composition c contains (observation o[openEHR-EHR-OBSERVATION.asa_status.v1] or evaluation ev[openEHR-EHR-EVALUATION.container_dips.v1])</BaseAql>
+      <Paths>
+        <Path Id="asa_status_cluster" IdentifierRef="ev" Value="/data[at0001]/items[name/value = 'ASA-klassifikasjon']/items[at0001]/value/value" AdminDescription="" DataType="" />
+        <Path Id="start_time" IdentifierRef="c" Value="/context/start_time/value" AdminDescription="" DataType="String" />
+        <Path Id="asa_status" IdentifierRef="o" Value="/data[at0015]/events[at0016]/data[at0017]/items[at0001]/value/value" AdminDescription="" DataType="" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="tidspunkt" Value="$start_time" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="asa_status" WhereRef="" OrderByRef="$tidspunkt" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="0eea4385-d665-4ac5-b3b4-55eee99bb613" Oid="operasjonstype" Name="Operasjonstype" DefaultArchetypeId="openEHR-EHR-ACTION.procedure.v1">
+      <BaseAql>select c, i, a from composition c contains (instruction i[openEHR-EHR-INSTRUCTION.request-procedure.v1] or action a[openEHR-EHR-ACTION.procedure.v1])</BaseAql>
+      <Paths>
+        <Path Id="operasjonstype_bestilling" IdentifierRef="i" Value="/activities[at0001]/description[at0009]/items[at0121.1]/value/value" AdminDescription="" DataType="" />
+        <Path Id="operasjonstype_opvurdering" IdentifierRef="a" Value="/description[at0001]/items[at0002]/value/value" AdminDescription="" DataType="" />
+        <Path Id="start_time" IdentifierRef="c" Value="/context/start_time/value" AdminDescription="" DataType="" />
+        <Path Id="prosedyretype_a" IdentifierRef="a" Value="/description[at0001]/items[at0067]/value/defining_code/code_string" AdminDescription="" DataType="" />
+        <Path Id="prosedyretype_i" IdentifierRef="i" Value="/activities[at0001]/description[at0009]/items[at0.2]/value/defining_code/code_string" AdminDescription="" DataType="" />
+        <Path Id="kommentar_optype_opvurdering" IdentifierRef="a" Value="/description[at0001]/items[at0049]/value/value" AdminDescription="" DataType="String" />
+      </Paths>
+      <WhereExpressions>
+        <WhereExpression Id="pt_a" Path="$prosedyretype_a" Operator="EQ" Value="'387713003'" AdminDescription="" />
+        <WhereExpression Id="pt_i" Path="$prosedyretype_i" Operator="EQ" Value="'387713003'" AdminDescription="" />
+      </WhereExpressions>
+      <OrderByExpressions>
+        <OrderByExpression Id="start_time" Value="$start_time" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="operasjonstype" WhereRef="($pt_a or $pt_i)" OrderByRef="$start_time" AdminDescription="" />
+        <Predicate Id="operasjonstype_kommentar" WhereRef="$pt_a" OrderByRef="$start_time" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+  </AqlBindings>
+  <DataElements>
+    <DataElement Id="57908ef4-2bba-46fc-ad1f-2306a50f3342" Oid="tid_igjen" Name="Hastegrad" AdminName="Hastegrad" Description="Viser tid igjen, samt valgt hastegrad, fra dokumentet &quot;Operasjonsbestilling&quot;" Categories="surgery-ikke redigerbare" DisplayFormat="{Ifnull($operasjonsbestilling.hastegrad,&quot;&quot;)} {ifnull((DATEVALUE(DURATION_ADD($operasjonsbestilling.start_time, Ifnull($operasjonsbestilling.maks_ventetid,If(&quot;P1&quot;=$operasjonsbestilling.oenskes_utfoert,&quot;PTH15M&quot;,If(&quot;P2&quot;=$operasjonsbestilling.oenskes_utfoert,&quot;PT6H&quot;,If(&quot;P3&quot;=$operasjonsbestilling.oenskes_utfoert,&quot;PT24H&quot;,If(&quot;P4&quot;=$operasjonsbestilling.oenskes_utfoert,&quot;PT72H&quot;,&quot;&quot;)))))))-NOWTICKS())\600000000,&quot;&quot;)}" SortFormat="$operasjonsbestilling.oenskes_utfoert" IsEditable="false" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions>
+        <FormatExpression Id="edf33fb6-ff36-42ef-b857-7ccbdd03550e">
+          <WhenExpression Value="ifnull(If(and(1440&lt;(DATEVALUE(DURATION_ADD($operasjonsbestilling.start_time, Ifnull($operasjonsbestilling.maks_ventetid,If(&quot;P1&quot;=$operasjonsbestilling.oenskes_utfoert,&quot;PTH15M&quot;,If(&quot;P2&quot;=$operasjonsbestilling.oenskes_utfoert,&quot;PT6H&quot;,If(&quot;P3&quot;=$operasjonsbestilling.oenskes_utfoert,&quot;PT24H&quot;,If(&quot;P4&quot;=$operasjonsbestilling.oenskes_utfoert,&quot;PT72H&quot;,&quot;&quot;)))))))-NOWTICKS())\600000000),true,false),false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M381,384.71933L241.5,384.71933 241.5,231.21933 286.5,231.21933 286.5,339.71933 381,339.71933 381,384.71933z M270,184.21933C181.008,184.21933 109,256.24133 109,345.21933 109,434.21133 181.023,506.21933 270,506.21933 358.992,506.21933 431,434.19633 431,345.21933 431,256.22633 358.977,184.21933 270,184.21933 M270,139.21933C383.771,139.21933 476,231.44833 476,345.21933 476,458.99033 383.771,551.21933 270,551.21933 156.229,551.21933 64,458.99033 64,345.21933 64,231.44833 156.229,139.21933 270,139.21933z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF346A3B</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Det er mere enn 24 timer til operasjonen burde gjenomføres</Description>
+        </FormatExpression>
+        <FormatExpression Id="e3b29a44-23ae-4c57-b927-d6e856540048">
+          <WhenExpression Value="ifnull(If(and(360&gt;(DATEVALUE(DURATION_ADD($operasjonsbestilling.start_time, Ifnull($operasjonsbestilling.maks_ventetid,If(&quot;P1&quot;=$operasjonsbestilling.oenskes_utfoert,&quot;PTH15M&quot;,If(&quot;P2&quot;=$operasjonsbestilling.oenskes_utfoert,&quot;PT6H&quot;,If(&quot;P3&quot;=$operasjonsbestilling.oenskes_utfoert,&quot;PT24H&quot;,If(&quot;P4&quot;=$operasjonsbestilling.oenskes_utfoert,&quot;PT72H&quot;,&quot;&quot;)))))))-NOWTICKS())\600000000,60&lt;(DATEVALUE(DURATION_ADD($operasjonsbestilling.start_time, Ifnull($operasjonsbestilling.maks_ventetid,If(&quot;P1&quot;=$operasjonsbestilling.oenskes_utfoert,&quot;PTH15M&quot;,If(&quot;P2&quot;=$operasjonsbestilling.oenskes_utfoert,&quot;PT6H&quot;,If(&quot;P3&quot;=$operasjonsbestilling.oenskes_utfoert,&quot;PT24H&quot;,If(&quot;P4&quot;=$operasjonsbestilling.oenskes_utfoert,&quot;PT72H&quot;,&quot;&quot;)))))))-NOWTICKS())\600000000),true,false),false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M12,2C6.47,2,2,6.5,2,12A10,10,0,0,0,12,22C14.25,22,16.33,21.24,18,20L18,17.28C16.53,18.94,14.39,20,12,20A8,8,0,0,1,4,12A8,8,0,0,1,12,4C15.36,4,18.23,6.07,19.41,9L21.54,9C20.27,4.94,16.5,2,12,2 M11,7L11,13 16.25,16.15 17,14.92 12.5,12.25 12.5,7 11,7 M20,11L20,18 22,18 22,11 20,11 M20,20L20,22 22,22 22,20 20,20z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FFD69600</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Det er 6 under timer til operasjonen burde gjenomføres</Description>
+        </FormatExpression>
+        <FormatExpression Id="9307730f-8d28-4648-8b50-c31e0ef59dc1">
+          <WhenExpression Value="ifnull(If(and(60&gt;(DATEVALUE(DURATION_ADD($operasjonsbestilling.start_time, Ifnull($operasjonsbestilling.maks_ventetid,If(&quot;P1&quot;=$operasjonsbestilling.oenskes_utfoert,&quot;PTH15M&quot;,If(&quot;P2&quot;=$operasjonsbestilling.oenskes_utfoert,&quot;PT6H&quot;,If(&quot;P3&quot;=$operasjonsbestilling.oenskes_utfoert,&quot;PT24H&quot;,If(&quot;P4&quot;=$operasjonsbestilling.oenskes_utfoert,&quot;PT72H&quot;,&quot;&quot;)))))))-NOWTICKS())\600000000),true,false),false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M12,2C6.47,2,2,6.5,2,12A10,10,0,0,0,12,22C14.25,22,16.33,21.24,18,20L18,17.28C16.53,18.94,14.39,20,12,20A8,8,0,0,1,4,12A8,8,0,0,1,12,4C15.36,4,18.23,6.07,19.41,9L21.54,9C20.27,4.94,16.5,2,12,2 M11,7L11,13 16.25,16.15 17,14.92 12.5,12.25 12.5,7 11,7 M20,11L20,18 22,18 22,11 20,11 M20,20L20,22 22,22 22,20 20,20z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF980707</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Det er under 60 minutter til operasjon burde gjenomføres</Description>
+        </FormatExpression>
+        <FormatExpression Id="b0a155f2-a3dd-42e7-a2ba-6dfe3c18f11c">
+          <WhenExpression Value="ifnull(If(and(0&gt;=(DATEVALUE(DURATION_ADD($operasjonsbestilling.start_time, Ifnull($operasjonsbestilling.maks_ventetid,If(&quot;P1&quot;=$operasjonsbestilling.oenskes_utfoert,&quot;PTH15M&quot;,If(&quot;P2&quot;=$operasjonsbestilling.oenskes_utfoert,&quot;PT6H&quot;,If(&quot;P3&quot;=$operasjonsbestilling.oenskes_utfoert,&quot;PT24H&quot;,If(&quot;P4&quot;=$operasjonsbestilling.oenskes_utfoert,&quot;PT72H&quot;,&quot;&quot;)))))))-NOWTICKS())\600000000),true,false),false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>F1 M 38,22.1667C 41.1666,22.1667 57,52.25 55.4166,53.8333C 53.8333,55.4167 22.1667,55.4167 20.5833,53.8333C 19,52.25 34.8333,22.1667 38,22.1667 Z M 38,45.9167C 36.6883,45.9167 35.625,46.98 35.625,48.2917C 35.625,49.6034 36.6883,50.6667 38,50.6667C 39.3116,50.6667 40.375,49.6034 40.375,48.2917C 40.375,46.98 39.3116,45.9167 38,45.9167 Z M 35.625,31.6667L 36.4166,44.3333L 39.5833,44.3333L 40.375,31.6667L 35.625,31.6667 Z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF980707</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Operasjon burde vært gjenomført!</Description>
+        </FormatExpression>
+      </FormatExpressions>
+      <KeyValues />
+    </DataElement>
+    <DataElement Id="ac081fb9-6d6e-4254-a945-6687999bf527" Oid="operasjonsleie" Name="Leie" AdminName="Operasjonsleie" Description="Viser operasjonsleie fra dokumentet Operasjonsdetaljer" Categories="surgery-ikke redigerbare" DisplayFormat="{Ifnull($operasjonsdetaljer.operasjonsleie,&quot;&quot;)}" SortFormat="$operasjonsdetaljer.operasjonsleie" IsEditable="false" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues />
+    </DataElement>
+    <DataElement Id="b8de0f34-0ff0-4316-bab8-a3b1ed1e428a" Oid="side" Name="Side" AdminName="Side" Description="Viser side fra dokumentet Operasjonsdetaljer" Categories="surgery-ikke redigerbare" DisplayFormat="{ifnull($operasjonsdetaljer.side,&quot;&quot;)}" SortFormat="$operasjonsdetaljer.side" IsEditable="false" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues />
+    </DataElement>
+    <DataElement Id="bdb3a79b-3c3b-433a-9759-234fdd98e000" Oid="viktig_info" Name="Viktig info" AdminName="Viktig informasjon" Description="Viser informasjon fra dokumentet Viktig informasjon" Categories="surgery-ikke redigerbare" DisplayFormat="{ifnull($viktig_info.viktig_info,&quot;&quot;)}" SortFormat="$viktig_info.viktig_info" IsEditable="false" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions>
+        <FormatExpression Id="91c4c3c0-90a3-47a4-b020-958b579b529b">
+          <WhenExpression Value="if(isnull($viktig_info.viktig_info), false, true)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF980707</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>F1 M 38,22.1667C 41.1666,22.1667 57,52.25 55.4166,53.8333C 53.8333,55.4167 22.1667,55.4167 20.5833,53.8333C 19,52.25 34.8333,22.1667 38,22.1667 Z M 38,45.9167C 36.6883,45.9167 35.625,46.98 35.625,48.2917C 35.625,49.6034 36.6883,50.6667 38,50.6667C 39.3116,50.6667 40.375,49.6034 40.375,48.2917C 40.375,46.98 39.3116,45.9167 38,45.9167 Z M 35.625,31.6667L 36.4166,44.3333L 39.5833,44.3333L 40.375,31.6667L 35.625,31.6667 Z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF980707</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Klikk for å endre viktig informasjon</Description>
+        </FormatExpression>
+      </FormatExpressions>
+      <KeyValues>
+        <KeyValue Key="DocumentCreateConceptId" Value="$ARENA-HEALTHRECORD-DOCUMENTCONCEPT/OPR_VIKTIGINFORMASJON" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="aec5d487-6472-424d-aef3-5d5290c78a39" Oid="anestesitype1" Name="Anestesitype1" AdminName="Anestesitype1" Description="Viser anestesitype 1 fra dokumentet Anestesivurdering" Categories="surgery-ikke redigerbare" DisplayFormat="{ifnull($anestesiplan1.anestesitype,&quot;&quot;)}" SortFormat="$anestesiplan1.anestesitype" IsEditable="false" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues>
+        <KeyValue Key="DocumentCreateConceptId" Value="$ARENA-HEALTHRECORD-DOCUMENTCONCEPT/OPR_ANESTESIVURDERING" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="c4686845-cfb5-4dca-bde0-c2b547efb945" Oid="plan_for_innledning" Name="Innledning" AdminName="Innledning" Description="Viser plan for innledning fra dokumentet Anestesiplan" Categories="surgery-ikke redigerbare" DisplayFormat="{ifnull(if(isnull($anestesiplan1.plan_innledning_kode), &quot;&quot;, if($anestesiplan1.plan_innledning_kode = &quot;IP1&quot;, &quot;AL&quot;, if($anestesiplan1.plan_innledning_kode = &quot;IP2&quot;, &quot;AL/ASPL&quot;, if($anestesiplan1.plan_innledning_kode = &quot;IP3&quot;, &quot;ASPL&quot;, if($anestesiplan1.plan_innledning_kode = &quot;IP4&quot;, &quot;ASPL/ASPL&quot;, &quot;&quot;))))),&quot;&quot;)}" SortFormat="$anestesiplan1.plan_innledning_kode" IsEditable="false" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues>
+        <KeyValue Key="DocumentCreateConceptId" Value="$ARENA-HEALTHRECORD-DOCUMENTCONCEPT/OPR_ANESTESIVURDERING" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="aaa527ab-b409-4e50-8f92-4d50ba60c2cd" Oid="postoperativ_overvåkning" Name="Po overvåkning" AdminName="Postoperativ overvåkning" Description="Viser postoperativ overvåkning fra dokumentet Anestesiplan" Categories="surgery-ikke redigerbare" DisplayFormat="$anestesiplan1.postoperativ_overvåkning" SortFormat="$anestesiplan1.postoperativ_overvåkning" IsEditable="false" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues>
+        <KeyValue Key="DocumentCreateConceptId" Value="$ARENA-HEALTHRECORD-DOCUMENTCONCEPT/OPR_ANESTESIVURDERING" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="1e12204e-0629-4ef1-9899-7fcd0b70b54d" Oid="planlagt_luftvei" Name="Luftvei" AdminName="Luftvei" Description="Viser planlagt luftvei fra dokumentet Anestesiplan" Categories="surgery-ikke redigerbare" DisplayFormat="$anestesiplan1.planlagt_luftvei" SortFormat="$anestesiplan1.planlagt_luftvei" IsEditable="false" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues>
+        <KeyValue Key="DocumentCreateConceptId" Value="$ARENA-HEALTHRECORD-DOCUMENTCONCEPT/OPR_ANESTESIVURDERING" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="5c814abb-b037-4730-971d-1e298db234e7" Oid="klarert_for_operasjon" Name="Klarert opr" AdminName="Klarert for operasjon" Description="Viser om pasienten er klarert for operasjon eller ikke" Categories="surgery-ikke redigerbare" DisplayFormat="{ifnull(formatdatetime(datevalue($klarert_for_operasjon.tidspunkt), &quot;f&quot;, &quot;nb-no&quot;),&quot;&quot;)}" SortFormat="$klarert_for_operasjon.klarert" IsEditable="false" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions>
+        <FormatExpression Id="82f4f7ab-8ded-430b-b013-f972ea6a63e9">
+          <WhenExpression Value="ifnull(If(&quot;Klarert for operasjon&quot;=$klarert_for_operasjon.klarert,true,false),false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF444444</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M12,2A10,10,0,0,1,22,12A10,10,0,0,1,12,22A10,10,0,0,1,2,12A10,10,0,0,1,12,2 M12,4A8,8,0,0,0,4,12A8,8,0,0,0,12,20A8,8,0,0,0,20,12A8,8,0,0,0,12,4 M11,16.5L6.5,12 7.91,10.59 11,13.67 16.59,8.09 18,9.5 11,16.5z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF346A3B</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Pasienten er klarert for operasjon av kirurg.</Description>
+        </FormatExpression>
+        <FormatExpression Id="3da8f0b1-cabf-4ae3-9cab-e2878f5a5b1d">
+          <WhenExpression Value="Ifnull(If(&quot;Ikke klarert for operasjon&quot;=$klarert_for_operasjon.klarert,true,False),False)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M12,20C7.59,20 4,16.41 4,12 4,7.59 7.59,4 12,4 16.41,4 20,7.59 20,12 20,16.41 16.41,20 12,20 M12,2C6.47,2 2,6.47 2,12 2,17.53 6.47,22 12,22 17.53,22 22,17.53 22,12 22,6.47 17.53,2 12,2 M14.59,8L12,10.59 9.41,8 8,9.41 10.59,12 8,14.59 9.41,16 12,13.41 14.59,16 16,14.59 13.41,12 16,9.41 14.59,8z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF980707</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Pasienten er ikke klarert for operasjon av kirurg!</Description>
+        </FormatExpression>
+        <FormatExpression Id="b5635c25-ff14-45aa-91fd-fbe6817c4990">
+          <WhenExpression Value="Ifnull(If(&quot;&quot;=$klarert_for_operasjon.klarert,False,False),True)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M19,8C19.56,8,20,8.43,20,9A1,1,0,0,1,19,10C18.43,10 18,9.55 18,9 18,8.43 18.43,8 19,8 M2,2L2,11C2,13.96 4.19,16.5 7.14,16.91 7.76,19.92 10.42,22 13.5,22A6.5,6.5,0,0,0,20,15.5L20,11.81C21.16,11.39,22,10.29,22,9A3,3,0,0,0,19,6A3,3,0,0,0,16,9C16,10.29,16.84,11.4,18,11.81L18,15.41C18,17.91 16,19.91 13.5,19.91 11.5,19.91 9.82,18.7 9.22,16.9 12,16.3 14,13.8 14,11L14,2 10,2 10,5 12,5 12,11A4,4,0,0,1,8,15A4,4,0,0,1,4,11L4,5 6,5 6,2 2,2z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF808384</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Det er ikke tatt stilling til om pasienten er klarert til operasjon.</Description>
+        </FormatExpression>
+      </FormatExpressions>
+      <KeyValues>
+        <KeyValue Key="DocumentCreateConceptId" Value="$ARENA-HEALTHRECORD-DOCUMENTCONCEPT/OPR_KLARERTOPERASJON" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="800a88d7-7f91-4c99-bf2f-7e47cce38025" Oid="klarert_for_anestesi" Name="Klarert ane" AdminName="Klarert for anestesi" Description="Viser om pasienten er klarert for anestesi eller ikke" Categories="surgery-ikke redigerbare" DisplayFormat="&quot;&quot;" SortFormat="$klarert_for_anestesi.klarert" SortFormatDataType="string" IsEditable="false" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions>
+        <FormatExpression Id="e3399c7c-7f21-4f02-81e2-f678a1d02ce9">
+          <WhenExpression Value="ifnull(If(&quot;Klarert for operasjon&quot;=$klarert_for_anestesi.klarert,true,false),false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M12,2A10,10,0,0,1,22,12A10,10,0,0,1,12,22A10,10,0,0,1,2,12A10,10,0,0,1,12,2 M12,4A8,8,0,0,0,4,12A8,8,0,0,0,12,20A8,8,0,0,0,20,12A8,8,0,0,0,12,4 M11,16.5L6.5,12 7.91,10.59 11,13.67 16.59,8.09 18,9.5 11,16.5z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF346A3B</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Pasienten er klarert for anestesi.</Description>
+        </FormatExpression>
+        <FormatExpression Id="3acad890-d7cc-4635-92be-6ca1ff6d333e">
+          <WhenExpression Value="ifnull(If(&quot;Avvist&quot;=$klarert_for_anestesi.klarert,true,False),False)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M12,20C7.59,20 4,16.41 4,12 4,7.59 7.59,4 12,4 16.41,4 20,7.59 20,12 20,16.41 16.41,20 12,20 M12,2C6.47,2 2,6.47 2,12 2,17.53 6.47,22 12,22 17.53,22 22,17.53 22,12 22,6.47 17.53,2 12,2 M14.59,8L12,10.59 9.41,8 8,9.41 10.59,12 8,14.59 9.41,16 12,13.41 14.59,16 16,14.59 13.41,12 16,9.41 14.59,8z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF980707</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Pasienten er avvist for anestesi.</Description>
+        </FormatExpression>
+        <FormatExpression Id="92d706ab-e1d5-4d10-8e26-405a962d552f">
+          <WhenExpression Value="ifnull(If(&quot;Uavklart&quot;=$klarert_for_anestesi.klarert,true,False),False)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M38,19C48.4934,19 57,27.5066 57,38 57,48.4934 48.4934,57 38,57 27.5066,57 19,48.4934 19,38 19,27.5066 27.5066,19 38,19z M34.0417,25.7292L36.0208,41.9584 39.9792,41.9583 41.9583,25.7292 34.0417,25.7292z M38,44.3333C36.2511,44.3333 34.8333,45.7511 34.8333,47.5 34.8333,49.2489 36.2511,50.6667 38,50.6667 39.7489,50.6667 41.1667,49.2489 41.1667,47.5 41.1667,45.7511 39.7489,44.3333 38,44.3333z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FFD69600</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Pasienten er uavklart for anestesi.</Description>
+        </FormatExpression>
+      </FormatExpressions>
+      <KeyValues>
+        <KeyValue Key="DocumentCreateConceptId" Value="$ARENA-HEALTHRECORD-DOCUMENTCONCEPT/OPR_KLARERTANESTESI" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="5aa5f43b-612a-4aaf-9fd8-7b3c2fbb211d" Oid="overordnet_bestillingsstatus" Name="Utstyrstatus" AdminName="Overordnet utstyrstatus" Description="Viser overordnet status på bestilling av utstyr" Categories="surgery-ikke redigerbare" DisplayFormat="{ifnull($spesialutstyr.overordnet_status, &quot;&quot;)}" SortFormat="$spesialutstyr.overordnet_status" SortFormatDataType="string" IsEditable="false" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues>
+        <KeyValue Key="DocumentCreateConceptId" Value="$ARENA-HEALTHRECORD-DOCUMENTCONCEPT/OPR_SPESIALUTSTYR" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="093d9b3c-700b-489b-ad9d-682cb96e89ec" Oid="asa_status" Name="ASA-status" AdminName="ASA-status" Description="ASA-status" Categories="surgery-ikke redigerbare" DisplayFormat="{ ifnull(if(isnull($asa_status.asa_status_cluster), if(isnull($asa_status.asa_status), &quot;&quot;, $asa_status.asa_status), $asa_status.asa_status_cluster),&quot;&quot;) }" SortFormat="$asa_status.asa_status" SortFormatDataType="string" IsEditable="false" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues />
+    </DataElement>
+    <DataElement Id="cbfd87a3-ebc2-4ab5-ac3d-f335e6544e62" Oid="operasjonstype" Name="Operasjonstype" AdminName="Operasjonstype" Description="Viser operasjonstype fra skjema Operasjonsbestilling eller Operatørvurdering (viser fra operatørvurdering hvis det er lagt inn, hvis ikke hentes fra operasjonsbestilling)" Categories="surgery-ikke redigerbare" DisplayFormat="{ if(isnull($operasjonstype.operasjonstype_opvurdering), if(isnull($operasjonstype.operasjonstype_bestilling), &quot;&quot;, $operasjonstype.operasjonstype_bestilling), $operasjonstype.operasjonstype_opvurdering) }" SortFormat="$operasjonstype.operasjonstype_bestilling" IsEditable="false" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues />
+    </DataElement>
+    <DataElement Id="dcaff531-69cc-4e10-9455-988103195fd3" Oid="Operasjon_utfort_innen" Name="Operasjon utført innen" AdminName="Operasjon utfort innen" Description="Operasjon ønsket utført innen og varsling på brudd på frist (varsling inneholder en description for når dato er lik dagens og når dato for ønsket operasjon er passert." Categories="surgery-ikke redigerbare" DisplayFormat="{ifnull($operasjonsbestilling.utfort_innen,&quot;&quot;)}" SortFormat="" IsEditable="false" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions>
+        <FormatExpression Id="927c0b40-f0ec-4c90-b192-6884149bed20">
+          <WhenExpression Value="ifnull(IF(FORMATDATETIME(DATEVALUE($operasjonsbestilling.utfort_innen),&quot;yyMMdd&quot;, &quot;nb-no&quot;)&lt;=FORMATDATETIME(DATEVALUE(TODAY()),&quot;yyMMdd&quot;, &quot;nb-no&quot;),true,false),false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M38,19C48.4934,19 57,27.5066 57,38 57,48.4934 48.4934,57 38,57 27.5066,57 19,48.4934 19,38 19,27.5066 27.5066,19 38,19z M34.0417,25.7292L36.0208,41.9584 39.9792,41.9583 41.9583,25.7292 34.0417,25.7292z M38,44.3333C36.2511,44.3333 34.8333,45.7511 34.8333,47.5 34.8333,49.2489 36.2511,50.6667 38,50.6667 39.7489,50.6667 41.1667,49.2489 41.1667,47.5 41.1667,45.7511 39.7489,44.3333 38,44.3333z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FFD69600</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Dato for når pasienten bør være operert passeres idag</Description>
+        </FormatExpression>
+        <FormatExpression Id="eef4f056-7934-455a-9dda-88334feb6559">
+          <WhenExpression Value="ifnull(IF(FORMATDATETIME(DATEVALUE($operasjonsbestilling.utfort_innen),&quot;yyMMdd&quot;, &quot;nb-no&quot;)&lt;=FORMATDATETIME(DATEVALUE(TODAY()),&quot;yyMMdd&quot;, &quot;nb-no&quot;),true,false),false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>F1 M 38,22.1667C 41.1666,22.1667 57,52.25 55.4166,53.8333C 53.8333,55.4167 22.1667,55.4167 20.5833,53.8333C 19,52.25 34.8333,22.1667 38,22.1667 Z M 38,45.9167C 36.6883,45.9167 35.625,46.98 35.625,48.2917C 35.625,49.6034 36.6883,50.6667 38,50.6667C 39.3116,50.6667 40.375,49.6034 40.375,48.2917C 40.375,46.98 39.3116,45.9167 38,45.9167 Z M 35.625,31.6667L 36.4166,44.3333L 39.5833,44.3333L 40.375,31.6667L 35.625,31.6667 Z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF980707</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Dato for når pasienten bør være operert er passert</Description>
+        </FormatExpression>
+      </FormatExpressions>
+      <KeyValues />
+    </DataElement>
+    <DataElement Id="24d4b56e-7dcd-4d81-877f-8546c064147e" Oid="tidligst_onsket_dato_for_operasjon" Name="tidligst ønsket dato for operasjon" AdminName="tidligst onsket dato for operasjon" Description="" Categories="surgery-ikke redigerbare" DisplayFormat="{ifnull($operasjonsbestilling.tidligest_dato_operasjon,&quot;&quot;)}" SortFormat="" IsEditable="false" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues />
+    </DataElement>
+    <DataElement Id="ccd490a2-4afb-4486-a7ca-8c11c5a18dc0" Oid="anestesitype2" Name="Anestesitype2" AdminName="Anestesitype2" Description="Viser anestesitype 1 fra dokumentet Anestesivurdering" Categories="surgery-ikke redigerbare" DisplayFormat="{ifnull($anestesiplan2.anestesitype,&quot;&quot;)}" SortFormat="$anestesiplan2.anestesitype" IsEditable="false" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues>
+        <KeyValue Key="DocumentCreateConceptId" Value="$ARENA-HEALTHRECORD-DOCUMENTCONCEPT/OPR_ANESTESIVURDERING" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="4daf8aea-5885-4515-8995-5c61559cee1a" Oid="kommentar_anestesi" Name="Kommentar anestesi" AdminName="Kommentar anestesi" Description="Viser kommentarfeltet fra anestesivurderingen" Categories="surgery-ikke redigerbare" DisplayFormat="{ifnull($klarert_for_anestesi.kommentar_ane, &quot;&quot;)}" SortFormat="$klarert_for_anestesi.kommentar_ane" SortFormatDataType="string" IsEditable="false" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues />
+    </DataElement>
+    <DataElement Id="cb7cbf30-55ad-47d6-8c59-23cb64593868" Oid="operasjonstype_beskrivelse" Name="Operasjonstype beskrivelse" AdminName="Operasjonstype beskrivelse" Description="Viser beskrivelsesfeltet for operasjonstype fra operatørvurderingen" Categories="surgery-ikke redigerbare" DisplayFormat="{ifnull($operasjonstype_kommentar.kommentar_optype_opvurdering, &quot;&quot;)}" SortFormat="$operasjonstype_kommentar.kommentar_optype_opvurdering" SortFormatDataType="string" IsEditable="false" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues />
+    </DataElement>
+  </DataElements>
+  <KeyValues />
+</VaqmConfiguration>
