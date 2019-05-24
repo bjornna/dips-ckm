@@ -1,0 +1,193 @@
+<?xml version="1.0"?>
+<VaqmConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Id="270d19c8-ab42-4673-95ba-88c5e3cbfb8f" Oid="vaqm.panorama.basic" Name="Panorama Grunnmodul" Version="24.0.0" Approved="true" CreatedByAuthor="bna" Created="2019-05-24T11:40:25" Imported="false" VersionComment="Nå fungerer det med POIN_EVENT og spørring på ctx start time" BasedOnVersion="23.0.0" xmlns="http://www.dips.no/vaqmconfig">
+  <AqlBindings>
+    <AqlBinding Id="84f79267-7215-460c-8a6e-104e729932ec" Oid="body_temp" Name="Kroppstemperatur" DefaultArchetypeId="openEHR-EHR-OBSERVATION.body_temperature.v2">
+      <BaseAql>select c, o, pe from composition c contains observation o CONTAINS POINT_EVENT pe</BaseAql>
+      <Paths>
+        <Path Id="temp" IdentifierRef="pe" Value="/data[at0001]/items[at0004]/value" DataType="DV_QUANTITY" />
+        <Path Id="when" IdentifierRef="pe" Value="/time" AdminDescription="" DataType="DV_DATE_TIME" />
+        <Path Id="contextTime" IdentifierRef="c" Value="/context/start_time" AdminDescription="" DataType="DV_DATE_TIME" />
+        <Path Id="archetypeId" IdentifierRef="o" Value="/archetype_node_id" AdminDescription="" DataType="String" />
+      </Paths>
+      <WhereExpressions>
+        <WhereExpression Id="v1" Path="$archetypeId" Operator="EQ" Value="'openEHR-EHR-OBSERVATION.body_temperature.v1'" AdminDescription="" />
+        <WhereExpression Id="v2" Path="$archetypeId" Operator="EQ" Value="'openEHR-EHR-OBSERVATION.body_temperature.v2'" AdminDescription="" />
+      </WhereExpressions>
+      <OrderByExpressions>
+        <OrderByExpression Id="orderLast" Value="$when" Ascending="false" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="lastTemp" WhereRef="$v1 OR $v2" OrderByRef="$orderLast" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="851d898a-a7f4-4ee4-8763-c9815173c41c" Oid="bloodPressure" Name="Blodtrykk" DefaultArchetypeId="openEHR-EHR-OBSERVATION.blood_pressure.v1">
+      <BaseAql>SELECT c,pe FROM COMPOSITION c contains OBSERVATION o[openEHR-EHR-OBSERVATION.blood_pressure.v1] CONTAINS POINT_EVENT pe</BaseAql>
+      <Paths>
+        <Path Id="systolic" IdentifierRef="pe" Value="/data[at0003]/items[at0004]/value" AdminDescription="" DataType="DV_QUANTITY" />
+        <Path Id="diastolic" IdentifierRef="pe" Value="/data[at0003]/items[at0005]/value" AdminDescription="" DataType="DV_QUANTITY" />
+        <Path Id="when" IdentifierRef="pe" Value="/time" AdminDescription="" DataType="DV_DATE_TIME" />
+        <Path Id="contextStartTime" IdentifierRef="c" Value="/context/start_time" AdminDescription="" DataType="DV_DATE_TIME" />
+        <Path Id="comment" IdentifierRef="pe" Value="/data[at0003]/items[at0033]/value" AdminDescription="" DataType="DV_TEXT" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="orderLast" Value="$when" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="lastBloodPressure" WhereRef="" OrderByRef="$orderLast" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="496cc0e0-2ae8-4949-aed6-eb59ce3d97c7" Oid="pulse" Name="Puls" DefaultArchetypeId="openEHR-EHR-OBSERVATION.pulse.v1">
+      <BaseAql>SELECT c,pe FROM COMPOSITION c CONTAINS OBSERVATION o[openEHR-EHR-OBSERVATION.pulse.v1] CONTAINS POINT_EVENT pe</BaseAql>
+      <Paths>
+        <Path Id="frekvens" IdentifierRef="pe" Value="/data[at0001]/items[at0004]/value" AdminDescription="" DataType="DV_QUANTITY" />
+        <Path Id="when" IdentifierRef="pe" Value="/time" AdminDescription="" DataType="DV_DATE_TIME" />
+        <Path Id="ctxStartTime" IdentifierRef="c" Value="/context/start_time" AdminDescription="" DataType="DV_DATE_TIME" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="orderLast" Value="$when" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="lastPulse" WhereRef="" OrderByRef="$orderLast" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="d435c7a1-a89e-4a8a-adaa-0ca9565ac6ff" Oid="spo02" Name="SpO2">
+      <BaseAql>select a, pe from composition a contains OBSERVATION a_a [openEHR-EHR-OBSERVATION.pulse_oximetry.v1] CONTAINS POINT_EVENT pe</BaseAql>
+      <Paths>
+        <Path Id="spo2" IdentifierRef="pe" Value="/data[at0003]/items[at0006]/value/numerator" AdminDescription="" DataType="Integer" />
+        <Path Id="when" IdentifierRef="pe" Value="/time" AdminDescription="" DataType="DV_DATE_TIME" />
+        <Path Id="ctxStartTime" IdentifierRef="a" Value="/context/start_time" AdminDescription="" DataType="DV_DATE_TIME" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="orderLast" Value="$when" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="lastSpo2" WhereRef="" OrderByRef="$orderLast" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="8c35f4cb-e105-4305-a01e-22aad1fde334" Oid="respiration" Name="Respirasjon" DefaultArchetypeId="openEHR-EHR-OBSERVATION.respiration.v1">
+      <BaseAql>select c, pe from composition c contains observation a_a[openEHR-EHR-OBSERVATION.respiration.v1] CONTAINS POINT_EVENT pe</BaseAql>
+      <Paths>
+        <Path Id="respirasjon" IdentifierRef="pe" Value="/data[at0003]/items[at0004]/value" AdminDescription="" DataType="DV_QUANTITY" />
+        <Path Id="when" IdentifierRef="pe" Value="/time" AdminDescription="" DataType="DV_DATE_TIME" />
+        <Path Id="ctxStartTime" IdentifierRef="c" Value="/context/start_time" AdminDescription="" DataType="DV_DATE_TIME" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="orderLast" Value="$when" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="lastRespiration" WhereRef="" OrderByRef="$orderLast" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="cb9881c7-edc3-46ca-be06-56881d6a87f0" Oid="gcs" Name="GlasgowComaScale" DefaultArchetypeId="openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1">
+      <BaseAql>SELECT c, pe FROM     COMPOSITION c         CONTAINS OBSERVATION o[openEHR-EHR-OBSERVATION.glasgow_coma_scale.v1] CONTAINS POINT_EVENT pe</BaseAql>
+      <Paths>
+        <Path Id="cid" IdentifierRef="c" Value="/uid/value" AdminDescription="" DataType="String" />
+        <Path Id="score" IdentifierRef="pe" Value="/data[at0003]/items[at0026]/value" AdminDescription="" DataType="DV_COUNT" />
+        <Path Id="eye" IdentifierRef="pe" Value="/data[at0003]/items[at0009]/value" AdminDescription="" DataType="DV_QUANTITY" />
+        <Path Id="verb" IdentifierRef="pe" Value="/data[at0003]/items[at0007]/value" AdminDescription="" DataType="DV_QUANTITY" />
+        <Path Id="motor" IdentifierRef="pe" Value="/data[at0003]/items[at0008]/value" AdminDescription="" DataType="DV_QUANTITY" />
+        <Path Id="when" IdentifierRef="pe" Value="/time" AdminDescription="" DataType="DV_DATE_TIME" />
+        <Path Id="ctxStart" IdentifierRef="c" Value="/context/start_time" AdminDescription="" DataType="DV_DATE_TIME" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="latest" Value="$when" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="gcs" WhereRef="" OrderByRef="$latest" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="4ed302de-b3f0-473f-9e65-7ecca40d1c25" Oid="news" Name="NEWS Score" DefaultArchetypeId="openEHR-EHR-OBSERVATION.news_uk_rcp.v1">
+      <BaseAql>SELECT c,pe  FROM     COMPOSITION c         CONTAINS OBSERVATION o[openEHR-EHR-OBSERVATION.news_uk_rcp.v1]   CONTAINS POINT_EVENT pe </BaseAql>
+      <Paths>
+        <Path Id="when" IdentifierRef="pe" Value="/time" AdminDescription="" DataType="DV_DATE_TIME" />
+        <Path Id="score" IdentifierRef="pe" Value="/data[at0003]/items[at0028]/value" AdminDescription="" DataType="DV_COUNT" />
+        <Path Id="respiration" IdentifierRef="pe" Value="/data[at0003]/items[at0006]/value" AdminDescription="" DataType="DV_ORDINAL" />
+        <Path Id="heart" IdentifierRef="pe" Value="/data[at0003]/items[at0005]/value" AdminDescription="" DataType="DV_ORDINAL" />
+        <Path Id="systolic" IdentifierRef="pe" Value="/data[at0003]/items[at0004]/value" AdminDescription="" DataType="DV_ORDINAL" />
+        <Path Id="temperature" IdentifierRef="pe" Value="/data[at0003]/items[at0007]/value" AdminDescription="" DataType="DV_ORDINAL" />
+        <Path Id="oxygen" IdentifierRef="pe" Value="/data[at0003]/items[at0034]/value" AdminDescription="" DataType="DV_ORDINAL" />
+        <Path Id="conscious" IdentifierRef="pe" Value="/data[at0003]/items[at0008]/value" AdminDescription="" DataType="DV_ORDINAL" />
+        <Path Id="spo2" IdentifierRef="pe" Value="/data[at0003]/items[at0029]/value" AdminDescription="" DataType="DV_ORDINAL" />
+        <Path Id="ctxtStart" IdentifierRef="c" Value="/context/start_time" AdminDescription="" DataType="DV_DATE_TIME" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="latest" Value="$when" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="news" WhereRef="" OrderByRef="$latest" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+    <AqlBinding Id="6cbf1b34-b09c-4c1c-9bad-1fd7b007960e" Oid="qsofa" Name="qSOFA" DefaultArchetypeId="openEHR-EHR-OBSERVATION.qsofa_score.v0">
+      <BaseAql>SELECT c,pe FROM COMPOSITION c CONTAINS OBSERVATION o[openEHR-EHR-OBSERVATION.qsofa_score.v0] CONTAINS POINT_EVENT pe</BaseAql>
+      <Paths>
+        <Path Id="when" IdentifierRef="pe" Value="/time" AdminDescription="" DataType="DV_DATE_TIME" />
+        <Path Id="score" IdentifierRef="pe" Value="/data[at0003]/items[at0005]/value" AdminDescription="" DataType="DV_COUNT" />
+        <Path Id="ctxStart" IdentifierRef="c" Value="/context/start_time" AdminDescription="" DataType="DV_DATE_TIME" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="latest" Value="$when" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="qsofa" WhereRef="" OrderByRef="$latest" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+  </AqlBindings>
+  <DataElements>
+    <DataElement Id="2ded21ae-e5ff-4097-940f-efb922080aa6" Oid="tempElement" Name="Temperatur" AdminName="Siste temperatur" Description="Pasientens temperatur" Categories="panorama" DisplayFormat=" $lastTemp.temp/magnitude {IF(ISNULL($lastTemp.contextTime/value), &quot;&quot;,&quot;&quot;)}" SortFormat="$lastTemp.temp/magnitude" SortFormatDataType="double" IsEditable="true" XFormat="$lastTemp.when/value" XFormatDataType="datetime" YFormat="$lastTemp.temp/magnitude" YFormatDataType="double" RangeFormat="$lastTemp.contextTime/value" RangeFormatDataType="string">
+      <FormatExpressions />
+      <KeyValues />
+    </DataElement>
+    <DataElement Id="2f934242-5735-4c09-86d7-e38422cd9b5b" Oid="bloodPressureElement" Name="Blodtrykk" AdminName="Siste blodtrykk" Description="Pasientens blodtrykk" Categories="panorama" DisplayFormat="$lastBloodPressure.systolic/magnitude / $lastBloodPressure.diastolic/magnitude " SortFormat="$lastBloodPressure.systolic/magnitude" SortFormatDataType="int" IsEditable="false" AdminDescription="" XFormat="$lastBloodPressure.when/value" XFormatDataType="datetime" YFormat="$lastBloodPressure.systolic/magnitude" YFormatDataType="int" RangeFormat="$lastBloodPressure.when/value" RangeFormatDataType="datetime">
+      <FormatExpressions />
+      <KeyValues />
+    </DataElement>
+    <DataElement Id="4de0152b-47e5-4478-8d16-5efe289299b0" Oid="bloodPressureSystolic" Name="Systolisk" AdminName="Siste systolisk blodtrykk" Description="Pasientens siste overtykk" Categories="panorama" DisplayFormat="$lastBloodPressure.systolic/magnitude   {IF(ISNULL($lastBloodPressure.contextStartTime/value), &quot;&quot;, &quot;&quot;)}" SortFormat="$lastBloodPressure.systolic/magnitude" SortFormatDataType="int" IsEditable="true" AdminDescription="" XFormat="$lastBloodPressure.when/value" XFormatDataType="datetime" YFormat="$lastBloodPressure.systolic/magnitude" YFormatDataType="int" RangeFormat="$lastBloodPressure.contextStartTime/value" RangeFormatDataType="datetime">
+      <FormatExpressions />
+      <KeyValues />
+    </DataElement>
+    <DataElement Id="d88b9b12-3141-4f2a-a068-6453c602a832" Oid="bloodPressureDiastolic" Name="Diastolisk" AdminName="Siste diastolisk blodtrykk" Description="Siste målte undertrykk" Categories="panorama" DisplayFormat="$lastBloodPressure.diastolic/magnitude {IF(ISNULL($lastBloodPressure.contextStartTime/value), &quot;&quot;, &quot;&quot;)}" SortFormat="$lastBloodPressure.diastolic/magnitude" SortFormatDataType="int" IsEditable="false" AdminDescription="" XFormat="$lastBloodPressure.when/value" XFormatDataType="datetime" YFormat="$lastBloodPressure.diastolic/magnitude" YFormatDataType="int" RangeFormat="$lastBloodPressure.contextStartTime/value" RangeFormatDataType="datetime">
+      <FormatExpressions />
+      <KeyValues />
+    </DataElement>
+    <DataElement Id="fc3cfc59-88ca-4bee-91f4-e65a07020ea8" Oid="pulsElement" Name="Puls" AdminName="Siste puls" Description="Pasientens siste puls/hjertefrekvens" Categories="panorama" DisplayFormat="$lastPulse.frekvens/magnitude {IF(ISNULL($lastPulse.ctxStartTime/value), &quot;&quot;, &quot;&quot;)}" SortFormat="$lastPulse.frekvens/magnitude" SortFormatDataType="int" IsEditable="true" AdminDescription="" XFormat="$lastPulse.when/value" XFormatDataType="datetime" YFormat="$lastPulse.frekvens/magnitude" YFormatDataType="int" RangeFormat="$lastPulse.ctxStartTime/value" RangeFormatDataType="string">
+      <FormatExpressions />
+      <KeyValues />
+    </DataElement>
+    <DataElement Id="1890c9ec-a8a4-4361-9a59-4795ffc00e4f" Oid="spo2Element" Name="SpO2" AdminName="Siste SpO2" Description="Pasientens oksygenmetning" Categories="panorama" DisplayFormat="$lastSpo2.spo2 {IF(ISNULL($lastSpo2.ctxStartTime/value), &quot;&quot;, &quot;&quot;)}" SortFormat="$lastSpo2.spo2" SortFormatDataType="int" IsEditable="true" AdminDescription="" XFormat="$lastSpo2.when/value" XFormatDataType="datetime" YFormat="$lastSpo2.spo2" YFormatDataType="int" RangeFormat="$lastSpo2.ctxStartTime/value" RangeFormatDataType="datetime">
+      <FormatExpressions />
+      <KeyValues />
+    </DataElement>
+    <DataElement Id="9fc72ed1-2576-49d8-be58-f9749357736c" Oid="respirationElement" Name="Respirasjon" AdminName="Siste respirasjon" Description="Den sist registrerte respirasjonen til en pasient " Categories="panorama" DisplayFormat="$lastRespiration.respirasjon/magnitude {IF(ISNULL($lastRespiration.ctxStartTime/value), &quot;&quot;, &quot;&quot;)}" SortFormat="$lastRespiration.respirasjon/magnitude" SortFormatDataType="int" IsEditable="true" AdminDescription="" XFormat="$lastRespiration.when/value" XFormatDataType="datetime" YFormat="$lastRespiration.respirasjon/magnitude" YFormatDataType="int" RangeFormat="$lastRespiration.ctxStartTime/value" RangeFormatDataType="datetime">
+      <FormatExpressions />
+      <KeyValues />
+    </DataElement>
+    <DataElement Id="e6a9d6bc-cb87-4ae7-8837-c1bda1b6d0ca" Oid="gcs" Name="GCS" AdminName="Glasgow Coma Scale" Description="Glasgow Coma Scale element for bruk i PAnorama " Categories="panorama,vital_signs" DisplayFormat="$gcs.score/magnitude {IF(ISNULL($gcs.ctxStart/value), &quot;&quot;, &quot;&quot;)}" SortFormat="$gcs.score/magnitude" SortFormatDataType="int" IsEditable="true" AdminDescription="" XFormat="$gcs.when/value" XFormatDataType="datetime" YFormat="$gcs.score/magnitude" YFormatDataType="int" RangeFormat="$gcs.ctxStart/value" RangeFormatDataType="datetime">
+      <FormatExpressions />
+      <KeyValues />
+    </DataElement>
+    <DataElement Id="130cdcc0-e9e0-4d26-bed2-681c7c35d6bf" Oid="newsElement" Name="NEWS" AdminName="NEWS Score" Description="NEWS Score element for bruk i Panorama" Categories="panorama, vital_signs" DisplayFormat="$news.score/magnitude" SortFormat="$news.score/magnitude" SortFormatDataType="int" IsEditable="true" AdminDescription="" XFormat="$news.when/value" XFormatDataType="datetime" YFormat="$news.score/magnitude" YFormatDataType="int" RangeFormat="$news.when/value" RangeFormatDataType="datetime">
+      <FormatExpressions />
+      <KeyValues />
+    </DataElement>
+    <DataElement Id="3bde95f4-2de3-4e48-b06b-a86ce2c296ea" Oid="qSofaElement" Name="qSOFA" AdminName="qSOFA - Panorama" Description="qSOFA score til pasienten" Categories="panorama, vital_signs, pasienttavle" DisplayFormat="$qsofa.score/magnitude  {IF(ISNULL($qsofa.ctxStart/value), &quot;&quot;,&quot;&quot;)}" SortFormat="$qsofa.score/magnitude" SortFormatDataType="int" IsEditable="false" AdminDescription="" XFormat="$qsofa.when/value" XFormatDataType="datetime" YFormat="$qsofa.score/magnitude" YFormatDataType="int" RangeFormat="$qsofa.ctxStart/value" RangeFormatDataType="datetime">
+      <FormatExpressions />
+      <KeyValues />
+    </DataElement>
+  </DataElements>
+  <KeyValues />
+</VaqmConfiguration>
