@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>24db7c46-f7c5-4a6b-92dc-cc043a62423b</id>
+  <name>Personskadeskjema_v2_0_0</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose>Personskadeskjema som tilfredsstiller kravene som NPR stiller for registering  (uten forfrysning)</purpose>
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+      <item>
+        <key>ConvertAnnotations</key>
+        <value>False</value>
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1" concept_name="Klinisk kontakt" name="Personskadeskjema">
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.skaderegistrering_fmds.v1" concept_name="Skaderegistrering" max="1" min="1" path="/content">
+      <Rule path="/data[at0001]" hide_on_form="true" />
+      <Rule path="/data[at0001]/items[at0002]" min="1" annotation="ValueConstraint=datetimepast;" />
+      <Rule path="/data[at0001]/items[at0007]" min="1" />
+      <Rule path="/data[at0001]/items[at0013]" min="1">
+        <constraint xsi:type="ordinalConstraint">
+          <excludedValues>8|8 - Forfrysning</excludedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0026]" min="1" annotation="ShowElementIf=/content[openEHR-EHR-EVALUATION.skaderegistrering_fmds.v1 and name/value='Skaderegistrering']/data[at0001]/items[at0036]|1;" />
+      <Rule path="/data[at0001]/items[at0072]" min="1" annotation="ShowElementIf=/content[openEHR-EHR-EVALUATION.skaderegistrering_fmds.v1 and name/value='Skaderegistrering']/data[at0001]/items[at0086]|1 - Vei, gate, fortau, gang- , sykkelvei, trafikkulykke;ShowElementIf=/content[openEHR-EHR-EVALUATION.skaderegistrering_fmds.v1 and name/value='Skaderegistrering']/data[at0001]/items[at0124]|10 - Fri natur, utmark,  hav, sjø og vann;" />
+      <Rule path="/data[at0001]/items[at0102]" min="1" annotation="ShowAs=search;">
+        <constraint xsi:type="textConstraint">
+          <termQueryId terminologyID="ARK-VI-KOMMUNENUMMER OG REGIONALE SPESIALKODER" terminologyLang="en-GB" queryName="ARK-VI-KOMMUNENUMMER OG REGIONALE SPESIALKODER" />
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.ais_scale.v1" concept_name="AIS Scala" max="1" min="1" path="/data[at0001]/items[at0106]">
+        <Rule path="/items[at0001]" min="1">
+          <constraint xsi:type="ordinalConstraint">
+            <excludedValues>4|4 Meget alvorlig skade (AIS 4)</excludedValues>
+            <excludedValues>5|5 Kritisk skade (AIS 5)</excludedValues>
+            <excludedValues>6|6 Dødelig skade (AIS 6)</excludedValues>
+          </constraint>
+        </Rule>
+      </Items>
+    </Content>
+    <Context>
+      <Rule path="/context/other_context[at0001]" hide_on_form="true" />
+    </Context>
+  </definition>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-COMPOSITION.encounter.v1">
+    <digest id="MD5-CAM-1.0.1">9ECF24E9721F5B903299F3D5C9175213</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-EVALUATION.skaderegistrering_fmds.v1">
+    <digest id="MD5-CAM-1.0.1">7CB2EAD55837B5ED64173946576F079E</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.skadelegevakt_skaderegistrering.v1">
+    <digest id="MD5-CAM-1.0.1">70A8F416F9286EB5A5BE764EAD2905DC</digest>
+  </integrity_checks>
+  <integrity_checks xsi:type="ArchetypeIntegrity" archetype_id="openEHR-EHR-CLUSTER.ais_scale.v1">
+    <digest id="MD5-CAM-1.0.1">3F955052FCB373331D25ECC2DFBE2FDB</digest>
+  </integrity_checks>
+</template>
