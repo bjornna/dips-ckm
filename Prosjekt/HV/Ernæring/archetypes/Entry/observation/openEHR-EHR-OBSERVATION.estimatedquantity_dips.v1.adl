@@ -1,0 +1,87 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.estimatedquantity_dips.v1
+
+concept
+	[at0000]	-- Estimatedquantity
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Define estimatet quantity for weight/height">
+			use = <"Use to define if a weight or height is estimated.">
+			misuse = <"Any othe use than described in use.">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"05370C8CA41756F822C5BA140E70AD9B">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Estimatedquantity
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Quantity is estimated
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {	-- Quantity estimated
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Estimatedquantity">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0005"] = <
+					text = <"Quantity is estimated">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Quantity estimated">
+					description = <"Define the estimated quantity">
+				>
+			>
+		>
+	>

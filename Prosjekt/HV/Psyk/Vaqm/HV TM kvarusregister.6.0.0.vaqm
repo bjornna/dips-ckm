@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<VaqmConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Id="1783aec0-c38d-4035-941d-95a7a66301e5" Oid="vaqm.tavlemote.kvarusregister" Name="HV TM kvarusregister" Version="6.0.0" Approved="true" CreatedByAuthor="jlo" Created="2019-05-23T11:03:27" Imported="false" VersionComment="Ny" BasedOnVersion="5.0.0" xmlns="http://www.dips.no/vaqmconfig">
+  <AqlBindings>
+    <AqlBinding Id="cdbb8146-2401-4abd-8b5b-aa4264c0d644" Oid="openEHR-EHR-ADMIN_ENTRY.hv_tm_kvarus_dips.v1" Name="HV TM kvarusregister" DefaultArchetypeId="openEHR-EHR-ADMIN_ENTRY.hv_tm_kvarus_dips.v1">
+      <BaseAql>Select c, o from composition c contains admin_entry o[openEHR-EHR-ADMIN_ENTRY.hv_tm_kvarus_dips.v1]</BaseAql>
+      <Paths>
+        <Path Id="PathContextSt" IdentifierRef="c" Value="/context/start_time/value" DataType="String" />
+        <Path Id="DateForLastPlannedRegistrationPoint" IdentifierRef="o" Value="/data[at0001]/items[at0004]/value/value" AdminDescription="" DataType="" />
+        <Path Id="DateForLastRegistration" IdentifierRef="o" Value="/data[at0001]/items[at0005]/value/value" AdminDescription="" DataType="DateTime" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="OrderByContextSt" Value="$PathContextSt" Ascending="false" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="PredicateContextSt" WhereRef="" OrderByRef="$OrderByContextSt" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+  </AqlBindings>
+  <DataElements>
+    <DataElement Id="0ad194ee-2fa6-4146-b7ea-3d0c002ef13c" Oid="openEHR-EHR-ADMIN_ENTRY.hv_tm_kvarus_dips.v1" Name="Kvarusregister" AdminName="HV TM kvarusregister" Description="Benyttes i Helse vest ifm tavlemøte for registrering av kvarusregister i psykiatri." Categories="Tavlemøte" DisplayFormat="{Ifnull(if(0&lt;DATEVALUE($PredicateContextSt.PathContextSt),Concatenate(&quot;Planlagt: &quot;,FORMATDATETIME(DATEVALUE($PredicateContextSt.DateForLastPlannedRegistrationPoint), &quot;D&quot;, &quot;nb-no&quot;),&quot;  &quot;,&quot;Siste:  &quot;,FORMATDATETIME(DATEVALUE($PredicateContextSt.DateForLastRegistration), &quot;D&quot;, &quot;nb-no&quot;)),&quot;&quot;),&quot;&quot;)}" SortFormat="" IsEditable="true" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues>
+        <KeyValue Key="DocumentCreateConceptId" Value="$ARENA-HEALTHRECORD-DOCUMENTCONCEPT/Tavlemoter-kvarusregister" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+  </DataElements>
+  <KeyValues />
+</VaqmConfiguration>

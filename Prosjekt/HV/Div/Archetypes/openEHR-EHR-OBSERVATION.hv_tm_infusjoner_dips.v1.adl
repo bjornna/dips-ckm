@@ -1,0 +1,128 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.hv_tm_infusjoner_dips.v1
+
+concept
+	[at0000]	-- Hv tm infusjoner dips
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Lars Morgan Karlsen">
+		["email"] = <"lmk@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2017-06-28">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Benyttes til å registrere pågående infusjoner for tavlemøtebruk">
+			use = <"Benyttes til å registrere pågående infusjoner for tavlemøtebruk">
+			misuse = <"All annen bruk">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"069698CDC091C55ECDDC52E50BF9CA32">
+		["current_contact"] = <"Lars Morgan Karlsen, DIPS ASA<lmk@dips.no>">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Hv tm infusjoner dips
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..*} matches {	-- Infusjoner
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0009, 	-- Cordarone
+													at0006, 	-- Dopamin
+													at0007, 	-- Doputrex
+													at0010, 	-- Nitroinfusjon
+													at0011, 	-- Noradrenalin
+													at0008, 	-- Simdax
+													at0012]	-- Annen infusjon
+												}
+											}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Merknad
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Hv tm infusjoner dips">
+					description = <"Benyttes til å registrere pågående infusjoner for tavlemøtebruk">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Infusjoner">
+					description = <"Infusjoner">
+				>
+				["at0005"] = <
+					text = <"Merknad">
+					description = <"Merknad">
+				>
+				["at0006"] = <
+					text = <"Dopamin">
+					description = <"Dopamin">
+				>
+				["at0007"] = <
+					text = <"Doputrex">
+					description = <"Doputrex">
+				>
+				["at0008"] = <
+					text = <"Simdax">
+					description = <"Simdax">
+				>
+				["at0009"] = <
+					text = <"Cordarone">
+					description = <"Cordarone">
+				>
+				["at0010"] = <
+					text = <"Nitroinfusjon">
+					description = <"Nitroinfusjon">
+				>
+				["at0011"] = <
+					text = <"Noradrenalin">
+					description = <"Noradrenalin">
+				>
+				["at0012"] = <
+					text = <"Annen infusjon">
+					description = <"Annen infusjon">
+				>
+			>
+		>
+	>

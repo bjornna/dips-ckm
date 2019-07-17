@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<VaqmConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Id="3fd5b03b-161c-4450-813f-44b53509ecfb" Oid="vaqm.tavlemøte.Ernæringsmessig_risiko" Name="Ernæringsmessig risikovurdering" Version="47.0.0" Approved="true" CreatedByAuthor="DIPS-LMK" Created="2019-04-11T09:25:18" Imported="false" VersionComment="Oppdatert med tre risikograder" BasedOnVersion="46.0.0" xmlns="http://www.dips.no/vaqmconfig">
+  <AqlBindings>
+    <AqlBinding Id="df5b79ee-4cfa-4dbb-af76-dec6e764608d" Oid="openEHR-EHR-ADMIN_ENTRY.hv_ps_er.v4" Name="Screening for ernæringsmessig risiko" DefaultArchetypeId="[openEHR-EHR-ADMIN_ENTRY.hv_ps_er.v4]">
+      <BaseAql>select c, a_e, b from COMPOSITION c contains ADMIN_ENTRY a_e[openEHR-EHR-ADMIN_ENTRY.hv_ps_er.v4]</BaseAql>
+      <Paths>
+        <Path Id="sticontextst" IdentifierRef="c" Value="/context/start_time/value" AdminDescription="" DataType="String" />
+        <Path Id="risikograd" IdentifierRef="a_e" Value="/data[at0001]/items[at0015]/value/value" AdminDescription="" DataType="DV_CODED_TEXT" />
+        <Path Id="IkkeAktuelt" IdentifierRef="c" Value="/content[openEHR-EHR-OBSERVATION.hv_tm_ernaring_na_for_screening_dips.v2]/data[at0001]/events[at0002]/data[at0003]/items[at0006]/value/defining_code/code_string" AdminDescription="" DataType="" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="sortcontextst" Value="$sticontextst" Ascending="false" AdminDescription="" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="predcontextst" WhereRef="" OrderByRef="$sortcontextst" AdminDescription="" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+  </AqlBindings>
+  <DataElements>
+    <DataElement Id="f81e8f4d-4c74-4fd5-ac97-cb2a714d276e" Oid="Ernæringsmessigrisikovurderingsdato" Name="Ernæring" AdminName="Ernæring_dato" Description="Dato for siste risikovurdering" Categories="Tavlemøte" DisplayFormat="{if(isnull($predcontextst.sticontextst), &quot;Mangler screening&quot;, FORMATDATETIME(datevalue($predcontextst.sticontextst), &quot;dd.MM.yyyy HH:mm&quot;, &quot;nb-no&quot;))}" SortFormat="$predcontextst.sticontextst" IsEditable="true" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions>
+        <FormatExpression Id="c5236f04-9192-4c32-834f-b21f3ecbc71b">
+          <WhenExpression Value="if(or(isnull($predcontextst.sticontextst),0&lt;ifnull($predcontextst.IkkeAktuelt,-1)), false, if($predcontextst.sticontextst &gt; datetime(nowticks() - dayticks(7)), true, false))" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>F1 M 38,23.75C 46.7445,23.75 53.8333,30.8388 53.8333,39.5833C 53.8333,48.3278 46.7445,55.4167 38,55.4167C 29.2555,55.4167 22.1667,48.3278 22.1667,39.5833C 22.1667,30.8388 29.2555,23.75 38,23.75 Z M 38,27.7083C 31.4416,27.7083 26.125,33.025 26.125,39.5833C 26.125,46.1417 31.4416,51.4583 38,51.4583C 44.5584,51.4583 49.875,46.1417 49.875,39.5833C 49.875,33.025 44.5584,27.7083 38,27.7083 Z M 37.6042,30.875C 38.4786,30.875 39.1875,31.5839 39.1875,32.4583L 39.1875,38.3959L 45.125,38.3959C 45.9994,38.3959 46.7083,39.1047 46.7083,39.9792L 46.7083,40.7708C 46.7083,41.6453 45.9994,42.3542 45.125,42.3542L 38,42.3542C 37.2083,42.2222 36.4167,42.0903 35.9548,41.6285C 35.493,41.1667 35.3611,40.375 35.2292,39.5833L 35.2292,32.4583C 35.2292,31.5839 35.938,30.875 36.8125,30.875L 37.6042,30.875 Z M 49.0833,20.5833C 52.5811,20.5833 55.4167,23.4189 55.4167,26.9167C 55.4167,28.4256 54.889,29.8113 54.008,30.8993C 51.9429,27.1006 48.5651,24.1189 44.4835,22.5632C 45.6379,21.3439 47.2718,20.5833 49.0833,20.5833 Z M 26.9167,20.5834C 28.7282,20.5834 30.3621,21.3439 31.5165,22.5632C 27.4349,24.1189 24.0571,27.1006 21.992,30.8993C 21.111,29.8113 20.5833,28.4256 20.5833,26.9167C 20.5833,23.4189 23.4189,20.5834 26.9167,20.5834 Z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF980707</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Ny screening påkrevd</Description>
+        </FormatExpression>
+        <FormatExpression Id="3a880e8e-acd1-4fee-922e-75a35dac55fc">
+          <WhenExpression Value="if(isnull($predcontextst.sticontextst), true, false)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M10,19L13,19 13,22 10,22 10,19 M12,2C17.35,2.22 19.68,7.62 16.5,11.67 15.67,12.67 14.33,13.33 13.67,14.17 13,15 13,16 13,17L10,17C10,15.33 10,13.92 10.67,12.92 11.33,11.92 12.67,11.33 13.5,10.67 15.92,8.43 15.32,5.26 12,5A3,3,0,0,0,9,8L6,8A6,6,0,0,1,12,2z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF980707</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Mangler screening</Description>
+        </FormatExpression>
+      </FormatExpressions>
+      <KeyValues>
+        <KeyValue Key="DocumentTemplateId" Value="$ARENA-VAQM-SYSTEMCONFIG/tavlemote_ernaring_screening_document_template_id" AdminDescription="" />
+        <KeyValue Key="DocumentTypeId" Value="$ARENA-VAQM-SYSTEMCONFIG/tavlemote_ernaring_screening_document_type_id" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+    <DataElement Id="5fa6e49a-3855-40a3-be24-7c25b8fc4d30" Oid="Ernæringsmessig_risikograd" Name="Ernæring risikograd" AdminName="Ernæring_risikograd" Description="Viser risikograden etter en screening" Categories="Tavlemøte" DisplayFormat="{IFNULL(IFNULL(IF(0&lt;$predcontextst.IkkeAktuelt,&quot;Ikke aktuelt&quot;,$predcontextst.risikograd),$predcontextst.risikograd),&quot;&quot;)}" SortFormat="" IsEditable="false" AdminDescription="" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions>
+        <FormatExpression Id="55850a20-5283-4e51-8d10-2e1aaf697342">
+          <WhenExpression Value="if(or(isnull($predcontextst.risikograd),0&lt;ifnull($predcontextst.IkkeAktuelt,-1)), false,$predcontextst.risikograd = &quot;Risiko&quot;)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>F1M58.5832,55.4172L17.4169,55.4171C15.5619,53.5621,15.5619,50.5546,17.4168,48.6996L35.201,15.8402C37.056,13.9852,40.0635,13.9852,41.9185,15.8402L58.5832,48.6997C60.4382,50.5546,60.4382,53.5622,58.5832,55.4172z M34.0417,25.7292L36.0208,41.9584 39.9791,41.9583 41.9583,25.7292 34.0417,25.7292z M38,44.3333C36.2511,44.3333 34.8333,45.7511 34.8333,47.5 34.8333,49.2489 36.2511,50.6667 38,50.6667 39.7489,50.6667 41.1666,49.2489 41.1666,47.5 41.1666,45.7511 39.7489,44.3333 38,44.3333z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF980707</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Pasienten er i ernæringsmessig risiko.</Description>
+        </FormatExpression>
+        <FormatExpression Id="ee58767a-a944-4b0b-9c5d-961046e7c9e7">
+          <WhenExpression Value="if(or(isnull($predcontextst.risikograd),0&lt;ifnull($predcontextst.IkkeAktuelt,-1)), false,$predcontextst.risikograd = &quot;Ingen risiko&quot;)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M12,2A10,10,0,0,1,22,12A10,10,0,0,1,12,22A10,10,0,0,1,2,12A10,10,0,0,1,12,2 M12,4A8,8,0,0,0,4,12A8,8,0,0,0,12,20A8,8,0,0,0,20,12A8,8,0,0,0,12,4 M11,16.5L6.5,12 7.91,10.59 11,13.67 16.59,8.09 18,9.5 11,16.5z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FF346A3B</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Pasienten er ikke i ernæringsmessig risiko.</Description>
+        </FormatExpression>
+        <FormatExpression Id="875d6b4e-5b7a-478b-9866-38f4ae48c1c5">
+          <WhenExpression Value="if(or(isnull($predcontextst.risikograd),0&lt;ifnull($predcontextst.IkkeAktuelt,-1)), false, $predcontextst.risikograd = &quot;Ufullstendig risikovurdering&quot;)" AdminDescription="" />
+          <AlertType>CUSTOM</AlertType>
+          <AlertTypeForegroundColor>#FF000000</AlertTypeForegroundColor>
+          <AlertTypeBackgroundColor>#00FFFFFF</AlertTypeBackgroundColor>
+          <Symbol>M11,9L13,9 13,7 11,7 M12,20C7.59,20 4,16.41 4,12 4,7.59 7.59,4 12,4 16.41,4 20,7.59 20,12 20,16.41 16.41,20 12,20 M12,2A10,10,0,0,0,2,12A10,10,0,0,0,12,22A10,10,0,0,0,22,12A10,10,0,0,0,12,2 M11,17L13,17 13,11 11,11 11,17z</Symbol>
+          <SymbolType>Geometry</SymbolType>
+          <SymbolForegroundColor>#FFD69600</SymbolForegroundColor>
+          <AdminDescription />
+          <Description>Pasienten har en ufullstendig risikovurdering og kan være i ernæringsmessig risiko.</Description>
+        </FormatExpression>
+      </FormatExpressions>
+      <KeyValues />
+    </DataElement>
+  </DataElements>
+  <KeyValues />
+</VaqmConfiguration>

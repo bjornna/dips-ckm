@@ -1,0 +1,331 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.hv_tm_ernaring_regelverk_for_risiko_dips.v2
+
+concept
+	[at0000]	-- Hv tm ernaring regelverk for risiko dips
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"støttearketype for beregning av risiko i eræringsskjema
+">
+			use = <"støttearketype for beregning av risiko i eræringsskjema
+1.	Ernæring og almenntilstand (0-3 skår):
+•	Vekttap: (beregne vekttap/mnd, har innspill til dette			= 0 skår
+•	Matinntak NEI								= 0 skår
+•	BMI>20,5 									= 0 skår
+•	BMI 18,5 - 20,5 + normal allmenntilstand					= 0 skår	
+•	BMI < 18,5 + normal allmenntilstand					= 0 skår
+•	>5 % vekttap siste 3 mnd							= 1 skår
+•	Matinntak mer enn halvparten av behov (50-75 %)				= 1 skår
+•	>5 % vekttap siste 2 mnd 							= 2 skår
+•	BMI 18,5 - 20,5 + nedsatt allmenntilstand					= 2 skår
+•	Matinntak mindre enn halvparten av behov (25-50 %)			= 2 skår
+•	>5 % vekttap siste 1 mnd 							= 3 skår
+•	>15 % vekttap siste 3 mnd							= 3 skår
+•	BMI < 18,5 + nedsatt allmenntilstand					= 3 skår
+•	Matinntak spiser nesten ingenting (0-25%)					= 3 skår
+•	Planlagt stor operasjon eller annen behandling som kan medføre vekttap 	= 3 skår
+
+2.	Alder (0-1 skår):
+3.	skår:	Alder 18-69 år				= 0 skår
+4.	skår:	Alder 70 år og eldre			= 1 skår
+
+
+3.	Økt behov pga sykdom/skade (0-3 skår):
+0 skår:	Normale ernæringsbehv
+1 skår:	Mild – lårhalsbrudd, kronisksyke pasienter, spesielt de med akutte komplikasjoner,leverschirrose, KOLS, kronisk hemodialyse, diabetes, kreftsykdom
+2 skår: 	Moderat – omfattende abdominal kirurgi, slag, alvorlig lungenetennelse, maligne blodsykdommer
+3 skår: 	Alvorlig – Hodeskade, benmargtransplantasjon,intensivpasienter (APACHE skår >10)
+
+
+Summer 1 + 2 +3 for å få totalscore
+(dvs 1. Ernæring og almenntilstand + 2. Alder +  3. Økt behov pga sykdom/skade)
+Kategorisering etter totalscore:
+Risiko: 		3, 4, 5, 6 eller 7 skår
+Ikke risiko: 	0, 1 eller 2 skår og alle spørsmål besvart
+Uavklart: 	0, 1 eller 2 skår og ubesvarte spørsmål, pasienten ivaretas som om han/hun er i risiko
+
+">
+			misuse = <"all annen bruk">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"2649628C46F69DA0954D43826FFD4C4A">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Hv tm ernaring regelverk for risiko dips
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0011] occurrences matches {0..1} matches {	-- 1.	Ernæring og almenntilstand (0-3 skår): MAX
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Vekttap
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Matinntak NEI
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {	-- BMI>20,5 
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0007] occurrences matches {0..1} matches {	-- BMI 18,5 - 20,5 + normal allmenntilstand	
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0008] occurrences matches {0..1} matches {	-- >5 % vekttap siste 3 mnd
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0009] occurrences matches {0..1} matches {	-- Matinntak mer enn halvparten av behov (50-75 %)
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0012] occurrences matches {0..1} matches {	-- >5 % vekttap siste 2 mnd 
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0013] occurrences matches {0..1} matches {	-- BMI 18,5 - 20,5 + nedsatt allmenntilstand
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0014] occurrences matches {0..1} matches {	-- Matinntak mindre enn halvparten av behov (25-50 %)
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0015] occurrences matches {0..1} matches {	-- >5 % vekttap siste 1 mnd 
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0016] occurrences matches {0..1} matches {	-- >15 % vekttap siste 3 mnd
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0017] occurrences matches {0..1} matches {	-- BMI < 18,5 + nedsatt allmenntilstand
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0018] occurrences matches {0..1} matches {	-- Matinntak spiser nesten ingenting (0-25%)
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0019] occurrences matches {0..1} matches {	-- Planlagt stor operasjon eller annen behandling som kan medføre vekttap 
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0020] occurrences matches {0..1} matches {	-- Alder (0-1 skår): MAX
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0021] occurrences matches {0..1} matches {	-- 3.	Økt behov pga sykdom/skade (0-3 skår): MAX
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0022] occurrences matches {0..1} matches {	-- BMI<18,5
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0023] occurrences matches {0..1} matches {	-- Nedsatt allmenntilstand
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0024] occurrences matches {0..1} matches {	-- BMI 18,5 - 20,5
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0025] occurrences matches {0..1} matches {	-- Alder ved screening
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0029] occurrences matches {0..1} matches {	-- Antall måneder siden forrige vekt
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0026] occurrences matches {0..1} matches {	-- Månedspoeng
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0027] occurrences matches {0..1} matches {	-- Prosentpoeng
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0028] occurrences matches {0..1} matches {	-- MånedProsent
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Hv tm ernaring regelverk for risiko dips">
+					description = <"støttearketype for beregning av risiko i eræringsskjema
+">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Vekttap">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Matinntak NEI">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"BMI>20,5 ">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"BMI 18,5 - 20,5 + normal allmenntilstand	">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <">5 % vekttap siste 3 mnd">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Matinntak mer enn halvparten av behov (50-75 %)">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"1.	Ernæring og almenntilstand (0-3 skår): MAX">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <">5 % vekttap siste 2 mnd ">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"BMI 18,5 - 20,5 + nedsatt allmenntilstand">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Matinntak mindre enn halvparten av behov (25-50 %)">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <">5 % vekttap siste 1 mnd ">
+					description = <"*">
+				>
+				["at0016"] = <
+					text = <">15 % vekttap siste 3 mnd">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"BMI < 18,5 + nedsatt allmenntilstand">
+					description = <"*">
+				>
+				["at0018"] = <
+					text = <"Matinntak spiser nesten ingenting (0-25%)">
+					description = <"*">
+				>
+				["at0019"] = <
+					text = <"Planlagt stor operasjon eller annen behandling som kan medføre vekttap ">
+					description = <"*">
+				>
+				["at0020"] = <
+					text = <"Alder (0-1 skår): MAX">
+					description = <"*">
+				>
+				["at0021"] = <
+					text = <"3.	Økt behov pga sykdom/skade (0-3 skår): MAX">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"BMI<18,5">
+					description = <"*">
+				>
+				["at0023"] = <
+					text = <"Nedsatt allmenntilstand">
+					description = <"*">
+				>
+				["at0024"] = <
+					text = <"BMI 18,5 - 20,5">
+					description = <"*">
+				>
+				["at0025"] = <
+					text = <"Alder ved screening">
+					description = <"*">
+				>
+				["at0026"] = <
+					text = <"Månedspoeng">
+					description = <"*">
+				>
+				["at0027"] = <
+					text = <"Prosentpoeng">
+					description = <"*">
+				>
+				["at0028"] = <
+					text = <"MånedProsent">
+					description = <"*">
+				>
+				["at0029"] = <
+					text = <"Antall måneder siden forrige vekt">
+					description = <"*">
+				>
+			>
+		>
+	>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<VaqmConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Id="e9901a40-cd3d-460f-b1dc-504b04f81a29" Oid="vaqm.tavlemote.overdoserisiko" Name="HV TM overdoserisiko" Version="6.0.0" Approved="true" CreatedByAuthor="jlo" Created="2019-05-23T11:15:20" Imported="false" VersionComment="Ny" BasedOnVersion="5.0.0" xmlns="http://www.dips.no/vaqmconfig">
+  <AqlBindings>
+    <AqlBinding Id="2e5b5551-b356-42d2-bc0d-c368e0ff1c59" Oid="openEHR-EHR-EVALUATION.hv_tm_overdoserisiko_dips.v1" Name="HV TM overdoserisiko" DefaultArchetypeId="openEHR-EHR-EVALUATION.hv_tm_overdoserisiko_dips.v1">
+      <BaseAql>Select c, o from composition c contains evaluation o[openEHR-EHR-EVALUATION.hv_tm_overdoserisiko_dips.v1]</BaseAql>
+      <Paths>
+        <Path Id="PathContextSt" IdentifierRef="c" Value="/context/start_time/value" DataType="String" />
+        <Path Id="RegisteredRisk" IdentifierRef="o" Value="/data[at0001]/items[at0005]/value/symbol/value" AdminDescription="" DataType="" />
+        <Path Id="DateFoRegistredRisk" IdentifierRef="o" Value="/data[at0001]/items[at0009]/value/value" AdminDescription="" DataType="DateTime" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="OrderByContextSt" Value="$DateFoRegistredRisk" Ascending="false" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="PredicateContextSt" WhereRef="" OrderByRef="$OrderByContextSt" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+  </AqlBindings>
+  <DataElements>
+    <DataElement Id="5bb97e91-daca-4d40-9332-6ae3bdb7222c" Oid="openEHR-EHR-EVALUATION.hv_tm_overdoserisiko_dips.v1" Name="Overdoserisiko" AdminName="HV TM overdoserisiko" Description="Benyttes i Helse vest ifm tavlemøte for registrering av overdoserisiko i psykiatri." Categories="Tavlemøte" DisplayFormat="{ifnull(if(0&lt;DATEVALUE($PredicateContextSt.DateFoRegistredRisk),Concatenate(&quot;Overdoserisiko: &quot;,$PredicateContextSt.RegisteredRisk,&quot; &quot;,FORMATDATETIME(DATEVALUE($PredicateContextSt.DateFoRegistredRisk), &quot;D&quot;, &quot;nb-no&quot;)),&quot;&quot;),&quot;&quot;)}" SortFormat="" IsEditable="true" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues>
+        <KeyValue Key="DocumentCreateConceptId" Value="$ARENA-HEALTHRECORD-DOCUMENTCONCEPT/Tavlemoter-overdoserisiko" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+  </DataElements>
+  <KeyValues />
+</VaqmConfiguration>

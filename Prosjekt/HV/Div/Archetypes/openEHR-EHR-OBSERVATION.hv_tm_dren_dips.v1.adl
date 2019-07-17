@@ -1,0 +1,91 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.hv_tm_dren_dips.v1
+
+concept
+	[at0000]	-- Hv tm dren dips
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Lars Morgan Karlsen">
+		["email"] = <"lmk@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2017-07-14">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes i tavlemøter for å angi total antall dren koblet til pasienten, dette er ikke for å angi detaljer om dren, drentype eller oppfølging av dren.">
+			use = <"Brukes i tavlemøter for å angi total antall dren koblet til pasienten, dette er ikke for å angi detaljer om dren, drentype eller oppfølging av dren.">
+			misuse = <"All annen bruk">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <"Lars Morgan Karlsen, DIPS ASA<lmk@dips.no>">
+		["MD5-CAM-1.0.1"] = <"E7FDCF0DE319252E8E7DD7B4BD675288">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Hv tm dren dips
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Dren
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|0..20|}
+											}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Merknad
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Hv tm dren dips">
+					description = <"Brukes i tavlemøter for å angi total antall dren koblet til pasienten, dette er ikke for å angi detaljer om dren, drentype eller oppfølging av dren.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Dren">
+					description = <"Angi antall dren">
+				>
+				["at0005"] = <
+					text = <"Merknad">
+					description = <"Merknad">
+				>
+			>
+		>
+	>
