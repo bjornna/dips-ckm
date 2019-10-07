@@ -1,0 +1,189 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.hv_tm_aai_maling_utfort_dips.v1
+
+concept
+	[at0000]	-- Hv tm aai maling utfort
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Lars Morgan Karlsen">
+		["email"] = <"lmk@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2017-05-04">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Angir om ankel arm indeksmåling er utført på pasienten i dette belegget.">
+			use = <"Angir om ankel arm indeksmåling er utført på pasienten i dette belegget.">
+			keywords = <"ankel arm indeks", ...>
+			misuse = <"all annen bruk">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <"Lars Morgan Karlsen, DIPS ASA<lmk@dips.no>">
+		["MD5-CAM-1.0.1"] = <"4E6C7AB0B327CC80B659F26B3A614639">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Hv tm aai maling utfort
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- AAI måling utført
+										value matches {
+											DV_BOOLEAN matches {
+												value matches {True, False}
+											}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Merknad
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {	-- Utført dato
+										value matches {
+											DV_DATE_TIME matches {*}
+										}
+									}
+									ELEMENT[at0007] occurrences matches {0..1} matches {	-- AAI måling utført
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0008, 	-- Ja
+													at0009, 	-- Nei
+													at0010]	-- Ikke aktuelt
+												}
+											}
+										}
+									}
+									allow_archetype CLUSTER[at0011] occurrences matches {0..*} matches {	-- Cluster
+										include
+											archetype_id/value matches {/.*/}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Hv tm aai maling utfort">
+					description = <"Angir om ankel arm indeksmåling er utført på pasienten i dette belegget.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"AAI måling utført">
+					description = <"Angi om AAI måling er utført">
+				>
+				["at0005"] = <
+					text = <"Merknad">
+					description = <"Merknad">
+				>
+				["at0006"] = <
+					text = <"Utført dato">
+					description = <"Dato for AAI måling">
+				>
+				["at0007"] = <
+					text = <"AAI måling utført">
+					description = <"AAI måling utført">
+				>
+				["at0008"] = <
+					text = <"Ja">
+					description = <"Måing utført">
+				>
+				["at0009"] = <
+					text = <"Nei">
+					description = <"Måling ikke utført">
+				>
+				["at0010"] = <
+					text = <"Ikke aktuelt">
+					description = <"Måling ikke aktuelt">
+				>
+				["at0011"] = <
+					text = <"Cluster">
+					description = <"*">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"*Hv tm aai maling utfort(nb)">
+					description = <"*Angir om ankel arm indeksmåling er utført på pasienten i dette belegget.(nb)">
+				>
+				["at0001"] = <
+					text = <"*Event Series(nb)">
+					description = <"*@ internal @(nb)">
+				>
+				["at0002"] = <
+					text = <"*Any event(nb)">
+					description = <"**(nb)">
+				>
+				["at0003"] = <
+					text = <"*Tree(nb)">
+					description = <"*@ internal @(nb)">
+				>
+				["at0004"] = <
+					text = <"*AAI måling utført(nb)">
+					description = <"*Angi om AAI måling er utført(nb)">
+				>
+				["at0005"] = <
+					text = <"*Merknad(nb)">
+					description = <"*Merknad(nb)">
+				>
+				["at0006"] = <
+					text = <"*Utført dato(nb)">
+					description = <"*Dato for AAI måling(nb)">
+				>
+				["at0007"] = <
+					text = <"*AAI måling utført(nb)">
+					description = <"*AAI måling utført(nb)">
+				>
+				["at0008"] = <
+					text = <"*Ja(nb)">
+					description = <"*Måing utført(nb)">
+				>
+				["at0009"] = <
+					text = <"*Nei(nb)">
+					description = <"*Måling ikke utført(nb)">
+				>
+				["at0010"] = <
+					text = <"*Ikke aktuelt(nb)">
+					description = <"*Måling ikke aktuelt(nb)">
+				>
+				["at0011"] = <
+					text = <"*Cluster(nb)">
+					description = <"**(nb)">
+				>
+			>
+		>
+	>

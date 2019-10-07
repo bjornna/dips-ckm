@@ -1,0 +1,295 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.hv_tm_behandlingsbegrensning_dips.v1
+
+concept
+	[at0000]	-- Hv tm behandlingsbegrensning dips
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Lars Morgan Karlsen">
+		["email"] = <"lmk@dips.no">
+		["organisation"] = <"DIPS ASA">
+		["date"] = <"2017-07-05">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Brukes i tavlemøte for å angi behandlingsbegrensning">
+			use = <"Brukes i tavlemøte for å angi behandlingsbegrensning.
+
+Dette er en konseptuell kopi av Meona registreringen for behandlingsbegrensning, benyttes for å angi om det er behandlingsbegrensning på en pasient og eventuell behandlingsbegrensning.">
+			misuse = <"All annen bruk">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <"Lars Morgan Karlsen, DIPS ASA<lmk@dips.no>">
+		["MD5-CAM-1.0.1"] = <"E8078C39A0BB83FF2BF9D656813896E0">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Hv tm behandlingsbegrensning dips
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Behandlingsbegrensning
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0005, 	-- Ja
+													at0006]	-- Nei (ingen begrensning)
+												}
+											}
+										}
+									}
+									ELEMENT[at0007] occurrences matches {0..*} matches {	-- Type behandlingsbegrensning
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0010, 	-- Ingen komprimering
+													at0011, 	-- Begrenset defibrillering x 1
+													at0012, 	-- Begrenset defibrillering x 3
+													at0013, 	-- Ingen defibrillering
+													at0014, 	-- Ingen intubering
+													at0015, 	-- Ingen non-invasiv ventilasjon (NIV)
+													at0016, 	-- Ingen blodprodukter
+													at0017, 	-- Ingen dialyse
+													at0018, 	-- Kun lindrende behandling
+													at0019]	-- Annet:
+												}
+											}
+										}
+									}
+									ELEMENT[at0009] occurrences matches {0..1} matches {	-- Annet
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0008] occurrences matches {0..1} matches {	-- Beslutningsgrunnlag og andre kommentarer
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									CLUSTER[at0028] occurrences matches {0..1} matches {	-- Type behandlingsbegrensning
+										items cardinality matches {1..*; unordered} matches {
+											ELEMENT[at0020] occurrences matches {0..1} matches {	-- Ingen komprimering
+												value matches {
+													DV_BOOLEAN matches {
+														value matches {True, False}
+													}
+												}
+											}
+											ELEMENT[at0021] occurrences matches {0..1} matches {	-- Begrenset defibrillering x 1
+												value matches {
+													DV_BOOLEAN matches {
+														value matches {True, False}
+													}
+												}
+											}
+											ELEMENT[at0022] occurrences matches {0..1} matches {	-- Begrenset defibrillering x 3
+												value matches {
+													DV_BOOLEAN matches {
+														value matches {True, False}
+													}
+												}
+											}
+											ELEMENT[at0023] occurrences matches {0..1} matches {	-- Ingen defibrillering
+												value matches {
+													DV_BOOLEAN matches {
+														value matches {True, False}
+													}
+												}
+											}
+											ELEMENT[at0024] occurrences matches {0..1} matches {	-- Ingen intubering
+												value matches {
+													DV_BOOLEAN matches {
+														value matches {True, False}
+													}
+												}
+											}
+											ELEMENT[at0025] occurrences matches {0..1} matches {	-- Ingen non-invasiv ventilasjon (NIV)
+												value matches {
+													DV_BOOLEAN matches {
+														value matches {True, False}
+													}
+												}
+											}
+											ELEMENT[at0026] occurrences matches {0..1} matches {	-- Ingen blodprodukter
+												value matches {
+													DV_BOOLEAN matches {
+														value matches {True, False}
+													}
+												}
+											}
+											ELEMENT[at0027] occurrences matches {0..1} matches {	-- Ingen dialyse
+												value matches {
+													DV_BOOLEAN matches {
+														value matches {True, False}
+													}
+												}
+											}
+											ELEMENT[at0029] occurrences matches {0..1} matches {	-- Kun lindrende behandling
+												value matches {
+													DV_BOOLEAN matches {
+														value matches {True, False}
+													}
+												}
+											}
+											ELEMENT[at0030] occurrences matches {0..1} matches {	-- Annet:
+												value matches {
+													DV_BOOLEAN matches {
+														value matches {True, False}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Hv tm behandlingsbegrensning dips">
+					description = <"Brukes i tavlemøte for å angi behandlingsbegrensning">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Behandlingsbegrensning">
+					description = <"Angi om det er registrert behandlingsbegrensning">
+				>
+				["at0005"] = <
+					text = <"Ja">
+					description = <"Ja, det er registrert behandlingsbegrensning på pasienten">
+				>
+				["at0006"] = <
+					text = <"Nei (ingen begrensning)">
+					description = <"Nei, det er ingen behandlingsbegrensning på pasienten">
+				>
+				["at0007"] = <
+					text = <"Type behandlingsbegrensning">
+					description = <"Angi type behandlingsbegrensning">
+				>
+				["at0008"] = <
+					text = <"Beslutningsgrunnlag og andre kommentarer">
+					description = <"Beslutningsgrunnlag og andre kommentarer">
+				>
+				["at0009"] = <
+					text = <"Annet">
+					description = <"Angi annet">
+				>
+				["at0010"] = <
+					text = <"Ingen komprimering">
+					description = <"Ingen komprimering">
+				>
+				["at0011"] = <
+					text = <"Begrenset defibrillering x 1">
+					description = <"Begrenset defibrillering x 1">
+				>
+				["at0012"] = <
+					text = <"Begrenset defibrillering x 3">
+					description = <"Begrenset defibrillering x 3">
+				>
+				["at0013"] = <
+					text = <"Ingen defibrillering">
+					description = <"Ingen defibrillering">
+				>
+				["at0014"] = <
+					text = <"Ingen intubering">
+					description = <"Ingen intubering">
+				>
+				["at0015"] = <
+					text = <"Ingen non-invasiv ventilasjon (NIV)">
+					description = <"Ingen non-invasiv ventilasjon (NIV)">
+				>
+				["at0016"] = <
+					text = <"Ingen blodprodukter">
+					description = <"Ingen blodprodukter">
+				>
+				["at0017"] = <
+					text = <"Ingen dialyse">
+					description = <"Ingen dialyse">
+				>
+				["at0018"] = <
+					text = <"Kun lindrende behandling">
+					description = <"Kun lindrende behandling">
+				>
+				["at0019"] = <
+					text = <"Annet:">
+					description = <"Annet:">
+				>
+				["at0020"] = <
+					text = <"Ingen komprimering">
+					description = <"Ingen komprimering">
+				>
+				["at0021"] = <
+					text = <"Begrenset defibrillering x 1">
+					description = <"Begrenset defibrillering x 1">
+				>
+				["at0022"] = <
+					text = <"Begrenset defibrillering x 3">
+					description = <"Begrenset defibrillering x 3">
+				>
+				["at0023"] = <
+					text = <"Ingen defibrillering">
+					description = <"Ingen defibrillering">
+				>
+				["at0024"] = <
+					text = <"Ingen intubering">
+					description = <"Ingen intubering">
+				>
+				["at0025"] = <
+					text = <"Ingen non-invasiv ventilasjon (NIV)">
+					description = <"Ingen non-invasiv ventilasjon (NIV)">
+				>
+				["at0026"] = <
+					text = <"Ingen blodprodukter">
+					description = <"Ingen blodprodukter">
+				>
+				["at0027"] = <
+					text = <"Ingen dialyse">
+					description = <"Ingen dialyse">
+				>
+				["at0028"] = <
+					text = <"Type behandlingsbegrensning">
+					description = <"Type behandlingsbegrensning">
+				>
+				["at0029"] = <
+					text = <"Kun lindrende behandling">
+					description = <"Kun lindrende behandling">
+				>
+				["at0030"] = <
+					text = <"Annet:">
+					description = <"Annet">
+				>
+			>
+		>
+	>

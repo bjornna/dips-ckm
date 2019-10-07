@@ -1,0 +1,112 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.hv_tm_frakturpakke_dips.v1
+
+concept
+	[at0000]	-- Hv tm frakturpakke dips
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Pål Thorberg">
+		["email"] = <"pth@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2017-07-21">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"Angir om pasienten har frakturpakke">
+			use = <"Angir om pasienten har frakturpakke">
+			misuse = <"All annen bruk">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["current_contact"] = <"Pål Thorberg, DIPS AS<pth@dips.no>">
+		["MD5-CAM-1.0.1"] = <"42C4B5B4B822BCD28DF1B8F70643A17B">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Hv tm frakturpakke dips
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Frakturpakke
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0007, 	-- Ja
+													at0008]	-- Nei
+												}
+											}
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Merknad
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0006] occurrences matches {0..1} matches {	-- Dato
+										value matches {
+											DV_DATE matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Hv tm frakturpakke dips">
+					description = <"Angir om pasienten har frakturpakke">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Frakturpakke">
+					description = <"Angir om pasienten har frakturpakke eller ikke">
+				>
+				["at0005"] = <
+					text = <"Merknad">
+					description = <"Merknad">
+				>
+				["at0006"] = <
+					text = <"Dato">
+					description = <"Dato">
+				>
+				["at0007"] = <
+					text = <"Ja">
+					description = <"Pasienten har frakturpakke">
+				>
+				["at0008"] = <
+					text = <"Nei">
+					description = <"Pasienten har ikke frakturpakke">
+				>
+			>
+		>
+	>

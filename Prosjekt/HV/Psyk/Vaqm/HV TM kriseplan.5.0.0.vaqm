@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<VaqmConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Id="dde582ea-bea2-4131-8de0-767c14d2a502" Oid="vaqm.tavlemote.kriseplan" Name="HV TM kriseplan" Version="5.0.0" Approved="true" CreatedByAuthor="jlo" Created="2019-05-23T10:46:09" Imported="false" VersionComment="Ny" BasedOnVersion="4.0.0" xmlns="http://www.dips.no/vaqmconfig">
+  <AqlBindings>
+    <AqlBinding Id="f40c7199-76dd-4583-93ab-698be52c4126" Oid="openEHR-EHR-EVALUATION.hv_tm_kriseplan_dips.v1" Name="HV TM kriseplan" DefaultArchetypeId="openEHR-EHR-EVALUATION.hv_tm_kriseplan_dips.v1">
+      <BaseAql>Select c, o from composition c contains evaluation o[openEHR-EHR-EVALUATION.hv_tm_kriseplan_dips.v1]</BaseAql>
+      <Paths>
+        <Path Id="PathContextSt" IdentifierRef="c" Value="/context/start_time/value" DataType="String" />
+        <Path Id="RegisteredCrisisPlan" IdentifierRef="o" Value="/data[at0001]/items[at0002]/value/value" AdminDescription="" DataType="" />
+        <Path Id="DateFoRegisteredCrisisPlan" IdentifierRef="o" Value="/data[at0001]/items[at0003]/value/value" AdminDescription="" DataType="DateTime" />
+      </Paths>
+      <WhereExpressions />
+      <OrderByExpressions>
+        <OrderByExpression Id="OrderByContextSt" Value="$PathContextSt" Ascending="false" />
+      </OrderByExpressions>
+      <Predicates>
+        <Predicate Id="PredicateContextSt" WhereRef="" OrderByRef="$OrderByContextSt" />
+      </Predicates>
+      <KeyValues />
+    </AqlBinding>
+  </AqlBindings>
+  <DataElements>
+    <DataElement Id="c18436d0-f04f-478f-9426-052c99d0f71b" Oid="openEHR-EHR-EVALUATION.hv_tm_kriseplan_dips.v1" Name="Kriseplan" AdminName="HV TM kriseplan" Description="Benyttes i Helse vest ifm tavlemøte for registrering av kriseplan i psykiatri." Categories="Tavlemøte" DisplayFormat="{Ifnull(if(0&lt;DATEVALUE($PredicateContextSt.DateFoRegisteredCrisisPlan),Concatenate(If(&quot;True&quot;=$PredicateContextSt.RegisteredCrisisPlan, &quot;Ja&quot; ,If(&quot;False&quot;=$PredicateContextSt.RegisteredCrisisPlan,&quot;Nei&quot;,&quot;&quot;)),&quot; &quot;,&quot; - &quot;,FORMATDATETIME(DATEVALUE($PredicateContextSt.DateFoRegisteredCrisisPlan), &quot;D&quot;, &quot;nb-no&quot;)),&quot;&quot;),&quot;&quot;)}" SortFormat="" IsEditable="true" XFormat="" YFormat="" RangeFormat="">
+      <FormatExpressions />
+      <KeyValues>
+        <KeyValue Key="DocumentCreateConceptId" Value="$ARENA-HEALTHRECORD-DOCUMENTCONCEPT/Tavlemoter-kriseplan" AdminDescription="" />
+      </KeyValues>
+    </DataElement>
+  </DataElements>
+  <KeyValues />
+</VaqmConfiguration>
