@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
+  <id>a0e31b1a-227b-43ff-9080-9e8b5eba6876</id>
+  <name>PPR_kliniskbeslutning_v4_0_0</name>
+  <description>
+    <lifecycle_state>Initial</lifecycle_state>
+    <details>
+      <purpose>Benyttes for å registrere koder for klinisk beslutning i PPR</purpose>
+      <use />
+      <misuse />
+    </details>
+    <other_details>
+      <item>
+        <key>MetaDataSet:Sample Set </key>
+        <value>Template metadata sample set </value>
+      </item>
+      <item>
+        <key>Acknowledgements</key>
+        <value />
+      </item>
+      <item>
+        <key>Business Process Level</key>
+        <value />
+      </item>
+      <item>
+        <key>Care setting</key>
+        <value />
+      </item>
+      <item>
+        <key>Client group</key>
+        <value />
+      </item>
+      <item>
+        <key>Clinical Record Element</key>
+        <value />
+      </item>
+      <item>
+        <key>Copyright</key>
+        <value />
+      </item>
+      <item>
+        <key>Issues</key>
+        <value />
+      </item>
+      <item>
+        <key>Owner</key>
+        <value />
+      </item>
+      <item>
+        <key>Sign off</key>
+        <value />
+      </item>
+      <item>
+        <key>Speciality</key>
+        <value />
+      </item>
+      <item>
+        <key>User roles</key>
+        <value />
+      </item>
+    </other_details>
+  </description>
+  <definition xsi:type="COMPOSITION" archetype_id="openEHR-EHR-COMPOSITION.trajectory.v1" concept_name="Pasientforløp">
+    <Content xsi:type="ACTION" archetype_id="openEHR-EHR-ACTION.trajectory_follow_up.v1" concept_name="Oppfølging av forløp" max="1" path="/content" name="Klinisk beslutning">
+      <Rule path="/description[at0001]/items[at0002]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>DIPS_Trajectory_PPR_9322::C::Klinisk beslutning</includedValues>
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.clinical_decision_details.v1" concept_name="Detaljer om klinisk beslutning" path="/description[at0001]/items[at0018]">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>DIPS_Trajectory_PPR_9323::P::Behov for behandling innen psykisk helsevern</includedValues>
+            <includedValues>DIPS_Trajectory_PPR_9323::T::Behov for behandling innen TSB</includedValues>
+            <includedValues>DIPS_Trajectory_PPR_9323::S::Behov for behandling fra annen spesialisthelsetjeneste (ikke Psykisk helsevern eller TSB)</includedValues>
+            <includedValues>DIPS_Trajectory_PPR_9323::K::Behov for behandling og/eller oppfølging fra fastlege, kommunal helse- og omsorgstjeneste</includedValues>
+            <includedValues>DIPS_Trajectory_PPR_9323::A::Behov for oppfølging fra andre instanser som NAV, PPT, arbeidsgiver, skole, barnevern mm.</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0001]" max="1" clone="true" name="Ikke behov for videre behandling og/eller oppfølging">
+          <constraint xsi:type="textConstraint">
+            <includedValues>DIPS_Trajectory_PPR_9323::I::Ikke behov for videre behandling og/eller oppfølging</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/items[at0001]" max="1" clone="true" name="Behov for utvidet utredning">
+          <constraint xsi:type="textConstraint">
+            <includedValues>DIPS_Trajectory_PPR_9323::U::Behov for utvidet utredning</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.trajectory_activity_details_dips.v1" concept_name="Detaljer om aktivitet i et pakkeforløp" max="1" path="/description[at0001]/items[at0018]" name="Detaljer om avslutning">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>DIPS_Trajectory_PPR_9326::G::Avslutning av gjennomført pakkeforløp</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+    </Content>
+    <Content xsi:type="EVALUATION" archetype_id="openEHR-EHR-EVALUATION.trajectory_plan.v1" concept_name="Trajectory plan" path="/content">
+      <Rule path="/data[at0001]/items[at0003]" max="1" name="Klinisk beslutning" />
+      <Rule path="/data[at0001]/items[at0003 and name/value='Klinisk beslutning']/items[at0004]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>DIPS_Trajectory_PPR_9322::C::Klinisk beslutning</includedValues>
+        </constraint>
+      </Rule>
+      <Rule path="/data[at0001]/items[at0003]" max="1" clone="true" name="Evalueringspunkt" />
+      <Rule path="/data[at0001]/items[at0003 and name/value='Evalueringspunkt']/items[at0004]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>DIPS_Trajectory_PPR_9322::E::Evalueringspunkt</includedValues>
+        </constraint>
+      </Rule>
+      <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.health_care_level_dips.v1" concept_name="Omsorgsnivå " path="/data[at0001]/items">
+        <Rule path="/items[at0001]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>ARK-VI-NPROMSNIVAA::1::Heldøgn</includedValues>
+            <includedValues>ARK-VI-NPROMSNIVAA::3::Poliklinisk omsorg</includedValues>
+          </constraint>
+        </Rule>
+      </Items>
+    </Content>
+    <Content xsi:type="INSTRUCTION" archetype_id="openEHR-EHR-INSTRUCTION.hjelpefelt_ppr_dips.v2" concept_name="Hjelpefelt PPR dips" path="/content">
+      <Rule path="/activities[at0001]/description[at0002]/items[at0003]">
+        <constraint xsi:type="textConstraint">
+          <includedValues>DIPS_Trajectory_PPR_9321::D01::Tverrfaglig spesialisert rusbehandling (TSB)</includedValues>
+          <includedValues>DIPS_Trajectory_PPR_9321::D11::Utredning og behandling i psykisk helsevern, voksne</includedValues>
+          <includedValues>DIPS_Trajectory_PPR_9321::D12::Utredning og behandling i psykisk helsevern, barn og unge</includedValues>
+          <includedValues>DIPS_Trajectory_PPR_9321::D06::Psykoseutvikling og psykoselidelser</includedValues>
+          <includedValues>DIPS_Trajectory_PPR_9321::D07::Utredning og behandling av tvangslidelse (OCD)</includedValues>
+          <includedValues>DIPS_Trajectory_PPR_9321::D08::Spiseforstyrrelser hos barn og unge</includedValues>
+          <includedValues>DIPS_Trajectory_PPR_9321::D09::Gravide som bruker/har brukt rusmidler - kvinne</includedValues>
+        </constraint>
+      </Rule>
+    </Content>
+    <Context />
+  </definition>
+</template>
