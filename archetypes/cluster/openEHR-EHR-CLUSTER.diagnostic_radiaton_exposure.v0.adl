@@ -58,27 +58,39 @@ Brukes typisk sammen med ACTION.procedure-, ACTION.imaging_exam- eller CLUSTER.d
 	lifecycle_state = <"0">
 	other_contributors = <"Morten Hørthe, DIPS AS", "Runar Kristiansen, DIPS AS", "Anca Heyd, DIPS AS", "Bjørn Næss, DIPS AS">
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"3B9C248FF92E663EB9398773FD6EA10B">
+		["MD5-CAM-1.0.1"] = <"13A5919C47E12714F86216AE5160280E">
 	>
 
 definition
 	CLUSTER[at0000] matches {	-- Eksponering for radiografisk diagnostisk stråling
 		items cardinality matches {1..*; unordered} matches {
-			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Kommentar
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Type stråling
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Total mengde
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Stråledose
 				value matches {
 					C_DV_QUANTITY <
-                        list = <
-                            ["1"] = <
-                                units = <"mGy.cm2">
-                            >
-                        >
-                    >
+						property = <[openehr::508]>
+						list = <
+							["1"] = <
+								units = <"mGycm2">
+								magnitude = <|>=0.0|>
+								precision = <|2|>
+							>
+						>
+					>
 				}
+			}
+			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Kommentar
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			allow_archetype CLUSTER[at0004] occurrences matches {0..*} matches {	-- Tilleggsinformasjon
+				include
+					archetype_id/value matches {/.*/}
 			}
 		}
 	}
@@ -92,12 +104,20 @@ ontology
 					description = <"Eksponering for radiografisk diagnostisk stråling.">
 				>
 				["at0001"] = <
+					text = <"Type stråling">
+					description = <"Presisiering av hvilken type stråling som registreres.">
+				>
+				["at0002"] = <
+					text = <"Stråledose">
+					description = <"Den totale strålemengden som registreres.">
+				>
+				["at0003"] = <
 					text = <"Kommentar">
 					description = <"Kommentar eller tilleggsopplysninger til den registrerte dosen.">
 				>
-				["at0002"] = <
-					text = <"Total mengde">
-					description = <"Den totale strålemengden som registreres.">
+				["at0004"] = <
+					text = <"Tilleggsinformasjon">
+					description = <"Informasjon man trenger for å fange lokal kontekst eller for å tilpasse til andre referansemodeller/formalismer. Kan typisk brukes til å angi kilden for strålingen.">
 				>
 			>
 		>
@@ -108,12 +128,20 @@ ontology
 					description = <"Exposure to radiation from radiographic diagnostic equipment.">
 				>
 				["at0001"] = <
+					text = <"Type of radiation">
+					description = <"Specification of the type of radiation.">
+				>
+				["at0002"] = <
+					text = <"Radiation dose">
+					description = <"The registered amount of radiation dose.">
+				>
+				["at0003"] = <
 					text = <"Comment">
 					description = <"Comments or additional information regarding the registered radiation dose.">
 				>
-				["at0002"] = <
-					text = <"Total dose">
-					description = <"The registered amount of radiation dose.">
+				["at0004"] = <
+					text = <"Extension">
+					description = <"Additional information required to capture local context or to align with other reference models/formalisms. Typically used to specify source of radiation.">
 				>
 			>
 		>
