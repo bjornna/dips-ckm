@@ -1,0 +1,118 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-OBSERVATION.urinary_bladder_volume_dips.v1
+
+concept
+	[at0000]	-- Urinary bladder volume
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Lars Martin Jensvoll">
+		["email"] = <"lmj@dips.no">
+		["organisation"] = <"DIPS AS">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"To record the volume of the urinary bladder.">
+			use = <"Use to record the measured volume of the urinary bladder. Normally this would be done by an ultra sound scanner specially made for the purpose of estimating the volume of the bladder.">
+			keywords = <"urine", "bladder", "urinary bladder", "scan">
+			misuse = <"">
+			copyright = <"DIPS AS">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <"Anca Heyd, DIPS AS", "Bjørn Næss, DIPS AS", "Morten Hørthe, DIPS AS">
+	other_details = <
+		["original_publisher"] = <"DIPS AS">
+		["current_contact"] = <"Lars Martin Jensvoll, DIPS AS<lmj@dips.no>">
+		["MD5-CAM-1.0.1"] = <"DF426D5428C16FE326A24EE041814944">
+		["custodian_organisation"] = <"DIPS AS">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- Urinary bladder volume
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..1} matches {	-- Any event
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Measured urinary bladder volume
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::129]>
+												list = <
+													["1"] = <
+														units = <"ml">
+														magnitude = <|0.0..10000.0|>
+														precision = <|0|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0005] occurrences matches {0..1} matches {	-- Comment
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0006] matches {	-- Tree
+				items cardinality matches {0..*; unordered} matches {
+					allow_archetype CLUSTER[at0007] occurrences matches {0..1} matches {	-- Device
+						include
+							archetype_id/value matches {/.*/}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Urinary bladder volume">
+					description = <"unknown">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Measured urinary bladder volume">
+					description = <"Volume measured.">
+				>
+				["at0005"] = <
+					text = <"Comment">
+					description = <"Comment on measured urinary bladder volume.">
+				>
+				["at0006"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0007"] = <
+					text = <"Device">
+					description = <"Details about bladder scanner or other device used to measure the urinary bladder volume.">
+				>
+			>
+		>
+	>
