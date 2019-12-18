@@ -1,0 +1,84 @@
+﻿archetype (adl_version=1.4)
+	openEHR-EHR-CLUSTER.bladder_scanning_performed_dips.v1
+
+concept
+	[at0000]	-- Bladder scanning performed
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Lars Martin Jensvoll">
+		["email"] = <"lmj@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2019-12-16">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"To register whether or not a bladder scanning has been performed in a certain context.">
+			use = <"This cluster is made to allow the user to register if a bladder scanning has been performed, and more importantly, specify that it deliberately hasn't been done. 
+
+Normally a registered observation speaks for it self - a registration implies that it has been performed, no registration implies that it has not been performed. But in some situations the lack of a bladder scanning registration needs to be explained for documentation purposes. Whether it has been forgotten or deemed unnecessary by a clinician can be an important difference. 
+
+This CLUSTER is made to be used as a child archetype under an ACTION.procedure, specifically where an operation is been registered, and would typically trigger an OBSERVATION about bladder contents if true.">
+			keywords = <"bladder", "bladder scan", "urine">
+			misuse = <"">
+			copyright = <"DIPS AS">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <"Bjørn Næss, DIPS AS", "Anca Heyd, DIPS AS">
+	other_details = <
+		["original_publisher"] = <"DIPS AS">
+		["current_contact"] = <"Lars Martin Jensvoll, DIPS AS<lmj@dips.no>">
+		["MD5-CAM-1.0.1"] = <"0E978F04B23ACE8819259CF5485AF639">
+		["custodian_organisation"] = <"DIPS AS">
+	>
+
+definition
+	CLUSTER[at0000] matches {	-- Bladder scanning performed
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Has been performed
+				value matches {
+					DV_BOOLEAN matches {
+						value matches {True, False}
+					}
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Bladder scanning
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..1} matches {	-- Comment
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"Bladder scanning performed">
+					description = <"To register whether or not a bladder scanning has been performed in a certain context.">
+				>
+				["at0001"] = <
+					text = <"Has been performed">
+					description = <"Whether or not a bladder scanning has been performed.">
+				>
+				["at0002"] = <
+					text = <"Bladder scanning">
+					description = <"For SNOMED code or similar.">
+				>
+				["at0003"] = <
+					text = <"Comment">
+					description = <"Comment to whether or not the bladder scnning has been performed.">
+				>
+			>
+		>
+	>
