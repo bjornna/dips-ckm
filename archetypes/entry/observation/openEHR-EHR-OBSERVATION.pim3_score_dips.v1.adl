@@ -31,7 +31,7 @@ Sannsynlighet for død = exp(PIM3 score)/[1 + exp (PIM3 score)]. ">
 	lifecycle_state = <"0">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"1058E6B6F494A3A776A441E7E185C345">
+		["MD5-CAM-1.0.1"] = <"6CA32EDAAA25EEBCAB27EB3AA6536CAD">
 	>
 
 definition
@@ -43,6 +43,14 @@ definition
 						data matches {
 							ITEM_TREE[at0003] matches {	-- Tree
 								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0034] occurrences matches {0..1} matches {	-- Systolisk blodtrykk (standardverdi)
+										value matches {
+											0|[local::at0035], 	-- Pasienten har hjertestans (SBT = 0)
+											30|[local::at0036], 	-- Pasienten er sjokkert, kan ikke måles (SBT = 30)
+											120|[local::at0037], 	-- Blodtrykk er ikke målt (SBT = 120)
+											999|[local::at0038]  	-- Registrer reell verdi
+										}
+									}
 									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Systolisk blodtrykk (SBT)
 										value matches {
 											C_DV_QUANTITY <
@@ -216,7 +224,7 @@ ontology
 				>
 				["at0004"] = <
 					text = <"Systolisk blodtrykk (SBT)">
-					description = <"SBT=0 mmHg hvis pasienten har hjertestans. SBT=30 mmHg hvis pasienten er sjokkert og blodtrykket er så lavt at det ikke kan måles. SBT=120 mmHg hvis blodtrykket ikke er målt.">
+					description = <"Reelt registrert systolisk blodtrykk (SBT) i mmHG. ">
 				>
 				["at0005"] = <
 					text = <"Pupillereaksjon på skarpt lys">
@@ -333,6 +341,29 @@ ontology
 				["at0033"] = <
 					text = <"Kommentar">
 					description = <"Kommentar til PIM3 score.">
+				>
+				["at0034"] = <
+					text = <"Systolisk blodtrykk (standardverdi)">
+					description = <"SBT=0 hvis pasienten har hjertestans. 
+SBT=30 hvis pasienten er sjokkert og blodtrykket er så lavt at det ikke kan måles.
+SBT=120 hvis blodtrykket ikke er målt.
+SBT=999 hvis reell verdi er målt.">
+				>
+				["at0035"] = <
+					text = <"Pasienten har hjertestans (SBT = 0)">
+					description = <"Pasienten har hjertestans">
+				>
+				["at0036"] = <
+					text = <"Pasienten er sjokkert, kan ikke måles (SBT = 30)">
+					description = <"Pasienten er sjokkert, kan ikke måles">
+				>
+				["at0037"] = <
+					text = <"Blodtrykk er ikke målt (SBT = 120)">
+					description = <"Blodtrykk er ikke målt">
+				>
+				["at0038"] = <
+					text = <"Registrer reell verdi">
+					description = <"Registrer reell verdi">
 				>
 			>
 		>
