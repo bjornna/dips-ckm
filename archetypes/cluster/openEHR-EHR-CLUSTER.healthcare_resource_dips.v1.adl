@@ -2,9 +2,17 @@ archetype (adl_version=1.4)
 	openEHR-EHR-CLUSTER.healthcare_resource_dips.v1
 
 concept
-	[at0000]	-- Helsetjenesteressurs
+	[at0000]	-- Health care resource 
 language
 	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			author = <
+				["name"] = <"?">
+			>
+		>
+	>
 description
 	original_author = <
 		["name"] = <"Bjørn Næss">
@@ -21,17 +29,25 @@ description
 			misuse = <"Brukes ikke i forbindelse med å registrere hvem som har gjennomført en helsetjeneste. Da brukes other_participations fra referansemodellen.">
 			copyright = <"">
 		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"Used to describe the resource needed to peform a specific type of healthcare service ">
+			use = <"Used primarily in connection with planning activities in order to be able to specify the type of resources needed. Eg. when performing an operation.">
+			keywords = <"*ressurs(nb)", "*helsetjeneste(nb)">
+			misuse = <"Not used for registering who has completed a health service. Then other_participations from the reference model are used.">
+			copyright = <"*(nb)">
+		>
 	>
 	lifecycle_state = <"0">
 	other_contributors = <"Anca Heyd", ...>
 	other_details = <
-		["references"] = <"Ressurs og tjeneste er sentrale begrep ved gjennomføring av operasjoner. Begrepene er overlappende og av og til forskjellige. Arketypen på en ressurs er hovedkirurg, operasjonstue, etc. Tilsvarende er lab./radiologi undersøkelser typiske tjenester.
+		["references"] = <"Resource and service are central concepts in carrying out operations. The terms are overlapping and sometimes different. The archetype of a resource is chief surgeon, operating room, etc. Similarly, lab / radiology examinations are typical services.
 
-I det følgende gis en definisjon av disse begrepene.
+A definition of these terms is given below.
 
-Ressurs en noe som må være tilgjengelig under gjennomføring av en aktivitet.
+Resource a something that must be available during the execution of an activity.
 
-Med ressurs menes CONTSYS begrepet helsetjeneste ressurs (healthcare resource). Dette er en klasse som spesialiseres til:
+By resource, CONTSYS means the term healthcare resource (healthcare resource). This is a class that specializes in:
 
     medicinal product
 
@@ -45,55 +61,55 @@ Med ressurs menes CONTSYS begrepet helsetjeneste ressurs (healthcare resource). 
 
         healthcare professional
 
-Av dette ser vi at begrepet ressurs dekker \"alt\". For denne strukturen har vi jobbet frem denne arketypen
+From this we see that the term resource covers \"everything\". For this structure we have worked out this archetype
 
 
-Tjeneste er noe som utføres utenfor konteksten av aktiviteten.
+Service is something that is performed outside the context of the activity.
 
-    Ofte vil en tjeneste være noe som må være utført før en aktivitet gjennomføres.
+Often, a service will be something that must be performed before an activity is completed.
 
-        Pasienten skal ha utført CT Caput og lab. svar for HB skal foreligge før operasjon.
+The patient should have performed CT Caput and lab. answers for HB should be available before surgery.
 
-        Pasienten skal ha hatt anestesitilsyn før operasjon
+The patient should have had anesthesia supervision before surgery
 
-    Tjenester kan være noe som utføres etter en utført aktivitet
+Services can be something that is performed after an activity is performed
 
-        Postoperativ radiologisk undersøkelse
+Postoperative radiological examination
 
-        Postoperative lab. analyser
+Postoperative lab. analyzes
 
-        Postoperativ sengepost.
+Postoperative bedside/ward. 
 
-Tjenester bestilles/rekvireres gjennom openEHR INSTRUCTION arketyper. Eksempel på dette er:
+Services are ordered / requested through openEHR INSTRUCTION archetypes. Examples of this are:
 
-    Radiologi rekvirering: openEHR-EHR-INSTRUCTION.request-imaging_exam.v1
+Radiology Requisition: openEHR-EHR-INSTRUCTION.request-imaging_exam.v1
 
-    Henvisning: openEHR-EHR-INSTRUCTION.request-referral.v1
+Referral: openEHR-EHR-INSTRUCTION.request-referral.v1
 
-    Prosedyrer: openEHR-EHR-INSTRUCTION.request-procedure.v1
+Procedures: openEHR-EHR-INSTRUCTION.request-procedure.v1
 
-    Lab: openEHR-EHR-INSTRUCTION.request-lab_test.v1
+Lab: openEHR-EHR-INSTRUCTION.request-lab_test.v1
 
-    Pasientforløp: openEHR-EHR-INSTRUCTION.trajectory.v1
+Patient Progress: openEHR-EHR-INSTRUCTION.trajectory.v1
 
-Om vi ser på disse begrepene fra systemet så vil det være slik at ressurser inngår i en tjeneste. Altså for å utføre en tjeneste kreves et sett med ressurser. Med andre ord kan det være aktuelt å legge CLUSTER for ressurser inn i en INSTRUCTION til en tjeneste.">
-		["MD5-CAM-1.0.1"] = <"B8478152A65B2FE5B68C417E9CF55366">
+If we look at these concepts from the system then resources will be included in a service. Thus, to perform a service requires a set of resources. In other words, it may be appropriate to add CLUSTER for resources into an INSTRUCTION to a service.">
+		["MD5-CAM-1.0.1"] = <"45E2944068DA26B0A1E14C6C6582AAB4">
 	>
 
 definition
-	CLUSTER[at0000] matches {	-- Helsetjenesteressurs
+	CLUSTER[at0000] matches {	-- Health care resource 
 		items cardinality matches {1..*; unordered} matches {
-			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Ressurstype
+			ELEMENT[at0001] occurrences matches {0..1} matches {	-- Resource type
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Navn på ressurs
+			ELEMENT[at0002] occurrences matches {0..1} matches {	-- Name of resource
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0004] occurrences matches {0..1} matches {	-- Obligatorisk
+			ELEMENT[at0004] occurrences matches {0..1} matches {	-- Mandatory
 				value matches {
 					DV_TEXT matches {*}
 				}
@@ -103,12 +119,12 @@ definition
 					DV_TEXT matches {*}
 				}
 			}
-			ELEMENT[at0006] occurrences matches {0..1} matches {	-- Kommentar
+			ELEMENT[at0006] occurrences matches {0..1} matches {	-- Comment
 				value matches {
 					DV_TEXT matches {*}
 				}
 			}
-			allow_archetype CLUSTER[at0003] occurrences matches {0..*} matches {	-- Strukturerte detaljer
+			allow_archetype CLUSTER[at0003] occurrences matches {0..*} matches {	-- Structured details
 				include
 					archetype_id/value matches {/.*/}
 			}
@@ -120,7 +136,7 @@ ontology
 		["nb"] = <
 			items = <
 				["at0000"] = <
-					text = <"Helsetjenesteressurs">
+					text = <"">
 					description = <"Brukes for å angi en ressurs som er nødvendig for å utføre helstjenester">
 				>
 				["at0001"] = <
@@ -146,6 +162,38 @@ ontology
 				["at0006"] = <
 					text = <"Kommentar">
 					description = <"Ytterligere valgfri kommentar/beskrivelse til ressursen.">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Health care resource ">
+					description = <"Used to describe the resource needed to peform a specific type of healthcare service ">
+				>
+				["at0001"] = <
+					text = <"Resource type">
+					description = <"Define the type of resource. I.e. medical device, point of care, health care professional ">
+				>
+				["at0002"] = <
+					text = <"Name of resource">
+					description = <"A name or coded name of the resource. Use the terminology defined in the system. ">
+				>
+				["at0003"] = <
+					text = <"Structured details">
+					description = <"Structured details about the resource ">
+				>
+				["at0004"] = <
+					text = <"Mandatory">
+					description = <"Define if the usage of the resource is mandatory in the planned activity. Use a local terminology in the template . ">
+				>
+				["at0005"] = <
+					text = <"Status">
+					description = <"Used to update the status of the resource. I.e. is it ordered, is it ready">
+				>
+				["at0006"] = <
+					text = <"Comment">
+					description = <"Further optional dscriptions about the resource">
 				>
 			>
 		>
