@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <template xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="openEHR/v1/Template">
-  <id>103aacda-0574-4e1b-bd5f-1eb28c254ad3</id>
-  <name>CancerTrajectory 5.3.0</name>
+  <id>19125883-97ab-499b-8060-913064062671</id>
+  <name>CancerTrajectory 5.5.0</name>
   <description>
     <lifecycle_state>Initial</lifecycle_state>
     <details>
@@ -102,7 +102,13 @@
           </constraint>
         </Rule>
         <Rule path="/protocol[at0007]" hide_on_form="true" />
-        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.cancer_trajectory_details.v1" concept_name="Detaljer om pakkeforløp kreft" max="1" path="/activities[at0001]/description[at0002]/items[at0006]" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.cancer_trajectory_details.v1" concept_name="Detaljer om pakkeforløp kreft" max="1" path="/activities[at0001]/description[at0002]/items[at0006]">
+          <Rule path="/items[at0008]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>Kreftpakke_8380::A::Pakkeforløpet startet hos avtalespesialist. Pasienten er ferdig/delvis utredet.</includedValues>
+            </constraint>
+          </Rule>
+        </Items>
         <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.cancer_responsible_actor.v1" concept_name="Ansvarlig for pakkeforløpet" max="1" path="/protocol[at0007]/items[at0009]" name="Ansvarlig" />
       </Item>
       <Item xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.trajectory_manager.v1" concept_name="Forløpsansvarlig" path="/items">
@@ -134,17 +140,36 @@
             <includedValues>Kreftpakke::S::Utredning start - første fremmøte</includedValues>
           </constraint>
         </Rule>
-        <Rule path="/description[at0001]/items[at0010]">
-          <constraint xsi:type="textConstraint">
-            <includedValues>2.16.578.1.12.4.1.1.8446::21::Pasienten har ikke møtt opp</includedValues>
-            <includedValues>2.16.578.1.12.4.1.1.8446::22::Pasienten har selv bestemt utsettelsen av velferdsgrunner</includedValues>
-            <includedValues>2.16.578.1.12.4.1.1.8446::3::Medisinske årsaker hos pasienten til utsettelsen</includedValues>
-            <includedValues>2.16.578.1.12.4.1.1.8446::4::Oppstart av helsehjelp er utsatt grunnet manglende kapasitet ved påfølgende behandlingssted</includedValues>
-            <includedValues>2.16.578.1.12.4.1.1.8446::5::Pasienten har takket nei til tilbud om helsehjelp ved annet behandlingssted enn sitt primære ønske</includedValues>
-          </constraint>
-        </Rule>
         <Rule path="/protocol[at0011]" hide_on_form="true" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.trajectory_postponement_details_dips.v1" concept_name="Detaljer om utsettelse i pakkeforløp" path="/description[at0001]/items[at0018]">
+          <Rule path="/items[at0001]">
+            <constraint xsi:type="multipleConstraint">
+              <includedTypes>Boolean</includedTypes>
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0002]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>2.16.578.1.12.4.1.1.8446::1::Institusjonen/sykehuset har bestemt utsettelsen av kapasitetsgrunner</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.8446::21::Pasienten har ikke møtt opp</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.8446::22::Pasienten har selv bestemt utsettelsen av velferdsgrunner</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.8446::3::Medisinske årsaker hos pasienten til utsettelsen</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.8446::4::Oppstart av helsehjelp er utsatt grunnet manglende kapasitet ved påfølgende behandlingssted</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.8446::5::Pasienten har takket nei til tilbud fra HF om helsehjelp ved annet behandlingssted enn sitt primære ønske</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.8446::6::Pasienten har takket nei til tilbud fra Helfo om helsehjelp ved annet behandlingssted enn sitt primære ønske</includedValues>
+            </constraint>
+          </Rule>
+        </Items>
         <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.cancer_responsible_actor.v1" concept_name="Ansvarlig for pakkeforløpet" max="1" path="/protocol[at0011]/items[at0013]" />
+      </Item>
+      <Item xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.hjelpefelter.v1" concept_name="Hjelpefelter" path="/items">
+        <Rule path="/data[at0001]/items[at0002]" max="0" />
+        <Rule path="/data[at0001]/items[at0003]" max="0" />
+        <Rule path="/data[at0001]/items[at0004]" max="0" />
+        <Rule path="/data[at0001]/items[at0017]" max="0" />
+        <Rule path="/data[at0001]/items[at0013]" max="0" />
+        <Rule path="/data[at0001]/items[at0014]" max="0" />
+        <Rule path="/data[at0001]/items[at0015]" max="0" />
+        <Rule path="/data[at0001]/items[at0016]" max="0" />
       </Item>
     </Content>
     <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Biopsi">
@@ -171,15 +196,6 @@
             <includedValues>Kreftpakke::CI::CI - Ikke påvist sykdom</includedValues>
           </constraint>
         </Rule>
-        <Rule path="/description[at0001]/items[at0010]">
-          <constraint xsi:type="textConstraint">
-            <includedValues>2.16.578.1.12.4.1.1.8446::21::Pasienten har ikke møtt opp</includedValues>
-            <includedValues>2.16.578.1.12.4.1.1.8446::22::Pasienten har selv bestemt utsettelsen av velferdsgrunner</includedValues>
-            <includedValues>2.16.578.1.12.4.1.1.8446::3::Medisinske årsaker hos pasienten til utsettelsen</includedValues>
-            <includedValues>2.16.578.1.12.4.1.1.8446::4::Oppstart av helsehjelp er utsatt grunnet manglende kapasitet ved påfølgende behandlingssted</includedValues>
-            <includedValues>2.16.578.1.12.4.1.1.8446::5::Pasienten har takket nei til tilbud om helsehjelp ved annet behandlingssted enn sitt primære ønske</includedValues>
-          </constraint>
-        </Rule>
         <Rule path="/protocol[at0011]" hide_on_form="true" />
         <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.clinical_decision_details.v1" concept_name="Detaljer om klinisk beslutning" max="1" path="/description[at0001]/items[at0018]">
           <Rule path="/items[at0001]">
@@ -190,7 +206,6 @@
               <includedValues>Kreftpakke::FL::Symptomlindrende behandling</includedValues>
               <includedValues>Kreftpakke::FO::Overvåkning uten behandling</includedValues>
               <includedValues>Kreftpakke::FI::Ingen behandling</includedValues>
-              <includedValues>Kreftpakke::O::Overføres til et annet helseforetak/sykehus</includedValues>
             </constraint>
           </Rule>
         </Items>
@@ -200,7 +215,65 @@
           <Rule path="/items[at0001]" max="0" />
           <Rule path="/items[at0003]" max="0" />
         </Items>
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.trajectory_postponement_details_dips.v1" concept_name="Detaljer om utsettelse i pakkeforløp" path="/description[at0001]/items[at0018]">
+          <Rule path="/items[at0001]">
+            <constraint xsi:type="multipleConstraint">
+              <includedTypes>Boolean</includedTypes>
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0002]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>2.16.578.1.12.4.1.1.8446::1::Institusjonen/sykehuset har bestemt utsettelsen av kapasitetsgrunner</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.8446::21::Pasienten har ikke møtt opp</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.8446::22::Pasienten har selv bestemt utsettelsen av velferdsgrunner</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.8446::3::Medisinske årsaker hos pasienten til utsettelsen</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.8446::4::Oppstart av helsehjelp er utsatt grunnet manglende kapasitet ved påfølgende behandlingssted</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.8446::5::Pasienten har takket nei til tilbud fra HF om helsehjelp ved annet behandlingssted enn sitt primære ønske</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.8446::6::Pasienten har takket nei til tilbud fra Helfo om helsehjelp ved annet behandlingssted enn sitt primære ønske</includedValues>
+            </constraint>
+          </Rule>
+        </Items>
         <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.cancer_responsible_actor.v1" concept_name="Ansvarlig for pakkeforløpet" max="1" path="/protocol[at0011]/items[at0013]" />
+      </Item>
+      <Item xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.hjelpefelter.v1" concept_name="Hjelpefelter" path="/items">
+        <Rule path="/data[at0001]/items[at0002]">
+          <constraint xsi:type="textConstraint">
+            <includedValues>Kreftpakke::C01::C01</includedValues>
+            <includedValues>Kreftpakke::B01::B01</includedValues>
+            <includedValues>Kreftpakke::A01::A01</includedValues>
+            <includedValues>Kreftpakke::A02::A02</includedValues>
+            <includedValues>Kreftpakke::A03::A03</includedValues>
+            <includedValues>Kreftpakke::A04::A04</includedValues>
+            <includedValues>Kreftpakke::A05::A05</includedValues>
+            <includedValues>Kreftpakke::A06::A06</includedValues>
+            <includedValues>Kreftpakke::A07::A07</includedValues>
+            <includedValues>Kreftpakke::A12::A12</includedValues>
+            <includedValues>Kreftpakke::A14::A14</includedValues>
+            <includedValues>Kreftpakke::A15::A15</includedValues>
+            <includedValues>Kreftpakke::A16::A16</includedValues>
+            <includedValues>Kreftpakke::A17::A17</includedValues>
+            <includedValues>Kreftpakke::A18::A18</includedValues>
+            <includedValues>Kreftpakke::A20::A20</includedValues>
+            <includedValues>Kreftpakke::A21::A21</includedValues>
+            <includedValues>Kreftpakke::A22::A22</includedValues>
+            <includedValues>Kreftpakke::A23::A23</includedValues>
+            <includedValues>Kreftpakke::A26::A26</includedValues>
+            <includedValues>Kreftpakke::A30::A30</includedValues>
+            <includedValues>Kreftpakke::A32::A32</includedValues>
+            <includedValues>Kreftpakke::A34::A34</includedValues>
+            <includedValues>Kreftpakke::A36::A36</includedValues>
+            <includedValues>Kreftpakke::A37::A37</includedValues>
+            <includedValues>Kreftpakke::A38::A38</includedValues>
+            <includedValues>Kreftpakke::A39::A39</includedValues>
+            <includedValues>Kreftpakke::A40::A40</includedValues>
+          </constraint>
+        </Rule>
+        <Rule path="/data[at0001]/items[at0003]" max="0" />
+        <Rule path="/data[at0001]/items[at0004]" max="0" />
+        <Rule path="/data[at0001]/items[at0017]" max="0" />
+        <Rule path="/data[at0001]/items[at0014]" max="0" />
+        <Rule path="/data[at0001]/items[at0015]" max="0" />
+        <Rule path="/data[at0001]/items[at0016]" max="0" />
       </Item>
     </Content>
     <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Overført til sykehus">
@@ -228,17 +301,36 @@
             <includedValues>Kreftpakke::FI::Behandling start - Ingen behandling</includedValues>
           </constraint>
         </Rule>
-        <Rule path="/description[at0001]/items[at0010]">
-          <constraint xsi:type="textConstraint">
-            <includedValues>2.16.578.1.12.4.1.1.8446::21::Pasienten har ikke møtt opp</includedValues>
-            <includedValues>2.16.578.1.12.4.1.1.8446::22::Pasienten har selv bestemt utsettelsen av velferdsgrunner</includedValues>
-            <includedValues>2.16.578.1.12.4.1.1.8446::3::Medisinske årsaker hos pasienten til utsettelsen</includedValues>
-            <includedValues>2.16.578.1.12.4.1.1.8446::4::Oppstart av helsehjelp er utsatt grunnet manglende kapasitet ved påfølgende behandlingssted</includedValues>
-            <includedValues>2.16.578.1.12.4.1.1.8446::5::Pasienten har takket nei til tilbud om helsehjelp ved annet behandlingssted enn sitt primære ønske</includedValues>
-          </constraint>
-        </Rule>
         <Rule path="/protocol[at0011]" hide_on_form="true" />
+        <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.trajectory_postponement_details_dips.v1" concept_name="Detaljer om utsettelse i pakkeforløp" path="/description[at0001]/items[at0018]">
+          <Rule path="/items[at0001]">
+            <constraint xsi:type="multipleConstraint">
+              <includedTypes>Boolean</includedTypes>
+            </constraint>
+          </Rule>
+          <Rule path="/items[at0002]">
+            <constraint xsi:type="textConstraint">
+              <includedValues>2.16.578.1.12.4.1.1.8446::1::Institusjonen/sykehuset har bestemt utsettelsen av kapasitetsgrunner</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.8446::21::Pasienten har ikke møtt opp</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.8446::22::Pasienten har selv bestemt utsettelsen av velferdsgrunner</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.8446::3::Medisinske årsaker hos pasienten til utsettelsen</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.8446::4::Oppstart av helsehjelp er utsatt grunnet manglende kapasitet ved påfølgende behandlingssted</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.8446::5::Pasienten har takket nei til tilbud fra HF om helsehjelp ved annet behandlingssted enn sitt primære ønske</includedValues>
+              <includedValues>2.16.578.1.12.4.1.1.8446::6::Pasienten har takket nei til tilbud fra Helfo om helsehjelp ved annet behandlingssted enn sitt primære ønske</includedValues>
+            </constraint>
+          </Rule>
+        </Items>
         <Items xsi:type="CLUSTER" archetype_id="openEHR-EHR-CLUSTER.cancer_responsible_actor.v1" concept_name="Ansvarlig for pakkeforløpet" max="1" path="/protocol[at0011]/items[at0013]" name="Ansvarlig for hendelse" />
+      </Item>
+      <Item xsi:type="ADMIN_ENTRY" archetype_id="openEHR-EHR-ADMIN_ENTRY.hjelpefelter.v1" concept_name="Hjelpefelter" path="/items">
+        <Rule path="/data[at0001]/items[at0002]" max="0" />
+        <Rule path="/data[at0001]/items[at0003]" max="0" />
+        <Rule path="/data[at0001]/items[at0004]" max="0" />
+        <Rule path="/data[at0001]/items[at0017]" max="0" />
+        <Rule path="/data[at0001]/items[at0013]" max="0" />
+        <Rule path="/data[at0001]/items[at0014]" max="0" />
+        <Rule path="/data[at0001]/items[at0015]" max="0" />
+        <Rule path="/data[at0001]/items[at0016]" max="0" />
       </Item>
     </Content>
     <Content xsi:type="SECTION" archetype_id="openEHR-EHR-SECTION.adhoc.v1" concept_name="Templat-overskrift" max="1" path="/content" name="Avslutning">

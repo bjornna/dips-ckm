@@ -1,0 +1,308 @@
+﻿archetype (adl_version=1.4; uid=76e2355d-3e68-4f6b-bbd3-75b2ec1e0ff0)
+	openEHR-EHR-OBSERVATION.sofa_score_no.v1
+
+concept
+	[at0000]	-- SOFA-skår
+language
+	original_language = <[ISO_639-1::nb]>
+description
+	original_author = <
+		["name"] = <"Siv Fauchald">
+		["email"] = <"sfa@dips.no">
+		["organisation"] = <"DIPS AS">
+		["date"] = <"2017-03-07">
+	>
+	details = <
+		["nb"] = <
+			language = <[ISO_639-1::nb]>
+			purpose = <"For å gradere og følge utvikling av organdysfunksjon i seks vitale organsystem.">
+			use = <"Brukes for å gradere og følge utvikling av organdysfunksjon i seks vitale organsystem og for å anslå mortalitet for pasienter med organdysfunksjon.
+
+SOFA-skår benyttes vanligvis i intensivavdelinger og i akuttmottak, men kan brukes på alle pasienter hvor man mistenker eller ønsker å følge utviklingen av organdysfunksjon, f.eks. hos pasienter med sepsis.
+
+SOFA-skår benyttes hos voksne (≥ 16 år).">
+			keywords = <"sepsis", "organsvikt", "organdysfunksjon", "septisk sjokk", "infeksjon">
+			misuse = <"Anvendes ikke for registrering av hver enkelt fysiologisk parameter eller klinisk observasjon. Bruk spesifikke OBSERVATION-arketyper for dette formål - OBSERVATION.Glascow_coma_scale, OBSERVATION.pao2_fio2_ratio, OBSERVATION.blood_pressure, OBSERVATION.laboratory_test.
+
+Anvendes ikke for registrering av SOFA-skår hos barn som er < 16 år gamle.
+
+Anvendes ikke for registrering av qSOFA (quick SOFA) bruk arketypen OBSERVATION.qsofa_score for dette formålet.">
+			copyright = <"© Nasjonal IKT HF">
+		>
+	>
+	lifecycle_state = <"published">
+	other_contributors = <"Morten Aas, Oslo Universitetssykehus, Norway", "Vebjørn Arntzen, Oslo universitetssykehus HF, Norway (Nasjonal IKT redaktør)", "Silje Ljosland Bakke, Nasjonal IKT HF, Norway (Nasjonal IKT redaktør)", "Kristian Berg, Vestvågøy kommune - Fagutviklingsavdelingen, Norway", "Bjørn Christensen, Helse Bergen HF, Norway", "Lisbeth Dahlhaug, Helse Midt - Norge IT, Norway", "Siv Fauchald, DIPS ASA, Norway", "Ingrid Heitmann, Oslo universitetssykehus HF, Norway", "Hilde Hollås, DIPS AS, Norway", "Lars Morgan Karlsen, Nordlandssykehuset Bodø, Norway", "Siv Marie Lien, DIPS ASA, Norway", "Marit Ludvigsen, St Olavs Hospital, Norway", "Lars Ivar Mehlum, Helse Bergen HF, Norway", "Annette Hole Sjøborg, DIPS ASA, Norway", "Gro-Hilde Ulriksen, Norwegian center for ehealthresearch, Norway", "John Tore Valand, Haukeland Universitetssjukehus, Norway (Nasjonal IKT redaktør)", "Stian Torleif Varpe, Helse Bergen, Norway", "Marianne Warholm, Helse Vest IKT, Norway">
+	other_details = <
+		["revision"] = <"1.0.0">
+		["original_publisher"] = <"Nasjonal IKT">
+		["build_uid"] = <"74950a83-49f7-41d0-9851-1a14149ed1f3">
+		["original_namespace"] = <"no.nasjonalikt">
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/.">
+		["references"] = <"Vincent, J. L., Moreno, R., Takala, J., Willatts, S., de Mendonça, A., Bruining, H., et al. (1996). The SOFA (Sepsis-related Organ Failure Assessment) score to describe organ dysfunction/failure. On behalf of the Working Group on Sepsis-Related Problems of the European Society of Intensive Care Medicine. (Vol. 22, pp. 707–710).
+
+Norsk Intensivregister (NIR) [Internett]. Bergen: Helse Bergen HF; 2017 [sitert 26. februar 2018] Tilgjengelig fra: https://helse-bergen.no/norsk-intensivregister-nir/registrering-av-data-i-nir-kun-for-medlemmer">
+		["MD5-CAM-1.0.1"] = <"783F360ACC40BDDADB96221619FFF53E">
+		["custodian_namespace"] = <"no.nasjonalikt">
+		["custodian_organisation"] = <"Nasjonal IKT">
+	>
+
+definition
+	OBSERVATION[at0000] matches {	-- SOFA-skår
+		data matches {
+			HISTORY[at0001] matches {	-- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					EVENT[at0002] occurrences matches {0..*} matches {	-- Uspesifisert hendelse
+						data matches {
+							ITEM_TREE[at0003] matches {	-- Tree
+								items cardinality matches {1..*; unordered} matches {
+									ELEMENT[at0004] occurrences matches {0..1} matches {	-- Respirasjon
+										value matches {
+											0|[local::at0005], 	-- PaO2/FiO2 > 53 kPa
+											1|[local::at0006], 	-- PaO2/FiO2 39,9 - 53 kPa
+											2|[local::at0007], 	-- PaO2/FiO2 26,6 - 39,8 kPa
+											3|[local::at0008], 	-- PaO2/FiO2 13,3 - 26,5 kPa
+											4|[local::at0009]  	-- PaO2/FiO2 < 13,3 kPa
+										}
+									}
+									ELEMENT[at0010] occurrences matches {0..1} matches {	-- Sirkulasjon
+										value matches {
+											0|[local::at0011], 	-- MAP ≥ 70 mmHg
+											1|[local::at0012], 	-- MAP < 70 mmHg
+											2|[local::at0013], 	-- DA ≤ 5; Dobutamin
+											3|[local::at0014], 	-- DA > 5; NA/A ≤ 0,1
+											4|[local::at0015]  	-- NA/A > 0,1
+										}
+									}
+									ELEMENT[at0016] occurrences matches {0..1} matches {	-- Sentralnervesystemet
+										value matches {
+											0|[local::at0017], 	-- GCS 15
+											1|[local::at0018], 	-- GCS 13 - 14
+											2|[local::at0019], 	-- GCS 10 - 12
+											3|[local::at0020], 	-- GCS 6 - 9
+											4|[local::at0021]  	-- GCS < 6
+										}
+									}
+									ELEMENT[at0022] occurrences matches {0..1} matches {	-- Nyrefunksjon
+										value matches {
+											0|[local::at0023], 	-- Kreatinin < 110 µmol/l
+											1|[local::at0024], 	-- Kreatinin 110 - 170 µmol/l
+											2|[local::at0025], 	-- Kreatinin 171 - 299 µmol/l
+											3|[local::at0026], 	-- Kreatinin 300 - 440 µmol/l eller DU < 500 ml/24t
+											4|[local::at0027]  	-- Kreatinin > 440 µmol/l eller DU < 200 ml/24t
+										}
+									}
+									ELEMENT[at0028] occurrences matches {0..1} matches {	-- Lever
+										value matches {
+											0|[local::at0029], 	-- Bilirubin < 20 µmol/l
+											1|[local::at0030], 	-- Bilirubin 20-32 µmol/l
+											2|[local::at0031], 	-- Bilirubin 33-101 µmol/l
+											3|[local::at0032], 	-- Bilirubin 102-204 µmol/l
+											4|[local::at0033]  	-- Bilirubin > 204 µmol/l
+										}
+									}
+									ELEMENT[at0034] occurrences matches {0..1} matches {	-- Koagulasjon
+										value matches {
+											0|[local::at0035], 	-- TPK ≥ 150 (x10³/µl)
+											1|[local::at0036], 	-- TPK < 150 (x10³/µl)
+											2|[local::at0037], 	-- TPK < 100 (x10³/µl)
+											3|[local::at0038], 	-- TPK < 50 (x10³/µl)
+											4|[local::at0039]  	-- TPK < 20 (x10³/µl)
+										}
+									}
+									ELEMENT[at0041] occurrences matches {0..1} matches {	-- SOFA-skår
+										value matches {
+											DV_COUNT matches {
+												magnitude matches {|0..24|}
+											}
+										}
+									}
+									ELEMENT[at0044] occurrences matches {0..1} matches {	-- Kommentar
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["nb"] = <
+			items = <
+				["at0000"] = <
+					text = <"SOFA-skår">
+					description = <"Sequential organ failure assessment (SOFA) er et skåringssystem for å gradere og følge utvikling av organdysfunksjon i seks vitale organsystem. Tidligere betegnet som \"Sepsis related organ failure assessment\".">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Uspesifisert hendelse">
+					description = <"Standard, uspesifisert tidspunkt eller tidsintervall som kan defineres mer eksplisitt i en template eller i en applikasjon.">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Respirasjon">
+					description = <"Forholdet mellom partialtrykket av oksygen (PaO2) og fraksjonen av innåndet oksygen (FiO2) er en indikator for en eventuell dysfunksjon i respirasjonssystemet.">
+					comment = <"3 eller 4 poeng bare for pasienter på respirator (NIV+IPPV).">
+				>
+				["at0005"] = <
+					text = <"PaO2/FiO2 > 53 kPa">
+					description = <"Partialtrykket av oksygen i arterielt eller kapillært blod målt i kPa dividert med fraksjonen av innåndet oksygen er større enn 53 kPa.">
+				>
+				["at0006"] = <
+					text = <"PaO2/FiO2 39,9 - 53 kPa">
+					description = <"Partialtrykket av oksygen i arterielt eller kapillært blod målt i kPa dividert med fraksjonen av innåndet oksygen er fra 29,9 til 53,0 kPa.">
+				>
+				["at0007"] = <
+					text = <"PaO2/FiO2 26,6 - 39,8 kPa">
+					description = <"Partialtrykket av oksygen i arterielt eller kapillært blod målt i kPa dividert med fraksjonen av innåndet oksygen er fra 26,6 til 39,8 kPa.">
+				>
+				["at0008"] = <
+					text = <"PaO2/FiO2 13,3 - 26,5 kPa">
+					description = <"Med ventilasjonsstøtte er partialtrykket av oksygen i arterielt eller kapillært blod målt i kPa dividert med fraksjonen av innåndet oksygen fra 13,3 til 26,5 kPa.">
+				>
+				["at0009"] = <
+					text = <"PaO2/FiO2 < 13,3 kPa">
+					description = <"Med ventilasjonsstøtte er partialtrykket av oksygen i arterielt eller kapillært blod målt i kPa dividert med fraksjonen av innåndet oksygen mindre enn 13,3 kPa.">
+				>
+				["at0010"] = <
+					text = <"Sirkulasjon">
+					description = <"Middelarterietrykket (MAP), eller behov for vasopressor (VP), (dopamin (DA), adrenalin (A), noradrenalin (NA) eller dobutamin) indikerer en eventuell dysfunksjon i sirkulasjonssystemet.">
+				>
+				["at0011"] = <
+					text = <"MAP ≥ 70 mmHg">
+					description = <"Middelarterietrykket (MAP) er større eller lik 70 mmHg.">
+				>
+				["at0012"] = <
+					text = <"MAP < 70 mmHg">
+					description = <"Middelarterietrykket (MAP) er mindre enn 70 mmHg.">
+				>
+				["at0013"] = <
+					text = <"DA ≤ 5; Dobutamin">
+					description = <"Dosen av dopamin (DA) er mindre enn 5 µg/kg/minutt, eller enhver dose av Dobutamin.">
+				>
+				["at0014"] = <
+					text = <"DA > 5; NA/A ≤ 0,1">
+					description = <"Dosen av dopamin (DA) er større enn 5,0 µg/kg/minutt, eller dosen av noradrenalin (NA) er mindre eller lik 0.10 µg/kg/minutt eller dosen av adrenalin (A) er mindre enn eller lik 0,1 µg/kg/minutt.">
+				>
+				["at0015"] = <
+					text = <"NA/A > 0,1">
+					description = <"Dosen av noradrenalin (N) eller adrenalin (A) er større enn 0,1 µg/kg/minutt.">
+				>
+				["at0016"] = <
+					text = <"Sentralnervesystemet">
+					description = <"Glasgow Coma Scale (GCS) er indikator for eventuell dysfunksjon i sentralnervesystemet.">
+				>
+				["at0017"] = <
+					text = <"GCS 15">
+					description = <"Glasgow Coma Scale er lik 15.">
+				>
+				["at0018"] = <
+					text = <"GCS 13 - 14">
+					description = <"Glasgow Coma Scale er lik 13 eller 14.">
+				>
+				["at0019"] = <
+					text = <"GCS 10 - 12">
+					description = <"Glasgow Coma Scale er fra 10 til 12.">
+				>
+				["at0020"] = <
+					text = <"GCS 6 - 9">
+					description = <"Glasgow Coma Scale er fra 6 til 9.">
+				>
+				["at0021"] = <
+					text = <"GCS < 6">
+					description = <"Glasgow Coma Scale er mindre enn 6.">
+				>
+				["at0022"] = <
+					text = <"Nyrefunksjon">
+					description = <"Konsentrasjonen av kreatinin og døgnurin (DU) er indikator for eventuell dysfunksjon i nyrene.">
+				>
+				["at0023"] = <
+					text = <"Kreatinin < 110 µmol/l">
+					description = <"Konsentrasjonen av kreatinin er mindre enn 110 mikromol per liter.">
+				>
+				["at0024"] = <
+					text = <"Kreatinin 110 - 170 µmol/l">
+					description = <"Konsentrasjonen av kreatinin er mellom 110 - 170 mikromol per liter.">
+				>
+				["at0025"] = <
+					text = <"Kreatinin 171 - 299 µmol/l">
+					description = <"Konsentrasjonen av kreatinin er mellom 171 - 299 mikromol per liter.">
+				>
+				["at0026"] = <
+					text = <"Kreatinin 300 - 440 µmol/l eller DU < 500 ml/24t">
+					description = <"Konsentrasjonen av kreatinin er større enn 300 mikromol og mindre eller lik 440 mikromol per liter, eller døgnurin (DU) er mindre enn 500 og større enn 200 milliliter.">
+				>
+				["at0027"] = <
+					text = <"Kreatinin > 440 µmol/l eller DU < 200 ml/24t">
+					description = <"Konsentrasjonen av kreatinin er større enn 440 mikromol per liter, eller døgnurin (DU) er mindre enn 200 ml.">
+				>
+				["at0028"] = <
+					text = <"Lever">
+					description = <"Konsentrasjonen av bilirubin er indikator for eventuell dysfunksjon i leveren.">
+				>
+				["at0029"] = <
+					text = <"Bilirubin < 20 µmol/l">
+					description = <"Konsentrasjonen av bilirubin er mindre enn 20 mikromol per liter.">
+				>
+				["at0030"] = <
+					text = <"Bilirubin 20-32 µmol/l">
+					description = <"Konsentrasjonen av bilirubin er mellom 20 og 32mikromol per liter.">
+				>
+				["at0031"] = <
+					text = <"Bilirubin 33-101 µmol/l">
+					description = <"Konsentrasjonen av bilirubin er mellom 33 og 101 mikromol per liter.">
+				>
+				["at0032"] = <
+					text = <"Bilirubin 102-204 µmol/l">
+					description = <"Konsentrasjonen av bilirubin er mellom 102 og 204 mikromol per liter.">
+				>
+				["at0033"] = <
+					text = <"Bilirubin > 204 µmol/l">
+					description = <"Konsentrasjonen av bilirubin er større enn 204 mikromol per liter.">
+				>
+				["at0034"] = <
+					text = <"Koagulasjon">
+					description = <"Trombocytt-partikkelkonsentrasjon (TPK) er indikator for eventuelt dysfunksjon i koagulasjonssystemet.">
+				>
+				["at0035"] = <
+					text = <"TPK ≥ 150 (x10³/µl)">
+					description = <"TPK er større enn 150 000 per mikroliter.">
+				>
+				["at0036"] = <
+					text = <"TPK < 150 (x10³/µl)">
+					description = <"TPK er mindre enn 150 000 og større enn eller lik 100 000 per mikroliter.">
+				>
+				["at0037"] = <
+					text = <"TPK < 100 (x10³/µl)">
+					description = <"TPK er mindre enn 100 000 og større enn eller lik 50 000 per mikroliter.">
+				>
+				["at0038"] = <
+					text = <"TPK < 50 (x10³/µl)">
+					description = <"TPK er mindre enn 50 000 og større eller lik 20 000 per mikroliter.">
+				>
+				["at0039"] = <
+					text = <"TPK < 20 (x10³/µl)">
+					description = <"TPK er mindre enn 20 000 per mikroliter.">
+				>
+				["at0041"] = <
+					text = <"SOFA-skår">
+					description = <"SOFA-skår er summen av skår for de enkelte parametrene.">
+				>
+				["at0044"] = <
+					text = <"Kommentar">
+					description = <"Ytterligere kommentarer til SOFA-skåringen som ikke er fanget opp i andre felt.">
+				>
+			>
+		>
+	>
