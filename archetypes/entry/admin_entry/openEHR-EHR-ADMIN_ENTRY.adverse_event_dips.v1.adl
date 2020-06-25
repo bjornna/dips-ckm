@@ -1,58 +1,74 @@
-archetype (adl_version=1.4)
+archetype (adl_version=1.4; uid=c03f6539-9e55-38b3-8f47-8c42af444eef)
 	openEHR-EHR-ADMIN_ENTRY.adverse_event_dips.v1
 
 concept
-	[at0000]	-- Uønsket hendelse
+	[at0000]
+
 language
 	original_language = <[ISO_639-1::nb]>
+	translations = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			author = <
+				["name"] = <"Bjørn Næss">
+				["email"] = <"bna@dips.no">
+				["organisation"] = <"DIPS AS">
+			>
+		>
+	>
+
 description
 	original_author = <
-		["name"] = <"Anca Heyd">
-		["email"] = <"ahe@dips.no">
-		["organisation"] = <"DIPS AS">
 		["date"] = <"2018-11-23">
+		["name"] = <"Anca Heyd">
+		["organisation"] = <"DIPS AS">
+		["email"] = <"ahe@dips.no">
 	>
+	lifecycle_state = <"0">
+	other_contributors = <"Bjørn Næss <bna@dips.no>", ...>
 	details = <
 		["nb"] = <
 			language = <[ISO_639-1::nb]>
 			purpose = <"Brukes for å dokumentere uønskede hendelser i forbindelse med utføring av en helsetjeneste.">
+			keywords = <"hendelse","uønsket","utilsiktet">
 			use = <"Brukes for å dokumentere uønskede hendelser i forbindelse med utføring av en helsetjeneste. Denne arketypen ska brukes for å dokumentere at hendelsen har funnet sted og type hendelse. ">
-			keywords = <"hendelse", "uønsket", "utilsiktet">
 			misuse = <"Skal ikke brukes for å dokumentere detaljer for eksempel ved en kirurgisk komplikajson. Bruk egen arketyper for det formålet.">
-			copyright = <"">
+		>
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			copyright = <"© openEHR Foundation">
 		>
 	>
-	lifecycle_state = <"0">
-	other_contributors = <>
 	other_details = <
 		["current_contact"] = <"Anca Heyd, DIPS AS<ahe@dips.no>">
-		["MD5-CAM-1.0.1"] = <"0AB7055A65535528E6B24695E527F35D">
+		["MD5-CAM-1.0.1"] = <"b5dcaa4412551cbb8f253609f7fdf27f">
+		["build_uid"] = <"151002c3-6f8a-398b-9f8d-07ad3d6bab15">
 	>
 
 definition
-	ADMIN_ENTRY[at0000] matches {	-- Uønsket hendelse
+	ADMIN_ENTRY[at0000] matches {    -- Uønsket hendelse
 		data matches {
-			ITEM_TREE[at0001] matches {	-- Tree
+			ITEM_TREE[at0001] matches {    -- Tree
 				items cardinality matches {0..*; unordered} matches {
-					ELEMENT[at0006] occurrences matches {0..1} matches {	-- Navn uønsket hendelse
+					ELEMENT[at0006] occurrences matches {0..1} matches {    -- Navn uønsket hendelse
 						value matches {
 							DV_TEXT matches {*}
 							DV_BOOLEAN matches {
-								value matches {True}
+								value matches {true}
 							}
 						}
 					}
-					ELEMENT[at0003] occurrences matches {0..1} matches {	-- Beskrivelse
+					ELEMENT[at0003] occurrences matches {0..1} matches {    -- Beskrivelse
 						value matches {
 							DV_TEXT matches {*}
 						}
 					}
-					ELEMENT[at0004] occurrences matches {0..1} matches {	-- Tidspunkt
+					ELEMENT[at0004] occurrences matches {0..1} matches {    -- Tidspunkt
 						value matches {
 							DV_DATE_TIME matches {*}
 						}
 					}
-					allow_archetype CLUSTER[at0005] occurrences matches {0..*} matches {	-- Detaljer
+					allow_archetype CLUSTER[at0005] occurrences matches {0..*} matches {    -- Detaljer
 						include
 							archetype_id/value matches {/.*/}
 					}
@@ -88,6 +104,34 @@ ontology
 				["at0006"] = <
 					text = <"Navn uønsket hendelse">
 					description = <"Navnet på den uønskete hendelsen. Dette elementet kan enten brukes som et tekstfelt, helst i kobinasjon med et kodeverk, eller som bools felt.">
+				>
+			>
+		>
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Adverse event">
+					description = <"Documentation of adverse events.">
+				>
+				["at0001"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0003"] = <
+					text = <"Description">
+					description = <"Text description / comment on the event.">
+				>
+				["at0004"] = <
+					text = <"Time">
+					description = <"Time of event.">
+				>
+				["at0005"] = <
+					text = <"Details">
+					description = <"Structured details.">
+				>
+				["at0006"] = <
+					text = <"Name of adverse event">
+					description = <"The name of the adverse event. This element can either be used as a text field, preferably in combination with a code word, or as a boolean field.">
 				>
 			>
 		>
